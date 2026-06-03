@@ -41,6 +41,7 @@ export function ContactOfficesSection() {
 
   return (
     <Section padding="sm" bg="white">
+      <div data-nosnippet="true">
         {/* Section Title */}
         <div className="flex items-center gap-3 mb-8">
           <div
@@ -278,6 +279,7 @@ export function ContactOfficesSection() {
             </div>
           </div>
         </div>
+      </div>
     </Section>
   );
 }
