@@ -162,6 +162,7 @@ export function GlobalNetworkSection() {
             {/* Description - Mobile: 18px centered, Desktop: 24px left */}
             <p 
               className="mb-8 text-center lg:text-left"
+              data-nosnippet="true"
               style={{ 
                 color: colors.primary.navy.DEFAULT,
                 fontWeight: 400,

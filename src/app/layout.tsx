@@ -12,7 +12,6 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://era.com.vn"),
   title: "ERA Vietnam - Empower People, Transform Lives",
-  description: "ERA Vietnam - Công ty Cổ phần Bất động sản ERA Việt Nam. Chuyên phân phối các dự án bất động sản cao cấp.",
   verification: {
     google: "k7gJl-mR813vH7LjJj1wD4B23PDH4N-F_bEW9pHylmc",
   },
