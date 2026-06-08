@@ -31,16 +31,13 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-[1180px] mx-auto px-7 flex items-center justify-between">
-        <a href="#top" className="flex items-center">
+        <a href="#top" className="flex items-center relative h-[42px] w-[140px]">
           <Image
             src="/landing/forest-onsen/02_img/brand/forest-onsen-logo.webp"
             alt="Forest Onsen - An Onsen & Wellness Residences"
-            width={140}
-            height={42}
-            className="h-[42px] w-auto transition-all duration-500"
+            fill
+            className="object-contain transition-all duration-500"
             style={{
-              width: "auto",
-              height: "auto",
               filter: scrolled ? "none" : "brightness(0) invert(1)",
             }}
             priority
