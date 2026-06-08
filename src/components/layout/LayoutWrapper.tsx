@@ -30,6 +30,7 @@ const defaultLayout: Required<LayoutConfig> = {
  * "/some-page": { header: false },
  */
 const specialLayouts: Record<string, LayoutConfig> = {
+  "/duan-canho-forest-onsen": { header: false, footer: true, toTop: false },
 };
 
 function normalizePathname(pathname: string): string {
