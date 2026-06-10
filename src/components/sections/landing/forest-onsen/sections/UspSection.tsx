@@ -60,7 +60,8 @@ export function UspSection() {
                 src={u.img}
                 alt={u.title}
                 fill
-                className="object-cover transition-transform duration-[1.2s] group-hover:scale-[1.06]"
+                className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                style={{ willChange: "transform" }}
               />
               <div
                 className="absolute inset-0"

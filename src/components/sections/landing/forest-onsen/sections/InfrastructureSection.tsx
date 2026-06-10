@@ -122,7 +122,8 @@ export function InfrastructureSection() {
                   alt={item.title}
                   width={400}
                   height={250}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                  style={{ willChange: "transform" }}
                 />
               </div>
               <h4 className="text-white text-base font-medium mt-4 leading-snug">{item.title}</h4>
@@ -177,7 +178,8 @@ export function InfrastructureSection() {
                   alt={item.title}
                   width={400}
                   height={250}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                  className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                  style={{ willChange: "transform" }}
                 />
               </div>
               <h4 className="text-white text-base font-medium mt-4 leading-snug">{item.title}</h4>

@@ -2,12 +2,19 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Lightbox from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
 import { c } from "../theme";
 import { units } from "../data";
 
 export function CollectionSection() {
   const [filter, setFilter] = useState("all");
+  const [open, setOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
   const filtered = units.filter((u) => filter === "all" || u.category === filter);
+  const slides = filtered.map((u) => ({ src: u.image, alt: u.title }));
 
   return (
     <section id="bo-suu-tap" className="py-16 md:py-28" style={{ background: c.mist2 }}>
@@ -50,13 +57,21 @@ export function CollectionSection() {
           ))}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((u) => (
+          {filtered.map((u, idx) => (
             <div
               key={u.title}
               className="bg-white rounded-2xl border overflow-hidden flex flex-col transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
               style={{ borderColor: c.line }}
             >
-              <div className="relative aspect-[4/3]" style={{ background: c.mist }}>
+              <button
+                type="button"
+                className="relative aspect-[4/3] w-full cursor-zoom-in"
+                style={{ background: c.mist }}
+                onClick={() => {
+                  setPhotoIndex(idx);
+                  setOpen(true);
+                }}
+              >
                 <Image
                   src={u.image}
                   alt={u.title}
@@ -64,7 +79,7 @@ export function CollectionSection() {
                   className="object-contain p-5"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-              </div>
+              </button>
               <div className="p-5 flex-1 flex flex-col">
                 <div className="text-[10.5px] uppercase tracking-[1.2px] font-semibold" style={{ color: c.greenSoft }}>
                   {u.tag}
@@ -124,7 +139,20 @@ export function CollectionSection() {
           </a>
         </div>
       </div>
+
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        index={photoIndex}
+        slides={slides}
+        plugins={[Zoom]}
+        animation={{ fade: 300 }}
+        carousel={{ finite: true }}
+        render={{ buttonPrev: () => null, buttonNext: () => null }}
+        styles={{
+          container: { backgroundColor: "rgba(0,0,0,.92)" },
+        }}
+      />
     </section>
   );
 }
-
