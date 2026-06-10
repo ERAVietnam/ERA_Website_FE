@@ -1,5 +1,9 @@
 # Hướng dẫn setup Google Apps Script cho Lead Submission
 
+## Cơ chế hoạt động
+
+Frontend (browser) → **POST `/api/submit-lead`** (Next.js API Route, cùng origin) → **POST Google Apps Script** (server-to-server, không CORS).
+
 ## Bước 1: Mở Apps Script từ Google Sheet
 
 1. Mở Google Sheet **"DATA WEB ERA"**
@@ -61,13 +65,17 @@ function doPost(e) {
 ## Bước 4: Cập nhật URL trong project
 
 1. Mở file `.env.local` trong project Next.js
-2. Thay thế giá trị:
+2. Thay thế giá trị (chú ý: **KHÔNG** dùng `NEXT_PUBLIC_`):
 
 ```env
-NEXT_PUBLIC_LEAD_SCRIPT_URL=https://script.google.com/macros/s/XXXXXXXX/exec
+LEAD_SCRIPT_URL=https://script.google.com/macros/s/XXXXXXXX/exec
 ```
 
-3. Redeploy project trên Vercel (hoặc chạy `vercel --prod`)
+3. **Vercel Dashboard** → Project → Settings → Environment Variables:
+   - Key: `LEAD_SCRIPT_URL`
+   - Value: URL vừa copy
+   - Environment: Production (và Preview nếu cần test)
+4. Redeploy project trên Vercel
 
 ## Bước 5: Test
 
@@ -80,4 +88,4 @@ NEXT_PUBLIC_LEAD_SCRIPT_URL=https://script.google.com/macros/s/XXXXXXXX/exec
 **Lưu ý:**
 - Nếu thay đổi code Apps Script, phải **Deploy lại** (New deployment) để URL hoạt động
 - Quota miễn phí Apps Script: 20,000 request/ngày
-- Nếu gặp lỗi CORS, kiểm tra lại "Who has access" phải là `Anyone`
+- Không cần lo CORS vì API Route proxy request từ server
