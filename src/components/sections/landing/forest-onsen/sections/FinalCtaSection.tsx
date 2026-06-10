@@ -6,7 +6,32 @@ import { c } from "../theme";
 import { submitLead } from "../lib/submit-lead";
 
 export function FinalCtaSection() {
-  const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const form = e.currentTarget;
+      await submitLead({
+        hoten: (form.hoten as HTMLInputElement).value,
+        sdt: (form.sdt as HTMLInputElement).value,
+        sanpham: (form.sanpham as HTMLSelectElement).value,
+        formId: "FORM4",
+      });
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+        form.reset();
+      }, 2500);
+    } catch {
+      alert("Gửi thất bại, vui lòng thử lại.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section id="dang-ky" className="relative text-white overflow-hidden py-16 md:py-24">
       <div
@@ -56,20 +81,22 @@ export function FinalCtaSection() {
           </div>
         </div>
         <div className="bg-white rounded-2xl p-8 md:p-9" style={{ color: c.ink, boxShadow: "0 40px 90px -40px rgba(0,0,0,.55)" }}>
-          {!submitted ? (
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const form = e.currentTarget;
-                const ok = await submitLead({
-                  hoten: (form.hoten as HTMLInputElement).value,
-                  sdt: (form.sdt as HTMLInputElement).value,
-                  sanpham: (form.sanpham as HTMLSelectElement).value,
-                  formId: "FORM4",
-                });
-                if (ok) setSubmitted(true);
-              }}
-            >
+          {isSuccess ? (
+            <div className="flex flex-col items-center justify-center text-center py-12 px-6">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-4"
+                style={{ background: "#e8f5e9" }}
+              >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" style={{ color: c.greenDeep }}>
+                  <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <p className="text-[17px] font-medium" style={{ color: c.greenDeep }}>
+                Đã gửi yêu cầu
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
               <h3
                 className="text-[26px] font-semibold mb-1"
                 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
@@ -130,12 +157,22 @@ export function FinalCtaSection() {
               </div>
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98] group"
+                disabled={isLoading}
+                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98] group disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Gửi yêu cầu nhận tài liệu{" "}
-                <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px] transition-transform duration-300 group-hover:translate-x-0.5">
-                  →
-                </span>
+                {isLoading ? (
+                  <>
+                    <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Đang gửi...
+                  </>
+                ) : (
+                  <>
+                    Gửi yêu cầu nhận tài liệu{" "}
+                    <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px] transition-transform duration-300 group-hover:translate-x-0.5">
+                      →
+                    </span>
+                  </>
+                )}
               </button>
               <p className="reveal text-center text-[13px] mt-4" style={{ color: c.inkSoft }}>
                 Hoặc{" "}
@@ -145,17 +182,9 @@ export function FinalCtaSection() {
                 .
               </p>
             </form>
-          ) : (
-            <div className="reveal text-center py-8" style={{ color: c.greenDeep }}>
-              <div className="text-3xl mb-3">✓</div>
-              <p className="text-base">
-                Cảm ơn bạn. Bộ tài liệu đặc quyền sẽ được gửi sớm nhất.
-              </p>
-            </div>
           )}
         </div>
       </div>
     </section>
   );
 }
-

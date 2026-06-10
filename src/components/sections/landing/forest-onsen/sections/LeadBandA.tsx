@@ -5,7 +5,31 @@ import { c } from "../theme";
 import { submitLead } from "../lib/submit-lead";
 
 export function LeadBandA() {
-  const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const form = e.currentTarget;
+      await submitLead({
+        hoten: (form.hoten as HTMLInputElement).value,
+        sdt: (form.sdt as HTMLInputElement).value,
+        formId: "FORM2",
+      });
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+        form.reset();
+      }, 2500);
+    } catch {
+      alert("Gửi thất bại, vui lòng thử lại.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section className="relative text-white overflow-hidden py-16 md:py-24">
       <div
@@ -39,19 +63,22 @@ export function LeadBandA() {
           </p>
         </div>
         <div className="bg-white/97 rounded-2xl p-8" style={{ color: c.ink }}>
-          {!submitted ? (
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const form = e.currentTarget;
-                const ok = await submitLead({
-                  hoten: (form.hoten as HTMLInputElement).value,
-                  sdt: (form.sdt as HTMLInputElement).value,
-                  formId: "FORM2",
-                });
-                if (ok) setSubmitted(true);
-              }}
-            >
+          {isSuccess ? (
+            <div className="flex flex-col items-center justify-center text-center py-10 px-6">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center mb-4"
+                style={{ background: "#e8f5e9" }}
+              >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" style={{ color: c.greenDeep }}>
+                  <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <p className="text-[17px] font-medium" style={{ color: c.greenDeep }}>
+                Đã gửi yêu cầu
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
               <h3 className="text-[17px] font-semibold">Đăng ký nhận tài liệu</h3>
               <p className="text-[13px] mt-1 mb-5" style={{ color: c.inkSoft }}>
                 Chuyên viên cấp cao ERA Vietnam liên hệ riêng.
@@ -85,29 +112,31 @@ export function LeadBandA() {
               </div>
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98] group"
+                disabled={isLoading}
+                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98] group disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Gửi yêu cầu{" "}
-                <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px] transition-transform duration-300 group-hover:translate-x-0.5">
-                  →
-                </span>
+                {isLoading ? (
+                  <>
+                    <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Đang gửi...
+                  </>
+                ) : (
+                  <>
+                    Gửi yêu cầu{" "}
+                    <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px] transition-transform duration-300 group-hover:translate-x-0.5">
+                      →
+                    </span>
+                  </>
+                )}
               </button>
               <p className="text-[11px] mt-3 leading-relaxed" style={{ color: c.inkSoft }}>
                 Thông tin được bảo mật tuyệt đối. Chỉ một chuyên viên phụ trách liên
                 hệ.
               </p>
             </form>
-          ) : (
-            <div className="reveal text-center py-6" style={{ color: c.greenDeep }}>
-              <div className="text-2xl mb-2">✓</div>
-              <p className="text-sm">
-                Đã ghi nhận. Chuyên viên ERA sẽ liên hệ sớm nhất.
-              </p>
-            </div>
           )}
         </div>
       </div>
     </section>
   );
 }
-

@@ -7,7 +7,8 @@ import { submitLead } from "../lib/submit-lead";
 export function StickyWidget() {
   const [collapsed, setCollapsed] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const finalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,6 +19,28 @@ export function StickyWidget() {
     if (finalRef.current) observer.observe(finalRef.current);
     return () => observer.disconnect();
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const form = e.currentTarget;
+      await submitLead({
+        hoten: (form.hoten as HTMLInputElement).value,
+        sdt: (form.sdt as HTMLInputElement).value,
+        formId: "FORM1",
+      });
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+        form.reset();
+      }, 2500);
+    } catch {
+      alert("Gửi thất bại, vui lòng thử lại.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -43,16 +66,7 @@ export function StickyWidget() {
             : ""
         }`}
         style={{ borderColor: c.line, boxShadow: "0 24px 56px -22px rgba(39,68,52,.35)" }}
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const form = e.currentTarget;
-          const ok = await submitLead({
-            hoten: (form.hoten as HTMLInputElement).value,
-            sdt: (form.sdt as HTMLInputElement).value,
-            formId: "FORM1",
-          });
-          if (ok) setSubmitted(true);
-        }}
+        onSubmit={handleSubmit}
       >
         <button
           type="button"
@@ -62,7 +76,22 @@ export function StickyWidget() {
         >
           ×
         </button>
-        {!submitted ? (
+
+        {isSuccess ? (
+          <div className="flex flex-col items-center justify-center text-center py-8 px-2">
+            <div
+              className="w-12 h-12 rounded-full flex items-center justify-center mb-3"
+              style={{ background: "#e8f5e9" }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ color: c.greenDeep }}>
+                <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <p className="text-[15px] font-medium" style={{ color: c.greenDeep }}>
+              Đã gửi yêu cầu
+            </p>
+          </div>
+        ) : (
           <>
             <div
               className="text-[19px] font-semibold leading-tight mb-1"
@@ -92,21 +121,26 @@ export function StickyWidget() {
             />
             <button
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98]"
+              disabled={isLoading}
+              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Đăng ký ngay{" "}
-              <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px]">
-                →
-              </span>
+              {isLoading ? (
+                <>
+                  <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Đang gửi...
+                </>
+              ) : (
+                <>
+                  Đăng ký ngay{" "}
+                  <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px]">
+                    →
+                  </span>
+                </>
+              )}
             </button>
           </>
-        ) : (
-          <div className="reveal text-center py-4 text-sm" style={{ color: c.greenDeep }}>
-            ✓ Đã nhận. Cảm ơn bạn!
-          </div>
         )}
       </form>
     </>
   );
 }
-
