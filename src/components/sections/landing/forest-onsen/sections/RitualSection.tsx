@@ -60,7 +60,7 @@ export function RitualSection() {
                   src={step.image}
                   alt={step.title}
                   fill
-                  className="object-cover transition-transform duration-[1s] group-hover:scale-[1.06]"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 />
               </div>
             </div>

@@ -49,7 +49,7 @@ export function PoolsSection() {
                 src={p.img}
                 alt={p.alt}
                 fill
-                className="object-cover transition-transform duration-[1.1s] group-hover:scale-[1.07]"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
               />
               <div
                 className="absolute inset-0 pointer-events-none"
