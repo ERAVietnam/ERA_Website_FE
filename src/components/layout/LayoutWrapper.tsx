@@ -31,6 +31,7 @@ const defaultLayout: Required<LayoutConfig> = {
  */
 const specialLayouts: Record<string, LayoutConfig> = {
   "/duan-canho-forest-onsen": { header: false, footer: true, toTop: false },
+  "/thank-you-eco-retreat": { header: false, footer: false, toTop: false },
 };
 
 function normalizePathname(pathname: string): string {

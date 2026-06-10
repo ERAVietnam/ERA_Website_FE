@@ -6,7 +6,26 @@ import { c } from "../theme";
 import { submitLead } from "../lib/submit-lead";
 
 export function FinalCtaSection() {
-  const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const form = e.currentTarget;
+      await submitLead({
+        hoten: (form.hoten as HTMLInputElement).value,
+        sdt: (form.sdt as HTMLInputElement).value,
+        sanpham: (form.sanpham as HTMLSelectElement).value,
+        formId: "FORM4",
+      });
+      window.location.href = "/thank-you-eco-retreat";
+    } catch {
+      alert("Gửi thất bại, vui lòng thử lại.");
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section id="dang-ky" className="relative text-white overflow-hidden py-16 md:py-24">
       <div
@@ -56,106 +75,94 @@ export function FinalCtaSection() {
           </div>
         </div>
         <div className="bg-white rounded-2xl p-8 md:p-9" style={{ color: c.ink, boxShadow: "0 40px 90px -40px rgba(0,0,0,.55)" }}>
-          {!submitted ? (
-            <form
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const form = e.currentTarget;
-                const ok = await submitLead({
-                  hoten: (form.hoten as HTMLInputElement).value,
-                  sdt: (form.sdt as HTMLInputElement).value,
-                  sanpham: (form.sanpham as HTMLSelectElement).value,
-                  formId: "FORM4",
-                });
-                if (ok) setSubmitted(true);
-              }}
+          <form onSubmit={handleSubmit}>
+            <h3
+              className="text-[26px] font-semibold mb-1"
+              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
             >
-              <h3
-                className="text-[26px] font-semibold mb-1"
-                style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
-              >
-                Gửi yêu cầu nhận tài liệu
-              </h3>
-              <p className="text-[13.5px] mb-5" style={{ color: c.inkSoft }}>
-                Chuyên viên cấp cao ERA Vietnam liên hệ trong 24h.
-              </p>
-              <div className="mb-3">
-                <label className="block text-xs font-medium mb-1 tracking-wide" style={{ color: c.inkSoft }}>
-                  Họ và tên
-                </label>
-                <input
-                  type="text"
-                  name="hoten"
-                  required
-                  placeholder="Nguyễn Văn A"
-                  className="w-full px-4 py-3 rounded-lg border text-[15px] transition-all focus:outline-none focus:ring-2"
-                  style={{ borderColor: c.line }}
-                />
-              </div>
-              <div className="mb-3">
-                <label className="block text-xs font-medium mb-1 tracking-wide" style={{ color: c.inkSoft }}>
-                  Số điện thoại
-                </label>
-                <input
-                  type="tel"
-                  name="sdt"
-                  required
-                  placeholder="09xx xxx xxx"
-                  pattern="[0-9 ]{9,13}"
-                  className="w-full px-4 py-3 rounded-lg border text-[15px] transition-all focus:outline-none focus:ring-2"
-                  style={{ borderColor: c.line }}
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-xs font-medium mb-1 tracking-wide" style={{ color: c.inkSoft }}>
-                  Dòng sản phẩm quan tâm
-                </label>
-                <select
-                  name="sanpham"
-                  required
-                  defaultValue=""
-                  className="w-full px-4 py-3 rounded-lg border text-[15px] transition-all focus:outline-none focus:ring-2"
-                  style={{ borderColor: c.line }}
-                >
-                  <option value="" disabled>
-                    Chọn dòng sản phẩm
-                  </option>
-                  <option>3PN trực diện Hồ Thiên Nga</option>
-                  <option>Garden Villa</option>
-                  <option>Duplex / Mezza</option>
-                  <option>Penthouse</option>
-                  <option>Căn hộ 1PN - 2PN</option>
-                  <option>Chưa xác định</option>
-                </select>
-              </div>
-              <button
-                type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98] group"
-              >
-                Gửi yêu cầu nhận tài liệu{" "}
-                <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px] transition-transform duration-300 group-hover:translate-x-0.5">
-                  →
-                </span>
-              </button>
-              <p className="reveal text-center text-[13px] mt-4" style={{ color: c.inkSoft }}>
-                Hoặc{" "}
-                <a href={`tel:${projectInfo.phone.replace(/\./g, "")}`} className="font-medium" style={{ color: c.green }}>
-                  đặt lịch tham quan riêng tư
-                </a>
-                .
-              </p>
-            </form>
-          ) : (
-            <div className="reveal text-center py-8" style={{ color: c.greenDeep }}>
-              <div className="text-3xl mb-3">✓</div>
-              <p className="text-base">
-                Cảm ơn bạn. Bộ tài liệu đặc quyền sẽ được gửi sớm nhất.
-              </p>
+              Gửi yêu cầu nhận tài liệu
+            </h3>
+            <p className="text-[13.5px] mb-5" style={{ color: c.inkSoft }}>
+              Chuyên viên cấp cao ERA Vietnam liên hệ trong 24h.
+            </p>
+            <div className="mb-3">
+              <label className="block text-xs font-medium mb-1 tracking-wide" style={{ color: c.inkSoft }}>
+                Họ và tên
+              </label>
+              <input
+                type="text"
+                name="hoten"
+                required
+                placeholder="Nguyễn Văn A"
+                className="w-full px-4 py-3 rounded-lg border text-[15px] transition-all focus:outline-none focus:ring-2"
+                style={{ borderColor: c.line }}
+              />
             </div>
-          )}
+            <div className="mb-3">
+              <label className="block text-xs font-medium mb-1 tracking-wide" style={{ color: c.inkSoft }}>
+                Số điện thoại
+              </label>
+              <input
+                type="tel"
+                name="sdt"
+                required
+                placeholder="09xx xxx xxx"
+                pattern="[0-9 ]{9,13}"
+                className="w-full px-4 py-3 rounded-lg border text-[15px] transition-all focus:outline-none focus:ring-2"
+                style={{ borderColor: c.line }}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-xs font-medium mb-1 tracking-wide" style={{ color: c.inkSoft }}>
+                Dòng sản phẩm quan tâm
+              </label>
+              <select
+                name="sanpham"
+                required
+                defaultValue=""
+                className="w-full px-4 py-3 rounded-lg border text-[15px] transition-all focus:outline-none focus:ring-2"
+                style={{ borderColor: c.line }}
+              >
+                <option value="" disabled>
+                  Chọn dòng sản phẩm
+                </option>
+                <option>3PN trực diện Hồ Thiên Nga</option>
+                <option>Garden Villa</option>
+                <option>Duplex / Mezza</option>
+                <option>Penthouse</option>
+                <option>Căn hộ 1PN - 2PN</option>
+                <option>Chưa xác định</option>
+              </select>
+            </div>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98] group disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {isLoading ? (
+                <>
+                  <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Đang gửi...
+                </>
+              ) : (
+                <>
+                  Gửi yêu cầu nhận tài liệu{" "}
+                  <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px] transition-transform duration-300 group-hover:translate-x-0.5">
+                    →
+                  </span>
+                </>
+              )}
+            </button>
+            <p className="reveal text-center text-[13px] mt-4" style={{ color: c.inkSoft }}>
+              Hoặc{" "}
+              <a href={`tel:${projectInfo.phone.replace(/\./g, "")}`} className="font-medium" style={{ color: c.green }}>
+                đặt lịch tham quan riêng tư
+              </a>
+              .
+            </p>
+          </form>
         </div>
       </div>
     </section>
   );
 }
-
