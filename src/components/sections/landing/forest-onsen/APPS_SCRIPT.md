@@ -25,10 +25,10 @@ function doPost(e) {
 
     // Đảm bảo header đúng thứ tự ở dòng 1
     const expectedHeaders = [
-      "Timestamp", "Họ tên", "SĐT", "Sản phẩm", "URL gốc",
+      "Timestamp", "Họ tên", "SĐT", "URL gốc",
       "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
       "adclid", "adclida", "mglnd",
-      "IP", "Form ID", "User Agent"
+      "IP", "Form ID", "User Agent", "Sản phẩm"
     ];
 
     const firstRow = sheet.getRange(1, 1, 1, expectedHeaders.length);
@@ -37,22 +37,22 @@ function doPost(e) {
     }
 
     sheet.appendRow([
-      data.timestamp || new Date().toISOString(),  // A
-      data.hoten || "",                            // B
-      data.sdt || "",                              // C
-      data.sanpham || "",                          // D  ← loại hình (FORM4)
-      data.url || "",                              // E
-      data.utm_source || "",                       // F
-      data.utm_medium || "",                       // G
-      data.utm_campaign || "",                     // H
-      data.utm_term || "",                         // I
-      data.utm_content || "",                      // J
-      data.adclid || "",                           // K
-      data.adclida || "",                          // L
-      data.mglnd || "",                            // M
-      data.ip || "",                               // N
-      data.formId || "",                           // O
-      data.userAgent || "",                        // P
+      data.timestamp || new Date().toISOString(),  // A: Timestamp
+      data.hoten || "",                            // B: Họ tên
+      data.sdt || "",                              // C: SĐT
+      data.url || "",                              // D: URL gốc
+      data.utm_source || "",                       // E: utm_source
+      data.utm_medium || "",                       // F: utm_medium
+      data.utm_campaign || "",                     // G: utm_campaign
+      data.utm_term || "",                         // H: utm_term
+      data.utm_content || "",                      // I: utm_content
+      data.adclid || "",                           // J: adclid
+      data.adclida || "",                          // K: adclida
+      data.mglnd || "",                            // L: mglnd
+      data.ip || "",                               // M: IP
+      data.formId || "",                           // N: Form ID
+      data.userAgent || "",                        // O: User Agent
+      data.sanpham || "",                          // P: Sản phẩm (FORM4)
     ]);
 
     return ContentService.createTextOutput(
