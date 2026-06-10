@@ -13,6 +13,8 @@ Frontend (browser) → **POST `/api/submit-lead`** (Next.js API Route, cùng ori
 
 ## Bước 2: Paste code
 
+**Lưu ý:** Dòng đầu tiên của Sheet nên là header (dòng 1). Code sẽ append vào dòng cuối.
+
 ```js
 function doPost(e) {
   try {
@@ -21,22 +23,36 @@ function doPost(e) {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = ss.getActiveSheet();
 
+    // Đảm bảo header đúng thứ tự ở dòng 1
+    const expectedHeaders = [
+      "Timestamp", "Họ tên", "SĐT", "Sản phẩm", "URL gốc",
+      "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
+      "adclid", "adclida", "mglnd",
+      "IP", "Form ID", "User Agent"
+    ];
+
+    const firstRow = sheet.getRange(1, 1, 1, expectedHeaders.length);
+    if (firstRow.getValues()[0][0] === "") {
+      firstRow.setValues([expectedHeaders]);
+    }
+
     sheet.appendRow([
-      data.timestamp || new Date().toISOString(),
-      data.hoten || "",
-      data.sdt || "",
-      data.url || "",
-      data.utm_source || "",
-      data.utm_medium || "",
-      data.utm_campaign || "",
-      data.utm_term || "",
-      data.utm_content || "",
-      data.adclid || "",
-      data.adclida || "",
-      data.mglnd || "",
-      data.ip || "",
-      data.formId || "",
-      data.userAgent || "",
+      data.timestamp || new Date().toISOString(),  // A
+      data.hoten || "",                            // B
+      data.sdt || "",                              // C
+      data.sanpham || "",                          // D  ← loại hình (FORM4)
+      data.url || "",                              // E
+      data.utm_source || "",                       // F
+      data.utm_medium || "",                       // G
+      data.utm_campaign || "",                     // H
+      data.utm_term || "",                         // I
+      data.utm_content || "",                      // J
+      data.adclid || "",                           // K
+      data.adclida || "",                          // L
+      data.mglnd || "",                            // M
+      data.ip || "",                               // N
+      data.formId || "",                           // O
+      data.userAgent || "",                        // P
     ]);
 
     return ContentService.createTextOutput(
