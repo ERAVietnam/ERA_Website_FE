@@ -78,7 +78,10 @@ export async function submitLead(params: {
   const utms = getUTMParams();
   const ip = await getIP();
   const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
-  const url = typeof window !== "undefined" ? window.location.href : "";
+  const url =
+    typeof window !== "undefined"
+      ? `${window.location.origin}${window.location.pathname}${window.location.search}`
+      : "";
 
   const payload: LeadPayload = {
     formId,
