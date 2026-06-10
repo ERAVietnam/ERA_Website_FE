@@ -116,13 +116,13 @@ export function InfrastructureSection() {
               className="flex-shrink-0 flex flex-col"
               style={{ flexBasis: "clamp(256px,27vw,320px)", scrollSnapAlign: "start" }}
             >
-              <div className="rounded-2xl overflow-hidden aspect-[16/10] border border-white/10">
+              <div className="rounded-2xl overflow-hidden aspect-[16/10] border border-white/10 group">
                 <Image
                   src={item.image}
                   alt={item.title}
                   width={400}
                   height={250}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-[800ms] group-hover:scale-[1.06]"
                 />
               </div>
               <h4 className="text-white text-base font-medium mt-4 leading-snug">{item.title}</h4>
@@ -174,13 +174,13 @@ export function InfrastructureSection() {
                 scrollSnapAlign: "start",
               }}
             >
-              <div className="rounded-2xl overflow-hidden aspect-[16/10] border border-white/10">
+              <div className="rounded-2xl overflow-hidden aspect-[16/10] border border-white/10 group">
                 <Image
                   src={item.image}
                   alt={item.title}
                   width={400}
                   height={250}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-[800ms] group-hover:scale-[1.06]"
                 />
               </div>
               <h4 className="text-white text-base font-medium mt-4 leading-snug">{item.title}</h4>
