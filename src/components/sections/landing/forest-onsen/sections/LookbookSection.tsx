@@ -33,7 +33,8 @@ export function LookbookSection() {
               src="/landing/forest-onsen/02_img/canh/forest-onsen-phong-khach-thong-tang.jpg"
               alt="Phòng khách thông tầng"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+              style={{ willChange: "transform" }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <figcaption
@@ -48,7 +49,8 @@ export function LookbookSection() {
               src="/landing/forest-onsen/02_img/canh/forest-onsen-ban-cong-nam-view-ho-thien-nga.jpg"
               alt="Ban công view Hồ Thiên Nga"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+              style={{ willChange: "transform" }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <figcaption
@@ -63,7 +65,8 @@ export function LookbookSection() {
               src="/landing/forest-onsen/02_img/canh/forest-onsen-phong-ngu-view-ho.jpg"
               alt="Phòng ngủ master"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+              style={{ willChange: "transform" }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <figcaption
@@ -78,7 +81,8 @@ export function LookbookSection() {
               src="/landing/forest-onsen/02_img/canh/forest-onsen-phong-tam-bon-view-ho.jpg"
               alt="Phòng tắm view hồ"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+              style={{ willChange: "transform" }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <figcaption
@@ -93,7 +97,8 @@ export function LookbookSection() {
               src="/landing/forest-onsen/02_img/canh/forest-onsen-goc-thu-gian-view-ho.jpg"
               alt="Góc thư giãn"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+              style={{ willChange: "transform" }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <figcaption

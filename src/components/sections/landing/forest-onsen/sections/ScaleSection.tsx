@@ -8,7 +8,7 @@ export function ScaleSection() {
   const stats = [
     { num: "220", unit: "ha", lbl: "Đại đô thị Eco Retreat" },
     { num: "12", unit: "ha", lbl: "Mặt nước Hồ Thiên Nga" },
-    { num: "5.000", unit: "m²", lbl: "Tiện ích wellness tầng 5A" },
+    { num: "7.000", unit: "m²", lbl: "Tiện ích wellness tầng 5A" },
     { num: "45", unit: "phút", lbl: "Về trung tâm TP.HCM" },
   ];
   return (
