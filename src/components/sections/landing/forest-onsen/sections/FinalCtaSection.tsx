@@ -65,7 +65,7 @@ export function FinalCtaSection() {
                   hoten: (form.hoten as HTMLInputElement).value,
                   sdt: (form.sdt as HTMLInputElement).value,
                   sanpham: (form.sanpham as HTMLSelectElement).value,
-                  formId: "FORM_C",
+                  formId: "FORM4",
                 });
                 if (ok) setSubmitted(true);
               }}

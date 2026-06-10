@@ -49,7 +49,7 @@ export function StickyWidget() {
           const ok = await submitLead({
             hoten: (form.hoten as HTMLInputElement).value,
             sdt: (form.sdt as HTMLInputElement).value,
-            formId: "FORM_MINI",
+            formId: "FORM1",
           });
           if (ok) setSubmitted(true);
         }}

@@ -47,7 +47,7 @@ export function LeadBandA() {
                 const ok = await submitLead({
                   hoten: (form.hoten as HTMLInputElement).value,
                   sdt: (form.sdt as HTMLInputElement).value,
-                  formId: "FORM_A",
+                  formId: "FORM2",
                 });
                 if (ok) setSubmitted(true);
               }}
