@@ -40,7 +40,7 @@ export function LeadBandB() {
         }}
       />
       <div className="relative z-10 max-w-[1180px] mx-auto px-7 grid grid-cols-1 md:grid-cols-[1.05fr_.95fr] gap-8 md:gap-12 items-center">
-        <div>
+        <div className="reveal">
           <h2
             className="font-medium leading-[1.1] tracking-wide"
             style={{
@@ -56,7 +56,7 @@ export function LeadBandB() {
             mới nhất.
           </p>
         </div>
-        <div className="bg-white/97 rounded-2xl p-8" style={{ color: c.ink }}>
+        <div className="reveal bg-white/97 rounded-2xl p-8" style={{ color: c.ink }}>
           <form onSubmit={handleSubmit}>
             <h3 className="text-[17px] font-semibold">Tải file báo giá</h3>
             <p className="text-[13px] mt-1 mb-5" style={{ color: c.inkSoft }}>

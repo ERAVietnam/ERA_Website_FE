@@ -42,7 +42,7 @@ export function FinalCtaSection() {
         }}
       />
       <div className="relative z-10 max-w-[1180px] mx-auto px-7 grid grid-cols-1 md:grid-cols-[1fr_440px] gap-8 md:gap-14 items-center">
-        <div>
+        <div className="reveal">
           <div className="text-xs font-medium tracking-[2.5px] uppercase text-white/85">
             Đặc quyền sở hữu
           </div>
@@ -74,7 +74,7 @@ export function FinalCtaSection() {
             ))}
           </div>
         </div>
-        <div className="bg-white rounded-2xl p-8 md:p-9" style={{ color: c.ink, boxShadow: "0 40px 90px -40px rgba(0,0,0,.55)" }}>
+        <div className="reveal bg-white rounded-2xl p-8 md:p-9" style={{ color: c.ink, boxShadow: "0 40px 90px -40px rgba(0,0,0,.55)" }}>
           <form onSubmit={handleSubmit}>
             <h3
               className="text-[26px] font-semibold mb-1"

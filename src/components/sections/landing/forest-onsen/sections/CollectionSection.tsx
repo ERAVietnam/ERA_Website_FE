@@ -34,15 +34,15 @@ export function CollectionSection() {
             <button
               key={f.key}
               onClick={() => setFilter(f.key)}
-              className={`px-6 py-2.5 rounded-full text-[13px] font-medium tracking-wide border transition-all ${
+              className={`px-6 py-2.5 rounded-full text-[13px] font-medium tracking-wide border transition-all duration-300 hover:scale-105 ${
                 filter === f.key
                   ? "text-white"
-                  : "bg-white"
+                  : "bg-white hover:bg-[#365b46] hover:text-white hover:border-[#365b46]"
               }`}
               style={{
                 borderColor: filter === f.key ? c.green : c.line,
-                background: filter === f.key ? c.green : c.white,
-                color: filter === f.key ? c.white : c.inkSoft,
+                background: filter === f.key ? c.green : undefined,
+                color: filter === f.key ? c.white : undefined,
               }}
             >
               {f.label}

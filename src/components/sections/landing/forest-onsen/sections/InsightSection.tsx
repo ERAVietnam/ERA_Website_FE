@@ -16,14 +16,14 @@ export function InsightSection() {
           }}
         />
         <div
-          className="absolute inset-0 hidden md:block"
+          className="reveal absolute inset-0 hidden md:block"
           style={{
             background:
               "linear-gradient(90deg,rgba(238,243,238,0) 26%,rgba(238,243,238,.55) 48%,#eef3ee 68%)",
           }}
         />
         <div className="relative z-10 max-w-[1180px] mx-auto px-7 w-full flex justify-end">
-          <div className="max-w-[470px] py-10 md:py-0">
+          <div className="reveal max-w-[470px] py-10 md:py-0">
             <div className="w-[46px] h-px mb-5" style={{ background: c.gold }} />
             <h2
               className="font-medium leading-[1.1] tracking-wide"

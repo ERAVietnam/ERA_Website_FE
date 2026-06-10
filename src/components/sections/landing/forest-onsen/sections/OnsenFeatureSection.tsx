@@ -8,7 +8,7 @@ export function OnsenFeatureSection() {
   return (
     <section id="onsen" className="py-16 md:py-28 overflow-hidden" style={{ background: c.mist }}>
       <div className="max-w-[1180px] mx-auto px-7 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-[clamp(34px,5vw,70px)] items-center">
-        <div className="rounded-2xl overflow-hidden aspect-[4/5] md:aspect-[4/5] relative" style={{ boxShadow: "0 30px 70px -34px rgba(39,68,52,.5)" }}>
+        <div className="reveal rounded-2xl overflow-hidden aspect-[4/5] md:aspect-[4/5] relative" style={{ boxShadow: "0 30px 70px -34px rgba(39,68,52,.5)" }}>
           <Image
             src="/landing/forest-onsen/02_img/canh/forest-onsen-vuon-onsen-cay-xanh.webp"
             alt="Vườn Onsen cây xanh kiểu Nhật"
@@ -16,7 +16,7 @@ export function OnsenFeatureSection() {
             className="object-cover"
           />
         </div>
-        <div>
+        <div className="reveal">
           <h2
             className="font-medium leading-[1.05] tracking-wide"
             style={{
@@ -34,7 +34,7 @@ export function OnsenFeatureSection() {
             Không phải nước nóng pha bột - một di sản trị liệu thật sự, vận hành
             chuẩn Nhật.
           </p>
-          <div className="flex gap-8 mt-8">
+          <div className="reveal flex gap-8 mt-8">
             <div className="text-sm" style={{ color: c.inkSoft }}>
               <b
                 className="block text-3xl font-semibold leading-none mb-1"

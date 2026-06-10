@@ -46,14 +46,14 @@ export function InfrastructureSection() {
       </div>
       <div className="relative">
         <button
-          className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-10 w-[50px] h-[50px] rounded-full flex items-center justify-center text-white text-2xl transition-colors"
+          className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-10 w-[50px] h-[50px] rounded-full flex items-center justify-center text-white text-2xl transition-all duration-300 hover:scale-110 hover:bg-[rgba(27,44,33,.92)]"
           style={{ background: "rgba(27,44,33,.72)", border: "1px solid rgba(205,180,135,.55)" }}
           onClick={() => scrollRef.current?.scrollBy({ left: -360, behavior: "smooth" })}
         >
           ‹
         </button>
         <button
-          className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 z-10 w-[50px] h-[50px] rounded-full flex items-center justify-center text-white text-2xl transition-colors"
+          className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 z-10 w-[50px] h-[50px] rounded-full flex items-center justify-center text-white text-2xl transition-all duration-300 hover:scale-110 hover:bg-[rgba(27,44,33,.92)]"
           style={{ background: "rgba(27,44,33,.72)", border: "1px solid rgba(205,180,135,.55)" }}
           onClick={() => scrollRef.current?.scrollBy({ left: 360, behavior: "smooth" })}
         >
@@ -116,13 +116,13 @@ export function InfrastructureSection() {
               className="flex-shrink-0 flex flex-col"
               style={{ flexBasis: "clamp(256px,27vw,320px)", scrollSnapAlign: "start" }}
             >
-              <div className="rounded-2xl overflow-hidden aspect-[16/10] border border-white/10">
+              <div className="rounded-2xl overflow-hidden aspect-[16/10] border border-white/10 group">
                 <Image
                   src={item.image}
                   alt={item.title}
                   width={400}
                   height={250}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 />
               </div>
               <h4 className="text-white text-base font-medium mt-4 leading-snug">{item.title}</h4>
@@ -167,20 +167,17 @@ export function InfrastructureSection() {
               key={item.title}
               className="flex-shrink-0 flex flex-col"
               style={{
-                flexBasis:
-                  idx === 1
-                    ? "clamp(320px,36vw,420px)"
-                    : "clamp(256px,27vw,320px)",
+                flexBasis: "clamp(256px,27vw,320px)",
                 scrollSnapAlign: "start",
               }}
             >
-              <div className="rounded-2xl overflow-hidden aspect-[16/10] border border-white/10">
+              <div className="rounded-2xl overflow-hidden aspect-[16/10] border border-white/10 group">
                 <Image
                   src={item.image}
                   alt={item.title}
                   width={400}
                   height={250}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 />
               </div>
               <h4 className="text-white text-base font-medium mt-4 leading-snug">{item.title}</h4>
