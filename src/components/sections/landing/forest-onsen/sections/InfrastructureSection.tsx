@@ -27,7 +27,7 @@ export function InfrastructureSection() {
 
   return (
     <section className="py-16 md:py-24 overflow-hidden" style={{ background: "#1b2c21" }}>
-      <div className="text-center max-w-[820px] mx-auto px-6 mb-9">
+      <div className="reveal text-center max-w-[820px] mx-auto px-6 mb-9">
         <div className="text-xs font-medium tracking-[2.5px] uppercase" style={{ color: c.gold }}>
           Lộ trình hạ tầng 2025 - 2026
         </div>
@@ -212,4 +212,3 @@ export function InfrastructureSection() {
   );
 }
 
-/* ─── Lead Band (Form A) ─── */

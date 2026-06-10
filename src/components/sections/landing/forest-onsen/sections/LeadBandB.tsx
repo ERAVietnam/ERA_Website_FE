@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { c } from "../theme";
+import { submitLead } from "../lib/submit-lead";
 
 export function LeadBandB() {
   const [submitted, setSubmitted] = useState(false);
@@ -40,9 +41,15 @@ export function LeadBandB() {
         <div className="bg-white/97 rounded-2xl p-8" style={{ color: c.ink }}>
           {!submitted ? (
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                setSubmitted(true);
+                const form = e.currentTarget;
+                const ok = await submitLead({
+                  hoten: (form.hoten as HTMLInputElement).value,
+                  sdt: (form.sdt as HTMLInputElement).value,
+                  formId: "FORM_B",
+                });
+                if (ok) setSubmitted(true);
               }}
             >
               <h3 className="text-[17px] font-semibold">Tải file báo giá</h3>
@@ -55,6 +62,7 @@ export function LeadBandB() {
                 </label>
                 <input
                   type="text"
+                  name="hoten"
                   required
                   placeholder="Nguyễn Văn A"
                   className="w-full px-4 py-3 rounded-lg border text-[15px] transition-all focus:outline-none focus:ring-2"
@@ -67,6 +75,7 @@ export function LeadBandB() {
                 </label>
                 <input
                   type="tel"
+                  name="sdt"
                   required
                   placeholder="09xx xxx xxx"
                   pattern="[0-9 ]{9,13}"
@@ -76,11 +85,10 @@ export function LeadBandB() {
               </div>
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white transition-all"
-                style={{ background: c.green }}
+                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98] group"
               >
                 Nhận file báo giá{" "}
-                <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px]">
+                <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px] transition-transform duration-300 group-hover:translate-x-0.5">
                   →
                 </span>
               </button>
@@ -89,7 +97,7 @@ export function LeadBandB() {
               </p>
             </form>
           ) : (
-            <div className="text-center py-6" style={{ color: c.greenDeep }}>
+            <div className="reveal text-center py-6" style={{ color: c.greenDeep }}>
               <div className="text-2xl mb-2">✓</div>
               <p className="text-sm">
                 Đã ghi nhận. File báo giá sẽ được gửi tới bạn ngay.
@@ -102,4 +110,3 @@ export function LeadBandB() {
   );
 }
 
-/* ─── Policy ─── */

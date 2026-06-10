@@ -18,7 +18,7 @@ export function PoolsSection() {
   return (
     <section id="kham-pha-onsen" className="py-16 md:py-28 bg-white">
       <div className="max-w-[1180px] mx-auto px-7">
-        <div className="text-center max-w-[660px] mx-auto mb-12">
+        <div className="reveal text-center max-w-[660px] mx-auto mb-12">
           <div className="text-xs font-medium tracking-[2.5px] uppercase" style={{ color: c.greenSoft }}>
             Bên trong tổ hợp Onsen
           </div>
@@ -66,4 +66,3 @@ export function PoolsSection() {
   );
 }
 
-/* ─── Lookbook ─── */

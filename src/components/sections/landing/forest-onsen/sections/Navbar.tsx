@@ -31,7 +31,14 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-[1180px] mx-auto px-7 flex items-center justify-between">
-        <a href="#top" className="flex items-center relative h-[42px] w-[140px]">
+        <a
+          href="#top"
+          className="flex items-center relative h-[42px] w-[140px]"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        >
           <Image
             src="/landing/forest-onsen/02_img/brand/forest-onsen-logo.webp"
             alt="Forest Onsen - An Onsen & Wellness Residences"
@@ -49,11 +56,16 @@ export function Navbar() {
               <a
                 key={l.href}
                 href={l.href}
-                className="text-[13.5px] font-normal tracking-wide transition-colors hover:opacity-80"
+                className="text-[13.5px] font-normal tracking-wide transition-colors hover:opacity-80 cursor-pointer"
                 style={{
                   color: scrolled
                     ? c.ink
                     : "rgba(255,255,255,.9)",
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.querySelector(l.href);
+                  if (target) target.scrollIntoView({ behavior: "smooth" });
                 }}
               >
                 {l.label}
@@ -73,4 +85,3 @@ export function Navbar() {
   );
 }
 
-/* ─── Hero ─── */

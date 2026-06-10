@@ -10,7 +10,7 @@ export function HeroSection() {
       className="relative min-h-[100dvh] flex items-center text-white overflow-hidden"
     >
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center kenburns"
         style={{
           backgroundImage:
             "url('/landing/forest-onsen/02_img/canh/forest-onsen-4-thap-view-ho-thien-nga.jpg')",
@@ -55,17 +55,16 @@ export function HeroSection() {
         <div className="flex flex-wrap gap-3 mt-9">
           <a
             href="#dang-ky"
-            className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-medium text-white transition-all"
-            style={{ background: c.green }}
+            className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98] group"
           >
             Nhận bảng giá & tài liệu{" "}
-            <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px]">
+            <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px] transition-transform duration-300 group-hover:translate-x-0.5">
               →
             </span>
           </a>
           <a
             href="#dang-ky"
-            className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-medium text-white border border-white/55 backdrop-blur-sm transition-all bg-white/10 hover:bg-white/20"
+            className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-medium text-white border border-white/55 backdrop-blur-sm transition-all duration-500 bg-white/10 hover:bg-white/20"
           >
             Đặt lịch tham quan
           </a>
@@ -73,10 +72,9 @@ export function HeroSection() {
       </div>
       <div className="absolute bottom-7 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-[10.5px] tracking-[2px] uppercase text-white/65">
         Khám phá
-        <span className="w-px h-[30px] bg-gradient-to-b from-white/60 to-transparent" />
+        <span className="w-px h-[30px] bg-gradient-to-b from-white/60 to-transparent scroll-drop" />
       </div>
     </section>
   );
 }
 
-/* ─── Trust Bar ─── */

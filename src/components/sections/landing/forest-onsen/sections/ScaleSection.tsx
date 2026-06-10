@@ -12,7 +12,7 @@ export function ScaleSection() {
     { num: "45", unit: "phút", lbl: "Về trung tâm TP.HCM" },
   ];
   return (
-    <section className="text-center py-16 md:py-28" style={{ background: c.mist }}>
+    <section className="reveal text-center py-16 md:py-28" style={{ background: c.mist }}>
       <div className="max-w-[740px] mx-auto px-7 mb-10">
         <h2
           className="font-medium leading-[1.1] tracking-wide"
@@ -41,7 +41,7 @@ export function ScaleSection() {
       <div className="max-w-[920px] mx-auto px-7 mt-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((s) => (
-            <div key={s.lbl} className="text-center">
+            <div key={s.lbl} className="reveal text-center">
               <div
                 className="font-semibold leading-none"
                 style={{
@@ -64,4 +64,3 @@ export function ScaleSection() {
   );
 }
 
-/* ─── USP Grid ─── */

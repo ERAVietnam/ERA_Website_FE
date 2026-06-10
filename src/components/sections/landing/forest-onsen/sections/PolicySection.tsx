@@ -38,7 +38,7 @@ export function PolicySection() {
   return (
     <section id="chinh-sach" className="py-16 md:py-28 bg-white">
       <div className="max-w-[1180px] mx-auto px-7">
-        <div className="text-center max-w-[620px] mx-auto mb-12">
+        <div className="reveal text-center max-w-[620px] mx-auto mb-12">
           <div className="text-xs font-medium tracking-[2.5px] uppercase" style={{ color: c.greenSoft }}>
             Phương án tài chính
           </div>
@@ -61,7 +61,7 @@ export function PolicySection() {
           {policies.map((p) => (
             <div
               key={p.label}
-              className="rounded-2xl p-7 md:p-8 border transition-all duration-500 hover:-translate-y-1"
+              className="rounded-2xl p-7 md:p-8 border transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:bg-[#eef3ee]"
               style={{ background: c.mist2, borderColor: c.line }}
             >
               <div className="text-[11.5px] uppercase tracking-[1.5px] font-semibold mb-4" style={{ color: c.greenSoft }}>
@@ -85,7 +85,7 @@ export function PolicySection() {
             </div>
           ))}
         </div>
-        <p className="text-center text-xs mt-9 max-w-[740px] mx-auto leading-relaxed" style={{ color: c.inkSoft }}>
+        <p className="reveal text-center text-xs mt-9 max-w-[740px] mx-auto leading-relaxed" style={{ color: c.inkSoft }}>
           Chính sách chi tiết tư vấn riêng theo từng dòng sản phẩm. Hình ảnh và thông
           tin mang tính minh họa; chính sách, giá bán và tiện ích áp dụng theo quy định
           của chủ đầu tư tại từng thời điểm. Phí dịch vụ Onsen tính riêng theo gói sử
@@ -96,4 +96,3 @@ export function PolicySection() {
   );
 }
 
-/* ─── Trust Block ─── */

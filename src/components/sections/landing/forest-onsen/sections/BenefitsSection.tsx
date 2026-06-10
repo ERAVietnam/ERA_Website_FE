@@ -16,7 +16,7 @@ export function BenefitsSection() {
   return (
     <section className="py-16 md:py-28 bg-white">
       <div className="max-w-[1180px] mx-auto px-7">
-        <div className="text-center max-w-[680px] mx-auto mb-14">
+        <div className="reveal text-center max-w-[680px] mx-auto mb-14">
           <div className="text-xs font-medium tracking-[2.5px] uppercase" style={{ color: c.greenSoft }}>
             Cho cơ thể, mỗi ngày
           </div>
@@ -41,7 +41,7 @@ export function BenefitsSection() {
           {benefits.map((b) => (
             <div
               key={b.n}
-              className="p-8 rounded-2xl border transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
+              className="p-8 rounded-2xl border transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:bg-[#eef3ee]"
               style={{ background: c.mist2, borderColor: c.line }}
             >
               <div
@@ -73,4 +73,3 @@ export function BenefitsSection() {
 }
 
 
-/* ─── Pools ─── */

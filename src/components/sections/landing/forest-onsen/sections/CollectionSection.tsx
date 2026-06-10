@@ -12,7 +12,7 @@ export function CollectionSection() {
   return (
     <section id="bo-suu-tap" className="py-16 md:py-28" style={{ background: c.mist2 }}>
       <div className="max-w-[1180px] mx-auto px-7">
-        <div className="text-center max-w-[640px] mx-auto mb-10">
+        <div className="reveal text-center max-w-[640px] mx-auto mb-10">
           <div className="w-[46px] h-px mx-auto mb-5" style={{ background: c.gold }} />
           <h2
             className="font-medium leading-[1.1] tracking-wide"
@@ -101,8 +101,7 @@ export function CollectionSection() {
                 </div>
                 <a
                   href="#dang-ky"
-                  className="mt-4 text-xs font-medium text-center py-2.5 rounded-lg border transition-all hover:text-white"
-                  style={{ color: c.green, borderColor: c.line }}
+                  className="mt-4 text-xs font-medium text-center py-2.5 rounded-lg border transition-all duration-500 text-[#365b46] border-[#e4ebe4] hover:bg-[#365b46] hover:text-white hover:border-[#365b46]"
                 >
                   Nhận thông tin căn này →
                 </a>
@@ -111,16 +110,15 @@ export function CollectionSection() {
           ))}
         </div>
         <p
-          className="text-center text-sm mt-8 italic"
+          className="reveal text-center text-sm mt-8 italic"
           style={{ color: c.inkSoft, fontFamily: "'Cormorant Garamond', Georgia, serif" }}
         >
           Mỗi dòng chỉ có số lượng hữu hạn. Giỏ hàng chi tiết gửi riêng theo yêu cầu.
         </p>
-        <div className="text-center mt-7">
+        <div className="reveal text-center mt-7">
           <a
             href="#dang-ky"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium transition-all border"
-            style={{ color: c.green, borderColor: c.greenSoft }}
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium transition-all duration-500 border text-[#365b46] border-[#6a917a] hover:bg-[#365b46] hover:text-white hover:border-[#365b46]"
           >
             Nhận giỏ hàng chi tiết
           </a>
@@ -130,4 +128,3 @@ export function CollectionSection() {
   );
 }
 
-/* ─── Ritual ─── */
