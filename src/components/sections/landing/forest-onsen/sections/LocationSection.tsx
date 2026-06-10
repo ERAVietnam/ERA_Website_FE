@@ -7,7 +7,7 @@ export function LocationSection() {
   return (
     <section id="vi-tri" className="py-16 md:py-28" style={{ background: c.mist }}>
       <div className="max-w-[1180px] mx-auto px-7">
-        <div className="text-center max-w-[680px] mx-auto mb-11">
+        <div className="reveal text-center max-w-[680px] mx-auto mb-11">
           <div className="w-[46px] h-px mx-auto mb-5" style={{ background: c.gold }} />
           <h2
             className="font-medium leading-[1.1] tracking-wide"
@@ -42,4 +42,3 @@ export function LocationSection() {
   );
 }
 
-/* ─── Infrastructure ─── */

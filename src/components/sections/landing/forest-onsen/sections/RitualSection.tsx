@@ -8,7 +8,7 @@ export function RitualSection() {
   return (
     <section id="mot-ngay" className="py-16 md:py-28" style={{ background: c.mist }}>
       <div className="max-w-[1180px] mx-auto px-7">
-        <div className="text-center max-w-[560px] mx-auto mb-12">
+        <div className="reveal text-center max-w-[560px] mx-auto mb-12">
           <div className="text-xs font-medium tracking-[2.5px] uppercase" style={{ color: c.greenSoft }}>
             Một ngày sống wellness
           </div>
@@ -71,4 +71,3 @@ export function RitualSection() {
   );
 }
 
-/* ─── Proof ─── */

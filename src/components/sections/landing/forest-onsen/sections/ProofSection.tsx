@@ -34,4 +34,3 @@ export function ProofSection() {
   );
 }
 
-/* ─── Lead Band B ─── */

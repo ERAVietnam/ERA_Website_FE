@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { projectInfo } from "../data";
 import { c } from "../theme";
+import { submitLead } from "../lib/submit-lead";
 
 export function FinalCtaSection() {
   const [submitted, setSubmitted] = useState(false);
@@ -57,9 +58,16 @@ export function FinalCtaSection() {
         <div className="bg-white rounded-2xl p-8 md:p-9" style={{ color: c.ink, boxShadow: "0 40px 90px -40px rgba(0,0,0,.55)" }}>
           {!submitted ? (
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                setSubmitted(true);
+                const form = e.currentTarget;
+                const ok = await submitLead({
+                  hoten: (form.hoten as HTMLInputElement).value,
+                  sdt: (form.sdt as HTMLInputElement).value,
+                  sanpham: (form.sanpham as HTMLSelectElement).value,
+                  formId: "FORM_C",
+                });
+                if (ok) setSubmitted(true);
               }}
             >
               <h3
@@ -77,6 +85,7 @@ export function FinalCtaSection() {
                 </label>
                 <input
                   type="text"
+                  name="hoten"
                   required
                   placeholder="Nguyễn Văn A"
                   className="w-full px-4 py-3 rounded-lg border text-[15px] transition-all focus:outline-none focus:ring-2"
@@ -89,6 +98,7 @@ export function FinalCtaSection() {
                 </label>
                 <input
                   type="tel"
+                  name="sdt"
                   required
                   placeholder="09xx xxx xxx"
                   pattern="[0-9 ]{9,13}"
@@ -101,6 +111,7 @@ export function FinalCtaSection() {
                   Dòng sản phẩm quan tâm
                 </label>
                 <select
+                  name="sanpham"
                   required
                   defaultValue=""
                   className="w-full px-4 py-3 rounded-lg border text-[15px] transition-all focus:outline-none focus:ring-2"
@@ -119,15 +130,14 @@ export function FinalCtaSection() {
               </div>
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white transition-all"
-                style={{ background: c.green }}
+                className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98] group"
               >
                 Gửi yêu cầu nhận tài liệu{" "}
-                <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px]">
+                <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px] transition-transform duration-300 group-hover:translate-x-0.5">
                   →
                 </span>
               </button>
-              <p className="text-center text-[13px] mt-4" style={{ color: c.inkSoft }}>
+              <p className="reveal text-center text-[13px] mt-4" style={{ color: c.inkSoft }}>
                 Hoặc{" "}
                 <a href={`tel:${projectInfo.phone.replace(/\./g, "")}`} className="font-medium" style={{ color: c.green }}>
                   đặt lịch tham quan riêng tư
@@ -136,7 +146,7 @@ export function FinalCtaSection() {
               </p>
             </form>
           ) : (
-            <div className="text-center py-8" style={{ color: c.greenDeep }}>
+            <div className="reveal text-center py-8" style={{ color: c.greenDeep }}>
               <div className="text-3xl mb-3">✓</div>
               <p className="text-base">
                 Cảm ơn bạn. Bộ tài liệu đặc quyền sẽ được gửi sớm nhất.
@@ -149,4 +159,3 @@ export function FinalCtaSection() {
   );
 }
 
-/* ─── Sticky Widget ─── */

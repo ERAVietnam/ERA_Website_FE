@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { c } from "../theme";
+import { submitLead } from "../lib/submit-lead";
 
 export function StickyWidget() {
   const [collapsed, setCollapsed] = useState(false);
@@ -42,9 +43,15 @@ export function StickyWidget() {
             : ""
         }`}
         style={{ borderColor: c.line, boxShadow: "0 24px 56px -22px rgba(39,68,52,.35)" }}
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          setSubmitted(true);
+          const form = e.currentTarget;
+          const ok = await submitLead({
+            hoten: (form.hoten as HTMLInputElement).value,
+            sdt: (form.sdt as HTMLInputElement).value,
+            formId: "FORM_MINI",
+          });
+          if (ok) setSubmitted(true);
         }}
       >
         <button
@@ -68,6 +75,7 @@ export function StickyWidget() {
             </div>
             <input
               type="text"
+              name="hoten"
               required
               placeholder="Họ và tên"
               className="w-full px-3 py-2.5 rounded-lg border text-sm mb-2 focus:outline-none"
@@ -75,6 +83,7 @@ export function StickyWidget() {
             />
             <input
               type="tel"
+              name="sdt"
               required
               placeholder="Số điện thoại"
               pattern="[0-9 ]{9,13}"
@@ -83,8 +92,7 @@ export function StickyWidget() {
             />
             <button
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-medium text-white transition-all"
-              style={{ background: c.green }}
+              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98]"
             >
               Đăng ký ngay{" "}
               <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px]">
@@ -93,7 +101,7 @@ export function StickyWidget() {
             </button>
           </>
         ) : (
-          <div className="text-center py-4 text-sm" style={{ color: c.greenDeep }}>
+          <div className="reveal text-center py-4 text-sm" style={{ color: c.greenDeep }}>
             ✓ Đã nhận. Cảm ơn bạn!
           </div>
         )}
@@ -102,4 +110,3 @@ export function StickyWidget() {
   );
 }
 
-/* ─── Main Component ─── */

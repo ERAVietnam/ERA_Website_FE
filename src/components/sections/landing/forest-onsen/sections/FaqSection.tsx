@@ -9,7 +9,7 @@ export function FaqSection() {
   return (
     <section className="py-16 md:py-28" style={{ background: c.mist2 }}>
       <div className="max-w-[800px] mx-auto px-7">
-        <div className="text-center mb-10">
+        <div className="reveal text-center mb-10">
           <h2
             className="font-medium leading-[1.1] tracking-wide"
             style={{
@@ -60,4 +60,3 @@ export function FaqSection() {
   );
 }
 
-/* ─── Final CTA ─── */

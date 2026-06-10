@@ -42,7 +42,8 @@ src/
 │       ├── apply/
 │       ├── contact/
 │       ├── projects/
-│       └── news/
+│       ├── news/
+│       └── landing/            # Landing pages (project-specific)
 │
 ├── hooks/                  # Custom React hooks
 ├── lib/                    # Utils, constants, configs
@@ -81,6 +82,21 @@ export default function VeChungToi() {
 - `components/sections/*.tsx` → **~90% là Client Component**, có `"use client"` (dùng state, effect, event)
 - `components/ui/*.tsx` → Tùy component; `Button.tsx` đã có `"use client"`
 - `lib/*.ts` → Pure TypeScript, **không cần** directive
+
+### Landing Page Pattern
+- Mỗi landing page nằm trong `components/sections/landing/<project>/`
+- Cấu trúc chuẩn:
+  ```
+  landing/<project>/
+  ├── page.tsx              # Export metadata + render landing component
+  ├── index.tsx             # Re-export
+  ├── ForestOnsenLanding.tsx # Compose các sections
+  ├── theme.ts              # Color tokens dùng riêng cho landing
+  ├── data.ts               # Mock data (units, faq, infrastructure...)
+  └── sections/             # Mỗi section 1 file (Navbar, Hero, ...)
+  ```
+- `LayoutWrapper.tsx` có `specialLayouts` để ẩn Header/Footer mặc định
+- Footer project có thể bật lại bằng `footer: true` trong `specialLayouts`
 
 ---
 
@@ -163,6 +179,7 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/lien-he` | `app/lien-he/page.tsx` | `ContactPage` |
 | `/dieu-khoan-su-dung` | `app/dieu-khoan-su-dung/page.tsx` | `LegalPage` |
 | `/chinh-sach-bao-mat` | `app/chinh-sach-bao-mat/page.tsx` | `LegalPage` |
+| `/duan-canho-forest-onsen` | `app/duan-canho-forest-onsen/page.tsx` | `ForestOnsenLanding` |
 
 ---
 

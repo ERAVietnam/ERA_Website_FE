@@ -33,7 +33,7 @@ export function UspSection() {
   return (
     <section className="py-16 md:py-28 bg-white">
       <div className="max-w-[1180px] mx-auto px-7">
-        <div className="text-center max-w-[640px] mx-auto mb-14">
+        <div className="reveal text-center max-w-[640px] mx-auto mb-14">
           <div className="text-xs font-medium tracking-[2.5px] uppercase" style={{ color: c.greenSoft }}>
             Bốn đặc quyền
           </div>
@@ -98,4 +98,3 @@ export function UspSection() {
   );
 }
 
-/* ─── Onsen Feature ─── */
