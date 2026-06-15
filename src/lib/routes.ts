@@ -17,6 +17,7 @@ export const ROUTES = {
   apply: "/ung-tuyen",
   academy: "/academy",
   news: "/tin-tuc",
+  login: "/dang-nhap",
   contact: "/lien-he",
   
   

@@ -38,9 +38,15 @@ const magazines = [
   },
 ];
 
-export const NewsEMagazineSection = memo(function NewsEMagazineSection() {
+interface NewsEMagazineSectionProps {
+  bg?: "white" | "gray";
+}
+
+export const NewsEMagazineSection = memo(function NewsEMagazineSection({
+  bg = "gray",
+}: NewsEMagazineSectionProps) {
   return (
-    <Section padding="sm" bg="gray">
+    <Section padding="sm" bg={bg}>
         {/* Section Title */}
         <div className="flex items-center gap-3 mb-8">
           <div

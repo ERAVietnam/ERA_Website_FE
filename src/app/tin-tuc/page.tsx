@@ -19,6 +19,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function News() {
+export default async function News() {
   return <NewsPage />;
 }

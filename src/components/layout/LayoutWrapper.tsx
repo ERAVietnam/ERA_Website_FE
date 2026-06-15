@@ -38,6 +38,10 @@ function normalizePathname(pathname: string): string {
   return pathname === "/" ? pathname : pathname.replace(/\/$/, "");
 }
 
+function isAdminPath(pathname: string): boolean {
+  return pathname.includes("/quan-ly") || pathname.startsWith("/ho-so-ca-nhan");
+}
+
 export function LayoutWrapper({
   children,
 }: {
@@ -46,11 +50,13 @@ export function LayoutWrapper({
   const pathname = usePathname();
   const normalized = normalizePathname(pathname);
 
-  const config = specialLayouts[normalized] ?? {};
-  const showHeader = config.header ?? defaultLayout.header;
-  const showFooter = config.footer ?? defaultLayout.footer;
-  const showToTop = config.toTop ?? defaultLayout.toTop;
-  const showContentPadding = config.contentPadding ?? showHeader;
+  const isAdmin = isAdminPath(pathname);
+  const specialConfig = specialLayouts[normalized] ?? {};
+
+  const showHeader = isAdmin ? false : (specialConfig.header ?? defaultLayout.header);
+  const showFooter = isAdmin ? false : (specialConfig.footer ?? defaultLayout.footer);
+  const showToTop = isAdmin ? false : (specialConfig.toTop ?? defaultLayout.toTop);
+  const showContentPadding = isAdmin ? false : (specialConfig.contentPadding ?? showHeader);
 
   return (
     <>

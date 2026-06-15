@@ -1,0 +1,136 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { Section } from "@/components/ui/Section";
+import { AccountManageList } from "./AccountManageList";
+import { AccountManageForm } from "./AccountManageForm";
+import { accountsApi } from "@/api/domains/accounts";
+import { PopupNotification } from "@/components/ui/PopupNotification";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { getErrorMessage } from "@/lib/error-messages";
+import { useAuth } from "@/contexts/AuthContext";
+import type { ManagementAccount } from "@/types/api";
+
+export default function AccountManagePage() {
+  const { account } = useAuth();
+  const [items, setItems] = useState<ManagementAccount[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editing, setEditing] = useState<ManagementAccount | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [popup, setPopup] = useState<{
+    show: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ show: false, type: "success", message: "" });
+  const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({
+    show: false,
+    id: "",
+  });
+
+  const loadAccounts = async () => {
+    try {
+      const data = await accountsApi.getAccounts();
+      setItems(data);
+    } catch {
+      setItems([]);
+    }
+  };
+
+  useEffect(() => {
+    loadAccounts().finally(() => setLoading(false));
+  }, []);
+
+  const handleSave = () => {
+    setShowForm(false);
+    setEditing(null);
+    loadAccounts().catch(() => {});
+  };
+
+  const handleEdit = async (item: ManagementAccount) => {
+    setEditing(item);
+    setShowForm(true);
+  };
+
+  const handleDelete = (id: string) => {
+    setDeleteConfirm({ show: true, id });
+  };
+
+  const handleConfirmDelete = () => {
+    const { id } = deleteConfirm;
+    if (!id) return;
+    setDeleteConfirm({ show: false, id: "" });
+    accountsApi
+      .deleteAccount(id)
+      .then(() => {
+        setItems((prev) => prev.filter((i) => i.id !== id));
+        setPopup({
+          show: true,
+          type: "success",
+          message: "Xóa tài khoản thành công!",
+        });
+      })
+      .catch((err) => {
+        setPopup({
+          show: true,
+          type: "error",
+          message: getErrorMessage(
+            err?.status,
+            err?.data,
+            "Xóa tài khoản thất bại. Vui lòng thử lại.",
+          ),
+        });
+      });
+  };
+
+  const handleAdd = () => {
+    setEditing(null);
+    setShowForm(true);
+  };
+
+  const handleCancel = () => {
+    setShowForm(false);
+    setEditing(null);
+  };
+
+  return (
+    <Section padding="md" bg="gray">
+      <div className="space-y-8">
+          {popup.show && (
+            <PopupNotification
+              type={popup.type}
+              message={popup.message}
+              onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+              autoClose={popup.type === "success"}
+            />
+          )}
+
+          <ConfirmDialog
+            isOpen={deleteConfirm.show}
+            title="Xác nhận xóa"
+            message="Bạn có chắc muốn xóa tài khoản này? Hành động này không thể hoàn tác."
+            confirmLabel="Xóa"
+            cancelLabel="Hủy"
+            onConfirm={handleConfirmDelete}
+            onCancel={() => setDeleteConfirm({ show: false, id: "" })}
+          />
+
+          {showForm ? (
+            <AccountManageForm
+              initialData={editing ?? undefined}
+              onSave={handleSave}
+              onCancel={handleCancel}
+            />
+          ) : (
+            <AccountManageList
+              items={items}
+              currentAccountId={account?.id}
+              loading={loading}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onAdd={handleAdd}
+            />
+          )}
+        </div>
+      </Section>
+  );
+}

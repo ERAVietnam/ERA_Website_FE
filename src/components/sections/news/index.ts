@@ -1,9 +1,6 @@
 export { NewsHeroSection } from "./NewsHeroSection";
 export { NewsTabsSection } from "./NewsTabsSection";
-export { NewsMarketSection } from "./NewsMarketSection";
-export { NewsProjectSection } from "./NewsProjectSection";
-export { NewsERASection } from "./NewsERASection";
+export { NewsCategorySection } from "./NewsCategorySection";
 export { NewsEMagazineSection } from "./NewsEMagazineSection";
-export { NewsPressSection } from "./NewsPressSection";
 export { NewsPage } from "./NewsPage";
 export { NewsDetailPage } from "./NewsDetailPage";

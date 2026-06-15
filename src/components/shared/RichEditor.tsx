@@ -147,9 +147,11 @@ class CustomEditor extends ClassicEditor {
 export default function RichEditor({
   value,
   onChange,
+  disabled = false,
 }: {
   value: string;
   onChange: (val: string) => void;
+  disabled?: boolean;
 }) {
   const wordCountRef = useRef<HTMLDivElement>(null);
 
@@ -160,8 +162,8 @@ export default function RichEditor({
       style.id = styleId;
       style.textContent = `
         .ck-editor__editable_inline {
-          min-height: 360px !important;
-          max-height: 360px !important;
+          min-height: 400px !important;
+          max-height: 400px !important;
           overflow-y: auto !important;
         }
         .ck-content h1 { font-size: 36px; font-weight: 700; line-height: 1.2; }
@@ -183,6 +185,7 @@ export default function RichEditor({
       <CKEditor
         editor={CustomEditor as never}
         data={value}
+        disabled={disabled}
         onChange={(_event, editor) => {
           onChange(editor.getData());
         }}

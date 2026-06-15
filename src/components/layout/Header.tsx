@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
@@ -9,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { X } from "lucide-react";
 import { colors, withOpacity } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ICON_SIZES = {
   navIcon: 18,
@@ -28,6 +30,20 @@ const navLinks: { href: string; label: string; icon: string; external?: boolean;
     { href: ROUTES.apac, label: "Về APAC Realty" },
   ]},
 ];
+
+function AuthAction() {
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+    return (
+      <Button asChild variant="primary" size="sm">
+        <Link href={ROUTES.login}>Đăng nhập</Link>
+      </Button>
+    );
+  }
+
+  return null;
+}
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -154,9 +170,7 @@ export function Header() {
                   );
                 })}
               </nav>
-              <Button asChild variant="primary" size="sm">
-                <Link href="#">Đăng nhập</Link>
-              </Button>
+              <AuthAction />
             </div>
           </div>
         </Container>
