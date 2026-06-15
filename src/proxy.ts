@@ -12,10 +12,18 @@ export function proxy(request: NextRequest) {
   const accessToken = request.cookies.get("access_token")?.value;
 
   if (!accessToken) {
-    return NextResponse.redirect(new URL("/", request.url));
+    const response = NextResponse.redirect(new URL("/", request.url));
+    response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+    response.headers.set("Pragma", "no-cache");
+    response.headers.set("Expires", "0");
+    return response;
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+  response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  response.headers.set("Pragma", "no-cache");
+  response.headers.set("Expires", "0");
+  return response;
 }
 
 export const config = {
