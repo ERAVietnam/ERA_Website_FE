@@ -2,6 +2,7 @@ import { apiClient } from '@/api/client';
 import { ENDPOINTS } from '@/api/endpoints';
 import type {
   NewsArticle,
+  NewsArticleLog,
   NewsCategory,
   CreateArticleInput,
   UpdateArticleInput,
@@ -20,6 +21,9 @@ export const newsApi = {
 
   getArticleById: (id: string) =>
     apiClient.get<NewsArticle>(ENDPOINTS.NEWS.DETAIL(id)).then((res) => res.data),
+
+  getArticleLogs: (id: string) =>
+    apiClient.get<NewsArticleLog[]>(ENDPOINTS.NEWS.LOGS(id)).then((res) => res.data),
 
   getArticleBySlug: (categorySlug: string, slug: string) =>
     apiClient.get<NewsArticle>(ENDPOINTS.NEWS.DETAIL_BY_SLUG(categorySlug, slug)).then((res) => res.data),
