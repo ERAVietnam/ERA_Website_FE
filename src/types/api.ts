@@ -64,6 +64,18 @@ export interface CreateArticleInput {
 
 export type UpdateArticleInput = Partial<CreateArticleInput>;
 
+export interface NewsArticleLog {
+  id: string;
+  articleId: string;
+  actorId: string;
+  actor: { id: string; name: string; email: string };
+  eventType: 'created' | 'submitted' | 'updated' | 'published' | 'revoked' | 'rejected';
+  fromStatus: 'draft' | 'pending' | 'published' | null;
+  toStatus: 'draft' | 'pending' | 'published' | null;
+  note?: string | null;
+  createdAt: string;
+}
+
 export interface ArticleFilters {
   categorySlug?: string;
   status?: 'draft' | 'pending' | 'published';

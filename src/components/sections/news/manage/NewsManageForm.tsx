@@ -4,16 +4,19 @@ import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
-import { X, Loader2 } from "lucide-react";
+import { X, Loader2, History } from "lucide-react";
 import { newsApi } from "@/api/domains/news";
 import { mediaApi } from "@/api/domains/media";
 import { createArticleSchema } from "@/schemas/news.schema";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
 import { getNewsScopeBySlug } from "@/lib/permissions";
 import type { NewsCategory, NewsArticle } from "@/types/api";
+
+
 
 const RichEditor = dynamic(
   () => import("@/components/shared/RichEditor"),
@@ -134,6 +137,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   const [pendingAction, setPendingAction] = useState<
     { type: "save" } | { type: "submit" } | { type: "publish" } | { type: "reject" } | { type: "revoke" } | null
   >(null);
+  const [showHistory, setShowHistory] = useState(false);
 
   const initialForm = useMemo(() => articleToFormState(initialData), [initialData]);
   const initialImagePreview = initialData?.featuredImage?.url || "";
@@ -547,6 +551,14 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
           onCancel={() => setPendingAction(null)}
         />
 
+        {initialData?.id && (
+          <ArticleHistoryDialog
+            articleId={initialData.id}
+            isOpen={showHistory}
+            onClose={() => setShowHistory(false)}
+          />
+        )}
+
         <form id="article-form" onSubmit={handleSubmit}>
           <div className="space-y-5">
             {/* Title + Category */}
@@ -864,6 +876,20 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
           {isReadOnly && status === "published" && canPublishScope && (
             <Button type="button" variant="outline" size="sm" className="w-full justify-center bg-white" onClick={handleRevoke} disabled={isLoading}>
               Hủy duyệt
+            </Button>
+          )}
+
+          {initialData?.id && (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="w-full justify-center gap-2 bg-white"
+              onClick={() => setShowHistory(true)}
+              disabled={isLoading}
+            >
+              <History size={16} />
+              Lịch sử
             </Button>
           )}
 
