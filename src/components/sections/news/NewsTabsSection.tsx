@@ -4,16 +4,28 @@ import { useState, useRef, useEffect, memo } from "react";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { colors, withOpacity } from "@/lib/theme";
+import type { NewsCategory } from "@/types/api";
 
-const tabs = [
-  { id: "market", label: "Tin Thị Trường", targetId: "tin-thi-truong" },
-  { id: "project", label: "Tin Dự Án", targetId: "tin-du-an" },
-  { id: "era", label: "ERA News", targetId: "era-news" },
-  { id: "press", label: "Thông cáo báo chí", targetId: "thong-cao-bao-chi" },
-  { id: "magazine", label: "E-Magazine", targetId: "e-magazine" },
-];
+const eMagazineTab = { id: "magazine", label: "E-Magazine", targetId: "e-magazine" };
 
-function MarqueeTabs({ onTabClick }: { onTabClick: (id: string) => void }) {
+function buildTabs(categories: NewsCategory[]) {
+  return [
+    ...categories.map((cat) => ({
+      id: cat.slug,
+      label: cat.name,
+      targetId: cat.slug,
+    })),
+    eMagazineTab,
+  ];
+}
+
+function MarqueeTabs({
+  tabs,
+  onTabClick,
+}: {
+  tabs: { id: string; label: string; targetId: string }[];
+  onTabClick: (id: string) => void;
+}) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
   const startXRef = useRef(0);
@@ -73,6 +85,7 @@ function MarqueeTabs({ onTabClick }: { onTabClick: (id: string) => void }) {
   };
 
   const duplicatedTabs = [...tabs, ...tabs, ...tabs];
+  if (tabs.length === 0) return null;
 
   return (
     <div
@@ -105,8 +118,13 @@ function MarqueeTabs({ onTabClick }: { onTabClick: (id: string) => void }) {
   );
 }
 
-export const NewsTabsSection = memo(function NewsTabsSection() {
+interface NewsTabsSectionProps {
+  categories: NewsCategory[];
+}
+
+export const NewsTabsSection = memo(function NewsTabsSection({ categories }: NewsTabsSectionProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const tabs = buildTabs(categories);
 
   const handleTabClick = (targetId: string) => {
     const element = document.getElementById(targetId);
@@ -180,7 +198,7 @@ export const NewsTabsSection = memo(function NewsTabsSection() {
 
           {/* Mobile Tabs - Marquee */}
           <div className="lg:hidden order-3">
-            <MarqueeTabs onTabClick={handleTabClick} />
+            <MarqueeTabs tabs={tabs} onTabClick={handleTabClick} />
           </div>
         </div>
     </Section>

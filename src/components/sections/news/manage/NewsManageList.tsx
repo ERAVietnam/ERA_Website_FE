@@ -3,34 +3,68 @@
 import { useState } from "react";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
-import { Pencil, Trash2, Plus, LayoutGrid, Table as TableIcon } from "lucide-react";
-
-const CATEGORY_LABELS: Record<string, string> = {
-  "tin-thi-truong": "Tin thị trường",
-  "tin-era": "Tin ERA",
-  "tin-bao-chi": "Tin báo chí",
-  "tin-du-an": "Tin dự án",
-};
-
-export interface NewsItem {
-  id: number;
-  title: string;
-  category: string;
-  summary: string;
-  content: string;
-  date: string;
-  image?: string;
-}
+import { Pencil, Trash2, Plus, LayoutGrid, Table as TableIcon, Loader2, Send, CheckCircle, RotateCcw, XCircle } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { usePermissionWarning } from "@/hooks/usePermissionWarning";
+import { PopupNotification } from "@/components/ui/PopupNotification";
+import {
+  getNewsScopeBySlug,
+  hasNewsArticlePermission,
+  hasAnyNewsArticleCreatePermission,
+} from "@/lib/permissions";
+import type { NewsArticle } from "@/types/api";
 
 interface Props {
-  items: NewsItem[];
-  onEdit: (item: NewsItem) => void;
-  onDelete: (id: number) => void;
+  items: NewsArticle[];
+  loading?: boolean;
+  onEdit: (id: string) => void;
+  onView: (id: string) => void;
+  onDelete: (id: string) => void;
   onAdd: () => void;
+  onPublish?: (id: string) => void;
+  onRevoke?: (id: string) => void;
+  onSubmitForReview?: (id: string) => void;
+  onReject?: (id: string) => void;
 }
 
-export function NewsManageList({ items, onEdit, onDelete, onAdd }: Props) {
+function formatDate(iso: string): string {
+  const d = new Date(iso);
+  return d.toLocaleDateString("vi-VN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd, onPublish, onRevoke, onSubmitForReview, onReject }: Props) {
+  const { hasPermission, account } = useAuth();
+
+  const isSuperAdmin = () => hasPermission("system.super_admin");
+  const isAuthor = (item: NewsArticle) => account?.id === item.authorId || isSuperAdmin();
+  const canManage = (item: NewsArticle) => isSuperAdmin() || isAuthor(item);
+  const canPublish = (item: NewsArticle) => {
+    if (isSuperAdmin()) return true;
+    const scope = getNewsScopeBySlug(item.category.slug);
+    if (hasPermission("news.articles.all.publish")) return true;
+    if (scope && hasPermission(`news.articles.${scope}.publish`)) return true;
+    return false;
+  };
+  const canEditOrDelete = (item: NewsArticle) => {
+    if (isSuperAdmin()) return true;
+    if (item.status === "draft") return isAuthor(item);
+    if (item.status === "pending") return canPublish(item);
+    return false;
+  };
+  const canSubmit = (item: NewsArticle) => item.status === "draft" && isAuthor(item);
+  const canReject = (item: NewsArticle) => item.status === "pending" && canPublish(item);
+  const { warning, guard, closeWarning } = usePermissionWarning();
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
+
+  const statusConfig: Record<string, { label: string; color: string; bg: string }> = {
+    draft: { label: "Bản nháp", color: "#6B7280", bg: "#F3F4F6" },
+    pending: { label: "Chờ duyệt", color: "#D97706", bg: "#FEF3C7" },
+    published: { label: "Đã đăng", color: "#059669", bg: "#D1FAE5" },
+  };
 
   const placeholderImg = "/news/news_placeholder.webp";
 
@@ -39,10 +73,7 @@ export function NewsManageList({ items, onEdit, onDelete, onAdd }: Props) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2
-            className="text-xl font-black"
-            style={{ color: colors.primary.navy.DEFAULT }}
-          >
+          <h2 className="text-xl font-black" style={{ color: colors.primary.navy.DEFAULT }}>
             Danh sách tin tức
           </h2>
           <p className="text-sm text-gray-500 mt-1">
@@ -50,7 +81,6 @@ export function NewsManageList({ items, onEdit, onDelete, onAdd }: Props) {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          {/* View Toggle */}
           <div className="inline-flex items-center rounded-lg border border-gray-200 bg-white overflow-hidden">
             <button
               onClick={() => setViewMode("table")}
@@ -77,53 +107,69 @@ export function NewsManageList({ items, onEdit, onDelete, onAdd }: Props) {
               <span className="hidden sm:inline">Thẻ</span>
             </button>
           </div>
-          <Button variant="primary" size="sm" className="gap-2" onClick={onAdd}>
-            <Plus size={16} /> Tạo bài viết mới
-          </Button>
+          {hasAnyNewsArticleCreatePermission(hasPermission) && (
+            <Button
+              variant="primary"
+              size="sm"
+              className="gap-2"
+              onClick={() => {
+                if (!hasAnyNewsArticleCreatePermission(hasPermission)) {
+                  guard(
+                    "news.articles.all.create",
+                    onAdd,
+                    "Bạn không có quyền tạo bài viết.",
+                  );
+                  return;
+                }
+                onAdd();
+              }}
+            >
+              <Plus size={16} /> Tạo bài viết mới
+            </Button>
+          )}
         </div>
       </div>
 
-      {/* Table View */}
-      {viewMode === "table" && (
+      {loading && (
+        <div className="flex items-center justify-center py-12">
+          <Loader2 size={32} className="animate-spin text-gray-400" />
+        </div>
+      )}
+
+      {!loading && viewMode === "table" && (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50/50">
-                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">
-                    ID
-                  </th>
-                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">
-                    Bài viết
-                  </th>
-                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">
-                    Danh mục
-                  </th>
-                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">
-                    Ngày đăng
-                  </th>
-                  <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-28">
-                    Thao tác
-                  </th>
+                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">ID</th>
+                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Bài viết</th>
+                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Danh mục</th>
+                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Tác giả</th>
+                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Trạng thái</th>
+                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Ngày đăng</th>
+                  <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-36">Thao tác</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {items.map((item) => (
-                  <tr key={item.id} className="hover:bg-gray-50/40 transition-colors">
-                    <td className="px-5 py-4 text-gray-500 font-mono">
-                      #{item.id}
-                    </td>
+                  <tr
+                    key={item.id}
+                    onClick={() => onView(item.id)}
+                    className="hover:bg-gray-100 transition-colors cursor-pointer"
+                  >
+                    <td className="px-5 py-4 text-gray-500 font-mono">#{item.id.slice(0, 8)}</td>
                     <td className="px-5 py-4">
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 text-left w-full">
                         <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 shrink-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src={item.image || placeholderImg}
+                            src={item.featuredImage?.url || placeholderImg}
                             alt={item.title}
                             className="w-full h-full object-cover"
                           />
                         </div>
-                        <span className="font-semibold text-gray-900 line-clamp-2">
+                        <span className="font-semibold text-gray-900 whitespace-normal">
                           {item.title}
                         </span>
                       </div>
@@ -133,44 +179,123 @@ export function NewsManageList({ items, onEdit, onDelete, onAdd }: Props) {
                         className="inline-block text-xs font-semibold px-2.5 py-1 rounded-md text-white"
                         style={{ backgroundColor: colors.primary.DEFAULT }}
                       >
-                        {CATEGORY_LABELS[item.category] || item.category}
+                        {item.category.name}
+                      </span>
+                    </td>
+                    <td className="px-5 py-4 text-gray-700 whitespace-nowrap">
+                      {item.author?.name || "—"}
+                    </td>
+                    <td className="px-5 py-4 whitespace-nowrap">
+                      <span
+                        className="inline-block text-xs font-semibold px-2.5 py-1 rounded-md"
+                        style={{
+                          color: statusConfig[item.status]?.color,
+                          backgroundColor: statusConfig[item.status]?.bg,
+                        }}
+                      >
+                        {statusConfig[item.status]?.label}
                       </span>
                     </td>
                     <td className="px-5 py-4 text-gray-600 whitespace-nowrap">
-                      {item.date}
+                      {formatDate(item.publishedAt || item.createdAt)}
                     </td>
-                    <td className="px-5 py-4">
-                      <div className="flex items-center justify-end gap-2">
-                        <Button
-                          variant="ghost"
-                          isIconOnly
-                          size="md"
-                          onClick={() => onEdit(item)}
-                          title="Chỉnh sửa"
-                        >
-                          <Pencil size={15} className="text-gray-500" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          isIconOnly
-                          size="md"
-                          onClick={() => onDelete(item.id)}
-                          title="Xoá"
-                          className="hover:!bg-red-50"
-                        >
-                          <Trash2 size={15} className="text-red-500" />
-                        </Button>
+                    <td className="px-5 py-4" onClick={(e) => e.stopPropagation()}>
+                      <div className="flex items-center justify-end gap-1">
+                        {canSubmit(item) && onSubmitForReview && (
+                          <Button
+                            variant="ghost"
+                            isIconOnly
+                            size="md"
+                            onClick={() => onSubmitForReview(item.id)}
+                            title="Gửi duyệt"
+                            className="hover:!bg-amber-50"
+                          >
+                            <Send size={15} className="text-amber-600" />
+                          </Button>
+                        )}
+                        {item.status === "pending" && canPublish(item) && onPublish && (
+                          <Button
+                            variant="ghost"
+                            isIconOnly
+                            size="md"
+                            onClick={() => onPublish(item.id)}
+                            title="Duyệt bài"
+                            className="hover:!bg-green-50"
+                          >
+                            <CheckCircle size={15} className="text-green-600" />
+                          </Button>
+                        )}
+                        {item.status === "published" && canPublish(item) && onRevoke && (
+                          <Button
+                            variant="ghost"
+                            isIconOnly
+                            size="md"
+                            onClick={() => onRevoke(item.id)}
+                            title="Hủy duyệt"
+                            className="hover:!bg-red-50"
+                          >
+                            <RotateCcw size={15} className="text-red-500" />
+                          </Button>
+                        )}
+                        {canReject(item) && onReject && (
+                          <Button
+                            variant="ghost"
+                            isIconOnly
+                            size="md"
+                            onClick={() => onReject(item.id)}
+                            title="Từ chối duyệt"
+                            className="hover:!bg-red-50"
+                          >
+                            <XCircle size={15} className="text-red-500" />
+                          </Button>
+                        )}
+                        {canEditOrDelete(item) &&
+                          hasNewsArticlePermission(
+                            hasPermission,
+                            "update",
+                            getNewsScopeBySlug(item.category.slug),
+                          ) && (
+                            <Button
+                              variant="ghost"
+                              isIconOnly
+                              size="md"
+                              onClick={() => onEdit(item.id)}
+                              title="Chỉnh sửa"
+                            >
+                              <Pencil size={15} className="text-gray-500" />
+                            </Button>
+                          )}
+                        {canEditOrDelete(item) &&
+                          hasNewsArticlePermission(
+                            hasPermission,
+                            "delete",
+                            getNewsScopeBySlug(item.category.slug),
+                          ) && (
+                            <Button
+                              variant="ghost"
+                              isIconOnly
+                              size="md"
+                              onClick={() =>
+                                guard(
+                                  `news.articles.${getNewsScopeBySlug(item.category.slug) ?? "all"}.delete`,
+                                  () => onDelete(item.id),
+                                  "Bạn không có quyền xóa bài viết.",
+                                )
+                              }
+                              title="Xoá"
+                              className="hover:!bg-red-50"
+                            >
+                              <Trash2 size={15} className="text-red-500" />
+                            </Button>
+                          )}
                       </div>
                     </td>
                   </tr>
                 ))}
                 {items.length === 0 && (
                   <tr>
-                    <td
-                      colSpan={5}
-                      className="px-5 py-12 text-center text-gray-400"
-                    >
-                      Chưa có bài viết nào. Hãy bấm "Tạo bài viết mới" để thêm.
+                    <td colSpan={7} className="px-5 py-12 text-center text-gray-400">
+                      Chưa có bài viết nào. Hãy bấm &quot;Tạo bài viết mới&quot; để thêm.
                     </td>
                   </tr>
                 )}
@@ -180,19 +305,17 @@ export function NewsManageList({ items, onEdit, onDelete, onAdd }: Props) {
         </div>
       )}
 
-      {/* Card View */}
-      {viewMode === "card" && (
+      {!loading && viewMode === "card" && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {items.map((item) => (
             <div
               key={item.id}
               className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
             >
-              {/* Image */}
               <div className="relative h-44 bg-gray-100 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={item.image || placeholderImg}
+                  src={item.featuredImage?.url || placeholderImg}
                   alt={item.title}
                   className="w-full h-full object-cover"
                 />
@@ -200,32 +323,104 @@ export function NewsManageList({ items, onEdit, onDelete, onAdd }: Props) {
                   className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-md text-white"
                   style={{ backgroundColor: colors.primary.DEFAULT }}
                 >
-                  {CATEGORY_LABELS[item.category] || item.category}
+                  {item.category.name}
+                </span>
+                <span
+                  className="absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-md"
+                  style={{
+                    color: statusConfig[item.status]?.color,
+                    backgroundColor: statusConfig[item.status]?.bg,
+                  }}
+                >
+                  {statusConfig[item.status]?.label}
                 </span>
               </div>
-              {/* Content */}
               <div className="p-5 space-y-3">
-                <h3 className="font-bold text-gray-900 line-clamp-2 leading-snug">
-                  {item.title}
-                </h3>
+                <button
+                  onClick={() => onView(item.id)}
+                  className="text-left w-full group"
+                >
+                  <h3 className="font-bold text-gray-900 group-hover:text-[#C8102E] transition-colors leading-snug">
+                    {item.title}
+                  </h3>
+                </button>
                 <p className="text-sm text-gray-500 line-clamp-2">{item.summary}</p>
                 <div className="flex items-center justify-between pt-2">
-                  <span className="text-xs text-gray-400">{item.date}</span>
+                  <div className="text-xs text-gray-400 space-y-0.5">
+                    <p>{item.author?.name || "—"}</p>
+                    <p>{formatDate(item.publishedAt || item.createdAt)}</p>
+                  </div>
                   <div className="flex items-center gap-1.5">
-                    <button
-                      onClick={() => onEdit(item)}
-                      className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                      title="Chỉnh sửa"
-                    >
-                      <Pencil size={15} className="text-gray-500" />
-                    </button>
-                    <button
-                      onClick={() => onDelete(item.id)}
-                      className="p-2 rounded-lg hover:bg-red-50 transition-colors"
-                      title="Xoá"
-                    >
-                      <Trash2 size={15} className="text-red-500" />
-                    </button>
+                    {canSubmit(item) && onSubmitForReview && (
+                      <button
+                        onClick={() => onSubmitForReview(item.id)}
+                        className="p-2 rounded-lg hover:bg-amber-50 transition-colors"
+                        title="Gửi duyệt"
+                      >
+                        <Send size={15} className="text-amber-600" />
+                      </button>
+                    )}
+                    {item.status === "pending" && canPublish(item) && onPublish && (
+                      <button
+                        onClick={() => onPublish(item.id)}
+                        className="p-2 rounded-lg hover:bg-green-50 transition-colors"
+                        title="Duyệt bài"
+                      >
+                        <CheckCircle size={15} className="text-green-600" />
+                      </button>
+                    )}
+                    {item.status === "published" && canPublish(item) && onRevoke && (
+                      <button
+                        onClick={() => onRevoke(item.id)}
+                        className="p-2 rounded-lg hover:bg-red-50 transition-colors"
+                        title="Hủy duyệt"
+                      >
+                        <RotateCcw size={15} className="text-red-500" />
+                      </button>
+                    )}
+                    {canReject(item) && onReject && (
+                      <button
+                        onClick={() => onReject(item.id)}
+                        className="p-2 rounded-lg hover:bg-red-50 transition-colors"
+                        title="Từ chối duyệt"
+                      >
+                        <XCircle size={15} className="text-red-500" />
+                      </button>
+                    )}
+                    {canEditOrDelete(item) &&
+                      hasNewsArticlePermission(
+                        hasPermission,
+                        "update",
+                        getNewsScopeBySlug(item.category.slug),
+                      ) && (
+                        <button
+                          onClick={() => onEdit(item.id)}
+                          className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                          title="Chỉnh sửa"
+                        >
+                          <Pencil size={15} className="text-gray-500" />
+                        </button>
+                      )}
+                    {canEditOrDelete(item) &&
+                      hasNewsArticlePermission(
+                        hasPermission,
+                        "delete",
+                        getNewsScopeBySlug(item.category.slug),
+                      ) && (
+                        <button
+                          onClick={() =>
+                            guard(
+                              `news.articles.${getNewsScopeBySlug(item.category.slug) ?? "all"}.delete`,
+                              () => onDelete(item.id),
+                              "Bạn không có quyền xóa bài viết.",
+                            )
+                          }
+                          className="p-2 rounded-lg hover:bg-red-50 transition-colors"
+                          title="Xoá"
+                        >
+                          <Trash2 size={15} className="text-red-500" />
+                        </button>
+                      )}
                   </div>
                 </div>
               </div>
@@ -233,10 +428,19 @@ export function NewsManageList({ items, onEdit, onDelete, onAdd }: Props) {
           ))}
           {items.length === 0 && (
             <div className="col-span-full py-12 text-center text-gray-400 bg-white rounded-xl border border-gray-200">
-              Chưa có bài viết nào. Hãy bấm "Tạo bài viết mới" để thêm.
+              Chưa có bài viết nào. Hãy bấm &quot;Tạo bài viết mới&quot; để thêm.
             </div>
           )}
         </div>
+      )}
+
+      {warning.show && (
+        <PopupNotification
+          type="error"
+          message={warning.message}
+          onClose={closeWarning}
+          autoClose={false}
+        />
       )}
     </div>
   );

@@ -8,6 +8,7 @@ import { colors } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import type { NewsArticle } from "@/types/api";
 
 const relatedNews = [
   {
@@ -40,7 +41,25 @@ const socialLinks = [
   { name: "Share", src: "/news/news_share_icon.svg", href: "#" },
 ];
 
-export const NewsDetailPage = memo(function NewsDetailPage() {
+interface NewsDetailPageProps {
+  article: NewsArticle;
+  relatedArticles?: NewsArticle[];
+}
+
+function formatDate(dateString?: string | null) {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  return date.toLocaleDateString("vi-VN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+export const NewsDetailPage = memo(function NewsDetailPage({
+  article,
+  relatedArticles = [],
+}: NewsDetailPageProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const searchRef = useRef<HTMLDivElement>(null);
@@ -97,7 +116,7 @@ export const NewsDetailPage = memo(function NewsDetailPage() {
                   fontWeight: 700,
                 }}
               >
-                Tin Thị Trường
+                {article.category.name}
               </span>
             </div>
 
@@ -256,7 +275,7 @@ export const NewsDetailPage = memo(function NewsDetailPage() {
               lineHeight: 1.3,
             }}
           >
-            Tác động của lãi suất ngân hàng đến thị trường Bất Động Sản 2024
+            {article.title}
           </h1>
 
           {/* Excerpt */}
@@ -268,59 +287,54 @@ export const NewsDetailPage = memo(function NewsDetailPage() {
               lineHeight: 1.6,
             }}
           >
-            Thành lập năm 1971 tại Mỹ, ERA (Electronic Realty Associates) tự hào là một trong những thương hiệu môi giới bất động sản nhượng quyền hàng đầu thế giới, trực thuộc sự điều hành của Compass International Holdings - Công ty môi giới bất động sản nhà ở lớn nhất Hoa Kỳ.
+            {article.summary}
           </p>
 
           {/* Featured Image */}
-          <div className="relative rounded-2xl overflow-hidden mb-8 aspect-video">
-            <Image
-              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80"
-              alt="Featured"
-              fill
-              className="object-cover"
-              sizes="100vw"
-              loading="eager"
-              priority
-            />
-          </div>
+          {article.featuredImage?.url ? (
+            <div className="relative rounded-2xl overflow-hidden mb-8 aspect-video">
+              <Image
+                src={article.featuredImage.url}
+                alt={article.title}
+                fill
+                className="object-cover"
+                sizes="100vw"
+                loading="eager"
+                priority
+              />
+            </div>
+          ) : null}
 
           {/* Body Content */}
           <div
-            className="mb-8"
+            className="mb-8 ck-content"
             style={{
               color: colors.neutral.foreground,
               fontSize: "15px",
               lineHeight: 1.8,
             }}
-          >
-            <p className="mb-4">
-              Khu dịch vụ du lịch sinh thái, nghỉ dưỡng và giải trí tại bán đảo Tha La, hồ Dầu Tiếng đang được mờigọi đầu tư với tổng vốn hơn 18.000 tỷ đồng.
-            </p>
-            <p className="mb-4">
-              UBND xã Dầu Tiếng, TP HCM vừa công bố thông tin mờigọi nhà đầu tư đăng ký thực hiện dự án Khu dịch vụ du lịch sinh thái, nghỉ dưỡng và giải trí tại bán đảo Tha La, hồ Dầu Tiếng. Dự án có quy mô sử dụng đất gần 207 ha, tổng vốn đầu tư dự kiến hơn 18.000 tỷ đồng.
-            </p>
-            <p>
-              Theo định hướng, dự án có khả năng phục vụ khoảng 29.500 lượt khách mỗi ngày, trong đó khách lưu trú hơn 11.000 ngườii. Tiến độ thực hiện kéo dài 14 năm kể từ khi hoàn tất thủ tục lựa chọn nhà đầu tư và ký kết hợp đồng. Toàn bộ dự án dự kiến hoàn thành, nghiệm thu và đưa vào vận hành từ quý IV/2040.
-            </p>
-          </div>
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
 
           {/* Source + Date row */}
-          <div className="flex items-center justify-between mb-10">
+          <div className={`flex items-center mb-10 ${article.source ? "justify-between" : "justify-end"}`}>
+            {article.source ? (
+              <p
+                style={{
+                  color: colors.gray[500],
+                  fontSize: "14px",
+                }}
+              >
+                Trích nguồn: {article.source}
+              </p>
+            ) : null}
             <p
               style={{
                 color: colors.gray[500],
                 fontSize: "14px",
               }}
             >
-              Trích nguồn:.......
-            </p>
-            <p
-              style={{
-                color: colors.gray[500],
-                fontSize: "14px",
-              }}
-            >
-              April 10, 2026
+              {formatDate(article.publishedAt || article.createdAt)}
             </p>
           </div>
 

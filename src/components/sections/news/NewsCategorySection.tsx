@@ -1,0 +1,193 @@
+"use client";
+
+import { memo } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Section } from "@/components/ui/Section";
+import { colors, withOpacity } from "@/lib/theme";
+import { ROUTES } from "@/lib/routes";
+import type { NewsArticle, NewsCategory } from "@/types/api";
+
+interface NewsCategorySectionProps {
+  category: NewsCategory;
+  articles: NewsArticle[];
+  featuredPosition?: "left" | "right";
+  bg?: "white" | "gray";
+}
+
+function formatTimeAgo(dateString?: string | null) {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMinutes = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffMinutes < 1) return "Vừa xong";
+  if (diffMinutes < 60) return `${diffMinutes} phút trước`;
+  if (diffHours < 24) return `${diffHours} giờ trước`;
+  if (diffDays < 7) return `${diffDays} ngày trước`;
+  return date.toLocaleDateString("vi-VN", { day: "numeric", month: "long", year: "numeric" });
+}
+
+function getFirstImageFromContent(content: string): string | null {
+  const match = content.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+  return match?.[1] ?? null;
+}
+
+function getArticleImage(article: NewsArticle): string | null {
+  return article.featuredImage?.url || getFirstImageFromContent(article.content);
+}
+
+export const NewsCategorySection = memo(function NewsCategorySection({
+  category,
+  articles,
+  featuredPosition = "left",
+  bg = "gray",
+}: NewsCategorySectionProps) {
+  if (articles.length === 0) return null;
+
+  const featuredIndex = articles.findIndex((a) => a.isFeatured);
+  const featuredArticle = articles[featuredIndex >= 0 ? featuredIndex : 0];
+  const sideArticles = articles.filter((_, i) => i !== (featuredIndex >= 0 ? featuredIndex : 0)).slice(0, 3);
+
+  const featuredCard = (
+    <div className="lg:col-span-3">
+      <Link
+        href={`${ROUTES.news}/${category.slug}/${featuredArticle.slug}`}
+        className="block"
+      >
+        <div className="relative h-[420px] rounded-2xl overflow-hidden cursor-pointer group transition-transform duration-300 hover:scale-[1.01]">
+          {getArticleImage(featuredArticle) ? (
+            <Image
+              src={getArticleImage(featuredArticle)!}
+              alt={featuredArticle.title}
+              fill
+              className="object-cover"
+              sizes="100vw"
+              loading="lazy"
+            />
+          ) : (
+            <div className="absolute inset-0" style={{ backgroundColor: colors.gray[300] }} />
+          )}
+
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(to top, ${withOpacity(colors.neutral.black, 0.85)} 0%, ${withOpacity(colors.neutral.black, 0.4)} 40%, ${withOpacity(colors.neutral.black, 0.1)} 100%)`,
+            }}
+          />
+
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <div
+              className="inline-flex px-4 py-1.5 rounded-full text-xs font-semibold text-white mb-3"
+              style={{ backgroundColor: colors.primary.DEFAULT }}
+            >
+              TIÊU ĐIỂM
+            </div>
+            <h3
+              className="text-white mb-3 leading-tight"
+              style={{
+                fontWeight: 700,
+                fontSize: "30px",
+              }}
+            >
+              {featuredArticle.title}
+            </h3>
+            <p
+              className="text-white/80 line-clamp-2"
+              style={{
+                fontWeight: 400,
+                fontSize: "16px",
+              }}
+            >
+              {featuredArticle.summary}
+            </p>
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
+
+  const sideList = (
+    <div className="lg:col-span-2 flex flex-col gap-4 h-full">
+      {sideArticles.map((item) => (
+        <Link
+          key={item.id}
+          href={`${ROUTES.news}/${category.slug}/${item.slug}`}
+          className="block"
+        >
+          <article className="flex gap-4 cursor-pointer group bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200 flex-1">
+            <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+              {getArticleImage(item) ? (
+                <Image
+                  src={getArticleImage(item)!}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                  sizes="96px"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="absolute inset-0" style={{ backgroundColor: colors.gray[200] }} />
+              )}
+            </div>
+            <div className="flex-1 py-1">
+              <h3
+                className="mb-2 line-clamp-2 group-hover:text-primary transition-colors"
+                style={{
+                  color: colors.neutral.foreground,
+                  fontWeight: 700,
+                  fontSize: "18px",
+                }}
+              >
+                {item.title}
+              </h3>
+              <p
+                style={{
+                  color: colors.gray[400],
+                  fontWeight: 400,
+                  fontSize: "14px",
+                }}
+              >
+                {formatTimeAgo(item.publishedAt || item.createdAt)} • {item.readTime || "1 phút đọc"}
+              </p>
+            </div>
+          </article>
+        </Link>
+      ))}
+    </div>
+  );
+
+  return (
+    <Section padding="sm" bg={bg}>
+      <div className="flex items-center gap-3 mb-8">
+        <div className="w-1 h-6 rounded-full" style={{ backgroundColor: colors.primary.DEFAULT }} />
+        <h2
+          style={{
+            color: colors.primary.DEFAULT,
+            fontWeight: 700,
+            fontSize: "30px",
+          }}
+        >
+          {category.name}
+        </h2>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        {featuredPosition === "left" ? (
+          <>
+            {featuredCard}
+            {sideList}
+          </>
+        ) : (
+          <>
+            {sideList}
+            {featuredCard}
+          </>
+        )}
+      </div>
+    </Section>
+  );
+});

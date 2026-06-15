@@ -74,9 +74,8 @@ export default function ApplyManagePage() {
   };
 
   return (
-    <main className="min-h-screen" style={{ backgroundColor: colors.gray[50] }}>
-      <Section padding="md" bg="gray">
-        <div className="space-y-8">
+    <Section padding="md" bg="gray">
+      <div className="space-y-8">
           {showForm ? (
             <ApplyManageForm
               initialData={editing ?? undefined}
@@ -91,8 +90,7 @@ export default function ApplyManagePage() {
               onAdd={handleAdd}
             />
           )}
-        </div>
-      </Section>
-    </main>
+      </div>
+    </Section>
   );
 }
