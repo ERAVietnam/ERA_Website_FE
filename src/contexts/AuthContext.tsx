@@ -51,17 +51,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const handlePageshow = (event: PageTransitionEvent) => {
-      if (event.persisted && !isLoading && !account) {
+      if (event.persisted) {
+        const token = getAccessToken();
         const pathname = window.location.pathname;
-        if (pathname.includes("/quan-ly")) {
+        const isProtected = pathname.includes("/quan-ly") || pathname === "/ho-so-ca-nhan" || pathname.startsWith("/ho-so-ca-nhan/");
+
+        if (!token && isProtected) {
           window.location.href = "/dang-nhap";
+        } else {
+          window.location.reload();
         }
       }
     };
 
     window.addEventListener("pageshow", handlePageshow);
     return () => window.removeEventListener("pageshow", handlePageshow);
-  }, [isLoading, account]);
+  }, []);
 
   const login = async (email: string, password: string) => {
     const { account, accessToken, refreshToken } = await authApi.login({ email, password });
@@ -71,10 +76,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
-    await authApi.logout();
+    try {
+      await authApi.logout();
+    } catch {
+      // Ignore logout API errors
+    }
     clearTokens();
     deleteCookie("access_token");
     setAccount(null);
+    window.location.href = "/";
   };
 
   const hasPermission = useCallback(
