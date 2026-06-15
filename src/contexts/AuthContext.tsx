@@ -10,6 +10,8 @@ import {
 } from "react";
 import { authApi } from "@/api/domains/auth";
 import type { Account } from "@/types/api";
+import { setCookie, deleteCookie } from "@/lib/cookies";
+import { setTokens, clearTokens, getAccessToken } from "@/api/interceptors";
 
 interface AuthContextValue {
   account: Account | null;
@@ -27,6 +29,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchMe = useCallback(async () => {
+    const token = getAccessToken();
+    if (!token) {
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const data = await authApi.me();
       setAccount(data);
@@ -56,12 +64,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [isLoading, account]);
 
   const login = async (email: string, password: string) => {
-    const { account } = await authApi.login({ email, password });
+    const { account, accessToken, refreshToken } = await authApi.login({ email, password });
+    setTokens(accessToken, refreshToken);
+    setCookie("access_token", accessToken, 1);
     setAccount(account);
   };
 
   const logout = async () => {
     await authApi.logout();
+    clearTokens();
+    deleteCookie("access_token");
     setAccount(null);
   };
 
