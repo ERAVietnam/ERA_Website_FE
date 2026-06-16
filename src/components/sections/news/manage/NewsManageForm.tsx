@@ -67,6 +67,8 @@ interface FormState {
   source: string;
   metaTitle: string;
   metaDescription: string;
+  isIndexed: boolean;
+  canonicalUrl: string;
   isFeatured: boolean;
 }
 
@@ -81,6 +83,8 @@ function articleToFormState(article?: NewsArticle): FormState {
       source: "",
       metaTitle: "",
       metaDescription: "",
+      isIndexed: true,
+      canonicalUrl: "",
       isFeatured: false,
     };
   }
@@ -93,6 +97,8 @@ function articleToFormState(article?: NewsArticle): FormState {
     source: article.source ?? "",
     metaTitle: article.metaTitle ?? "",
     metaDescription: article.metaDescription ?? "",
+    isIndexed: article.isIndexed ?? true,
+    canonicalUrl: article.canonicalUrl ?? "",
     isFeatured: article.isFeatured,
   };
 }
@@ -178,6 +184,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       source: form.source || null,
       metaTitle: form.metaTitle || null,
       metaDescription: form.metaDescription || null,
+      isIndexed: form.isIndexed,
+      canonicalUrl: form.canonicalUrl || null,
       isFeatured: form.isFeatured,
       categoryId: form.categoryId,
       category,
@@ -441,6 +449,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         source: form.source || undefined,
         metaTitle: form.metaTitle || undefined,
         metaDescription: form.metaDescription || undefined,
+        isIndexed: form.isIndexed,
+        canonicalUrl: form.canonicalUrl || null,
         isFeatured: form.isFeatured,
       };
 
@@ -706,6 +716,40 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                 disabled={isReadOnly}
                 className={`${inputBaseClass} resize-none`}
               />
+            </div>
+
+            {/* Index toggle */}
+            <div id="field-isIndexed">
+              <div className="flex items-center gap-3">
+                <input
+                  id="isIndexed"
+                  type="checkbox"
+                  checked={form.isIndexed}
+                  onChange={(e) => update("isIndexed", e.target.checked)}
+                  disabled={isReadOnly}
+                  className="h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                />
+                <label htmlFor="isIndexed" className="text-sm font-medium text-gray-700 cursor-pointer">
+                  Cho phép Google lập chỉ mục (index)
+                </label>
+              </div>
+            </div>
+
+            {/* Canonical URL */}
+            <div id="field-canonicalUrl">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Canonical URL
+              </label>
+              <input
+                value={form.canonicalUrl}
+                onChange={(e) => update("canonicalUrl", e.target.value)}
+                placeholder="https://era.com.vn/tin-tuc/... (để trống nếu dùng URL mặc định)"
+                disabled={isReadOnly}
+                className={inputBaseClass}
+              />
+              <p className="mt-1 text-xs text-gray-500">
+                Nếu để trống, URL canonical sẽ tự động là URL hiện tại của bài viết.
+              </p>
             </div>
 
             {/* Featured toggle */}

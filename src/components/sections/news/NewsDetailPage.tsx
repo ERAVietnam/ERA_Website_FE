@@ -66,31 +66,6 @@ export const NewsDetailPage = memo(function NewsDetailPage({
     }
   }, [isSearchOpen]);
 
-  useEffect(() => {
-    const contentEl = document.querySelector('.ck-content');
-    if (!contentEl) return;
-
-    const imgs = contentEl.querySelectorAll('img');
-
-    imgs.forEach((img) => {
-      const classify = () => {
-        if (img.naturalWidth > img.naturalHeight) {
-          img.classList.add('ck-img-landscape');
-          img.classList.remove('ck-img-portrait');
-        } else {
-          img.classList.add('ck-img-portrait');
-          img.classList.remove('ck-img-landscape');
-        }
-      };
-
-      if (img.complete && img.naturalWidth > 0) {
-        classify();
-      } else {
-        img.addEventListener('load', classify, { once: true });
-      }
-    });
-  }, [article.content]);
-
   return (
     <main style={{ backgroundColor: colors.gray[50] }}>
       <Container size="full" className="max-w-[800px]">

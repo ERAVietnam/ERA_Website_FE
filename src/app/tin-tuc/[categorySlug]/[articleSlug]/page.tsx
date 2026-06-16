@@ -27,10 +27,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const title = article.metaTitle?.trim() || article.title?.trim() || "ERA Vietnam";
     const description = article.metaDescription?.trim() || article.summary?.trim() || undefined;
     const imageUrl = article.featuredImage?.url || undefined;
+    const siteUrl = "https://era.com.vn";
+    const currentUrl = `${siteUrl}/tin-tuc/${categorySlug}/${articleSlug}/`;
+    const canonicalUrl = article.canonicalUrl?.trim() || currentUrl;
 
     return {
       title,
       description,
+      robots: {
+        index: article.isIndexed !== false,
+      },
+      alternates: {
+        canonical: canonicalUrl,
+      },
       openGraph: {
         title,
         description,

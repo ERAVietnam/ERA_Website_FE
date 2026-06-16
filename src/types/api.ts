@@ -41,6 +41,8 @@ export interface NewsArticle {
   status: 'draft' | 'pending' | 'published';
   metaTitle?: string | null;
   metaDescription?: string | null;
+  isIndexed?: boolean | null;
+  canonicalUrl?: string | null;
   publishedAt?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -57,6 +59,8 @@ export interface CreateArticleInput {
   source?: string;
   metaTitle?: string;
   metaDescription?: string;
+  isIndexed?: boolean;
+  canonicalUrl?: string | null;
   status?: 'draft' | 'pending' | 'published';
   isFeatured?: boolean;
   countryCode?: string;
