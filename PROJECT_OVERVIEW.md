@@ -212,6 +212,47 @@ const nextConfig = {
 
 ---
 
+## 7.2 Backend Integration
+
+### Tech Stack
+| Layer | Công nghệ |
+|-------|-----------|
+| Framework | NestJS 11 |
+| Language | TypeScript 5 |
+| ORM | Prisma 6.6.0 |
+| Database | Supabase PostgreSQL |
+| File Storage | Cloudflare R2 |
+| Deploy | Google Cloud Run |
+| API Client | Axios |
+
+### Auth Flow
+- Login gọi `POST /auth/login` → backend trả về `{ account, accessToken, refreshToken }`
+- Frontend lưu token vào `localStorage`
+- Đồng thờ set cookie non-HttpOnly `access_token` để Next.js middleware đọc được
+- Mỗi API request tự động thêm `Authorization: Bearer <accessToken>` qua axios interceptor
+- Khi access token hết hạn (401), interceptor tự động gọi `POST /auth/refresh` với refresh token
+- Logout xóa localStorage + cookie, redirect về `/`
+
+### API Client
+| File | Mô tả |
+|------|-------|
+| `src/api/client.ts` | Axios instance với `withCredentials: true` |
+| `src/api/interceptors.ts` | Request/response interceptors: thêm Bearer token, refresh token, unwrap response data |
+| `src/api/config.ts` | `BASE_URL` từ `NEXT_PUBLIC_API_URL` |
+| `src/api/domains/*.ts` | API helpers theo module (auth, accounts, news, media) |
+
+### Middleware
+| File | Mô tả |
+|------|-------|
+| `src/proxy.ts` | Next.js middleware bảo vệ routes `/quan-ly` và `/ho-so-ca-nhan`. Đọc cookie `access_token`, redirect về `/` nếu chưa đăng nhập. Set `Cache-Control: no-store` để tránh bfcache. |
+
+### Environment Variables
+| Variable | Mô tả |
+|----------|-------|
+| `NEXT_PUBLIC_API_URL` | Base URL backend, ví dụ `https://era-backend-xxx.asia-southeast1.run.app` |
+
+---
+
 ## 8. Animation Convention
 
 > **Current**: Project đang không dùng animation library. Các section render static.
