@@ -36,6 +36,15 @@ function formatDate(iso: string): string {
   });
 }
 
+function getFirstImageFromContent(content: string): string | null {
+  const match = content.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+  return match?.[1] ?? null;
+}
+
+function getArticleImage(item: NewsArticle): string | null {
+  return item.featuredImage?.url || getFirstImageFromContent(item.content);
+}
+
 export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd, onPublish, onRevoke, onSubmitForReview, onReject }: Props) {
   const { hasPermission, account } = useAuth();
 
@@ -164,7 +173,7 @@ export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd
                         <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 shrink-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src={item.featuredImage?.url || placeholderImg}
+                            src={getArticleImage(item) || placeholderImg}
                             alt={item.title}
                             className="w-full h-full object-cover"
                           />
@@ -310,12 +319,12 @@ export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd
           {items.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+              className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col"
             >
               <div className="relative h-44 bg-gray-100 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={item.featuredImage?.url || placeholderImg}
+                  src={getArticleImage(item) || placeholderImg}
                   alt={item.title}
                   className="w-full h-full object-cover"
                 />
@@ -335,17 +344,17 @@ export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd
                   {statusConfig[item.status]?.label}
                 </span>
               </div>
-              <div className="p-5 space-y-3">
+              <div className="p-5 flex flex-col flex-1">
                 <button
                   onClick={() => onView(item.id)}
                   className="text-left w-full group"
                 >
-                  <h3 className="font-bold text-gray-900 group-hover:text-[#C8102E] transition-colors leading-snug">
+                  <h3 className="font-bold text-gray-900 group-hover:text-[#C8102E] transition-colors leading-snug line-clamp-2 min-h-[2.75rem]">
                     {item.title}
                   </h3>
                 </button>
-                <p className="text-sm text-gray-500 line-clamp-2">{item.summary}</p>
-                <div className="flex items-center justify-between pt-2">
+                <p className="text-sm text-gray-500 line-clamp-2 min-h-[2.75rem] mt-2">{item.summary}</p>
+                <div className="flex items-center justify-between pt-4 mt-auto">
                   <div className="text-xs text-gray-400 space-y-0.5">
                     <p>{item.author?.name || "—"}</p>
                     <p>{formatDate(item.publishedAt || item.createdAt)}</p>

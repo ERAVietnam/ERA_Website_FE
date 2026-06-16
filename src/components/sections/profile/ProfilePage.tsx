@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
-import { User, Loader2, Lock } from "lucide-react";
+import { User, Loader2, Lock, ChevronDown } from "lucide-react";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { useAuth } from "@/contexts/AuthContext";
 import { authApi } from "@/api/domains/auth";
@@ -18,7 +19,9 @@ interface PasswordForm {
 }
 
 export default function ProfilePage() {
+  const router = useRouter();
   const { account } = useAuth();
+  const [isExpanded, setIsExpanded] = useState(false);
   const [form, setForm] = useState<PasswordForm>({
     currentPassword: "",
     newPassword: "",
@@ -73,6 +76,10 @@ export default function ProfilePage() {
         type: "success",
         message: "Đổi mật khẩu thành công!",
       });
+      setIsExpanded(false);
+      setTimeout(() => {
+        router.push("/tin-tuc/quan-ly");
+      }, 1200);
     } catch (err: any) {
       setPopup({
         show: true,
@@ -121,23 +128,36 @@ export default function ProfilePage() {
         </div>
 
         {/* Change password card */}
-        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-          <div className="flex items-center gap-3 mb-6">
-            <div
-              className="p-2 rounded-lg"
-              style={{ backgroundColor: colors.primary.navy.DEFAULT }}
-            >
-              <Lock size={18} className="text-white" />
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+          <button
+            type="button"
+            onClick={() => setIsExpanded((prev) => !prev)}
+            className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className="p-2 rounded-lg"
+                style={{ backgroundColor: colors.primary.navy.DEFAULT }}
+              >
+                <Lock size={18} className="text-white" />
+              </div>
+              <h2
+                className="text-lg font-bold"
+                style={{ color: colors.primary.navy.DEFAULT }}
+              >
+                Đổi mật khẩu
+              </h2>
             </div>
-            <h2
-              className="text-lg font-bold"
-              style={{ color: colors.primary.navy.DEFAULT }}
-            >
-              Đổi mật khẩu
-            </h2>
-          </div>
+            <ChevronDown
+              size={20}
+              className={`text-gray-400 transition-transform duration-200 ${
+                isExpanded ? "rotate-180" : ""
+              }`}
+            />
+          </button>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          {isExpanded && (
+            <form onSubmit={handleSubmit} className="px-6 pb-6 space-y-5">
             <div id="field-currentPassword">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Mật khẩu hiện tại
@@ -210,6 +230,7 @@ export default function ProfilePage() {
               </Button>
             </div>
           </form>
+          )}
         </div>
       </div>
     </Section>
