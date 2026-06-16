@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
-import { Pencil, Trash2, Plus, LayoutGrid, Table as TableIcon, Loader2, Send, CheckCircle, RotateCcw, XCircle } from "lucide-react";
+import { Pencil, Trash2, Plus, LayoutGrid, Table as TableIcon, Loader2, Send, CheckCircle, RotateCcw, XCircle, Eye } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
 import { PopupNotification } from "@/components/ui/PopupNotification";
@@ -21,6 +21,7 @@ interface Props {
   onView: (id: string) => void;
   onDelete: (id: string) => void;
   onAdd: () => void;
+  onPreview?: (id: string) => void;
   onPublish?: (id: string) => void;
   onRevoke?: (id: string) => void;
   onSubmitForReview?: (id: string) => void;
@@ -45,7 +46,7 @@ function getArticleImage(item: NewsArticle): string | null {
   return item.featuredImage?.url || getFirstImageFromContent(item.content);
 }
 
-export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd, onPublish, onRevoke, onSubmitForReview, onReject }: Props) {
+export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd, onPreview, onPublish, onRevoke, onSubmitForReview, onReject }: Props) {
   const { hasPermission, account } = useAuth();
 
   const isSuperAdmin = () => hasPermission("system.super_admin");
@@ -258,6 +259,18 @@ export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd
                             <XCircle size={15} className="text-red-500" />
                           </Button>
                         )}
+                        {onPreview && (
+                          <Button
+                            variant="ghost"
+                            isIconOnly
+                            size="md"
+                            onClick={() => onPreview(item.id)}
+                            title="Xem trước"
+                            className="hover:!bg-blue-50"
+                          >
+                            <Eye size={15} className="text-blue-600" />
+                          </Button>
+                        )}
                         {canEditOrDelete(item) &&
                           hasNewsArticlePermission(
                             hasPermission,
@@ -394,6 +407,15 @@ export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd
                         title="Từ chối duyệt"
                       >
                         <XCircle size={15} className="text-red-500" />
+                      </button>
+                    )}
+                    {onPreview && (
+                      <button
+                        onClick={() => onPreview(item.id)}
+                        className="p-2 rounded-lg hover:bg-blue-50 transition-colors"
+                        title="Xem trước"
+                      >
+                        <Eye size={15} className="text-blue-600" />
                       </button>
                     )}
                     {canEditOrDelete(item) &&

@@ -4,13 +4,14 @@ import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
-import { X, Loader2, History } from "lucide-react";
+import { X, Loader2, History, Eye } from "lucide-react";
 import { newsApi } from "@/api/domains/news";
 import { mediaApi } from "@/api/domains/media";
 import { createArticleSchema } from "@/schemas/news.schema";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
+import { NewsPreviewDialog } from "./NewsPreviewDialog";
 import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
 import { getNewsScopeBySlug } from "@/lib/permissions";
@@ -138,6 +139,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     { type: "save" } | { type: "submit" } | { type: "publish" } | { type: "reject" } | { type: "revoke" } | null
   >(null);
   const [showHistory, setShowHistory] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
 
   const initialForm = useMemo(() => articleToFormState(initialData), [initialData]);
   const initialImagePreview = initialData?.featuredImage?.url || "";
@@ -156,6 +158,38 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   useEffect(() => {
     newsApi.getCategories().then(setCategories).catch(() => setCategories([]));
   }, []);
+
+  const buildPreviewArticle = (): NewsArticle | null => {
+    const category = categories.find((c) => c.id === form.categoryId);
+    if (!category) return null;
+
+    const base = initialData;
+    const featuredImage = imagePreview
+      ? ({ id: "preview", url: imagePreview, storageKey: "preview", filename: "preview", folder: "news" } as const)
+      : base?.featuredImage ?? null;
+
+    return {
+      ...(base ?? ({} as NewsArticle)),
+      id: base?.id ?? "preview",
+      title: form.title,
+      slug: form.slug,
+      summary: form.summary || null,
+      content: form.content,
+      source: form.source || null,
+      metaTitle: form.metaTitle || null,
+      metaDescription: form.metaDescription || null,
+      isFeatured: form.isFeatured,
+      categoryId: form.categoryId,
+      category,
+      featuredImage,
+      author: base?.author ?? (account ? { id: account.id, name: account.name, email: account.email } : null),
+      authorId: base?.authorId ?? account?.id ?? "preview",
+      status: base?.status ?? "draft",
+      viewCount: base?.viewCount ?? 0,
+      createdAt: base?.createdAt ?? new Date().toISOString(),
+      updatedAt: base?.updatedAt ?? new Date().toISOString(),
+    } as NewsArticle;
+  };
 
   const allowedCategories = useMemo(() => {
     if (hasPermission("news.articles.all.create")) return categories;
@@ -893,6 +927,27 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
             </Button>
           )}
 
+          <button
+            type="button"
+            onClick={() => {
+              const article = buildPreviewArticle();
+              if (!article) {
+                setPopup({
+                  show: true,
+                  type: "error",
+                  message: "Vui lòng chọn danh mục trước khi xem trước.",
+                });
+                return;
+              }
+              setShowPreview(true);
+            }}
+            disabled={isLoading}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-blue-600 bg-white px-4 py-2 text-sm font-medium text-blue-600 transition-all duration-200 hover:bg-blue-600 hover:text-white hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <Eye size={16} />
+            Xem trước
+          </button>
+
           <Button
             type="button"
             variant="outline"
@@ -905,6 +960,12 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
           </Button>
         </div>
       </div>
+
+      <NewsPreviewDialog
+        article={buildPreviewArticle()}
+        isOpen={showPreview}
+        onClose={() => setShowPreview(false)}
+      />
     </div>
   );
 }

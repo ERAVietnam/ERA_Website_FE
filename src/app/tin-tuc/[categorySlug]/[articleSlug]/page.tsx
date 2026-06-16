@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { NewsDetailPage } from "@/components/sections/news";
 import { newsApi } from "@/api/domains/news";
 import type { NewsArticle } from "@/types/api";
@@ -15,6 +16,38 @@ export async function generateStaticParams() {
     }));
   } catch {
     return [];
+  }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  try {
+    const { categorySlug, articleSlug } = await params;
+    const article = await newsApi.getArticleBySlug(categorySlug, articleSlug);
+
+    const title = article.metaTitle?.trim() || article.title?.trim() || "ERA Vietnam";
+    const description = article.metaDescription?.trim() || article.summary?.trim() || undefined;
+    const imageUrl = article.featuredImage?.url || undefined;
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        images: imageUrl ? [{ url: imageUrl }] : undefined,
+        type: "article",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+        images: imageUrl ? [imageUrl] : undefined,
+      },
+    };
+  } catch {
+    return {
+      title: "Không tìm thấy bài viết | ERA Vietnam",
+    };
   }
 }
 
