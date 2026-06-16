@@ -66,9 +66,34 @@ export const NewsDetailPage = memo(function NewsDetailPage({
     }
   }, [isSearchOpen]);
 
+  useEffect(() => {
+    const contentEl = document.querySelector('.ck-content');
+    if (!contentEl) return;
+
+    const imgs = contentEl.querySelectorAll('img');
+
+    imgs.forEach((img) => {
+      const classify = () => {
+        if (img.naturalWidth > img.naturalHeight) {
+          img.classList.add('ck-img-landscape');
+          img.classList.remove('ck-img-portrait');
+        } else {
+          img.classList.add('ck-img-portrait');
+          img.classList.remove('ck-img-landscape');
+        }
+      };
+
+      if (img.complete && img.naturalWidth > 0) {
+        classify();
+      } else {
+        img.addEventListener('load', classify, { once: true });
+      }
+    });
+  }, [article.content]);
+
   return (
     <main style={{ backgroundColor: colors.gray[50] }}>
-      <Container>
+      <Container size="full" className="max-w-[800px]">
         <article className="pt-20 md:pt-16 pb-12">
           {!isPreview && (
             /* Breadcrumb + Search */
@@ -256,7 +281,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
 
           {/* Title */}
           <h1
-            className="mb-4"
+            className="mb-4 pt-10"
             style={{
               color: colors.primary.DEFAULT,
               fontWeight: 800,
@@ -281,7 +306,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
 
           {/* Featured Image */}
           {article.featuredImage?.url ? (
-            <div className="relative rounded-2xl overflow-hidden mb-8 aspect-video">
+            <div className="relative overflow-hidden mb-8 aspect-video">
               <Image
                 src={article.featuredImage.url}
                 alt={article.title}
@@ -360,82 +385,83 @@ export const NewsDetailPage = memo(function NewsDetailPage({
                   ))}
                 </div>
               </div>
-
-              {/* Related News */}
-              {relatedArticles.length > 0 && (
-                <div>
-                  <h3
-                    className="mb-6"
-                    style={{
-                      color: colors.primary.navy.DEFAULT,
-                      fontWeight: 900,
-                      fontSize: "28px",
-                    }}
-                  >
-                    Tin tức liên quan
-                  </h3>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {relatedArticles.map((item) => (
-                      <Link
-                        key={item.id}
-                        href={`/tin-tuc/${item.category.slug}/${item.slug}/`}
-                        className="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-transform duration-300 hover:scale-[1.02] block"
-                      >
-                        <div className="relative h-48 overflow-hidden bg-gray-100">
-                          {getArticleImage(item) ? (
-                            <Image
-                              src={getArticleImage(item)!}
-                              alt={item.title}
-                              fill
-                              className="object-cover"
-                              style={{ transition: "transform 0.3s ease" }}
-                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                              loading="lazy"
-                            />
-                          ) : (
-                            <div className="flex h-full w-full items-center justify-center text-gray-400 text-sm">
-                              Không có ảnh
-                            </div>
-                          )}
-                        </div>
-                        <div className="p-5">
-                          <p
-                            className="text-xs mb-2"
-                            style={{
-                              color: colors.gray[400],
-                            }}
-                          >
-                            {formatDate(item.publishedAt || item.createdAt)}
-                          </p>
-                          <h4
-                            className="mb-2 line-clamp-2 group-hover:text-primary transition-colors"
-                            style={{
-                              color: colors.neutral.foreground,
-                              fontWeight: 700,
-                              fontSize: "16px",
-                            }}
-                          >
-                            {item.title}
-                          </h4>
-                          <p
-                            className="text-sm line-clamp-3"
-                            style={{
-                              color: colors.gray[500],
-                            }}
-                          >
-                            {item.summary}
-                          </p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
             </>
           )}
         </article>
       </Container>
+
+      {!isPreview && relatedArticles.length > 0 && (
+        <Container size="full" className="max-w-[1200px]">
+          <div className="pb-12">
+            <h3
+              className="mb-6"
+              style={{
+                color: colors.primary.navy.DEFAULT,
+                fontWeight: 900,
+                fontSize: "28px",
+              }}
+            >
+              Tin tức liên quan
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedArticles.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`/tin-tuc/${item.category.slug}/${item.slug}/`}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-transform duration-300 hover:scale-[1.02] block"
+                >
+                  <div className="relative h-48 overflow-hidden bg-gray-100">
+                    {getArticleImage(item) ? (
+                      <Image
+                        src={getArticleImage(item)!}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                        style={{ transition: "transform 0.3s ease" }}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-gray-400 text-sm">
+                        Không có ảnh
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-5">
+                    <p
+                      className="text-xs mb-2"
+                      style={{
+                        color: colors.gray[400],
+                      }}
+                    >
+                      {formatDate(item.publishedAt || item.createdAt)}
+                    </p>
+                    <h4
+                      className="mb-2 line-clamp-2 group-hover:text-primary transition-colors"
+                      style={{
+                        color: colors.neutral.foreground,
+                        fontWeight: 700,
+                        fontSize: "16px",
+                      }}
+                    >
+                      {item.title}
+                    </h4>
+                    <p
+                      className="text-sm line-clamp-3"
+                      style={{
+                        color: colors.gray[500],
+                      }}
+                    >
+                      {item.summary}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </Container>
+      )}
     </main>
   );
 });

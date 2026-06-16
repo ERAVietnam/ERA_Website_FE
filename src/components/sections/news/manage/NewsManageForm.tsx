@@ -136,7 +136,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   }>({ show: false, type: "success", message: "" });
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
   const [pendingAction, setPendingAction] = useState<
-    { type: "save" } | { type: "submit" } | { type: "publish" } | { type: "reject" } | { type: "revoke" } | null
+    { type: "save" } | { type: "submit" } | { type: "publish" } | { type: "publish_dirty" } | { type: "reject" } | { type: "revoke" } | null
   >(null);
   const [showHistory, setShowHistory] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
@@ -273,6 +273,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const handlePublish = async () => {
     if (!initialData?.id) return;
+    if (isDirty) {
+      setPendingAction({ type: "publish_dirty" });
+      return;
+    }
     if (!pendingAction || pendingAction.type !== "publish") {
       setPendingAction({ type: "publish" });
       return;
@@ -536,6 +540,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               ? "Gửi duyệt bài viết"
               : pendingAction?.type === "publish"
               ? "Duyệt bài viết"
+              : pendingAction?.type === "publish_dirty"
+              ? "Thay đổi chưa được lưu"
               : pendingAction?.type === "reject"
               ? "Từ chối duyệt"
               : pendingAction?.type === "revoke"
@@ -549,6 +555,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               ? "Sau khi gửi duyệt, bài viết sẽ chuyển sang trạng thái chờ duyệt và không thể sửa/xóa nữa."
               : pendingAction?.type === "publish"
               ? "Sau khi duyệt, bài viết sẽ được đăng công khai và không thể sửa/xóa trực tiếp."
+              : pendingAction?.type === "publish_dirty"
+              ? "Bạn có thay đổi chưa lưu. Vui lòng lưu trước khi duyệt bài viết."
               : pendingAction?.type === "reject"
               ? "Bài viết sẽ bị từ chối và chuyển về trạng thái bản nháp."
               : pendingAction?.type === "revoke"
@@ -562,6 +570,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               ? "Gửi duyệt"
               : pendingAction?.type === "publish"
               ? "Duyệt"
+              : pendingAction?.type === "publish_dirty"
+              ? "Đã hiểu"
               : pendingAction?.type === "reject"
               ? "Từ chối"
               : pendingAction?.type === "revoke"
@@ -576,6 +586,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               handleSubmitForReview();
             } else if (pendingAction?.type === "publish") {
               handlePublish();
+            } else if (pendingAction?.type === "publish_dirty") {
+              setPendingAction(null);
             } else if (pendingAction?.type === "reject") {
               handleReject();
             } else if (pendingAction?.type === "revoke") {
