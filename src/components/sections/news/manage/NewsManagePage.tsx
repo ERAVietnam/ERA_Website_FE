@@ -1,16 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Section } from "@/components/ui/Section";
 import { NewsManageList } from "./NewsManageList";
 import { NewsManageForm } from "./NewsManageForm";
 import { NewsPreviewDialog } from "./NewsPreviewDialog";
+import { Pagination } from "@/components/ui/Pagination";
 import { newsApi } from "@/api/domains/news";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
-import type { NewsArticle } from "@/types/api";
+import type { NewsArticle, NewsCategory, PaginationMeta, ArticleFilters } from "@/types/api";
+
+const DEFAULT_LIMIT = 10;
 
 type ActionType = "submit" | "publish" | "reject" | "revoke";
 
@@ -37,14 +40,15 @@ const actionMessages: Record<ActionType, { title: string; message: string; confi
   },
   revoke: {
     title: "Hủy duyệt bài viết",
-    message: "Hủy duyệt sẽ đưa bài viết từ trạng thái đã đăng trở về bản nháp.",
+    message: "Hủy duyệt sẽ đưa bài viết từ trạng thái đã đăng trở về chờ duyệt.",
     confirmLabel: "Hủy duyệt",
   },
 };
 
 export default function NewsManagePage() {
-  const { hasPermission } = useAuth();
+  const { hasPermission, account } = useAuth();
   const [items, setItems] = useState<NewsArticle[]>([]);
+  const [categories, setCategories] = useState<NewsCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<NewsArticle | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -58,19 +62,62 @@ export default function NewsManagePage() {
   const [actionConfirm, setActionConfirm] = useState<ActionConfirm>({ type: null, id: "" });
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [previewArticle, setPreviewArticle] = useState<NewsArticle | null>(null);
+  const [searchInput, setSearchInput] = useState("");
+  const [meta, setMeta] = useState<PaginationMeta>({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
+  const [filters, setFilters] = useState<ArticleFilters>({
+    page: 1,
+    limit: DEFAULT_LIMIT,
+  });
+
+  const fetchItems = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await newsApi.getArticles(filters);
+      setItems(response.items);
+      setMeta(response.meta);
+    } catch {
+      setItems([]);
+      setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
+    } finally {
+      setLoading(false);
+    }
+  }, [filters]);
 
   useEffect(() => {
-    newsApi
-      .getArticles()
-      .then((data) => setItems(data))
-      .catch(() => setItems([]))
-      .finally(() => setLoading(false));
+    fetchItems();
+  }, [fetchItems]);
+
+  useEffect(() => {
+    newsApi.getCategories().then(setCategories).catch(() => setCategories([]));
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFilters((prev) => ({
+        ...prev,
+        search: searchInput.trim() || undefined,
+        page: 1,
+      }));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
   const handleSave = () => {
     setShowForm(false);
     setEditing(null);
-    newsApi.getArticles().then(setItems).catch(() => {});
+    fetchItems();
+  };
+
+  const handleFilterChange = (key: keyof ArticleFilters, value: ArticleFilters[typeof key]) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+      page: 1,
+    }));
+  };
+
+  const handlePageChange = (page: number) => {
+    setFilters((prev) => ({ ...prev, page }));
   };
 
   const handleEdit = async (id: string) => {
@@ -144,7 +191,7 @@ export default function NewsManagePage() {
   };
 
   const refreshItems = () => {
-    newsApi.getArticles().then(setItems).catch(() => {});
+    fetchItems();
   };
 
   const openActionConfirm = (id: string, type: ActionType) => {
@@ -249,19 +296,35 @@ export default function NewsManagePage() {
               onCancel={handleCancel}
             />
           ) : (
-            <NewsManageList
-              items={items}
-              loading={loading || actionLoading !== null}
-              onEdit={handleEdit}
-              onView={handleView}
-              onDelete={handleDelete}
-              onAdd={handleAdd}
-              onPreview={handlePreview}
-              onPublish={(id) => openActionConfirm(id, "publish")}
-              onRevoke={(id) => openActionConfirm(id, "revoke")}
-              onSubmitForReview={(id) => openActionConfirm(id, "submit")}
-              onReject={(id) => openActionConfirm(id, "reject")}
-            />
+            <>
+              <NewsManageList
+                items={items}
+                categories={categories}
+                loading={loading || actionLoading !== null}
+                searchInput={searchInput}
+                filters={filters}
+                meta={meta}
+                currentAccountId={account?.id}
+                onSearchChange={setSearchInput}
+                onFilterChange={handleFilterChange}
+                onPageChange={handlePageChange}
+                onEdit={handleEdit}
+                onView={handleView}
+                onDelete={handleDelete}
+                onAdd={handleAdd}
+                onPreview={handlePreview}
+                onPublish={(id) => openActionConfirm(id, "publish")}
+                onRevoke={(id) => openActionConfirm(id, "revoke")}
+                onSubmitForReview={(id) => openActionConfirm(id, "submit")}
+                onReject={(id) => openActionConfirm(id, "reject")}
+              />
+
+              <Pagination
+                currentPage={meta.page}
+                totalPages={meta.totalPages}
+                onPageChange={handlePageChange}
+              />
+            </>
           )}
 
           <NewsPreviewDialog

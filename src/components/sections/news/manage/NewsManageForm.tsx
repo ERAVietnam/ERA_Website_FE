@@ -552,7 +552,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               : pendingAction?.type === "reject"
               ? "Bài viết sẽ bị từ chối và chuyển về trạng thái bản nháp."
               : pendingAction?.type === "revoke"
-              ? "Hủy duyệt sẽ đưa bài viết từ trạng thái đã đăng trở về bản nháp."
+              ? "Hủy duyệt sẽ đưa bài viết từ trạng thái đã đăng trở về chờ duyệt."
               : ""
           }
           confirmLabel={

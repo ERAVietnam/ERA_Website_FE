@@ -7,6 +7,7 @@ import type {
   CreateArticleInput,
   UpdateArticleInput,
   ArticleFilters,
+  PaginatedResponse,
 } from '@/types/api';
 
 export const newsApi = {
@@ -14,9 +15,9 @@ export const newsApi = {
     apiClient.get<NewsCategory[]>(ENDPOINTS.NEWS.CATEGORIES).then((res) => res.data),
 
   getArticles: (filters?: ArticleFilters) =>
-    apiClient.get<NewsArticle[]>(ENDPOINTS.NEWS.LIST, { params: filters }).then((res) => res.data),
+    apiClient.get<PaginatedResponse<NewsArticle>>(ENDPOINTS.NEWS.LIST, { params: filters }).then((res) => res.data),
 
-  getPublishedArticles: (filters?: Omit<ArticleFilters, 'status'>) =>
+  getPublishedArticles: (filters?: Omit<ArticleFilters, 'status'> & { excludeId?: string; limit?: number }) =>
     apiClient.get<NewsArticle[]>(ENDPOINTS.NEWS.PUBLISHED, { params: filters }).then((res) => res.data),
 
   getArticleById: (id: string) =>

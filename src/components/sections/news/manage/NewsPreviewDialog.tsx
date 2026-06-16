@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { X } from "lucide-react";
+import { X, ExternalLink } from "lucide-react";
 import { NewsDetailPage } from "@/components/sections/news/NewsDetailPage";
 import type { NewsArticle } from "@/types/api";
 
@@ -61,14 +61,28 @@ export function NewsPreviewDialog({ article, isOpen, onClose }: NewsPreviewDialo
             </div>
             <p className="text-xs text-white/80 truncate">{article.title}</p>
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-full bg-white/20 p-2 text-white transition-colors hover:bg-white/30"
-            aria-label="Đóng"
-          >
-            <X size={20} />
-          </button>
+          <div className="flex items-center gap-2 ml-3">
+            {article.status === "published" && (
+              <a
+                href={`/tin-tuc/${article.category.slug}/${article.slug}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-white/30"
+                title="Mở bài viết công khai"
+              >
+                <ExternalLink size={14} />
+                <span className="hidden sm:inline">Xem bài đăng</span>
+              </a>
+            )}
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-full bg-white/20 p-2 text-white transition-colors hover:bg-white/30"
+              aria-label="Đóng"
+            >
+              <X size={20} />
+            </button>
+          </div>
         </div>
         <div className="flex-1 overflow-y-auto">
           <NewsDetailPage article={article} isPreview />

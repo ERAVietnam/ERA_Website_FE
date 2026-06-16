@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
-import { Pencil, Trash2, Plus, LayoutGrid, Table as TableIcon, Loader2, Send, CheckCircle, RotateCcw, XCircle, Eye } from "lucide-react";
+import { Pencil, Trash2, Plus, LayoutGrid, Table as TableIcon, Loader2, Send, CheckCircle, RotateCcw, XCircle, Eye, Search, X } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
 import { PopupNotification } from "@/components/ui/PopupNotification";
@@ -12,11 +12,19 @@ import {
   hasNewsArticlePermission,
   hasAnyNewsArticleCreatePermission,
 } from "@/lib/permissions";
-import type { NewsArticle } from "@/types/api";
+import type { NewsArticle, NewsCategory, PaginationMeta, ArticleFilters } from "@/types/api";
 
 interface Props {
   items: NewsArticle[];
+  categories: NewsCategory[];
   loading?: boolean;
+  searchInput: string;
+  filters: ArticleFilters;
+  meta: PaginationMeta;
+  currentAccountId?: string;
+  onSearchChange: (value: string) => void;
+  onFilterChange: (key: keyof ArticleFilters, value: ArticleFilters[typeof key]) => void;
+  onPageChange: (page: number) => void;
   onEdit: (id: string) => void;
   onView: (id: string) => void;
   onDelete: (id: string) => void;
@@ -46,11 +54,31 @@ function getArticleImage(item: NewsArticle): string | null {
   return item.featuredImage?.url || getFirstImageFromContent(item.content);
 }
 
-export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd, onPreview, onPublish, onRevoke, onSubmitForReview, onReject }: Props) {
-  const { hasPermission, account } = useAuth();
+export function NewsManageList({
+  items,
+  categories,
+  loading,
+  searchInput,
+  filters,
+  meta,
+  currentAccountId,
+  onSearchChange,
+  onFilterChange,
+  onPageChange,
+  onEdit,
+  onView,
+  onDelete,
+  onAdd,
+  onPreview,
+  onPublish,
+  onRevoke,
+  onSubmitForReview,
+  onReject,
+}: Props) {
+  const { hasPermission } = useAuth();
 
   const isSuperAdmin = () => hasPermission("system.super_admin");
-  const isAuthor = (item: NewsArticle) => account?.id === item.authorId || isSuperAdmin();
+  const isAuthor = (item: NewsArticle) => currentAccountId === item.authorId || isSuperAdmin();
   const canManage = (item: NewsArticle) => isSuperAdmin() || isAuthor(item);
   const canPublish = (item: NewsArticle) => {
     if (isSuperAdmin()) return true;
@@ -87,7 +115,9 @@ export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd
             Danh sách tin tức
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            Tổng cộng {items.length} bài viết
+            {meta.total > 0
+              ? `Hiển thị ${items.length} / ${meta.total} bài viết`
+              : "Không có bài viết nào"}
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -140,6 +170,100 @@ export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd
         </div>
       </div>
 
+      {/* Filters */}
+      <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Search */}
+          <div className="relative">
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              value={searchInput}
+              onChange={(e) => onSearchChange(e.target.value)}
+              placeholder="Tìm theo tiêu đề..."
+              className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-3 text-sm text-gray-800 outline-none transition-colors focus:border-gray-400"
+            />
+          </div>
+
+          {/* Author */}
+          <div className="relative">
+            <select
+              value={filters.authorId || ""}
+              onChange={(e) => onFilterChange("authorId", e.target.value || undefined)}
+              className="w-full cursor-pointer appearance-none rounded-lg border border-gray-200 bg-white py-2 pl-3 pr-9 text-sm text-gray-800 outline-none transition-colors focus:border-gray-400"
+            >
+              <option value="">Tất cả tác giả</option>
+              <option value={currentAccountId}>Bài viết của tôi</option>
+            </select>
+            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Category */}
+          <div className="relative">
+            <select
+              value={filters.categoryId || ""}
+              onChange={(e) => onFilterChange("categoryId", e.target.value || undefined)}
+              className="w-full cursor-pointer appearance-none rounded-lg border border-gray-200 bg-white py-2 pl-3 pr-9 text-sm text-gray-800 outline-none transition-colors focus:border-gray-400"
+            >
+              <option value="">Tất cả danh mục</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Status */}
+          <div className="relative">
+            <select
+              value={filters.status || ""}
+              onChange={(e) => onFilterChange("status", e.target.value || undefined)}
+              className="w-full cursor-pointer appearance-none rounded-lg border border-gray-200 bg-white py-2 pl-3 pr-9 text-sm text-gray-800 outline-none transition-colors focus:border-gray-400"
+            >
+              <option value="">Tất cả trạng thái</option>
+              <option value="draft">Bản nháp</option>
+              <option value="pending">Chờ duyệt</option>
+              <option value="published">Đã đăng</option>
+            </select>
+            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-4">
+          <p className="text-xs text-gray-500">
+            Trang {meta.page} / {meta.totalPages || 1}
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              onSearchChange("");
+              onFilterChange("authorId", undefined);
+              onFilterChange("categoryId", undefined);
+              onFilterChange("status", undefined);
+              onPageChange(1);
+            }}
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#C8102E]"
+          >
+            <X size={16} />
+            Xóa bộ lọc
+          </button>
+        </div>
+      </div>
+
       {loading && (
         <div className="flex items-center justify-center py-12">
           <Loader2 size={32} className="animate-spin text-gray-400" />
@@ -152,7 +276,7 @@ export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50/50">
-                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">ID</th>
+                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">STT</th>
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Bài viết</th>
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Danh mục</th>
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Tác giả</th>
@@ -162,13 +286,15 @@ export function NewsManageList({ items, loading, onEdit, onView, onDelete, onAdd
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
-                {items.map((item) => (
+                {items.map((item, index) => (
                   <tr
                     key={item.id}
                     onClick={() => onView(item.id)}
                     className="hover:bg-gray-100 transition-colors cursor-pointer"
                   >
-                    <td className="px-5 py-4 text-gray-500 font-mono">#{item.id.slice(0, 8)}</td>
+                    <td className="px-5 py-4 text-gray-500 font-medium">
+                      {(meta.page - 1) * meta.limit + index + 1}
+                    </td>
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3 text-left w-full">
                         <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 shrink-0">
