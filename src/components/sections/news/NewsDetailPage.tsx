@@ -10,30 +10,6 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import type { NewsArticle } from "@/types/api";
 
-const relatedNews = [
-  {
-    id: 1,
-    date: "15 Tháng 5, 2024",
-    title: "Thị trường Bất động sản Việt Nam 2024: Cơ hội cho ngườimua nhà",
-    excerpt: "Các chính sách mới và lãi suất ổn định đang tạo đà phục hồi mạnh mẽ cho phân khúc căn hộ cao cấp tại TP.HCM...",
-    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80",
-  },
-  {
-    id: 2,
-    date: "10 Tháng 5, 2024",
-    title: "ERA Vietnam tổ chức Lễ vinh danh Chuyên viên xuất sắc Quý 1",
-    excerpt: "Hàng trăm giải thưởng giá trị đã được trao cho những nỗ lực không ngừng nghỉ của đội ngũ chuyên viên trong 3 tháng qua...",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80",
-  },
-  {
-    id: 3,
-    date: "05 Tháng 5, 2024",
-    title: "Cập nhật tính năng mới trên nền tảng My Agency v3.0",
-    excerpt: "Hệ thống giờ đây cho phép chuyên viên tạo tour tham quan ảo 360 độ trực tiếp cho khách hàng từ xa...",
-    image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=80",
-  },
-];
-
 const socialLinks = [
   { name: "Facebook", src: "/shared/fb_icon.svg", href: "#" },
   { name: "Twitter", src: "/shared/x_icon.svg", href: "#" },
@@ -55,6 +31,15 @@ function formatDate(dateString?: string | null) {
     month: "long",
     year: "numeric",
   });
+}
+
+function getFirstImageFromContent(content: string): string | null {
+  const match = content.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+  return match?.[1] ?? null;
+}
+
+function getArticleImage(item: NewsArticle): string | null {
+  return item.featuredImage?.url || getFirstImageFromContent(item.content);
 }
 
 export const NewsDetailPage = memo(function NewsDetailPage({
@@ -377,67 +362,76 @@ export const NewsDetailPage = memo(function NewsDetailPage({
               </div>
 
               {/* Related News */}
-              <div>
-                <h3
-                  className="mb-6"
-                  style={{
-                    color: colors.primary.navy.DEFAULT,
-                    fontWeight: 900,
-                    fontSize: "28px",
-                  }}
-                >
-                  Tin tức liên quan
-                </h3>
+              {relatedArticles.length > 0 && (
+                <div>
+                  <h3
+                    className="mb-6"
+                    style={{
+                      color: colors.primary.navy.DEFAULT,
+                      fontWeight: 900,
+                      fontSize: "28px",
+                    }}
+                  >
+                    Tin tức liên quan
+                  </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {relatedNews.map((item) => (
-                    <article
-                      key={item.id}
-                      className="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-transform duration-300 hover:scale-[1.02]"
-                    >
-                      <div className="relative h-48 overflow-hidden">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          className="object-cover"
-                          style={{ transition: "transform 0.3s ease" }}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className="p-5">
-                        <p
-                          className="text-xs mb-2"
-                          style={{
-                            color: colors.gray[400],
-                          }}
-                        >
-                          {item.date}
-                        </p>
-                        <h4
-                          className="mb-2 line-clamp-2 group-hover:text-primary transition-colors"
-                          style={{
-                            color: colors.neutral.foreground,
-                            fontWeight: 700,
-                            fontSize: "16px",
-                          }}
-                        >
-                          {item.title}
-                        </h4>
-                        <p
-                          className="text-sm line-clamp-3"
-                          style={{
-                            color: colors.gray[500],
-                          }}
-                        >
-                          {item.excerpt}
-                        </p>
-                      </div>
-                    </article>
-                  ))}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {relatedArticles.map((item) => (
+                      <Link
+                        key={item.id}
+                        href={`/tin-tuc/${item.category.slug}/${item.slug}/`}
+                        className="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-transform duration-300 hover:scale-[1.02] block"
+                      >
+                        <div className="relative h-48 overflow-hidden bg-gray-100">
+                          {getArticleImage(item) ? (
+                            <Image
+                              src={getArticleImage(item)!}
+                              alt={item.title}
+                              fill
+                              className="object-cover"
+                              style={{ transition: "transform 0.3s ease" }}
+                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center text-gray-400 text-sm">
+                              Không có ảnh
+                            </div>
+                          )}
+                        </div>
+                        <div className="p-5">
+                          <p
+                            className="text-xs mb-2"
+                            style={{
+                              color: colors.gray[400],
+                            }}
+                          >
+                            {formatDate(item.publishedAt || item.createdAt)}
+                          </p>
+                          <h4
+                            className="mb-2 line-clamp-2 group-hover:text-primary transition-colors"
+                            style={{
+                              color: colors.neutral.foreground,
+                              fontWeight: 700,
+                              fontSize: "16px",
+                            }}
+                          >
+                            {item.title}
+                          </h4>
+                          <p
+                            className="text-sm line-clamp-3"
+                            style={{
+                              color: colors.gray[500],
+                            }}
+                          >
+                            {item.summary}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </>
           )}
         </article>

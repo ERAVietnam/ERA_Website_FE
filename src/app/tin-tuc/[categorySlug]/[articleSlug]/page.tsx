@@ -55,8 +55,18 @@ export default async function NewsDetail({ params }: Props) {
   const { categorySlug, articleSlug } = await params;
 
   try {
-    const article = await newsApi.getArticleBySlug(categorySlug, articleSlug);
-    return <NewsDetailPage article={article} />;
+    const [article, relatedArticles] = await Promise.all([
+      newsApi.getArticleBySlug(categorySlug, articleSlug),
+      newsApi.getPublishedArticles({
+        categorySlug,
+        excludeId: undefined,
+        limit: 3,
+      }).catch(() => [] as NewsArticle[]),
+    ]);
+
+    const filteredRelated = relatedArticles.filter((a) => a.id !== article.id).slice(0, 3);
+
+    return <NewsDetailPage article={article} relatedArticles={filteredRelated} />;
   } catch {
     return (
       <main className="min-h-screen bg-gray-50 flex items-center justify-center">

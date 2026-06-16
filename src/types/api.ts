@@ -77,9 +77,32 @@ export interface NewsArticleLog {
 }
 
 export interface ArticleFilters {
+  search?: string;
+  page?: number;
+  limit?: number;
+  authorId?: string;
+  categoryId?: string;
   categorySlug?: string;
   status?: 'draft' | 'pending' | 'published';
   isFeatured?: boolean;
+  publishedFrom?: string;
+  publishedTo?: string;
+  createdFrom?: string;
+  createdTo?: string;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface PaginationMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface PaginatedResponse<T> {
+  items: T[];
+  meta: PaginationMeta;
 }
 
 export interface Permission {
