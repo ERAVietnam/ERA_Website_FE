@@ -219,19 +219,6 @@ body {
 .ck-content .image_resized img,
 .ck-content figure img,
 .ck-content img {
-  max-width: 100% !important;
-  height: auto !important;
-  display: block !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  border-radius: 0 !important;
-}
-
-/* Landscape images: scale up to fill container width */
-.ck-content .image img.ck-img-landscape,
-.ck-content .image_resized img.ck-img-landscape,
-.ck-content figure img.ck-img-landscape,
-.ck-content img.ck-img-landscape {
   width: 100% !important;
   max-width: 100% !important;
   height: auto !important;
@@ -239,28 +226,4 @@ body {
   margin-left: auto !important;
   margin-right: auto !important;
   border-radius: 0 !important;
-}
-
-/* Portrait/square images: keep natural size, do not scale up,
-   but scale down if larger than container or viewport */
-.ck-content .image img.ck-img-portrait,
-.ck-content .image_resized img.ck-img-portrait,
-.ck-content figure img.ck-img-portrait,
-.ck-content img.ck-img-portrait {
-  width: auto !important;
-  max-width: 100% !important;
-  max-height: 80vh !important;
-  height: auto !important;
-  display: block !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  border-radius: 0 !important;
-}
-
-/* Portrait/square figures shrink to image width so caption aligns with image edge */
-.ck-content figure:has(img.ck-img-portrait),
-.ck-content .image:has(img.ck-img-portrait),
-.ck-content .image_resized:has(img.ck-img-portrait) {
-  width: auto !important;
-  display: table !important;
 }
