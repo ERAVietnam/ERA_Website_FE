@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { NewsManageList } from "./NewsManageList";
 import { NewsManageForm } from "./NewsManageForm";
+import { NewsPreviewDialog } from "./NewsPreviewDialog";
 import { newsApi } from "@/api/domains/news";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -56,6 +57,7 @@ export default function NewsManagePage() {
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({ show: false, id: "" });
   const [actionConfirm, setActionConfirm] = useState<ActionConfirm>({ type: null, id: "" });
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [previewArticle, setPreviewArticle] = useState<NewsArticle | null>(null);
 
   useEffect(() => {
     newsApi
@@ -97,6 +99,19 @@ export default function NewsManagePage() {
         show: true,
         type: "error",
         message: getErrorMessage(err?.status, err?.data, "Không thể tải bài viết. Vui lòng thử lại."),
+      });
+    }
+  };
+
+  const handlePreview = async (id: string) => {
+    try {
+      const article = await newsApi.getArticleById(id);
+      setPreviewArticle(article);
+    } catch (err: any) {
+      setPopup({
+        show: true,
+        type: "error",
+        message: getErrorMessage(err?.status, err?.data, "Không thể tải bài viết để xem trước. Vui lòng thử lại."),
       });
     }
   };
@@ -241,12 +256,19 @@ export default function NewsManagePage() {
               onView={handleView}
               onDelete={handleDelete}
               onAdd={handleAdd}
+              onPreview={handlePreview}
               onPublish={(id) => openActionConfirm(id, "publish")}
               onRevoke={(id) => openActionConfirm(id, "revoke")}
               onSubmitForReview={(id) => openActionConfirm(id, "submit")}
               onReject={(id) => openActionConfirm(id, "reject")}
             />
           )}
+
+          <NewsPreviewDialog
+            article={previewArticle}
+            isOpen={!!previewArticle}
+            onClose={() => setPreviewArticle(null)}
+          />
       </div>
     </Section>
   );

@@ -44,6 +44,7 @@ const socialLinks = [
 interface NewsDetailPageProps {
   article: NewsArticle;
   relatedArticles?: NewsArticle[];
+  isPreview?: boolean;
 }
 
 function formatDate(dateString?: string | null) {
@@ -59,6 +60,7 @@ function formatDate(dateString?: string | null) {
 export const NewsDetailPage = memo(function NewsDetailPage({
   article,
   relatedArticles = [],
+  isPreview = false,
 }: NewsDetailPageProps) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -338,100 +340,104 @@ export const NewsDetailPage = memo(function NewsDetailPage({
             </p>
           </div>
 
-          {/* Share Section */}
-          <div className="mb-10">
-            <h4
-              className="mb-3"
-              style={{
-                color: colors.neutral.foreground,
-                fontWeight: 700,
-                fontSize: "16px",
-              }}
-            >
-              Chia sẻ
-            </h4>
-            <div className="flex items-center gap-3">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  aria-label={link.name}
-                  className="flex items-center justify-center transition-opacity hover:opacity-80"
+          {!isPreview && (
+            <>
+              {/* Share Section */}
+              <div className="mb-10">
+                <h4
+                  className="mb-3"
+                  style={{
+                    color: colors.neutral.foreground,
+                    fontWeight: 700,
+                    fontSize: "16px",
+                  }}
                 >
-                  <Image
-                    src={link.src}
-                    alt={link.name}
-                    width={36}
-                    height={36}
-                    className="w-9 h-9"
-                  />
-                </a>
-              ))}
-            </div>
-          </div>
+                  Chia sẻ
+                </h4>
+                <div className="flex items-center gap-3">
+                  {socialLinks.map((link) => (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      aria-label={link.name}
+                      className="flex items-center justify-center transition-opacity hover:opacity-80"
+                    >
+                      <Image
+                        src={link.src}
+                        alt={link.name}
+                        width={36}
+                        height={36}
+                        className="w-9 h-9"
+                      />
+                    </a>
+                  ))}
+                </div>
+              </div>
 
-          {/* Related News */}
-          <div>
-            <h3
-              className="mb-6"
-              style={{
-                color: colors.primary.navy.DEFAULT,
-                fontWeight: 900,
-                fontSize: "28px",
-              }}
-            >
-              Tin tức liên quan
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedNews.map((item) => (
-                <article
-                  key={item.id}
-                  className="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-transform duration-300 hover:scale-[1.02]"
+              {/* Related News */}
+              <div>
+                <h3
+                  className="mb-6"
+                  style={{
+                    color: colors.primary.navy.DEFAULT,
+                    fontWeight: 900,
+                    fontSize: "28px",
+                  }}
                 >
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover"
-                      style={{ transition: "transform 0.3s ease" }}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-5">
-                    <p
-                      className="text-xs mb-2"
-                      style={{
-                        color: colors.gray[400],
-                      }}
+                  Tin tức liên quan
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {relatedNews.map((item) => (
+                    <article
+                      key={item.id}
+                      className="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-transform duration-300 hover:scale-[1.02]"
                     >
-                      {item.date}
-                    </p>
-                    <h4
-                      className="mb-2 line-clamp-2 group-hover:text-primary transition-colors"
-                      style={{
-                        color: colors.neutral.foreground,
-                        fontWeight: 700,
-                        fontSize: "16px",
-                      }}
-                    >
-                      {item.title}
-                    </h4>
-                    <p
-                      className="text-sm line-clamp-3"
-                      style={{
-                        color: colors.gray[500],
-                      }}
-                    >
-                      {item.excerpt}
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
+                      <div className="relative h-48 overflow-hidden">
+                        <Image
+                          src={item.image}
+                          alt={item.title}
+                          fill
+                          className="object-cover"
+                          style={{ transition: "transform 0.3s ease" }}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="p-5">
+                        <p
+                          className="text-xs mb-2"
+                          style={{
+                            color: colors.gray[400],
+                          }}
+                        >
+                          {item.date}
+                        </p>
+                        <h4
+                          className="mb-2 line-clamp-2 group-hover:text-primary transition-colors"
+                          style={{
+                            color: colors.neutral.foreground,
+                            fontWeight: 700,
+                            fontSize: "16px",
+                          }}
+                        >
+                          {item.title}
+                        </h4>
+                        <p
+                          className="text-sm line-clamp-3"
+                          style={{
+                            color: colors.gray[500],
+                          }}
+                        >
+                          {item.excerpt}
+                        </p>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
         </article>
       </Container>
     </main>
