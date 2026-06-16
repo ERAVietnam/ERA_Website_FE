@@ -250,6 +250,7 @@ const nextConfig = {
 | Variable | Mô tả |
 |----------|-------|
 | `NEXT_PUBLIC_API_URL` | Base URL backend, ví dụ `https://era-backend-xxx.asia-southeast1.run.app` |
+| `REVALIDATE_SECRET` | Secret dùng để xác thực webhook revalidate từ BE |
 
 ---
 
