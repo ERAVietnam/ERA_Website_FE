@@ -58,7 +58,8 @@ export function setupInterceptors(instance: AxiosInstance) {
         const refreshToken = getRefreshToken();
         if (!refreshToken) {
           clearTokens();
-          return Promise.reject(error);
+          const apiError = error.response?.data ?? { status: 'error.unknown', data: null };
+          return Promise.reject(apiError);
         }
 
         if (!isRefreshing) {
