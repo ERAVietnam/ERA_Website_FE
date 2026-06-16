@@ -40,12 +40,12 @@ export function NewsPreviewDialog({ article, isOpen, onClose }: NewsPreviewDialo
   if (!isOpen || !article) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/60 p-4 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 sm:p-8 overflow-hidden">
       <div
         ref={dialogRef}
-        className="relative w-full max-w-5xl rounded-2xl bg-white shadow-2xl my-6"
+        className="relative flex flex-col w-full max-w-5xl max-h-[calc(100vh-2rem)] sm:max-h-[calc(100vh-4rem)] rounded-2xl bg-white shadow-2xl overflow-hidden"
       >
-        <div className="sticky top-0 z-10 flex items-center justify-between rounded-t-2xl bg-gradient-to-r from-[#C8102E] to-[#9A0B22] px-5 py-3">
+        <div className="flex-shrink-0 z-10 flex items-center justify-between rounded-t-2xl bg-gradient-to-r from-[#C8102E] to-[#9A0B22] px-5 py-3">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-base font-bold text-white">Xem trước bài viết</h3>
@@ -70,7 +70,7 @@ export function NewsPreviewDialog({ article, isOpen, onClose }: NewsPreviewDialo
             <X size={20} />
           </button>
         </div>
-        <div className="overflow-hidden rounded-b-2xl">
+        <div className="flex-1 overflow-y-auto">
           <NewsDetailPage article={article} isPreview />
         </div>
       </div>

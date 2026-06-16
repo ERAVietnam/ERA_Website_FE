@@ -85,11 +85,12 @@ export const NewsDetailPage = memo(function NewsDetailPage({
     <main style={{ backgroundColor: colors.gray[50] }}>
       <Container>
         <article className="pt-20 md:pt-16 pb-12">
-          {/* Breadcrumb + Search */}
-          <div
-            ref={searchRef}
-            className="mb-4 flex items-center justify-between gap-3"
-          >
+          {!isPreview && (
+            /* Breadcrumb + Search */
+            <div
+              ref={searchRef}
+              className="mb-4 flex items-center justify-between gap-3"
+            >
             {/* Breadcrumb text — hidden on mobile only when search open */}
             <div
               className={cn(
@@ -266,6 +267,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
               </svg>
             </button>
           </div>
+          )}
 
           {/* Title */}
           <h1
