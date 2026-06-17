@@ -31,4 +31,15 @@ export const ENDPOINTS = {
     PERMISSIONS: '/accounts/permissions',
     ASSIGN_PERMISSIONS: (id: string) => `/accounts/${id}/permissions`,
   },
+  RECRUITMENT: {
+    LIST: '/recruitment/jobs',
+    PUBLISHED: '/recruitment/jobs/published',
+    DETAIL: (id: string) => `/recruitment/jobs/${id}`,
+    DETAIL_BY_SLUG: (slug: string) => `/recruitment/jobs/by-slug/${slug}`,
+    CREATE: '/recruitment/jobs',
+    UPDATE: (id: string) => `/recruitment/jobs/${id}`,
+    DELETE: (id: string) => `/recruitment/jobs/${id}`,
+    STATUS: (id: string) => `/recruitment/jobs/${id}/status`,
+    LOGS: (id: string) => `/recruitment/jobs/${id}/logs`,
+  },
 } as const;
