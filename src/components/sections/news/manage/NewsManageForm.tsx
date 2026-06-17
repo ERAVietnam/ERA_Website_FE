@@ -356,9 +356,11 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     }
   };
 
-  function base64ToFile(base64: string, filename: string): File {
+  function base64ToFile(base64: string, baseFilename: string): File {
     const arr = base64.split(",");
     const mime = arr[0].match(/:(.*?);/)?.[1] || "image/png";
+    const ext = mime.split("/")[1] || "png";
+    const filename = `${baseFilename}.${ext}`;
     const bstr = atob(arr[1]);
     let n = bstr.length;
     const u8arr = new Uint8Array(n);
@@ -378,7 +380,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     for (let i = 0; i < images.length; i++) {
       const img = images[i];
       const base64 = img.getAttribute("src")!;
-      const file = base64ToFile(base64, `content-img-${Date.now()}-${i}.png`);
+      const file = base64ToFile(base64, `content-img-${Date.now()}-${i}`);
       const compressedFile = await compressImage(file, {
         maxSizeMB: 1,
         maxWidthOrHeight: 1600,
