@@ -8,6 +8,9 @@ export interface CompressImageOptions {
 /**
  * Nén/resize ảnh ở client-side trước khi upload.
  * Nếu file đã nhỏ hơn giới hạn hoặc nén thất bại, trả về file gốc.
+ *
+ * Lưu ý: Luôn giữ đúng MIME type và extension của output đã nén,
+ * tránh trường hợp bytes là JPEG nhưng header bị ghi nhầm PNG.
  */
 export async function compressImage(
   file: File,
@@ -29,13 +32,13 @@ export async function compressImage(
       initialQuality: 0.85,
     });
 
-    // Đảm bảo trả về File để tương thích với FormData
-    if (compressed instanceof File) {
-      return compressed;
-    }
+    const outputType = compressed.type || file.type;
+    const ext = outputType.split("/")[1] || "jpeg";
+    const baseName = file.name.replace(/\.[^.]+$/, "") || "image";
+    const outputName = `${baseName}.${ext}`;
 
-    return new File([compressed], file.name, {
-      type: file.type,
+    return new File([compressed], outputName, {
+      type: outputType,
       lastModified: Date.now(),
     });
   } catch (error) {
