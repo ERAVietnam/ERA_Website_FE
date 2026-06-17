@@ -11,6 +11,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-react": "^11.1.2",
     "axios": "^1.17.0",
+    "browser-image-compression": "^2.0.2",
     "ckeditor5": "^48.1.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
