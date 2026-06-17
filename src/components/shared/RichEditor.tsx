@@ -18,6 +18,8 @@ import {
   ImageTextAlternative,
   Heading,
   FontColor,
+  Indent,
+  IndentBlock,
   WordCount,
   Undo,
 } from "ckeditor5";
@@ -60,6 +62,31 @@ function CustomUploadAdapterPlugin(editor: any) {
   }
 }
 
+const baseFontColorConfig = {
+  colors: [
+    { color: colors.neutral.black, label: "Đen" },
+    { color: colors.gray[500], label: "Xám" },
+    { color: colors.primary.DEFAULT, label: "Đỏ" },
+    { color: colors.primary.navy.DEFAULT, label: "Navy" },
+    { color: colors.secondary.DEFAULT, label: "Xanh dương" },
+    { color: colors.tertiary.orange.DEFAULT, label: "Cam" },
+    { color: colors.tertiary.purple.DEFAULT, label: "Tím" },
+  ],
+  columns: 7,
+};
+
+const baseHeadingConfig = {
+  options: [
+    { model: "paragraph", title: "Paragraph", class: "ck-heading_paragraph" },
+    { model: "heading1", view: "h1", title: "H1", class: "ck-heading_heading1" },
+    { model: "heading2", view: "h2", title: "H2", class: "ck-heading_heading2" },
+    { model: "heading3", view: "h3", title: "H3", class: "ck-heading_heading3" },
+    { model: "heading4", view: "h4", title: "H4", class: "ck-heading_heading4" },
+    { model: "heading5", view: "h5", title: "H5", class: "ck-heading_heading5" },
+    { model: "heading6", view: "h6", title: "H6", class: "ck-heading_heading6" },
+  ] as any,
+};
+
 class CustomEditor extends ClassicEditor {
   static builtinPlugins = [
     Essentials,
@@ -75,6 +102,8 @@ class CustomEditor extends ClassicEditor {
     ImageTextAlternative,
     Heading,
     FontColor,
+    Indent,
+    IndentBlock,
     WordCount,
     Undo,
     CustomUploadAdapterPlugin,
@@ -94,34 +123,14 @@ class CustomEditor extends ClassicEditor {
       "|",
       "bulletedList",
       "numberedList",
+      "indent",
+      "outdent",
       "|",
       "undo",
       "redo",
     ],
-    fontColor: {
-      colors: [
-        { color: colors.neutral.black, label: "Đen" },
-        { color: colors.gray[500], label: "Xám" },
-        { color: colors.primary.DEFAULT, label: "Đỏ" },
-        { color: colors.primary.navy.DEFAULT, label: "Navy" },
-        { color: colors.secondary.DEFAULT, label: "Xanh dương" },
-        { color: colors.tertiary.orange.DEFAULT, label: "Cam" },
-        { color: colors.tertiary.purple.DEFAULT, label: "Tím" },
-      ],
-      columns: 7,
-    },
-
-    heading: {
-      options: [
-        { model: "paragraph", title: "Paragraph", class: "ck-heading_paragraph" },
-        { model: "heading1", view: "h1", title: "H1", class: "ck-heading_heading1" },
-        { model: "heading2", view: "h2", title: "H2", class: "ck-heading_heading2" },
-        { model: "heading3", view: "h3", title: "H3", class: "ck-heading_heading3" },
-        { model: "heading4", view: "h4", title: "H4", class: "ck-heading_heading4" },
-        { model: "heading5", view: "h5", title: "H5", class: "ck-heading_heading5" },
-        { model: "heading6", view: "h6", title: "H6", class: "ck-heading_heading6" },
-      ] as any,
-    },
+    fontColor: baseFontColorConfig,
+    heading: baseHeadingConfig,
     image: {
       toolbar: [
         "imageTextAlternative",
@@ -131,14 +140,58 @@ class CustomEditor extends ClassicEditor {
   } as any;
 }
 
+class PlainEditor extends ClassicEditor {
+  static builtinPlugins = [
+    Essentials,
+    Paragraph,
+    Bold,
+    Italic,
+    Link,
+    List,
+    Heading,
+    FontColor,
+    Indent,
+    IndentBlock,
+    WordCount,
+    Undo,
+  ] as any;
+
+  static defaultConfig = {
+    licenseKey: "GPL",
+    toolbar: [
+      "heading",
+      "|",
+      "bold",
+      "italic",
+      "fontColor",
+      "|",
+      "link",
+      "|",
+      "bulletedList",
+      "numberedList",
+      "indent",
+      "outdent",
+      "|",
+      "undo",
+      "redo",
+    ],
+    fontColor: baseFontColorConfig,
+    heading: baseHeadingConfig,
+  } as any;
+}
+
 export default function RichEditor({
   value,
   onChange,
   disabled = false,
+  disableImage = false,
+  disableFontColor = false,
 }: {
   value: string;
   onChange: (val: string) => void;
   disabled?: boolean;
+  disableImage?: boolean;
+  disableFontColor?: boolean;
 }) {
   const wordCountRef = useRef<HTMLDivElement>(null);
 
@@ -149,9 +202,9 @@ export default function RichEditor({
       style.id = styleId;
       style.textContent = `
         .ck-editor__editable_inline {
-          min-height: 400px !important;
-          max-height: 400px !important;
-          overflow-y: auto !important;
+          min-height: 300px !important;
+          height: auto !important;
+          overflow-y: visible !important;
         }
         .ck-content h1 { font-size: 36px; font-weight: 700; line-height: 1.2; }
         .ck-content h2 { font-size: 30px; font-weight: 700; line-height: 1.2; }
@@ -167,12 +220,32 @@ export default function RichEditor({
     }
   }, []);
 
+  const toolbarItems = [
+    "heading",
+    "|",
+    "bold",
+    "italic",
+    ...(disableFontColor ? [] : ["fontColor"]),
+    "|",
+    "link",
+    ...(disableImage ? [] : ["imageUpload"]),
+    "|",
+    "bulletedList",
+    "numberedList",
+    "indent",
+    "outdent",
+    "|",
+    "undo",
+    "redo",
+  ];
+
   return (
     <div>
       <CKEditor
-        editor={CustomEditor as never}
+        editor={(disableImage ? PlainEditor : CustomEditor) as never}
         data={value}
         disabled={disabled}
+        config={{ toolbar: toolbarItems }}
         onChange={(_event, editor) => {
           onChange(editor.getData());
         }}

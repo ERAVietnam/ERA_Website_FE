@@ -743,12 +743,12 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               <input
                 value={form.canonicalUrl}
                 onChange={(e) => update("canonicalUrl", e.target.value)}
-                placeholder="https://era.com.vn/tin-tuc/... (để trống nếu dùng URL mặc định)"
+                placeholder="https://era.com.vn/tin-tuc/... (để trống nếu không dùng canonical URL)"
                 disabled={isReadOnly}
                 className={inputBaseClass}
               />
               <p className="mt-1 text-xs text-gray-500">
-                Nếu để trống, URL canonical sẽ tự động là URL hiện tại của bài viết.
+                Nếu để trống, bài viết sẽ không có canonical URL.
               </p>
             </div>
 

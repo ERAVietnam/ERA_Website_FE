@@ -156,3 +156,77 @@ export interface UpdateAccountInput {
 export interface AssignPermissionsInput {
   permissionIds: string[];
 }
+
+export type JobStatus = 'draft' | 'open' | 'closed';
+
+export interface JobPosting {
+  id: string;
+  authorId: string;
+  title: string;
+  slug: string;
+  location: string;
+  type: string;
+  workMode?: string | null;
+  experience?: string | null;
+  salary?: string | null;
+  salaryHourly?: string | null;
+  salaryType?: '' | 'competitive' | 'negotiable' | null;
+  workingTime?: string | null;
+  quantity: number;
+  deadline?: string | null;
+  status: JobStatus;
+  description: string;
+  requirements: string;
+  benefits: string;
+  publishedAt?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  author: { id: string; name: string; email: string } | null;
+}
+
+export interface CreateJobInput {
+  title: string;
+  slug: string;
+  location: string;
+  type: string;
+  workMode?: string;
+  experience?: string;
+  salary?: string;
+  salaryHourly?: string;
+  salaryType?: '' | 'competitive' | 'negotiable';
+  workingTime?: string;
+  quantity?: number;
+  deadline?: string;
+  description: string;
+  requirements: string;
+  benefits: string;
+}
+
+export type UpdateJobInput = Partial<CreateJobInput>;
+
+export interface JobFilters {
+  search?: string;
+  page?: number;
+  limit?: number;
+  authorId?: string;
+  status?: JobStatus;
+  location?: string;
+  publishedFrom?: string;
+  publishedTo?: string;
+  createdFrom?: string;
+  createdTo?: string;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+}
+
+export interface JobPostingLog {
+  id: string;
+  jobId: string;
+  actorId: string;
+  actor: { id: string; name: string; email: string };
+  eventType: 'created' | 'published' | 'unpublished' | 'closed' | 'updated';
+  fromStatus: JobStatus | null;
+  toStatus: JobStatus | null;
+  note?: string | null;
+  createdAt: string;
+}

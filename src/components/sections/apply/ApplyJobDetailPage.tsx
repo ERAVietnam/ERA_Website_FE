@@ -6,148 +6,230 @@ import Image from "next/image";
 import { colors } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
 import { Button } from "@/components/ui/Button";
-import { MapPin, Briefcase, CircleCheck, GraduationCap, Users, Gift, ArrowRight, Upload, ChevronDown } from "lucide-react";
+import {
+  MapPin,
+  Briefcase,
+  Clock,
+  Users,
+  Monitor,
+  CalendarDays,
+  Award,
+  GraduationCap,
+  Users2,
+  Gift,
+  ArrowRight,
+  Upload,
+  ChevronDown,
+} from "lucide-react";
+import type { JobFormData } from "./manage/ApplyManageForm";
+import type { JobPosting } from "@/types/api";
 
-const description = [
-  "Nghiên cứu thị trường và khách hàng để xây dựng chiến lược bán hàng phù hợp cho dự án đang triển khai; thiết lập thông điệp cốt lõi và lộ trình Marketing theo từng giai đoạn.",
-  "Xây dựng bộ Sales Kit, POSM và các tài liệu chiến lược; đảm bảo tính nhất quán của thông điệp trên mọi kênh truyền thông.",
-  "Làm việc trực tiếp với Media, Digital và các bộ phận khác để triển khai các chiến dịch Activation/Site tour nhằm hỗ trợ Agent tối đa.",
-  "Giám sát tính chính xác tuyệt đối của thông tin dự án qua các ấn phẩm, hoạt động; nhận diện các rủi ro truyền thông có thể phát sinh.",
-];
+type JobDetail = JobPosting | JobFormData | undefined;
 
-const requirements = [
-  "Đại học chuyên ngành Marketing, Quản trị kinh doanh, Truyền thông, Các lĩnh vực liên quan.",
-  "Ưu tiên ứng viên đã có kinh nghiệm làm việc lĩnh vực Bất động sản.",
-  "Tư duy chủ động trong công việc, logic; có khả năng làm việc theo nhóm và độc lập.",
-  "Sử dụng thành thạo các công cụ và trình bày (Excel, PowerPoint, Keynote...).",
-];
+function formatSalaryLabel(job?: JobDetail): string {
+  if (!job) return "Thỏa thuận";
+  if (job.salaryType === "competitive") return "Cạnh tranh";
+  if (job.salaryType === "negotiable") return "Thỏa thuận";
+  if (job.salary?.trim()) return `${job.salary.trim()} triệu VND`;
+  if (job.salaryHourly?.trim()) return `${job.salaryHourly.trim()} K VND / giờ`;
+  return "Thỏa thuận";
+}
 
-const benefits = [
-  { Icon: GraduationCap, title: "ERA Academy", desc: "Tiếp cận các khóa đào tạo chuẩn quốc tế từ ERA Real Estate (Mỹ), nâng tầm kỹ năng chuyên môn mỗi tháng." },
-  { Icon: Users, title: "Văn Hóa Chia Sẻ", desc: "Môi trường làm việc năng động, lộ trình thăng tiến rõ ràng lên các vị trí Senior hoặc Lead trong vòng 1-2 năm." },
-  { Icon: Gift, title: "Chế Độ Hấp Dẫn", desc: "Thưởng dự án vượt KPI, du lịch hằng năm cùng team và bảo hiểm sức khỏe cao cấp." },
-];
+function formatDeadline(dateStr?: string | null): string | null {
+  if (!dateStr) return null;
+  const d = new Date(dateStr);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleDateString("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+}
 
-const otherJobs = [
-  { title: "Quản Lý Nhóm Kinh Doanh", location: "TP. HCM", type: "Toàn thờі gian" },
-  { title: "Chuyên Viên Tư Vấn BĐS", location: "Đà Nẵng", type: "Toàn thờі gian" },
-  { title: "Thực Tập Sinh Thiết Kế", location: "TP. HCM", type: "Thực tập" },
-  { title: "Thực Tập Sinh Thiết Kế", location: "TP. HCM", type: "Thực tập" },
-  { title: "Thực Tập Sinh Thiết Kế", location: "TP. HCM", type: "Thực tập" },
-];
+interface ApplyJobDetailPageProps {
+  job?: JobDetail;
+  otherJobs?: JobPosting[];
+  isPreview?: boolean;
+  defaultPosition?: string;
+  availablePositions?: string[];
+}
 
-export function ApplyJobDetailPage() {
+export function ApplyJobDetailPage({
+  job,
+  otherJobs = [],
+  isPreview = false,
+  defaultPosition,
+  availablePositions,
+}: ApplyJobDetailPageProps) {
+  const title = job?.title || "Tin tuyển dụng";
+  const location = job?.location || "—";
+  const type = job?.type || "—";
+  const workMode = job?.workMode;
+  const experience = job?.experience;
+  const salaryLabel = formatSalaryLabel(job);
+  const deadlineLabel = formatDeadline(job?.deadline);
+  const quantity = job?.quantity;
+
+  const hasDescriptionHtml = !!job?.description && job.description.trim().length > 0;
+  const hasRequirementsHtml = !!job?.requirements && job.requirements.trim().length > 0;
+  const hasBenefitsHtml = !!job?.benefits && job.benefits.trim().length > 0;
+  const hasWorkingTimeHtml = !!job?.workingTime && job.workingTime.trim().length > 0;
+
   return (
     <main className="min-h-screen bg-white pt-16 md:pt-0">
       {/* Breadcrumb */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-2">
-        <div className="flex items-center gap-2 text-sm">
-          <Link href={ROUTES.home} className="text-gray-500 hover:text-gray-700 transition-colors flex-shrink-0">Trang chủ</Link>
-          <span className="text-gray-400 flex-shrink-0">/</span>
-          <Link href={ROUTES.join} className="text-gray-500 hover:text-gray-700 transition-colors flex-shrink-0">Join team ERA</Link>
-          <span className="text-gray-400 flex-shrink-0">/</span>
-          <span className="truncate font-bold" style={{ color: colors.primary.DEFAULT, fontSize: "14px" }}>Chuyên Viên Marketing Dự Án</span>
+      {!isPreview && (
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-2">
+          <div className="flex items-center gap-2 text-sm">
+            <Link href={ROUTES.home} className="text-gray-500 hover:text-gray-700 transition-colors flex-shrink-0">Trang chủ</Link>
+            <span className="text-gray-400 flex-shrink-0">/</span>
+            <Link href={ROUTES.join} className="text-gray-500 hover:text-gray-700 transition-colors flex-shrink-0">Join team ERA</Link>
+            <span className="text-gray-400 flex-shrink-0">/</span>
+            <span className="truncate font-bold" style={{ color: colors.primary.DEFAULT, fontSize: "14px" }}>{title}</span>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Header */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+      <div className={`max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-8 ${isPreview ? "pt-10 md:pt-14" : ""}`}>
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-          <div>
-            <h1 className="mb-3" style={{ color: colors.primary.DEFAULT, fontWeight: 900, fontSize: "clamp(26px, 3.5vw, 40px)", lineHeight: 1.2 }}>
-              Chuyên Viên Marketing Dự Án
+          <div className="flex-1 min-w-0 max-w-2xl">
+            <h1 className="mb-4" style={{ color: colors.primary.DEFAULT, fontWeight: 900, fontSize: "clamp(26px, 3.5vw, 40px)", lineHeight: 1.2 }}>
+              {title}
             </h1>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-              <span className="flex items-center gap-1.5">
-                <MapPin size={15} style={{ color: colors.primary.DEFAULT }} /> TP. HCM
+            <div className="flex flex-wrap items-center gap-3 text-sm">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 text-gray-600 border border-gray-100">
+                <MapPin size={14} style={{ color: colors.primary.DEFAULT }} />
+                {location}
               </span>
-              <span className="flex items-center gap-1.5">
-                <Briefcase size={15} style={{ color: colors.primary.DEFAULT }} /> Cạnh tranh
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 text-gray-600 border border-gray-100">
+                <Briefcase size={14} style={{ color: colors.primary.DEFAULT }} />
+                {type}
               </span>
+              {workMode && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 text-gray-600 border border-gray-100">
+                  <Monitor size={14} style={{ color: colors.primary.DEFAULT }} />
+                  {workMode}
+                </span>
+              )}
+              {experience && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 text-gray-600 border border-gray-100">
+                  <Award size={14} style={{ color: colors.primary.DEFAULT }} />
+                  {experience}
+                </span>
+              )}
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 text-gray-600 border border-gray-100">
+                <Clock size={14} style={{ color: colors.primary.DEFAULT }} />
+                {salaryLabel}
+              </span>
+              {typeof quantity === "number" && quantity > 0 && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 text-gray-600 border border-gray-100">
+                  <Users size={14} style={{ color: colors.primary.DEFAULT }} />
+                  {quantity} ngườі
+                </span>
+              )}
+              {deadlineLabel && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 text-gray-600 border border-gray-100">
+                  <CalendarDays size={14} style={{ color: colors.primary.DEFAULT }} />
+                  Hạn nộp: {deadlineLabel}
+                </span>
+              )}
             </div>
           </div>
-          <Button
-            className="flex-shrink-0 rounded-full px-8 shadow-lg hover:shadow-xl"
-            onClick={() => {
-              document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }}
-          >
-            Ứng Tuyển Ngay
-          </Button>
+          {!isPreview && (
+            <Button
+              className="flex-shrink-0 rounded-full px-8 shadow-lg hover:shadow-xl"
+              onClick={() => {
+                document.getElementById('apply-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+            >
+              Ứng Tuyển Ngay
+            </Button>
+          )}
         </div>
       </div>
 
       {/* Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className={`grid grid-cols-1 gap-8 ${isPreview ? "" : "lg:grid-cols-3"}`}>
           {/* Left */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className={`space-y-8 ${isPreview ? "lg:col-span-3" : "lg:col-span-2"}`}>
             {/* Mô tả */}
-            <section>
-              <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Mô tả công việc</h2>
-              <ul className="space-y-3">
-                {description.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <CircleCheck size={18} className="flex-shrink-0 mt-0.5" style={{ color: colors.primary.DEFAULT }} />
-                    <span className="text-sm text-gray-600 leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            {hasDescriptionHtml && (
+              <section>
+                <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Mô tả công việc</h2>
+                <div
+                  className="ck-content text-gray-600 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: job!.description }}
+                />
+              </section>
+            )}
 
             {/* Yêu cầu */}
-            <section>
-              <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Yêu cầu công việc</h2>
-              <ul className="space-y-3">
-                {requirements.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <CircleCheck size={18} className="flex-shrink-0 mt-0.5" style={{ color: colors.primary.DEFAULT }} />
-                    <span className="text-sm text-gray-600 leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            {hasRequirementsHtml && (
+              <section>
+                <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Yêu cầu công việc</h2>
+                <div
+                  className="ck-content text-gray-600 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: job!.requirements }}
+                />
+              </section>
+            )}
 
-            {/* Phúc lợi - 1 card xanh lớn */}
-            <section className="pt-4">
-              <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Đặc Quyền & Phúc Lợi</h2>
-              <div className="rounded-2xl p-5 space-y-4" style={{ backgroundColor: colors.secondary.DEFAULT }}>
-                {benefits.map((b, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-white flex items-center justify-center">
-                      <b.Icon size={18} style={{ color: colors.primary.navy.DEFAULT }} />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-white text-sm mb-0.5">{b.title}</h3>
-                      <p className="text-sm text-white/80 leading-relaxed">{b.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+            {/* Phúc lợi */}
+            {hasBenefitsHtml && (
+              <section className="pt-4">
+                <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Đặc Quyền & Phúc Lợi</h2>
+                <div className="rounded-2xl p-5 space-y-4" style={{ backgroundColor: colors.secondary.DEFAULT }}>
+                  <div
+                    className="ck-content leading-relaxed text-white [&_*]:!text-white"
+                    dangerouslySetInnerHTML={{ __html: job!.benefits }}
+                  />
+                </div>
+              </section>
+            )}
+
+            {/* Thờі gian làm việc */}
+            {hasWorkingTimeHtml && (
+              <section>
+                <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Thờі gian làm việc</h2>
+                <div
+                  className="ck-content text-gray-600 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: job!.workingTime ?? "" }}
+                />
+              </section>
+            )}
           </div>
 
           {/* Right sidebar */}
+          {!isPreview && (
           <div className="space-y-6">
             {/* Cơ hội khác */}
             <div className="rounded-2xl border border-gray-200 shadow-lg p-5 bg-white">
-              <h3 className="font-bold text-sm uppercase tracking-wide mb-4" style={{ color: colors.gray[800] }}>
+              <h3
+                className="font-bold text-sm uppercase tracking-wide mb-4 -mx-5 -mt-5 px-5 py-3 text-white rounded-t-2xl"
+                style={{ backgroundColor: colors.primary.navy.DEFAULT }}
+              >
                 CƠ HỘI KHÁC TẠI ERA
               </h3>
               <div className="space-y-0">
-                {otherJobs.map((job, i) => (
-                  <div key={i} className="py-3 border-b border-gray-200 last:border-0">
-                    <h4 className="font-semibold text-sm mb-1" style={{ color: colors.primary.navy.DEFAULT }}>{job.title}</h4>
-                    <div className="flex items-center gap-2 text-xs text-gray-400 mb-1.5">
-                      <span>{job.location}</span>
-                      <span className="w-1 h-1 rounded-full bg-gray-300" />
-                      <span>{job.type}</span>
+                {otherJobs.length === 0 ? (
+                  <p className="text-sm text-gray-400">Chưa có vị trí khác.</p>
+                ) : (
+                  otherJobs.map((j) => (
+                    <div key={j.id} className="py-3 border-b border-gray-200 last:border-0">
+                      <h4 className="font-semibold text-sm mb-1" style={{ color: colors.primary.navy.DEFAULT }}>{j.title}</h4>
+                      <div className="flex items-center gap-2 text-xs text-gray-400 mb-1.5">
+                        <span>{j.location}</span>
+                        <span className="w-1 h-1 rounded-full bg-gray-300" />
+                        <span>{j.type}</span>
+                      </div>
+                      <Link href={`${ROUTES.applyDetail}/${encodeURIComponent(j.slug)}`} className="inline-flex items-center gap-1 text-xs font-medium transition-colors hover:font-bold" style={{ color: colors.primary.DEFAULT }}>
+                        Xem chi tiết <ArrowRight size={12} />
+                      </Link>
                     </div>
-                    <Link href={ROUTES.applyDetail} className="inline-flex items-center gap-1 text-xs font-medium transition-colors" style={{ color: colors.primary.DEFAULT }}>
-                      Xem chi tiết <ArrowRight size={12} />
-                    </Link>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </div>
 
@@ -171,18 +253,27 @@ export function ApplyJobDetailPage() {
               </div>
             </div>
           </div>
+          )}
         </div>
       </div>
-      {/* Form ứng tuyển */}
-      <JobApplyForm />
+
+      {!isPreview && (
+        <JobApplyForm defaultPosition={defaultPosition ?? title} positions={availablePositions} />
+      )}
     </main>
   );
 }
 
-function JobApplyForm() {
+function JobApplyForm({
+  defaultPosition,
+  positions,
+}: {
+  defaultPosition?: string;
+  positions?: string[];
+}) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [position, setPosition] = useState("");
+  const [position, setPosition] = useState(defaultPosition ?? "");
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -209,14 +300,13 @@ function JobApplyForm() {
     }, 1200);
   };
 
-  const positions = ["Chuyên viên tư vấn BĐS", "Trưởng phòng kinh doanh", "Quản lý văn phòng", "Marketing", "Chăm sóc khách hàng", "Nhân viên hành chính"];
+  const positionOptions = positions?.length ? positions : [defaultPosition].filter(Boolean) as string[];
 
   return (
     <div id="apply-form" className="py-10" style={{ backgroundColor: "#f3f4f6" }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="bg-white rounded-2xl shadow-md border border-gray-100 p-6 md:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">
-            {/* Left: Form */}
             <div>
               <h2 className="mb-1" style={{ color: colors.secondary.DEFAULT, fontWeight: 900, fontSize: "clamp(22px, 2.8vw, 32px)", lineHeight: 1.2, textTransform: "uppercase" }}>
                 Ứng tuyển ngay
@@ -242,7 +332,7 @@ function JobApplyForm() {
                   <div className="relative">
                     <select value={position} onChange={(e) => setPosition(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors appearance-none cursor-pointer" style={{ color: position ? colors.gray[800] : colors.gray[400] }}>
                       <option value="" disabled>Chọn vị trí ứng tuyển</option>
-                      {positions.map((p) => (<option key={p} value={p}>{p}</option>))}
+                      {positionOptions.map((p) => (<option key={p} value={p}>{p}</option>))}
                     </select>
                     <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" />
                   </div>
@@ -263,7 +353,6 @@ function JobApplyForm() {
               </form>
             </div>
 
-            {/* Right: Image */}
             <div className="hidden lg:block">
               <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-lg bg-gray-100">
                 <Image

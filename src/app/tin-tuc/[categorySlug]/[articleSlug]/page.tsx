@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const imageUrl = article.featuredImage?.url || undefined;
     const siteUrl = "https://era.com.vn";
     const currentUrl = `${siteUrl}/tin-tuc/${categorySlug}/${articleSlug}/`;
-    const canonicalUrl = article.canonicalUrl?.trim() || currentUrl;
+    const canonicalUrl = article.canonicalUrl?.trim() || null;
 
     return {
       title,

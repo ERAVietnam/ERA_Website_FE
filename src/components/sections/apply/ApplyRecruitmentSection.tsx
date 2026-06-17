@@ -1,59 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
+import { recruitmentApi } from "@/api/domains/recruitment";
+import type { JobPosting } from "@/types/api";
 
 const tabs = [
-  { key: "all", label: "Tất cả" },
-  { key: "hcm", label: "TP. HCM" },
-  { key: "hn", label: "Hà Nội" },
-  { key: "dn", label: "Đà Nẵng" },
-];
-
-const jobs = [
-  {
-    id: 1,
-    title: "Chuyên viên Communication",
-    dept: "Marketing",
-    location: "TP. Hồ Chí Minh",
-    type: "Toàn thờі gian",
-    city: "hcm",
-  },
-  {
-    id: 2,
-    title: "Admin",
-    dept: "Kinh doanh",
-    location: "TP. Hồ Chí Minh",
-    type: "Toàn thờі gian",
-    city: "hcm",
-  },
-  {
-    id: 3,
-    title: "Kế toán Tổng hợp",
-    dept: "Tài chính",
-    location: "Hà Nội",
-    type: "Toàn thờі gian",
-    city: "hn",
-  },
-  {
-    id: 4,
-    title: "UI/UX Designer",
-    dept: "Công nghệ",
-    location: "TP. Hồ Chí Minh",
-    type: "Toàn thờі gian",
-    city: "hcm",
-  },
+  { key: "all", label: "Tất cả", location: undefined },
+  { key: "hcm", label: "TP. HCM", location: "TP. HCM" },
+  { key: "hn", label: "Hà Nội", location: "Hà Nội" },
+  { key: "dn", label: "Đà Nẵng", location: "Đà Nẵng" },
 ];
 
 export function ApplyRecruitmentSection() {
   const [activeTab, setActiveTab] = useState("all");
+  const [jobs, setJobs] = useState<JobPosting[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredJobs =
-    activeTab === "all" ? jobs : jobs.filter((j) => j.city === activeTab);
+  const activeLocation = useMemo(
+    () => tabs.find((t) => t.key === activeTab)?.location,
+    [activeTab]
+  );
+
+  useEffect(() => {
+    setLoading(true);
+    recruitmentApi
+      .getPublishedJobs({ limit: 100, location: activeLocation })
+      .then((data) => setJobs(data))
+      .catch(() => setJobs([]))
+      .finally(() => setLoading(false));
+  }, [activeLocation]);
 
   return (
     <Section padding="md" bg="white">
@@ -91,51 +71,63 @@ export function ApplyRecruitmentSection() {
 
       {/* Job List */}
       <div className="flex flex-col gap-4 mb-8">
-        {filteredJobs.map((job) => (
-          <div
-            key={job.id}
-            className="flex items-center justify-between gap-4 rounded-2xl bg-white px-6 py-5 shadow-sm transition-all duration-300"
-          >
-            <div className="min-w-0">
-              <h3
-                className="text-base md:text-lg font-semibold mb-1"
-                style={{ color: colors.primary.navy.DEFAULT }}
-              >
-                {job.title}
-              </h3>
-              <div
-                className="flex flex-wrap items-center gap-3 text-xs md:text-sm"
-                style={{ color: colors.gray[500] }}
-              >
-                <span>{job.dept}</span>
-                <span className="flex items-center gap-1.5">
-                  <span
-                    className="inline-block w-1 h-1 rounded-full"
-                    style={{ backgroundColor: colors.gray[400] }}
-                  />
-                  {job.location}
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span
-                    className="inline-block w-1 h-1 rounded-full"
-                    style={{ backgroundColor: colors.gray[400] }}
-                  />
-                  {job.type}
-                </span>
-              </div>
-            </div>
-
-            <Button asChild className="flex-shrink-0 rounded-full px-6">
-              <Link href={ROUTES.applyDetail}>Xem chi tiết</Link>
-            </Button>
+        {loading ? (
+          <div className="text-center py-12 text-gray-400">Đang tải danh sách vị trí...</div>
+        ) : jobs.length === 0 ? (
+          <div className="text-center py-12 text-gray-400">
+            Hiện chưa có vị trí tuyển dụng nào
           </div>
-        ))}
+        ) : (
+          jobs.map((job) => (
+            <div
+              key={job.id}
+              className="flex items-center justify-between gap-4 rounded-2xl bg-white px-6 py-5 shadow-sm transition-all duration-300"
+            >
+              <div className="min-w-0">
+                <h3
+                  className="text-base md:text-lg font-semibold mb-1"
+                  style={{ color: colors.primary.navy.DEFAULT }}
+                >
+                  {job.title}
+                </h3>
+                <div
+                  className="flex flex-wrap items-center gap-3 text-xs md:text-sm"
+                  style={{ color: colors.gray[500] }}
+                >
+                  <span>{job.type}</span>
+                  <span className="flex items-center gap-1.5">
+                    <span
+                      className="inline-block w-1 h-1 rounded-full"
+                      style={{ backgroundColor: colors.gray[400] }}
+                    />
+                    {job.location}
+                  </span>
+                  {job.workMode && (
+                    <span className="flex items-center gap-1.5">
+                      <span
+                        className="inline-block w-1 h-1 rounded-full"
+                        style={{ backgroundColor: colors.gray[400] }}
+                      />
+                      {job.workMode}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <Button asChild className="flex-shrink-0 rounded-full px-6">
+                <Link href={`${ROUTES.applyDetail}/${encodeURIComponent(job.slug)}`}>
+                  Xem chi tiết
+                </Link>
+              </Button>
+            </div>
+          ))
+        )}
       </div>
 
       {/* View All */}
       <div className="flex justify-center">
         <Button variant="navy-outline" className="rounded-[15px] px-8">
-          Xem tất cả 14 vị trí
+          Xem tất cả {jobs.length} vị trí
         </Button>
       </div>
     </Section>

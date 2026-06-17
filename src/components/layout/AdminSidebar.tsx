@@ -14,13 +14,14 @@ import {
   Menu,
   X,
   Home,
+  Briefcase,
 } from "lucide-react";
 
 const menuItems = [
   { href: "/tin-tuc/quan-ly", label: "Tin tức", icon: Newspaper },
   // { href: "/du-an/quan-ly", label: "Dự án", icon: Building2 },
   { href: "/tai-khoan/quan-ly", label: "Tài khoản", icon: Users },
-  // { href: "/ung-tuyen/quan-ly", label: "Tuyển dụng", icon: Briefcase },
+  { href: "/ung-tuyen/quan-ly", label: "Tuyển dụng", icon: Briefcase },
 ];
 
 export function AdminSidebar() {
