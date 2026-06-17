@@ -970,17 +970,15 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
           )}
 
           {initialData?.id && (
-            <Button
+            <button
               type="button"
-              variant="outline"
-              size="sm"
-              className="w-full justify-center gap-2 bg-white"
-              onClick={() => setShowHistory(true)}
               disabled={isLoading}
+              onClick={() => setShowHistory(true)}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-purple-600 bg-white px-4 py-2 text-sm font-medium text-purple-600 transition-all duration-200 hover:bg-purple-50 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <History size={16} />
+              <History size={15} />
               Lịch sử
-            </Button>
+            </button>
           )}
 
           <button

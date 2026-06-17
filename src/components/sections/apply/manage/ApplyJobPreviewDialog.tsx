@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { X } from "lucide-react";
+import { X, ExternalLink } from "lucide-react";
 import { ApplyJobDetailPage } from "@/components/sections/apply/ApplyJobDetailPage";
+import { ROUTES } from "@/lib/routes";
 import type { JobFormData } from "./ApplyManageForm";
 
 interface ApplyJobPreviewDialogProps {
@@ -73,14 +74,28 @@ export function ApplyJobPreviewDialog({ job, isOpen, onClose }: ApplyJobPreviewD
             </div>
             <p className="text-xs text-white/80 truncate">{job.title || "Chưa có tiêu đề"}</p>
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-full bg-white/20 p-2 text-white transition-colors hover:bg-white/30 ml-3"
-            aria-label="Đóng"
-          >
-            <X size={20} />
-          </button>
+          <div className="flex items-center gap-2 ml-3">
+            {job.status === "open" && job.slug && (
+              <a
+                href={`${ROUTES.applyDetail}/${encodeURIComponent(job.slug)}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-white/30"
+                title="Mở tin tuyển dụng công khai"
+              >
+                <ExternalLink size={14} />
+                <span className="hidden sm:inline">Xem bài đăng</span>
+              </a>
+            )}
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-full bg-white/20 p-2 text-white transition-colors hover:bg-white/30"
+              aria-label="Đóng"
+            >
+              <X size={20} />
+            </button>
+          </div>
         </div>
         <div className="flex-1 overflow-y-auto">
           <ApplyJobDetailPage job={job} isPreview />

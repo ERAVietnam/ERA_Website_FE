@@ -169,8 +169,6 @@ export interface JobPosting {
   workMode?: string | null;
   experience?: string | null;
   salary?: string | null;
-  salaryHourly?: string | null;
-  salaryType?: '' | 'competitive' | 'negotiable' | null;
   workingTime?: string | null;
   quantity: number;
   deadline?: string | null;
@@ -192,8 +190,6 @@ export interface CreateJobInput {
   workMode?: string;
   experience?: string;
   salary?: string;
-  salaryHourly?: string;
-  salaryType?: '' | 'competitive' | 'negotiable';
   workingTime?: string;
   quantity?: number;
   deadline?: string;

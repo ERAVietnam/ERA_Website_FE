@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/tin-tuc/quan-ly", "/du-an/quan-ly", "/ung-tuyen/quan-ly"],
+      disallow: ["/tin-tuc/quan-ly", "/du-an/quan-ly", "/tuyen-dung/quan-ly"],
     },
     sitemap: "https://era.com.vn/sitemap.xml",
   };

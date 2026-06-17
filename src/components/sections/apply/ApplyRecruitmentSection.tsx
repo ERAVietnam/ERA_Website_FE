@@ -16,10 +16,13 @@ const tabs = [
   { key: "dn", label: "Đà Nẵng", location: "Đà Nẵng" },
 ];
 
+const INITIAL_DISPLAY_COUNT = 4;
+
 export function ApplyRecruitmentSection() {
   const [activeTab, setActiveTab] = useState("all");
-  const [jobs, setJobs] = useState<JobPosting[]>([]);
+  const [allJobs, setAllJobs] = useState<JobPosting[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAll, setShowAll] = useState(false);
 
   const activeLocation = useMemo(
     () => tabs.find((t) => t.key === activeTab)?.location,
@@ -29,11 +32,29 @@ export function ApplyRecruitmentSection() {
   useEffect(() => {
     setLoading(true);
     recruitmentApi
-      .getPublishedJobs({ limit: 100, location: activeLocation })
-      .then((data) => setJobs(data))
-      .catch(() => setJobs([]))
+      .getPublishedJobs({ limit: 100 })
+      .then((data) => setAllJobs(data))
+      .catch(() => setAllJobs([]))
       .finally(() => setLoading(false));
-  }, [activeLocation]);
+  }, []);
+
+  useEffect(() => {
+    setShowAll(false);
+  }, [activeTab]);
+
+  const filteredJobs = useMemo(() => {
+    if (!activeLocation) return allJobs;
+    return allJobs.filter((job) => job.location === activeLocation);
+  }, [allJobs, activeLocation]);
+
+  const displayedJobs = useMemo(
+    () => (showAll ? filteredJobs : filteredJobs.slice(0, INITIAL_DISPLAY_COUNT)),
+    [filteredJobs, showAll]
+  );
+
+  const hasAnyJob = allJobs.length > 0;
+  const hasFilteredJob = filteredJobs.length > 0;
+  const canShowMore = filteredJobs.length > INITIAL_DISPLAY_COUNT;
 
   return (
     <Section padding="md" bg="white">
@@ -50,35 +71,41 @@ export function ApplyRecruitmentSection() {
           VỊ TRÍ ĐANG TUYỂN DỤNG
         </h2>
 
-        <div className="flex flex-wrap gap-2">
-          {tabs.map((tab) => {
-            const isActive = tab.key === activeTab;
-            return (
-              <Button
-                key={tab.key}
-                variant={isActive ? "primary" : "ghost"}
-                size="sm"
-                className="rounded-full"
-                style={isActive ? undefined : { color: colors.primary.navy.DEFAULT }}
-                onClick={() => setActiveTab(tab.key)}
-              >
-                {tab.label}
-              </Button>
-            );
-          })}
-        </div>
+        {hasAnyJob && (
+          <div className="flex flex-wrap gap-2">
+            {tabs.map((tab) => {
+              const isActive = tab.key === activeTab;
+              return (
+                <Button
+                  key={tab.key}
+                  variant={isActive ? "primary" : "ghost"}
+                  size="sm"
+                  className="rounded-full"
+                  style={isActive ? undefined : { color: colors.primary.navy.DEFAULT }}
+                  onClick={() => setActiveTab(tab.key)}
+                >
+                  {tab.label}
+                </Button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Job List */}
       <div className="flex flex-col gap-4 mb-8">
         {loading ? (
           <div className="text-center py-12 text-gray-400">Đang tải danh sách vị trí...</div>
-        ) : jobs.length === 0 ? (
+        ) : !hasAnyJob ? (
           <div className="text-center py-12 text-gray-400">
-            Hiện chưa có vị trí tuyển dụng nào
+            Hiện không tuyển dụng nhân sự
+          </div>
+        ) : !hasFilteredJob ? (
+          <div className="text-center py-12 text-gray-400">
+            Hiện chưa có vị trí tuyển dụng nào ở {tabs.find((t) => t.key === activeTab)?.label}
           </div>
         ) : (
-          jobs.map((job) => (
+          displayedJobs.map((job) => (
             <div
               key={job.id}
               className="flex items-center justify-between gap-4 rounded-2xl bg-white px-6 py-5 shadow-sm transition-all duration-300"
@@ -125,11 +152,17 @@ export function ApplyRecruitmentSection() {
       </div>
 
       {/* View All */}
-      <div className="flex justify-center">
-        <Button variant="navy-outline" className="rounded-[15px] px-8">
-          Xem tất cả {jobs.length} vị trí
-        </Button>
-      </div>
+      {hasFilteredJob && canShowMore && (
+        <div className="flex justify-center">
+          <Button
+            variant="navy-outline"
+            className="rounded-[15px] px-8"
+            onClick={() => setShowAll((prev) => !prev)}
+          >
+            {showAll ? "Thu gọn" : `Xem tất cả ${filteredJobs.length} vị trí`}
+          </Button>
+        </div>
+      )}
     </Section>
   );
 }

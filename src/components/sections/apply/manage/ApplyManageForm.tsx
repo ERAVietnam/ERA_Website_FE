@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { X, Loader2, Eye, CheckCircle } from "lucide-react";
+import { X, Loader2, Eye, CheckCircle, History } from "lucide-react";
 import { ApplyJobPreviewDialog } from "./ApplyJobPreviewDialog";
 
 const RichEditor = dynamic(
@@ -43,12 +43,6 @@ const workModes = [
   { value: "Hybrid", label: "Hybrid (Linh hoạt)" },
 ];
 
-const salaryTypes = [
-  { value: "", label: "—" },
-  { value: "competitive", label: "Cạnh tranh" },
-  { value: "negotiable", label: "Thỏa thuận" },
-];
-
 export interface JobFormData {
   id?: string;
   slug: string;
@@ -58,8 +52,6 @@ export interface JobFormData {
   workMode: string;
   experience: string;
   salary?: string;
-  salaryHourly?: string;
-  salaryType: "" | "competitive" | "negotiable";
   workingTime: string;
   quantity: number;
   deadline: string;
@@ -74,6 +66,7 @@ interface Props {
   onSave: (data: JobFormData) => void;
   onCancel: () => void;
   onPublish?: () => void;
+  onViewLogs?: () => void;
 }
 
 function toSlug(str: string): string {
@@ -95,8 +88,6 @@ function buildInitialForm(initialData?: JobFormData): JobFormData {
     workMode: initialData?.workMode ?? "",
     experience: initialData?.experience ?? "",
     salary: initialData?.salary ?? "",
-    salaryHourly: initialData?.salaryHourly ?? "",
-    salaryType: initialData?.salaryType ?? "",
     workingTime: initialData?.workingTime ?? "",
     quantity: initialData?.quantity ?? 1,
     deadline: initialData?.deadline ?? "",
@@ -107,7 +98,7 @@ function buildInitialForm(initialData?: JobFormData): JobFormData {
   };
 }
 
-export function ApplyManageForm({ initialData, onSave, onCancel, onPublish }: Props) {
+export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onViewLogs }: Props) {
   const [form, setForm] = useState<JobFormData>(() => buildInitialForm(initialData));
   const [isLoading, setIsLoading] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
@@ -158,39 +149,8 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish }: Pr
     "w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 transition-colors outline-none focus:border-gray-400";
   const labelClass = "block text-sm font-semibold text-gray-700 mb-1.5";
 
-  const hasSalary = (form.salary ?? "").trim() !== "";
-  const hasSalaryHourly = (form.salaryHourly ?? "").trim() !== "";
-  const isSalaryTyped = form.salaryType !== "";
-
-  const isSalaryDisabled = isSalaryTyped || hasSalaryHourly;
-  const isSalaryHourlyDisabled = isSalaryTyped || hasSalary;
-  const isSalaryTypeDisabled = hasSalary || hasSalaryHourly;
-
   const handleSalaryChange = (value: string) => {
-    setForm((prev) => ({
-      ...prev,
-      salary: value,
-      salaryHourly: value ? "" : prev.salaryHourly,
-      salaryType: value ? "" : prev.salaryType,
-    }));
-  };
-
-  const handleSalaryHourlyChange = (value: string) => {
-    setForm((prev) => ({
-      ...prev,
-      salaryHourly: value,
-      salary: value ? "" : prev.salary,
-      salaryType: value ? "" : prev.salaryType,
-    }));
-  };
-
-  const handleSalaryTypeChange = (value: JobFormData["salaryType"]) => {
-    setForm((prev) => ({
-      ...prev,
-      salaryType: value,
-      salary: value ? "" : prev.salary,
-      salaryHourly: value ? "" : prev.salaryHourly,
-    }));
+    update("salary", value);
   };
 
   const submitButton = (
@@ -359,50 +319,13 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish }: Pr
             {/* Salary */}
             <div>
               <label className={labelClass}>Mức lương</label>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div className="relative">
-                  <input
-                    type="text"
-                    className={`${inputClass} w-full pr-[5.5rem] ${isSalaryDisabled ? "bg-gray-100 text-gray-400 cursor-not-allowed" : ""}`}
-                    value={form.salary}
-                    onChange={(e) => handleSalaryChange(e.target.value)}
-                    placeholder="12 hoặc 12 - 14"
-                    disabled={isSalaryDisabled}
-                  />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">
-                    triệu VND
-                  </span>
-                </div>
-                <div className="relative">
-                  <input
-                    type="text"
-                    className={`${inputClass} w-full pr-[6.5rem] ${isSalaryHourlyDisabled ? "bg-gray-100 text-gray-400 cursor-not-allowed" : ""}`}
-                    value={form.salaryHourly}
-                    onChange={(e) => handleSalaryHourlyChange(e.target.value)}
-                    placeholder="25 hoặc 25 - 30"
-                    disabled={isSalaryHourlyDisabled}
-                  />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none">
-                    K VND / giờ
-                  </span>
-                </div>
-                <div>
-                  <select
-                    className={`${inputClass} appearance-none cursor-pointer w-full ${isSalaryTypeDisabled ? "bg-gray-100 text-gray-400 cursor-not-allowed" : ""}`}
-                    value={form.salaryType}
-                    onChange={(e) =>
-                      handleSalaryTypeChange(e.target.value as JobFormData["salaryType"])
-                    }
-                    disabled={isSalaryTypeDisabled}
-                  >
-                    {salaryTypes.map((t) => (
-                      <option key={t.value} value={t.value}>
-                        {t.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+              <input
+                type="text"
+                className={inputClass}
+                value={form.salary}
+                onChange={(e) => handleSalaryChange(e.target.value)}
+                placeholder="Ví dụ: 12 - 15 triệu, Thỏa thuận, Cạnh tranh..."
+              />
             </div>
 
             {/* Rich text fields */}
@@ -438,6 +361,17 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish }: Pr
                 <Eye size={15} />
                 Xem trước
               </button>
+              {initialData?.id && onViewLogs && (
+                <button
+                  type="button"
+                  disabled={isLoading}
+                  onClick={onViewLogs}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-purple-600 bg-white px-4 py-2 text-sm font-medium text-purple-600 transition-all duration-200 hover:bg-purple-50 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <History size={15} />
+                  Lịch sử
+                </button>
+              )}
               <Button type="button" variant="outline" className="bg-white" onClick={handleCancelRequest}>
                 Huỷ
               </Button>
@@ -472,6 +406,17 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish }: Pr
             <Eye size={15} />
             Xem trước
           </button>
+          {initialData?.id && onViewLogs && (
+            <button
+              type="button"
+              disabled={isLoading}
+              onClick={onViewLogs}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-purple-600 bg-white px-4 py-2 text-sm font-medium text-purple-600 transition-all duration-200 hover:bg-purple-50 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <History size={15} />
+              Lịch sử
+            </button>
+          )}
           <Button
             type="button"
             variant="outline"
