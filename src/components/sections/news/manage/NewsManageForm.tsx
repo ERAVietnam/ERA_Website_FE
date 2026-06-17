@@ -15,6 +15,7 @@ import { NewsPreviewDialog } from "./NewsPreviewDialog";
 import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
 import { getNewsScopeBySlug } from "@/lib/permissions";
+import { compressImage } from "@/lib/imageCompression";
 import type { NewsCategory, NewsArticle } from "@/types/api";
 
 
@@ -378,7 +379,11 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       const img = images[i];
       const base64 = img.getAttribute("src")!;
       const file = base64ToFile(base64, `content-img-${Date.now()}-${i}.png`);
-      const upload = await mediaApi.uploadImage(file, "news");
+      const compressedFile = await compressImage(file, {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1600,
+      });
+      const upload = await mediaApi.uploadImage(compressedFile, "news");
       img.setAttribute("src", upload.url);
     }
 
@@ -429,7 +434,11 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       let featuredImageMediaId: string | undefined | null;
 
       if (featuredImageFile) {
-        const upload = await mediaApi.uploadImage(featuredImageFile, "news");
+        const compressedFile = await compressImage(featuredImageFile, {
+          maxSizeMB: 1.5,
+          maxWidthOrHeight: 1920,
+        });
+        const upload = await mediaApi.uploadImage(compressedFile, "news");
         featuredImageMediaId = upload.id;
       } else if (!imagePreview && initialData?.featuredImageMediaId) {
         featuredImageMediaId = null;
