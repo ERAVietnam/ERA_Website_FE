@@ -1,9 +1,27 @@
 import type { NextConfig } from "next";
 
+const noCacheHeaders = [
+  { key: "Cache-Control", value: "no-store, no-cache, must-revalidate, proxy-revalidate" },
+  { key: "Pragma", value: "no-cache" },
+  { key: "Expires", value: "0" },
+];
+
 const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true,
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*/quan-ly/:subPath*",
+        headers: noCacheHeaders,
+      },
+      {
+        source: "/ho-so-ca-nhan/:path*",
+        headers: noCacheHeaders,
+      },
+    ];
   },
 };
 

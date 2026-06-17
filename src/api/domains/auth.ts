@@ -14,13 +14,6 @@ export interface ChangePasswordInput {
 
 export interface LoginResponse {
   account: Account;
-  accessToken: string;
-  refreshToken: string;
-}
-
-export interface RefreshResponse {
-  accessToken: string;
-  refreshToken: string;
 }
 
 export const authApi = {
@@ -29,8 +22,7 @@ export const authApi = {
 
   logout: () => apiClient.post<void>(ENDPOINTS.AUTH.LOGOUT).then((res) => res.data),
 
-  refresh: (refreshToken: string) =>
-    apiClient.post<RefreshResponse>(ENDPOINTS.AUTH.REFRESH, { refreshToken }).then((res) => res.data),
+  refresh: () => apiClient.post<void>(ENDPOINTS.AUTH.REFRESH).then((res) => res.data),
 
   changePassword: (data: ChangePasswordInput) =>
     apiClient.post<void>(ENDPOINTS.AUTH.CHANGE_PASSWORD, data).then((res) => res.data),

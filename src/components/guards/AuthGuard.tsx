@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { Loader2 } from "lucide-react";
 import { colors } from "@/lib/theme";
+import { ROUTES } from "@/lib/routes";
 
 interface AuthGuardProps {
   children: ReactNode;
@@ -16,7 +17,7 @@ export function AuthGuard({ children }: AuthGuardProps) {
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      router.replace("/");
+      router.replace(ROUTES.login);
     }
   }, [isLoading, isAuthenticated, router]);
 

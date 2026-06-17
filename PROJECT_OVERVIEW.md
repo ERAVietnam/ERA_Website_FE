@@ -226,25 +226,29 @@ const nextConfig = {
 | API Client | Axios |
 
 ### Auth Flow
-- Login gọi `POST /auth/login` → backend trả về `{ account, accessToken, refreshToken }`
-- Frontend lưu token vào `localStorage`
-- Đồng thờ set cookie non-HttpOnly `access_token` để Next.js middleware đọc được
-- Mỗi API request tự động thêm `Authorization: Bearer <accessToken>` qua axios interceptor
-- Khi access token hết hạn (401), interceptor tự động gọi `POST /auth/refresh` với refresh token
-- Logout xóa localStorage + cookie, redirect về `/`
+- Login gọi `POST /auth/login` → backend trả về `{ account }` và set HttpOnly cookie `access_token` / `refresh_token`
+- Frontend không lưu token vào `localStorage`; browser tự gửi HttpOnly cookie qua `withCredentials: true`
+- Frontend set cookie non-HttpOnly `era_auth_state` (flag only, no token) để UI biết trạng thái login mà không cần gọi `/auth/me` khi chưa login
+- Mỗi API request không thêm `Authorization` header; backend đọc token từ cookie
+- Khi access token hết hạn (401), interceptor tự động gọi `POST /auth/refresh`; backend đọc refresh token từ cookie và set cookie mới
+- Nếu refresh thất bại, request bị reject; `AuthContext.fetchMe()` cập nhật `account = null` và `AuthGuard` redirect về `/dang-nhap`
+- Logout gọi `POST /auth/logout` → backend clear HttpOnly cookies; frontend xóa `era_auth_state` và redirect về `/`
+- `pageshow` event kích hoạt re-validate khi page được restore từ bfcache; nếu `era_auth_state` mất thì redirect ngay để tránh hiển thị UI cũ
 
 ### API Client
 | File | Mô tả |
 |------|-------|
 | `src/api/client.ts` | Axios instance với `withCredentials: true` |
-| `src/api/interceptors.ts` | Request/response interceptors: thêm Bearer token, refresh token, unwrap response data |
+| `src/api/interceptors.ts` | Response interceptor: unwrap response data, tự động refresh token qua cookie khi 401, retry request |
 | `src/api/config.ts` | `BASE_URL` từ `NEXT_PUBLIC_API_URL` |
 | `src/api/domains/*.ts` | API helpers theo module (auth, accounts, news, media) |
 
-### Middleware
+### Route Guard
 | File | Mô tả |
 |------|-------|
-| `src/proxy.ts` | Next.js middleware bảo vệ routes `/quan-ly` và `/ho-so-ca-nhan`. Đọc cookie `access_token`, redirect về `/` nếu chưa đăng nhập. Set `Cache-Control: no-store` để tránh bfcache. |
+| `src/proxy.ts` | Next.js proxy (middleware) bảo vệ routes `/quan-ly` và `/ho-so-ca-nhan` ở server-side. Kiểm tra cookie `era_auth_state`, redirect về `/dang-nhap` nếu chưa đăng nhập. Set `Cache-Control: no-store` để tránh bfcache. |
+| `src/components/guards/AuthGuard.tsx` | Client-side guard dự phòng. Dựa vào `AuthContext.isAuthenticated`, redirect về `/dang-nhap` nếu chưa đăng nhập. |
+| `src/app/(admin)/layout.tsx` | Wrap admin pages bằng `<AuthGuard>` để áp dụng bảo vệ client-side cho toàn bộ admin routes. |
 
 ### Environment Variables
 | Variable | Mô tả |
