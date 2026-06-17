@@ -1,35 +1,35 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { X, Loader2 } from "lucide-react";
-import { newsApi } from "@/api/domains/news";
+import { useEffect, useRef } from "react";
+import { X } from "lucide-react";
 import { colors } from "@/lib/theme";
-import type { NewsArticleLog, JobStatus } from "@/types/api";
+import type { JobPostingLog } from "@/types/api";
 
-interface ArticleHistoryDialogProps {
-  articleId: string;
+interface Props {
+  logs: JobPostingLog[];
   isOpen: boolean;
   onClose: () => void;
 }
 
-const eventLabels: Record<NewsArticleLog["eventType"], string> = {
-  created: "Tạo bài viết",
-  submitted: "Gửi duyệt",
+const eventLabels: Record<string, string> = {
+  created: "Tạo tin",
+  published: "Đăng tuyển",
+  unpublished: "Gỡ bài",
+  closed: "Đóng tuyển",
   updated: "Cập nhật",
-  published: "Đăng bài viết",
-  revoked: "Gỡ đăng",
-  rejected: "Từ chối duyệt",
 };
 
 const statusLabels: Record<string, string> = {
   draft: "Bản nháp",
-  pending: "Chờ duyệt",
-  published: "Đã đăng",
+  open: "Đang tuyển",
+  closed: "Đã đóng",
 };
 
-function formatDateTime(iso: string): string {
-  const date = new Date(iso);
-  return date.toLocaleString("vi-VN", {
+function formatDateTime(iso?: string | null): string {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleString("vi-VN", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -38,22 +38,8 @@ function formatDateTime(iso: string): string {
   });
 }
 
-export function ArticleHistoryDialog({ articleId, isOpen, onClose }: ArticleHistoryDialogProps) {
-  const [logs, setLogs] = useState<NewsArticleLog[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+export function ApplyJobLogsDialog({ logs, isOpen, onClose }: Props) {
   const dialogRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    setLoading(true);
-    setError("");
-    newsApi
-      .getArticleLogs(articleId)
-      .then((data) => setLogs(data))
-      .catch(() => setError("Không thể tải lịch sử bài viết."))
-      .finally(() => setLoading(false));
-  }, [isOpen, articleId]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -86,11 +72,8 @@ export function ArticleHistoryDialog({ articleId, isOpen, onClose }: ArticleHist
         ref={dialogRef}
         className="relative flex flex-col w-full max-w-2xl max-h-[calc(100vh-2rem)] sm:max-h-[calc(100vh-4rem)] rounded-2xl bg-white shadow-2xl overflow-hidden"
       >
-        <div
-          className="flex-shrink-0 z-10 flex items-center justify-between rounded-t-2xl px-5 py-3"
-          style={{ backgroundColor: colors.primary.navy.DEFAULT }}
-        >
-          <h3 className="text-base font-bold text-white">Lịch sử bài viết</h3>
+        <div className="flex-shrink-0 z-10 flex items-center justify-between rounded-t-2xl px-5 py-3" style={{ backgroundColor: colors.primary.navy.DEFAULT }}>
+          <h3 className="text-base font-bold text-white">Lịch sử thay đổi</h3>
           <button
             type="button"
             onClick={onClose}
@@ -102,21 +85,9 @@ export function ArticleHistoryDialog({ articleId, isOpen, onClose }: ArticleHist
         </div>
 
         <div className="flex-1 overflow-y-auto p-5">
-          {loading && (
-            <div className="flex items-center justify-center py-8">
-              <Loader2 size={24} className="animate-spin text-gray-400" />
-            </div>
-          )}
-
-          {error && (
-            <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</p>
-          )}
-
-          {!loading && !error && logs.length === 0 && (
+          {logs.length === 0 ? (
             <p className="text-center text-gray-400 py-8">Chưa có lịch sử thay đổi.</p>
-          )}
-
-          {!loading && !error && logs.length > 0 && (
+          ) : (
             <div className="relative border-l-2 border-gray-200 ml-2 space-y-6">
               {logs.map((log) => (
                 <div key={log.id} className="pl-6 relative">
@@ -125,10 +96,7 @@ export function ArticleHistoryDialog({ articleId, isOpen, onClose }: ArticleHist
                     style={{ backgroundColor: colors.primary.DEFAULT }}
                   />
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-1">
-                    <span
-                      className="text-sm font-semibold"
-                      style={{ color: colors.primary.navy.DEFAULT }}
-                    >
+                    <span className="text-sm font-semibold" style={{ color: colors.primary.navy.DEFAULT }}>
                       {eventLabels[log.eventType] || log.eventType}
                     </span>
                     <span className="text-xs text-gray-400">{formatDateTime(log.createdAt)}</span>
@@ -140,13 +108,9 @@ export function ArticleHistoryDialog({ articleId, isOpen, onClose }: ArticleHist
                   {(log.fromStatus || log.toStatus) && (
                     <p className="text-xs text-gray-500 mt-1">
                       Trạng thái: {" "}
-                      <span className="font-medium">
-                        {statusLabels[log.fromStatus ?? ""] || log.fromStatus || "—"}
-                      </span>
+                      <span className="font-medium">{statusLabels[log.fromStatus ?? "" ] || log.fromStatus || "—"}</span>
                       {" → "}
-                      <span className="font-medium">
-                        {statusLabels[log.toStatus ?? ""] || log.toStatus || "—"}
-                      </span>
+                      <span className="font-medium">{statusLabels[log.toStatus ?? ""] || log.toStatus || "—"}</span>
                     </p>
                   )}
                   {log.note && <p className="text-xs text-gray-500 mt-1">Ghi chú: {log.note}</p>}

@@ -5,6 +5,7 @@ import { Section } from "@/components/ui/Section";
 import { NewsManageList } from "./NewsManageList";
 import { NewsManageForm } from "./NewsManageForm";
 import { NewsPreviewDialog } from "./NewsPreviewDialog";
+import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { Pagination } from "@/components/ui/Pagination";
 import { newsApi } from "@/api/domains/news";
 import { PopupNotification } from "@/components/ui/PopupNotification";
@@ -62,6 +63,7 @@ export default function NewsManagePage() {
   const [actionConfirm, setActionConfirm] = useState<ActionConfirm>({ type: null, id: "" });
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [previewArticle, setPreviewArticle] = useState<NewsArticle | null>(null);
+  const [historyArticleId, setHistoryArticleId] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState("");
   const [meta, setMeta] = useState<PaginationMeta>({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
   const [filters, setFilters] = useState<ArticleFilters>({
@@ -93,11 +95,11 @@ export default function NewsManagePage() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setFilters((prev) => ({
-        ...prev,
-        search: searchInput.trim() || undefined,
-        page: 1,
-      }));
+      const search = searchInput.trim() || undefined;
+      setFilters((prev) => {
+        if (prev.search === search) return prev;
+        return { ...prev, search, page: 1 };
+      });
     }, 1000);
     return () => clearTimeout(timer);
   }, [searchInput]);
@@ -317,6 +319,7 @@ export default function NewsManagePage() {
                 onRevoke={(id) => openActionConfirm(id, "revoke")}
                 onSubmitForReview={(id) => openActionConfirm(id, "submit")}
                 onReject={(id) => openActionConfirm(id, "reject")}
+                onViewHistory={(id) => setHistoryArticleId(id)}
               />
 
               <Pagination
@@ -331,6 +334,12 @@ export default function NewsManagePage() {
             article={previewArticle}
             isOpen={!!previewArticle}
             onClose={() => setPreviewArticle(null)}
+          />
+
+          <ArticleHistoryDialog
+            articleId={historyArticleId ?? ""}
+            isOpen={!!historyArticleId}
+            onClose={() => setHistoryArticleId(null)}
           />
       </div>
     </Section>

@@ -14,7 +14,7 @@ export const ROUTES = {
   projects: "/du-an",
   projectDetail: "/du-an/chi-tiet",
   join: "/gia-nhap",
-  apply: "/ung-tuyen",
+  apply: "/tuyen-dung",
   academy: "/academy",
   news: "/tin-tuc",
   login: "/dang-nhap",
@@ -28,7 +28,7 @@ export const ROUTES = {
   technology: "/gia-nhap/technology",
 
   // Apply Sub-pages
-  applyDetail: "/ung-tuyen/chi-tiet-cong-viec",
+  applyDetail: "/tuyen-dung/chi-tiet-cong-viec",
   
   // Footer Links
   brandStory: "/cau-chuyen-thuong-hieu",

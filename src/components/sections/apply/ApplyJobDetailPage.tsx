@@ -20,19 +20,16 @@ import {
   ArrowRight,
   Upload,
   ChevronDown,
+  Coins,
 } from "lucide-react";
 import type { JobFormData } from "./manage/ApplyManageForm";
 import type { JobPosting } from "@/types/api";
 
 type JobDetail = JobPosting | JobFormData | undefined;
 
-function formatSalaryLabel(job?: JobDetail): string {
-  if (!job) return "Thỏa thuận";
-  if (job.salaryType === "competitive") return "Cạnh tranh";
-  if (job.salaryType === "negotiable") return "Thỏa thuận";
-  if (job.salary?.trim()) return `${job.salary.trim()} triệu VND`;
-  if (job.salaryHourly?.trim()) return `${job.salaryHourly.trim()} K VND / giờ`;
-  return "Thỏa thuận";
+function formatSalaryLabel(job?: JobDetail): string | null {
+  const salary = job?.salary?.trim();
+  return salary || null;
 }
 
 function formatDeadline(dateStr?: string | null): string | null {
@@ -118,10 +115,12 @@ export function ApplyJobDetailPage({
                   {experience}
                 </span>
               )}
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 text-gray-600 border border-gray-100">
-                <Clock size={14} style={{ color: colors.primary.DEFAULT }} />
-                {salaryLabel}
-              </span>
+              {salaryLabel && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 text-gray-600 border border-gray-100 whitespace-nowrap">
+                  <Coins size={14} style={{ color: colors.primary.DEFAULT }} />
+                  {salaryLabel}
+                </span>
+              )}
               {typeof quantity === "number" && quantity > 0 && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 text-gray-600 border border-gray-100">
                   <Users size={14} style={{ color: colors.primary.DEFAULT }} />
@@ -205,18 +204,16 @@ export function ApplyJobDetailPage({
           {!isPreview && (
           <div className="space-y-6">
             {/* Cơ hội khác */}
-            <div className="rounded-2xl border border-gray-200 shadow-lg p-5 bg-white">
-              <h3
-                className="font-bold text-sm uppercase tracking-wide mb-4 -mx-5 -mt-5 px-5 py-3 text-white rounded-t-2xl"
-                style={{ backgroundColor: colors.primary.navy.DEFAULT }}
-              >
-                CƠ HỘI KHÁC TẠI ERA
-              </h3>
-              <div className="space-y-0">
-                {otherJobs.length === 0 ? (
-                  <p className="text-sm text-gray-400">Chưa có vị trí khác.</p>
-                ) : (
-                  otherJobs.map((j) => (
+            {otherJobs.length > 0 && (
+              <div className="rounded-2xl border border-gray-200 shadow-lg p-5 bg-white">
+                <h3
+                  className="font-bold text-sm uppercase tracking-wide mb-4 -mx-5 -mt-5 px-5 py-3 text-white rounded-t-2xl"
+                  style={{ backgroundColor: colors.primary.navy.DEFAULT }}
+                >
+                  CƠ HỘI KHÁC TẠI ERA
+                </h3>
+                <div className="space-y-0">
+                  {otherJobs.map((j) => (
                     <div key={j.id} className="py-3 border-b border-gray-200 last:border-0">
                       <h4 className="font-semibold text-sm mb-1" style={{ color: colors.primary.navy.DEFAULT }}>{j.title}</h4>
                       <div className="flex items-center gap-2 text-xs text-gray-400 mb-1.5">
@@ -228,10 +225,10 @@ export function ApplyJobDetailPage({
                         Xem chi tiết <ArrowRight size={12} />
                       </Link>
                     </div>
-                  ))
-                )}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Tham gia ERA */}
             <div className="rounded-2xl overflow-hidden" style={{ backgroundColor: colors.primary.navy.DEFAULT }}>

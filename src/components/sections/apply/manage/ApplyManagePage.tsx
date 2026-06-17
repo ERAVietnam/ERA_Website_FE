@@ -5,11 +5,13 @@ import { Section } from "@/components/ui/Section";
 import { ApplyManageForm, type JobFormData } from "./ApplyManageForm";
 import { ApplyManageList } from "./ApplyManageList";
 import { ApplyJobPreviewDialog } from "./ApplyJobPreviewDialog";
+import { ApplyJobLogsDialog } from "./ApplyJobLogsDialog";
+import { Pagination } from "@/components/ui/Pagination";
 import { recruitmentApi } from "@/api/domains/recruitment";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { getErrorMessage } from "@/lib/error-messages";
-import type { JobPosting, CreateJobInput, UpdateJobInput, JobStatus } from "@/types/api";
+import type { JobPosting, CreateJobInput, UpdateJobInput, JobStatus, JobPostingLog, JobFilters, PaginationMeta } from "@/types/api";
 
 function jobPostingToForm(job: JobPosting): JobFormData {
   return {
@@ -21,8 +23,6 @@ function jobPostingToForm(job: JobPosting): JobFormData {
     workMode: job.workMode ?? "",
     experience: job.experience ?? "",
     salary: job.salary ?? "",
-    salaryHourly: job.salaryHourly ?? "",
-    salaryType: (job.salaryType as JobFormData["salaryType"]) ?? "",
     workingTime: job.workingTime ?? "",
     quantity: job.quantity,
     deadline: job.deadline ? job.deadline.slice(0, 10) : "",
@@ -42,8 +42,6 @@ function formToCreateInput(form: JobFormData): CreateJobInput {
     workMode: form.workMode || undefined,
     experience: form.experience || undefined,
     salary: form.salary || undefined,
-    salaryHourly: form.salaryHourly || undefined,
-    salaryType: form.salaryType || undefined,
     workingTime: form.workingTime || undefined,
     quantity: form.quantity,
     deadline: form.deadline || undefined,
@@ -62,8 +60,6 @@ function formToUpdateInput(form: JobFormData): UpdateJobInput {
     workMode: form.workMode || undefined,
     experience: form.experience || undefined,
     salary: form.salary || undefined,
-    salaryHourly: form.salaryHourly || undefined,
-    salaryType: form.salaryType || undefined,
     workingTime: form.workingTime || undefined,
     quantity: form.quantity,
     deadline: form.deadline || undefined,
@@ -73,9 +69,32 @@ function formToUpdateInput(form: JobFormData): UpdateJobInput {
   };
 }
 
+const DEFAULT_LIMIT = 10;
+
+const locationOptions = [
+  { value: "", label: "Tất cả địa điểm" },
+  { value: "TP. HCM", label: "TP. Hồ Chí Minh" },
+  { value: "Hà Nội", label: "Hà Nội" },
+  { value: "Đà Nẵng", label: "Đà Nẵng" },
+  { value: "Nha Trang", label: "Nha Trang" },
+];
+
+const statusOptions = [
+  { value: "", label: "Tất cả trạng thái" },
+  { value: "draft", label: "Bản nháp" },
+  { value: "open", label: "Đang tuyển" },
+  { value: "closed", label: "Đã đóng" },
+];
+
 export default function ApplyManagePage() {
   const [jobs, setJobs] = useState<JobFormData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchInput, setSearchInput] = useState("");
+  const [meta, setMeta] = useState<PaginationMeta>({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
+  const [filters, setFilters] = useState<JobFilters>({
+    page: 1,
+    limit: DEFAULT_LIMIT,
+  });
   const [editing, setEditing] = useState<JobFormData | null>(null);
   const [previewJob, setPreviewJob] = useState<JobFormData | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -90,14 +109,17 @@ export default function ApplyManagePage() {
     id: "",
     status: null,
   });
+  const [logsDialog, setLogsDialog] = useState<{ show: boolean; logs: JobPostingLog[] }>({ show: false, logs: [] });
 
   const fetchJobs = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await recruitmentApi.getJobs({ limit: 100 });
+      const response = await recruitmentApi.getJobs(filters);
       setJobs(response.items.map(jobPostingToForm));
+      setMeta(response.meta);
     } catch (err: any) {
       setJobs([]);
+      setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
       setPopup({
         show: true,
         type: "error",
@@ -106,11 +128,34 @@ export default function ApplyManagePage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [filters]);
 
   useEffect(() => {
     fetchJobs();
   }, [fetchJobs]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const search = searchInput.trim() || undefined;
+      setFilters((prev) => {
+        if (prev.search === search) return prev;
+        return { ...prev, search, page: 1 };
+      });
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  const handleFilterChange = (key: keyof JobFilters, value: JobFilters[typeof key]) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+      page: 1,
+    }));
+  };
+
+  const handlePageChange = (page: number) => {
+    setFilters((prev) => ({ ...prev, page }));
+  };
 
   const handleSave = async (data: JobFormData) => {
     try {
@@ -141,6 +186,19 @@ export default function ApplyManagePage() {
 
   const handlePreview = (job: JobFormData) => {
     setPreviewJob(job);
+  };
+
+  const handleViewLogs = async (id: string) => {
+    try {
+      const logs = await recruitmentApi.getJobLogs(id);
+      setLogsDialog({ show: true, logs });
+    } catch (err: any) {
+      setPopup({
+        show: true,
+        type: "error",
+        message: getErrorMessage(err?.status, err?.data, "Không thể tải lịch sử thay đổi."),
+      });
+    }
   };
 
   const handleDelete = (id: string) => {
@@ -209,20 +267,45 @@ export default function ApplyManagePage() {
             onSave={handleSave}
             onCancel={handleCancel}
             onPublish={editing?.status === "draft" ? handlePublishFromForm : undefined}
+            onViewLogs={editing?.id ? () => handleViewLogs(editing.id!) : undefined}
           />
         ) : (
-          <ApplyManageList
-            jobs={jobs}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-            onAdd={handleAdd}
-            onPreview={handlePreview}
-            onStatusChange={handleStatusChange}
-          />
+          <>
+            <ApplyManageList
+              jobs={jobs}
+              loading={loading}
+              searchInput={searchInput}
+              filters={filters}
+              meta={meta}
+              locationOptions={locationOptions}
+              statusOptions={statusOptions}
+              onSearchChange={setSearchInput}
+              onFilterChange={handleFilterChange}
+              onPageChange={handlePageChange}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onAdd={handleAdd}
+              onPreview={handlePreview}
+              onStatusChange={handleStatusChange}
+              onViewLogs={handleViewLogs}
+            />
+
+            <Pagination
+              currentPage={meta.page}
+              totalPages={meta.totalPages}
+              onPageChange={handlePageChange}
+            />
+          </>
         )}
       </div>
 
       <ApplyJobPreviewDialog job={previewJob} isOpen={!!previewJob} onClose={() => setPreviewJob(null)} />
+
+      <ApplyJobLogsDialog
+        logs={logsDialog.logs}
+        isOpen={logsDialog.show}
+        onClose={() => setLogsDialog({ show: false, logs: [] })}
+      />
 
       <ConfirmDialog
         isOpen={deleteConfirm.show}

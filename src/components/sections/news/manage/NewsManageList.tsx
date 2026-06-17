@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
-import { Pencil, Trash2, Plus, LayoutGrid, Table as TableIcon, Loader2, Send, CheckCircle, RotateCcw, XCircle, Eye, Search, X } from "lucide-react";
+import { Pencil, Trash2, Plus, LayoutGrid, Table as TableIcon, Loader2, Send, CheckCircle, RotateCcw, XCircle, Eye, Search, X, History } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
 import { PopupNotification } from "@/components/ui/PopupNotification";
@@ -34,6 +34,7 @@ interface Props {
   onRevoke?: (id: string) => void;
   onSubmitForReview?: (id: string) => void;
   onReject?: (id: string) => void;
+  onViewHistory?: (id: string) => void;
 }
 
 function formatDate(iso: string): string {
@@ -74,6 +75,7 @@ export function NewsManageList({
   onRevoke,
   onSubmitForReview,
   onReject,
+  onViewHistory,
 }: Props) {
   const { hasPermission } = useAuth();
 
@@ -397,6 +399,18 @@ export function NewsManageList({
                             <Eye size={15} className="text-blue-600" />
                           </Button>
                         )}
+                        {onViewHistory && (
+                          <Button
+                            variant="ghost"
+                            isIconOnly
+                            size="md"
+                            onClick={() => onViewHistory(item.id)}
+                            title="Lịch sử"
+                            className="hover:!bg-purple-50"
+                          >
+                            <History size={15} className="text-purple-600" />
+                          </Button>
+                        )}
                         {canEditOrDelete(item) &&
                           hasNewsArticlePermission(
                             hasPermission,
@@ -542,6 +556,15 @@ export function NewsManageList({
                         title="Xem trước"
                       >
                         <Eye size={15} className="text-blue-600" />
+                      </button>
+                    )}
+                    {onViewHistory && (
+                      <button
+                        onClick={() => onViewHistory(item.id)}
+                        className="p-2 rounded-lg hover:bg-purple-50 transition-colors"
+                        title="Lịch sử"
+                      >
+                        <History size={15} className="text-purple-600" />
                       </button>
                     )}
                     {canEditOrDelete(item) &&
