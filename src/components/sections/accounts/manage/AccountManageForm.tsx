@@ -43,6 +43,7 @@ function accountToFormState(account?: ManagementAccount): FormState {
 const moduleLabels: Record<string, string> = {
   news: "Tin tức",
   auth: "Tài khoản",
+  recruitment: "Tuyển dụng",
 };
 
 const resourceLabels: Record<string, string> = {
@@ -50,6 +51,7 @@ const resourceLabels: Record<string, string> = {
   articles: "Bài viết",
   accounts: "Tài khoản",
   permissions: "Quyền",
+  jobs: "Tin tuyển dụng",
 };
 
 const actionLabels: Record<string, string> = {
@@ -62,9 +64,12 @@ const actionLabels: Record<string, string> = {
   assign: "Gán quyền",
 };
 
+const EXCLUDED_ACTIONS = new Set(["close", "unpublish"]);
+
 function groupPermissions(permissions: Permission[]) {
   const groups: Record<string, Record<string, Permission[]>> = {};
   for (const p of permissions) {
+    if (EXCLUDED_ACTIONS.has(p.action)) continue;
     if (!groups[p.module]) groups[p.module] = {};
     if (!groups[p.module][p.resource]) groups[p.module][p.resource] = [];
     groups[p.module][p.resource].push(p);
@@ -94,6 +99,52 @@ function formatScope(scope: string): string {
     press: "Thông cáo báo chí",
   };
   return map[scope] || scope;
+}
+
+const NEWS_ARTICLE_SCOPE_ORDER = ["all", "market", "project", "era", "press"];
+
+const newsArticleScopeLabels: Record<string, string> = {
+  all: "Bài viết",
+  market: "Tin thị trường",
+  project: "Tin dự án",
+  era: "ERA News",
+  press: "Thông cáo báo chí",
+};
+
+function getNewsArticleSections(perms: Permission[]): { scope: string; label: string; perms: Permission[] }[] {
+  const byScope: Record<string, Permission[]> = {};
+  for (const p of perms) {
+    if (!byScope[p.scope]) byScope[p.scope] = [];
+    byScope[p.scope].push(p);
+  }
+  return NEWS_ARTICLE_SCOPE_ORDER
+    .filter((scope) => byScope[scope]?.length)
+    .map((scope) => ({
+      scope,
+      label: newsArticleScopeLabels[scope] || formatScope(scope),
+      perms: byScope[scope],
+    }));
+}
+
+function getResourceSections(
+  module: string,
+  resource: string,
+  perms: Permission[],
+): { key: string; label: string; perms: Permission[] }[] {
+  if (module === "news" && resource === "articles") {
+    return getNewsArticleSections(perms).map((section) => ({
+      key: `${resource}-${section.scope}`,
+      label: section.label,
+      perms: section.perms,
+    }));
+  }
+  return [
+    {
+      key: resource,
+      label: resourceLabels[resource] || resource,
+      perms,
+    },
+  ];
 }
 
 export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
@@ -477,76 +528,78 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
                         {moduleLabels[module] || module}
                       </div>
                       <div className="divide-y divide-gray-100">
-                        {Object.entries(resources).map(([resource, perms]) => {
-                          const allSelected = perms.every((p) =>
-                            selectedPermissionIds.has(p.id),
-                          );
-                          const someSelected =
-                            perms.some((p) => selectedPermissionIds.has(p.id)) && !allSelected;
-                          return (
-                            <div key={resource} className="p-5">
-                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-                                <h4 className="font-semibold text-gray-800">
-                                  {resourceLabels[resource] || resource}
-                                </h4>
-                                <label className="inline-flex items-center gap-2 text-xs font-medium text-gray-600 cursor-pointer select-none">
-                                  <input
-                                    type="checkbox"
-                                    checked={allSelected}
-                                    ref={(el) => {
-                                      if (el) el.indeterminate = someSelected;
-                                    }}
-                                    onChange={(e) =>
-                                      toggleAll(
-                                        perms.map((p) => p.id),
-                                        e.target.checked,
-                                      )
-                                    }
-                                    className="h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
-                                  />
-                                  Chọn tất cả
-                                </label>
+                        {Object.entries(resources).map(([resource, perms]) =>
+                          getResourceSections(module, resource, perms).map(({ key, label, perms: sectionPerms }) => {
+                            const allSelected = sectionPerms.every((p) =>
+                              selectedPermissionIds.has(p.id),
+                            );
+                            const someSelected =
+                              sectionPerms.some((p) => selectedPermissionIds.has(p.id)) && !allSelected;
+                            return (
+                              <div key={key} className="p-5">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                                  <h4 className="font-semibold text-gray-800">
+                                    {label}
+                                  </h4>
+                                  <label className="inline-flex items-center gap-2 text-xs font-medium text-gray-600 cursor-pointer select-none">
+                                    <input
+                                      type="checkbox"
+                                      checked={allSelected}
+                                      ref={(el) => {
+                                        if (el) el.indeterminate = someSelected;
+                                      }}
+                                      onChange={(e) =>
+                                        toggleAll(
+                                          sectionPerms.map((p) => p.id),
+                                          e.target.checked,
+                                        )
+                                      }
+                                      className="h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                                    />
+                                    Chọn tất cả
+                                  </label>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                                  {sectionPerms.map((p) => {
+                                    const label =
+                                      p.scope === "all"
+                                        ? `${actionLabels[p.action] || p.action}`
+                                        : `${formatScope(p.scope)} - ${actionLabels[p.action] || p.action}`;
+                                    const allPermForThisAction = sectionPerms.find(
+                                      (x) => x.scope === "all" && x.action === p.action,
+                                    );
+                                    const isScopeDisabled =
+                                      p.scope !== "all" &&
+                                      allPermForThisAction &&
+                                      selectedPermissionIds.has(allPermForThisAction.id);
+                                    return (
+                                      <label
+                                        key={p.id}
+                                        className={`flex items-start gap-2.5 rounded-lg border border-gray-100 bg-gray-50/50 p-3 transition-colors ${
+                                          isScopeDisabled
+                                            ? "opacity-50 cursor-not-allowed"
+                                            : "cursor-pointer hover:bg-gray-50"
+                                        }`}
+                                        title={p.name}
+                                      >
+                                        <input
+                                          type="checkbox"
+                                          checked={selectedPermissionIds.has(p.id)}
+                                          onChange={() => togglePermission(p.id)}
+                                          disabled={isScopeDisabled}
+                                          className="h-4 w-4 mt-0.5 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                                        />
+                                        <span className="text-sm text-gray-700 leading-snug">
+                                          {label}
+                                        </span>
+                                      </label>
+                                    );
+                                  })}
+                                </div>
                               </div>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                                {perms.map((p) => {
-                                  const label =
-                                    p.scope === "all"
-                                      ? `${actionLabels[p.action] || p.action}`
-                                      : `${formatScope(p.scope)} - ${actionLabels[p.action] || p.action}`;
-                                  const allPermForThisAction = perms.find(
-                                    (x) => x.scope === "all" && x.action === p.action,
-                                  );
-                                  const isScopeDisabled =
-                                    p.scope !== "all" &&
-                                    allPermForThisAction &&
-                                    selectedPermissionIds.has(allPermForThisAction.id);
-                                  return (
-                                    <label
-                                      key={p.id}
-                                      className={`flex items-start gap-2.5 rounded-lg border border-gray-100 bg-gray-50/50 p-3 transition-colors ${
-                                        isScopeDisabled
-                                          ? "opacity-50 cursor-not-allowed"
-                                          : "cursor-pointer hover:bg-gray-50"
-                                      }`}
-                                      title={p.name}
-                                    >
-                                      <input
-                                        type="checkbox"
-                                        checked={selectedPermissionIds.has(p.id)}
-                                        onChange={() => togglePermission(p.id)}
-                                        disabled={isScopeDisabled}
-                                        className="h-4 w-4 mt-0.5 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
-                                      />
-                                      <span className="text-sm text-gray-700 leading-snug">
-                                        {label}
-                                      </span>
-                                    </label>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          );
-                        })}
+                            );
+                          })
+                        )}
                       </div>
                     </div>
                   ))}

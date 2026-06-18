@@ -36,6 +36,7 @@ interface Props {
   onPreview?: (job: JobFormData) => void;
   onStatusChange?: (id: string, status: JobStatus) => void;
   onViewLogs?: (id: string) => void;
+  canChangeStatus?: boolean;
 }
 
 function formatSalary(job: JobFormData): string {
@@ -75,6 +76,7 @@ export function ApplyManageList({
   onPreview,
   onStatusChange,
   onViewLogs,
+  canChangeStatus = true,
 }: Props) {
   const inputClass =
     "w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 outline-none transition-colors focus:border-gray-400";
@@ -246,7 +248,7 @@ export function ApplyManageList({
                       </td>
                       <td className="px-5 py-4">
                         <div className="flex items-center justify-end gap-1">
-                          {job.status === "draft" && onStatusChange && (
+                          {job.status === "draft" && onStatusChange && canChangeStatus && (
                             <Button
                               variant="ghost"
                               isIconOnly
@@ -258,7 +260,7 @@ export function ApplyManageList({
                               <CheckCircle size={15} className="text-green-600" />
                             </Button>
                           )}
-                          {job.status === "open" && onStatusChange && (
+                          {job.status === "open" && onStatusChange && canChangeStatus && (
                             <>
                               <Button
                                 variant="ghost"
@@ -282,7 +284,7 @@ export function ApplyManageList({
                               </Button>
                             </>
                           )}
-                          {job.status === "closed" && onStatusChange && (
+                          {job.status === "closed" && onStatusChange && canChangeStatus && (
                             <Button
                               variant="ghost"
                               isIconOnly

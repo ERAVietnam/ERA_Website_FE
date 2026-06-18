@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { X, Loader2, Eye, CheckCircle, History } from "lucide-react";
 import { ApplyJobPreviewDialog } from "./ApplyJobPreviewDialog";
+import { createJobSchema } from "@/schemas/recruitment.schema";
 
 const RichEditor = dynamic(
   () => import("@/components/shared/RichEditor"),
@@ -67,6 +68,16 @@ interface Props {
   onCancel: () => void;
   onPublish?: () => void;
   onViewLogs?: () => void;
+  canPublish?: boolean;
+}
+
+function isDeadlineInPast(deadline: string): boolean {
+  if (!deadline) return false;
+  const [year, month, day] = deadline.split("-").map(Number);
+  const today = new Date();
+  const deadlineDate = new Date(year, month - 1, day);
+  const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  return deadlineDate < todayDate;
 }
 
 function toSlug(str: string): string {
@@ -98,17 +109,23 @@ function buildInitialForm(initialData?: JobFormData): JobFormData {
   };
 }
 
-export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onViewLogs }: Props) {
+export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onViewLogs, canPublish = true }: Props) {
   const [form, setForm] = useState<JobFormData>(() => buildInitialForm(initialData));
   const [isLoading, setIsLoading] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [quantityInput, setQuantityInput] = useState(String(form.quantity));
 
   const initialForm = useMemo(() => buildInitialForm(initialData), [initialData]);
 
   useEffect(() => {
     setForm(buildInitialForm(initialData));
   }, [initialData]);
+
+  useEffect(() => {
+    setQuantityInput(String(form.quantity));
+  }, [form.quantity]);
 
   const isDirty = useMemo(() => JSON.stringify(form) !== JSON.stringify(initialForm), [form, initialForm]);
 
@@ -120,10 +137,52 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
       }
       return next;
     });
+    setFieldErrors((prev) => (prev[key] ? { ...prev, [key]: "" } : prev));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFieldErrors({});
+
+    const validation = createJobSchema.safeParse(form);
+
+    // Tin đang mở không được có hạn nộp trong quá khứ
+    if (form.status === "open" && form.deadline && isDeadlineInPast(form.deadline)) {
+      setFieldErrors((prev) => ({
+        ...prev,
+        deadline: "Hạn nộp không được trong quá khứ đối với tin đang mở",
+      }));
+      const element = document.getElementById("field-deadline");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        const focusable = element.querySelector("input") as HTMLElement | null;
+        if (focusable) focusable.focus();
+      }
+      return;
+    }
+
+    if (!validation.success) {
+      const errors: Record<string, string> = {};
+      validation.error.issues.forEach((issue) => {
+        const path = issue.path[0] as string;
+        errors[path] = issue.message;
+      });
+      setFieldErrors(errors);
+
+      const firstErrorField = Object.keys(errors)[0];
+      if (firstErrorField) {
+        const element = document.getElementById(`field-${firstErrorField}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+          const focusable = element.querySelector(
+            'input, textarea, select, [contenteditable="true"]',
+          ) as HTMLElement | null;
+          if (focusable) focusable.focus();
+        }
+      }
+      return;
+    }
+
     setIsLoading(true);
     try {
       await onSave({ ...form, id: initialData?.id });
@@ -148,9 +207,25 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
   const inputClass =
     "w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 transition-colors outline-none focus:border-gray-400";
   const labelClass = "block text-sm font-semibold text-gray-700 mb-1.5";
+  const errorInputClass = "border-red-300 focus:border-red-400 bg-red-50/30";
 
   const handleSalaryChange = (value: string) => {
     update("salary", value);
+  };
+
+  const handleQuantityChange = (value: string) => {
+    setQuantityInput(value);
+    const num = parseInt(value, 10);
+    if (!Number.isNaN(num) && value !== "") {
+      update("quantity", num);
+    }
+  };
+
+  const handleQuantityBlur = () => {
+    const num = parseInt(quantityInput || "1", 10);
+    const valid = Math.max(1, num);
+    update("quantity", valid);
+    setQuantityInput(String(valid));
   };
 
   const submitButton = (
@@ -198,46 +273,45 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
         <form id="job-form" onSubmit={handleSubmit}>
           <div className="space-y-5">
             {/* Title */}
-            <div>
+            <div id="field-title">
               <label className={labelClass}>
                 Tên công việc <span style={{ color: colors.primary.DEFAULT }}>*</span>
               </label>
               <input
                 type="text"
-                className={inputClass}
+                className={`${inputClass} ${fieldErrors.title ? errorInputClass : ""}`}
                 value={form.title}
                 onChange={(e) => update("title", e.target.value)}
                 placeholder="Ví dụ: Chuyên Viên Marketing Dự Án"
-                required
               />
+              {fieldErrors.title && <p className="mt-1 text-xs text-red-500">{fieldErrors.title}</p>}
             </div>
 
             {/* Slug */}
-            <div>
+            <div id="field-slug">
               <label className={labelClass}>
                 Slug <span style={{ color: colors.primary.DEFAULT }}>*</span>
               </label>
               <input
                 type="text"
-                className={inputClass}
+                className={`${inputClass} ${fieldErrors.slug ? errorInputClass : ""}`}
                 value={form.slug}
                 onChange={(e) => update("slug", toSlug(e.target.value))}
                 placeholder="chuyen-vien-marketing-du-an"
-                required
               />
+              {fieldErrors.slug && <p className="mt-1 text-xs text-red-500">{fieldErrors.slug}</p>}
             </div>
 
             {/* Location + Quantity */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div>
+              <div id="field-location">
                 <label className={labelClass}>
                   Địa điểm <span style={{ color: colors.primary.DEFAULT }}>*</span>
                 </label>
                 <select
-                  className={`${inputClass} appearance-none cursor-pointer`}
+                  className={`${inputClass} appearance-none cursor-pointer ${fieldErrors.location ? errorInputClass : ""}`}
                   value={form.location}
                   onChange={(e) => update("location", e.target.value)}
-                  required
                 >
                   {locations.map((loc) => (
                     <option key={loc.value} value={loc.value}>
@@ -245,39 +319,42 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
                     </option>
                   ))}
                 </select>
+                {fieldErrors.location && <p className="mt-1 text-xs text-red-500">{fieldErrors.location}</p>}
               </div>
-              <div>
+              <div id="field-quantity">
                 <label className={labelClass}>Số lượng</label>
                 <input
                   type="number"
                   min={1}
-                  className={inputClass}
-                  value={form.quantity}
-                  onChange={(e) => update("quantity", parseInt(e.target.value || "1", 10))}
+                  className={`${inputClass} ${fieldErrors.quantity ? errorInputClass : ""}`}
+                  value={quantityInput}
+                  onChange={(e) => handleQuantityChange(e.target.value)}
+                  onBlur={handleQuantityBlur}
                 />
+                {fieldErrors.quantity && <p className="mt-1 text-xs text-red-500">{fieldErrors.quantity}</p>}
               </div>
             </div>
 
             {/* Deadline + Type */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div>
+              <div id="field-deadline">
                 <label className={labelClass}>Hạn nộp hồ sơ</label>
                 <input
                   type="date"
-                  className={inputClass}
+                  className={`${inputClass} ${fieldErrors.deadline ? errorInputClass : ""}`}
                   value={form.deadline}
                   onChange={(e) => update("deadline", e.target.value)}
                 />
+                {fieldErrors.deadline && <p className="mt-1 text-xs text-red-500">{fieldErrors.deadline}</p>}
               </div>
-              <div>
+              <div id="field-type">
                 <label className={labelClass}>
                   Loại hình <span style={{ color: colors.primary.DEFAULT }}>*</span>
                 </label>
                 <select
-                  className={`${inputClass} appearance-none cursor-pointer`}
+                  className={`${inputClass} appearance-none cursor-pointer ${fieldErrors.type ? errorInputClass : ""}`}
                   value={form.type}
                   onChange={(e) => update("type", e.target.value)}
-                  required
                 >
                   {types.map((t) => (
                     <option key={t.value} value={t.value}>
@@ -285,15 +362,16 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
                     </option>
                   ))}
                 </select>
+                {fieldErrors.type && <p className="mt-1 text-xs text-red-500">{fieldErrors.type}</p>}
               </div>
             </div>
 
             {/* Work mode + Experience */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div>
+              <div id="field-workMode">
                 <label className={labelClass}>Hình thức làm việc</label>
                 <select
-                  className={`${inputClass} appearance-none cursor-pointer`}
+                  className={`${inputClass} appearance-none cursor-pointer ${fieldErrors.workMode ? errorInputClass : ""}`}
                   value={form.workMode}
                   onChange={(e) => update("workMode", e.target.value)}
                 >
@@ -303,50 +381,70 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
                     </option>
                   ))}
                 </select>
+                {fieldErrors.workMode && <p className="mt-1 text-xs text-red-500">{fieldErrors.workMode}</p>}
               </div>
-              <div>
+              <div id="field-experience">
                 <label className={labelClass}>Kinh nghiệm</label>
                 <input
                   type="text"
-                  className={inputClass}
+                  className={`${inputClass} ${fieldErrors.experience ? errorInputClass : ""}`}
                   value={form.experience}
                   onChange={(e) => update("experience", e.target.value)}
                   placeholder="Ví dụ: 1 - 3 năm"
                 />
+                {fieldErrors.experience && <p className="mt-1 text-xs text-red-500">{fieldErrors.experience}</p>}
               </div>
             </div>
 
             {/* Salary */}
-            <div>
+            <div id="field-salary">
               <label className={labelClass}>Mức lương</label>
               <input
                 type="text"
-                className={inputClass}
+                className={`${inputClass} ${fieldErrors.salary ? errorInputClass : ""}`}
                 value={form.salary}
                 onChange={(e) => handleSalaryChange(e.target.value)}
                 placeholder="Ví dụ: 12 - 15 triệu, Thỏa thuận, Cạnh tranh..."
               />
+              {fieldErrors.salary && <p className="mt-1 text-xs text-red-500">{fieldErrors.salary}</p>}
             </div>
 
             {/* Rich text fields */}
-            <div>
-              <label className={labelClass}>Mô tả công việc</label>
-              <RichEditor value={form.description} onChange={(val) => update("description", val)} disableImage />
+            <div id="field-description">
+              <label className={labelClass}>
+                Mô tả công việc <span style={{ color: colors.primary.DEFAULT }}>*</span>
+              </label>
+              <div className={`rounded-lg border overflow-hidden transition-colors ${fieldErrors.description ? "border-red-300 focus-within:border-red-400" : "border-gray-200 focus-within:border-gray-400"}`}>
+                <RichEditor value={form.description} onChange={(val) => update("description", val)} disableImage />
+              </div>
+              {fieldErrors.description && <p className="mt-1 text-xs text-red-500">{fieldErrors.description}</p>}
             </div>
 
-            <div>
-              <label className={labelClass}>Yêu cầu ứng viên</label>
-              <RichEditor value={form.requirements} onChange={(val) => update("requirements", val)} disableImage />
+            <div id="field-requirements">
+              <label className={labelClass}>
+                Yêu cầu ứng viên <span style={{ color: colors.primary.DEFAULT }}>*</span>
+              </label>
+              <div className={`rounded-lg border overflow-hidden transition-colors ${fieldErrors.requirements ? "border-red-300 focus-within:border-red-400" : "border-gray-200 focus-within:border-gray-400"}`}>
+                <RichEditor value={form.requirements} onChange={(val) => update("requirements", val)} disableImage />
+              </div>
+              {fieldErrors.requirements && <p className="mt-1 text-xs text-red-500">{fieldErrors.requirements}</p>}
             </div>
 
-            <div>
-              <label className={labelClass}>Quyền lợi</label>
-              <RichEditor value={form.benefits} onChange={(val) => update("benefits", val)} disableImage disableFontColor />
+            <div id="field-benefits">
+              <label className={labelClass}>
+                Quyền lợi <span style={{ color: colors.primary.DEFAULT }}>*</span>
+              </label>
+              <div className={`rounded-lg border overflow-hidden transition-colors ${fieldErrors.benefits ? "border-red-300 focus-within:border-red-400" : "border-gray-200 focus-within:border-gray-400"}`}>
+                <RichEditor value={form.benefits} onChange={(val) => update("benefits", val)} disableImage disableFontColor />
+              </div>
+              {fieldErrors.benefits && <p className="mt-1 text-xs text-red-500">{fieldErrors.benefits}</p>}
             </div>
 
-            <div>
+            <div id="field-workingTime">
               <label className={labelClass}>Thờі gian làm việc</label>
-              <RichEditor value={form.workingTime} onChange={(val) => update("workingTime", val)} disableImage disableFontColor />
+              <div className="rounded-lg border border-gray-200 focus-within:border-gray-400 overflow-hidden transition-colors">
+                <RichEditor value={form.workingTime} onChange={(val) => update("workingTime", val)} disableImage disableFontColor />
+              </div>
             </div>
 
             {/* Mobile actions */}
@@ -384,7 +482,7 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
       <div className="hidden md:block sticky top-20 self-start">
         <div className="flex flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-sm gap-3">
           {submitButton}
-          {initialData?.id && initialData?.status === "draft" && onPublish && (
+          {initialData?.id && initialData?.status === "draft" && onPublish && canPublish && (
             <Button
               type="button"
               variant="primary"
