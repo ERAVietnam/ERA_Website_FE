@@ -11,7 +11,17 @@ import { recruitmentApi } from "@/api/domains/recruitment";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { getErrorMessage } from "@/lib/error-messages";
+import { useAuth } from "@/contexts/AuthContext";
 import type { JobPosting, CreateJobInput, UpdateJobInput, JobStatus, JobPostingLog, JobFilters, PaginationMeta } from "@/types/api";
+
+function isDeadlineInPast(deadline?: string | null): boolean {
+  if (!deadline) return false;
+  const [year, month, day] = deadline.split("-").map(Number);
+  const today = new Date();
+  const deadlineDate = new Date(year, month - 1, day);
+  const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  return deadlineDate < todayDate;
+}
 
 function jobPostingToForm(job: JobPosting): JobFormData {
   return {
@@ -87,6 +97,9 @@ const statusOptions = [
 ];
 
 export default function ApplyManagePage() {
+  const { hasPermission } = useAuth();
+  const canChangeStatus = hasPermission("recruitment.jobs.all.publish");
+
   const [jobs, setJobs] = useState<JobFormData[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchInput, setSearchInput] = useState("");
@@ -223,6 +236,15 @@ export default function ApplyManagePage() {
   };
 
   const handleStatusChange = (id: string, status: JobStatus) => {
+    const job = jobs.find((j) => j.id === id);
+    if (status === "open" && job && isDeadlineInPast(job.deadline)) {
+      setPopup({
+        show: true,
+        type: "error",
+        message: "Vui lòng cập nhật hạn nộp trong tương lai trước khi mở tuyển dụng.",
+      });
+      return;
+    }
     setStatusConfirm({ show: true, id, status });
   };
 
@@ -233,6 +255,15 @@ export default function ApplyManagePage() {
   const handleConfirmStatusChange = async () => {
     const { id, status } = statusConfirm;
     if (!id || !status) return;
+    if (!canChangeStatus) {
+      setStatusConfirm({ show: false, id: "", status: null });
+      setPopup({
+        show: true,
+        type: "error",
+        message: "Bạn không có quyền kiểm duyệt tin tuyển dụng.",
+      });
+      return;
+    }
     setStatusConfirm({ show: false, id: "", status: null });
     try {
       const updated = await recruitmentApi.updateJobStatus(id, status);
@@ -268,6 +299,7 @@ export default function ApplyManagePage() {
             onCancel={handleCancel}
             onPublish={editing?.status === "draft" ? handlePublishFromForm : undefined}
             onViewLogs={editing?.id ? () => handleViewLogs(editing.id!) : undefined}
+            canPublish={canChangeStatus}
           />
         ) : (
           <>
@@ -288,6 +320,7 @@ export default function ApplyManagePage() {
               onPreview={handlePreview}
               onStatusChange={handleStatusChange}
               onViewLogs={handleViewLogs}
+              canChangeStatus={canChangeStatus}
             />
 
             <Pagination
