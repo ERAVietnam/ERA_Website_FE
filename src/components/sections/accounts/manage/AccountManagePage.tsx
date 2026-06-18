@@ -40,9 +40,10 @@ export default function AccountManagePage() {
     loadAccounts().finally(() => setLoading(false));
   }, []);
 
-  const handleSave = () => {
-    setShowForm(false);
-    setEditing(null);
+  const handleSave = (account?: ManagementAccount) => {
+    if (account) {
+      setEditing(account);
+    }
     loadAccounts().catch(() => {});
   };
 
@@ -101,6 +102,7 @@ export default function AccountManagePage() {
               message={popup.message}
               onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
               autoClose={popup.type === "success"}
+              autoCloseMs={1000}
             />
           )}
 

@@ -11,7 +11,7 @@ export const ENDPOINTS = {
     LIST: '/articles',
     PUBLISHED: '/articles/published',
     DETAIL: (id: string) => `/articles/${id}`,
-    DETAIL_BY_SLUG: (categorySlug: string, slug: string) => `/articles/by-slug/${categorySlug}/${slug}`,
+    DETAIL_BY_SLUG: (slug: string) => `/articles/by-slug/${slug}`,
     CREATE: '/articles',
     UPDATE: (id: string) => `/articles/${id}`,
     DELETE: (id: string) => `/articles/${id}`,

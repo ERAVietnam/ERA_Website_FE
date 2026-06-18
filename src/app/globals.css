@@ -224,8 +224,7 @@ body {
 
 .ck-content .image img,
 .ck-content .image_resized img,
-.ck-content figure img,
-.ck-content img {
+.ck-content figure img {
   width: 100% !important;
   max-width: 100% !important;
   height: auto !important;
@@ -233,4 +232,13 @@ body {
   margin-left: auto !important;
   margin-right: auto !important;
   border-radius: 0 !important;
+}
+
+/* Inline icons/emojis inside paragraphs, lists, headings, etc. keep their natural size and inline flow */
+.ck-content img:not(figure img) {
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
 }

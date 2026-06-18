@@ -11,6 +11,15 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: "/tin-tuc/:categorySlug((?!danh-muc)[^/]+)/:articleSlug",
+        destination: "/tin-tuc/:articleSlug",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

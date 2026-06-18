@@ -4,15 +4,14 @@ import { newsApi } from "@/api/domains/news";
 import type { NewsArticle } from "@/types/api";
 
 interface Props {
-  params: Promise<{ categorySlug: string; articleSlug: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
   try {
     const articles = await newsApi.getPublishedArticles();
     return articles.map((article: NewsArticle) => ({
-      categorySlug: article.category.slug,
-      articleSlug: article.slug,
+      slug: article.slug,
     }));
   } catch {
     return [];
@@ -21,14 +20,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const { categorySlug, articleSlug } = await params;
-    const article = await newsApi.getArticleBySlug(categorySlug, articleSlug);
+    const { slug } = await params;
+    const article = await newsApi.getArticleBySlug(slug);
 
     const title = article.metaTitle?.trim() || article.title?.trim() || "ERA Vietnam";
     const description = article.metaDescription?.trim() || article.summary?.trim() || undefined;
     const imageUrl = article.featuredImage?.url || undefined;
     const siteUrl = "https://era.com.vn";
-    const currentUrl = `${siteUrl}/tin-tuc/${categorySlug}/${articleSlug}/`;
+    const currentUrl = `${siteUrl}/tin-tuc/${slug}/`;
     const canonicalUrl = article.canonicalUrl?.trim() || null;
 
     return {
@@ -61,17 +60,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function NewsDetail({ params }: Props) {
-  const { categorySlug, articleSlug } = await params;
+  const { slug } = await params;
 
   try {
-    const [article, relatedArticles] = await Promise.all([
-      newsApi.getArticleBySlug(categorySlug, articleSlug),
-      newsApi.getPublishedArticles({
-        categorySlug,
-        excludeId: undefined,
+    const article = await newsApi.getArticleBySlug(slug);
+
+    const relatedArticles = await newsApi
+      .getPublishedArticles({
+        categorySlug: article.category.slug,
+        excludeId: article.id,
         limit: 3,
-      }).catch(() => [] as NewsArticle[]),
-    ]);
+      })
+      .catch(() => [] as NewsArticle[]);
 
     const filteredRelated = relatedArticles.filter((a) => a.id !== article.id).slice(0, 3);
 

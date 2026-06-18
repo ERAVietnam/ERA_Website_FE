@@ -44,6 +44,7 @@ export interface NewsArticle {
   isIndexed?: boolean | null;
   canonicalUrl?: string | null;
   publishedAt?: string | null;
+  displayPublishedAt?: string;
   createdAt: string;
   updatedAt: string;
   category: Pick<NewsCategory, 'id' | 'name' | 'slug'>;
@@ -61,6 +62,7 @@ export interface CreateArticleInput {
   metaDescription?: string;
   isIndexed?: boolean;
   canonicalUrl?: string | null;
+  displayPublishedAt?: string;
   status?: 'draft' | 'pending' | 'published';
   isFeatured?: boolean;
   countryCode?: string;

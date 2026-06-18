@@ -15,7 +15,7 @@ import type { ManagementAccount, Permission } from "@/types/api";
 
 interface Props {
   initialData?: ManagementAccount;
-  onSave: () => void;
+  onSave: (account?: ManagementAccount) => void;
   onCancel: () => void;
 }
 
@@ -309,6 +309,7 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
     setIsLoading(true);
     try {
       const canAssign = hasPermission("auth.permissions.all.assign");
+      let saved: ManagementAccount;
       if (initialData?.id) {
         const payload: { name: string; email: string; isActive: boolean; password?: string } = {
           name: form.name,
@@ -318,18 +319,18 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
         if (form.password.trim()) {
           payload.password = form.password;
         }
-        await accountsApi.updateAccount(initialData.id, payload);
+        saved = await accountsApi.updateAccount(initialData.id, payload);
         if (canAssign) {
-          await accountsApi.assignPermissions(initialData.id, { permissionIds });
+          saved = await accountsApi.assignPermissions(initialData.id, { permissionIds });
         }
       } else {
-        const created = await accountsApi.createAccount({
+        saved = await accountsApi.createAccount({
           name: form.name,
           email: form.email,
           password: form.password,
         });
         if (canAssign && permissionIds.length > 0) {
-          await accountsApi.assignPermissions(created.id, { permissionIds });
+          saved = await accountsApi.assignPermissions(saved.id, { permissionIds });
         }
       }
       setPopup({
@@ -339,7 +340,7 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
           ? "Cập nhật tài khoản thành công!"
           : "Tạo tài khoản thành công!",
       });
-      setTimeout(() => onSave(), 1500);
+      onSave(saved);
     } catch (err: any) {
       setPopup({
         show: true,
@@ -383,6 +384,7 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
             message={popup.message}
             onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
             autoClose={popup.type === "success"}
+            autoCloseMs={1000}
           />
         )}
 

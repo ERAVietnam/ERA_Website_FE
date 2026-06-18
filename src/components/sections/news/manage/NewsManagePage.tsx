@@ -104,9 +104,10 @@ export default function NewsManagePage() {
     return () => clearTimeout(timer);
   }, [searchInput]);
 
-  const handleSave = () => {
-    setShowForm(false);
-    setEditing(null);
+  const handleSave = (article?: NewsArticle) => {
+    if (article) {
+      setEditing(article);
+    }
     fetchItems();
   };
 
@@ -266,6 +267,7 @@ export default function NewsManagePage() {
               message={popup.message}
               onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
               autoClose={popup.type === "success"}
+              autoCloseMs={1000}
             />
           )}
 

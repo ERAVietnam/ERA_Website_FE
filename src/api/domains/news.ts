@@ -26,8 +26,8 @@ export const newsApi = {
   getArticleLogs: (id: string) =>
     apiClient.get<NewsArticleLog[]>(ENDPOINTS.NEWS.LOGS(id)).then((res) => res.data),
 
-  getArticleBySlug: (categorySlug: string, slug: string) =>
-    apiClient.get<NewsArticle>(ENDPOINTS.NEWS.DETAIL_BY_SLUG(categorySlug, slug)).then((res) => res.data),
+  getArticleBySlug: (slug: string) =>
+    apiClient.get<NewsArticle>(ENDPOINTS.NEWS.DETAIL_BY_SLUG(slug)).then((res) => res.data),
 
   createArticle: (data: CreateArticleInput) =>
     apiClient.post<NewsArticle>(ENDPOINTS.NEWS.CREATE, data).then((res) => res.data),
