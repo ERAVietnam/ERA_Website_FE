@@ -323,7 +323,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
                 fontSize: "14px",
               }}
             >
-              {formatDate(article.publishedAt || article.createdAt)}
+              {formatDate(article.displayPublishedAt || article.publishedAt || article.createdAt)}
             </p>
           </div>
 
@@ -383,7 +383,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
               {relatedArticles.map((item) => (
                 <Link
                   key={item.id}
-                  href={`/tin-tuc/${item.category.slug}/${item.slug}/`}
+                  href={`/tin-tuc/${item.slug}/`}
                   className="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer group hover:shadow-md transition-transform duration-300 hover:scale-[1.02] block"
                 >
                   <div className="relative h-48 overflow-hidden bg-gray-100">
@@ -410,7 +410,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
                         color: colors.gray[400],
                       }}
                     >
-                      {formatDate(item.publishedAt || item.createdAt)}
+                      {formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt)}
                     </p>
                     <h4
                       className="mb-2 line-clamp-2 group-hover:text-primary transition-colors"

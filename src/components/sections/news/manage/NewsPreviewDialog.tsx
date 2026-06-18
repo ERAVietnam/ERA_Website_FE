@@ -64,7 +64,7 @@ export function NewsPreviewDialog({ article, isOpen, onClose }: NewsPreviewDialo
           <div className="flex items-center gap-2 ml-3">
             {article.status === "published" && (
               <a
-                href={`/tin-tuc/${article.category.slug}/${article.slug}/`}
+                href={`/tin-tuc/${article.slug}/`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-white/30"

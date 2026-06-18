@@ -55,7 +55,7 @@ export const NewsCategorySection = memo(function NewsCategorySection({
   const featuredCard = (
     <div className="lg:col-span-3">
       <Link
-        href={`${ROUTES.news}/${category.slug}/${featuredArticle.slug}`}
+        href={`${ROUTES.news}/${featuredArticle.slug}`}
         className="block"
       >
         <div className="relative h-[420px] rounded-2xl overflow-hidden cursor-pointer group transition-transform duration-300 hover:scale-[1.01]">
@@ -115,7 +115,7 @@ export const NewsCategorySection = memo(function NewsCategorySection({
       {sideArticles.map((item) => (
         <Link
           key={item.id}
-          href={`${ROUTES.news}/${category.slug}/${item.slug}`}
+          href={`${ROUTES.news}/${item.slug}`}
           className="block"
         >
           <article className="flex gap-4 cursor-pointer group bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200 flex-1">
@@ -151,7 +151,7 @@ export const NewsCategorySection = memo(function NewsCategorySection({
                   fontSize: "14px",
                 }}
               >
-                {formatTimeAgo(item.publishedAt || item.createdAt)} • {item.readTime || "1 phút đọc"}
+                {formatTimeAgo(item.displayPublishedAt || item.publishedAt || item.createdAt)} • {item.readTime || "1 phút đọc"}
               </p>
             </div>
           </article>
@@ -187,6 +187,16 @@ export const NewsCategorySection = memo(function NewsCategorySection({
             {featuredCard}
           </>
         )}
+      </div>
+
+      <div className="mt-6 text-right">
+        <Link
+          href={`${ROUTES.newsCategory}/${category.slug}`}
+          className="inline-flex items-center text-sm font-semibold hover:opacity-80 transition-opacity"
+          style={{ color: colors.primary.DEFAULT }}
+        >
+          Xem thêm →
+        </Link>
       </div>
     </Section>
   );

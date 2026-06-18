@@ -45,7 +45,7 @@ export interface NewsFormData {
 interface Props {
   initialData?: NewsArticle;
   readOnly?: boolean;
-  onSave: () => void;
+  onSave: (article?: NewsArticle) => void;
   onCancel: () => void;
 }
 
@@ -70,6 +70,7 @@ interface FormState {
   metaDescription: string;
   isIndexed: boolean;
   canonicalUrl: string;
+  displayPublishedAt: string;
   isFeatured: boolean;
 }
 
@@ -86,6 +87,7 @@ function articleToFormState(article?: NewsArticle): FormState {
       metaDescription: "",
       isIndexed: true,
       canonicalUrl: "",
+      displayPublishedAt: "",
       isFeatured: false,
     };
   }
@@ -100,6 +102,9 @@ function articleToFormState(article?: NewsArticle): FormState {
     metaDescription: article.metaDescription ?? "",
     isIndexed: article.isIndexed ?? true,
     canonicalUrl: article.canonicalUrl ?? "",
+    displayPublishedAt: article.displayPublishedAt
+      ? new Date(article.displayPublishedAt).toISOString().split("T")[0]
+      : "",
     isFeatured: article.isFeatured,
   };
 }
@@ -110,20 +115,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   const [form, setForm] = useState<FormState>(() => articleToFormState(initialData));
 
   const isSuperAdmin = hasPermission("system.super_admin");
-  const articleScope = initialData ? getNewsScopeBySlug(initialData.category.slug) : null;
-  const canPublishScope =
-    isSuperAdmin ||
-    hasPermission("news.articles.all.publish") ||
-    (articleScope && hasPermission(`news.articles.${articleScope}.publish`));
   const isAuthor = initialData
     ? account?.id === initialData.authorId || isSuperAdmin
     : false;
   const status = initialData?.status ?? "draft";
-  const isReadOnly =
-    readOnly ||
-    status === "published" ||
-    (status === "pending" && !canPublishScope && !!initialData?.id) ||
-    (status === "draft" && !!initialData?.id && !isAuthor);
 
   const statusConfig: Record<string, { label: string; color: string; bg: string }> = {
     draft: { label: "Bản nháp", color: "#6B7280", bg: "#F3F4F6" },
@@ -134,6 +129,21 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   const [featuredImageFile, setFeaturedImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>(initialData?.featuredImage?.url || "");
   const [categories, setCategories] = useState<NewsCategory[]>([]);
+
+  const articleCategory = initialData
+    ? initialData.category ?? categories.find((c) => c.id === initialData.categoryId)
+    : null;
+  const articleScope = articleCategory ? getNewsScopeBySlug(articleCategory.slug) : null;
+  const canPublishScope =
+    isSuperAdmin ||
+    hasPermission("news.articles.all.publish") ||
+    (articleScope && hasPermission(`news.articles.${articleScope}.publish`));
+  const isReadOnly =
+    readOnly ||
+    status === "published" ||
+    (status === "pending" && !canPublishScope && !!initialData?.id) ||
+    (status === "draft" && !!initialData?.id && !isAuthor);
+
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [popup, setPopup] = useState<{
@@ -143,7 +153,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   }>({ show: false, type: "success", message: "" });
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
   const [pendingAction, setPendingAction] = useState<
-    { type: "save" } | { type: "submit" } | { type: "publish" } | { type: "publish_dirty" } | { type: "reject" } | { type: "revoke" } | null
+    { type: "save" } | { type: "submit" } | { type: "publish" } | { type: "unsaved_changes" } | { type: "reject" } | { type: "revoke" } | null
   >(null);
   const [showHistory, setShowHistory] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
@@ -187,6 +197,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       metaDescription: form.metaDescription || null,
       isIndexed: form.isIndexed,
       canonicalUrl: form.canonicalUrl || null,
+      displayPublishedAt: form.displayPublishedAt
+        ? new Date(form.displayPublishedAt).toISOString()
+        : undefined,
       isFeatured: form.isFeatured,
       categoryId: form.categoryId,
       category,
@@ -247,6 +260,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const handleSubmitForReview = async () => {
     if (!initialData?.id) return;
+    if (isDirty) {
+      setPendingAction({ type: "unsaved_changes" });
+      return;
+    }
     if (!pendingAction || pendingAction.type !== "submit") {
       setPendingAction({ type: "submit" });
       return;
@@ -255,9 +272,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     setPopup((prev) => ({ ...prev, show: false }));
     setIsLoading(true);
     try {
-      await newsApi.updateArticle(initialData.id, { status: "pending" });
+      const saved = await newsApi.updateArticle(initialData.id, { status: "pending" });
       setPopup({ show: true, type: "success", message: "Đã gửi bài viết đi duyệt!" });
-      setTimeout(() => onSave(), 1500);
+      onSave(saved);
     } catch (err: any) {
       const errorData = err?.data;
       if (errorData && typeof errorData === "object" && errorData.field) {
@@ -283,7 +300,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   const handlePublish = async () => {
     if (!initialData?.id) return;
     if (isDirty) {
-      setPendingAction({ type: "publish_dirty" });
+      setPendingAction({ type: "unsaved_changes" });
       return;
     }
     if (!pendingAction || pendingAction.type !== "publish") {
@@ -294,9 +311,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     setPopup((prev) => ({ ...prev, show: false }));
     setIsLoading(true);
     try {
-      await newsApi.publishArticle(initialData.id);
+      const saved = await newsApi.publishArticle(initialData.id);
       setPopup({ show: true, type: "success", message: "Duyệt bài viết thành công!" });
-      setTimeout(() => onSave(), 1500);
+      onSave(saved);
     } catch (err: any) {
       setPopup({
         show: true,
@@ -310,6 +327,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const handleRevoke = async () => {
     if (!initialData?.id) return;
+    if (isDirty) {
+      setPendingAction({ type: "unsaved_changes" });
+      return;
+    }
     if (!pendingAction || pendingAction.type !== "revoke") {
       setPendingAction({ type: "revoke" });
       return;
@@ -318,9 +339,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     setPopup((prev) => ({ ...prev, show: false }));
     setIsLoading(true);
     try {
-      await newsApi.revokeArticle(initialData.id);
+      const saved = await newsApi.revokeArticle(initialData.id);
       setPopup({ show: true, type: "success", message: "Đã hủy duyệt bài viết!" });
-      setTimeout(() => onSave(), 1500);
+      onSave(saved);
     } catch (err: any) {
       setPopup({
         show: true,
@@ -334,6 +355,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const handleReject = async () => {
     if (!initialData?.id) return;
+    if (isDirty) {
+      setPendingAction({ type: "unsaved_changes" });
+      return;
+    }
     if (!pendingAction || pendingAction.type !== "reject") {
       setPendingAction({ type: "reject" });
       return;
@@ -342,9 +367,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     setPopup((prev) => ({ ...prev, show: false }));
     setIsLoading(true);
     try {
-      await newsApi.updateArticle(initialData.id, { status: "draft" });
+      const saved = await newsApi.updateArticle(initialData.id, { status: "draft" });
       setPopup({ show: true, type: "success", message: "Đã từ chối duyệt bài viết!" });
-      setTimeout(() => onSave(), 1500);
+      onSave(saved);
     } catch (err: any) {
       setPopup({
         show: true,
@@ -462,14 +487,15 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         metaDescription: form.metaDescription || undefined,
         isIndexed: form.isIndexed,
         canonicalUrl: form.canonicalUrl || null,
+        displayPublishedAt: form.displayPublishedAt
+          ? new Date(form.displayPublishedAt).toISOString()
+          : undefined,
         isFeatured: form.isFeatured,
       };
 
-      if (initialData?.id) {
-        await newsApi.updateArticle(initialData.id, payload);
-      } else {
-        await newsApi.createArticle(payload);
-      }
+      const saved = initialData?.id
+        ? await newsApi.updateArticle(initialData.id, payload)
+        : await newsApi.createArticle(payload);
 
       setPopup({
         show: true,
@@ -477,9 +503,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         message: initialData?.id ? "Cập nhật bài viết thành công!" : "Tạo bài viết thành công!",
       });
 
-      setTimeout(() => {
-        onSave();
-      }, 3000);
+      onSave(saved);
     } catch (err: any) {
       setPopup({
         show: true,
@@ -538,6 +562,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
             message={popup.message}
             onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
             autoClose={popup.type === "success"}
+            autoCloseMs={1000}
           />
         )}
 
@@ -561,7 +586,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               ? "Gửi duyệt bài viết"
               : pendingAction?.type === "publish"
               ? "Duyệt bài viết"
-              : pendingAction?.type === "publish_dirty"
+              : pendingAction?.type === "unsaved_changes"
               ? "Thay đổi chưa được lưu"
               : pendingAction?.type === "reject"
               ? "Từ chối duyệt"
@@ -576,8 +601,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               ? "Sau khi gửi duyệt, bài viết sẽ chuyển sang trạng thái chờ duyệt và không thể sửa/xóa nữa."
               : pendingAction?.type === "publish"
               ? "Sau khi duyệt, bài viết sẽ được đăng công khai và không thể sửa/xóa trực tiếp."
-              : pendingAction?.type === "publish_dirty"
-              ? "Bạn có thay đổi chưa lưu. Vui lòng lưu trước khi duyệt bài viết."
+              : pendingAction?.type === "unsaved_changes"
+              ? "Bạn có thay đổi chưa lưu. Vui lòng lưu trước khi thực hiện thao tác này."
               : pendingAction?.type === "reject"
               ? "Bài viết sẽ bị từ chối và chuyển về trạng thái bản nháp."
               : pendingAction?.type === "revoke"
@@ -591,7 +616,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               ? "Gửi duyệt"
               : pendingAction?.type === "publish"
               ? "Duyệt"
-              : pendingAction?.type === "publish_dirty"
+              : pendingAction?.type === "unsaved_changes"
               ? "Đã hiểu"
               : pendingAction?.type === "reject"
               ? "Từ chối"
@@ -607,7 +632,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               handleSubmitForReview();
             } else if (pendingAction?.type === "publish") {
               handlePublish();
-            } else if (pendingAction?.type === "publish_dirty") {
+            } else if (pendingAction?.type === "unsaved_changes") {
               setPendingAction(null);
             } else if (pendingAction?.type === "reject") {
               handleReject();
@@ -760,6 +785,23 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               />
               <p className="mt-1 text-xs text-gray-500">
                 Nếu để trống, bài viết sẽ không có canonical URL.
+              </p>
+            </div>
+
+            {/* Display published date */}
+            <div id="field-displayPublishedAt">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Ngày đăng hiển thị
+              </label>
+              <input
+                type="date"
+                value={form.displayPublishedAt}
+                onChange={(e) => update("displayPublishedAt", e.target.value)}
+                disabled={isReadOnly}
+                className={inputBaseClass}
+              />
+              <p className="mt-1 text-xs text-gray-500">
+                Ngày hiển thị trên trang công khai. Để trống sẽ dùng ngày xuất bản hoặc ngày tạo.
               </p>
             </div>
 

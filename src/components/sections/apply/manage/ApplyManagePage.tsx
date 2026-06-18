@@ -174,15 +174,17 @@ export default function ApplyManagePage() {
     try {
       if (editing?.id) {
         const updated = await recruitmentApi.updateJob(editing.id, formToUpdateInput(data));
-        setJobs((prev) => prev.map((j) => (j.id === updated.id ? jobPostingToForm(updated) : j)));
+        const updatedForm = jobPostingToForm(updated);
+        setJobs((prev) => prev.map((j) => (j.id === updated.id ? updatedForm : j)));
+        setEditing(updatedForm);
         setPopup({ show: true, type: "success", message: "Cập nhật tin tuyển dụng thành công!" });
       } else {
         const created = await recruitmentApi.createJob(formToCreateInput(data));
-        setJobs((prev) => [jobPostingToForm(created), ...prev]);
+        const createdForm = jobPostingToForm(created);
+        setJobs((prev) => [createdForm, ...prev]);
+        setEditing(createdForm);
         setPopup({ show: true, type: "success", message: "Tạo tin tuyển dụng thành công!" });
       }
-      setShowForm(false);
-      setEditing(null);
     } catch (err: any) {
       setPopup({
         show: true,
@@ -267,7 +269,11 @@ export default function ApplyManagePage() {
     setStatusConfirm({ show: false, id: "", status: null });
     try {
       const updated = await recruitmentApi.updateJobStatus(id, status);
-      setJobs((prev) => prev.map((j) => (j.id === updated.id ? jobPostingToForm(updated) : j)));
+      const updatedForm = jobPostingToForm(updated);
+      setJobs((prev) => prev.map((j) => (j.id === updated.id ? updatedForm : j)));
+      if (editing?.id === id) {
+        setEditing(updatedForm);
+      }
       const label = status === "open" ? "Đăng tuyển" : status === "closed" ? "Đóng tuyển" : "Gỡ bài";
       setPopup({ show: true, type: "success", message: `${label} thành công!` });
     } catch (err: any) {
@@ -385,6 +391,7 @@ export default function ApplyManagePage() {
           message={popup.message}
           onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
           autoClose={popup.type === "success"}
+          autoCloseMs={1000}
         />
       )}
     </Section>
