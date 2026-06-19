@@ -99,7 +99,23 @@ export function Footer() {
                 <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" style={s.textMuted}>
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                 </svg>
-                <p className="text-xs" style={s.textMuted}>Hotline: 1800 6701</p>
+                <a
+                  href="tel:18006701"
+                  className="text-xs transition-colors hover:opacity-80"
+                  style={s.textMuted}
+                  onClick={(e) => {
+                    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+                      navigator.userAgent
+                    );
+                    if (!isMobile) {
+                      e.preventDefault();
+                      navigator.clipboard.writeText("18006701").catch(() => {});
+                      alert("Số hotline đã được sao chép: 1800 6701");
+                    }
+                  }}
+                >
+                  Hotline: 1800 6701
+                </a>
               </div>
 
               <div className="flex items-center gap-2">
@@ -107,7 +123,23 @@ export function Footer() {
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
-                <p className="text-xs" style={s.textMuted}>Email: info@era.com.vn</p>
+                <a
+                  href="mailto:info@era.com.vn"
+                  className="text-xs transition-colors hover:opacity-80"
+                  style={s.textMuted}
+                  onClick={(e) => {
+                    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+                      navigator.userAgent
+                    );
+                    if (!isMobile) {
+                      e.preventDefault();
+                      navigator.clipboard.writeText("info@era.com.vn").catch(() => {});
+                      alert("Địa chỉ email đã được sao chép: info@era.com.vn");
+                    }
+                  }}
+                >
+                  Email: info@era.com.vn
+                </a>
               </div>
             </div>
           </div>
@@ -176,7 +208,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href={ROUTES.join} className="text-sm transition-colors hover:opacity-80" style={s.textMuted}>
+                <Link href={ROUTES.apply} className="text-sm transition-colors hover:opacity-80" style={s.textMuted}>
                   Tuyển dụng
                 </Link>
               </li>
@@ -189,18 +221,18 @@ export function Footer() {
             <h4 className="lg:hidden text-base font-semibold mb-4" style={s.textWhite}>Theo dõi chúng tôi</h4>
             <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-3">
               {/* Mobile: icon only */}
-              <Link href="/" className="lg:hidden transition-colors hover:opacity-80">
+              <Link href="https://www.facebook.com/eraviet" target="_blank" rel="noopener noreferrer" className="lg:hidden transition-colors hover:opacity-80">
                 <Image src="/shared/fb_icon.svg" alt="Facebook" width={40} height={40} className="w-10 h-10" />
               </Link>
-              <Link href="/" className="lg:hidden transition-colors hover:opacity-80">
+              <Link href="https://www.youtube.com/@ERAVIETNAM" target="_blank" rel="noopener noreferrer" className="lg:hidden transition-colors hover:opacity-80">
                 <Image src="/shared/ytb_icon.svg" alt="Youtube" width={40} height={40} className="w-10 h-10" />
               </Link>
               {/* Desktop: icon + text */}
-              <Link href="/" className="hidden lg:flex items-center gap-3 text-sm transition-colors hover:opacity-80" style={s.textMuted}>
+              <Link href="https://www.facebook.com/eraviet" target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center gap-3 text-sm transition-colors hover:opacity-80" style={s.textMuted}>
                 <Image src="/shared/fb_icon.svg" alt="Facebook" width={24} height={24} className="w-6 h-6" />
                 Facebook
               </Link>
-              <Link href="/" className="hidden lg:flex items-center gap-3 text-sm transition-colors hover:opacity-80" style={s.textMuted}>
+              <Link href="https://www.youtube.com/@ERAVIETNAM" target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center gap-3 text-sm transition-colors hover:opacity-80" style={s.textMuted}>
                 <Image src="/shared/ytb_icon.svg" alt="Youtube" width={24} height={24} className="w-6 h-6" />
                 Youtube
               </Link>
