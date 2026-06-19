@@ -30,8 +30,12 @@ export async function NewsPage() {
     articles
       .filter((a) => a.category.slug === categorySlug)
       .sort((a, b) => {
-        const dateA = new Date(a.publishedAt || a.createdAt).getTime();
-        const dateB = new Date(b.publishedAt || b.createdAt).getTime();
+        // Bài tiêu điểm lên đầu (mỗi danh mục chỉ có 1)
+        if (a.isFeatured && !b.isFeatured) return -1;
+        if (!a.isFeatured && b.isFeatured) return 1;
+        // Các bài còn lại sắp xếp theo ngày đăng hiển thị gần nhất
+        const dateA = new Date(a.displayPublishedAt || a.publishedAt || a.createdAt).getTime();
+        const dateB = new Date(b.displayPublishedAt || b.publishedAt || b.createdAt).getTime();
         return dateB - dateA;
       });
 

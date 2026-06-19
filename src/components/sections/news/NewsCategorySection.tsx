@@ -16,20 +16,15 @@ interface NewsCategorySectionProps {
   bg?: "white" | "gray";
 }
 
-function formatTimeAgo(dateString?: string | null) {
+function formatDate(dateString?: string | null) {
   if (!dateString) return "";
   const date = new Date(dateString);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffMinutes = Math.floor(diffMs / (1000 * 60));
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-
-  if (diffMinutes < 1) return "Vừa xong";
-  if (diffMinutes < 60) return `${diffMinutes} phút trước`;
-  if (diffHours < 24) return `${diffHours} giờ trước`;
-  if (diffDays < 7) return `${diffDays} ngày trước`;
-  return date.toLocaleDateString("vi-VN", { day: "numeric", month: "long", year: "numeric" });
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString("vi-VN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 }
 
 function getFirstImageFromContent(content: string): string | null {
@@ -153,7 +148,7 @@ export const NewsCategorySection = memo(function NewsCategorySection({
                   fontSize: "14px",
                 }}
               >
-                {formatTimeAgo(item.displayPublishedAt || item.publishedAt || item.createdAt)} • {item.readTime || "1 phút đọc"}
+                {formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt)} • {item.readTime || "1 phút đọc"}
               </p>
             </div>
           </article>

@@ -20,8 +20,8 @@ export const getCategoryPageData = cache(async (categorySlug: string) => {
     const sortedArticles = articles
       .filter((article: NewsArticle) => article.category.slug === categorySlug)
       .sort((a: NewsArticle, b: NewsArticle) => {
-        const dateA = new Date(a.publishedAt || a.createdAt).getTime();
-        const dateB = new Date(b.publishedAt || b.createdAt).getTime();
+        const dateA = new Date(a.displayPublishedAt || a.publishedAt || a.createdAt).getTime();
+        const dateB = new Date(b.displayPublishedAt || b.publishedAt || b.createdAt).getTime();
         return dateB - dateA;
       });
 

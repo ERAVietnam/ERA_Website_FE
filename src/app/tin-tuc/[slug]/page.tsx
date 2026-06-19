@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { NewsDetailPage } from "@/components/sections/news";
 import { newsApi } from "@/api/domains/news";
 import type { NewsArticle } from "@/types/api";
@@ -59,11 +60,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+function isArticleVisible(article: NewsArticle): boolean {
+  const now = new Date();
+  if (article.displayPublishedAt) {
+    return new Date(article.displayPublishedAt) <= now;
+  }
+  if (article.publishedAt) {
+    return new Date(article.publishedAt) <= now;
+  }
+  return true;
+}
+
 export default async function NewsDetail({ params }: Props) {
   const { slug } = await params;
 
   try {
     const article = await newsApi.getArticleBySlug(slug);
+
+    if (!isArticleVisible(article)) {
+      notFound();
+    }
 
     const relatedArticles = await newsApi
       .getPublishedArticles({
