@@ -11,6 +11,7 @@ import type { NewsArticle, NewsCategory } from "@/types/api";
 interface NewsCategorySectionProps {
   category: NewsCategory;
   articles: NewsArticle[];
+  totalCount: number;
   featuredPosition?: "left" | "right";
   bg?: "white" | "gray";
 }
@@ -43,6 +44,7 @@ function getArticleImage(article: NewsArticle): string | null {
 export const NewsCategorySection = memo(function NewsCategorySection({
   category,
   articles,
+  totalCount,
   featuredPosition = "left",
   bg = "gray",
 }: NewsCategorySectionProps) {
@@ -189,15 +191,17 @@ export const NewsCategorySection = memo(function NewsCategorySection({
         )}
       </div>
 
-      <div className="mt-6 text-right">
-        <Link
-          href={`${ROUTES.newsCategory}/${category.slug}`}
-          className="inline-flex items-center text-sm font-semibold hover:opacity-80 transition-opacity"
-          style={{ color: colors.primary.DEFAULT }}
-        >
-          Xem thêm →
-        </Link>
-      </div>
+      {totalCount > 4 && (
+        <div className="mt-6 text-right">
+          <Link
+            href={`${ROUTES.newsCategory}/${category.slug}`}
+            className="inline-flex items-center text-sm font-semibold hover:opacity-80 transition-opacity"
+            style={{ color: colors.primary.DEFAULT }}
+          >
+            Xem thêm →
+          </Link>
+        </div>
+      )}
     </Section>
   );
 });

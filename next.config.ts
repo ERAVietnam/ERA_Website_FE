@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/tin-tuc/danh-muc/:categorySlug",
+        destination: "/tin-tuc/:categorySlug",
+        permanent: true,
+      },
+      {
         source: "/tin-tuc/:categorySlug((?!danh-muc)[^/]+)/:articleSlug",
         destination: "/tin-tuc/:articleSlug",
         permanent: true,

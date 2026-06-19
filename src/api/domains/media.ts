@@ -21,6 +21,18 @@ export const mediaApi = {
       .then((res) => res.data);
   },
 
+  uploadFile: (file: File, folder?: 'news' | 'magazine' | 'general') => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return apiClient
+      .post<UploadMediaResponse>(ENDPOINTS.MEDIA.UPLOAD, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        params: folder ? { folder } : undefined,
+      })
+      .then((res) => res.data);
+  },
+
   deleteMedia: (id: string) =>
     apiClient.delete<void>(ENDPOINTS.MEDIA.DELETE(id)).then((res) => res.data),
 

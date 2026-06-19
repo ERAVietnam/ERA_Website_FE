@@ -19,11 +19,11 @@ function isProtectedRoute(pathname: string): boolean {
 export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Redirect old category URLs (/tin-tuc/<category>) to new category URLs (/tin-tuc/danh-muc/<category>)
-  const categoryMatch = pathname.match(/^\/tin-tuc\/([^/]+)\/?$/);
-  if (categoryMatch && NEWS_CATEGORY_SLUGS.has(categoryMatch[1])) {
+  // Redirect old category URLs (/tin-tuc/danh-muc/<category>) to new category URLs (/tin-tuc/<category>)
+  const oldCategoryMatch = pathname.match(/^\/tin-tuc\/danh-muc\/([^/]+)\/?$/);
+  if (oldCategoryMatch && NEWS_CATEGORY_SLUGS.has(oldCategoryMatch[1])) {
     return NextResponse.redirect(
-      new URL(`/tin-tuc/danh-muc/${categoryMatch[1]}/`, request.url),
+      new URL(`/tin-tuc/${oldCategoryMatch[1]}/`, request.url),
       308
     );
   }

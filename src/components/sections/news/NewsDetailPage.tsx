@@ -1,13 +1,13 @@
 "use client";
 
-import { memo, useState, useRef, useEffect } from "react";
+import { memo } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { ProjectsSidebar } from "@/components/sections/projects/ProjectsSidebar";
 import type { NewsArticle } from "@/types/api";
 
 const socialLinks = [
@@ -47,42 +47,14 @@ export const NewsDetailPage = memo(function NewsDetailPage({
   relatedArticles = [],
   isPreview = false,
 }: NewsDetailPageProps) {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const searchRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (
-        searchRef.current &&
-        !searchRef.current.contains(e.target as Node)
-      ) {
-        setIsSearchOpen(false);
-      }
-    }
-    if (isSearchOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }
-  }, [isSearchOpen]);
-
   return (
     <main style={{ backgroundColor: colors.gray[50] }}>
-      <Container size="full" className="max-w-[800px]">
-        <article className="pt-20 md:pt-16 pb-12">
+      <Container size="full" className="max-w-[1200px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 lg:gap-12">
+          <article className="pt-20 md:pt-16 pb-12 lg:pl-0">
           {!isPreview && (
-            /* Breadcrumb + Search */
-            <div
-              ref={searchRef}
-              className="mb-4 flex items-center justify-between gap-3"
-            >
-            {/* Breadcrumb text — hidden on mobile only when search open */}
-            <div
-              className={cn(
-                "flex items-center min-w-0 transition-all duration-200",
-                isSearchOpen ? "opacity-0 w-0 overflow-hidden lg:opacity-100 lg:w-auto" : ""
-              )}
-            >
+            /* Breadcrumb */
+            <div className="mb-4 flex items-center gap-2">
               <Link
                 href={ROUTES.news}
                 style={{ color: colors.gray[500], fontSize: "14px" }}
@@ -91,7 +63,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
                 Tin tức
               </Link>
               <span
-                className="mx-2 flex-shrink-0"
+                className="flex-shrink-0"
                 style={{ color: colors.gray[400] }}
               >
                 /
@@ -107,151 +79,6 @@ export const NewsDetailPage = memo(function NewsDetailPage({
                 {article.category.name}
               </span>
             </div>
-
-            {/* Desktop search — always visible */}
-            <div className="hidden lg:flex items-center gap-2">
-              <div
-                className="flex items-center gap-2 px-3 py-2 rounded-lg w-[260px]"
-                style={{ backgroundColor: colors.gray[100] }}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke={colors.gray[400]}
-                  strokeWidth="2"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="m21 21-4.3-4.3" />
-                </svg>
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 bg-transparent outline-none text-sm min-w-0"
-                  style={{ color: colors.neutral.foreground }}
-                />
-              </div>
-              <Button
-                isIconOnly
-                size="sm"
-                className="flex-shrink-0 rounded-lg"
-                aria-label="Tìm kiếm"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke={colors.neutral.white}
-                  strokeWidth="2.5"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="m21 21-4.3-4.3" />
-                </svg>
-              </Button>
-            </div>
-
-            {/* Mobile search input — expands when active */}
-            <div
-              className={cn(
-                "flex items-center gap-2 transition-all duration-300 overflow-hidden lg:hidden",
-                isSearchOpen ? "flex-1" : "w-0 opacity-0"
-              )}
-            >
-              <div
-                className="flex-1 flex items-center gap-2 px-3 py-2 rounded-lg"
-                style={{ backgroundColor: colors.gray[100] }}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke={colors.gray[400]}
-                  strokeWidth="2"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="m21 21-4.3-4.3" />
-                </svg>
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="flex-1 bg-transparent outline-none text-sm min-w-0"
-                  style={{ color: colors.neutral.foreground }}
-                  autoFocus={isSearchOpen}
-                />
-              </div>
-
-              {/* Search submit button */}
-              <button
-                className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg"
-                style={{ backgroundColor: colors.primary.DEFAULT }}
-                aria-label="Tìm kiếm"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke={colors.neutral.white}
-                  strokeWidth="2.5"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="m21 21-4.3-4.3" />
-                </svg>
-              </button>
-
-              {/* Close button */}
-              <button
-                onClick={() => {
-                  setIsSearchOpen(false);
-                  setSearchQuery("");
-                }}
-                className="flex-shrink-0 p-1"
-                aria-label="Đóng tìm kiếm"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke={colors.gray[500]}
-                  strokeWidth="2"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Mobile search toggle button */}
-            <button
-              onClick={() => setIsSearchOpen(true)}
-              className={cn(
-                "lg:hidden flex items-center justify-center w-8 h-8 rounded-lg transition-colors flex-shrink-0",
-                isSearchOpen ? "hidden" : ""
-              )}
-              style={{ backgroundColor: colors.primary.DEFAULT }}
-              aria-label="Mở tìm kiếm"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke={colors.neutral.white}
-                strokeWidth="2.5"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.3-4.3" />
-              </svg>
-            </button>
-          </div>
           )}
 
           {/* Title */}
@@ -362,7 +189,16 @@ export const NewsDetailPage = memo(function NewsDetailPage({
               </div>
             </>
           )}
-        </article>
+          </article>
+
+          {!isPreview && (
+            <aside className="hidden lg:block pt-24 md:pt-20">
+              <div className="sticky top-24">
+                <ProjectsSidebar />
+              </div>
+            </aside>
+          )}
+        </div>
       </Container>
 
       {!isPreview && relatedArticles.length > 0 && (

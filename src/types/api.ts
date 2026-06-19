@@ -70,6 +70,40 @@ export interface CreateArticleInput {
 
 export type UpdateArticleInput = Partial<CreateArticleInput>;
 
+export type EMagazineStatus = 'draft' | 'published';
+
+export interface EMagazine {
+  id: string;
+  title: string;
+  description?: string | null;
+  pdfMediaId: string;
+  pdfMedia: Media;
+  coverImageMediaId: string;
+  coverImageMedia: Media;
+  publishedDate?: string | null;
+  status: EMagazineStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateMagazineInput {
+  title: string;
+  description?: string;
+  pdfMediaId: string;
+  coverImageMediaId?: string | null;
+  publishedDate?: string | null;
+  status?: EMagazineStatus;
+}
+
+export type UpdateMagazineInput = Partial<CreateMagazineInput>;
+
+export interface MagazineFilters {
+  page?: number;
+  limit?: number;
+  status?: EMagazineStatus;
+  search?: string;
+}
+
 export interface NewsArticleLog {
   id: string;
   articleId: string;
