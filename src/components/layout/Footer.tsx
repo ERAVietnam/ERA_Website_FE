@@ -189,18 +189,18 @@ export function Footer() {
             <h4 className="lg:hidden text-base font-semibold mb-4" style={s.textWhite}>Theo dõi chúng tôi</h4>
             <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-3">
               {/* Mobile: icon only */}
-              <Link href="/" className="lg:hidden transition-colors hover:opacity-80">
+              <Link href="https://www.facebook.com/eraviet" target="_blank" rel="noopener noreferrer" className="lg:hidden transition-colors hover:opacity-80">
                 <Image src="/shared/fb_icon.svg" alt="Facebook" width={40} height={40} className="w-10 h-10" />
               </Link>
-              <Link href="/" className="lg:hidden transition-colors hover:opacity-80">
+              <Link href="https://www.youtube.com/@ERAVIETNAM" target="_blank" rel="noopener noreferrer" className="lg:hidden transition-colors hover:opacity-80">
                 <Image src="/shared/ytb_icon.svg" alt="Youtube" width={40} height={40} className="w-10 h-10" />
               </Link>
               {/* Desktop: icon + text */}
-              <Link href="/" className="hidden lg:flex items-center gap-3 text-sm transition-colors hover:opacity-80" style={s.textMuted}>
+              <Link href="https://www.facebook.com/eraviet" target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center gap-3 text-sm transition-colors hover:opacity-80" style={s.textMuted}>
                 <Image src="/shared/fb_icon.svg" alt="Facebook" width={24} height={24} className="w-6 h-6" />
                 Facebook
               </Link>
-              <Link href="/" className="hidden lg:flex items-center gap-3 text-sm transition-colors hover:opacity-80" style={s.textMuted}>
+              <Link href="https://www.youtube.com/@ERAVIETNAM" target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center gap-3 text-sm transition-colors hover:opacity-80" style={s.textMuted}>
                 <Image src="/shared/ytb_icon.svg" alt="Youtube" width={24} height={24} className="w-6 h-6" />
                 Youtube
               </Link>

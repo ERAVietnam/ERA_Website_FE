@@ -234,11 +234,10 @@ body {
   border-radius: 0 !important;
 }
 
-/* Inline icons/emojis inside paragraphs, lists, headings, etc. keep their natural size and inline flow */
+/* Ensure all content images stretch to full content width */
 .ck-content img:not(figure img) {
-  width: auto !important;
+  width: 100% !important;
   max-width: 100% !important;
   height: auto !important;
-  display: inline-block !important;
-  vertical-align: middle !important;
+  display: block !important;
 }
