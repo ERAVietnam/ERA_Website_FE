@@ -80,7 +80,7 @@ export function ApplyJobDetailPage({
           <div className="flex items-center gap-2 text-sm">
             <Link href={ROUTES.home} className="text-gray-500 hover:text-gray-700 transition-colors flex-shrink-0">Trang chủ</Link>
             <span className="text-gray-400 flex-shrink-0">/</span>
-            <Link href={ROUTES.join} className="text-gray-500 hover:text-gray-700 transition-colors flex-shrink-0">Join team ERA</Link>
+            <Link href={ROUTES.apply} className="text-gray-500 hover:text-gray-700 transition-colors flex-shrink-0">Tuyển dụng</Link>
             <span className="text-gray-400 flex-shrink-0">/</span>
             <span className="truncate font-bold" style={{ color: colors.primary.DEFAULT, fontSize: "14px" }}>{title}</span>
           </div>
