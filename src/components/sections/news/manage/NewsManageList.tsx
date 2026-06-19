@@ -335,7 +335,7 @@ export function NewsManageList({
                       </span>
                     </td>
                     <td className="px-5 py-4 text-gray-600 whitespace-nowrap">
-                      {formatDate(item.publishedAt || item.createdAt)}
+                      {formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt)}
                     </td>
                     <td className="px-5 py-4" onClick={(e) => e.stopPropagation()}>
                       <div className="flex items-center justify-end gap-1">
@@ -510,7 +510,7 @@ export function NewsManageList({
                 <div className="flex items-center justify-between pt-4 mt-auto">
                   <div className="text-xs text-gray-400 space-y-0.5">
                     <p>{item.author?.name || "—"}</p>
-                    <p>{formatDate(item.publishedAt || item.createdAt)}</p>
+                    <p>{formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt)}</p>
                   </div>
                   <div className="flex items-center gap-1.5">
                     {canSubmit(item) && onSubmitForReview && (
