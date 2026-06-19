@@ -33,8 +33,10 @@ export async function NewsPage() {
         const dateA = new Date(a.publishedAt || a.createdAt).getTime();
         const dateB = new Date(b.publishedAt || b.createdAt).getTime();
         return dateB - dateA;
-      })
-      .slice(0, 4);
+      });
+
+  const categoryTotalCount = (categorySlug: string) =>
+    articles.filter((a) => a.category.slug === categorySlug).length;
 
   return (
     <main>
@@ -49,7 +51,8 @@ export async function NewsPage() {
           <section id={slug} key={slug}>
             <NewsCategorySection
               category={category}
-              articles={categoryArticles}
+              articles={categoryArticles.slice(0, 4)}
+              totalCount={categoryTotalCount(slug)}
               featuredPosition={categoryArticles.length === 1 ? "left" : featuredPosition}
               bg={index % 2 === 0 ? "gray" : "white"}
             />

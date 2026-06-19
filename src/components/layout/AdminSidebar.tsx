@@ -15,10 +15,12 @@ import {
   X,
   Home,
   Briefcase,
+  BookOpen,
 } from "lucide-react";
 
 const menuItems = [
   { href: "/tin-tuc/quan-ly", label: "Tin tức", icon: Newspaper },
+  { href: "/tap-chi/quan-ly", label: "E-magazine", icon: BookOpen },
   // { href: "/du-an/quan-ly", label: "Dự án", icon: Building2 },
   { href: "/tuyen-dung/quan-ly", label: "Tuyển dụng", icon: Briefcase },
   { href: "/tai-khoan/quan-ly", label: "Tài khoản", icon: Users },

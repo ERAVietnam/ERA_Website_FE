@@ -42,4 +42,14 @@ export const ENDPOINTS = {
     STATUS: (id: string) => `/recruitment/jobs/${id}/status`,
     LOGS: (id: string) => `/recruitment/jobs/${id}/logs`,
   },
+  MAGAZINES: {
+    LIST: '/magazines',
+    ADMIN_LIST: '/magazines/all',
+    DETAIL: (id: string) => `/magazines/${id}`,
+    CREATE: '/magazines',
+    UPDATE: (id: string) => `/magazines/${id}`,
+    DELETE: (id: string) => `/magazines/${id}`,
+    PUBLISH: (id: string) => `/magazines/${id}/publish`,
+    UNPUBLISH: (id: string) => `/magazines/${id}/unpublish`,
+  },
 } as const;

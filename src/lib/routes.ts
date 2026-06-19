@@ -17,7 +17,7 @@ export const ROUTES = {
   apply: "/tuyen-dung",
   academy: "/academy",
   news: "/tin-tuc",
-  newsCategory: "/tin-tuc/danh-muc",
+  newsCategory: "/tin-tuc",
   login: "/dang-nhap",
   contact: "/lien-he",
   
