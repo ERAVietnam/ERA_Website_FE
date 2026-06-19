@@ -50,8 +50,14 @@ export const NewsDetailPage = memo(function NewsDetailPage({
   return (
     <main style={{ backgroundColor: colors.gray[50] }}>
       <Container size="full" className="max-w-[1200px]">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px] gap-8 lg:gap-12">
-          <article className="pt-20 md:pt-16 pb-12 lg:pl-0">
+        <div
+          className={`grid gap-8 lg:gap-12 ${
+            isPreview
+              ? "grid-cols-1 max-w-[800px] mx-auto"
+              : "grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px]"
+          }`}
+        >
+          <article className={`pt-20 md:pt-16 pb-12 ${isPreview ? "" : "lg:pl-0"}`}>
           {!isPreview && (
             /* Breadcrumb */
             <div className="mb-4 flex items-center gap-2">
