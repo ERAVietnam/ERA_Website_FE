@@ -8,6 +8,7 @@ import { colors } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
 import { ProjectsSidebar } from "@/components/sections/projects/ProjectsSidebar";
+import { CountryFlag } from "@/components/shared/CountryFlag";
 import type { NewsArticle } from "@/types/api";
 
 const socialLinks = [
@@ -84,6 +85,13 @@ export const NewsDetailPage = memo(function NewsDetailPage({
               >
                 {article.category.name}
               </span>
+              {article.category.slug === "era-news" && article.countryCode && (
+                <CountryFlag
+                  code={article.countryCode}
+                  width={20}
+                  className="ml-2 flex-shrink-0"
+                />
+              )}
             </div>
           )}
 

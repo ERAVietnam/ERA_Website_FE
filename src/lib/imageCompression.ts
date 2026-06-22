@@ -3,6 +3,7 @@ import imageCompression from "browser-image-compression";
 export interface CompressImageOptions {
   maxSizeMB?: number;
   maxWidthOrHeight?: number;
+  fileType?: string;
 }
 
 /**
@@ -16,10 +17,12 @@ export async function compressImage(
   file: File,
   options: CompressImageOptions = {}
 ): Promise<File> {
-  const { maxSizeMB = 1.5, maxWidthOrHeight = 1920 } = options;
+  const { maxSizeMB = 1.5, maxWidthOrHeight = 1920, fileType = file.type } = options;
 
-  // Không cần nén nếu file đã đủ nhỏ
-  if (file.size <= maxSizeMB * 1024 * 1024) {
+  const shouldConvertFormat = fileType !== file.type;
+
+  // Chỉ skip nén nếu không đổi định dạng và file đã đủ nhỏ
+  if (!shouldConvertFormat && file.size <= maxSizeMB * 1024 * 1024) {
     return file;
   }
 
@@ -28,11 +31,11 @@ export async function compressImage(
       maxSizeMB,
       maxWidthOrHeight,
       useWebWorker: true,
-      fileType: file.type,
+      fileType,
       initialQuality: 0.85,
     });
 
-    const outputType = compressed.type || file.type;
+    const outputType = compressed.type || fileType;
     const ext = outputType.split("/")[1] || "jpeg";
     const baseName = file.name.replace(/\.[^.]+$/, "") || "image";
     const outputName = `${baseName}.${ext}`;
