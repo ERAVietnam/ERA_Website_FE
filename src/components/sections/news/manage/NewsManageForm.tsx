@@ -451,6 +451,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     const validation = createArticleSchema.safeParse({
       ...form,
       author: undefined,
+      countryCode: form.countryCode || undefined,
     });
 
     if (!validation.success) {
