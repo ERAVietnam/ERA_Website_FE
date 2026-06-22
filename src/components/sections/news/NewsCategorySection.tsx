@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { colors, withOpacity } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
+import { CountryFlag } from "@/components/shared/CountryFlag";
 import type { NewsArticle, NewsCategory } from "@/types/api";
 
 interface NewsCategorySectionProps {
@@ -92,15 +93,20 @@ export const NewsCategorySection = memo(function NewsCategorySection({
             >
               {featuredArticle.title}
             </h3>
-            <p
-              className="text-white/80 line-clamp-2"
-              style={{
-                fontWeight: 400,
-                fontSize: "16px",
-              }}
-            >
-              {featuredArticle.summary}
-            </p>
+            <div className="flex items-end justify-between gap-4">
+              <p
+                className="text-white/80 line-clamp-2 flex-1"
+                style={{
+                  fontWeight: 400,
+                  fontSize: "16px",
+                }}
+              >
+                {featuredArticle.summary}
+              </p>
+              {category.slug === "era-news" && featuredArticle.countryCode && (
+                <CountryFlag code={featuredArticle.countryCode} width={24} className="flex-shrink-0" />
+              )}
+            </div>
           </div>
         </div>
       </Link>
@@ -150,6 +156,11 @@ export const NewsCategorySection = memo(function NewsCategorySection({
               >
                 {formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt)} • {item.readTime || "1 phút đọc"}
               </p>
+              {category.slug === "era-news" && item.countryCode && (
+                <div className="mt-1">
+                  <CountryFlag code={item.countryCode} width={20} />
+                </div>
+              )}
             </div>
           </article>
         </Link>

@@ -16,6 +16,7 @@ import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
 import { getNewsScopeBySlug } from "@/lib/permissions";
 import { compressImage } from "@/lib/imageCompression";
+import { COUNTRY_OPTIONS } from "@/lib/country";
 import type { NewsCategory, NewsArticle } from "@/types/api";
 
 
@@ -72,6 +73,7 @@ interface FormState {
   canonicalUrl: string;
   displayPublishedAt: string;
   isFeatured: boolean;
+  countryCode: string;
 }
 
 function articleToFormState(article?: NewsArticle): FormState {
@@ -89,6 +91,7 @@ function articleToFormState(article?: NewsArticle): FormState {
       canonicalUrl: "",
       displayPublishedAt: "",
       isFeatured: false,
+      countryCode: "",
     };
   }
   return {
@@ -100,12 +103,13 @@ function articleToFormState(article?: NewsArticle): FormState {
     source: article.source ?? "",
     metaTitle: article.metaTitle ?? "",
     metaDescription: article.metaDescription ?? "",
-    isIndexed: article.isIndexed ?? true,
+    isIndexed: article.isIndexed ?? false,
     canonicalUrl: article.canonicalUrl ?? "",
     displayPublishedAt: article.displayPublishedAt
       ? new Date(article.displayPublishedAt).toISOString().split("T")[0]
       : "",
     isFeatured: article.isFeatured,
+    countryCode: article.countryCode ?? "",
   };
 }
 
@@ -201,6 +205,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         ? new Date(form.displayPublishedAt).toISOString()
         : undefined,
       isFeatured: form.isFeatured,
+      countryCode: form.countryCode || null,
       categoryId: form.categoryId,
       category,
       featuredImage,
@@ -221,6 +226,15 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       return cat.id === form.categoryId;
     });
   }, [categories, hasPermission, form.categoryId]);
+
+  const selectedCategory = categories.find((c) => c.id === form.categoryId);
+  const isEraNewsCategory = selectedCategory?.slug === "era-news";
+
+  useEffect(() => {
+    if (!isEraNewsCategory && form.countryCode) {
+      update("countryCode", "");
+    }
+  }, [isEraNewsCategory]);
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => {
@@ -402,17 +416,29 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
     if (images.length === 0) return content;
 
-    for (let i = 0; i < images.length; i++) {
-      const img = images[i];
-      const base64 = img.getAttribute("src")!;
-      const file = base64ToFile(base64, `content-img-${Date.now()}-${i}`);
-      const compressedFile = await compressImage(file, {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1600,
-      });
-      const upload = await mediaApi.uploadImage(compressedFile, "news");
-      img.setAttribute("src", upload.url);
-    }
+    await Promise.all(
+      images.map(async (img, i) => {
+        const base64 = img.getAttribute("src")!;
+        const file = base64ToFile(base64, `content-img-${Date.now()}-${i}`);
+
+        // Ảnh đầu tiên giữ nguyên định dạng gốc (thường dùng làm featured fallback)
+        // Ảnh GIF cũng giữ nguyên để không mất animation
+        const isFirstImage = i === 0;
+        const isGif = file.type === "image/gif";
+        const shouldConvertToWebP = !isFirstImage && !isGif;
+
+        const compressedFile = shouldConvertToWebP
+          ? await compressImage(file, {
+              maxSizeMB: 1,
+              maxWidthOrHeight: 1600,
+              fileType: "image/webp",
+            })
+          : file;
+
+        const upload = await mediaApi.uploadImage(compressedFile, "news");
+        img.setAttribute("src", upload.url);
+      })
+    );
 
     return doc.body.innerHTML;
   }
@@ -425,7 +451,6 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     const validation = createArticleSchema.safeParse({
       ...form,
       author: undefined,
-      countryCode: undefined,
     });
 
     if (!validation.success) {
@@ -491,6 +516,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
           ? new Date(form.displayPublishedAt).toISOString()
           : undefined,
         isFeatured: form.isFeatured,
+        countryCode: form.countryCode || undefined,
       };
 
       const saved = initialData?.id
@@ -695,6 +721,35 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                 {fieldErrors.categoryId && <p className="mt-1 text-xs text-red-500">{fieldErrors.categoryId}</p>}
               </div>
             </div>
+
+            {/* Country (ERA News only) */}
+            {isEraNewsCategory && (
+              <div id="field-countryCode" className="mb-5">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Quốc gia
+                </label>
+                <div className="relative">
+                  <select
+                    value={form.countryCode}
+                    onChange={(e) => update("countryCode", e.target.value)}
+                    disabled={isReadOnly}
+                    className={`${inputBaseClass} appearance-none cursor-pointer`}
+                  >
+                    <option value="">Chọn quốc gia</option>
+                    {COUNTRY_OPTIONS.map((c) => (
+                      <option key={c.value} value={c.value}>
+                        {c.flag} {c.label}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Slug + Source */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

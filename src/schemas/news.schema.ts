@@ -16,7 +16,7 @@ export const createArticleSchema = z.object({
   metaTitle: z.string().max(255).optional(),
   metaDescription: z.string().optional(),
   isFeatured: z.boolean().optional(),
-  countryCode: z.string().max(10).optional(),
+  countryCode: z.enum(["SG", "US", "VN"]).optional().nullable(),
 });
 
 export type CreateArticleSchema = z.infer<typeof createArticleSchema>;

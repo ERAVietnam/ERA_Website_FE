@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title,
       description,
       robots: {
-        index: article.isIndexed !== false,
+        index: article.isIndexed === true,
       },
       alternates: {
         canonical: canonicalUrl,
