@@ -270,6 +270,8 @@ function JobApplyForm({
 }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [portfolio, setPortfolio] = useState("");
   const [position, setPosition] = useState(defaultPosition ?? "");
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -293,7 +295,7 @@ function JobApplyForm({
     setTimeout(() => {
       setIsSubmitting(false);
       alert("Ứng tuyển thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.");
-      setName(""); setPhone(""); setPosition(""); setCvFile(null);
+      setName(""); setPhone(""); setEmail(""); setPortfolio(""); setPosition(""); setCvFile(null);
     }, 1200);
   };
 
@@ -322,6 +324,16 @@ function JobApplyForm({
                     <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Số điện thoại</label>
                     <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="090x xxx xxx" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors" style={{ color: colors.gray[800] }} />
                   </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Email</label>
+                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Nhập email của bạn" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors" style={{ color: colors.gray[800] }} />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Link portfolio</label>
+                  <input type="url" value={portfolio} onChange={(e) => setPortfolio(e.target.value)} placeholder="https://portfolio.com" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors" style={{ color: colors.gray[800] }} />
                 </div>
 
                 <div>

@@ -6,6 +6,8 @@ import { ArrowLeft, Clock } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
+import { formatDate } from "@/lib/date";
+import { getArticleImage } from "@/lib/news";
 import type { NewsArticle, NewsCategory } from "@/types/api";
 
 interface NewsCategoryPageProps {
@@ -13,23 +15,6 @@ interface NewsCategoryPageProps {
   articles: NewsArticle[];
 }
 
-function formatDate(iso: string): string {
-  const d = new Date(iso);
-  return d.toLocaleDateString("vi-VN", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
-
-function getFirstImageFromContent(content: string): string | null {
-  const match = content.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
-  return match?.[1] ?? null;
-}
-
-function getArticleImage(item: NewsArticle): string | null {
-  return item.featuredImage?.url || getFirstImageFromContent(item.content);
-}
 
 export function NewsCategoryPage({ category, articles }: NewsCategoryPageProps) {
   const placeholderImg = "/news/news_placeholder.webp";

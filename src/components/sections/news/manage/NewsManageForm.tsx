@@ -17,6 +17,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { getNewsScopeBySlug } from "@/lib/permissions";
 import { compressImage } from "@/lib/imageCompression";
 import { COUNTRY_OPTIONS } from "@/lib/country";
+import { newsStatusConfig } from "@/lib/news/status";
 import type { NewsCategory, NewsArticle } from "@/types/api";
 
 
@@ -124,11 +125,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     : false;
   const status = initialData?.status ?? "draft";
 
-  const statusConfig: Record<string, { label: string; color: string; bg: string }> = {
-    draft: { label: "Bản nháp", color: "#6B7280", bg: "#F3F4F6" },
-    pending: { label: "Chờ duyệt", color: "#D97706", bg: "#FEF3C7" },
-    published: { label: "Đã đăng", color: "#059669", bg: "#D1FAE5" },
-  };
+  const statusConfig = newsStatusConfig;
 
   const [featuredImageFile, setFeaturedImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>(initialData?.featuredImage?.url || "");

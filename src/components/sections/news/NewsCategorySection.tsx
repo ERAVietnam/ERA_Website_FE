@@ -7,6 +7,8 @@ import { Section } from "@/components/ui/Section";
 import { colors, withOpacity } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
 import { CountryFlag } from "@/components/shared/CountryFlag";
+import { formatDate } from "@/lib/date";
+import { getArticleImage } from "@/lib/news";
 import type { NewsArticle, NewsCategory } from "@/types/api";
 
 interface NewsCategorySectionProps {
@@ -17,25 +19,6 @@ interface NewsCategorySectionProps {
   bg?: "white" | "gray";
 }
 
-function formatDate(dateString?: string | null) {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  if (Number.isNaN(date.getTime())) return "";
-  return date.toLocaleDateString("vi-VN", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
-
-function getFirstImageFromContent(content: string): string | null {
-  const match = content.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
-  return match?.[1] ?? null;
-}
-
-function getArticleImage(article: NewsArticle): string | null {
-  return article.featuredImage?.url || getFirstImageFromContent(article.content);
-}
 
 export const NewsCategorySection = memo(function NewsCategorySection({
   category,

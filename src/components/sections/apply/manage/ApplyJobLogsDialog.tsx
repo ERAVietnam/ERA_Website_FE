@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { colors } from "@/lib/theme";
+import { formatDateTime } from "@/lib/date";
 import type { JobPostingLog } from "@/types/api";
 
 interface Props {
@@ -25,18 +26,6 @@ const statusLabels: Record<string, string> = {
   closed: "Đã đóng",
 };
 
-function formatDateTime(iso?: string | null): string {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleString("vi-VN", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
 
 export function ApplyJobLogsDialog({ logs, isOpen, onClose }: Props) {
   const dialogRef = useRef<HTMLDivElement>(null);

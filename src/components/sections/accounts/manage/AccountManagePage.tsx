@@ -1,15 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Section } from "@/components/ui/Section";
 import { AccountManageList } from "./AccountManageList";
 import { AccountManageForm } from "./AccountManageForm";
+import { Pagination } from "@/components/ui/Pagination";
 import { accountsApi } from "@/api/domains/accounts";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
-import type { ManagementAccount } from "@/types/api";
+import type { ManagementAccount, PaginationMeta, AccountFilters } from "@/types/api";
+
+const DEFAULT_LIMIT = 10;
 
 export default function AccountManagePage() {
   const { account } = useAuth();
@@ -26,19 +29,45 @@ export default function AccountManagePage() {
     show: false,
     id: "",
   });
+  const [searchInput, setSearchInput] = useState("");
+  const [meta, setMeta] = useState<PaginationMeta>({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
+  const [filters, setFilters] = useState<AccountFilters>({
+    page: 1,
+    limit: DEFAULT_LIMIT,
+  });
 
-  const loadAccounts = async () => {
+  const loadAccounts = useCallback(async () => {
+    setLoading(true);
     try {
-      const data = await accountsApi.getAccounts();
-      setItems(data);
+      const response = await accountsApi.getAccounts(filters);
+      setItems(response.items);
+      setMeta(response.meta);
     } catch {
       setItems([]);
+      setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
+    } finally {
+      setLoading(false);
     }
-  };
+  }, [filters]);
 
   useEffect(() => {
     loadAccounts().finally(() => setLoading(false));
-  }, []);
+  }, [loadAccounts]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const search = searchInput.trim() || undefined;
+      setFilters((prev) => {
+        if (prev.search === search) return prev;
+        return { ...prev, search, page: 1 };
+      });
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
+  const handlePageChange = (page: number) => {
+    setFilters((prev) => ({ ...prev, page }));
+  };
 
   const handleSave = (account?: ManagementAccount) => {
     if (account) {
@@ -123,14 +152,25 @@ export default function AccountManagePage() {
               onCancel={handleCancel}
             />
           ) : (
-            <AccountManageList
-              items={items}
-              currentAccountId={account?.id}
-              loading={loading}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-              onAdd={handleAdd}
-            />
+            <>
+              <AccountManageList
+                items={items}
+                currentAccountId={account?.id}
+                loading={loading}
+                searchInput={searchInput}
+                onSearchChange={setSearchInput}
+                meta={meta}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                onAdd={handleAdd}
+              />
+
+              <Pagination
+                currentPage={meta.page}
+                totalPages={meta.totalPages}
+                onPageChange={handlePageChange}
+              />
+            </>
           )}
         </div>
       </Section>

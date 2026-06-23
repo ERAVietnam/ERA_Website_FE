@@ -15,6 +15,7 @@
 | Font | Inter (Google Fonts) |
 | Icons | Lucide React |
 | Rich Editor | CKEditor 5 (monorepo package) |
+| Flag Icons | country-flag-icons (SVG, inline) |
 | Utilities | clsx, tailwind-merge |
 | Deploy | Vercel (Git integration, auto-deploy on push) |
 
@@ -117,6 +118,9 @@ export default function VeChungToi() {
 | `src/components/ui/Button.tsx` | Variants: `primary`, `secondary`, `navy`, `navy-outline`, `outline`, `ghost`, `white`, `white-outline`, `danger`. Props: `shape` (default/circle), `isIconOnly`, `asChild`, `isLoading` |
 | `src/components/ui/Container.tsx` | Responsive container với size variants |
 | `src/components/ui/Section.tsx` | Section wrapper với bg, padding configs |
+| `src/components/ui/admin/*` | Shared admin list UI: `AdminListHeader`, `AdminFilters`, `AdminLoading`, `AdminTable`, `AdminEmptyState`, `SearchInput`, `SelectField`, `ViewModeToggle` |
+| `src/components/shared/CountryFlag.tsx` | Inline SVG country flag component |
+| `src/components/sections/news/manage/NewsManageActions.tsx` | Shared news admin action buttons (table/card layouts) |
 
 
 ### Lib
@@ -125,6 +129,11 @@ export default function VeChungToi() {
 | `src/lib/utils.ts` | `cn()` utility |
 | `src/lib/theme.ts` | Color palette, `withOpacity()` utility |
 | `src/lib/routes.ts` | Centralized route constants (`ROUTES`) |
+| `src/lib/date.ts` | Shared date formatting (`formatDate`, `formatDateShort`, `formatDateTime`) |
+| `src/lib/news.ts` | Shared news helpers (`getArticleImage`, `getFirstImageFromContent`) |
+| `src/lib/news/status.ts` | News status badge config |
+| `src/lib/magazine/status.ts` | Magazine status badge config |
+| `src/lib/recruitment/status.ts` | Recruitment status badge config |
 
 ### Hooks
 | File | Mô tả |
@@ -360,7 +369,30 @@ Nhiều section đang dùng mock data hardcoded inline:
 
 ---
 
-## 16. Notes
+## 16. Architecture Decisions & Rules
+
+### Admin list UI
+- Mọi trang quản lý list (`NewsManageList`, `MagazineManageList`, `ApplyManageList`, `AccountManageList`) dùng chung các base components trong `src/components/ui/admin/`:
+  - `AdminListHeader` cho header tiêu đề + subtitle + nút tạo
+  - `AdminFilters` cho panel bộ lọc
+  - `AdminLoading`, `AdminTable`, `AdminEmptyState` cho trạng thái list
+  - `SearchInput` / `SelectField` cho controls lọc
+  - `ViewModeToggle` cho chuyển đổi table/card view
+
+### News actions
+- Tất cả action buttons trong admin news (table lẫn card) phải dùng `NewsManageActions` để đảm bảo logic phân quyền và UI đồng nhất.
+
+### Shared helpers
+- Không định nghĩa lại `formatDate`, `getArticleImage`, `statusConfig` trong các component. Import từ `src/lib/date.ts`, `src/lib/news.ts`, hoặc `src/lib/<module>/status.ts`.
+
+### Country indicator (ERA News)
+- `countryCode` (`SG / US / VN`) chỉ render UI cho danh mục `era-news`.
+- Dùng `CountryFlag` component (SVG inline), không dùng ảnh asset.
+
+### Form validation
+- Các field enum optional như `countryCode` phải normalize giá trị rỗng (`""`) thành `undefined` trước khi gửi schema validation.
+
+## 17. Notes
 
 - **Static Export**: `images.unoptimized: true` → build ra HTML tĩnh
 - **Scroll Performance**: Dùng `requestAnimationFrame` trong scroll handlers

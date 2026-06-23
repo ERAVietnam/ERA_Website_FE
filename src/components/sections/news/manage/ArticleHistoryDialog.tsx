@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { X, Loader2 } from "lucide-react";
 import { newsApi } from "@/api/domains/news";
 import { colors } from "@/lib/theme";
+import { formatDateTime } from "@/lib/date";
 import type { NewsArticleLog, JobStatus } from "@/types/api";
 
 interface ArticleHistoryDialogProps {
@@ -27,16 +28,6 @@ const statusLabels: Record<string, string> = {
   published: "Đã đăng",
 };
 
-function formatDateTime(iso: string): string {
-  const date = new Date(iso);
-  return date.toLocaleString("vi-VN", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
 
 export function ArticleHistoryDialog({ articleId, isOpen, onClose }: ArticleHistoryDialogProps) {
   const [logs, setLogs] = useState<NewsArticleLog[]>([]);
