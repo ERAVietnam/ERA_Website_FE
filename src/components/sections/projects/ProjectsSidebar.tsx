@@ -1,127 +1,17 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
-import { ChevronDown, Phone, MessageCircle, Check } from "lucide-react";
-
-const cities = [
-  "Toàn quốc",
-  "TP. Hồ Chí Minh",
-  "Vũng Tàu",
-  "Long An",
-  "Đồng Nai",
-  "Nha Trang",
-  "Hà Nội",
-  "Đà Nẵng",
-  "Bình Dương",
-];
+import { Phone, MessageCircle } from "lucide-react";
 
 export function ProjectsSidebar() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedCities, setSelectedCities] = useState<string[]>(["Toàn quốc"]);
   const [formName, setFormName] = useState("");
   const [formPhone, setFormPhone] = useState("");
   const [formAgree, setFormAgree] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setDropdownOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const toggleCity = (city: string) => {
-    if (city === "Toàn quốc") {
-      setSelectedCities(["Toàn quốc"]);
-      return;
-    }
-    setSelectedCities((prev) => {
-      const withoutNational = prev.filter((c) => c !== "Toàn quốc");
-      if (withoutNational.includes(city)) {
-        const next = withoutNational.filter((c) => c !== city);
-        return next.length === 0 ? ["Toàn quốc"] : next;
-      }
-      return [...withoutNational, city];
-    });
-  };
-
-  const clearCities = () => setSelectedCities(["Toàn quốc"]);
-
-  const displayLabel =
-    selectedCities.length === 1
-      ? selectedCities[0]
-      : `Đã chọn ${selectedCities.length} địa điểm`;
 
   return (
-    <div className="w-full lg:w-80 shrink-0 space-y-5">
-      {/* Location Dropdown */}
-      <div className="relative" ref={dropdownRef}>
-        <button
-          onClick={() => setDropdownOpen((v) => !v)}
-          className="w-full flex items-center justify-between px-5 py-3.5 rounded-xl text-sm font-medium text-white transition-opacity hover:opacity-90"
-          style={{ backgroundColor: colors.primary.navy.DEFAULT }}
-        >
-          <span>{displayLabel}</span>
-          <ChevronDown
-            size={18}
-            className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
-          />
-        </button>
-
-        {dropdownOpen && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-100 p-4 z-50">
-            <div className="flex items-center justify-between mb-3">
-              <h4 className="text-sm font-bold" style={{ color: colors.primary.DEFAULT }}>
-                Chọn tỉnh / Thành Phố
-              </h4>
-              <button
-                onClick={clearCities}
-                className="text-xs font-medium text-gray-400 hover:text-gray-600 transition-colors"
-              >
-                Xoá
-              </button>
-            </div>
-            <div className="space-y-2 max-h-64 overflow-y-auto">
-              {cities.map((city) => {
-                const checked = selectedCities.includes(city);
-                return (
-                  <label
-                    key={city}
-                    className="flex items-center gap-3 cursor-pointer py-1"
-                  >
-                    <div
-                      className={`w-5 h-5 rounded-md flex items-center justify-center border transition-colors ${
-                        checked
-                          ? "border-transparent"
-                          : "border-gray-300"
-                      }`}
-                      style={{
-                        backgroundColor: checked ? colors.primary.DEFAULT : "transparent",
-                      }}
-                    >
-                      {checked && <Check size={12} className="text-white" strokeWidth={3} />}
-                    </div>
-                    <input
-                      type="checkbox"
-                      className="sr-only"
-                      checked={checked}
-                      onChange={() => toggleCity(city)}
-                    />
-                    <span className="text-sm text-gray-700">{city}</span>
-                  </label>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Consultation Form */}
+    <div className="w-full lg:w-80 shrink-0">
       <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
         <h3 className="text-base font-black mb-3" style={{ color: colors.primary.navy.DEFAULT }}>
           Tư vấn mua nhà chuyên sâu

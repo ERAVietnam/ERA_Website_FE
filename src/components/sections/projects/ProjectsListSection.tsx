@@ -175,7 +175,9 @@ export function ProjectsListSection() {
               </button>
             </div>
           </div>
-          <ProjectsSidebar />
+          <div className="sticky top-24 self-start">
+            <ProjectsSidebar />
+          </div>
         </div>
       </Container>
     </Section>
