@@ -9,6 +9,8 @@ import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
 import { ProjectsSidebar } from "@/components/sections/projects/ProjectsSidebar";
 import { CountryFlag } from "@/components/shared/CountryFlag";
+import { formatDate } from "@/lib/date";
+import { getArticleImage } from "@/lib/news";
 import type { NewsArticle } from "@/types/api";
 
 const socialLinks = [
@@ -24,24 +26,6 @@ interface NewsDetailPageProps {
   isPreview?: boolean;
 }
 
-function formatDate(dateString?: string | null) {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  return date.toLocaleDateString("vi-VN", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
-
-function getFirstImageFromContent(content: string): string | null {
-  const match = content.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
-  return match?.[1] ?? null;
-}
-
-function getArticleImage(item: NewsArticle): string | null {
-  return item.featuredImage?.url || getFirstImageFromContent(item.content);
-}
 
 export const NewsDetailPage = memo(function NewsDetailPage({
   article,

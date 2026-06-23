@@ -6,12 +6,14 @@ import type {
   CreateAccountInput,
   UpdateAccountInput,
   AssignPermissionsInput,
+  AccountFilters,
+  PaginatedResponse,
 } from '@/types/api';
 
 export const accountsApi = {
-  getAccounts: () =>
+  getAccounts: (filters?: AccountFilters) =>
     apiClient
-      .get<ManagementAccount[]>(ENDPOINTS.ACCOUNTS.LIST)
+      .get<PaginatedResponse<ManagementAccount>>(ENDPOINTS.ACCOUNTS.LIST, { params: filters })
       .then((res) => res.data),
 
   getAccountById: (id: string) =>

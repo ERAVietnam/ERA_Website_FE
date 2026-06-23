@@ -176,6 +176,12 @@ export interface ManagementAccount {
   permissions: Permission[];
 }
 
+export interface AccountFilters {
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+
 export interface CreateAccountInput {
   name: string;
   email: string;

@@ -6,31 +6,14 @@ import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
+import { formatDateShort } from "@/lib/date";
+import { getArticleImage } from "@/lib/news";
 import type { NewsArticle } from "@/types/api";
 
 interface NewsSectionClientProps {
   articles: NewsArticle[];
 }
 
-function getFirstImageFromContent(content: string): string | null {
-  const match = content.match(/<img[^>]+src=["']([^"']+)["']/);
-  return match ? match[1] : null;
-}
-
-function getArticleImage(article: NewsArticle): string {
-  return article.featuredImage?.url || getFirstImageFromContent(article.content) || "/home/home_news_placeholder.webp";
-}
-
-function formatDate(dateString?: string | null): string {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  if (Number.isNaN(date.getTime())) return "";
-  return date.toLocaleDateString("vi-VN", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-}
 
 export function NewsSectionClient({ articles }: NewsSectionClientProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -102,7 +85,7 @@ export function NewsSectionClient({ articles }: NewsSectionClientProps) {
             {/* Image */}
             <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-4">
               <Image
-                src={getArticleImage(item)}
+                src={getArticleImage(item) || "/home/home_news_placeholder.webp"}
                 alt={item.title}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -120,7 +103,7 @@ export function NewsSectionClient({ articles }: NewsSectionClientProps) {
                 fontSize: '12px',
               }}
             >
-              {formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt)}
+              {formatDateShort(item.displayPublishedAt || item.publishedAt || item.createdAt)}
             </p>
             <h3
               className="mb-2 line-clamp-2 transition-colors group-hover:text-primary"
@@ -160,7 +143,7 @@ export function NewsSectionClient({ articles }: NewsSectionClientProps) {
                 className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden"
               >
                 <Image
-                  src={getArticleImage(item)}
+                  src={getArticleImage(item) || "/home/home_news_placeholder.webp"}
                   alt={item.title}
                   fill
                   className="object-cover"
@@ -203,7 +186,7 @@ export function NewsSectionClient({ articles }: NewsSectionClientProps) {
                     fontSize: '12px',
                   }}
                 >
-                  {formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt).toUpperCase()}
+                  {formatDateShort(item.displayPublishedAt || item.publishedAt || item.createdAt).toUpperCase()}
                 </p>
               </div>
             </Link>

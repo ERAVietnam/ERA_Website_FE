@@ -3,34 +3,37 @@
 import { useState } from "react";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
-import { Pencil, Trash2, Plus, Loader2 } from "lucide-react";
+import { Pencil, Trash2, Plus } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
 import { PopupNotification } from "@/components/ui/PopupNotification";
-import type { ManagementAccount } from "@/types/api";
+import { formatDate } from "@/lib/date";
+import { AdminListHeader } from "@/components/ui/admin/AdminListHeader";
+import { AdminLoading } from "@/components/ui/admin/AdminLoading";
+import { AdminTable } from "@/components/ui/admin/AdminTable";
+import { AdminEmptyState } from "@/components/ui/admin/AdminEmptyState";
+import { SearchInput } from "@/components/ui/admin/SearchInput";
+import type { ManagementAccount, PaginationMeta } from "@/types/api";
 
 interface Props {
   items: ManagementAccount[];
   currentAccountId?: string;
   loading?: boolean;
+  searchInput: string;
+  onSearchChange: (value: string) => void;
+  meta: PaginationMeta;
   onEdit: (account: ManagementAccount) => void;
   onDelete: (id: string) => void;
   onAdd: () => void;
-}
-
-function formatDate(iso: string): string {
-  const d = new Date(iso);
-  return d.toLocaleDateString("vi-VN", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
 }
 
 export function AccountManageList({
   items,
   currentAccountId,
   loading,
+  searchInput,
+  onSearchChange,
+  meta,
   onEdit,
   onDelete,
   onAdd,
@@ -54,18 +57,10 @@ export function AccountManageList({
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2
-            className="text-xl font-black"
-            style={{ color: colors.primary.navy.DEFAULT }}
-          >
-            Danh sách tài khoản
-          </h2>
-          <p className="text-sm text-gray-500 mt-1">
-            Tổng cộng {items.length} tài khoản
-          </p>
-        </div>
+      <AdminListHeader
+        title="Danh sách tài khoản"
+        subtitle={`Tổng cộng ${meta.total} tài khoản`}
+      >
         {hasPermission("auth.accounts.all.create") && (
           <Button
             variant="primary"
@@ -82,18 +77,19 @@ export function AccountManageList({
             <Plus size={16} /> Tạo tài khoản
           </Button>
         )}
-      </div>
+      </AdminListHeader>
 
-      {loading && (
-        <div className="flex items-center justify-center py-12">
-          <Loader2 size={32} className="animate-spin text-gray-400" />
-        </div>
-      )}
+      <SearchInput
+        value={searchInput}
+        onChange={onSearchChange}
+        placeholder="Tìm theo tên hoặc email..."
+        className="max-w-md"
+      />
+
+      {loading && <AdminLoading />}
 
       {!loading && (
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+        <AdminTable>
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50/50">
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5">
@@ -227,20 +223,14 @@ export function AccountManageList({
                 })}
                 {items.length === 0 && (
                   <tr>
-                    <td
-                      colSpan={5}
-                      className="px-5 py-12 text-center text-gray-400"
-                    >
-                      Chưa có tài khoản nào. Hãy bấm &quot;Tạo tài khoản&quot; để
-                      thêm.
+                    <td colSpan={canManageAccounts ? 5 : 4}>
+                      <AdminEmptyState message="Chưa có tài khoản nào. Hãy bấm &quot;Tạo tài khoản&quot; để thêm." />
                     </td>
                   </tr>
                 )}
               </tbody>
-            </table>
-          </div>
-        </div>
-      )}
+          </AdminTable>
+        )}
 
       {warning.show && (
         <PopupNotification

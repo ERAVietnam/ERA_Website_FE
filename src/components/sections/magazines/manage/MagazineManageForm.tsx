@@ -9,6 +9,7 @@ import { magazinesApi } from "@/api/domains/magazines";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { getErrorMessage } from "@/lib/error-messages";
+import { magazineStatusConfig } from "@/lib/magazine/status";
 import type { EMagazine } from "@/types/api";
 
 interface MagazineFormData {
@@ -75,10 +76,7 @@ export function MagazineManageForm({ initialData, onSave, onCancel }: Props) {
     setPendingAction(null);
   }, [initialData]);
 
-  const statusConfig: Record<string, { label: string; color: string; bg: string }> = {
-    draft: { label: "Bản nháp", color: "#6B7280", bg: "#F3F4F6" },
-    published: { label: "Đã đăng", color: "#059669", bg: "#D1FAE5" },
-  };
+  const statusConfig = magazineStatusConfig;
 
   const update = <K extends keyof MagazineFormData>(key: K, value: MagazineFormData[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
