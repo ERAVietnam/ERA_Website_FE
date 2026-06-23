@@ -5,7 +5,7 @@ import { Container } from "@/components/ui/Container";
 import { colors } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
-import { ProjectsDetailSidebar } from "./ProjectsDetailSidebar";
+import { ProjectsSidebar } from "./ProjectsSidebar";
 
 const projectInfo = {
   name: "Vinhomes Pearl Bay",
@@ -227,7 +227,9 @@ export function ProjectsDetailContentSection() {
           </div>
 
           {/* Sidebar */}
-          <ProjectsDetailSidebar />
+          <div className="sticky top-24 self-start">
+            <ProjectsSidebar />
+          </div>
         </div>
       </Container>
     </section>
