@@ -84,14 +84,6 @@ export function MagazineCard({ magazine }: Props) {
         {magazine.description && (
           <div className="border-l-2 border-primary pl-3 mb-3">
             <p
-              className="text-[10px] font-bold uppercase mb-1"
-              style={{
-                color: colors.primary.DEFAULT,
-              }}
-            >
-              Tóm tắt bởi AI
-            </p>
-            <p
               className="text-sm line-clamp-3"
               style={{
                 color: colors.gray[600],
