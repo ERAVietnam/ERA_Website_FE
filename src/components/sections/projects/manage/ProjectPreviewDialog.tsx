@@ -1,15 +1,18 @@
 "use client";
 
-import Image from "next/image";
-import { Container } from "@/components/ui/Container";
+import { useEffect, useRef } from "react";
+import { X, ExternalLink } from "lucide-react";
 import { colors } from "@/lib/theme";
-import { ROUTES } from "@/lib/routes";
-import Link from "next/link";
-import { ProjectsSidebar } from "./ProjectsSidebar";
-import { getProjectImage } from "@/lib/projects";
-import type { Project, ProjectStatus } from "@/types/api";
+import type { ProjectFormData } from "./ProjectsManageForm";
 
-const STATUS_LABELS: Record<ProjectStatus, string> = {
+interface ProjectPreviewDialogProps {
+  project: ProjectFormData | null;
+  imagePreviewUrl?: string;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const STATUS_LABELS: Record<string, string> = {
   new: "Dự án mới",
   booking: "Nhận booking",
   selling: "Đang mở bán",
@@ -17,11 +20,37 @@ const STATUS_LABELS: Record<ProjectStatus, string> = {
   handed_over: "Đã bàn giao",
 };
 
-interface ProjectsDetailContentSectionProps {
-  project: Project;
-}
+export function ProjectPreviewDialog({ project, imagePreviewUrl, isOpen, onClose }: ProjectPreviewDialogProps) {
+  const dialogRef = useRef<HTMLDivElement>(null);
 
-export function ProjectsDetailContentSection({ project }: ProjectsDetailContentSectionProps) {
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen || !project) return null;
+
+  const isPubliclyViewable = !!project.id && project.publicationStatus === "published";
+  const coverImageUrl = imagePreviewUrl || project.imageMedia?.url;
+
   const infoRows = [
     { label: "Tên dự án", value: project.projectName || project.name },
     { label: "Chủ đầu tư", value: project.investor },
@@ -33,31 +62,42 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
     { label: "Tiến độ", value: project.progress, highlight: true },
   ].filter((row) => row.value);
 
-  const imageUrl = getProjectImage(project);
-
   return (
-    <section className="pt-16 md:pt-20 pb-6 bg-white">
-      <Container size="lg">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Main Content */}
-          <div className="flex-1 min-w-0">
-            {/* Breadcrumb */}
-            <nav className="flex items-center gap-2 text-sm mb-4">
-              <Link
-                href={ROUTES.projects}
-                className="hover:text-primary transition-colors"
-                style={{ color: colors.gray[500] }}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 sm:p-8 overflow-hidden">
+      <div
+        ref={dialogRef}
+        className="relative flex flex-col w-full max-w-5xl max-h-[calc(100vh-2rem)] sm:max-h-[calc(100vh-4rem)] rounded-2xl bg-white shadow-2xl overflow-hidden"
+      >
+        <div className="flex-shrink-0 z-10 flex items-center justify-between rounded-t-2xl bg-gradient-to-r from-[#C8102E] to-[#9A0B22] px-5 py-3">
+          <div className="min-w-0 flex-1">
+            <h3 className="text-base font-bold text-white">Xem trước dự án</h3>
+            <p className="text-xs text-white/80 truncate">{project.name}</p>
+          </div>
+          <div className="flex items-center gap-2 ml-3">
+            {isPubliclyViewable && (
+              <a
+                href={`/du-an/${project.slug}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-white/30"
               >
-                Dự án
-              </Link>
-              <span style={{ color: colors.gray[400] }}>/</span>
-              <span style={{ color: colors.gray[500] }}>{STATUS_LABELS[project.status]}</span>
-              <span style={{ color: colors.gray[400] }}>/</span>
-              <span className="font-medium" style={{ color: colors.neutral.foreground }}>
-                {project.name}
-              </span>
-            </nav>
+                <ExternalLink size={14} />
+                <span className="hidden sm:inline">Mở trang công khai</span>
+              </a>
+            )}
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-full bg-white/20 p-2 text-white transition-colors hover:bg-white/30"
+              aria-label="Đóng"
+            >
+              <X size={20} />
+            </button>
+          </div>
+        </div>
 
+        <div className="flex-1 overflow-y-auto bg-white">
+          <div className="max-w-4xl mx-auto px-6 sm:px-10 py-10">
             {/* Title */}
             <h1
               className="mb-3"
@@ -120,15 +160,13 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
             )}
 
             {/* Main Image */}
-            {imageUrl && (
+            {coverImageUrl && (
               <div className="relative rounded-xl overflow-hidden mb-8 aspect-[16/9]">
-                <Image
-                  src={imageUrl}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={coverImageUrl}
                   alt={project.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                  priority
+                  className="w-full h-full object-cover"
                 />
               </div>
             )}
@@ -170,21 +208,15 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
                   }}
                 >
                   Vị trí {project.projectName}
-                </h2>
+                </h2>                
                 <p className="text-[14px] leading-[1.8]" style={{ color: colors.neutral.foreground }}>
                   {project.location}
                 </p>
               </div>
             )}
-
-          </div>
-
-          {/* Sidebar */}
-          <div className="sticky top-24 self-start">
-            <ProjectsSidebar />
           </div>
         </div>
-      </Container>
-    </section>
+      </div>
+    </div>
   );
 }

@@ -255,7 +255,7 @@ export function MagazineManageForm({ initialData, onSave, onCancel }: Props) {
     <button
       type="submit"
       form="magazine-form"
-      disabled={isLoading}
+      disabled={isLoading || !isDirty}
       className="inline-flex items-center justify-center gap-2 w-full font-medium transition-all duration-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-md px-4 py-2 text-sm bg-white border-2"
       style={{ borderColor: colors.primary.navy.DEFAULT, color: colors.primary.navy.DEFAULT }}
       onMouseEnter={(e) => {

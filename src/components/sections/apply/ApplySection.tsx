@@ -1,20 +1,23 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { Upload, ChevronDown } from "lucide-react";
+import { recruitmentApi } from "@/api/domains/recruitment";
+import { mediaApi } from "@/api/domains/media";
+import { ApplySuccessPopup } from "./ApplySuccessPopup";
+import type { JobPosting } from "@/types/api";
 
-const positions = [
-  "Chuyên viên tư vấn bất động sản",
-  "Trưởng phòng kinh doanh",
-  "Quản lý văn phòng",
-  "Marketing",
-  "Chăm sóc khách hàng",
-  "Nhân viên văn phòng",
-];
+interface FormErrors {
+  name?: string;
+  phone?: string;
+  position?: string;
+  cv?: string;
+  server?: string;
+}
 
 export function ApplySection() {
   const [name, setName] = useState("");
@@ -22,13 +25,21 @@ export function ApplySection() {
   const [email, setEmail] = useState("");
   const [portfolio, setPortfolio] = useState("");
   const [position, setPosition] = useState("");
+  const [jobs, setJobs] = useState<JobPosting[]>([]);
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [success, setSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    recruitmentApi.getPublishedJobs({ limit: 100 }).then(setJobs).catch(() => setJobs([]));
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setCvFile(e.target.files[0]);
+      setErrors((prev) => ({ ...prev, cv: undefined }));
     }
   };
 
@@ -36,6 +47,7 @@ export function ApplySection() {
     e.preventDefault();
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       setCvFile(e.dataTransfer.files[0]);
+      setErrors((prev) => ({ ...prev, cv: undefined }));
     }
   }, []);
 
@@ -43,23 +55,56 @@ export function ApplySection() {
     e.preventDefault();
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const inputClass = (error?: string) =>
+    `w-full px-3.5 py-2.5 rounded-xl border bg-white text-sm outline-none transition-colors ${
+      error
+        ? "border-red-400 focus:border-red-500"
+        : "border-gray-200 focus:border-gray-400"
+    }`;
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !phone || !position) {
-      alert("Vui lòng điền đầy đủ thông tin bắt buộc.");
+    setSuccess(false);
+    const selectedJob = jobs.find((p) => p.title === position);
+
+    const newErrors: FormErrors = {};
+    if (!name.trim()) newErrors.name = "Vui lòng nhập họ và tên";
+    if (!phone.trim()) newErrors.phone = "Vui lòng nhập số điện thoại";
+    if (!selectedJob) newErrors.position = "Vui lòng chọn vị trí ứng tuyển";
+    if (!cvFile) newErrors.cv = "Vui lòng tải lên CV";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
+
+    setErrors({});
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      alert("Ứng tuyển thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.");
+    try {
+      const uploaded = await mediaApi.uploadFile(cvFile!, "recruitment");
+
+      await recruitmentApi.submitApplication({
+        jobPostingId: selectedJob!.id,
+        fullName: name,
+        phone,
+        email: email || undefined,
+        portfolioUrl: portfolio || undefined,
+        cvMediaId: uploaded.id,
+      });
+
+      setSuccess(true);
       setName("");
       setPhone("");
       setEmail("");
       setPortfolio("");
       setPosition("");
       setCvFile(null);
-    }, 1200);
+    } catch (err: any) {
+      const message = err?.response?.data?.message || err?.message || "Nộp đơn thất bại. Vui lòng thử lại.";
+      setErrors({ server: message });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -90,8 +135,18 @@ export function ApplySection() {
                   lineHeight: 1.5,
                 }}
               >
-                Để lại thông tin, chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.
+                Để lại thông tin, chúng tôi sẽ liên hệ với bạn trong thờі gian sớm nhất.
               </p>
+
+              {success && (
+                <ApplySuccessPopup onClose={() => setSuccess(false)} />
+              )}
+
+              {errors.server && (
+                <div className="mb-5 rounded-xl border border-red-200 bg-red-50 p-4">
+                  <p className="text-sm font-medium text-red-700">{errors.server}</p>
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Ho ten + SDT */}
@@ -101,32 +156,40 @@ export function ApplySection() {
                       className="block text-sm font-medium mb-1"
                       style={{ color: colors.gray[700] }}
                     >
-                      Họ và tên
+                      Họ và tên <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        setErrors((prev) => ({ ...prev, name: undefined }));
+                      }}
                       placeholder="Nhập họ và tên"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors"
+                      className={inputClass(errors.name)}
                       style={{ color: colors.gray[800] }}
                     />
+                    {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
                   </div>
                   <div>
                     <label
                       className="block text-sm font-medium mb-1"
                       style={{ color: colors.gray[700] }}
                     >
-                      Số điện thoại
+                      Số điện thoại <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="tel"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={(e) => {
+                        setPhone(e.target.value);
+                        setErrors((prev) => ({ ...prev, phone: undefined }));
+                      }}
                       placeholder="090x xxx xxx"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors"
+                      className={inputClass(errors.phone)}
                       style={{ color: colors.gray[800] }}
                     />
+                    {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone}</p>}
                   </div>
                 </div>
 
@@ -143,7 +206,7 @@ export function ApplySection() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Nhập email của bạn"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors"
+                    className={inputClass()}
                     style={{ color: colors.gray[800] }}
                   />
                 </div>
@@ -161,7 +224,7 @@ export function ApplySection() {
                     value={portfolio}
                     onChange={(e) => setPortfolio(e.target.value)}
                     placeholder="https://portfolio.com"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors"
+                    className={inputClass()}
                     style={{ color: colors.gray[800] }}
                   />
                 </div>
@@ -172,21 +235,24 @@ export function ApplySection() {
                     className="block text-sm font-medium mb-1"
                     style={{ color: colors.gray[700] }}
                   >
-                    Vị trí mong muốn
+                    Vị trí mong muốn <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <select
                       value={position}
-                      onChange={(e) => setPosition(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors appearance-none cursor-pointer"
+                      onChange={(e) => {
+                        setPosition(e.target.value);
+                        setErrors((prev) => ({ ...prev, position: undefined }));
+                      }}
+                      className={`${inputClass(errors.position)} appearance-none cursor-pointer`}
                       style={{ color: position ? colors.gray[800] : colors.gray[400] }}
                     >
                       <option value="" disabled>
                         Chọn vị trí ứng tuyển
                       </option>
-                      {positions.map((p) => (
-                        <option key={p} value={p}>
-                          {p}
+                      {jobs.map((p) => (
+                        <option key={p.id} value={p.title}>
+                          {p.title}
                         </option>
                       ))}
                     </select>
@@ -195,6 +261,7 @@ export function ApplySection() {
                       className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
                     />
                   </div>
+                  {errors.position && <p className="mt-1 text-xs text-red-500">{errors.position}</p>}
                 </div>
 
                 {/* Upload CV */}
@@ -203,13 +270,17 @@ export function ApplySection() {
                     className="block text-sm font-medium mb-1"
                     style={{ color: colors.gray[700] }}
                   >
-                    Tải lên CV (định dạng PDF/Doc)
+                    Tải lên CV (định dạng PDF) <span className="text-red-500">*</span>
                   </label>
                   <div
                     onClick={() => fileInputRef.current?.click()}
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}
-                    className="w-full rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 px-4 py-5 flex flex-col items-center justify-center gap-1.5 cursor-pointer hover:border-gray-400 hover:bg-gray-100 transition-colors"
+                    className={`w-full rounded-xl border-2 border-dashed px-4 py-5 flex flex-col items-center justify-center gap-1.5 cursor-pointer transition-colors ${
+                      errors.cv
+                        ? "border-red-400 bg-red-50"
+                        : "border-gray-300 bg-gray-50 hover:border-gray-400 hover:bg-gray-100"
+                    }`}
                   >
                     <Upload size={24} className="text-gray-400" />
                     <span className="text-sm text-gray-500">
@@ -218,11 +289,12 @@ export function ApplySection() {
                     <input
                       ref={fileInputRef}
                       type="file"
-                      accept=".pdf,.doc,.docx"
+                      accept=".pdf"
                       onChange={handleFileChange}
                       className="hidden"
                     />
                   </div>
+                  {errors.cv && <p className="mt-1 text-xs text-red-500">{errors.cv}</p>}
                 </div>
 
                 {/* Submit */}

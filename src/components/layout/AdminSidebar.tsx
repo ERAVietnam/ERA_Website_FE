@@ -16,13 +16,16 @@ import {
   Home,
   Briefcase,
   BookOpen,
+  Building2,
+  FileUser,
 } from "lucide-react";
 
 const menuItems = [
   { href: "/tin-tuc/quan-ly", label: "Tin tức", icon: Newspaper },
   { href: "/tap-chi/quan-ly", label: "E-magazine", icon: BookOpen },
-  // { href: "/du-an/quan-ly", label: "Dự án", icon: Building2 },
-  { href: "/tuyen-dung/quan-ly", label: "Tuyển dụng", icon: Briefcase },
+  { href: "/du-an/quan-ly", label: "Dự án", icon: Building2 },
+  { href: "/tuyen-dung/quan-ly", label: "Tin tuyển dụng", icon: Briefcase },
+  { href: "/tuyen-dung/ung-vien", label: "Ứng viên", icon: FileUser },
   { href: "/tai-khoan/quan-ly", label: "Tài khoản", icon: Users },
 ];
 

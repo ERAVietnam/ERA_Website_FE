@@ -1,4 +1,4 @@
-export { ProjectsPage } from "./ProjectsPage";
+export { ProjectsPageClient } from "./ProjectsPageClient";
 export { ProjectsHeroSection } from "./ProjectsHeroSection";
 export { ProjectsListSection } from "./ProjectsListSection";
 export { ProjectsSidebar } from "./ProjectsSidebar";

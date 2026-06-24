@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
+import { projectsApi } from "@/api/domains/projects";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://era.com.vn";
 
   const routes: MetadataRoute.Sitemap = [
@@ -20,6 +21,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/chinh-sach-bao-mat/`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
     { url: `${baseUrl}/dieu-khoan-su-dung/`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
   ];
+
+  try {
+    const data = await projectsApi.getPublishedProjects({ limit: 100 });
+    const projectRoutes: MetadataRoute.Sitemap = data.items.map((project) => ({
+      url: `${baseUrl}/du-an/${project.slug}/`,
+      lastModified: new Date(project.updatedAt),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    }));
+    routes.push(...projectRoutes);
+  } catch {
+    // Ignore project sitemap errors
+  }
 
   return routes;
 }

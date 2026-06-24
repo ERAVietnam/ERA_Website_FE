@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { colors } from "@/lib/theme";
@@ -22,6 +22,9 @@ import {
   ChevronDown,
   Coins,
 } from "lucide-react";
+import { recruitmentApi } from "@/api/domains/recruitment";
+import { mediaApi } from "@/api/domains/media";
+import { ApplySuccessPopup } from "./ApplySuccessPopup";
 import type { JobFormData } from "./manage/ApplyManageForm";
 import type { JobPosting } from "@/types/api";
 
@@ -255,16 +258,30 @@ export function ApplyJobDetailPage({
       </div>
 
       {!isPreview && (
-        <JobApplyForm defaultPosition={defaultPosition ?? title} positions={availablePositions} />
+        <JobApplyForm
+          jobPostingId={job && "id" in job ? job.id : undefined}
+          defaultPosition={defaultPosition ?? title}
+          positions={availablePositions}
+        />
       )}
     </main>
   );
 }
 
+interface FormErrors {
+  name?: string;
+  phone?: string;
+  position?: string;
+  cv?: string;
+  server?: string;
+}
+
 function JobApplyForm({
+  jobPostingId,
   defaultPosition,
   positions,
 }: {
+  jobPostingId?: string;
   defaultPosition?: string;
   positions?: string[];
 }) {
@@ -275,31 +292,81 @@ function JobApplyForm({
   const [position, setPosition] = useState(defaultPosition ?? "");
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [jobs, setJobs] = useState<JobPosting[]>([]);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [success, setSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    recruitmentApi.getPublishedJobs({ limit: 100 }).then(setJobs).catch(() => setJobs([]));
+  }, []);
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) setCvFile(e.target.files[0]);
+    if (e.target.files && e.target.files[0]) {
+      setCvFile(e.target.files[0]);
+      setErrors((prev) => ({ ...prev, cv: undefined }));
+    }
   };
 
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) setCvFile(e.dataTransfer.files[0]);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      setCvFile(e.dataTransfer.files[0]);
+      setErrors((prev) => ({ ...prev, cv: undefined }));
+    }
   }, []);
 
   const handleDragOver = (e: React.DragEvent) => { e.preventDefault(); };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const inputClass = (error?: string) =>
+    `w-full px-3.5 py-2.5 rounded-xl border bg-white text-sm outline-none transition-colors ${
+      error
+        ? "border-red-400 focus:border-red-500"
+        : "border-gray-200 focus:border-gray-400"
+    }`;
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !phone || !position) { alert("Vui lòng điền đầy đủ thông tin bắt buộc."); return; }
+    setSuccess(false);
+    const selectedJob = jobs.find((j) => j.title === position);
+    const targetJobPostingId = selectedJob?.id || jobPostingId;
+
+    const newErrors: FormErrors = {};
+    if (!name.trim()) newErrors.name = "Vui lòng nhập họ và tên";
+    if (!phone.trim()) newErrors.phone = "Vui lòng nhập số điện thoại";
+    if (!targetJobPostingId) newErrors.position = "Vui lòng chọn vị trí ứng tuyển";
+    if (!cvFile) newErrors.cv = "Vui lòng tải lên CV";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      const uploaded = await mediaApi.uploadFile(cvFile!, "recruitment");
+
+      await recruitmentApi.submitApplication({
+        jobPostingId: targetJobPostingId!,
+        fullName: name,
+        phone,
+        email: email || undefined,
+        portfolioUrl: portfolio || undefined,
+        cvMediaId: uploaded.id,
+      });
+
+      setSuccess(true);
+      setName(""); setPhone(""); setEmail(""); setPortfolio(""); setPosition(defaultPosition ?? ""); setCvFile(null);
+    } catch (err: any) {
+      const message = err?.response?.data?.message || err?.message || "Có lỗi xảy ra, vui lòng thử lại.";
+      setErrors({ server: message });
+    } finally {
       setIsSubmitting(false);
-      alert("Ứng tuyển thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.");
-      setName(""); setPhone(""); setEmail(""); setPortfolio(""); setPosition(""); setCvFile(null);
-    }, 1200);
+    }
   };
 
-  const positionOptions = positions?.length ? positions : [defaultPosition].filter(Boolean) as string[];
+  const positionOptions = positions?.length ? positions : jobs.map((j) => j.title);
 
   return (
     <div id="apply-form" className="py-10" style={{ backgroundColor: "#f3f4f6" }}>
@@ -314,46 +381,60 @@ function JobApplyForm({
                 Để lại thông tin, chúng tôi sẽ liên hệ với bạn trong thờі gian sớm nhất.
               </p>
 
+              {success && (
+                <ApplySuccessPopup onClose={() => setSuccess(false)} />
+              )}
+
+              {errors.server && (
+                <div className="mb-5 rounded-xl border border-red-200 bg-red-50 p-4">
+                  <p className="text-sm font-medium text-red-700">{errors.server}</p>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Họ và tên</label>
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nhập họ tên của bạn" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors" style={{ color: colors.gray[800] }} />
+                    <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Họ và tên <span className="text-red-500">*</span></label>
+                    <input type="text" value={name} onChange={(e) => { setName(e.target.value); setErrors((prev) => ({ ...prev, name: undefined })); }} placeholder="Nhập họ tên của bạn" className={inputClass(errors.name)} style={{ color: colors.gray[800] }} />
+                    {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name}</p>}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Số điện thoại</label>
-                    <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="090x xxx xxx" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors" style={{ color: colors.gray[800] }} />
+                    <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Số điện thoại <span className="text-red-500">*</span></label>
+                    <input type="tel" value={phone} onChange={(e) => { setPhone(e.target.value); setErrors((prev) => ({ ...prev, phone: undefined })); }} placeholder="090x xxx xxx" className={inputClass(errors.phone)} style={{ color: colors.gray[800] }} />
+                    {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone}</p>}
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Email</label>
-                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Nhập email của bạn" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors" style={{ color: colors.gray[800] }} />
+                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Nhập email của bạn" className={inputClass()} style={{ color: colors.gray[800] }} />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Link portfolio</label>
-                  <input type="url" value={portfolio} onChange={(e) => setPortfolio(e.target.value)} placeholder="https://portfolio.com" className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors" style={{ color: colors.gray[800] }} />
+                  <input type="url" value={portfolio} onChange={(e) => setPortfolio(e.target.value)} placeholder="https://portfolio.com" className={inputClass()} style={{ color: colors.gray[800] }} />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Vị trí mong muốn</label>
+                  <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Vị trí mong muốn <span className="text-red-500">*</span></label>
                   <div className="relative">
-                    <select value={position} onChange={(e) => setPosition(e.target.value)} className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-gray-400 transition-colors appearance-none cursor-pointer" style={{ color: position ? colors.gray[800] : colors.gray[400] }}>
+                    <select value={position} onChange={(e) => { setPosition(e.target.value); setErrors((prev) => ({ ...prev, position: undefined })); }} className={`${inputClass(errors.position)} appearance-none cursor-pointer`} style={{ color: position ? colors.gray[800] : colors.gray[400] }}>
                       <option value="" disabled>Chọn vị trí ứng tuyển</option>
                       {positionOptions.map((p) => (<option key={p} value={p}>{p}</option>))}
                     </select>
                     <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" />
                   </div>
+                  {errors.position && <p className="mt-1 text-xs text-red-500">{errors.position}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Tải lên CV (định dạng PDF/Doc)</label>
-                  <div onClick={() => fileInputRef.current?.click()} onDrop={handleDrop} onDragOver={handleDragOver} className="w-full rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 px-4 py-5 flex flex-col items-center justify-center gap-1.5 cursor-pointer hover:border-gray-400 hover:bg-gray-100 transition-colors">
+                  <label className="block text-sm font-medium mb-1" style={{ color: colors.gray[700] }}>Tải lên CV (định dạng PDF) <span className="text-red-500">*</span></label>
+                  <div onClick={() => fileInputRef.current?.click()} onDrop={handleDrop} onDragOver={handleDragOver} className={`w-full rounded-xl border-2 border-dashed px-4 py-5 flex flex-col items-center justify-center gap-1.5 cursor-pointer transition-colors ${errors.cv ? "border-red-400 bg-red-50" : "border-gray-300 bg-gray-50 hover:border-gray-400 hover:bg-gray-100"}`}>
                     <Upload size={24} className="text-gray-400" />
                     <span className="text-sm text-gray-500">{cvFile ? cvFile.name : "Kéo thả file hoặc click để chọn tệp"}</span>
-                    <input ref={fileInputRef} type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} className="hidden" />
+                    <input ref={fileInputRef} type="file" accept=".pdf" onChange={handleFileChange} className="hidden" />
                   </div>
+                  {errors.cv && <p className="mt-1 text-xs text-red-500">{errors.cv}</p>}
                 </div>
 
                 <Button type="submit" variant="primary" size="lg" isLoading={isSubmitting} className="w-full shadow-lg hover:shadow-xl">
