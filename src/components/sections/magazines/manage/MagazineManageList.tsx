@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { useAuth } from "@/contexts/AuthContext";
 import { Pagination } from "@/components/ui/Pagination";
 import { colors } from "@/lib/theme";
 import {
@@ -58,7 +59,15 @@ export function MagazineManageList({
   onUnpublish,
   onAdd,
 }: Props) {
+  const { hasPermission } = useAuth();
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
+
+  const canView = hasPermission("magazine.articles.all.view");
+  const canCreate = hasPermission("magazine.articles.all.create");
+  const canUpdate = hasPermission("magazine.articles.all.update");
+  const canDelete = hasPermission("magazine.articles.all.delete");
+  const canPublish = hasPermission("magazine.articles.all.publish");
+  const showActionsColumn = canView || canUpdate || canDelete || canPublish;
 
   const statusOptions = [
     { value: "", label: "Tất cả trạng thái" },
@@ -80,10 +89,12 @@ export function MagazineManageList({
       >
         <div className="flex items-center gap-2">
           <ViewModeToggle value={viewMode} onChange={setViewMode} />
-          <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">
-            <Plus size={16} />
-            Tạo e-magazine
-          </Button>
+          {canCreate && (
+            <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">
+              <Plus size={16} />
+              Tạo e-magazine
+            </Button>
+          )}
         </div>
       </AdminListHeader>
 
@@ -134,7 +145,9 @@ export function MagazineManageList({
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5 min-w-[200px]">Mô tả</th>
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Ngày xuất bản</th>
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Trạng thái</th>
-                  <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-40">Thao tác</th>
+                  {showActionsColumn && (
+                    <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-40">Thao tác</th>
+                  )}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
@@ -181,52 +194,60 @@ export function MagazineManageList({
                           {status.label}
                         </span>
                       </td>
-                      <td className="px-5 py-4">
-                        <div className="flex items-center justify-end gap-1">
-                          {item.status === "draft" ? (
-                            <Button
-                              variant="ghost"
-                              isIconOnly
-                              size="md"
-                              onClick={() => onPublish(item.id)}
-                              title="Đăng"
-                              className="hover:!bg-green-50"
-                            >
-                              <CheckCircle size={15} className="text-green-600" />
-                            </Button>
-                          ) : (
-                            <Button
-                              variant="ghost"
-                              isIconOnly
-                              size="md"
-                              onClick={() => onUnpublish(item.id)}
-                              title="Gỡ về nháp"
-                              className="hover:!bg-amber-50"
-                            >
-                              <RotateCcw size={15} className="text-amber-600" />
-                            </Button>
-                          )}
-                          <Button
-                            variant="ghost"
-                            isIconOnly
-                            size="md"
-                            onClick={() => onEdit(item)}
-                            title="Chỉnh sửa"
-                          >
-                            <Pencil size={15} className="text-gray-500" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            isIconOnly
-                            size="md"
-                            onClick={() => onDelete(item.id)}
-                            title="Xoá"
-                            className="hover:!bg-red-50"
-                          >
-                            <Trash2 size={15} className="text-red-500" />
-                          </Button>
-                        </div>
-                      </td>
+                      {showActionsColumn && (
+                        <td className="px-5 py-4">
+                          <div className="flex items-center justify-end gap-1">
+                            {canPublish && (
+                              item.status === "draft" ? (
+                                <Button
+                                  variant="ghost"
+                                  isIconOnly
+                                  size="md"
+                                  onClick={() => onPublish(item.id)}
+                                  title="Đăng"
+                                  className="hover:!bg-green-50"
+                                >
+                                  <CheckCircle size={15} className="text-green-600" />
+                                </Button>
+                              ) : (
+                                <Button
+                                  variant="ghost"
+                                  isIconOnly
+                                  size="md"
+                                  onClick={() => onUnpublish(item.id)}
+                                  title="Gỡ về nháp"
+                                  className="hover:!bg-amber-50"
+                                >
+                                  <RotateCcw size={15} className="text-amber-600" />
+                                </Button>
+                              )
+                            )}
+                            {canUpdate && (
+                              <Button
+                                variant="ghost"
+                                isIconOnly
+                                size="md"
+                                onClick={() => onEdit(item)}
+                                title="Chỉnh sửa"
+                              >
+                                <Pencil size={15} className="text-gray-500" />
+                              </Button>
+                            )}
+                            {canDelete && (
+                              <Button
+                                variant="ghost"
+                                isIconOnly
+                                size="md"
+                                onClick={() => onDelete(item.id)}
+                                title="Xoá"
+                                className="hover:!bg-red-50"
+                              >
+                                <Trash2 size={15} className="text-red-500" />
+                              </Button>
+                            )}
+                          </div>
+                        </td>
+                      )}
                     </tr>
                   );
                 })}
@@ -272,54 +293,62 @@ export function MagazineManageList({
                   </p>
                   <p className="text-xs text-gray-400 mb-4">Ngày xuất bản: {formatDateShort(item.publishedDate) || "—"}</p>
 
+                  {showActionsColumn && (
                   <div className="flex items-center gap-1 pt-3 border-t border-gray-100">
-                    {item.status === "draft" ? (
+                    {canPublish && (
+                      item.status === "draft" ? (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          isIconOnly
+                          size="md"
+                          onClick={() => onPublish(item.id)}
+                          title="Đăng"
+                          className="hover:!bg-green-50"
+                        >
+                          <CheckCircle size={16} className="text-green-600" />
+                        </Button>
+                      ) : (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          isIconOnly
+                          size="md"
+                          onClick={() => onUnpublish(item.id)}
+                          title="Gỡ về nháp"
+                          className="hover:!bg-amber-50"
+                        >
+                          <RotateCcw size={16} className="text-amber-600" />
+                        </Button>
+                      )
+                    )}
+                    {canUpdate && (
                       <Button
                         type="button"
                         variant="ghost"
                         isIconOnly
                         size="md"
-                        onClick={() => onPublish(item.id)}
-                        title="Đăng"
-                        className="hover:!bg-green-50"
+                        onClick={() => onEdit(item)}
+                        title="Chỉnh sửa"
                       >
-                        <CheckCircle size={16} className="text-green-600" />
-                      </Button>
-                    ) : (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        isIconOnly
-                        size="md"
-                        onClick={() => onUnpublish(item.id)}
-                        title="Gỡ về nháp"
-                        className="hover:!bg-amber-50"
-                      >
-                        <RotateCcw size={16} className="text-amber-600" />
+                        <Pencil size={16} className="text-gray-500" />
                       </Button>
                     )}
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      isIconOnly
-                      size="md"
-                      onClick={() => onEdit(item)}
-                      title="Chỉnh sửa"
-                    >
-                      <Pencil size={16} className="text-gray-500" />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      isIconOnly
-                      size="md"
-                      onClick={() => onDelete(item.id)}
-                      title="Xóa"
-                      className="hover:!bg-red-50"
-                    >
-                      <Trash2 size={16} className="text-red-500" />
-                    </Button>
+                    {canDelete && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        isIconOnly
+                        size="md"
+                        onClick={() => onDelete(item.id)}
+                        title="Xóa"
+                        className="hover:!bg-red-50"
+                      >
+                        <Trash2 size={16} className="text-red-500" />
+                      </Button>
+                    )}
                   </div>
+                )}
                 </div>
               </div>
             );

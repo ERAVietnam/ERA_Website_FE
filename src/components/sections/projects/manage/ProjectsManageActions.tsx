@@ -51,6 +51,7 @@ export function ProjectsManageActions({
   const isSuperAdmin = hasPermission("system.super_admin");
   const isAuthor = currentId === project.createdBy?.id || isSuperAdmin;
 
+  const canView = hasPermission("projects.all.view");
   const canPublish =
     isSuperAdmin || hasPermission("projects.all.publish");
 
@@ -133,7 +134,7 @@ export function ProjectsManageActions({
           "reject"
         )
       : null,
-    onPreview
+    canView && onPreview
       ? renderButton(
           () => onPreview(project),
           "Xem trước",
@@ -142,7 +143,7 @@ export function ProjectsManageActions({
           "preview"
         )
       : null,
-    onViewHistory
+    canView && onViewHistory
       ? renderButton(
           () => onViewHistory(project.id),
           "Lịch sử",

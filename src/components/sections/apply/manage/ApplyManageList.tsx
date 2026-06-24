@@ -2,6 +2,7 @@
 
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   Pencil,
   Trash2,
@@ -68,16 +69,26 @@ export function ApplyManageList({
   onViewLogs,
   canChangeStatus = true,
 }: Props) {
+  const { hasPermission } = useAuth();
+  const canView = hasPermission("recruitment.jobs.all.view");
+  const canCreate = hasPermission("recruitment.jobs.all.create");
+  const canUpdate = hasPermission("recruitment.jobs.all.update");
+  const canDelete = hasPermission("recruitment.jobs.all.delete");
+  const canPublish = hasPermission("recruitment.jobs.all.publish");
+  const showActionsColumn = canView || canUpdate || canDelete || canPublish;
+
   return (
     <div className="space-y-5">
       <AdminListHeader
         title="Quản lý tin tuyển dụng"
         subtitle={meta.total > 0 ? `Hiển thị ${jobs.length} / ${meta.total} tin tuyển dụng` : "Không có tin tuyển dụng nào"}
       >
-        <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">
-          <Plus size={16} />
-          Tạo tin tuyển dụng
-        </Button>
+        {canCreate && (
+          <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">
+            <Plus size={16} />
+            Tạo tin tuyển dụng
+          </Button>
+        )}
       </AdminListHeader>
 
       <AdminFilters
@@ -145,9 +156,11 @@ export function ApplyManageList({
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">
                     Trạng thái
                   </th>
-                  <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-48">
-                    Thao tác
-                  </th>
+                  {showActionsColumn && (
+                    <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-48">
+                      Thao tác
+                    </th>
+                  )}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
@@ -181,107 +194,117 @@ export function ApplyManageList({
                           {status.label}
                         </span>
                       </td>
-                      <td className="px-5 py-4">
-                        <div className="flex items-center justify-end gap-1">
-                          {job.status === "draft" && onStatusChange && canChangeStatus && (
-                            <Button
-                              variant="ghost"
-                              isIconOnly
-                              size="md"
-                              onClick={() => job.id && onStatusChange(job.id, "open")}
-                              title="Đăng tuyển"
-                              className="hover:!bg-green-50"
-                            >
-                              <CheckCircle size={15} className="text-green-600" />
-                            </Button>
-                          )}
-                          {job.status === "open" && onStatusChange && canChangeStatus && (
-                            <>
+                      {showActionsColumn && (
+                        <td className="px-5 py-4">
+                          <div className="flex items-center justify-end gap-1">
+                            {canPublish && onStatusChange && (
+                              <>
+                                {job.status === "draft" && (
+                                  <Button
+                                    variant="ghost"
+                                    isIconOnly
+                                    size="md"
+                                    onClick={() => job.id && onStatusChange(job.id, "open")}
+                                    title="Đăng tuyển"
+                                    className="hover:!bg-green-50"
+                                  >
+                                    <CheckCircle size={15} className="text-green-600" />
+                                  </Button>
+                                )}
+                                {job.status === "open" && (
+                                  <>
+                                    <Button
+                                      variant="ghost"
+                                      isIconOnly
+                                      size="md"
+                                      onClick={() => job.id && onStatusChange(job.id, "draft")}
+                                      title="Gỡ bài"
+                                      className="hover:!bg-amber-50"
+                                    >
+                                      <RotateCcw size={15} className="text-amber-600" />
+                                    </Button>
+                                    <Button
+                                      variant="ghost"
+                                      isIconOnly
+                                      size="md"
+                                      onClick={() => job.id && onStatusChange(job.id, "closed")}
+                                      title="Đóng tuyển"
+                                      className="hover:!bg-red-50"
+                                    >
+                                      <XCircle size={15} className="text-red-500" />
+                                    </Button>
+                                  </>
+                                )}
+                                {job.status === "closed" && (
+                                  <Button
+                                    variant="ghost"
+                                    isIconOnly
+                                    size="md"
+                                    onClick={() => job.id && onStatusChange(job.id, "open")}
+                                    title="Mở lại"
+                                    className="hover:!bg-green-50"
+                                  >
+                                    <Send size={15} className="text-green-600" />
+                                  </Button>
+                                )}
+                              </>
+                            )}
+                            {canView && onPreview && (
                               <Button
                                 variant="ghost"
                                 isIconOnly
                                 size="md"
-                                onClick={() => job.id && onStatusChange(job.id, "draft")}
-                                title="Gỡ bài"
-                                className="hover:!bg-amber-50"
+                                onClick={() => onPreview(job)}
+                                title="Xem trước"
+                                className="hover:!bg-blue-50"
                               >
-                                <RotateCcw size={15} className="text-amber-600" />
+                                <Eye size={15} className="text-blue-600" />
                               </Button>
+                            )}
+                            {canView && onViewLogs && (
                               <Button
                                 variant="ghost"
                                 isIconOnly
                                 size="md"
-                                onClick={() => job.id && onStatusChange(job.id, "closed")}
-                                title="Đóng tuyển"
+                                onClick={() => job.id && onViewLogs(job.id)}
+                                title="Lịch sử"
+                                className="hover:!bg-purple-50"
+                              >
+                                <History size={15} className="text-purple-600" />
+                              </Button>
+                            )}
+                            {canUpdate && (
+                              <Button
+                                variant="ghost"
+                                isIconOnly
+                                size="md"
+                                onClick={() => onEdit(job)}
+                                title="Chỉnh sửa"
+                              >
+                                <Pencil size={15} className="text-gray-500" />
+                              </Button>
+                            )}
+                            {canDelete && (
+                              <Button
+                                variant="ghost"
+                                isIconOnly
+                                size="md"
+                                onClick={() => job.id && onDelete(job.id)}
+                                title="Xoá"
                                 className="hover:!bg-red-50"
                               >
-                                <XCircle size={15} className="text-red-500" />
+                                <Trash2 size={15} className="text-red-500" />
                               </Button>
-                            </>
-                          )}
-                          {job.status === "closed" && onStatusChange && canChangeStatus && (
-                            <Button
-                              variant="ghost"
-                              isIconOnly
-                              size="md"
-                              onClick={() => job.id && onStatusChange(job.id, "open")}
-                              title="Mở lại"
-                              className="hover:!bg-green-50"
-                            >
-                              <Send size={15} className="text-green-600" />
-                            </Button>
-                          )}
-                          {onPreview && (
-                            <Button
-                              variant="ghost"
-                              isIconOnly
-                              size="md"
-                              onClick={() => onPreview(job)}
-                              title="Xem trước"
-                              className="hover:!bg-blue-50"
-                            >
-                              <Eye size={15} className="text-blue-600" />
-                            </Button>
-                          )}
-                          {onViewLogs && (
-                            <Button
-                              variant="ghost"
-                              isIconOnly
-                              size="md"
-                              onClick={() => job.id && onViewLogs(job.id)}
-                              title="Lịch sử"
-                              className="hover:!bg-purple-50"
-                            >
-                              <History size={15} className="text-purple-600" />
-                            </Button>
-                          )}
-                          <Button
-                            variant="ghost"
-                            isIconOnly
-                            size="md"
-                            onClick={() => onEdit(job)}
-                            title="Chỉnh sửa"
-                          >
-                            <Pencil size={15} className="text-gray-500" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            isIconOnly
-                            size="md"
-                            onClick={() => job.id && onDelete(job.id)}
-                            title="Xoá"
-                            className="hover:!bg-red-50"
-                          >
-                            <Trash2 size={15} className="text-red-500" />
-                          </Button>
-                        </div>
-                      </td>
+                            )}
+                          </div>
+                        </td>
+                      )}
                     </tr>
                   );
                 })}
                 {jobs.length === 0 && (
                   <tr>
-                    <td colSpan={6}>
+                    <td colSpan={showActionsColumn ? 7 : 6}>
                       <AdminEmptyState message="Chưa có tin tuyển dụng nào. Hãy bấm &quot;Tạo tin tuyển dụng&quot; để thêm." />
                     </td>
                   </tr>

@@ -44,6 +44,8 @@ const moduleLabels: Record<string, string> = {
   news: "Tin tức",
   auth: "Tài khoản",
   recruitment: "Tuyển dụng",
+  projects: "Dự án",
+  magazine: "E-Magazine",
 };
 
 const resourceLabels: Record<string, string> = {
@@ -141,7 +143,7 @@ function getResourceSections(
   return [
     {
       key: resource,
-      label: resourceLabels[resource] || resource,
+      label: resourceLabels[resource] || (resource === "all" ? moduleLabels[module] : resource) || resource,
       perms,
     },
   ];

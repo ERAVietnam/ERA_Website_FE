@@ -15,7 +15,11 @@ import { AdminTable } from "@/components/ui/admin/AdminTable";
 import { AdminEmptyState } from "@/components/ui/admin/AdminEmptyState";
 import { ViewModeToggle } from "@/components/ui/admin/ViewModeToggle";
 import { NewsManageActions } from "./NewsManageActions";
-import { hasAnyNewsArticleCreatePermission } from "@/lib/permissions";
+import {
+  hasAnyNewsArticleCreatePermission,
+  hasAnyNewsArticleViewPermission,
+  hasAnyNewsArticleActionPermission,
+} from "@/lib/permissions";
 import { formatDate } from "@/lib/date";
 import { getArticleImage } from "@/lib/news";
 import { newsStatusConfig } from "@/lib/news/status";
@@ -70,6 +74,12 @@ export function NewsManageList({
   const { hasPermission } = useAuth();
   const { guard } = usePermissionWarning();
   const [viewMode, setViewMode] = useState<"table" | "card">("table");
+
+  const showActionsColumn =
+    hasAnyNewsArticleViewPermission(hasPermission) ||
+    hasAnyNewsArticleActionPermission(hasPermission, "update") ||
+    hasAnyNewsArticleActionPermission(hasPermission, "delete") ||
+    hasAnyNewsArticleActionPermission(hasPermission, "publish");
 
 
   const placeholderImg = "/news/news_placeholder.webp";
@@ -178,7 +188,9 @@ export function NewsManageList({
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Tác giả</th>
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Trạng thái</th>
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Ngày đăng</th>
-                  <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-36">Thao tác</th>
+                  {showActionsColumn && (
+                    <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-36">Thao tác</th>
+                  )}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
@@ -231,26 +243,28 @@ export function NewsManageList({
                     <td className="px-5 py-4 text-gray-600 whitespace-nowrap">
                       {formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt)}
                     </td>
-                    <td className="px-5 py-4" onClick={(e) => e.stopPropagation()}>
-                      <NewsManageActions
-                        item={item}
-                        currentAccountId={currentAccountId}
-                        onEdit={onEdit}
-                        onDelete={onDelete}
-                        onPreview={onPreview}
-                        onPublish={onPublish}
-                        onRevoke={onRevoke}
-                        onSubmitForReview={onSubmitForReview}
-                        onReject={onReject}
-                        onViewHistory={onViewHistory}
-                        layout="table"
-                      />
-                    </td>
+                    {showActionsColumn && (
+                      <td className="px-5 py-4" onClick={(e) => e.stopPropagation()}>
+                        <NewsManageActions
+                          item={item}
+                          currentAccountId={currentAccountId}
+                          onEdit={onEdit}
+                          onDelete={onDelete}
+                          onPreview={onPreview}
+                          onPublish={onPublish}
+                          onRevoke={onRevoke}
+                          onSubmitForReview={onSubmitForReview}
+                          onReject={onReject}
+                          onViewHistory={onViewHistory}
+                          layout="table"
+                        />
+                      </td>
+                    )}
                   </tr>
                 ))}
                 {items.length === 0 && (
                   <tr>
-                    <td colSpan={7}>
+                    <td colSpan={showActionsColumn ? 7 : 6}>
                       <AdminEmptyState message="Chưa có bài viết nào. Hãy bấm &quot;Tạo bài viết mới&quot; để thêm." />
                     </td>
                   </tr>

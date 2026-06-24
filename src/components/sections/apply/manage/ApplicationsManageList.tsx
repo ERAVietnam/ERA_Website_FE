@@ -67,8 +67,10 @@ export function ApplicationsManageList({
 }: Props) {
   const { hasPermission } = useAuth();
   const { warning, guard, closeWarning } = usePermissionWarning();
+  const canView = hasPermission("recruitment.applications.all.view");
   const canUpdate = hasPermission("recruitment.applications.all.update");
   const canDelete = hasPermission("recruitment.applications.all.delete");
+  const showActionsColumn = canView || canUpdate || canDelete;
 
   const jobOptions = jobs.map((job) => ({ value: job.id, label: job.title }));
   const statusOptions = STATUS_OPTIONS.map((s) => ({ value: s.value, label: s.label }));
@@ -133,7 +135,9 @@ export function ApplicationsManageList({
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Trạng thái</th>
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Ngày nộp</th>
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">CV</th>
-              <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-28">Thao tác</th>
+              {showActionsColumn && (
+                <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-28">Thao tác</th>
+              )}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
@@ -172,32 +176,35 @@ export function ApplicationsManageList({
                         <span className="text-sm text-gray-400">Chưa đính kèm</span>
                       )}
                     </td>
-                    <td className="px-5 py-4">
-                      <div className="flex items-center justify-end gap-1">
-                        <Button
-                          variant="ghost"
-                          isIconOnly
-                          size="md"
-                          onClick={() => onEdit(item)}
-                          title="Xem chi tiết"
-                        >
-                          <Pencil size={15} className="text-gray-500" />
-                        </Button>
-                        {item.cvMedia && (
-                          <Button
-                            variant="ghost"
-                            isIconOnly
-                            size="md"
-                            asChild
-                            title="Tải CV"
-                            className="hover:!bg-blue-50"
-                          >
-                            <a href={item.cvMedia.url} download={item.cvMedia.filename} target="_blank" rel="noopener noreferrer">
-                              <Download size={15} className="text-blue-500" />
-                            </a>
-                          </Button>
-                        )}
-                        {canDelete && (
+                    {showActionsColumn && (
+                      <td className="px-5 py-4">
+                        <div className="flex items-center justify-end gap-1">
+                          {(canView || canUpdate) && (
+                            <Button
+                              variant="ghost"
+                              isIconOnly
+                              size="md"
+                              onClick={() => onEdit(item)}
+                              title="Xem chi tiết"
+                            >
+                              <Pencil size={15} className="text-gray-500" />
+                            </Button>
+                          )}
+                          {canView && item.cvMedia && (
+                            <Button
+                              variant="ghost"
+                              isIconOnly
+                              size="md"
+                              asChild
+                              title="Tải CV"
+                              className="hover:!bg-blue-50"
+                            >
+                              <a href={item.cvMedia.url} download={item.cvMedia.filename} target="_blank" rel="noopener noreferrer">
+                                <Download size={15} className="text-blue-500" />
+                              </a>
+                            </Button>
+                          )}
+                          {canDelete && (
                           <Button
                             variant="ghost"
                             isIconOnly
@@ -215,14 +222,15 @@ export function ApplicationsManageList({
                             <Trash2 size={15} className="text-red-500" />
                           </Button>
                         )}
-                      </div>
-                    </td>
+                        </div>
+                      </td>
+                    )}
                   </tr>
               );
             })}
             {items.length === 0 && (
               <tr>
-                <td colSpan={9}>
+                <td colSpan={showActionsColumn ? 9 : 8}>
                   <AdminEmptyState message="Chưa có đơn ứng tuyển nào." />
                 </td>
               </tr>

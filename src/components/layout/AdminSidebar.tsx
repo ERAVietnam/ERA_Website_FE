@@ -19,18 +19,57 @@ import {
   Building2,
   FileUser,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { hasAnyNewsArticleViewPermission } from "@/lib/permissions";
 
-const menuItems = [
-  { href: "/tin-tuc/quan-ly", label: "Tin tức", icon: Newspaper },
-  { href: "/tap-chi/quan-ly", label: "E-magazine", icon: BookOpen },
-  { href: "/du-an/quan-ly", label: "Dự án", icon: Building2 },
-  { href: "/tuyen-dung/quan-ly", label: "Tin tuyển dụng", icon: Briefcase },
-  { href: "/tuyen-dung/ung-vien", label: "Ứng viên", icon: FileUser },
-  { href: "/tai-khoan/quan-ly", label: "Tài khoản", icon: Users },
+interface MenuItem {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+  visible: (hasPermission: (p: string) => boolean) => boolean;
+}
+
+const menuItems: MenuItem[] = [
+  {
+    href: "/tin-tuc/quan-ly",
+    label: "Tin tức",
+    icon: Newspaper,
+    visible: (hasPermission) => hasAnyNewsArticleViewPermission(hasPermission),
+  },
+  {
+    href: "/tap-chi/quan-ly",
+    label: "E-magazine",
+    icon: BookOpen,
+    visible: (hasPermission) => hasPermission("magazine.articles.all.view"),
+  },
+  {
+    href: "/du-an/quan-ly",
+    label: "Dự án",
+    icon: Building2,
+    visible: (hasPermission) => hasPermission("projects.all.view"),
+  },
+  {
+    href: "/tuyen-dung/quan-ly",
+    label: "Tin tuyển dụng",
+    icon: Briefcase,
+    visible: (hasPermission) => hasPermission("recruitment.jobs.all.view"),
+  },
+  {
+    href: "/tuyen-dung/ung-vien",
+    label: "Ứng viên",
+    icon: FileUser,
+    visible: (hasPermission) => hasPermission("recruitment.applications.all.view"),
+  },
+  {
+    href: "/tai-khoan/quan-ly",
+    label: "Tài khoản",
+    icon: Users,
+    visible: (hasPermission) => hasPermission("auth.accounts.all.view"),
+  },
 ];
 
 export function AdminSidebar() {
-  const { account, logout } = useAuth();
+  const { account, logout, hasPermission } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -60,7 +99,7 @@ export function AdminSidebar() {
 
   const menuContent = (
     <nav className="flex-1 overflow-y-auto p-3 space-y-1">
-      {menuItems.map((item) => {
+      {menuItems.filter((item) => item.visible(hasPermission)).map((item) => {
         const Icon = item.icon;
         const isActive = pathname === item.href;
         return (

@@ -29,3 +29,22 @@ export function hasAnyNewsArticleCreatePermission(
     hasPermission(`news.articles.${scope}.create`),
   );
 }
+
+export function hasAnyNewsArticleViewPermission(
+  hasPermission: (p: string) => boolean,
+) {
+  if (hasPermission("news.articles.all.view")) return true;
+  return NEWS_SCOPES.some((scope) =>
+    hasPermission(`news.articles.${scope}.view`),
+  );
+}
+
+export function hasAnyNewsArticleActionPermission(
+  hasPermission: (p: string) => boolean,
+  action: string,
+) {
+  if (hasPermission(`news.articles.all.${action}`)) return true;
+  return NEWS_SCOPES.some((scope) =>
+    hasPermission(`news.articles.${scope}.${action}`),
+  );
+}
