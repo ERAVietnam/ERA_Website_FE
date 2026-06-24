@@ -1,266 +1,295 @@
 "use client";
 
-import { useState } from "react";
+import { memo } from "react";
 import Image from "next/image";
-import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
-import { Pencil, Trash2, Plus, LayoutGrid, Table as TableIcon } from "lucide-react";
-import { ProjectFormData, ProjectTag } from "./ProjectsManageForm";
+import { Pagination } from "@/components/ui/Pagination";
+import { colors } from "@/lib/theme";
+import { AdminListHeader } from "@/components/ui/admin/AdminListHeader";
+import { AdminFilters } from "@/components/ui/admin/AdminFilters";
+import { AdminLoading } from "@/components/ui/admin/AdminLoading";
+import { AdminTable } from "@/components/ui/admin/AdminTable";
+import { AdminEmptyState } from "@/components/ui/admin/AdminEmptyState";
+import { SearchInput } from "@/components/ui/admin/SearchInput";
+import { SelectField } from "@/components/ui/admin/SelectField";
+import { ViewModeToggle } from "@/components/ui/admin/ViewModeToggle";
+import { ProjectsManageActions } from "./ProjectsManageActions";
+import { Plus, FileText, X, MapPin, Building } from "lucide-react";
+import { getProjectCardImage } from "@/lib/projects";
+import type { Project, ProjectStatus, ProjectType, ProjectPublicationStatus } from "@/types/api";
 
-const TAG_LABELS: Record<ProjectTag, { label: string; color: string }> = {
-  new: { label: "Dự án mới", color: colors.secondary.DEFAULT },
-  booking: { label: "Nhận booking", color: colors.primary.DEFAULT },
-  selling: { label: "Đang mở bán", color: colors.tertiary.purple.DEFAULT },
+const STATUS_LABELS: Record<ProjectStatus, { label: string; color: string; bg: string }> = {
+  new: { label: "Dự án mới", color: colors.secondary.DEFAULT, bg: "#F0F9FF" },
+  booking: { label: "Nhận booking", color: colors.primary.DEFAULT, bg: "#FEF2F2" },
+  selling: { label: "Đang mở bán", color: colors.tertiary.purple.DEFAULT, bg: "#FAF5FF" },
+  upcoming: { label: "Sắp mở bán", color: colors.tertiary.orange.DEFAULT, bg: "#FFF7ED" },
+  handed_over: { label: "Đã bàn giao", color: "#16A34A", bg: "#F0FDF4" },
+};
+
+const TYPE_LABELS: Record<ProjectType, string> = {
+  apartment: "Căn hộ",
+  townhouse: "Nhà phố",
+  villa: "Biệt thự",
+  land: "Đất nền",
+};
+
+const statusOptions: { value: ProjectStatus; label: string }[] = [
+  { value: "new", label: "Dự án mới" },
+  { value: "booking", label: "Nhận booking" },
+  { value: "selling", label: "Đang mở bán" },
+  { value: "upcoming", label: "Sắp mở bán" },
+  { value: "handed_over", label: "Đã bàn giao" },
+];
+
+const typeOptions: { value: ProjectType; label: string }[] = [
+  { value: "apartment", label: "Căn hộ" },
+  { value: "townhouse", label: "Nhà phố" },
+  { value: "villa", label: "Biệt thự" },
+  { value: "land", label: "Đất nền" },
+];
+
+const publicationOptions: { value: ProjectPublicationStatus; label: string }[] = [
+  { value: "draft", label: "Bản nháp" },
+  { value: "pending", label: "Chờ duyệt" },
+  { value: "published", label: "Đã đăng" },
+];
+
+const publicationLabels: Record<ProjectPublicationStatus, { label: string; color: string; bg: string }> = {
+  draft: { label: "Bản nháp", color: colors.gray[600], bg: colors.gray[100] },
+  pending: { label: "Chờ duyệt", color: colors.tertiary.orange.dark || "#B45309", bg: "#FEF3C7" },
+  published: { label: "Đã đăng", color: "#16A34A", bg: "#F0FDF4" },
 };
 
 interface Props {
-  projects: ProjectFormData[];
-  onEdit: (project: ProjectFormData) => void;
-  onDelete: (id: number) => void;
+  projects: Project[];
+  loading?: boolean;
+  searchInput: string;
+  onSearchChange: (value: string) => void;
+  statusFilter: ProjectStatus | "";
+  onStatusFilterChange: (value: ProjectStatus | "") => void;
+  typeFilter: ProjectType | "";
+  onTypeFilterChange: (value: ProjectType | "") => void;
+  publicationFilter: ProjectPublicationStatus | "";
+  onPublicationFilterChange: (value: ProjectPublicationStatus | "") => void;
+  page: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  onEdit: (project: Project) => void;
+  onDelete: (id: string) => void;
   onAdd: () => void;
+  onPreview?: (project: Project) => void;
+  onPublish?: (id: string) => void;
+  onRevoke?: (id: string) => void;
+  onSubmitForReview?: (id: string) => void;
+  onReject?: (id: string) => void;
+  onViewHistory?: (id: string) => void;
 }
 
-export function ProjectsManageList({ projects, onEdit, onDelete, onAdd }: Props) {
-  const [viewMode, setViewMode] = useState<"table" | "card">("table");
+export const ProjectsManageList = memo(function ProjectsManageList({
+  projects,
+  loading,
+  searchInput,
+  onSearchChange,
+  statusFilter,
+  onStatusFilterChange,
+  typeFilter,
+  onTypeFilterChange,
+  publicationFilter,
+  onPublicationFilterChange,
+  page,
+  totalPages,
+  onPageChange,
+  onEdit,
+  onDelete,
+  onAdd,
+  onPreview,
+  onPublish,
+  onRevoke,
+  onSubmitForReview,
+  onReject,
+  onViewHistory,
+}: Props) {
+  const handleClearFilters = () => {
+    onSearchChange("");
+    onStatusFilterChange("");
+    onTypeFilterChange("");
+    onPublicationFilterChange("");
+    onPageChange(1);
+  };
+
+  const total = projects.length;
 
   return (
     <div className="space-y-5">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2
-            className="text-xl font-black"
-            style={{ color: colors.primary.navy.DEFAULT }}
-          >
-            Danh sách dự án
-          </h2>
-          <p className="text-sm text-gray-500 mt-1">
-            Tổng cộng {projects.length} dự án
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          {/* View Toggle */}
-          <div className="inline-flex items-center rounded-lg border border-gray-200 bg-white overflow-hidden">
-            <button
-              onClick={() => setViewMode("table")}
-              className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors ${
-                viewMode === "table"
-                  ? "bg-gray-100 text-gray-900"
-                  : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
-              }`}
-              title="Dạng bảng"
-            >
-              <TableIcon size={16} />
-              <span className="hidden sm:inline">Bảng</span>
-            </button>
-            <button
-              onClick={() => setViewMode("card")}
-              className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors ${
-                viewMode === "card"
-                  ? "bg-gray-100 text-gray-900"
-                  : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
-              }`}
-              title="Dạng thẻ"
-            >
-              <LayoutGrid size={16} />
-              <span className="hidden sm:inline">Thẻ</span>
-            </button>
-          </div>
-          <Button variant="primary" size="sm" className="gap-2" onClick={onAdd}>
-            <Plus size={16} /> Tạo dự án mới
+      <AdminListHeader
+        title="Quản lý dự án"
+        subtitle={total > 0 ? `Trang ${page} / ${totalPages}` : "Không có dự án nào"}
+      >
+        <div className="flex items-center gap-2">
+          <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">
+            <Plus size={16} />
+            Tạo dự án
           </Button>
         </div>
-      </div>
+      </AdminListHeader>
 
-      {/* Table View */}
-      {viewMode === "table" && (
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-100 bg-gray-50/50">
-                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">
-                    ID
-                  </th>
-                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">
-                    Dự án
-                  </th>
-                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">
-                    Trạng thái
-                  </th>
-                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">
-                    Địa điểm
-                  </th>
-                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">
-                    Chủ đầu tư
-                  </th>
-                  <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-28">
-                    Thao tác
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                {projects.map((project) => {
-                  const tag = TAG_LABELS[project.tag];
-                  return (
-                    <tr key={project.id} className="hover:bg-gray-50/40 transition-colors">
-                      <td className="px-5 py-4 text-gray-500 font-mono">
-                        #{project.id}
-                      </td>
-                      <td className="px-5 py-4">
-                        <div className="flex items-center gap-3">
-                          <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-gray-100 shrink-0">
-                            {project.image ? (
-                              <Image
-                                src={project.image}
-                                alt={project.name}
-                                fill
-                                className="object-cover"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
-                                N/A
-                              </div>
-                            )}
-                          </div>
-                          <span className="font-semibold text-gray-900">
-                            {project.name}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-5 py-4">
-                        <span
-                          className="inline-block text-xs font-semibold px-2.5 py-1 rounded-md text-white"
-                          style={{ backgroundColor: tag.color }}
-                        >
-                          {tag.label}
-                        </span>
-                      </td>
-                      <td className="px-5 py-4 text-gray-600 max-w-[200px] truncate">
-                        {project.location}
-                      </td>
-                      <td className="px-5 py-4 text-gray-600">
-                        {project.investor || "—"}
-                      </td>
-                      <td className="px-5 py-4">
-                        <div className="flex items-center justify-end gap-2">
-                          <Button
-                            variant="ghost"
-                            isIconOnly
-                            size="md"
-                            onClick={() => onEdit(project)}
-                            title="Chỉnh sửa"
-                          >
-                            <Pencil size={15} className="text-gray-500" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            isIconOnly
-                            size="md"
-                            onClick={() => project.id && onDelete(project.id)}
-                            title="Xoá"
-                            className="hover:!bg-red-50"
-                          >
-                            <Trash2 size={15} className="text-red-500" />
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-                {projects.length === 0 && (
-                  <tr>
-                    <td
-                      colSpan={6}
-                      className="px-5 py-12 text-center text-gray-400"
-                    >
-                      Chưa có dự án nào. Hãy bấm "Tạo dự án mới" để thêm.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+      <AdminFilters
+        footer={
+          <button
+            type="button"
+            onClick={handleClearFilters}
+            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#C8102E]"
+          >
+            <X size={16} />
+            Xóa bộ lọc
+          </button>
+        }
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <SearchInput
+            value={searchInput}
+            onChange={onSearchChange}
+            placeholder="Tìm theo tên dự án..."
+          />
+          <SelectField
+            value={statusFilter}
+            onChange={(value) => {
+              onStatusFilterChange(value as ProjectStatus | "");
+              onPageChange(1);
+            }}
+            placeholder="Tất cả trạng thái dự án"
+            options={statusOptions}
+          />
+          <SelectField
+            value={typeFilter}
+            onChange={(value) => {
+              onTypeFilterChange(value as ProjectType | "");
+              onPageChange(1);
+            }}
+            placeholder="Tất cả loại hình"
+            options={typeOptions}
+          />
+          <SelectField
+            value={publicationFilter}
+            onChange={(value) => {
+              onPublicationFilterChange(value as ProjectPublicationStatus | "");
+              onPageChange(1);
+            }}
+            placeholder="Tất cả trạng thái bài viết"
+            options={publicationOptions}
+          />
+        </div>
+      </AdminFilters>
+
+      {loading && <AdminLoading />}
+
+      {!loading && total === 0 && (
+        <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
+          <FileText size={48} className="mx-auto text-gray-300 mb-4" />
+          <AdminEmptyState message='Chưa có dự án nào. Hãy bấm "Tạo dự án" để thêm.' className="!p-0" />
         </div>
       )}
 
-      {/* Card View */}
-      {viewMode === "card" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((project) => {
-            const tag = TAG_LABELS[project.tag];
-            return (
-              <div
-                key={project.id}
-                className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
-              >
-                {/* Image */}
-                <div className="relative h-48 bg-gray-100 overflow-hidden">
-                  {project.image ? (
-                    <Image
-                      src={project.image}
-                      alt={project.name}
-                      fill
-                      className="object-cover"
+      {!loading && total > 0 && (
+        <AdminTable>
+          <thead>
+            <tr className="border-b border-gray-100 bg-gray-50/50">
+              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">STT</th>
+              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 min-w-[280px] max-w-[420px]">Dự án</th>
+              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Loại hình</th>
+              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Trạng thái dự án</th>
+              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Trạng thái bài viết</th>
+              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 min-w-[180px]">Địa điểm</th>
+              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Chủ đầu tư</th>
+              <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-48 min-w-[200px]">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-50">
+            {projects.map((project, i) => {
+              const status = STATUS_LABELS[project.status];
+              const publication = publicationLabels[project.publicationStatus];
+              return (
+                <tr key={project.id} className="hover:bg-gray-50 transition-colors">
+                  <td className="px-5 py-4 text-gray-500 font-medium">
+                    {(page - 1) * 10 + i + 1}
+                  </td>
+                  <td className="px-5 py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-gray-100 shrink-0">
+                        {(() => {
+                          const thumbnailUrl = getProjectCardImage(project);
+                          return thumbnailUrl ? (
+                            <Image
+                              src={thumbnailUrl}
+                              alt={project.name}
+                              fill
+                              className="object-cover"
+                              sizes="48px"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-gray-400">
+                              <Building size={20} />
+                            </div>
+                          );
+                        })()}
+                      </div>
+                      <p className="font-semibold text-gray-900 whitespace-normal break-words" title={project.name}>
+                        {project.name}
+                      </p>
+                    </div>
+                  </td>
+                  <td className="px-5 py-4 text-gray-600">
+                    {TYPE_LABELS[project.type]}
+                  </td>
+                  <td className="px-5 py-4 whitespace-nowrap">
+                    <span
+                      className="inline-block text-xs font-semibold px-2.5 py-1 rounded-md"
+                      style={{ color: status.color, backgroundColor: status.bg }}
+                    >
+                      {status.label}
+                    </span>
+                  </td>
+                  <td className="px-5 py-4 whitespace-nowrap">
+                    <span
+                      className="inline-block text-xs font-semibold px-2.5 py-1 rounded-md"
+                      style={{ color: publication.color, backgroundColor: publication.bg }}
+                    >
+                      {publication.label}
+                    </span>
+                  </td>
+                  <td className="px-5 py-4 text-gray-600">
+                    <div className="flex items-center gap-1.5">
+                      <MapPin size={14} className="text-gray-400 shrink-0" />
+                      <span className="truncate" title={project.location}>{project.location || "—"}</span>
+                    </div>
+                  </td>
+                  <td className="px-5 py-4 text-gray-600">
+                    {project.investor || "—"}
+                  </td>
+                  <td className="px-5 py-4 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
+                    <ProjectsManageActions
+                      project={project}
+                      onEdit={onEdit}
+                      onDelete={onDelete}
+                      onPreview={onPreview}
+                      onPublish={onPublish}
+                      onRevoke={onRevoke}
+                      onSubmitForReview={onSubmitForReview}
+                      onReject={onReject}
+                      onViewHistory={onViewHistory}
+                      layout="table"
                     />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
-                      Chưa có ảnh
-                    </div>
-                  )}
-                  <span
-                    className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-md text-white"
-                    style={{ backgroundColor: tag.color }}
-                  >
-                    {tag.label}
-                  </span>
-                </div>
-                {/* Content */}
-                <div className="p-5 space-y-3">
-                  <h3 className="font-bold text-gray-900 line-clamp-1">
-                    {project.name}
-                  </h3>
-                  <div className="space-y-1.5 text-sm text-gray-500">
-                    <div className="flex items-center gap-2">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                      <span className="truncate">{project.location}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg>
-                      <span>{project.investor || "—"}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-                      <span>{project.area || "—"}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-end gap-1.5 pt-2">
-                    <button
-                      onClick={() => onEdit(project)}
-                      className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                      title="Chỉnh sửa"
-                    >
-                      <Pencil size={15} className="text-gray-500" />
-                    </button>
-                    <button
-                      onClick={() => project.id && onDelete(project.id)}
-                      className="p-2 rounded-lg hover:bg-red-50 transition-colors"
-                      title="Xoá"
-                    >
-                      <Trash2 size={15} className="text-red-500" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-          {projects.length === 0 && (
-            <div className="col-span-full py-12 text-center text-gray-400 bg-white rounded-xl border border-gray-200">
-              Chưa có dự án nào. Hãy bấm "Tạo dự án mới" để thêm.
-            </div>
-          )}
-        </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </AdminTable>
+      )}
+
+      {!loading && total > 0 && (
+        <Pagination currentPage={page} totalPages={totalPages} onPageChange={onPageChange} />
       )}
     </div>
   );
-}
+});

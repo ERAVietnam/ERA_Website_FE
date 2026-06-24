@@ -176,6 +176,25 @@ body {
 .ck-content h5 { font-size: 16px; font-weight: 600; line-height: 1.4; }
 .ck-content h6 { font-size: 14px; font-weight: 600; line-height: 1.4; }
 
+.ck-content p {
+  margin-bottom: 1em;
+}
+
+.ck-content a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.ck-content strong,
+.ck-content b {
+  font-weight: 700;
+}
+
+.ck-content em,
+.ck-content i {
+  font-style: italic;
+}
+
 .ck-content blockquote {
   border-left: 5px solid #ccc;
   font-style: italic;

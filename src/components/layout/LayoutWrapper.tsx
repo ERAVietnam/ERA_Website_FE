@@ -38,8 +38,18 @@ function normalizePathname(pathname: string): string {
   return pathname === "/" ? pathname : pathname.replace(/\/$/, "");
 }
 
+const ADMIN_PATHS = [
+  "/tin-tuc/quan-ly",
+  "/tap-chi/quan-ly",
+  "/du-an/quan-ly",
+  "/tuyen-dung/quan-ly",
+  "/tuyen-dung/ung-vien",
+  "/tai-khoan/quan-ly",
+  "/ho-so-ca-nhan",
+];
+
 function isAdminPath(pathname: string): boolean {
-  return pathname.includes("/quan-ly") || pathname.startsWith("/ho-so-ca-nhan");
+  return ADMIN_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
 
 export function LayoutWrapper({

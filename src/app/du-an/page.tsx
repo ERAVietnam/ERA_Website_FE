@@ -1,32 +1,24 @@
-import type { Metadata } from "next";
-import { ProjectsPage } from "@/components/sections/projects";
+import { ProjectsPageClient } from "@/components/sections/projects/ProjectsPageClient";
+import { projectsApi } from "@/api/domains/projects";
 
-export const metadata: Metadata = {
-  title: "Tổng Hợp Dự Án Bất Động Sản Hàng Đầu | ERA Vietnam",
-  description:
-    "Khám phá rổ hàng 150+ dự án BĐS đa dạng phân khúc từ các chủ đầu tư uy tín. Cơ hội đầu tư sinh lời và an cư lý tưởng được chọn lọc khắt khe bởi chuyên gia ERA Vietnam.",
-  keywords: [
-    "dự án bất động sản",
-    "căn hộ ERA",
-    "nhà phố",
-    "biệt thự",
-    "đất nền",
-    "ERA Vietnam",
-  ],
-  openGraph: {
-    title: "Tổng Hợp Dự Án Bất Động Sản Hàng Đầu | ERA Vietnam",
-    description:
-      "Khám phá rổ hàng 150+ dự án BĐS đa dạng phân khúc từ các chủ đầu tư uy tín. Cơ hội đầu tư sinh lời và an cư lý tưởng được chọn lọc khắt khe bởi chuyên gia ERA Vietnam.",
-    type: "website",
-    images: [
-      {
-        url: "/project/project_hero_banner.webp",
-        alt: "Dự Án Bất Động Sản Phân Phối Chính Thức Bởi ERA Vietnam",
-      },
-    ],
-  },
-};
+const LIMIT = 12;
 
-export default function DuAnPage() {
-  return <ProjectsPage />;
+export default async function ProjectsPage() {
+  let initialProjects: Awaited<ReturnType<typeof projectsApi.getPublishedProjects>> | null = null;
+
+  try {
+    initialProjects = await projectsApi.getPublishedProjects({
+      page: 1,
+      limit: LIMIT,
+    });
+  } catch {
+    initialProjects = { items: [], meta: { total: 0, page: 1, limit: LIMIT, totalPages: 1 } };
+  }
+
+  return (
+    <ProjectsPageClient
+      initialProjects={initialProjects.items}
+      initialMeta={initialProjects.meta}
+    />
+  );
 }

@@ -12,7 +12,6 @@ export const ROUTES = {
   era: "/ve-chung-toi/era-real-estate",
   eraVn: "/ve-chung-toi/ve-era-viet-nam",
   projects: "/du-an",
-  projectDetail: "/du-an/chi-tiet",
   join: "/gia-nhap",
   apply: "/tuyen-dung",
   academy: "/academy",
@@ -40,5 +39,9 @@ export const ROUTES = {
   terms: "/dieu-khoan-su-dung",
   privacy: "/chinh-sach-bao-mat",
 } as const;
+
+export function getProjectDetailRoute(slug: string): string {
+  return `/du-an/${slug}/`;
+}
 
 export default ROUTES;

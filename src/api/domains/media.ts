@@ -9,7 +9,7 @@ export interface UploadMediaResponse {
 }
 
 export const mediaApi = {
-  uploadImage: (file: File, folder?: 'news' | 'magazine' | 'general') => {
+  uploadImage: (file: File, folder?: 'news' | 'magazine' | 'recruitment' | 'projects' | 'general') => {
     const formData = new FormData();
     formData.append('file', file);
 
@@ -21,7 +21,7 @@ export const mediaApi = {
       .then((res) => res.data);
   },
 
-  uploadFile: (file: File, folder?: 'news' | 'magazine' | 'general') => {
+  uploadFile: (file: File, folder?: 'news' | 'magazine' | 'recruitment' | 'projects' | 'general') => {
     const formData = new FormData();
     formData.append('file', file);
 

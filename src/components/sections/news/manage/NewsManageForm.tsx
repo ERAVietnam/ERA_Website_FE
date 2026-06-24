@@ -55,6 +55,7 @@ function toSlug(str: string): string {
   return str
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[đĐ]/g, "d")
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9\s-]/g, "")
@@ -990,7 +991,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               {!isReadOnly && (
                 <button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isLoading || !isDirty}
                   className="inline-flex items-center justify-center gap-2 font-medium transition-all duration-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-md px-5 py-2 text-sm bg-white border-2"
                   style={{ borderColor: colors.primary.navy.DEFAULT, color: colors.primary.navy.DEFAULT }}
                   onMouseEnter={(e) => {
@@ -1026,7 +1027,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
             <button
               type="submit"
               form="article-form"
-              disabled={isLoading}
+              disabled={isLoading || !isDirty}
               className="inline-flex items-center justify-center gap-2 w-full font-medium transition-all duration-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-md px-4 py-2 text-sm bg-white border-2"
               style={{ borderColor: colors.primary.navy.DEFAULT, color: colors.primary.navy.DEFAULT }}
               onMouseEnter={(e) => {

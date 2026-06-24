@@ -268,3 +268,151 @@ export interface JobPostingLog {
   note?: string | null;
   createdAt: string;
 }
+
+export type ApplicationStatus = 'new' | 'reviewing' | 'contacting' | 'interview' | 'on_hold' | 'hired' | 'rejected';
+
+export interface JobApplication {
+  id: string;
+  jobPostingId: string;
+  fullName: string;
+  phone: string;
+  email?: string | null;
+  portfolioUrl?: string | null;
+  cvMediaId?: string | null;
+  status: ApplicationStatus;
+  cvMedia?: {
+    id: string;
+    url: string;
+    filename: string;
+    mimeType?: string | null;
+  } | null;
+  jobPosting: {
+    id: string;
+    title: string;
+    slug: string;
+  };
+  appliedAt: string;
+  createdAt: string;
+}
+
+export interface CreateJobApplicationInput {
+  jobPostingId: string;
+  fullName: string;
+  phone: string;
+  email?: string;
+  portfolioUrl?: string;
+  cvMediaId?: string;
+}
+
+export interface JobApplicationFilters {
+  search?: string;
+  jobPostingId?: string;
+  status?: ApplicationStatus;
+  page?: number;
+  limit?: number;
+}
+
+export interface UpdateApplicationStatusInput {
+  status: ApplicationStatus;
+}
+
+export interface UpdateApplicationInput {
+  jobPostingId?: string;
+  fullName?: string;
+  phone?: string;
+  email?: string;
+  portfolioUrl?: string;
+  cvMediaId?: string;
+}
+
+export interface JobApplicationLog {
+  id: string;
+  applicationId: string;
+  status?: ApplicationStatus | null;
+  fromStatus?: ApplicationStatus | null;
+  toStatus?: ApplicationStatus | null;
+  note?: string | null;
+  actor: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  createdAt: string;
+}
+
+export type ProjectType = 'apartment' | 'townhouse' | 'villa' | 'land';
+export type ProjectStatus = 'new' | 'booking' | 'selling' | 'upcoming' | 'handed_over';
+export type ProjectPublicationStatus = 'draft' | 'pending' | 'published';
+export type ProjectLogEventType = 'created' | 'submitted' | 'updated' | 'published' | 'revoked' | 'rejected' | 'deleted';
+
+export interface Project {
+  id: string;
+  name: string;
+  projectName?: string | null;
+  slug: string;
+  type: ProjectType;
+  status: ProjectStatus;
+  location: string;
+  imageMediaId?: string | null;
+  imageMedia?: Media | null;
+  investor?: string | null;
+  ownership?: string | null;
+  area?: string | null;
+  density?: string | null;
+  scale?: string | null;
+  startYear?: string | null;
+  progress?: string | null;
+  content?: string | null;
+  isIndexed: boolean;
+  canonicalUrl?: string | null;
+  publicationStatus: ProjectPublicationStatus;
+  publishedAt?: string | null;
+  createdById: string;
+  createdBy: { id: string; name: string; email: string } | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProjectLog {
+  id: string;
+  projectId: string;
+  actorId: string;
+  actor: { id: string; name: string; email: string };
+  eventType: ProjectLogEventType;
+  fromStatus: ProjectStatus | null;
+  toStatus: ProjectStatus | null;
+  note?: string | null;
+  createdAt: string;
+}
+
+export interface CreateProjectInput {
+  name: string;
+  projectName?: string;
+  slug: string;
+  type: ProjectType;
+  status: ProjectStatus;
+  location: string;
+  imageMediaId?: string | null;
+  investor?: string;
+  ownership?: string;
+  area?: string;
+  density?: string;
+  scale?: string;
+  startYear?: string;
+  progress?: string;
+  content?: string;
+  isIndexed?: boolean;
+  canonicalUrl?: string | null;
+  publicationStatus?: ProjectPublicationStatus;
+}
+
+export type UpdateProjectInput = Partial<CreateProjectInput>;
+
+export interface ProjectFilters {
+  search?: string;
+  type?: ProjectType;
+  status?: ProjectStatus;
+  publicationStatus?: ProjectPublicationStatus;
+  page?: number;
+  limit?: number;
+}

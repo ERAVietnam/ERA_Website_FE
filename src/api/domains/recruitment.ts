@@ -8,6 +8,12 @@ import type {
   JobFilters,
   JobStatus,
   PaginatedResponse,
+  JobApplication,
+  JobApplicationLog,
+  CreateJobApplicationInput,
+  JobApplicationFilters,
+  UpdateApplicationStatusInput,
+  UpdateApplicationInput,
 } from '@/types/api';
 
 export const recruitmentApi = {
@@ -37,4 +43,28 @@ export const recruitmentApi = {
 
   deleteJob: (id: string) =>
     apiClient.delete<void>(ENDPOINTS.RECRUITMENT.DELETE(id)).then((res) => res.data),
+
+  submitApplication: (data: CreateJobApplicationInput) =>
+    apiClient.post<JobApplication>(ENDPOINTS.RECRUITMENT.APPLICATIONS, data).then((res) => res.data),
+
+  getApplications: (filters?: JobApplicationFilters) =>
+    apiClient.get<PaginatedResponse<JobApplication>>(ENDPOINTS.RECRUITMENT.APPLICATIONS, { params: filters }).then((res) => res.data),
+
+  getApplicationById: (id: string) =>
+    apiClient.get<JobApplication>(ENDPOINTS.RECRUITMENT.APPLICATION_DETAIL(id)).then((res) => res.data),
+
+  deleteApplication: (id: string) =>
+    apiClient.delete<void>(ENDPOINTS.RECRUITMENT.APPLICATION_DETAIL(id)).then((res) => res.data),
+
+  updateApplicationStatus: (id: string, data: UpdateApplicationStatusInput) =>
+    apiClient.patch<JobApplication>(ENDPOINTS.RECRUITMENT.APPLICATION_STATUS(id), data).then((res) => res.data),
+
+  updateApplication: (id: string, data: UpdateApplicationInput) =>
+    apiClient.patch<JobApplication>(ENDPOINTS.RECRUITMENT.APPLICATION_DETAIL(id), data).then((res) => res.data),
+
+  getApplicationLogs: (id: string) =>
+    apiClient.get<JobApplicationLog[]>(ENDPOINTS.RECRUITMENT.APPLICATION_LOGS(id)).then((res) => res.data),
+
+  createApplicationLog: (id: string, data: { status?: JobApplicationLog['status']; fromStatus?: JobApplicationLog['fromStatus']; toStatus?: JobApplicationLog['toStatus']; note?: string }) =>
+    apiClient.post<JobApplicationLog>(ENDPOINTS.RECRUITMENT.APPLICATION_LOGS(id), data).then((res) => res.data),
 };
