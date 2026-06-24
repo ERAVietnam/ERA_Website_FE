@@ -42,9 +42,9 @@ export function AccountManageList({
   const { warning, guard, closeWarning } = usePermissionWarning();
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
 
-  const canManageAccounts =
-    hasPermission("auth.accounts.all.update") &&
-    hasPermission("auth.accounts.all.delete");
+  const canUpdate = hasPermission("auth.accounts.all.update");
+  const canDelete = hasPermission("auth.accounts.all.delete");
+  const canManageAccounts = canUpdate || canDelete;
 
   const toggleExpand = (id: string) => {
     setExpandedIds((prev) => {
@@ -179,7 +179,7 @@ export function AccountManageList({
                       {canManageAccounts && (
                         <td className="px-5 py-4">
                           <div className="flex items-center justify-end gap-2">
-                            {hasPermission("auth.accounts.all.update") && (
+                            {canUpdate && (
                               <Button
                                 variant="ghost"
                                 isIconOnly
@@ -196,7 +196,7 @@ export function AccountManageList({
                                 <Pencil size={15} className="text-gray-500" />
                               </Button>
                             )}
-                            {hasPermission("auth.accounts.all.delete") && (
+                            {canDelete && (
                               <Button
                                 variant="ghost"
                                 isIconOnly

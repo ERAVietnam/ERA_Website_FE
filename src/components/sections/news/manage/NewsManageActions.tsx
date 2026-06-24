@@ -68,7 +68,9 @@ export function NewsManageActions({
     (item.status === "draft" && isAuthor) ||
     (item.status === "pending" && canPublish);
 
-  const canSubmit = item.status === "draft" && isAuthor;
+  const canView = hasNewsArticlePermission(hasPermission, "view", scope);
+  const canSubmit =
+    item.status === "draft" && isAuthor && hasNewsArticlePermission(hasPermission, "update", scope);
   const canReject = item.status === "pending" && canPublish;
 
   const canUpdate =
@@ -122,7 +124,7 @@ export function NewsManageActions({
             <XCircle size={15} className="text-red-500" />
           </button>
         )}
-        {onPreview && (
+        {canView && onPreview && (
           <button
             onClick={handleClick(() => onPreview(item.id))}
             className="p-2 rounded-lg hover:bg-blue-50 transition-colors"
@@ -131,7 +133,7 @@ export function NewsManageActions({
             <Eye size={15} className="text-blue-600" />
           </button>
         )}
-        {onViewHistory && (
+        {canView && onViewHistory && (
           <button
             onClick={handleClick(() => onViewHistory(item.id))}
             className="p-2 rounded-lg hover:bg-purple-50 transition-colors"
@@ -218,7 +220,7 @@ export function NewsManageActions({
           <XCircle size={15} className="text-red-500" />
         </Button>
       )}
-      {onPreview && (
+      {canView && onPreview && (
         <Button
           variant="ghost"
           isIconOnly
@@ -230,7 +232,7 @@ export function NewsManageActions({
           <Eye size={15} className="text-blue-600" />
         </Button>
       )}
-      {onViewHistory && (
+      {canView && onViewHistory && (
         <Button
           variant="ghost"
           isIconOnly

@@ -3,6 +3,7 @@
 import { memo } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { useAuth } from "@/contexts/AuthContext";
 import { Pagination } from "@/components/ui/Pagination";
 import { colors } from "@/lib/theme";
 import { AdminListHeader } from "@/components/ui/admin/AdminListHeader";
@@ -109,6 +110,8 @@ export const ProjectsManageList = memo(function ProjectsManageList({
   onReject,
   onViewHistory,
 }: Props) {
+  const { hasPermission } = useAuth();
+
   const handleClearFilters = () => {
     onSearchChange("");
     onStatusFilterChange("");
@@ -119,6 +122,13 @@ export const ProjectsManageList = memo(function ProjectsManageList({
 
   const total = projects.length;
 
+  const canCreate = hasPermission("projects.all.create");
+  const showActionsColumn =
+    hasPermission("projects.all.view") ||
+    hasPermission("projects.all.update") ||
+    hasPermission("projects.all.delete") ||
+    hasPermission("projects.all.publish");
+
   return (
     <div className="space-y-5">
       <AdminListHeader
@@ -126,10 +136,12 @@ export const ProjectsManageList = memo(function ProjectsManageList({
         subtitle={total > 0 ? `Trang ${page} / ${totalPages}` : "Không có dự án nào"}
       >
         <div className="flex items-center gap-2">
-          <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">
-            <Plus size={16} />
-            Tạo dự án
-          </Button>
+          {canCreate && (
+            <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">
+              <Plus size={16} />
+              Tạo dự án
+            </Button>
+          )}
         </div>
       </AdminListHeader>
 
@@ -201,7 +213,9 @@ export const ProjectsManageList = memo(function ProjectsManageList({
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Trạng thái bài viết</th>
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 min-w-[180px]">Địa điểm</th>
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Chủ đầu tư</th>
-              <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-48 min-w-[200px]">Thao tác</th>
+              {showActionsColumn && (
+                <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-48 min-w-[200px]">Thao tác</th>
+              )}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
@@ -266,20 +280,22 @@ export const ProjectsManageList = memo(function ProjectsManageList({
                   <td className="px-5 py-4 text-gray-600">
                     {project.investor || "—"}
                   </td>
-                  <td className="px-5 py-4 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
-                    <ProjectsManageActions
-                      project={project}
-                      onEdit={onEdit}
-                      onDelete={onDelete}
-                      onPreview={onPreview}
-                      onPublish={onPublish}
-                      onRevoke={onRevoke}
-                      onSubmitForReview={onSubmitForReview}
-                      onReject={onReject}
-                      onViewHistory={onViewHistory}
-                      layout="table"
-                    />
-                  </td>
+                  {showActionsColumn && (
+                    <td className="px-5 py-4 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
+                      <ProjectsManageActions
+                        project={project}
+                        onEdit={onEdit}
+                        onDelete={onDelete}
+                        onPreview={onPreview}
+                        onPublish={onPublish}
+                        onRevoke={onRevoke}
+                        onSubmitForReview={onSubmitForReview}
+                        onReject={onReject}
+                        onViewHistory={onViewHistory}
+                        layout="table"
+                      />
+                    </td>
+                  )}
                 </tr>
               );
             })}
