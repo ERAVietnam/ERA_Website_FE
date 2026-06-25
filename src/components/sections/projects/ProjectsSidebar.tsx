@@ -59,7 +59,12 @@ export function ProjectsSidebar() {
               Tôi đồng ý với ERA/Vietnam về Điều khoản dịch vụ và Chính sách bảo mật.
             </span>
           </label>
-          <Button variant="secondary" size="sm" className="w-full py-3">
+          <Button
+            variant="secondary"
+            size="sm"
+            className="w-full py-3"
+            onClick={() => window.open("https://zalo.me/0325381107", "_blank", "noopener,noreferrer")}
+          >
             Nhận tư vấn ngay
           </Button>
         </div>

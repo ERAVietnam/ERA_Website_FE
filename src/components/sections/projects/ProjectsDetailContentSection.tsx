@@ -63,7 +63,7 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
               className="mb-3"
               style={{
                 color: colors.primary.DEFAULT,
-                fontWeight: 900,
+                fontWeight: 800,
                 fontSize: "clamp(22px, 3.5vw, 32px)",
                 lineHeight: 1.2,
               }}

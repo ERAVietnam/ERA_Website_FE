@@ -260,3 +260,34 @@ body {
   height: auto !important;
   display: block !important;
 }
+
+/* ============================================
+   CKEditor 5 Content - code & pre styles
+   ============================================ */
+
+.ck-content code {
+  background-color: hsla(0, 0%, 78%, 0.3);
+  border-radius: 2px;
+  padding: 0.15em 0.3em;
+  font-family: var(--font-inter), monospace;
+  font-size: 0.9em;
+}
+
+.ck-content pre {
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #353535;
+  padding: 1em;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+.ck-content pre code {
+  background: unset;
+  border-radius: 0;
+  padding: 0;
+  font-size: inherit;
+}

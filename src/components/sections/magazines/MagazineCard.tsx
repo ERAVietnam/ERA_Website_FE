@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { FileText } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import type { EMagazine } from "@/types/api";
@@ -32,7 +33,7 @@ function handleDownload(pdfUrl: string, filename: string) {
 
 export function MagazineCard({ magazine }: Props) {
   const pdfUrl = magazine.pdfMedia?.url;
-  const coverUrl = magazine.coverImageMedia?.url ?? "/images/placeholder-magazine.png";
+  const coverUrl = magazine.coverImageMedia?.url;
   const dateLabel = formatDate(magazine.publishedDate);
   const downloadFilename = `${magazine.title}.pdf`;
 
@@ -45,15 +46,22 @@ export function MagazineCard({ magazine }: Props) {
       />
 
       {/* Magazine Cover */}
-      <div className="relative w-32 sm:w-40 aspect-[3/4] rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
-        <Image
-          src={coverUrl}
-          alt={magazine.title}
-          fill
-          className="object-cover"
-          sizes="160px"
-          loading="lazy"
-        />
+      <div className="relative w-32 sm:w-40 aspect-[210/297] rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
+        {coverUrl ? (
+          <Image
+            src={coverUrl}
+            alt={magazine.title}
+            fill
+            className="object-contain"
+            sizes="160px"
+            loading="lazy"
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center h-full text-gray-400 gap-1">
+            <FileText size={32} strokeWidth={1.5} />
+            <span className="text-[10px]">PDF</span>
+          </div>
+        )}
       </div>
 
       {/* Content */}

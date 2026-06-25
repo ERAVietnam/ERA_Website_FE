@@ -16,6 +16,7 @@
 | Icons | Lucide React |
 | Rich Editor | CKEditor 5 (monorepo package) |
 | Flag Icons | country-flag-icons (SVG, inline) |
+| Animation | Framer Motion |
 | Utilities | clsx, tailwind-merge |
 | Deploy | Vercel (Git integration, auto-deploy on push) |
 
@@ -39,12 +40,18 @@ src/
 │   └── sections/           # Các section/page-specific components
 │       ├── home/
 │       ├── about/
+│       ├── accounts/         # Quản lý tài khoản
 │       ├── academy/
-│       ├── apply/
+│       ├── apply/            # Trang tuyển dụng (ứng tuyển)
+│       ├── auth/             # Form đăng nhập
 │       ├── contact/
-│       ├── projects/
+│       ├── join/             # Gia nhập ERA
+│       ├── landing/          # Landing pages (project-specific)
+│       ├── legal/            # Điều khoản / chính sách
+│       ├── magazines/        # E-magazine
 │       ├── news/
-│       └── landing/            # Landing pages (project-specific)
+│       ├── profile/          # Hồ sơ cá nhân
+│       └── projects/
 │
 ├── hooks/                  # Custom React hooks
 ├── lib/                    # Utils, constants, configs
@@ -118,6 +125,10 @@ export default function VeChungToi() {
 | `src/components/ui/Button.tsx` | Variants: `primary`, `secondary`, `navy`, `navy-outline`, `outline`, `ghost`, `white`, `white-outline`, `danger`. Props: `shape` (default/circle), `isIconOnly`, `asChild`, `isLoading` |
 | `src/components/ui/Container.tsx` | Responsive container với size variants |
 | `src/components/ui/Section.tsx` | Section wrapper với bg, padding configs |
+| `src/components/ui/ConfirmDialog.tsx` | Hộp thoại xác nhận (confirm/cancel) |
+| `src/components/ui/Pagination.tsx` | Phân trang |
+| `src/components/ui/PasswordInput.tsx` | Input mật khẩu có toggle ẩn/hiện |
+| `src/components/ui/PopupNotification.tsx` | Thông báo popup |
 | `src/components/ui/admin/*` | Shared admin list UI: `AdminListHeader`, `AdminFilters`, `AdminLoading`, `AdminTable`, `AdminEmptyState`, `SearchInput`, `SelectField`, `ViewModeToggle` |
 | `src/components/shared/CountryFlag.tsx` | Inline SVG country flag component |
 | `src/components/sections/news/manage/NewsManageActions.tsx` | Shared news admin action buttons (table/card layouts) |
@@ -132,13 +143,21 @@ export default function VeChungToi() {
 | `src/lib/date.ts` | Shared date formatting (`formatDate`, `formatDateShort`, `formatDateTime`) |
 | `src/lib/news.ts` | Shared news helpers (`getArticleImage`, `getFirstImageFromContent`) |
 | `src/lib/news/status.ts` | News status badge config |
+| `src/lib/newsCategoryServer.ts` | Server-side news category helpers |
 | `src/lib/magazine/status.ts` | Magazine status badge config |
 | `src/lib/recruitment/status.ts` | Recruitment status badge config |
+| `src/lib/projects.ts` | Project helpers |
+| `src/lib/permissions.ts` | Permission utilities |
+| `src/lib/cookies.ts` | Cookie helpers |
+| `src/lib/country.ts` | Country code utilities |
+| `src/lib/error-messages.ts` | Error message constants |
+| `src/lib/imageCompression.ts` | Browser image compression utility |
 
 ### Hooks
 | File | Mô tả |
 |------|-------|
 | `src/hooks/useScrollToTop.ts` | Hook detect scroll > threshold |
+| `src/hooks/usePermissionWarning.ts` | Hook hiển thị cảnh báo thiếu quyền |
 
 ---
 
@@ -181,9 +200,10 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/tin-tuc/[slug]` | `app/tin-tuc/[slug]/page.tsx` | `NewsDetailPage` |
 | `/tin-tuc/quan-ly` | `app/tin-tuc/quan-ly/page.tsx` | `NewsManagePage` |
 | `/gia-nhap` | `app/gia-nhap/page.tsx` | `JoinPage` |
-| `/ung-tuyen` | `app/ung-tuyen/page.tsx` | `ApplyPage` |
-| `/ung-tuyen/chi-tiet-cong-viec` | `app/ung-tuyen/chi-tiet-cong-viec/page.tsx` | `ApplyJobDetailPage` |
-| `/ung-tuyen/quan-ly` | `app/ung-tuyen/quan-ly/page.tsx` | `ApplyManagePage` |
+| `/tuyen-dung` | `app/tuyen-dung/page.tsx` | `ApplyPage` |
+| `/tuyen-dung/chi-tiet-cong-viec` | `app/tuyen-dung/chi-tiet-cong-viec/page.tsx` | `ApplyJobDetailPage` |
+| `/tuyen-dung/quan-ly` | `app/tuyen-dung/quan-ly/page.tsx` | `ApplyManagePage` |
+| `/thank-you-eco-retreat` | `app/thank-you-eco-retreat/page.tsx` | `ThankYouEcoRetreatPage` |
 | `/academy` | `app/academy/page.tsx` | `AcademyPage` |
 | `/lien-he` | `app/lien-he/page.tsx` | `ContactPage` |
 | `/dieu-khoan-su-dung` | `app/dieu-khoan-su-dung/page.tsx` | `LegalPage` |
@@ -294,7 +314,6 @@ const nextConfig = {
 | Breadcrumb (`flex gap-2` + Link + `/`) | 3 detail pages | `ui/Breadcrumb.tsx` |
 | Carousel Arrow (`w-10 h-10 rounded-full border`) | 3 testimonial/related sections | `ui/CircleButton.tsx` |
 | File Upload (border-dashed + hover state) | 3 form files | `ui/FileUpload.tsx` |
-| Search Input (icon + bg-gray-50 + input) | 2 files | `ui/SearchInput.tsx` |
 
 ---
 
@@ -364,7 +383,7 @@ Nhiều section đang dùng mock data hardcoded inline:
 | `<img>` thay vì `<Image>` | `Footer.tsx` (BCT logo ×2) | Low | BCT logo không cần optimize |
 | `no-unescaped-entities` | `ProjectsDetailContentSection.tsx`, `ProjectsManageList.tsx` | Low | `"` nên escape thành `&quot;` |
 | Unused imports | `NewsManagePage.tsx` (colors), nhiều file khác | Low | Dọn dẹp định kỳ |
-| Turbopack panic `/ung-tuyen/` | Dev server only | Low | Xóa `.next` và chạy lại nếu gặp |
+| Turbopack panic `/tuyen-dung/` | Dev server only | Low | Xóa `.next` và chạy lại nếu gặp |
 | Dead code removed | May 2026 | Done | Đã xóa `Badge.tsx`, `SectionTitle.tsx`, `ImagePlaceholder.tsx`, `CompassCollabSection.tsx`, `CompassLoadingAnimation.tsx`, 12 CKEditor sub-packages, `axios`, `themeClasses`, `cssVariables`, `color()`, `getRoute()`, `RouteKey` |
 
 ---
