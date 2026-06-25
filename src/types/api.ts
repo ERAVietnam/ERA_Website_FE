@@ -31,6 +31,8 @@ export interface NewsArticle {
   content: string;
   featuredImageMediaId?: string | null;
   featuredImage?: Media | null;
+  pdfMediaId?: string | null;
+  pdfMedia?: Media | null;
   source?: string | null;
   author: { id: string; name: string; email: string } | null;
   authorId: string;
@@ -57,6 +59,7 @@ export interface CreateArticleInput {
   content: string;
   categoryId: string;
   featuredImageMediaId?: string | null;
+  pdfMediaId?: string | null;
   source?: string;
   metaTitle?: string;
   metaDescription?: string;

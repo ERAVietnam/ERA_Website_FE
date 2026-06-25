@@ -130,6 +130,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const [featuredImageFile, setFeaturedImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>(initialData?.featuredImage?.url || "");
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string>(initialData?.pdfMedia?.url || "");
   const [categories, setCategories] = useState<NewsCategory[]>([]);
 
   const articleCategory = initialData
@@ -162,16 +164,21 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const initialForm = useMemo(() => articleToFormState(initialData), [initialData]);
   const initialImagePreview = initialData?.featuredImage?.url || "";
+  const initialPdfPreview = initialData?.pdfMedia?.url || "";
 
   const isDirty =
     JSON.stringify(form) !== JSON.stringify(initialForm) ||
     imagePreview !== initialImagePreview ||
-    featuredImageFile !== null;
+    featuredImageFile !== null ||
+    pdfPreviewUrl !== initialPdfPreview ||
+    pdfFile !== null;
 
   useEffect(() => {
     setForm(articleToFormState(initialData));
     setImagePreview(initialData?.featuredImage?.url || "");
     setFeaturedImageFile(null);
+    setPdfFile(null);
+    setPdfPreviewUrl(initialData?.pdfMedia?.url || "");
   }, [initialData]);
 
   useEffect(() => {
@@ -186,6 +193,16 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     const featuredImage = imagePreview
       ? ({ id: "preview", url: imagePreview, storageKey: "preview", filename: "preview", folder: "news" } as const)
       : base?.featuredImage ?? null;
+    const pdfMedia = isPressReleaseCategory && pdfPreviewUrl
+      ? ({
+          id: "preview-pdf",
+          url: pdfPreviewUrl,
+          storageKey: "preview-pdf",
+          filename: pdfFile?.name || base?.pdfMedia?.filename || "attachment.pdf",
+          mimeType: "application/pdf",
+          folder: "news",
+        } as const)
+      : null;
 
     return {
       ...(base ?? ({} as NewsArticle)),
@@ -207,6 +224,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       categoryId: form.categoryId,
       category,
       featuredImage,
+      pdfMedia,
+      pdfMediaId: isPressReleaseCategory && pdfPreviewUrl ? base?.pdfMediaId ?? "preview-pdf" : null,
       author: base?.author ?? (account ? { id: account.id, name: account.name, email: account.email } : null),
       authorId: base?.authorId ?? account?.id ?? "preview",
       status: base?.status ?? "draft",
@@ -227,12 +246,21 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const selectedCategory = categories.find((c) => c.id === form.categoryId);
   const isEraNewsCategory = selectedCategory?.slug === "era-news";
+  const isPressReleaseCategory = selectedCategory?.slug === "thong-cao-bao-chi";
 
   useEffect(() => {
     if (!isEraNewsCategory && form.countryCode) {
       update("countryCode", "");
     }
   }, [isEraNewsCategory]);
+
+  useEffect(() => {
+    if (!selectedCategory) return;
+    if (!isPressReleaseCategory && (pdfFile || pdfPreviewUrl)) {
+      setPdfFile(null);
+      setPdfPreviewUrl("");
+    }
+  }, [isPressReleaseCategory, pdfFile, pdfPreviewUrl, selectedCategory]);
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => {
@@ -255,6 +283,28 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   const handleRemoveImage = () => {
     setFeaturedImageFile(null);
     setImagePreview("");
+  };
+
+  const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+    if (!isPdf) {
+      setPopup({
+        show: true,
+        type: "error",
+        message: "File tải lên phải là PDF.",
+      });
+      e.target.value = "";
+      return;
+    }
+    setPdfFile(file);
+    setPdfPreviewUrl(URL.createObjectURL(file));
+  };
+
+  const handleRemovePdf = () => {
+    setPdfFile(null);
+    setPdfPreviewUrl("");
   };
 
   const handleCancelRequest = () => {
@@ -483,6 +533,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
     try {
       let featuredImageMediaId: string | undefined | null;
+      let pdfMediaId: string | undefined | null;
 
       if (featuredImageFile) {
         const compressedFile = await compressImage(featuredImageFile, {
@@ -497,6 +548,19 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         featuredImageMediaId = initialData.featuredImageMediaId;
       }
 
+      if (isPressReleaseCategory) {
+        if (pdfFile) {
+          const upload = await mediaApi.uploadFile(pdfFile, "news");
+          pdfMediaId = upload.id;
+        } else if (!pdfPreviewUrl && initialData?.pdfMediaId) {
+          pdfMediaId = null;
+        } else if (initialData?.pdfMediaId) {
+          pdfMediaId = initialData.pdfMediaId;
+        }
+      } else if (initialData?.pdfMediaId || pdfPreviewUrl || pdfFile) {
+        pdfMediaId = null;
+      }
+
       const processedContent = await processContentImages(form.content);
 
       const payload = {
@@ -506,6 +570,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         content: processedContent,
         categoryId: form.categoryId,
         featuredImageMediaId,
+        pdfMediaId,
         source: form.source || undefined,
         metaTitle: form.metaTitle || undefined,
         metaDescription: form.metaDescription || undefined,
@@ -960,6 +1025,65 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
               </div>
               {fieldErrors.content && <p className="mt-1 text-xs text-red-500">{fieldErrors.content}</p>}
             </div>
+
+            {isPressReleaseCategory && (
+              <div id="field-pdfMediaId">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  File PDF đính kèm
+                </label>
+                {pdfPreviewUrl && (
+                  <div className="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
+                    <div className="min-w-0 flex items-center gap-3">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#C8102E] shadow-sm">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                          <polyline points="14 2 14 8 20 8" />
+                          <path d="M9 11h6" />
+                          <path d="M9 15h6" />
+                        </svg>
+                      </span>
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold text-gray-900">
+                          {pdfFile?.name || "attachment.pdf"}
+                        </p>
+                        <p className="text-xs text-gray-500">File PDF sẽ hiển thị ở cuối bài viết</p>
+                      </div>
+                    </div>
+                    {!isReadOnly && (
+                      <button
+                        type="button"
+                        onClick={handleRemovePdf}
+                        className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:border-red-300 hover:text-red-600"
+                      >
+                        Xoá file
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {!isReadOnly && (
+                  <label className="mt-3 flex flex-col items-center justify-center gap-2 w-full h-28 rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-gray-400">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="17 8 12 3 7 8" />
+                      <line x1="12" y1="3" x2="12" y2="15" />
+                    </svg>
+                    <span className="text-sm text-gray-500">
+                      Kéo thả file PDF vào đây hoặc{" "}
+                      <span className="font-semibold" style={{ color: colors.primary.DEFAULT }}>chọn file</span>
+                    </span>
+                    <span className="text-xs text-gray-400">Chỉ hỗ trợ PDF, tối đa 1 file</span>
+                    <input
+                      type="file"
+                      accept="application/pdf,.pdf"
+                      className="sr-only"
+                      onChange={handlePdfChange}
+                      disabled={isReadOnly}
+                    />
+                  </label>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Mobile actions */}

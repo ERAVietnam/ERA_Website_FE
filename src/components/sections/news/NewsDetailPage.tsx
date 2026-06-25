@@ -13,6 +13,7 @@ import { formatDate } from "@/lib/date";
 import { getArticleImage } from "@/lib/news";
 import { extractHeadings } from "@/lib/toc";
 import { NewsTableOfContents } from "./NewsTableOfContents";
+import { FileText } from "lucide-react";
 import type { NewsArticle } from "@/types/api";
 
 interface NewsDetailPageProps {
@@ -147,6 +148,33 @@ export const NewsDetailPage = memo(function NewsDetailPage({
             }}
             dangerouslySetInnerHTML={{ __html: processedContent }}
           />
+
+          {article.pdfMedia && (
+            <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <p
+                className="mb-3 text-sm font-semibold uppercase tracking-wide"
+                style={{ color: colors.primary.navy.DEFAULT }}
+              >
+                Tệp đính kèm
+              </p>
+              <a
+                href={article.pdfMedia.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-xl border border-red-100 bg-red-50 px-4 py-3 transition-colors hover:bg-red-100"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#C8102E] shadow-sm">
+                  <FileText size={18} />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-semibold text-gray-900">
+                    {article.pdfMedia.filename}
+                  </p>
+                  <p className="text-xs text-gray-500">Mở hoặc tải file PDF</p>
+                </div>
+              </a>
+            </div>
+          )}
 
           {/* Source + Date row */}
           <div className={`flex items-center mb-10 ${article.source ? "justify-between" : "justify-end"}`}>
