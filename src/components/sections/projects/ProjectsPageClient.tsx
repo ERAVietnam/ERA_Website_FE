@@ -1,21 +1,26 @@
 "use client";
 
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { ProjectsHeroSection } from "./ProjectsHeroSection";
 import { ProjectsListSection } from "./ProjectsListSection";
 import { projectsApi } from "@/api/domains/projects";
-import type { Project, ProjectType, ProjectStatus, PaginationMeta } from "@/types/api";
+import type { Project, PaginationMeta } from "@/types/api";
 
 interface ProjectsPageClientProps {
   initialProjects: Project[];
   initialMeta: PaginationMeta;
+  initialSearch?: string;
 }
 
-export function ProjectsPageClient({ initialProjects, initialMeta }: ProjectsPageClientProps) {
-  const [inputValue, setInputValue] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [typeFilter, setTypeFilter] = useState<ProjectType | "">("");
-  const [statusFilter, setStatusFilter] = useState<ProjectStatus | "">("");
+export function ProjectsPageClient({
+  initialProjects,
+  initialMeta,
+  initialSearch = "",
+}: ProjectsPageClientProps) {
+  const router = useRouter();
+  const [inputValue, setInputValue] = useState(initialSearch);
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestions, setSuggestions] = useState<Project[]>([]);
 
@@ -49,8 +54,8 @@ export function ProjectsPageClient({ initialProjects, initialMeta }: ProjectsPag
 
   const handleSelectSuggestion = (project: Project) => {
     setInputValue(project.name);
-    setSearchQuery(project.name);
     setShowSuggestions(false);
+    router.push(`/du-an/${project.slug}/`);
   };
 
   return (
@@ -62,10 +67,6 @@ export function ProjectsPageClient({ initialProjects, initialMeta }: ProjectsPag
           setShowSuggestions(true);
         }}
         onSearch={handleSearch}
-        typeFilter={typeFilter}
-        onTypeChange={setTypeFilter}
-        statusFilter={statusFilter}
-        onStatusChange={setStatusFilter}
         suggestions={suggestions}
         showSuggestions={showSuggestions}
         setShowSuggestions={setShowSuggestions}
@@ -75,8 +76,6 @@ export function ProjectsPageClient({ initialProjects, initialMeta }: ProjectsPag
         initialProjects={initialProjects}
         initialMeta={initialMeta}
         searchQuery={searchQuery}
-        typeFilter={typeFilter}
-        statusFilter={statusFilter}
       />
     </main>
   );

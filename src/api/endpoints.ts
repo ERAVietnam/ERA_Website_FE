@@ -63,6 +63,7 @@ export const ENDPOINTS = {
     DETAIL_BY_SLUG: (slug: string) => `/projects/by-slug/${slug}`,
     CREATE: '/projects',
     UPDATE: (id: string) => `/projects/${id}`,
+    FAQS: (id: string) => `/projects/${id}/faqs`,
     DELETE: (id: string) => `/projects/${id}`,
     STATUS: (id: string) => `/projects/${id}/status`,
     SUBMIT: (id: string) => `/projects/${id}/submit`,

@@ -186,12 +186,14 @@ export default function RichEditor({
   disabled = false,
   disableImage = false,
   disableFontColor = false,
+  compact = false,
 }: {
   value: string;
   onChange: (val: string) => void;
   disabled?: boolean;
   disableImage?: boolean;
   disableFontColor?: boolean;
+  compact?: boolean;
 }) {
   const wordCountRef = useRef<HTMLDivElement>(null);
 
@@ -206,32 +208,49 @@ export default function RichEditor({
           height: auto !important;
           overflow-y: visible !important;
         }
+        .faq-rich-editor .ck-editor__editable_inline {
+          min-height: calc(4 * 1.5em + 2rem) !important;
+          height: auto !important;
+          overflow-y: visible !important;
+        }
       `;
       document.head.appendChild(style);
     }
   }, []);
 
-  const toolbarItems = [
-    "heading",
-    "|",
-    "bold",
-    "italic",
-    ...(disableFontColor ? [] : ["fontColor"]),
-    "|",
-    "link",
-    ...(disableImage ? [] : ["imageUpload"]),
-    "|",
-    "bulletedList",
-    "numberedList",
-    "indent",
-    "outdent",
-    "|",
-    "undo",
-    "redo",
-  ];
+  const toolbarItems = compact
+    ? [
+        "bold",
+        "italic",
+        "fontColor",
+        "|",
+        "bulletedList",
+        "numberedList",
+        "|",
+        "undo",
+        "redo",
+      ]
+    : [
+        "heading",
+        "|",
+        "bold",
+        "italic",
+        ...(disableFontColor ? [] : ["fontColor"]),
+        "|",
+        "link",
+        ...(disableImage ? [] : ["imageUpload"]),
+        "|",
+        "bulletedList",
+        "numberedList",
+        "indent",
+        "outdent",
+        "|",
+        "undo",
+        "redo",
+      ];
 
   return (
-    <div>
+    <div className={compact ? "faq-rich-editor" : undefined}>
       <CKEditor
         editor={(disableImage ? PlainEditor : CustomEditor) as never}
         data={value}
@@ -250,15 +269,17 @@ export default function RichEditor({
           }
         }}
       />
-      <div
-        ref={wordCountRef}
-        className="flex justify-end px-3 py-1.5 text-xs"
-        style={{
-          color: colors.gray[400],
-          borderTop: `1px solid ${colors.gray[100]}`,
-          backgroundColor: withOpacity(colors.gray[50], 0.5),
-        }}
-      />
+      {!compact && (
+        <div
+          ref={wordCountRef}
+          className="flex justify-end px-3 py-1.5 text-xs"
+          style={{
+            color: colors.gray[400],
+            borderTop: `1px solid ${colors.gray[100]}`,
+            backgroundColor: withOpacity(colors.gray[50], 0.5),
+          }}
+        />
+      )}
     </div>
   );
 }

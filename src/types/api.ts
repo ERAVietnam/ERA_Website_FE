@@ -340,18 +340,30 @@ export interface JobApplicationLog {
   createdAt: string;
 }
 
-export type ProjectType = 'apartment' | 'townhouse' | 'villa' | 'land';
-export type ProjectStatus = 'new' | 'booking' | 'selling' | 'upcoming' | 'handed_over';
 export type ProjectPublicationStatus = 'draft' | 'pending' | 'published';
 export type ProjectLogEventType = 'created' | 'submitted' | 'updated' | 'published' | 'revoked' | 'rejected' | 'deleted';
+
+export interface ProjectFaq {
+  id: string;
+  projectId: string;
+  question: string;
+  answer: string;
+  position: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProjectFaqInput {
+  question: string;
+  answer: string;
+}
 
 export interface Project {
   id: string;
   name: string;
   projectName?: string | null;
   slug: string;
-  type: ProjectType;
-  status: ProjectStatus;
+  tags: string[];
   location: string;
   imageMediaId?: string | null;
   imageMedia?: Media | null;
@@ -369,6 +381,7 @@ export interface Project {
   publishedAt?: string | null;
   createdById: string;
   createdBy: { id: string; name: string; email: string } | null;
+  faqs?: ProjectFaq[];
   createdAt: string;
   updatedAt: string;
 }
@@ -379,8 +392,8 @@ export interface ProjectLog {
   actorId: string;
   actor: { id: string; name: string; email: string };
   eventType: ProjectLogEventType;
-  fromStatus: ProjectStatus | null;
-  toStatus: ProjectStatus | null;
+  fromStatus: string | null;
+  toStatus: string | null;
   note?: string | null;
   createdAt: string;
 }
@@ -389,8 +402,7 @@ export interface CreateProjectInput {
   name: string;
   projectName?: string;
   slug: string;
-  type: ProjectType;
-  status: ProjectStatus;
+  tags: string[];
   location: string;
   imageMediaId?: string | null;
   investor?: string;
@@ -404,14 +416,14 @@ export interface CreateProjectInput {
   isIndexed?: boolean;
   canonicalUrl?: string | null;
   publicationStatus?: ProjectPublicationStatus;
+  faqs: ProjectFaqInput[];
 }
 
-export type UpdateProjectInput = Partial<CreateProjectInput>;
+export type UpdateProjectInput = Partial<Omit<CreateProjectInput, 'faqs'>>;
 
 export interface ProjectFilters {
   search?: string;
-  type?: ProjectType;
-  status?: ProjectStatus;
+  tags?: string;
   publicationStatus?: ProjectPublicationStatus;
   page?: number;
   limit?: number;

@@ -7,15 +7,8 @@ import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
 import { ProjectsSidebar } from "./ProjectsSidebar";
 import { getProjectImage } from "@/lib/projects";
-import type { Project, ProjectStatus } from "@/types/api";
-
-const STATUS_LABELS: Record<ProjectStatus, string> = {
-  new: "Dự án mới",
-  booking: "Nhận booking",
-  selling: "Đang mở bán",
-  upcoming: "Sắp mở bán",
-  handed_over: "Đã bàn giao",
-};
+import type { Project } from "@/types/api";
+import { ProjectsFaqSection } from "./ProjectsFaqSection";
 
 interface ProjectsDetailContentSectionProps {
   project: Project;
@@ -50,8 +43,6 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
               >
                 Dự án
               </Link>
-              <span style={{ color: colors.gray[400] }}>/</span>
-              <span style={{ color: colors.gray[500] }}>{STATUS_LABELS[project.status]}</span>
               <span style={{ color: colors.gray[400] }}>/</span>
               <span className="font-medium" style={{ color: colors.neutral.foreground }}>
                 {project.name}
@@ -136,16 +127,6 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
             {/* Highlight Section */}
             {project.content && (
               <div className="mb-8">
-                <h2
-                  className="mb-4"
-                  style={{
-                    color: colors.neutral.foreground,
-                    fontWeight: 800,
-                    fontSize: "18px",
-                  }}
-                >
-                  Điểm nổi bật của {project.projectName}
-                </h2>
                 <div
                   className="ck-content"
                   style={{
@@ -158,25 +139,26 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
               </div>
             )}
 
-            {/* Location Section */}
-            {project.location && (
-              <div className="mb-8">
-                <h2
-                  className="mb-1"
-                  style={{
-                    color: colors.neutral.foreground,
-                    fontWeight: 800,
-                    fontSize: "18px",
-                  }}
-                >
-                  Vị trí {project.projectName}
-                </h2>
-                <p className="text-[14px] leading-[1.8]" style={{ color: colors.neutral.foreground }}>
-                  {project.location}
-                </p>
+            <ProjectsFaqSection items={project.faqs ?? []} />
+
+            {/* Tags */}
+            {project.tags && project.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 pt-6 border-t border-gray-100">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 text-xs font-medium rounded-full border"
+                    style={{
+                      color: colors.primary.navy.DEFAULT,
+                      borderColor: colors.gray[200],
+                      backgroundColor: colors.gray[50],
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             )}
-
           </div>
 
           {/* Sidebar */}

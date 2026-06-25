@@ -31,8 +31,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? project.content.replace(/<[^>]+>/g, "").slice(0, 160)
       : undefined;
     const imageUrl = project.imageMedia?.url || undefined;
-    const siteUrl = "https://era.com.vn";
-    const currentUrl = `${siteUrl}/du-an/${slug}/`;
     const canonicalUrl = project.canonicalUrl?.trim() || null;
 
     return {
@@ -66,21 +64,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProjectDetail({ params }: Props) {
   const { slug } = await params;
+  let project: Project;
+  let relatedProjects: Project[];
 
   try {
-    const project = await projectsApi.getProjectBySlug(slug);
+    project = await projectsApi.getProjectBySlug(slug);
+    const primaryTag = project.tags?.[0];
 
     const relatedData = await projectsApi
       .getPublishedProjects({
-        type: project.type,
+        ...(primaryTag ? { tags: primaryTag } : {}),
         limit: 4,
       })
       .catch(() => ({ items: [] as Project[], meta: { total: 0, page: 1, limit: 4, totalPages: 1 } }));
 
-    const relatedProjects = relatedData.items.filter((p) => p.id !== project.id).slice(0, 3);
-
-    return <ProjectsDetailPage project={project} relatedProjects={relatedProjects} />;
+    relatedProjects = relatedData.items.filter((p) => p.id !== project.id).slice(0, 3);
   } catch {
     notFound();
   }
+
+  return <ProjectsDetailPage project={project} relatedProjects={relatedProjects} />;
 }

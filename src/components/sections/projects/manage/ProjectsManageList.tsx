@@ -17,37 +17,7 @@ import { ViewModeToggle } from "@/components/ui/admin/ViewModeToggle";
 import { ProjectsManageActions } from "./ProjectsManageActions";
 import { Plus, FileText, X, MapPin, Building } from "lucide-react";
 import { getProjectCardImage } from "@/lib/projects";
-import type { Project, ProjectStatus, ProjectType, ProjectPublicationStatus } from "@/types/api";
-
-const STATUS_LABELS: Record<ProjectStatus, { label: string; color: string; bg: string }> = {
-  new: { label: "Dự án mới", color: colors.secondary.DEFAULT, bg: "#F0F9FF" },
-  booking: { label: "Nhận booking", color: colors.primary.DEFAULT, bg: "#FEF2F2" },
-  selling: { label: "Đang mở bán", color: colors.tertiary.purple.DEFAULT, bg: "#FAF5FF" },
-  upcoming: { label: "Sắp mở bán", color: colors.tertiary.orange.DEFAULT, bg: "#FFF7ED" },
-  handed_over: { label: "Đã bàn giao", color: "#16A34A", bg: "#F0FDF4" },
-};
-
-const TYPE_LABELS: Record<ProjectType, string> = {
-  apartment: "Căn hộ",
-  townhouse: "Nhà phố",
-  villa: "Biệt thự",
-  land: "Đất nền",
-};
-
-const statusOptions: { value: ProjectStatus; label: string }[] = [
-  { value: "new", label: "Dự án mới" },
-  { value: "booking", label: "Nhận booking" },
-  { value: "selling", label: "Đang mở bán" },
-  { value: "upcoming", label: "Sắp mở bán" },
-  { value: "handed_over", label: "Đã bàn giao" },
-];
-
-const typeOptions: { value: ProjectType; label: string }[] = [
-  { value: "apartment", label: "Căn hộ" },
-  { value: "townhouse", label: "Nhà phố" },
-  { value: "villa", label: "Biệt thự" },
-  { value: "land", label: "Đất nền" },
-];
+import type { Project, ProjectPublicationStatus } from "@/types/api";
 
 const publicationOptions: { value: ProjectPublicationStatus; label: string }[] = [
   { value: "draft", label: "Bản nháp" },
@@ -66,10 +36,6 @@ interface Props {
   loading?: boolean;
   searchInput: string;
   onSearchChange: (value: string) => void;
-  statusFilter: ProjectStatus | "";
-  onStatusFilterChange: (value: ProjectStatus | "") => void;
-  typeFilter: ProjectType | "";
-  onTypeFilterChange: (value: ProjectType | "") => void;
   publicationFilter: ProjectPublicationStatus | "";
   onPublicationFilterChange: (value: ProjectPublicationStatus | "") => void;
   page: number;
@@ -91,10 +57,6 @@ export const ProjectsManageList = memo(function ProjectsManageList({
   loading,
   searchInput,
   onSearchChange,
-  statusFilter,
-  onStatusFilterChange,
-  typeFilter,
-  onTypeFilterChange,
   publicationFilter,
   onPublicationFilterChange,
   page,
@@ -114,8 +76,6 @@ export const ProjectsManageList = memo(function ProjectsManageList({
 
   const handleClearFilters = () => {
     onSearchChange("");
-    onStatusFilterChange("");
-    onTypeFilterChange("");
     onPublicationFilterChange("");
     onPageChange(1);
   };
@@ -164,24 +124,6 @@ export const ProjectsManageList = memo(function ProjectsManageList({
             placeholder="Tìm theo tên dự án..."
           />
           <SelectField
-            value={statusFilter}
-            onChange={(value) => {
-              onStatusFilterChange(value as ProjectStatus | "");
-              onPageChange(1);
-            }}
-            placeholder="Tất cả trạng thái dự án"
-            options={statusOptions}
-          />
-          <SelectField
-            value={typeFilter}
-            onChange={(value) => {
-              onTypeFilterChange(value as ProjectType | "");
-              onPageChange(1);
-            }}
-            placeholder="Tất cả loại hình"
-            options={typeOptions}
-          />
-          <SelectField
             value={publicationFilter}
             onChange={(value) => {
               onPublicationFilterChange(value as ProjectPublicationStatus | "");
@@ -208,8 +150,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
             <tr className="border-b border-gray-100 bg-gray-50/50">
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">STT</th>
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 min-w-[280px] max-w-[420px]">Dự án</th>
-              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Loại hình</th>
-              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Trạng thái dự án</th>
+              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Tags</th>
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Trạng thái bài viết</th>
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 min-w-[180px]">Địa điểm</th>
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Chủ đầu tư</th>
@@ -220,7 +161,6 @@ export const ProjectsManageList = memo(function ProjectsManageList({
           </thead>
           <tbody className="divide-y divide-gray-50">
             {projects.map((project, i) => {
-              const status = STATUS_LABELS[project.status];
               const publication = publicationLabels[project.publicationStatus];
               return (
                 <tr key={project.id} className="hover:bg-gray-50 transition-colors">
@@ -252,16 +192,18 @@ export const ProjectsManageList = memo(function ProjectsManageList({
                       </p>
                     </div>
                   </td>
-                  <td className="px-5 py-4 text-gray-600">
-                    {TYPE_LABELS[project.type]}
-                  </td>
-                  <td className="px-5 py-4 whitespace-nowrap">
-                    <span
-                      className="inline-block text-xs font-semibold px-2.5 py-1 rounded-md"
-                      style={{ color: status.color, backgroundColor: status.bg }}
-                    >
-                      {status.label}
-                    </span>
+                  <td className="px-5 py-4">
+                    <div className="flex flex-wrap gap-1">
+                      {(project.tags ?? []).map((tag) => (
+                        <span
+                          key={tag}
+                          className="inline-block text-xs font-medium px-2 py-0.5 rounded-full border"
+                          style={{ color: colors.primary.navy.DEFAULT, borderColor: colors.gray[200], backgroundColor: colors.gray[50] }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </td>
                   <td className="px-5 py-4 whitespace-nowrap">
                     <span

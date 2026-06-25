@@ -5,6 +5,7 @@ export { ProjectsSidebar } from "./ProjectsSidebar";
 export { ProjectsDetailPage } from "./ProjectsDetailPage";
 export { ProjectsDetailContentSection } from "./ProjectsDetailContentSection";
 export { ProjectsRelatedSection } from "./ProjectsRelatedSection";
+export { ProjectsFaqSection } from "./ProjectsFaqSection";
 export { ProjectsManagePage } from "./manage/ProjectsManagePage";
 export { ProjectsManageList } from "./manage/ProjectsManageList";
 export { ProjectsManageForm } from "./manage/ProjectsManageForm";

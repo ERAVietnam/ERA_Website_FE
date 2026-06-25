@@ -1,5 +1,43 @@
 import { getFirstImageFromContent } from "./news";
-import type { Project } from "@/types/api";
+import type { Project, ProjectFaqInput } from "@/types/api";
+
+export const PROJECT_FAQ_MIN_ITEMS = 2;
+export const PROJECT_FAQ_MAX_ITEMS = 5;
+
+function hasRichTextContent(value: string) {
+  return value
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/gi, " ")
+    .trim().length > 0;
+}
+
+export function validateProjectFaqs(faqs: ProjectFaqInput[]): string | null {
+  if (faqs.length < PROJECT_FAQ_MIN_ITEMS || faqs.length > PROJECT_FAQ_MAX_ITEMS) {
+    return `Dự án phải có từ ${PROJECT_FAQ_MIN_ITEMS} đến ${PROJECT_FAQ_MAX_ITEMS} câu hỏi thường gặp.`;
+  }
+  if (
+    faqs.some(
+      (faq) => !faq.question.trim() || !hasRichTextContent(faq.answer),
+    )
+  ) {
+    return "Vui lòng nhập đầy đủ câu hỏi và câu trả lời.";
+  }
+  return null;
+}
+
+/** Allowed tags for projects (used in filter + form multi-select) */
+export const PROJECT_TAGS = [
+  "căn hộ",
+  "nhà phố",
+  "biệt thự",
+  "đất nền",
+  "shophouse",
+  "dự án mới",
+  "nhận booking",
+  "đang mở bán",
+  "đã bàn giao",
+  "sắp mở bán",
+] as const;
 
 export function getProjectImage(project: Project): string | null {
   return project.imageMedia?.url || null;
