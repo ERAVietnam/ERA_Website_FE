@@ -194,7 +194,7 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/ve-chung-toi/era-real-estate` | `app/ve-chung-toi/era-real-estate/page.tsx` | `EraRealEstatePage` |
 | `/ve-chung-toi/ve-era-viet-nam` | `app/ve-chung-toi/ve-era-viet-nam/page.tsx` | `AboutERAVNPage` |
 | `/du-an` | `app/du-an/page.tsx` | `ProjectsPage` |
-| `/du-an/chi-tiet` | `app/du-an/chi-tiet/page.tsx` | `ProjectsDetailPage` |
+| `/du-an/[slug]` | `app/du-an/[slug]/page.tsx` | `ProjectsDetailPage` |
 | `/du-an/quan-ly` | `app/du-an/quan-ly/page.tsx` | `ProjectsManagePage` |
 | `/tin-tuc` | `app/tin-tuc/page.tsx` | `NewsPage` |
 | `/tin-tuc/[slug]` | `app/tin-tuc/[slug]/page.tsx` | `NewsDetailPage` |
@@ -218,11 +218,11 @@ Gray 500:    #6b7280              → colors.gray[500]
 // next.config.ts
 const nextConfig = {
   trailingSlash: true,
-  images: { unoptimized: true },  // Static export
+  images: { unoptimized: true },  // Không dùng Next.js image optimization
 };
 ```
 
-> **Note**: Không cần `output: 'export'` vì deploy trên Vercel hỗ trợ Next.js App Router native (SSR/SSG).
+> **Note**: Project không cấu hình `output: 'export'`. Ứng dụng dùng App Router native trên Vercel, bao gồm SSR/SSG/ISR và route handlers.
 
 ---
 
@@ -231,7 +231,7 @@ const nextConfig = {
 | File | Mô tả |
 |------|-------|
 | `src/app/robots.ts` | Cho phép crawl toàn bộ, chặn `/quan-ly` routes |
-| `src/app/sitemap.ts` | 15 static URLs (chưa bao gồm dynamic posts) |
+| `src/app/sitemap.ts` | Static URLs + dynamic project detail URLs từ API |
 | `src/app/layout.tsx` | Google site verification: `k7gJl-mR813vH7LjJj1wD4B23PDH4N-F_bEW9pHylmc` |
 
 **Trạng thái:**
@@ -270,7 +270,7 @@ const nextConfig = {
 | `src/api/client.ts` | Axios instance với `withCredentials: true` |
 | `src/api/interceptors.ts` | Response interceptor: unwrap response data, tự động refresh token qua cookie khi 401, retry request |
 | `src/api/config.ts` | `BASE_URL` từ `NEXT_PUBLIC_API_URL` |
-| `src/api/domains/*.ts` | API helpers theo module (auth, accounts, news, media) |
+| `src/api/domains/*.ts` | API helpers theo module (auth, accounts, news, media, magazines, recruitment, projects) |
 
 ### Route Guard
 | File | Mô tả |
@@ -284,6 +284,32 @@ const nextConfig = {
 |----------|-------|
 | `NEXT_PUBLIC_API_URL` | Base URL backend, ví dụ `https://era-backend-xxx.asia-southeast1.run.app` |
 | `REVALIDATE_SECRET` | Secret dùng để xác thực webhook revalidate từ BE |
+
+---
+
+## 7.3 Project Module
+
+### Public pages
+- `/du-an` tải danh sách dự án đã publish từ API và hỗ trợ tìm kiếm.
+- Search dùng query `?search=...`; trang danh sách đọc query này khi render server-side.
+- Chọn một item trong dropdown gợi ý đi thẳng tới `/du-an/[slug]`.
+- Nhấn Enter hoặc nút `TÌM` điều hướng về `/du-an/?search=...`.
+- `/du-an/[slug]` dùng ISR (`revalidate = 300`), metadata động và chỉ lấy project đã publish.
+
+### Project form
+- `location` trên API vẫn là một chuỗi.
+- UI tách thành dropdown 34 tỉnh/thành bắt buộc và địa chỉ chi tiết không bắt buộc.
+- Trước khi gửi API, FE ghép thành `Tỉnh/Thành phố, địa chỉ chi tiết`.
+- Project dùng `tags: string[]` thay cho các field type/status cũ.
+
+### Project FAQ
+- Mỗi project bắt buộc có từ 2 đến 5 FAQ.
+- Khi tạo project, FAQ được gửi cùng payload create.
+- Khi chỉnh sửa project, form thông tin chính và FAQ có hai thao tác lưu độc lập.
+- FAQ dùng endpoint `PATCH /projects/:id/faqs`.
+- FAQ chỉ sửa được khi project ở trạng thái `draft` hoặc `pending`; `published` chỉ đọc.
+- Câu trả lời FAQ lưu HTML từ CKEditor compact: bold, italic, font color, bullet list và numbered list.
+- `ProjectsFaqSection` dùng chung cho preview và trang chi tiết công khai.
 
 ---
 
@@ -341,7 +367,7 @@ className="rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-g
 
 ---
 
-## 12. Image Handling (Static Export)
+## 12. Image Handling
 
 Với `images.unoptimized: true`:
 - Dùng `<Image fill className="object-cover" />` cho background / hero images
@@ -355,11 +381,9 @@ Với `images.unoptimized: true`:
 
 Nhiều section đang dùng mock data hardcoded inline:
 - `AboutERAVNAwardsSection` — achievers, agents, divisions
-- `ApplyRecruitmentSection` — jobs array
-- `ProjectsListSection` — projects array
-- `NewsDetailPage` — relatedNews array
+- Một số section marketing/landing — nội dung giới thiệu, gallery, testimonial
 
-> Khi API ready, chỉ cần thay mock arrays bằng API response. Component structure không đổi.
+Các module news, projects, recruitment và magazines đã lấy dữ liệu từ API. Project FAQ không còn dùng mock data.
 
 ---
 
@@ -379,12 +403,12 @@ Nhiều section đang dùng mock data hardcoded inline:
 | Issue | File | Mức độ | Ghi chú |
 |-------|------|--------|---------|
 | `setState` trong `useEffect` | `ApplyGalleryModal.tsx:33` | Medium | Có thể gây cascading renders |
-| `any` type | `RichEditor.tsx` (5 lần), `Button.tsx:forwardRef` | Medium | Cần thay bằng proper types |
+| `any` type | `RichEditor.tsx`, `Button.tsx:forwardRef` | Medium | Cần thay bằng proper types |
 | `<img>` thay vì `<Image>` | `Footer.tsx` (BCT logo ×2) | Low | BCT logo không cần optimize |
 | `no-unescaped-entities` | `ProjectsDetailContentSection.tsx`, `ProjectsManageList.tsx` | Low | `"` nên escape thành `&quot;` |
 | Unused imports | `NewsManagePage.tsx` (colors), nhiều file khác | Low | Dọn dẹp định kỳ |
 | Turbopack panic `/tuyen-dung/` | Dev server only | Low | Xóa `.next` và chạy lại nếu gặp |
-| Dead code removed | May 2026 | Done | Đã xóa `Badge.tsx`, `SectionTitle.tsx`, `ImagePlaceholder.tsx`, `CompassCollabSection.tsx`, `CompassLoadingAnimation.tsx`, 12 CKEditor sub-packages, `axios`, `themeClasses`, `cssVariables`, `color()`, `getRoute()`, `RouteKey` |
+| Dead code removed | May 2026 | Done | Đã xóa `Badge.tsx`, `SectionTitle.tsx`, `ImagePlaceholder.tsx`, `CompassCollabSection.tsx`, `CompassLoadingAnimation.tsx`, 12 CKEditor sub-packages, `themeClasses`, `cssVariables`, `color()`, `getRoute()`, `RouteKey` |
 
 ---
 
@@ -413,7 +437,7 @@ Nhiều section đang dùng mock data hardcoded inline:
 
 ## 17. Notes
 
-- **Static Export**: `images.unoptimized: true` → build ra HTML tĩnh
+- **Image optimization**: `images.unoptimized: true` chỉ tắt Next.js image optimization, không biến toàn bộ ứng dụng thành static export
 - **Scroll Performance**: Dùng `requestAnimationFrame` trong scroll handlers
 - **Mobile Header**: Floating pills pattern + slide drawer
 - **CKEditor**: Custom upload adapter (base64), license GPL

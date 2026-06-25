@@ -11,6 +11,7 @@ export const createArticleSchema = z.object({
   content: z.string().min(1, 'Nội dung không được để trống'),
   categoryId: z.string().uuid('Vui lòng chọn danh mục hợp lệ'),
   featuredImageMediaId: z.string().uuid().optional().nullable(),
+  pdfMediaId: z.string().uuid().optional().nullable(),
   source: z.string().max(255).optional(),
   author: z.string().max(100).optional(),
   metaTitle: z.string().max(255).optional(),
