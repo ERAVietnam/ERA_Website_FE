@@ -10,16 +10,23 @@ import { PopupNotification } from "@/components/ui/PopupNotification";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { getErrorMessage } from "@/lib/error-messages";
 import { projectsApi } from "@/api/domains/projects";
-import type { Project, ProjectStatus, ProjectType, ProjectPublicationStatus } from "@/types/api";
+import type { Project, ProjectPublicationStatus } from "@/types/api";
+import { PROJECT_FAQ_MAX_ITEMS, PROJECT_FAQ_MIN_ITEMS } from "@/lib/projects";
 
 function apiProjectToFormData(project: Project): ProjectFormData {
+  const faqs = (project.faqs ?? [])
+    .slice(0, PROJECT_FAQ_MAX_ITEMS)
+    .map(({ question, answer }) => ({ question, answer }));
+  while (faqs.length < PROJECT_FAQ_MIN_ITEMS) {
+    faqs.push({ question: "", answer: "" });
+  }
+
   return {
     id: project.id,
     name: project.name,
     projectName: project.projectName ?? "",
     slug: project.slug,
-    type: project.type as ProjectType,
-    status: project.status as ProjectStatus,
+    tags: project.tags ?? [],
     location: project.location,
     imageMediaId: project.imageMediaId ?? null,
     imageMedia: project.imageMedia ?? null,
@@ -34,6 +41,7 @@ function apiProjectToFormData(project: Project): ProjectFormData {
     isIndexed: project.isIndexed ?? false,
     canonicalUrl: project.canonicalUrl ?? "",
     publicationStatus: project.publicationStatus ?? "draft",
+    faqs,
   };
 }
 
@@ -60,8 +68,6 @@ export function ProjectsManagePage() {
   const [historyProjectId, setHistoryProjectId] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState<ProjectStatus | "">("");
-  const [typeFilter, setTypeFilter] = useState<ProjectType | "">("");
   const [publicationFilter, setPublicationFilter] = useState<ProjectPublicationStatus | "">("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -87,8 +93,6 @@ export function ProjectsManagePage() {
     try {
       const data = await projectsApi.getProjects({
         search: debouncedSearch || undefined,
-        status: statusFilter || undefined,
-        type: typeFilter || undefined,
         publicationStatus: publicationFilter || undefined,
         page,
         limit: 10,
@@ -106,7 +110,7 @@ export function ProjectsManagePage() {
     if (!showForm) {
       fetchProjects();
     }
-  }, [debouncedSearch, statusFilter, typeFilter, publicationFilter, page, showForm]);
+  }, [debouncedSearch, publicationFilter, page, showForm]);
 
   const handleSave = async (data: ProjectFormData) => {
     setSaving(true);
@@ -115,8 +119,7 @@ export function ProjectsManagePage() {
         name: data.name,
         projectName: data.projectName,
         slug: data.slug,
-        type: data.type,
-        status: data.status,
+        tags: data.tags,
         location: data.location,
         imageMediaId: data.imageMediaId,
         investor: data.investor || undefined,
@@ -136,7 +139,13 @@ export function ProjectsManagePage() {
         saved = await projectsApi.updateProject(data.id, payload);
         showPopup("success", "Cập nhật dự án thành công!");
       } else {
-        saved = await projectsApi.createProject(payload);
+        saved = await projectsApi.createProject({
+          ...payload,
+          faqs: data.faqs.map((faq) => ({
+            question: faq.question.trim(),
+            answer: faq.answer.trim(),
+          })),
+        });
         showPopup("success", "Tạo dự án thành công!");
       }
 
@@ -149,9 +158,14 @@ export function ProjectsManagePage() {
     }
   };
 
-  const handleEdit = (project: Project) => {
-    setEditing(apiProjectToFormData(project));
-    setShowForm(true);
+  const handleEdit = async (project: Project) => {
+    try {
+      const detail = await projectsApi.getProjectById(project.id);
+      setEditing(apiProjectToFormData(detail));
+      setShowForm(true);
+    } catch (err) {
+      showPopup("error", getApiErrorMessage(err, "Không thể tải chi tiết dự án."));
+    }
   };
 
   const handleDelete = (id: string) => {
@@ -268,8 +282,12 @@ export function ProjectsManagePage() {
       "Hủy duyệt"
     );
 
-  const handleListPreview = (project: Project) => {
-    setPreviewProject(project);
+  const handleListPreview = async (project: Project) => {
+    try {
+      setPreviewProject(await projectsApi.getProjectById(project.id));
+    } catch (err) {
+      showPopup("error", getApiErrorMessage(err, "Không thể tải dữ liệu xem trước."));
+    }
   };
 
   const handleListViewHistory = (id: string) => {
@@ -316,16 +334,6 @@ export function ProjectsManagePage() {
               searchInput={searchInput}
               onSearchChange={(value) => {
                 setSearchInput(value);
-                setPage(1);
-              }}
-              statusFilter={statusFilter}
-              onStatusFilterChange={(value) => {
-                setStatusFilter(value);
-                setPage(1);
-              }}
-              typeFilter={typeFilter}
-              onTypeFilterChange={(value) => {
-                setTypeFilter(value);
                 setPage(1);
               }}
               publicationFilter={publicationFilter}

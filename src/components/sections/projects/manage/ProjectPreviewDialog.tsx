@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { X, ExternalLink } from "lucide-react";
 import { colors } from "@/lib/theme";
 import type { ProjectFormData } from "./ProjectsManageForm";
+import { ProjectsFaqSection } from "../ProjectsFaqSection";
 
 interface ProjectPreviewDialogProps {
   project: ProjectFormData | null;
@@ -11,14 +12,6 @@ interface ProjectPreviewDialogProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const STATUS_LABELS: Record<string, string> = {
-  new: "Dự án mới",
-  booking: "Nhận booking",
-  selling: "Đang mở bán",
-  upcoming: "Sắp mở bán",
-  handed_over: "Đã bàn giao",
-};
 
 export function ProjectPreviewDialog({ project, imagePreviewUrl, isOpen, onClose }: ProjectPreviewDialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -50,6 +43,9 @@ export function ProjectPreviewDialog({ project, imagePreviewUrl, isOpen, onClose
 
   const isPubliclyViewable = !!project.id && project.publicationStatus === "published";
   const coverImageUrl = imagePreviewUrl || project.imageMedia?.url;
+  const completedFaqItems = project.faqs.filter(
+    (item) => item.question.trim() && item.answer.trim()
+  );
 
   const infoRows = [
     { label: "Tên dự án", value: project.projectName || project.name },
@@ -174,16 +170,6 @@ export function ProjectPreviewDialog({ project, imagePreviewUrl, isOpen, onClose
             {/* Highlight Section */}
             {project.content && (
               <div className="mb-8">
-                <h2
-                  className="mb-4"
-                  style={{
-                    color: colors.neutral.foreground,
-                    fontWeight: 800,
-                    fontSize: "18px",
-                  }}
-                >
-                  Điểm nổi bật của {project.projectName}
-                </h2>
                 <div
                   className="ck-content"
                   style={{
@@ -196,22 +182,24 @@ export function ProjectPreviewDialog({ project, imagePreviewUrl, isOpen, onClose
               </div>
             )}
 
-            {/* Location Section */}
-            {project.location && (
-              <div className="mb-8">
-                <h2
-                  className="mb-1"
-                  style={{
-                    color: colors.neutral.foreground,
-                    fontWeight: 800,
-                    fontSize: "18px",
-                  }}
-                >
-                  Vị trí {project.projectName}
-                </h2>                
-                <p className="text-[14px] leading-[1.8]" style={{ color: colors.neutral.foreground }}>
-                  {project.location}
-                </p>
+            <ProjectsFaqSection items={completedFaqItems} />
+
+            {/* Tags */}
+            {project.tags && project.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 pt-6 border-t border-gray-100">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 text-xs font-medium rounded-full border"
+                    style={{
+                      color: colors.primary.navy.DEFAULT,
+                      borderColor: colors.gray[200],
+                      backgroundColor: colors.gray[50],
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             )}
           </div>

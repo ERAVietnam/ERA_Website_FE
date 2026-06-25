@@ -7,6 +7,7 @@ import type {
   UpdateProjectInput,
   ProjectFilters,
   PaginatedResponse,
+  ProjectFaqInput,
 } from '@/types/api';
 
 export const projectsApi = {
@@ -31,8 +32,8 @@ export const projectsApi = {
   updateProject: (id: string, data: UpdateProjectInput) =>
     apiClient.patch<Project>(ENDPOINTS.PROJECTS.UPDATE(id), data).then((res) => res.data),
 
-  updateProjectStatus: (id: string, data: { status: string; note?: string }) =>
-    apiClient.patch<Project>(ENDPOINTS.PROJECTS.STATUS(id), data).then((res) => res.data),
+  updateProjectFaqs: (id: string, faqs: ProjectFaqInput[]) =>
+    apiClient.patch<Project>(ENDPOINTS.PROJECTS.FAQS(id), { faqs }).then((res) => res.data),
 
   submitProjectForReview: (id: string, note?: string) =>
     apiClient.post<Project>(ENDPOINTS.PROJECTS.SUBMIT(id), { note }).then((res) => res.data),

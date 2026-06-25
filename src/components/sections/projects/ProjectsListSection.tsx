@@ -10,37 +10,9 @@ import { MapPin, ArrowRight, ChevronLeft, ChevronRight, Building } from "lucide-
 import { ProjectsSidebar } from "./ProjectsSidebar";
 import { projectsApi } from "@/api/domains/projects";
 import { getProjectCardImage } from "@/lib/projects";
-import type { Project, ProjectType, ProjectStatus, PaginationMeta } from "@/types/api";
-
-export type ProjectTag = ProjectStatus | "";
-
-const tabs: { id: ProjectTag; label: string }[] = [
-  { id: "", label: "Tất cả" },
-  { id: "new", label: "Dự án mới" },
-  { id: "booking", label: "Nhận booking" },
-  { id: "selling", label: "Đang mở bán" },
-  { id: "upcoming", label: "Sắp mở bán" },
-  { id: "handed_over", label: "Đã bàn giao" },
-];
-
-const STATUS_LABELS: Record<ProjectStatus, string> = {
-  new: "Dự án mới",
-  booking: "Nhận booking",
-  selling: "Đang mở bán",
-  upcoming: "Sắp mở bán",
-  handed_over: "Đã bàn giao",
-};
-
-const STATUS_STYLES: Record<ProjectStatus, { bg: string; text: string }> = {
-  new: { bg: colors.secondary.DEFAULT, text: colors.neutral.white },
-  booking: { bg: colors.primary.DEFAULT, text: colors.neutral.white },
-  selling: { bg: colors.tertiary.purple.DEFAULT, text: colors.neutral.white },
-  upcoming: { bg: colors.primary.navy.DEFAULT, text: colors.neutral.white },
-  handed_over: { bg: colors.gray[400], text: colors.neutral.white },
-};
+import type { Project, PaginationMeta } from "@/types/api";
 
 function ProjectCard({ project }: { project: Project }) {
-  const tag = STATUS_STYLES[project.status];
   const imageUrl = getProjectCardImage(project);
 
   return (
@@ -62,12 +34,6 @@ function ProjectCard({ project }: { project: Project }) {
             <Building size={32} />
           </div>
         )}
-        <span
-          className="absolute top-3 right-3 text-xs font-semibold px-3 py-1 rounded-md"
-          style={{ backgroundColor: tag.bg, color: tag.text }}
-        >
-          {STATUS_LABELS[project.status]}
-        </span>
       </div>
       <div className="p-4 flex flex-col flex-1">
         <p className="text-[11px] font-bold uppercase tracking-wider mb-1" style={{ color: colors.primary.DEFAULT }}>
@@ -80,14 +46,23 @@ function ProjectCard({ project }: { project: Project }) {
           {project.name}
         </h3>
         <div
-          className="flex items-start gap-1 text-sm mb-4 line-clamp-2 min-h-[2.5rem]"
+          className="flex items-center gap-1 text-sm mb-4 min-w-0"
           style={{ color: colors.gray[500] }}
         >
-          <MapPin size={14} className="shrink-0 mt-0.5" />
-          <span className="line-clamp-2">{project.location}</span>
+          <MapPin size={14} className="shrink-0" />
+          <span className="truncate">{project.location}</span>
         </div>
+        {(project.tags ?? []).length > 0 && (
+          <div className="flex flex-wrap gap-1 mb-3">
+            {(project.tags ?? []).map((tag) => (
+              <span key={tag} className="text-xs px-2 py-0.5 rounded-full border" style={{ color: colors.primary.navy.DEFAULT, borderColor: colors.gray[200] }}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
         <span
-          className="mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-colors hover:underline"
+          className="mt-auto inline-flex items-center justify-end gap-1 self-end text-sm font-semibold transition-colors hover:underline"
           style={{ color: colors.primary.navy.DEFAULT }}
         >
           Xem Chi Tiết <ArrowRight size={14} />
@@ -101,8 +76,6 @@ interface ProjectsListSectionProps {
   initialProjects: Project[];
   initialMeta: PaginationMeta;
   searchQuery?: string;
-  typeFilter?: ProjectType | "";
-  statusFilter?: ProjectStatus | "";
 }
 
 const LIMIT = 12;
@@ -111,19 +84,16 @@ export function ProjectsListSection({
   initialProjects,
   initialMeta,
   searchQuery = "",
-  typeFilter = "",
-  statusFilter = "",
 }: ProjectsListSectionProps) {
-  const [activeTab, setActiveTab] = useState<ProjectTag>(statusFilter || "");
+  const [activeTab, setActiveTab] = useState("");
   const [currentPage, setCurrentPage] = useState(initialMeta.page || 1);
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [meta, setMeta] = useState<PaginationMeta>(initialMeta);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setActiveTab(statusFilter || "");
     setCurrentPage(1);
-  }, [statusFilter, searchQuery, typeFilter]);
+  }, [searchQuery]);
 
   useEffect(() => {
     let cancelled = false;
@@ -133,8 +103,6 @@ export function ProjectsListSection({
       try {
         const data = await projectsApi.getPublishedProjects({
           ...(searchQuery ? { search: searchQuery } : {}),
-          ...(typeFilter ? { type: typeFilter } : {}),
-          ...(activeTab ? { status: activeTab } : {}),
           page: currentPage,
           limit: LIMIT,
         });
@@ -157,13 +125,7 @@ export function ProjectsListSection({
     return () => {
       cancelled = true;
     };
-  }, [activeTab, currentPage, searchQuery, typeFilter]);
-
-  const handleTabChange = (tab: ProjectTag) => {
-    if (tab === activeTab) return;
-    setActiveTab(tab);
-    setCurrentPage(1);
-  };
+  }, [currentPage, searchQuery]);
 
   const totalPages = meta.totalPages || 1;
 
@@ -188,28 +150,6 @@ export function ProjectsListSection({
       <Container size="lg">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1">
-            {/* Tabs */}
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6 mb-6">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => handleTabChange(tab.id)}
-                  className="group relative pb-3 text-sm font-semibold transition-colors duration-200"
-                  style={{
-                    color: activeTab === tab.id ? colors.primary.DEFAULT : colors.gray[500],
-                  }}
-                >
-                  {tab.label}
-                  <span
-                    className={`absolute bottom-0 left-0 right-0 h-0.5 origin-left transition-transform duration-200 ${
-                      activeTab === tab.id ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                    }`}
-                    style={{ backgroundColor: colors.primary.DEFAULT }}
-                  />
-                </button>
-              ))}
-            </div>
-
             {/* Grid */}
             {loading ? (
               <div className="text-center py-16 text-gray-500">

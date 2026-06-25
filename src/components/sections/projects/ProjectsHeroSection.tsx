@@ -6,24 +6,12 @@ import { getProjectCardImage } from "@/lib/projects";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { Search, ChevronDown, ArrowRight, MapPin } from "lucide-react";
-import type { Project, ProjectType, ProjectStatus } from "@/types/api";
-
-const TYPE_OPTIONS: { value: ProjectType | ""; label: string }[] = [
-  { value: "", label: "Tất cả loại hình" },
-  { value: "apartment", label: "Căn hộ" },
-  { value: "townhouse", label: "Nhà phố" },
-  { value: "villa", label: "Biệt thự" },
-  { value: "land", label: "Đất nền" },
-];
+import type { Project } from "@/types/api";
 
 interface ProjectsHeroSectionProps {
   value?: string;
   onChange?: (value: string) => void;
   onSearch?: () => void;
-  typeFilter?: ProjectType | "";
-  onTypeChange?: (value: ProjectType | "") => void;
-  statusFilter?: ProjectStatus | "";
-  onStatusChange?: (value: ProjectStatus | "") => void;
   suggestions?: Project[];
   showSuggestions?: boolean;
   setShowSuggestions?: (show: boolean) => void;
@@ -34,8 +22,6 @@ export function ProjectsHeroSection({
   value = "",
   onChange,
   onSearch,
-  typeFilter = "",
-  onTypeChange,
   suggestions = [],
   showSuggestions = false,
   setShowSuggestions,
@@ -133,21 +119,6 @@ export function ProjectsHeroSection({
                 })}
               </div>
             )}
-          </div>
-          {/* Dropdown */}
-          <div className="relative shrink-0">
-            <select
-              value={typeFilter}
-              onChange={(e) => onTypeChange?.(e.target.value as ProjectType | "")}
-              className="appearance-none bg-transparent text-sm text-gray-600 pr-8 pl-3 py-2.5 outline-none cursor-pointer border border-gray-200 rounded-lg w-full md:w-40"
-            >
-              {TYPE_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-            <ChevronDown size={14} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
           </div>
           {/* Search Button */}
           <Button

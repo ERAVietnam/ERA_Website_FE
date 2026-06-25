@@ -1,17 +1,87 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
-import { X, Loader2, Eye, History } from "lucide-react";
+import { ChevronDown, X, Loader2, Eye, History } from "lucide-react";
 import { mediaApi } from "@/api/domains/media";
 import { projectsApi } from "@/api/domains/projects";
 import { compressImage } from "@/lib/imageCompression";
-import { createProjectSchema } from "@/schemas/projects.schema";
+import { createProjectSchema, projectDetailsSchema } from "@/schemas/projects.schema";
 import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
-import type { Media, Project, ProjectType, ProjectStatus, ProjectPublicationStatus } from "@/types/api";
+import type { Media, Project, ProjectPublicationStatus } from "@/types/api";
+import {
+  PROJECT_FAQ_MAX_ITEMS,
+  PROJECT_FAQ_MIN_ITEMS,
+  PROJECT_TAGS,
+  validateProjectFaqs,
+} from "@/lib/projects";
+
+const FORM_TAGS = PROJECT_TAGS.slice(0, 5);
+const VIETNAM_PROVINCES: string[] = [
+  "Thành phố Hà Nội",
+  "Thành phố Hải Phòng",
+  "Thành phố Huế",
+  "Thành phố Đà Nẵng",
+  "Thành phố Hồ Chí Minh",
+  "Thành phố Cần Thơ",
+  "Tỉnh An Giang",
+  "Tỉnh Bắc Ninh",
+  "Tỉnh Cà Mau",
+  "Tỉnh Cao Bằng",
+  "Tỉnh Đắk Lắk",
+  "Tỉnh Điện Biên",
+  "Tỉnh Đồng Nai",
+  "Tỉnh Đồng Tháp",
+  "Tỉnh Gia Lai",
+  "Tỉnh Hà Tĩnh",
+  "Tỉnh Hưng Yên",
+  "Tỉnh Khánh Hòa",
+  "Tỉnh Lai Châu",
+  "Tỉnh Lâm Đồng",
+  "Tỉnh Lạng Sơn",
+  "Tỉnh Lào Cai",
+  "Tỉnh Nghệ An",
+  "Tỉnh Ninh Bình",
+  "Tỉnh Phú Thọ",
+  "Tỉnh Quảng Ngãi",
+  "Tỉnh Quảng Ninh",
+  "Tỉnh Quảng Trị",
+  "Tỉnh Sơn La",
+  "Tỉnh Tây Ninh",
+  "Tỉnh Thái Nguyên",
+  "Tỉnh Thanh Hóa",
+  "Tỉnh Tuyên Quang",
+  "Tỉnh Vĩnh Long",
+];
+const createEmptyFaqItems = () =>
+  Array.from({ length: PROJECT_FAQ_MIN_ITEMS }, () => ({ question: "", answer: "" }));
+
+function splitProjectLocation(location?: string) {
+  const normalized = location?.trim() ?? "";
+  if (!normalized) return { province: "", addressDetail: "" };
+
+  const separatorIndex = normalized.indexOf(",");
+  if (separatorIndex === -1) {
+    return { province: normalized, addressDetail: "" };
+  }
+
+  return {
+    province: normalized.slice(0, separatorIndex).trim(),
+    addressDetail: normalized.slice(separatorIndex + 1).trim(),
+  };
+}
+
+function joinProjectLocation(province: string, addressDetail: string) {
+  const normalizedProvince = province.trim();
+  const normalizedAddressDetail = addressDetail.trim();
+  return normalizedAddressDetail
+    ? `${normalizedProvince}, ${normalizedAddressDetail}`
+    : normalizedProvince;
+}
+
 import { ProjectPreviewDialog } from "./ProjectPreviewDialog";
 import { ProjectHistoryDialog } from "./ProjectHistoryDialog";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -30,15 +100,12 @@ const RichEditor = dynamic(
   }
 );
 
-export type { ProjectType, ProjectStatus };
-
 export interface ProjectFormData {
   id?: string;
   name: string;
   projectName: string;
   slug: string;
-  type: ProjectType;
-  status: ProjectStatus;
+  tags: string[];
   location: string;
   imageMediaId?: string | null;
   imageMedia?: Media | null;
@@ -53,6 +120,7 @@ export interface ProjectFormData {
   isIndexed: boolean;
   canonicalUrl: string;
   publicationStatus: ProjectPublicationStatus;
+  faqs: { question: string; answer: string }[];
 }
 
 function toSlug(str: string): string {
@@ -109,21 +177,6 @@ async function processContentImages(content: string): Promise<string> {
 
   return doc.body.innerHTML;
 }
-
-const TYPE_OPTIONS: { value: ProjectType; label: string }[] = [
-  { value: "apartment", label: "Căn hộ" },
-  { value: "townhouse", label: "Nhà phố" },
-  { value: "villa", label: "Biệt thự" },
-  { value: "land", label: "Đất nền" },
-];
-
-const STATUS_OPTIONS: { value: ProjectStatus; label: string }[] = [
-  { value: "new", label: "Dự án mới" },
-  { value: "booking", label: "Nhận booking" },
-  { value: "selling", label: "Đang mở bán" },
-  { value: "upcoming", label: "Sắp mở bán" },
-  { value: "handed_over", label: "Đã bàn giao" },
-];
 
 function ImageUploadField({
   preview,
@@ -261,8 +314,7 @@ export function ProjectsManageForm({
       name: "",
       projectName: "",
       slug: "",
-      type: "apartment",
-      status: "new",
+      tags: [],
       location: "",
       imageMediaId: null,
       investor: "",
@@ -276,6 +328,7 @@ export function ProjectsManageForm({
       isIndexed: false,
       canonicalUrl: "",
       publicationStatus: "draft",
+      faqs: createEmptyFaqItems(),
     }
   );
   const [imagePreview, setImagePreview] = useState<string | undefined>(initialData?.imageMedia?.url ?? undefined);
@@ -291,6 +344,9 @@ export function ProjectsManageForm({
     message: string;
   }>({ show: false, type: "success", message: "" });
   const [isDirty, setIsDirty] = useState(false);
+  const [isEditingFaqs, setIsEditingFaqs] = useState(!initialData);
+  const [isFaqDirty, setIsFaqDirty] = useState(false);
+  const [isSavingFaqs, setIsSavingFaqs] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
   const [pendingAction, setPendingAction] = useState<
@@ -302,22 +358,49 @@ export function ProjectsManageForm({
     | { type: "revoke" }
     | { type: "unsaved_changes"; callback?: () => void }
   >(null);
-  const [locationInput, setLocationInput] = useState(initialData?.location ?? "");
+  const initialLocation = splitProjectLocation(initialData?.location);
+  const [province, setProvince] = useState(initialLocation.province);
+  const [addressDetail, setAddressDetail] = useState(initialLocation.addressDetail);
+  const [isProvinceOpen, setIsProvinceOpen] = useState(false);
+  const provinceDropdownRef = useRef<HTMLDivElement>(null);
 
   const { hasPermission } = useAuth();
   const isReadOnly = form.publicationStatus === "published";
   const canPublish = hasPermission("system.super_admin") || hasPermission("projects.all.publish");
+  const canEditFaqs =
+    !isReadOnly &&
+    (hasPermission("system.super_admin") || hasPermission("projects.all.update"));
 
   useEffect(() => {
     if (initialData) {
       setForm(initialData);
       setImagePreview(initialData.imageMedia?.url ?? undefined);
       setImageFile(null);
-      setLocationInput(initialData.location);
+      const location = splitProjectLocation(initialData.location);
+      setProvince(location.province);
+      setAddressDetail(location.addressDetail);
     }
     setIsDirty(false);
+    setIsEditingFaqs(!initialData);
+    setIsFaqDirty(false);
     setPendingAction(null);
   }, [initialData]);
+
+  useEffect(() => {
+    if (!isProvinceOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        provinceDropdownRef.current &&
+        !provinceDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsProvinceOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isProvinceOpen]);
 
   const update = <K extends keyof ProjectFormData>(key: K, value: ProjectFormData[K]) => {
     setForm((prev) => {
@@ -331,6 +414,18 @@ export function ProjectsManageForm({
       setFieldErrors((prev) => ({ ...prev, [key]: "" }));
     }
     setIsDirty(true);
+  };
+
+  const updateFaqs = (faqs: ProjectFormData["faqs"]) => {
+    setForm((prev) => ({ ...prev, faqs }));
+    if (initialData) {
+      setIsFaqDirty(true);
+    } else {
+      setIsDirty(true);
+    }
+    if (fieldErrors.faqs) {
+      setFieldErrors((prev) => ({ ...prev, faqs: "" }));
+    }
   };
 
   const clearLocationError = () => {
@@ -357,9 +452,13 @@ export function ProjectsManageForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const fullLocation = locationInput.trim();
+    if (initialData?.id && isFaqDirty) {
+      showPopup("error", "Vui lòng lưu câu hỏi thường gặp trước khi lưu thay đổi dự án.");
+      return;
+    }
+    const fullLocation = joinProjectLocation(province, addressDetail);
 
-    const validation = createProjectSchema.safeParse({
+    const validation = (initialData ? projectDetailsSchema : createProjectSchema).safeParse({
       ...form,
       location: fullLocation,
     });
@@ -415,6 +514,42 @@ export function ProjectsManageForm({
     }
   };
 
+  const handleSaveFaqs = async () => {
+    if (!initialData?.id || !canEditFaqs) return;
+
+    const faqError = validateProjectFaqs(form.faqs);
+    if (faqError) {
+      setFieldErrors((prev) => ({ ...prev, faqs: faqError }));
+      return;
+    }
+
+    setIsSavingFaqs(true);
+    try {
+      const project = await projectsApi.updateProjectFaqs(
+        initialData.id,
+        form.faqs.map((faq) => ({
+          question: faq.question.trim(),
+          answer: faq.answer.trim(),
+        }))
+      );
+      setForm((prev) => ({
+        ...prev,
+        faqs: (project.faqs ?? prev.faqs).map(({ question, answer }) => ({ question, answer })),
+      }));
+      setFieldErrors((prev) => ({ ...prev, faqs: "" }));
+      setIsFaqDirty(false);
+      setIsEditingFaqs(false);
+      showPopup("success", "Cập nhật câu hỏi thường gặp thành công!");
+    } catch (err) {
+      showPopup(
+        "error",
+        getApiErrorMessage(err, "Cập nhật câu hỏi thường gặp thất bại.")
+      );
+    } finally {
+      setIsSavingFaqs(false);
+    }
+  };
+
   const getApiErrorMessage = (err: unknown, fallback: string) => {
     const error = err as { status?: string; data?: unknown; message?: string };
     return getErrorMessage(error?.status, error?.data, error?.message || fallback);
@@ -425,7 +560,7 @@ export function ProjectsManageForm({
   };
 
   const handleCancelRequest = () => {
-    if (isDirty) {
+    if (isDirty || isFaqDirty) {
       setShowCancelConfirm(true);
     } else {
       onCancel();
@@ -444,6 +579,10 @@ export function ProjectsManageForm({
     actionType: "submit" | "publish" | "reject" | "revoke"
   ) => {
     if (!initialData?.id) return;
+    if (isFaqDirty) {
+      showPopup("error", "Vui lòng lưu câu hỏi thường gặp trước khi thay đổi trạng thái dự án.");
+      return;
+    }
     if (isDirty) {
       setPendingAction({ type: "unsaved_changes", callback: () => runWorkflowAction(action, successMessage, errorMessage, actionType) });
       return;
@@ -536,34 +675,17 @@ export function ProjectsManageForm({
         </div>
 
         <form id="project-form" onSubmit={handleSubmit} className="space-y-5">
-          {/* Row 1: Name + Status */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div id="field-name">
-              <label className={labelClass}>Tên bài đăng dự án *</label>
-              <input disabled={isReadOnly || isSubmitting}
-                type="text"
-                className={inputClass("name")}
-                value={form.name}
-                onChange={(e) => update("name", e.target.value)}
-                placeholder="Ví dụ: Vinhomes Pearl Bay"
-              />
-              {fieldErrors.name && <p className={errorTextClass}>{fieldErrors.name}</p>}
-            </div>
-            <div id="field-status">
-              <label className={labelClass}>Trạng thái *</label>
-              <select disabled={isReadOnly || isSubmitting}
-                className={inputClass("status")}
-                value={form.status}
-                onChange={(e) => update("status", e.target.value as ProjectStatus)}
-              >
-                {STATUS_OPTIONS.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-              {fieldErrors.status && <p className={errorTextClass}>{fieldErrors.status}</p>}
-            </div>
+          {/* Row 1: Name */}
+          <div id="field-name">
+            <label className={labelClass}>Tên bài đăng dự án *</label>
+            <input disabled={isReadOnly || isSubmitting}
+              type="text"
+              className={inputClass("name")}
+              value={form.name}
+              onChange={(e) => update("name", e.target.value)}
+              placeholder="Ví dụ: Vinhomes Pearl Bay"
+            />
+            {fieldErrors.name && <p className={errorTextClass}>{fieldErrors.name}</p>}
           </div>
 
           {/* Row 2: Slug */}
@@ -581,21 +703,36 @@ export function ProjectsManageForm({
             {fieldErrors.slug && <p className={errorTextClass}>{fieldErrors.slug}</p>}
           </div>
 
-          {/* Row 3: Type */}
-          <div id="field-type">
-            <label className={labelClass}>Loại hình *</label>
-            <select disabled={isReadOnly || isSubmitting}
-              className={inputClass("type")}
-              value={form.type}
-              onChange={(e) => update("type", e.target.value as ProjectType)}
-            >
-              {TYPE_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-            {fieldErrors.type && <p className={errorTextClass}>{fieldErrors.type}</p>}
+          {/* Row 3: Tags */}
+          <div id="field-tags">
+            <label className={labelClass}>Tags *</label>
+            <div className="flex flex-wrap gap-2">
+              {FORM_TAGS.map((tag) => {
+                const selected = form.tags.includes(tag);
+                return (
+                  <button
+                    key={tag}
+                    type="button"
+                    disabled={isReadOnly || isSubmitting}
+                    onClick={() => {
+                      const next = selected
+                        ? form.tags.filter((t) => t !== tag)
+                        : [...form.tags, tag];
+                      update("tags", next);
+                    }}
+                    className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-colors ${
+                      selected
+                        ? "text-white border-transparent"
+                        : "text-gray-600 border-gray-200 hover:border-gray-400"
+                    }`}
+                    style={selected ? { backgroundColor: colors.primary.navy.DEFAULT } : undefined}
+                  >
+                    {tag}
+                  </button>
+                );
+              })}
+            </div>
+            {fieldErrors.tags && <p className={errorTextClass}>{fieldErrors.tags}</p>}
           </div>
 
           {/* Row 4: Index toggle */}
@@ -629,19 +766,79 @@ export function ProjectsManageForm({
 
           {/* Row 6: Location */}
           <div id="field-location">
-            <div>
-              <label className={labelClass}>Địa chỉ dự án *</label>
+            <label className={labelClass}>Địa chỉ dự án *</label>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div ref={provinceDropdownRef} className="relative">
+                <button
+                  type="button"
+                  disabled={isReadOnly || isSubmitting}
+                  onClick={() => setIsProvinceOpen((open) => !open)}
+                  className={`${inputClass("location")} flex items-center justify-between gap-3 text-left disabled:cursor-not-allowed disabled:bg-gray-50`}
+                  aria-haspopup="listbox"
+                  aria-expanded={isProvinceOpen}
+                >
+                  <span className={province ? "text-gray-800" : "text-gray-400"}>
+                    {province || "Chọn tỉnh/thành phố"}
+                  </span>
+                  <ChevronDown
+                    size={16}
+                    className={`shrink-0 text-gray-400 transition-transform ${
+                      isProvinceOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                {isProvinceOpen && !isReadOnly && !isSubmitting && (
+                  <div
+                    role="listbox"
+                    className="absolute z-30 mt-1 w-full overflow-y-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+                    style={{ maxHeight: "15.5rem" }}
+                  >
+                    {province && !VIETNAM_PROVINCES.includes(province) && (
+                      <button
+                        type="button"
+                        role="option"
+                        aria-selected
+                        onClick={() => setIsProvinceOpen(false)}
+                        className="flex h-10 w-full items-center px-4 text-left text-sm text-gray-700 hover:bg-gray-50"
+                      >
+                        {province}
+                      </button>
+                    )}
+                    {VIETNAM_PROVINCES.map((item) => (
+                      <button
+                        key={item}
+                        type="button"
+                        role="option"
+                        aria-selected={province === item}
+                        onClick={() => {
+                          setProvince(item);
+                          setIsProvinceOpen(false);
+                          clearLocationError();
+                          setIsDirty(true);
+                        }}
+                        className={`flex h-10 w-full items-center px-4 text-left text-sm transition-colors ${
+                          province === item
+                            ? "bg-red-50 font-semibold text-[#C8102E]"
+                            : "text-gray-700 hover:bg-gray-50"
+                        }`}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
               <input
                 disabled={isReadOnly || isSubmitting}
                 type="text"
-                className={inputClass("location")}
-                value={locationInput}
+                className={inputClass()}
+                value={addressDetail}
                 onChange={(e) => {
-                  setLocationInput(e.target.value);
-                  clearLocationError();
+                  setAddressDetail(e.target.value);
                   setIsDirty(true);
                 }}
-                placeholder="Số nhà, đường, phường, quận, thành phố..."
+                placeholder="Địa chỉ chi tiết (không bắt buộc)"
               />
             </div>
             {fieldErrors.location && <p className={errorTextClass}>{fieldErrors.location}</p>}
@@ -757,6 +954,131 @@ export function ProjectsManageForm({
                 onChange={(val) => update("content", val)}
                 disabled={isReadOnly || isSubmitting}
               />
+            </div>
+          </div>
+
+          {/* Q&A Section */}
+          <div id="field-faqs">
+            <div className="mb-1.5 flex items-center justify-between gap-3">
+              <label className="block text-sm font-semibold text-gray-700">Câu hỏi thường gặp</label>
+              <div className="flex items-center gap-3">
+                <span className="text-xs text-gray-400">
+                  {form.faqs.length}/{PROJECT_FAQ_MAX_ITEMS} câu hỏi
+                </span>
+                {initialData?.id && canEditFaqs && !isEditingFaqs && (
+                  <button
+                    type="button"
+                    onClick={() => setIsEditingFaqs(true)}
+                    className="text-sm font-semibold text-blue-600 hover:text-blue-700"
+                  >
+                    Sửa
+                  </button>
+                )}
+                {initialData?.id && canEditFaqs && isEditingFaqs && (
+                  <button
+                    type="button"
+                    onClick={handleSaveFaqs}
+                    disabled={!isFaqDirty || isSavingFaqs}
+                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    {isSavingFaqs && <Loader2 size={14} className="animate-spin" />}
+                    Lưu
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="space-y-3">
+              {form.faqs.map((item, i) => (
+                <div
+                  key={i}
+                  className="rounded-xl border border-gray-200 bg-gray-50/40 p-4"
+                >
+                  <div className="mb-3 flex items-start gap-2">
+                    <div className="flex-1">
+                      <label className="mb-1.5 block text-xs font-semibold text-gray-500">
+                        Câu hỏi {i + 1}
+                      </label>
+                      <input
+                        type="text"
+                        className={inputClass("faqs")}
+                        value={item.question}
+                        onChange={(e) => {
+                          const next = [...form.faqs];
+                          next[i] = { ...next[i], question: e.target.value };
+                          updateFaqs(next);
+                        }}
+                        disabled={
+                          isSubmitting ||
+                          isSavingFaqs ||
+                          (!!initialData?.id && !isEditingFaqs)
+                        }
+                        placeholder="Nhập câu hỏi"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const next = form.faqs.filter((_, idx) => idx !== i);
+                        updateFaqs(next);
+                      }}
+                      disabled={
+                        isSubmitting ||
+                        isSavingFaqs ||
+                        (!!initialData?.id && !isEditingFaqs) ||
+                        form.faqs.length <= PROJECT_FAQ_MIN_ITEMS
+                      }
+                      className="mt-6 shrink-0 rounded-lg border border-gray-200 bg-white p-2 text-gray-400 transition-colors hover:border-red-200 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-30"
+                      aria-label={`Xóa câu hỏi ${i + 1}`}
+                    >
+                      <span className="text-lg leading-none">−</span>
+                    </button>
+                  </div>
+
+                  <div>
+                    <label className="mb-1.5 block text-xs font-semibold text-gray-500">
+                      Câu trả lời {i + 1}
+                    </label>
+                    <div
+                      className={`overflow-hidden rounded-lg border bg-white ${
+                        fieldErrors.faqs ? "border-red-300" : "border-gray-200"
+                      }`}
+                    >
+                      <RichEditor
+                        value={item.answer}
+                        onChange={(value) => {
+                          const next = [...form.faqs];
+                          next[i] = { ...next[i], answer: value };
+                          updateFaqs(next);
+                        }}
+                        disabled={
+                          isSubmitting ||
+                          isSavingFaqs ||
+                          (!!initialData?.id && !isEditingFaqs)
+                        }
+                        disableImage
+                        compact
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => updateFaqs([...form.faqs, { question: "", answer: "" }])}
+                disabled={
+                  isSubmitting ||
+                  isSavingFaqs ||
+                  (!!initialData?.id && !isEditingFaqs) ||
+                  form.faqs.length >= PROJECT_FAQ_MAX_ITEMS
+                }
+                className="flex items-center gap-1.5 text-sm font-medium rounded-lg border border-dashed border-gray-300 px-4 py-2 text-gray-500 hover:border-gray-400 hover:text-gray-700 transition-colors disabled:opacity-50"
+              >
+                <span className="text-lg leading-none">+</span> Thêm câu hỏi
+              </button>
+              <p className="text-xs text-gray-400">
+                Tối thiểu {PROJECT_FAQ_MIN_ITEMS} và tối đa {PROJECT_FAQ_MAX_ITEMS} câu hỏi.
+              </p>
+              {fieldErrors.faqs && <p className={errorTextClass}>{fieldErrors.faqs}</p>}
             </div>
           </div>
 

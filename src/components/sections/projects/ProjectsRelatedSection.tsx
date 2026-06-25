@@ -7,23 +7,7 @@ import { colors } from "@/lib/theme";
 import { MapPin, ArrowRight, ChevronLeft, ChevronRight, Building } from "lucide-react";
 import { useState } from "react";
 import { getProjectCardImage } from "@/lib/projects";
-import type { Project, ProjectStatus } from "@/types/api";
-
-const STATUS_LABELS: Record<ProjectStatus, string> = {
-  new: "Dự án mới",
-  booking: "Nhận booking",
-  selling: "Đang mở bán",
-  upcoming: "Sắp mở bán",
-  handed_over: "Đã bàn giao",
-};
-
-const STATUS_BG: Record<ProjectStatus, string> = {
-  new: colors.secondary.DEFAULT,
-  booking: colors.primary.DEFAULT,
-  selling: colors.tertiary.purple.DEFAULT,
-  upcoming: colors.primary.navy.DEFAULT,
-  handed_over: colors.gray[400],
-};
+import type { Project } from "@/types/api";
 
 interface ProjectsRelatedSectionProps {
   projects: Project[];
@@ -99,15 +83,6 @@ export function ProjectsRelatedSection({ projects }: ProjectsRelatedSectionProps
                     </div>
                   );
                 })()}
-                <span
-                  className="absolute top-3 right-3 text-xs font-semibold px-3 py-1 rounded-md"
-                  style={{
-                    backgroundColor: STATUS_BG[project.status],
-                    color: colors.neutral.white,
-                  }}
-                >
-                  {STATUS_LABELS[project.status]}
-                </span>
               </div>
               <div className="p-4 flex flex-col flex-1">
                 <p
