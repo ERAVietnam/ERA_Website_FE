@@ -74,7 +74,7 @@ function ProjectCard({ project }: { project: Project }) {
           DỰ ÁN
         </p>
         <h3
-          className="text-xl font-black mb-1 line-clamp-2 min-h-[3.5rem]"
+          className="text-xl font-extrabold mb-1 line-clamp-2 min-h-[3.5rem]"
           style={{ color: colors.primary.navy.DEFAULT }}
         >
           {project.name}

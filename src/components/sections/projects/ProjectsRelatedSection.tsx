@@ -46,7 +46,7 @@ export function ProjectsRelatedSection({ projects }: ProjectsRelatedSectionProps
           <h2
             style={{
               color: colors.primary.DEFAULT,
-              fontWeight: 900,
+              fontWeight: 800,
               fontSize: "clamp(20px, 3vw, 28px)",
             }}
           >

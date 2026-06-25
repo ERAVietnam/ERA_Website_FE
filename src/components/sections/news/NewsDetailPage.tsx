@@ -11,14 +11,9 @@ import { ProjectsSidebar } from "@/components/sections/projects/ProjectsSidebar"
 import { CountryFlag } from "@/components/shared/CountryFlag";
 import { formatDate } from "@/lib/date";
 import { getArticleImage } from "@/lib/news";
+import { extractHeadings } from "@/lib/toc";
+import { NewsTableOfContents } from "./NewsTableOfContents";
 import type { NewsArticle } from "@/types/api";
-
-const socialLinks = [
-  { name: "Facebook", src: "/shared/fb_icon.svg", href: "#" },
-  { name: "Twitter", src: "/shared/x_icon.svg", href: "#" },
-  { name: "LinkedIn", src: "/shared/linkedin_icon.svg", href: "#" },
-  { name: "Share", src: "/news/news_share_icon.svg", href: "#" },
-];
 
 interface NewsDetailPageProps {
   article: NewsArticle;
@@ -32,6 +27,26 @@ export const NewsDetailPage = memo(function NewsDetailPage({
   relatedArticles = [],
   isPreview = false,
 }: NewsDetailPageProps) {
+  const { html: processedContent, headings } = extractHeadings(article.content);
+
+  const pageUrl = `https://era.com.vn/tin-tuc/${article.slug}/`;
+  const encodedUrl = encodeURIComponent(pageUrl);
+  const encodedTitle = encodeURIComponent(article.title);
+
+  const shareLinks = [
+    { name: "Facebook", src: "/shared/fb_icon.svg", href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
+    { name: "Twitter", src: "/shared/x_icon.svg", href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}` },
+    { name: "LinkedIn", src: "/shared/linkedin_icon.svg", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}` },
+  ];
+
+  const handleNativeShare = () => {
+    if (navigator.share) {
+      navigator.share({ title: article.title, url: pageUrl }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(pageUrl).catch(() => {});
+    }
+  };
+
   return (
     <main style={{ backgroundColor: colors.gray[50] }}>
       <Container size="full" className="max-w-[1200px]">
@@ -119,6 +134,9 @@ export const NewsDetailPage = memo(function NewsDetailPage({
             </div>
           ) : null}
 
+          {/* Table of Contents */}
+          <NewsTableOfContents headings={headings} />
+
           {/* Body Content */}
           <div
             className="mb-8 ck-content"
@@ -127,7 +145,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
               fontSize: "15px",
               lineHeight: 1.8,
             }}
-            dangerouslySetInnerHTML={{ __html: article.content }}
+            dangerouslySetInnerHTML={{ __html: processedContent }}
           />
 
           {/* Source + Date row */}
@@ -167,10 +185,12 @@ export const NewsDetailPage = memo(function NewsDetailPage({
                   Chia sẻ
                 </h4>
                 <div className="flex items-center gap-3">
-                  {socialLinks.map((link) => (
+                  {shareLinks.map((link) => (
                     <a
                       key={link.name}
                       href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={link.name}
                       className="flex items-center justify-center transition-opacity hover:opacity-80"
                     >
@@ -183,6 +203,20 @@ export const NewsDetailPage = memo(function NewsDetailPage({
                       />
                     </a>
                   ))}
+                  <button
+                    type="button"
+                    onClick={handleNativeShare}
+                    aria-label="Chia sẻ"
+                    className="flex items-center justify-center transition-opacity hover:opacity-80"
+                  >
+                    <Image
+                      src="/news/news_share_icon.svg"
+                      alt="Chia sẻ"
+                      width={36}
+                      height={36}
+                      className="w-9 h-9"
+                    />
+                  </button>
                 </div>
               </div>
             </>

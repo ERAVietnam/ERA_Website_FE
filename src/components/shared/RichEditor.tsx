@@ -206,15 +206,6 @@ export default function RichEditor({
           height: auto !important;
           overflow-y: visible !important;
         }
-        .ck-editor .ck-content h1 { font-size: 36px; font-weight: 700; line-height: 1.2; }
-        .ck-editor .ck-content h2 { font-size: 30px; font-weight: 700; line-height: 1.2; }
-        .ck-editor .ck-content h3 { font-size: 24px; font-weight: 700; line-height: 1.3; }
-        .ck-editor .ck-content h4 { font-size: 20px; font-weight: 600; line-height: 1.4; }
-        .ck-editor .ck-content h5 { font-size: 16px; font-weight: 600; line-height: 1.4; }
-        .ck-editor .ck-content h6 { font-size: 14px; font-weight: 600; line-height: 1.4; }
-        .ck-content .image { margin: 1em 0; }
-        .ck-content .image_resized { max-width: 100%; display: block; }
-        .ck-content .image_resized img { width: 100%; }
       `;
       document.head.appendChild(style);
     }

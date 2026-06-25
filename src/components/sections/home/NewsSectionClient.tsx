@@ -16,17 +16,25 @@ interface NewsSectionClientProps {
 
 
 export function NewsSectionClient({ articles }: NewsSectionClientProps) {
+  // Prioritize articles with summary, then take top 3
+  const sorted = [...articles].sort((a, b) => {
+    if (a.summary && !b.summary) return -1;
+    if (!a.summary && b.summary) return 1;
+    return 0;
+  });
+  const displayArticles = sorted.slice(0, 3);
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % articles.length);
+    setCurrentIndex((prev) => (prev + 1) % displayArticles.length);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + articles.length) % articles.length);
+    setCurrentIndex((prev) => (prev - 1 + displayArticles.length) % displayArticles.length);
   };
 
-  if (articles.length === 0) {
+  if (displayArticles.length === 0) {
     return null;
   }
 
@@ -76,7 +84,7 @@ export function NewsSectionClient({ articles }: NewsSectionClientProps) {
 
       {/* Desktop Grid - 3 columns */}
       <div className="hidden lg:grid grid-cols-3 gap-8">
-        {articles.map((item) => (
+        {displayArticles.map((item) => (
           <Link
             key={item.id}
             href={`${ROUTES.news}/${item.slug}/`}
@@ -132,7 +140,7 @@ export function NewsSectionClient({ articles }: NewsSectionClientProps) {
       {/* Mobile List */}
       <div className="lg:hidden">
         <div className="flex flex-col gap-6">
-          {articles.map((item, index) => (
+          {displayArticles.map((item, index) => (
             <Link
               key={item.id}
               href={`${ROUTES.news}/${item.slug}/`}
@@ -178,6 +186,19 @@ export function NewsSectionClient({ articles }: NewsSectionClientProps) {
                 >
                   {item.title}
                 </h3>
+                {/* Summary */}
+                {item.summary && (
+                  <p
+                    className="mb-1 line-clamp-2"
+                    style={{
+                      color: colors.gray[500],
+                      fontWeight: 400,
+                      fontSize: '13px',
+                    }}
+                  >
+                    {item.summary}
+                  </p>
+                )}
                 {/* Date */}
                 <p
                   style={{
