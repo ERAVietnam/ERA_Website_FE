@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { projectsApi } from "@/api/domains/projects";
+import { newsApi } from "@/api/domains/news";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://era.com.vn";
@@ -24,15 +25,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     const data = await projectsApi.getPublishedProjects({ limit: 100 });
-    const projectRoutes: MetadataRoute.Sitemap = data.items.map((project) => ({
-      url: `${baseUrl}/du-an/${project.slug}/`,
-      lastModified: new Date(project.updatedAt),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    }));
+    const projectRoutes: MetadataRoute.Sitemap = data.items
+      .filter((project) => project.isIndexed === true)
+      .map((project) => ({
+        url: `${baseUrl}/du-an/${project.slug}/`,
+        lastModified: new Date(project.updatedAt),
+        changeFrequency: "weekly",
+        priority: 0.7,
+      }));
     routes.push(...projectRoutes);
   } catch {
     // Ignore project sitemap errors
+  }
+
+  try {
+    const articles = await newsApi.getPublishedArticles({ limit: 100 });
+    const articleRoutes: MetadataRoute.Sitemap = articles
+      .filter((article) => article.isIndexed === true)
+      .map((article) => ({
+        url: `${baseUrl}/tin-tuc/${article.slug}/`,
+        lastModified: new Date(article.updatedAt),
+        changeFrequency: "weekly",
+        priority: 0.7,
+      }));
+    routes.push(...articleRoutes);
+  } catch {
+    // Ignore article sitemap errors
   }
 
   return routes;

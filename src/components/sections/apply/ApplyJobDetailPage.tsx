@@ -358,8 +358,15 @@ function JobApplyForm({
 
       setSuccess(true);
       setName(""); setPhone(""); setEmail(""); setPortfolio(""); setPosition(defaultPosition ?? ""); setCvFile(null);
-    } catch (err: any) {
-      const message = err?.response?.data?.message || err?.message || "Có lỗi xảy ra, vui lòng thử lại.";
+    } catch (err) {
+      const error = err as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
+      const message =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Có lỗi xảy ra, vui lòng thử lại.";
       setErrors({ server: message });
     } finally {
       setIsSubmitting(false);

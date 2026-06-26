@@ -24,18 +24,27 @@ import {
   Undo,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
+import type { EditorConfig, PluginConstructor, Editor } from "@ckeditor/ckeditor5-core";
+import type { HeadingConfig } from "@ckeditor/ckeditor5-heading";
+import type { FileRepository } from "@ckeditor/ckeditor5-upload";
+
+type FileLoader = Parameters<NonNullable<FileRepository["createUploadAdapter"]>>[0];
 
 class CustomUploadAdapter {
-  loader: any;
+  loader: FileLoader;
 
-  constructor(loader: any) {
+  constructor(loader: FileLoader) {
     this.loader = loader;
   }
 
   upload() {
     return this.loader.file.then(
-      (file: File) =>
+      (file: File | null) =>
         new Promise<{ default: string }>((resolve, reject) => {
+          if (!file) {
+            reject(new Error("Không tìm thấy file"));
+            return;
+          }
           const reader = new FileReader();
           reader.onload = () => {
             resolve({ default: reader.result as string });
@@ -53,10 +62,10 @@ class CustomUploadAdapter {
   }
 }
 
-function CustomUploadAdapterPlugin(editor: any) {
-  const fileRepo = editor.plugins.get("FileRepository");
+function CustomUploadAdapterPlugin(editor: Editor) {
+  const fileRepo = editor.plugins.get("FileRepository") as FileRepository | undefined;
   if (fileRepo) {
-    fileRepo.createUploadAdapter = (loader: any) => {
+    fileRepo.createUploadAdapter = (loader: FileLoader) => {
       return new CustomUploadAdapter(loader);
     };
   }
@@ -84,8 +93,8 @@ const baseHeadingConfig = {
     { model: "heading4", view: "h4", title: "H4", class: "ck-heading_heading4" },
     { model: "heading5", view: "h5", title: "H5", class: "ck-heading_heading5" },
     { model: "heading6", view: "h6", title: "H6", class: "ck-heading_heading6" },
-  ] as any,
-};
+  ],
+} satisfies HeadingConfig;
 
 class CustomEditor extends ClassicEditor {
   static builtinPlugins = [
@@ -107,7 +116,7 @@ class CustomEditor extends ClassicEditor {
     WordCount,
     Undo,
     CustomUploadAdapterPlugin,
-  ] as any;
+  ] as PluginConstructor[];
 
   static defaultConfig = {
     licenseKey: "GPL",
@@ -137,7 +146,7 @@ class CustomEditor extends ClassicEditor {
         "toggleImageCaption",
       ],
     },
-  } as any;
+  } as EditorConfig;
 }
 
 class PlainEditor extends ClassicEditor {
@@ -154,7 +163,7 @@ class PlainEditor extends ClassicEditor {
     IndentBlock,
     WordCount,
     Undo,
-  ] as any;
+  ] as PluginConstructor[];
 
   static defaultConfig = {
     licenseKey: "GPL",
@@ -177,7 +186,7 @@ class PlainEditor extends ClassicEditor {
     ],
     fontColor: baseFontColorConfig,
     heading: baseHeadingConfig,
-  } as any;
+  } as EditorConfig;
 }
 
 export default function RichEditor({
@@ -252,7 +261,7 @@ export default function RichEditor({
   return (
     <div className={compact ? "faq-rich-editor" : undefined}>
       <CKEditor
-        editor={(disableImage ? PlainEditor : CustomEditor) as never}
+        editor={disableImage ? PlainEditor : CustomEditor}
         data={value}
         disabled={disabled}
         config={{ toolbar: toolbarItems }}
@@ -262,7 +271,7 @@ export default function RichEditor({
         onReady={(editor) => {
           if (wordCountRef.current) {
             wordCountRef.current.innerHTML = "";
-            const wordCountPlugin = (editor as any).plugins.get("WordCount");
+            const wordCountPlugin = editor.plugins.get("WordCount") as WordCount;
             if (wordCountPlugin && wordCountPlugin.wordCountContainer) {
               wordCountRef.current.appendChild(wordCountPlugin.wordCountContainer);
             }

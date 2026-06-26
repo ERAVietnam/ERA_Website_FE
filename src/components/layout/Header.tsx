@@ -341,12 +341,12 @@ export function Header() {
             
             {/* Social Links */}
             <div className="flex items-center gap-4 mb-6">
-              <a href="/" className="flex items-center justify-center">
+              <Link href="/" className="flex items-center justify-center">
                 <Image src="/mobile_header/menu_fb_icon.svg" alt="Facebook" width={ICON_SIZES.socialIcon} height={ICON_SIZES.socialIcon} style={{ width: ICON_SIZES.socialIcon, height: ICON_SIZES.socialIcon }} />
-              </a>
-              <a href="/" className="flex items-center justify-center">
+              </Link>
+              <Link href="/" className="flex items-center justify-center">
                 <Image src="/mobile_header/menu_ytb_icon.svg" alt="Youtube" width={ICON_SIZES.socialIcon} height={ICON_SIZES.socialIcon} style={{ width: ICON_SIZES.socialIcon, height: ICON_SIZES.socialIcon }} />
-              </a>
+              </Link>
             </div>
             
             {/* Footer Text */}

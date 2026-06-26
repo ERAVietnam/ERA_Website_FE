@@ -9,8 +9,8 @@ import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { Pagination } from "@/components/ui/Pagination";
 import { newsApi } from "@/api/domains/news";
 import { PopupNotification } from "@/components/ui/PopupNotification";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
 import type { NewsArticle, NewsCategory, PaginationMeta, ArticleFilters } from "@/types/api";
 
@@ -62,6 +62,7 @@ export default function NewsManagePage() {
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({ show: false, id: "" });
   const [actionConfirm, setActionConfirm] = useState<ActionConfirm>({ type: null, id: "" });
   const [actionLoading, setActionLoading] = useState<string | null>(null);
+  const [showNetworkError, setShowNetworkError] = useState(false);
   const [previewArticle, setPreviewArticle] = useState<NewsArticle | null>(null);
   const [historyArticleId, setHistoryArticleId] = useState<string | null>(null);
   const [searchInput, setSearchInput] = useState("");
@@ -80,13 +81,14 @@ export default function NewsManagePage() {
     } catch {
       setItems([]);
       setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
+      setShowNetworkError(true);
     } finally {
       setLoading(false);
     }
   }, [filters]);
 
   useEffect(() => {
-    fetchItems();
+    queueMicrotask(fetchItems);
   }, [fetchItems]);
 
   useEffect(() => {
@@ -129,12 +131,8 @@ export default function NewsManagePage() {
       setEditing(article);
       setIsViewing(false);
       setShowForm(true);
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Không thể tải bài viết. Vui lòng thử lại."),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -144,12 +142,8 @@ export default function NewsManagePage() {
       setEditing(article);
       setIsViewing(true);
       setShowForm(true);
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Không thể tải bài viết. Vui lòng thử lại."),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -157,12 +151,8 @@ export default function NewsManagePage() {
     try {
       const article = await newsApi.getArticleById(id);
       setPreviewArticle(article);
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Không thể tải bài viết để xem trước. Vui lòng thử lại."),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -184,12 +174,8 @@ export default function NewsManagePage() {
           message: "Xóa bài viết thành công!",
         });
       })
-      .catch((err) => {
-        setPopup({
-          show: true,
-          type: "error",
-          message: getErrorMessage(err?.status, err?.data, "Xóa bài viết thất bại. Vui lòng thử lại."),
-        });
+      .catch(() => {
+        setShowNetworkError(true);
       });
   };
 
@@ -227,16 +213,8 @@ export default function NewsManagePage() {
           setPopup({ show: true, type: "success", message: "Đã từ chối duyệt bài viết!" });
         }
         refreshItems();
-      } catch (err: any) {
-        const defaultMessage =
-          type === "publish"
-            ? "Duyệt bài viết thất bại."
-            : type === "revoke"
-            ? "Hủy duyệt bài viết thất bại."
-            : type === "submit"
-            ? "Gửi duyệt thất bại."
-            : "Từ chối duyệt thất bại.";
-        setPopup({ show: true, type: "error", message: getErrorMessage(err?.status, err?.data, defaultMessage) });
+      } catch {
+        setShowNetworkError(true);
       } finally {
         setActionLoading(null);
       }
@@ -261,12 +239,14 @@ export default function NewsManagePage() {
   return (
     <Section padding="md" bg="gray">
       <div className="space-y-8">
+          {showNetworkError && <NetworkErrorPopup onRetry={() => window.location.reload()} />}
+
           {popup.show && (
             <PopupNotification
               type={popup.type}
               message={popup.message}
               onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
-              autoClose={popup.type === "success"}
+              autoClose
               autoCloseMs={1000}
             />
           )}

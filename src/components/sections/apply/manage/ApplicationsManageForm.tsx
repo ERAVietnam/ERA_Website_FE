@@ -94,17 +94,19 @@ export function ApplicationsManageForm({
   }, [application.id]);
 
   useEffect(() => {
-    setForm({
-      jobPostingId: application.jobPostingId,
-      fullName: application.fullName,
-      phone: application.phone,
-      email: application.email || "",
-      portfolioUrl: application.portfolioUrl || "",
-      cvMediaId: application.cvMediaId || undefined,
-      cvFile: null,
+    queueMicrotask(() => {
+      setForm({
+        jobPostingId: application.jobPostingId,
+        fullName: application.fullName,
+        phone: application.phone,
+        email: application.email || "",
+        portfolioUrl: application.portfolioUrl || "",
+        cvMediaId: application.cvMediaId || undefined,
+        cvFile: null,
+      });
+      setStatus(application.status);
     });
-    setStatus(application.status);
-    loadLogs();
+    queueMicrotask(loadLogs);
   }, [application, loadLogs]);
 
   const initialForm = useMemo(

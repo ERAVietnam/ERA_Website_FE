@@ -92,7 +92,7 @@ export function ProjectsListSection({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setCurrentPage(1);
+    queueMicrotask(() => setCurrentPage(1));
   }, [searchQuery]);
 
   useEffect(() => {

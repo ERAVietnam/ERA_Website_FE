@@ -25,11 +25,12 @@ export function LoginPage() {
     try {
       await login(email, password);
       router.push("/ho-so-ca-nhan");
-    } catch (err: any) {
+    } catch (err) {
+      const error = err as { status?: string; data?: unknown };
       setError(
         getErrorMessage(
-          err?.status,
-          err?.data,
+          error?.status,
+          error?.data,
           "Đăng nhập thất bại. Vui lòng thử lại.",
         ),
       );

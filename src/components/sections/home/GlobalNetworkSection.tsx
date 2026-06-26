@@ -17,7 +17,6 @@ function useCountUp(end: number, duration: number = 3500, start: boolean = false
 
   useEffect(() => {
     if (!start) {
-      setCount(0);
       return;
     }
 
@@ -48,7 +47,7 @@ function useCountUp(end: number, duration: number = 3500, start: boolean = false
 function StatCounter({ value, suffix, isVisible }: { value: number; suffix: string; isVisible: boolean }) {
   const count = useCountUp(value, 4000, isVisible);
   const formatNumber = (num: number) => num.toLocaleString('en-US');
-  return <span>{formatNumber(count)}{suffix}</span>;
+  return <span>{formatNumber(isVisible ? count : 0)}{suffix}</span>;
 }
 
 export function GlobalNetworkSection() {

@@ -30,24 +30,19 @@ export default async function JobDetail({ params }: Props) {
     );
   }
 
+  let job: JobPosting | null = null;
+  let publishedJobs: JobPosting[] = [];
   try {
-    const [job, publishedJobs] = await Promise.all([
+    [job, publishedJobs] = await Promise.all([
       recruitmentApi.getJobBySlug(slug),
       recruitmentApi.getPublishedJobs({ limit: 5 }).catch(() => [] as JobPosting[]),
     ]);
-
-    const otherJobs = publishedJobs.filter((j) => j.id !== job.id).slice(0, 4);
-    const availablePositions = publishedJobs.map((j) => j.title);
-
-    return (
-      <ApplyJobDetailPage
-        job={job}
-        otherJobs={otherJobs}
-        defaultPosition={job.title}
-        availablePositions={availablePositions}
-      />
-    );
   } catch {
+    job = null;
+    publishedJobs = [];
+  }
+
+  if (!job) {
     return (
       <main className="min-h-screen bg-white flex items-center justify-center pt-20">
         <div className="text-center p-8">
@@ -64,4 +59,16 @@ export default async function JobDetail({ params }: Props) {
       </main>
     );
   }
+
+  const otherJobs = publishedJobs.filter((j) => j.id !== job.id).slice(0, 4);
+  const availablePositions = publishedJobs.map((j) => j.title);
+
+  return (
+    <ApplyJobDetailPage
+      job={job}
+      otherJobs={otherJobs}
+      defaultPosition={job.title}
+      availablePositions={availablePositions}
+    />
+  );
 }

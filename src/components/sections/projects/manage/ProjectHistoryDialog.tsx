@@ -31,8 +31,10 @@ export function ProjectHistoryDialog({ projectId, isOpen, onClose }: ProjectHist
 
   useEffect(() => {
     if (!isOpen) return;
-    setLoading(true);
-    setError("");
+    queueMicrotask(() => {
+      setLoading(true);
+      setError("");
+    });
     projectsApi
       .getProjectLogs(projectId)
       .then((data) => setLogs(data))

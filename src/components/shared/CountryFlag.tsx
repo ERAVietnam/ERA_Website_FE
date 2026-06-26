@@ -2,9 +2,16 @@ import SG from "country-flag-icons/react/3x2/SG";
 import US from "country-flag-icons/react/3x2/US";
 import VN from "country-flag-icons/react/3x2/VN";
 import { getCountryLabel } from "@/lib/country";
-import type { ComponentType, SVGProps } from "react";
+import type { ComponentType } from "react";
 
-const flags: Record<string, ComponentType<any>> = {
+interface FlagProps {
+  className?: string;
+  title?: string;
+  width?: number | string;
+  height?: number | string;
+}
+
+const flags: Record<string, ComponentType<FlagProps>> = {
   SG,
   US,
   VN,

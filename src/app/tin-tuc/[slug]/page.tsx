@@ -74,25 +74,14 @@ function isArticleVisible(article: NewsArticle): boolean {
 export default async function NewsDetail({ params }: Props) {
   const { slug } = await params;
 
+  let article: NewsArticle | null = null;
   try {
-    const article = await newsApi.getArticleBySlug(slug);
-
-    if (!isArticleVisible(article)) {
-      notFound();
-    }
-
-    const relatedArticles = await newsApi
-      .getPublishedArticles({
-        categorySlug: article.category.slug,
-        excludeId: article.id,
-        limit: 3,
-      })
-      .catch(() => [] as NewsArticle[]);
-
-    const filteredRelated = relatedArticles.filter((a) => a.id !== article.id).slice(0, 3);
-
-    return <NewsDetailPage article={article} relatedArticles={filteredRelated} />;
+    article = await newsApi.getArticleBySlug(slug);
   } catch {
+    article = null;
+  }
+
+  if (!article) {
     return (
       <main className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center p-8">
@@ -102,4 +91,25 @@ export default async function NewsDetail({ params }: Props) {
       </main>
     );
   }
+
+  if (!isArticleVisible(article)) {
+    notFound();
+  }
+
+  let relatedArticles: NewsArticle[] = [];
+  try {
+    relatedArticles = await newsApi
+      .getPublishedArticles({
+        categorySlug: article.category.slug,
+        excludeId: article.id,
+        limit: 3,
+      })
+      .catch(() => [] as NewsArticle[]);
+  } catch {
+    relatedArticles = [];
+  }
+
+  const filteredRelated = relatedArticles.filter((a) => a.id !== article.id).slice(0, 3);
+
+  return <NewsDetailPage article={article} relatedArticles={filteredRelated} />;
 }

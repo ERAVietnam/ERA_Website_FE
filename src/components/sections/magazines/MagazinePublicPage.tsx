@@ -57,13 +57,13 @@ export function MagazinePublicPage() {
 
   // Initial load
   useEffect(() => {
-    fetchItems(1, "", false);
+    queueMicrotask(() => fetchItems(1, "", false));
   }, [fetchItems]);
 
   // Load more
   useEffect(() => {
     if (page === 1) return;
-    fetchItems(page, searchQuery, true);
+    queueMicrotask(() => fetchItems(page, searchQuery, true));
   }, [page, searchQuery, fetchItems]);
 
   // Intersection observer for lazy load

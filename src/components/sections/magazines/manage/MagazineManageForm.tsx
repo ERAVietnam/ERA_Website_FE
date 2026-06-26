@@ -7,8 +7,8 @@ import { X, Loader2, FileText, ImageIcon, CheckCircle, RotateCcw } from "lucide-
 import { mediaApi } from "@/api/domains/media";
 import { magazinesApi } from "@/api/domains/magazines";
 import { PopupNotification } from "@/components/ui/PopupNotification";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { getErrorMessage } from "@/lib/error-messages";
 import { magazineStatusConfig } from "@/lib/magazine/status";
 import type { EMagazine } from "@/types/api";
 
@@ -56,6 +56,7 @@ export function MagazineManageForm({ initialData, onSave, onCancel }: Props) {
     | { type: "unsaved_changes" }
     | null
   >(null);
+  const [showNetworkError, setShowNetworkError] = useState(false);
 
   const initialForm = useMemo(() => buildInitialForm(initialData), [initialData]);
   const initialPdfPreview = initialData?.pdfMedia?.filename ?? "";
@@ -67,13 +68,15 @@ export function MagazineManageForm({ initialData, onSave, onCancel }: Props) {
     coverFile !== null;
 
   useEffect(() => {
-    setForm(buildInitialForm(initialData));
-    setPdfPreview(initialData?.pdfMedia?.filename ?? "");
-    setCoverPreview(initialData?.coverImageMedia?.url ?? "");
-    setPdfFile(null);
-    setCoverFile(null);
-    setFieldErrors({});
-    setPendingAction(null);
+    queueMicrotask(() => {
+      setForm(buildInitialForm(initialData));
+      setPdfPreview(initialData?.pdfMedia?.filename ?? "");
+      setCoverPreview(initialData?.coverImageMedia?.url ?? "");
+      setPdfFile(null);
+      setCoverFile(null);
+      setFieldErrors({});
+      setPendingAction(null);
+    });
   }, [initialData]);
 
   const statusConfig = magazineStatusConfig;
@@ -183,12 +186,8 @@ export function MagazineManageForm({ initialData, onSave, onCancel }: Props) {
       });
 
       onSave(saved);
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Lưu e-magazine thất bại. Vui lòng thử lại."),
-      });
+    } catch {
+      setShowNetworkError(true);
     } finally {
       setIsLoading(false);
     }
@@ -232,16 +231,8 @@ export function MagazineManageForm({ initialData, onSave, onCancel }: Props) {
       });
 
       onSave(saved);
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(
-          err?.status,
-          err?.data,
-          action === "publish" ? "Đăng e-magazine thất bại." : "Gỡ e-magazine thất bại."
-        ),
-      });
+    } catch {
+      setShowNetworkError(true);
     } finally {
       setIsLoading(false);
     }
@@ -297,12 +288,14 @@ export function MagazineManageForm({ initialData, onSave, onCancel }: Props) {
           </Button>
         </div>
 
+        {showNetworkError && <NetworkErrorPopup onRetry={() => window.location.reload()} />}
+
         {popup.show && (
           <PopupNotification
             type={popup.type}
             message={popup.message}
             onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
-            autoClose={popup.type === "success"}
+            autoClose
             autoCloseMs={1000}
           />
         )}

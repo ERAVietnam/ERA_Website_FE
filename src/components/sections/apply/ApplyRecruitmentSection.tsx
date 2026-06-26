@@ -22,6 +22,9 @@ export function ApplyRecruitmentSection() {
   const [activeTab, setActiveTab] = useState("all");
   const [allJobs, setAllJobs] = useState<JobPosting[]>([]);
   const [loading, setLoading] = useState(true);
+  // Keep the loading indicator active during the initial fetch; it is toggled
+  // asynchronously inside the promise callbacks so it does not trigger a
+  // synchronous setState in the effect body.
   const [showAll, setShowAll] = useState(false);
 
   const activeLocation = useMemo(
@@ -30,7 +33,6 @@ export function ApplyRecruitmentSection() {
   );
 
   useEffect(() => {
-    setLoading(true);
     recruitmentApi
       .getPublishedJobs({ limit: 100 })
       .then((data) => setAllJobs(data))
@@ -39,7 +41,7 @@ export function ApplyRecruitmentSection() {
   }, []);
 
   useEffect(() => {
-    setShowAll(false);
+    queueMicrotask(() => setShowAll(false));
   }, [activeTab]);
 
   const filteredJobs = useMemo(() => {

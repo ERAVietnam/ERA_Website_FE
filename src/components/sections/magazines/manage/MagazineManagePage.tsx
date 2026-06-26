@@ -6,8 +6,8 @@ import { MagazineManageList } from "./MagazineManageList";
 import { MagazineManageForm } from "./MagazineManageForm";
 import { magazinesApi } from "@/api/domains/magazines";
 import { PopupNotification } from "@/components/ui/PopupNotification";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { getErrorMessage } from "@/lib/error-messages";
 import type { EMagazine, MagazineFilters, PaginationMeta } from "@/types/api";
 
 const DEFAULT_LIMIT = 9;
@@ -37,6 +37,7 @@ export default function MagazineManagePage() {
     page: 1,
     limit: DEFAULT_LIMIT,
   });
+  const [showNetworkError, setShowNetworkError] = useState(false);
 
   const fetchItems = useCallback(async () => {
     setLoading(true);
@@ -44,21 +45,17 @@ export default function MagazineManagePage() {
       const response = await magazinesApi.getAllMagazines(filters);
       setItems(response.items);
       setMeta(response.meta);
-    } catch (err: any) {
+    } catch {
       setItems([]);
       setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Không thể tải danh sách e-magazine."),
-      });
+      setShowNetworkError(true);
     } finally {
       setLoading(false);
     }
   }, [filters]);
 
   useEffect(() => {
-    fetchItems();
+    queueMicrotask(fetchItems);
   }, [fetchItems]);
 
   useEffect(() => {
@@ -111,12 +108,8 @@ export default function MagazineManagePage() {
       await magazinesApi.deleteMagazine(id);
       setItems((prev) => prev.filter((item) => item.id !== id));
       setPopup({ show: true, type: "success", message: "Xóa e-magazine thành công!" });
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Xóa e-magazine thất bại. Vui lòng thử lại."),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -143,13 +136,8 @@ export default function MagazineManagePage() {
         setItems((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
         setPopup({ show: true, type: "success", message: "Đã gỡ e-magazine về bản nháp!" });
       }
-    } catch (err: any) {
-      const defaultMessage = type === "publish" ? "Đăng e-magazine thất bại." : "Gỡ e-magazine thất bại.";
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, defaultMessage),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -181,12 +169,14 @@ export default function MagazineManagePage() {
   return (
     <Section padding="md" bg="gray">
       <div className="max-w-6xl mx-auto">
+        {showNetworkError && <NetworkErrorPopup onRetry={() => window.location.reload()} />}
+
         {popup.show && (
           <PopupNotification
             type={popup.type}
             message={popup.message}
             onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
-            autoClose={popup.type === "success"}
+            autoClose
             autoCloseMs={1000}
           />
         )}

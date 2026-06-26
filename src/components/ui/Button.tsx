@@ -134,20 +134,29 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const hoverStyle = hoverStyles[variant] || hoverStyles.primary;
 
     if (asChild && isValidElement(children)) {
-      const child = children as ReactElement<any>;
+      const child = children as ReactElement<Record<string, unknown>>;
+      const childClassName = child.props.className as string | undefined;
+      const childStyle = child.props.style as React.CSSProperties | undefined;
+      const childOnMouseEnter = child.props.onMouseEnter as
+        | ((e: React.MouseEvent<HTMLElement>) => void)
+        | undefined;
+      const childOnMouseLeave = child.props.onMouseLeave as
+        | ((e: React.MouseEvent<HTMLElement>) => void)
+        | undefined;
+      const childDisabled = child.props.disabled as boolean | undefined;
       return cloneElement(child, {
-        className: cn(mergedClassName, child.props.className),
-        style: { ...variantStyle, ...userStyle, ...child.props.style },
+        className: cn(mergedClassName, childClassName),
+        style: { ...variantStyle, ...userStyle, ...childStyle },
         onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
           Object.assign(e.currentTarget.style, hoverStyle);
-          child.props.onMouseEnter?.(e);
+          childOnMouseEnter?.(e);
         },
         onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
           Object.assign(e.currentTarget.style, { ...variantStyle, ...userStyle });
-          child.props.onMouseLeave?.(e);
+          childOnMouseLeave?.(e);
         },
         ref,
-        disabled: isLoading || props.disabled || child.props.disabled,
+        disabled: isLoading || props.disabled || childDisabled,
         ...props,
       });
     }

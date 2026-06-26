@@ -100,7 +100,7 @@ export function AcademyTestimonialsSection() {
               className="mb-4 text-4xl leading-none"
               style={{ color: colors.tertiary.orange.DEFAULT, fontWeight: 900 }}
             >
-              "
+              &quot;
             </div>
 
             {/* Quote text */}

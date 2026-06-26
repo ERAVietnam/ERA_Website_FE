@@ -7,8 +7,8 @@ import { AccountManageForm } from "./AccountManageForm";
 import { Pagination } from "@/components/ui/Pagination";
 import { accountsApi } from "@/api/domains/accounts";
 import { PopupNotification } from "@/components/ui/PopupNotification";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
 import type { ManagementAccount, PaginationMeta, AccountFilters } from "@/types/api";
 
@@ -35,6 +35,7 @@ export default function AccountManagePage() {
     page: 1,
     limit: DEFAULT_LIMIT,
   });
+  const [showNetworkError, setShowNetworkError] = useState(false);
 
   const loadAccounts = useCallback(async () => {
     setLoading(true);
@@ -45,13 +46,14 @@ export default function AccountManagePage() {
     } catch {
       setItems([]);
       setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
+      setShowNetworkError(true);
     } finally {
       setLoading(false);
     }
   }, [filters]);
 
   useEffect(() => {
-    loadAccounts().finally(() => setLoading(false));
+    queueMicrotask(() => loadAccounts().finally(() => setLoading(false)));
   }, [loadAccounts]);
 
   useEffect(() => {
@@ -99,16 +101,8 @@ export default function AccountManagePage() {
           message: "Xóa tài khoản thành công!",
         });
       })
-      .catch((err) => {
-        setPopup({
-          show: true,
-          type: "error",
-          message: getErrorMessage(
-            err?.status,
-            err?.data,
-            "Xóa tài khoản thất bại. Vui lòng thử lại.",
-          ),
-        });
+      .catch(() => {
+        setShowNetworkError(true);
       });
   };
 
@@ -125,6 +119,8 @@ export default function AccountManagePage() {
   return (
     <Section padding="md" bg="gray">
       <div className="space-y-8">
+          {showNetworkError && <NetworkErrorPopup onRetry={() => window.location.reload()} />}
+
           {popup.show && (
             <PopupNotification
               type={popup.type}

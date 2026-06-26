@@ -8,8 +8,8 @@ import { PasswordInput } from "@/components/ui/PasswordInput";
 import { accountsApi } from "@/api/domains/accounts";
 import { createAccountSchema, updateAccountSchema } from "@/schemas/account.schema";
 import { PopupNotification } from "@/components/ui/PopupNotification";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
 import type { ManagementAccount, Permission } from "@/types/api";
 
@@ -76,9 +76,9 @@ function groupPermissions(permissions: Permission[]) {
     if (!groups[p.module][p.resource]) groups[p.module][p.resource] = [];
     groups[p.module][p.resource].push(p);
   }
-  for (const module of Object.keys(groups)) {
-    for (const resource of Object.keys(groups[module])) {
-      groups[module][resource].sort((a, b) => {
+  for (const moduleKey of Object.keys(groups)) {
+    for (const resource of Object.keys(groups[moduleKey])) {
+      groups[moduleKey][resource].sort((a, b) => {
         const scopeOrder = a.scope === "all" ? 0 : 1;
         const scopeOrderB = b.scope === "all" ? 0 : 1;
         if (scopeOrder !== scopeOrderB) return scopeOrder - scopeOrderB;
@@ -165,6 +165,7 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
   }>({ show: false, type: "success", message: "" });
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
   const [showSaveConfirm, setShowSaveConfirm] = useState(false);
+  const [showNetworkError, setShowNetworkError] = useState(false);
 
   const initialForm = useMemo(() => accountToFormState(initialData), [initialData]);
   const initialPermissionIds = useMemo(
@@ -178,8 +179,10 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
       JSON.stringify([...initialPermissionIds].sort());
 
   useEffect(() => {
-    setForm(accountToFormState(initialData));
-    setSelectedPermissionIds(new Set(initialData?.permissions.map((p) => p.id) ?? []));
+    queueMicrotask(() => {
+      setForm(accountToFormState(initialData));
+      setSelectedPermissionIds(new Set(initialData?.permissions.map((p) => p.id) ?? []));
+    });
   }, [initialData]);
 
   useEffect(() => {
@@ -343,16 +346,8 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
           : "Tạo tài khoản thành công!",
       });
       onSave(saved);
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(
-          err?.status,
-          err?.data,
-          err?.message || "Thao tác thất bại. Vui lòng thử lại.",
-        ),
-      });
+    } catch {
+      setShowNetworkError(true);
     } finally {
       setIsLoading(false);
     }
@@ -380,12 +375,14 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
           </Button>
         </div>
 
+        {showNetworkError && <NetworkErrorPopup onRetry={() => window.location.reload()} />}
+
         {popup.show && (
           <PopupNotification
             type={popup.type}
             message={popup.message}
             onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
-            autoClose={popup.type === "success"}
+            autoClose
             autoCloseMs={1000}
           />
         )}

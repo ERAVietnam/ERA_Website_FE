@@ -37,8 +37,10 @@ export function ArticleHistoryDialog({ articleId, isOpen, onClose }: ArticleHist
 
   useEffect(() => {
     if (!isOpen) return;
-    setLoading(true);
-    setError("");
+    queueMicrotask(() => {
+      setLoading(true);
+      setError("");
+    });
     newsApi
       .getArticleLogs(articleId)
       .then((data) => setLogs(data))

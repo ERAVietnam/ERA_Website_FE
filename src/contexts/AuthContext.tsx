@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    fetchMe();
+    queueMicrotask(fetchMe);
   }, [fetchMe]);
 
   useEffect(() => {

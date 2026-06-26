@@ -44,7 +44,8 @@ function extractDataMessage(data?: unknown): string | null {
     'message' in data &&
     typeof (data as Record<string, unknown>).message === 'string'
   ) {
-    const message = (data as Record<string, string>).message.trim();
+    const dataRecord = data as Record<string, unknown>;
+    const message = typeof dataRecord.message === 'string' ? dataRecord.message.trim() : '';
     return message || null;
   }
 
@@ -62,19 +63,22 @@ export function getErrorMessage(
   if (dataMessage) return dataMessage;
 
   const baseMessage = ERROR_MESSAGES[status] || fallback || ERROR_MESSAGES['error.unknown'];
-  const dataObj = (data || {}) as Record<string, any>;
+  const dataObj = (data || {}) as Record<string, unknown>;
+  const field = typeof dataObj.field === 'string' ? dataObj.field : undefined;
+  const dataMessageRaw =
+    typeof dataObj.message === 'string' ? dataObj.message : undefined;
 
-  if (status === 'fail.alreadyExists' && dataObj.field) {
-    return `${getFieldLabel(dataObj.field)} đã tồn tại.`;
+  if (status === 'fail.alreadyExists' && field) {
+    return `${getFieldLabel(field)} đã tồn tại.`;
   }
 
-  if (status === 'fail.notFound' && dataObj.field) {
-    return `${getFieldLabel(dataObj.field)} không tồn tại.`;
+  if (status === 'fail.notFound' && field) {
+    return `${getFieldLabel(field)} không tồn tại.`;
   }
 
-  if (status === 'fail.invalidData' && dataObj.field) {
-    if (dataObj.message) return dataObj.message;
-    return `${getFieldLabel(dataObj.field)} không hợp lệ.`;
+  if (status === 'fail.invalidData' && field) {
+    if (dataMessageRaw) return dataMessageRaw;
+    return `${getFieldLabel(field)} không hợp lệ.`;
   }
 
   return baseMessage;
