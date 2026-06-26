@@ -18,7 +18,7 @@ import {
   validateProjectFaqs,
 } from "@/lib/projects";
 
-const FORM_TAGS = PROJECT_TAGS.slice(0, 5);
+const FORM_TAGS = PROJECT_TAGS;
 const VIETNAM_PROVINCES: string[] = [
   "Thành phố Hà Nội",
   "Thành phố Hải Phòng",
