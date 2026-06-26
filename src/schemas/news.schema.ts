@@ -17,6 +17,7 @@ export const createArticleSchema = z.object({
   metaTitle: z.string().max(255).optional(),
   metaDescription: z.string().optional(),
   isFeatured: z.boolean().optional(),
+  isIndexed: z.boolean().optional(),
   countryCode: z.enum(["SG", "US", "VN"]).optional().nullable(),
 });
 
