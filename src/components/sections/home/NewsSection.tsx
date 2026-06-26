@@ -1,11 +1,14 @@
 import { newsApi } from "@/api/domains/news";
+import type { NewsArticle } from "@/types/api";
 import { NewsSectionClient } from "./NewsSectionClient";
 
 export async function NewsSection() {
+  let articles: NewsArticle[] = [];
   try {
-    const articles = await newsApi.getPublishedArticles({ limit: 6 });
-    return <NewsSectionClient articles={articles} />;
+    articles = await newsApi.getPublishedArticles({ limit: 6 });
   } catch {
     return null;
   }
+
+  return <NewsSectionClient articles={articles} />;
 }

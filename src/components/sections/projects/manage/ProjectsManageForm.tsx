@@ -9,7 +9,6 @@ import { mediaApi } from "@/api/domains/media";
 import { projectsApi } from "@/api/domains/projects";
 import { compressImage } from "@/lib/imageCompression";
 import { createProjectSchema, projectDetailsSchema } from "@/schemas/projects.schema";
-import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
 import type { Media, Project, ProjectPublicationStatus } from "@/types/api";
 import {
@@ -86,6 +85,7 @@ import { ProjectPreviewDialog } from "./ProjectPreviewDialog";
 import { ProjectHistoryDialog } from "./ProjectHistoryDialog";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { PopupNotification } from "@/components/ui/PopupNotification";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 
 const RichEditor = dynamic(
   () => import("@/components/shared/RichEditor"),
@@ -358,6 +358,7 @@ export function ProjectsManageForm({
     | { type: "revoke" }
     | { type: "unsaved_changes"; callback?: () => void }
   >(null);
+  const [showNetworkError, setShowNetworkError] = useState(false);
   const initialLocation = splitProjectLocation(initialData?.location);
   const [province, setProvince] = useState(initialLocation.province);
   const [addressDetail, setAddressDetail] = useState(initialLocation.addressDetail);
@@ -372,18 +373,20 @@ export function ProjectsManageForm({
     (hasPermission("system.super_admin") || hasPermission("projects.all.update"));
 
   useEffect(() => {
-    if (initialData) {
-      setForm(initialData);
-      setImagePreview(initialData.imageMedia?.url ?? undefined);
-      setImageFile(null);
-      const location = splitProjectLocation(initialData.location);
-      setProvince(location.province);
-      setAddressDetail(location.addressDetail);
-    }
-    setIsDirty(false);
-    setIsEditingFaqs(!initialData);
-    setIsFaqDirty(false);
-    setPendingAction(null);
+    queueMicrotask(() => {
+      if (initialData) {
+        setForm(initialData);
+        setImagePreview(initialData.imageMedia?.url ?? undefined);
+        setImageFile(null);
+        const location = splitProjectLocation(initialData.location);
+        setProvince(location.province);
+        setAddressDetail(location.addressDetail);
+      }
+      setIsDirty(false);
+      setIsEditingFaqs(!initialData);
+      setIsFaqDirty(false);
+      setPendingAction(null);
+    });
   }, [initialData]);
 
   useEffect(() => {
@@ -453,7 +456,7 @@ export function ProjectsManageForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (initialData?.id && isFaqDirty) {
-      showPopup("error", "Vui lòng lưu câu hỏi thường gặp trước khi lưu thay đổi dự án.");
+      setPopup({ show: true, type: "error", message: "Vui lòng lưu câu hỏi thường gặp trước khi lưu thay đổi dự án." });
       return;
     }
     const fullLocation = joinProjectLocation(province, addressDetail);
@@ -541,23 +544,16 @@ export function ProjectsManageForm({
       setIsEditingFaqs(false);
       showPopup("success", "Cập nhật câu hỏi thường gặp thành công!");
     } catch (err) {
-      showPopup(
-        "error",
-        getApiErrorMessage(err, "Cập nhật câu hỏi thường gặp thất bại.")
-      );
+      showNetworkErrorPopup();
     } finally {
       setIsSavingFaqs(false);
     }
   };
 
-  const getApiErrorMessage = (err: unknown, fallback: string) => {
-    const error = err as { status?: string; data?: unknown; message?: string };
-    return getErrorMessage(error?.status, error?.data, error?.message || fallback);
-  };
-
   const showPopup = (type: "success" | "error", message: string) => {
     setPopup({ show: true, type, message });
   };
+  const showNetworkErrorPopup = () => setShowNetworkError(true);
 
   const handleCancelRequest = () => {
     if (isDirty || isFaqDirty) {
@@ -580,7 +576,7 @@ export function ProjectsManageForm({
   ) => {
     if (!initialData?.id) return;
     if (isFaqDirty) {
-      showPopup("error", "Vui lòng lưu câu hỏi thường gặp trước khi thay đổi trạng thái dự án.");
+      setPopup({ show: true, type: "error", message: "Vui lòng lưu câu hỏi thường gặp trước khi thay đổi trạng thái dự án." });
       return;
     }
     if (isDirty) {
@@ -598,7 +594,7 @@ export function ProjectsManageForm({
       showPopup("success", successMessage);
       onActionDone?.(project);
     } catch (err) {
-      showPopup("error", getApiErrorMessage(err, errorMessage));
+      showNetworkErrorPopup();
     } finally {
       setIsProcessing(false);
     }
@@ -1249,6 +1245,8 @@ export function ProjectsManageForm({
           autoClose={popup.type === "success"}
         />
       )}
+
+      <NetworkErrorPopup isOpen={showNetworkError} />
 
       <ConfirmDialog
         isOpen={showCancelConfirm}

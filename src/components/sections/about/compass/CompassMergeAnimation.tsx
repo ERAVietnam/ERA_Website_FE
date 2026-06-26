@@ -21,7 +21,7 @@ export function CompassMergeAnimation({ cycle }: CompassMergeAnimationProps) {
   }, []);
 
   useEffect(() => {
-    setStep(0);
+    queueMicrotask(() => setStep(0));
     const timers: NodeJS.Timeout[] = [];
     timers.push(setTimeout(() => setStep(1), 300));     // blobs + logos enter
     timers.push(setTimeout(() => setStep(2), 1000));    // cross pop

@@ -45,7 +45,6 @@ export async function compressImage(
       lastModified: Date.now(),
     });
   } catch (error) {
-    // eslint-disable-next-line no-console
     console.error("Image compression failed:", error);
     // Fallback về file gốc; backend sẽ reject nếu vẫn vượt quá giới hạn
     return file;

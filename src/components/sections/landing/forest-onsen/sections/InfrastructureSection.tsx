@@ -158,7 +158,7 @@ export function InfrastructureSection() {
             <span className="text-xs mt-2 uppercase tracking-wider font-medium" style={{ color: "rgba(255,255,255,.72)" }}>
               Đón
               <br />
-              "điểm rơi" hạ tầng
+              &quot;điểm rơi&quot; hạ tầng
             </span>
           </div>
 

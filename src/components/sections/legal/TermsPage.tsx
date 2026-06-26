@@ -70,7 +70,7 @@ const termsSections: LegalSection[] = [
     content: (
       <>
         <p className="mb-4">
-          Dịch vụ "như hiện trạng": Website được cung cấp trên cơ sở "như hiện trạng" (as-is). Chúng tôi không đảm bảo rằng website sẽ hoạt động không bị gián đoạn, không có lỗi hoặc không có virus.
+          Dịch vụ &quot;như hiện trạng&quot;: Website được cung cấp trên cơ sở &quot;như hiện trạng&quot; (as-is). Chúng tôi không đảm bảo rằng website sẽ hoạt động không bị gián đoạn, không có lỗi hoặc không có virus.
         </p>
         <p className="mb-4">
           Miễn trừ trách nhiệm: Trong phạm vi tối đa mà pháp luật cho phép, Công ty Cổ phần Bất động sản ERA Việt Nam sẽ không chịu trách nhiệm cho bất kỳ thiệt hại trực tiếp, gián tiếp, ngẫu nhiên hoặc hậu quả nào phát sinh từ việc sử dụng hoặc không thể sử dụng website, ngay cả khi chúng tôi đã được thông báo về khả năng xảy ra các thiệt hại đó.

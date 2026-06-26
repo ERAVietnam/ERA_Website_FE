@@ -120,11 +120,11 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
   const initialForm = useMemo(() => buildInitialForm(initialData), [initialData]);
 
   useEffect(() => {
-    setForm(buildInitialForm(initialData));
+    queueMicrotask(() => setForm(buildInitialForm(initialData)));
   }, [initialData]);
 
   useEffect(() => {
-    setQuantityInput(String(form.quantity));
+    queueMicrotask(() => setQuantityInput(String(form.quantity)));
   }, [form.quantity]);
 
   const isDirty = useMemo(() => JSON.stringify(form) !== JSON.stringify(initialForm), [form, initialForm]);

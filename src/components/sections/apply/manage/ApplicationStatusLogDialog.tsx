@@ -45,8 +45,10 @@ export function ApplicationStatusLogDialog({
 
   useEffect(() => {
     if (!isOpen) return;
-    setNote("");
-    setLogsLoading(true);
+    queueMicrotask(() => {
+      setNote("");
+      setLogsLoading(true);
+    });
     recruitmentApi
       .getApplicationLogs(applicationId)
       .then((allLogs) => {

@@ -30,7 +30,9 @@ export function ApplyGalleryModal({
   const [activeIndex, setActiveIndex] = useState(currentIndex);
 
   useEffect(() => {
-    if (isOpen) setActiveIndex(currentIndex);
+    if (isOpen) {
+      queueMicrotask(() => setActiveIndex(currentIndex));
+    }
   }, [isOpen, currentIndex]);
 
   const goTo = useCallback(

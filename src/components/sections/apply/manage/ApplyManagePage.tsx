@@ -9,8 +9,8 @@ import { ApplyJobLogsDialog } from "./ApplyJobLogsDialog";
 import { Pagination } from "@/components/ui/Pagination";
 import { recruitmentApi } from "@/api/domains/recruitment";
 import { PopupNotification } from "@/components/ui/PopupNotification";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
 import type { JobPosting, CreateJobInput, UpdateJobInput, JobStatus, JobPostingLog, JobFilters, PaginationMeta } from "@/types/api";
 
@@ -116,6 +116,7 @@ export default function ApplyManagePage() {
     type: "success",
     message: "",
   });
+  const [showNetworkError, setShowNetworkError] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({ show: false, id: "" });
   const [statusConfirm, setStatusConfirm] = useState<{ show: boolean; id: string; status: JobStatus | null }>({
     show: false,
@@ -130,21 +131,17 @@ export default function ApplyManagePage() {
       const response = await recruitmentApi.getJobs(filters);
       setJobs(response.items.map(jobPostingToForm));
       setMeta(response.meta);
-    } catch (err: any) {
+    } catch {
       setJobs([]);
       setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Không thể tải danh sách tin tuyển dụng."),
-      });
+      setShowNetworkError(true);
     } finally {
       setLoading(false);
     }
   }, [filters]);
 
   useEffect(() => {
-    fetchJobs();
+    queueMicrotask(fetchJobs);
   }, [fetchJobs]);
 
   useEffect(() => {
@@ -185,12 +182,8 @@ export default function ApplyManagePage() {
         setEditing(createdForm);
         setPopup({ show: true, type: "success", message: "Tạo tin tuyển dụng thành công!" });
       }
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Lưu tin tuyển dụng thất bại. Vui lòng thử lại."),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -207,12 +200,8 @@ export default function ApplyManagePage() {
     try {
       const logs = await recruitmentApi.getJobLogs(id);
       setLogsDialog({ show: true, logs });
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Không thể tải lịch sử thay đổi."),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -228,12 +217,8 @@ export default function ApplyManagePage() {
       await recruitmentApi.deleteJob(id);
       setJobs((prev) => prev.filter((j) => j.id !== id));
       setPopup({ show: true, type: "success", message: "Xóa tin tuyển dụng thành công!" });
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Xóa tin tuyển dụng thất bại. Vui lòng thử lại."),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -250,9 +235,9 @@ export default function ApplyManagePage() {
     setStatusConfirm({ show: true, id, status });
   };
 
-  const handlePublishFromForm = useCallback(() => {
+  const handlePublishFromForm = () => {
     if (editing?.id) handleStatusChange(editing.id, "open");
-  }, [editing?.id]);
+  };
 
   const handleConfirmStatusChange = async () => {
     const { id, status } = statusConfirm;
@@ -276,12 +261,8 @@ export default function ApplyManagePage() {
       }
       const label = status === "open" ? "Đăng tuyển" : status === "closed" ? "Đóng tuyển" : "Gỡ bài";
       setPopup({ show: true, type: "success", message: `${label} thành công!` });
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Cập nhật trạng thái thất bại. Vui lòng thử lại."),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -384,6 +365,8 @@ export default function ApplyManagePage() {
         onConfirm={handleConfirmStatusChange}
         onCancel={() => setStatusConfirm({ show: false, id: "", status: null })}
       />
+
+      {showNetworkError && <NetworkErrorPopup onRetry={() => window.location.reload()} />}
 
       {popup.show && (
         <PopupNotification

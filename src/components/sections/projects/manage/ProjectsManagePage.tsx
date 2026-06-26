@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Section } from "@/components/ui/Section";
 import { ProjectsManageList } from "./ProjectsManageList";
 import { ProjectsManageForm, type ProjectFormData } from "./ProjectsManageForm";
 import { ProjectPreviewDialog } from "./ProjectPreviewDialog";
 import { ProjectHistoryDialog } from "./ProjectHistoryDialog";
 import { PopupNotification } from "@/components/ui/PopupNotification";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { getErrorMessage } from "@/lib/error-messages";
 import { projectsApi } from "@/api/domains/projects";
 import type { Project, ProjectPublicationStatus } from "@/types/api";
 import { PROJECT_FAQ_MAX_ITEMS, PROJECT_FAQ_MIN_ITEMS } from "@/lib/projects";
@@ -55,6 +55,7 @@ export function ProjectsManagePage() {
     type: "success" | "error";
     message: string;
   }>({ show: false, type: "success", message: "" });
+  const [showNetworkError, setShowNetworkError] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [confirm, setConfirm] = useState<{
     show: boolean;
@@ -80,15 +81,14 @@ export function ProjectsManagePage() {
   }, [searchInput]);
 
   const showPopup = (type: "success" | "error", message: string) => {
+    if (type === "error") {
+      setShowNetworkError(true);
+      return;
+    }
     setPopup({ show: true, type, message });
   };
 
-  const getApiErrorMessage = (err: unknown, fallback: string) => {
-    const error = err as { status?: string; data?: unknown; message?: string };
-    return getErrorMessage(error?.status, error?.data, error?.message || fallback);
-  };
-
-  const fetchProjects = async () => {
+  const fetchProjects = useCallback(async () => {
     setLoading(true);
     try {
       const data = await projectsApi.getProjects({
@@ -99,18 +99,17 @@ export function ProjectsManagePage() {
       });
       setProjects(data.items);
       setTotalPages(data.meta.totalPages);
-    } catch (err) {
-      showPopup("error", getApiErrorMessage(err, "Không thể tải danh sách dự án."));
+    } catch {
+      setShowNetworkError(true);
     } finally {
       setLoading(false);
     }
-  };
+  }, [debouncedSearch, publicationFilter, page]);
 
   useEffect(() => {
-    if (!showForm) {
-      fetchProjects();
-    }
-  }, [debouncedSearch, publicationFilter, page, showForm]);
+    if (showForm) return;
+    queueMicrotask(fetchProjects);
+  }, [showForm, fetchProjects]);
 
   const handleSave = async (data: ProjectFormData) => {
     setSaving(true);
@@ -151,8 +150,8 @@ export function ProjectsManagePage() {
 
       setEditing(apiProjectToFormData(saved));
       fetchProjects();
-    } catch (err) {
-      showPopup("error", getApiErrorMessage(err, "Lưu dự án thất bại."));
+    } catch {
+      setShowNetworkError(true);
     } finally {
       setSaving(false);
     }
@@ -163,8 +162,8 @@ export function ProjectsManagePage() {
       const detail = await projectsApi.getProjectById(project.id);
       setEditing(apiProjectToFormData(detail));
       setShowForm(true);
-    } catch (err) {
-      showPopup("error", getApiErrorMessage(err, "Không thể tải chi tiết dự án."));
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -181,8 +180,8 @@ export function ProjectsManagePage() {
           await projectsApi.deleteProject(id);
           showPopup("success", "Xóa dự án thành công!");
           fetchProjects();
-        } catch (err) {
-          showPopup("error", getApiErrorMessage(err, "Xóa dự án thất bại."));
+        } catch {
+          setShowNetworkError(true);
         }
       },
     });
@@ -227,8 +226,8 @@ export function ProjectsManagePage() {
           await action(id);
           showPopup("success", successMessage);
           fetchProjects();
-        } catch (err) {
-          showPopup("error", getApiErrorMessage(err, errorMessage));
+        } catch {
+          setShowNetworkError(true);
         }
       },
     });
@@ -285,8 +284,8 @@ export function ProjectsManagePage() {
   const handleListPreview = async (project: Project) => {
     try {
       setPreviewProject(await projectsApi.getProjectById(project.id));
-    } catch (err) {
-      showPopup("error", getApiErrorMessage(err, "Không thể tải dữ liệu xem trước."));
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -297,12 +296,14 @@ export function ProjectsManagePage() {
   return (
     <Section padding="md" bg="gray">
       <div className="space-y-8">
+        {showNetworkError && <NetworkErrorPopup onRetry={() => window.location.reload()} />}
+
         {popup.show && (
           <PopupNotification
             type={popup.type}
             message={popup.message}
             onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
-            autoClose={popup.type === "success"}
+            autoClose
             autoCloseMs={1000}
           />
         )}

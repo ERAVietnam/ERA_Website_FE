@@ -9,10 +9,10 @@ import { newsApi } from "@/api/domains/news";
 import { mediaApi } from "@/api/domains/media";
 import { createArticleSchema } from "@/schemas/news.schema";
 import { PopupNotification } from "@/components/ui/PopupNotification";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { NewsPreviewDialog } from "./NewsPreviewDialog";
-import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
 import { getNewsScopeBySlug } from "@/lib/permissions";
 import { compressImage } from "@/lib/imageCompression";
@@ -161,6 +161,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   >(null);
   const [showHistory, setShowHistory] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [showNetworkError, setShowNetworkError] = useState(false);
 
   const initialForm = useMemo(() => articleToFormState(initialData), [initialData]);
   const initialImagePreview = initialData?.featuredImage?.url || "";
@@ -174,16 +175,28 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     pdfFile !== null;
 
   useEffect(() => {
-    setForm(articleToFormState(initialData));
-    setImagePreview(initialData?.featuredImage?.url || "");
-    setFeaturedImageFile(null);
-    setPdfFile(null);
-    setPdfPreviewUrl(initialData?.pdfMedia?.url || "");
+    queueMicrotask(() => {
+      setForm(articleToFormState(initialData));
+      setImagePreview(initialData?.featuredImage?.url || "");
+      setFeaturedImageFile(null);
+      setPdfFile(null);
+      setPdfPreviewUrl(initialData?.pdfMedia?.url || "");
+    });
   }, [initialData]);
 
   useEffect(() => {
     newsApi.getCategories().then(setCategories).catch(() => setCategories([]));
   }, []);
+
+  const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
+    setForm((prev) => {
+      const next = { ...prev, [key]: value };
+      if (key === "title" && (!prev.slug || prev.slug === toSlug(prev.title))) {
+        next.slug = toSlug(value as string);
+      }
+      return next;
+    });
+  };
 
   const buildPreviewArticle = (): NewsArticle | null => {
     const category = categories.find((c) => c.id === form.categoryId);
@@ -250,27 +263,19 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   useEffect(() => {
     if (!isEraNewsCategory && form.countryCode) {
-      update("countryCode", "");
+      queueMicrotask(() => update("countryCode", ""));
     }
-  }, [isEraNewsCategory]);
+  }, [isEraNewsCategory, form.countryCode]);
 
   useEffect(() => {
     if (!selectedCategory) return;
     if (!isPressReleaseCategory && (pdfFile || pdfPreviewUrl)) {
-      setPdfFile(null);
-      setPdfPreviewUrl("");
+      queueMicrotask(() => {
+        setPdfFile(null);
+        setPdfPreviewUrl("");
+      });
     }
   }, [isPressReleaseCategory, pdfFile, pdfPreviewUrl, selectedCategory]);
-
-  const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
-    setForm((prev) => {
-      const next = { ...prev, [key]: value };
-      if (key === "title" && (!prev.slug || prev.slug === toSlug(prev.title))) {
-        next.slug = toSlug(value as string);
-      }
-      return next;
-    });
-  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -337,11 +342,22 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       const saved = await newsApi.updateArticle(initialData.id, { status: "pending" });
       setPopup({ show: true, type: "success", message: "Đã gửi bài viết đi duyệt!" });
       onSave(saved);
-    } catch (err: any) {
-      const errorData = err?.data;
-      if (errorData && typeof errorData === "object" && errorData.field) {
-        setFieldErrors((prev) => ({ ...prev, [errorData.field]: errorData.message || "Dữ liệu không hợp lệ" }));
-        const element = document.getElementById(`field-${errorData.field}`);
+    } catch (err) {
+      const error = err as { status?: string; data?: unknown; message?: string };
+      const errorData = error?.data;
+      if (
+        errorData &&
+        typeof errorData === "object" &&
+        "field" in errorData &&
+        typeof (errorData as Record<string, unknown>).field === "string"
+      ) {
+        const field = (errorData as Record<string, unknown>).field as string;
+        const fieldMessage =
+          typeof (errorData as Record<string, unknown>).message === "string"
+            ? ((errorData as Record<string, unknown>).message as string)
+            : "Dữ liệu không hợp lệ";
+        setFieldErrors((prev) => ({ ...prev, [field]: fieldMessage }));
+        const element = document.getElementById(`field-${field}`);
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "center" });
           const focusable = element.querySelector('input, textarea, select, [contenteditable="true"]') as HTMLElement | null;
@@ -349,11 +365,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         }
         return;
       }
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, err?.message),
-      });
+      setShowNetworkError(true);
     } finally {
       setIsLoading(false);
     }
@@ -376,12 +388,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       const saved = await newsApi.publishArticle(initialData.id);
       setPopup({ show: true, type: "success", message: "Duyệt bài viết thành công!" });
       onSave(saved);
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, err?.message),
-      });
+    } catch (err) {
+      const error = err as { status?: string; data?: unknown; message?: string };
+      setShowNetworkError(true);
     } finally {
       setIsLoading(false);
     }
@@ -404,12 +413,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       const saved = await newsApi.revokeArticle(initialData.id);
       setPopup({ show: true, type: "success", message: "Đã hủy duyệt bài viết!" });
       onSave(saved);
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, err?.message),
-      });
+    } catch (err) {
+      const error = err as { status?: string; data?: unknown; message?: string };
+      setShowNetworkError(true);
     } finally {
       setIsLoading(false);
     }
@@ -432,12 +438,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       const saved = await newsApi.updateArticle(initialData.id, { status: "draft" });
       setPopup({ show: true, type: "success", message: "Đã từ chối duyệt bài viết!" });
       onSave(saved);
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, err?.message),
-      });
+    } catch (err) {
+      const error = err as { status?: string; data?: unknown; message?: string };
+      setShowNetworkError(true);
     } finally {
       setIsLoading(false);
     }
@@ -594,12 +597,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       });
 
       onSave(saved);
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, err?.message),
-      });
+    } catch (err) {
+      const error = err as { status?: string; data?: unknown; message?: string };
+      setShowNetworkError(true);
     } finally {
       setIsLoading(false);
     }
@@ -646,12 +646,14 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
           </Button>
         </div>
 
+        {showNetworkError && <NetworkErrorPopup onRetry={() => window.location.reload()} />}
+
         {popup.show && (
           <PopupNotification
             type={popup.type}
             message={popup.message}
             onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
-            autoClose={popup.type === "success"}
+            autoClose
             autoCloseMs={1000}
           />
         )}

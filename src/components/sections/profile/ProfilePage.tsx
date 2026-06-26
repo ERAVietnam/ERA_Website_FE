@@ -10,7 +10,7 @@ import { PasswordInput } from "@/components/ui/PasswordInput";
 import { useAuth } from "@/contexts/AuthContext";
 import { authApi } from "@/api/domains/auth";
 import { PopupNotification } from "@/components/ui/PopupNotification";
-import { getErrorMessage } from "@/lib/error-messages";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 
 interface PasswordForm {
   currentPassword: string;
@@ -34,6 +34,7 @@ export default function ProfilePage() {
     type: "success" | "error";
     message: string;
   }>({ show: false, type: "success", message: "" });
+  const [showNetworkError, setShowNetworkError] = useState(false);
 
   const update = <K extends keyof PasswordForm>(key: K, value: PasswordForm[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -80,16 +81,8 @@ export default function ProfilePage() {
       setTimeout(() => {
         router.push("/tin-tuc/quan-ly");
       }, 1200);
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(
-          err?.status,
-          err?.data,
-          "Đổi mật khẩu thất bại. Vui lòng thử lại.",
-        ),
-      });
+    } catch {
+      setShowNetworkError(true);
     } finally {
       setIsLoading(false);
     }
@@ -102,12 +95,14 @@ export default function ProfilePage() {
   return (
     <Section padding="md" bg="gray">
       <div className="max-w-2xl mx-auto space-y-6">
+        {showNetworkError && <NetworkErrorPopup onRetry={() => window.location.reload()} />}
+
         {popup.show && (
           <PopupNotification
             type={popup.type}
             message={popup.message}
             onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
-            autoClose={popup.type === "success"}
+            autoClose
           />
         )}
 

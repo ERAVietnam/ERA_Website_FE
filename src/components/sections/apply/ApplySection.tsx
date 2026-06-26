@@ -99,8 +99,15 @@ export function ApplySection() {
       setPortfolio("");
       setPosition("");
       setCvFile(null);
-    } catch (err: any) {
-      const message = err?.response?.data?.message || err?.message || "Nộp đơn thất bại. Vui lòng thử lại.";
+    } catch (err) {
+      const error = err as {
+        response?: { data?: { message?: string } };
+        message?: string;
+      };
+      const message =
+        error?.response?.data?.message ||
+        error?.message ||
+        "Nộp đơn thất bại. Vui lòng thử lại.";
       setErrors({ server: message });
     } finally {
       setIsSubmitting(false);

@@ -114,7 +114,7 @@ const privacySections: LegalSection[] = [
     content: (
       <>
         <p className="mb-4">
-          Website sử dụng "Cookies" để nâng cao trải nghiệm của bạn. Cookie là các tệp văn bản nhỏ được lưu trữ trên thiết bị của bạn giúp chúng tôi:
+          Website sử dụng &quot;Cookies&quot; để nâng cao trải nghiệm của bạn. Cookie là các tệp văn bản nhỏ được lưu trữ trên thiết bị của bạn giúp chúng tôi:
         </p>
         <ul className="list-disc pl-5 space-y-2 mb-4">
           <li>Ghi nhớ tùy chọn và cài đặt của bạn.</li>

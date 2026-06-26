@@ -155,13 +155,15 @@ export function NewsSearchBox({ query, onQueryChange, onSubmit }: NewsSearchBoxP
   useEffect(() => {
     const term = query.trim();
     if (!term) {
-      setResults([]);
-      setLoading(false);
-      setOpen(false);
+      queueMicrotask(() => {
+        setResults([]);
+        setLoading(false);
+        setOpen(false);
+      });
       return;
     }
 
-    setLoading(true);
+    queueMicrotask(() => setLoading(true));
     const timer = setTimeout(async () => {
       try {
         const data = await newsApi.getPublishedArticles({ search: term, limit: 8 });

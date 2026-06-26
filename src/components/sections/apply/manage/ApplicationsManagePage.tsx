@@ -7,8 +7,8 @@ import { ApplicationsManageForm } from "./ApplicationsManageForm";
 import { Pagination } from "@/components/ui/Pagination";
 import { recruitmentApi } from "@/api/domains/recruitment";
 import { PopupNotification } from "@/components/ui/PopupNotification";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { getErrorMessage } from "@/lib/error-messages";
 import { useAuth } from "@/contexts/AuthContext";
 import type { JobApplication, JobPosting, PaginationMeta, JobApplicationFilters, ApplicationStatus, UpdateApplicationInput } from "@/types/api";
 
@@ -43,6 +43,7 @@ export default function ApplicationsManagePage() {
     limit: DEFAULT_LIMIT,
   });
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({ show: false, id: "" });
+  const [showNetworkError, setShowNetworkError] = useState(false);
 
   const loadApplications = useCallback(async () => {
     setLoading(true);
@@ -50,14 +51,10 @@ export default function ApplicationsManagePage() {
       const response = await recruitmentApi.getApplications(filters);
       setItems(response.items);
       setMeta(response.meta);
-    } catch (err: any) {
+    } catch {
       setItems([]);
       setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Không thể tải danh sách ứng viên."),
-      });
+      setShowNetworkError(true);
     } finally {
       setLoading(false);
     }
@@ -73,11 +70,11 @@ export default function ApplicationsManagePage() {
   }, []);
 
   useEffect(() => {
-    loadApplications();
+    queueMicrotask(loadApplications);
   }, [loadApplications]);
 
   useEffect(() => {
-    loadJobs();
+    queueMicrotask(loadJobs);
   }, [loadJobs]);
 
   useEffect(() => {
@@ -93,17 +90,21 @@ export default function ApplicationsManagePage() {
 
   useEffect(() => {
     const jobPostingId = jobFilter || undefined;
-    setFilters((prev) => {
-      if (prev.jobPostingId === jobPostingId) return prev;
-      return { ...prev, jobPostingId, page: 1 };
+    queueMicrotask(() => {
+      setFilters((prev) => {
+        if (prev.jobPostingId === jobPostingId) return prev;
+        return { ...prev, jobPostingId, page: 1 };
+      });
     });
   }, [jobFilter]);
 
   useEffect(() => {
     const status = (statusFilter as ApplicationStatus) || undefined;
-    setFilters((prev) => {
-      if (prev.status === status) return prev;
-      return { ...prev, status, page: 1 };
+    queueMicrotask(() => {
+      setFilters((prev) => {
+        if (prev.status === status) return prev;
+        return { ...prev, status, page: 1 };
+      });
     });
   }, [statusFilter]);
 
@@ -128,20 +129,20 @@ export default function ApplicationsManagePage() {
       setItems((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
       setEditing(updated);
       setPopup({ show: true, type: "success", message: "Cập nhật thông tin thành công!" });
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Cập nhật thông tin thất bại. Vui lòng thử lại."),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
   const handleStatusChange = async (status: ApplicationStatus) => {
     if (!editing) return;
-    const updated = await recruitmentApi.updateApplicationStatus(editing.id, { status });
-    setItems((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
-    setEditing(updated);
+    try {
+      const updated = await recruitmentApi.updateApplicationStatus(editing.id, { status });
+      setItems((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
+      setEditing(updated);
+    } catch {
+      setShowNetworkError(true);
+    }
   };
 
   const handleLogCreate = async (data: { status?: ApplicationStatus; fromStatus?: ApplicationStatus; toStatus?: ApplicationStatus; note: string }) => {
@@ -149,12 +150,8 @@ export default function ApplicationsManagePage() {
     try {
       await recruitmentApi.createApplicationLog(editing.id, data);
       setPopup({ show: true, type: "success", message: "Lưu ghi chú thành công!" });
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Lưu ghi chú thất bại. Vui lòng thử lại."),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -175,12 +172,8 @@ export default function ApplicationsManagePage() {
         setEditing(null);
       }
       setPopup({ show: true, type: "success", message: "Xóa đơn ứng tuyển thành công!" });
-    } catch (err: any) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: getErrorMessage(err?.status, err?.data, "Xóa đơn ứng tuyển thất bại. Vui lòng thử lại."),
-      });
+    } catch {
+      setShowNetworkError(true);
     }
   };
 
@@ -230,12 +223,14 @@ export default function ApplicationsManagePage() {
           onCancel={() => setDeleteConfirm({ show: false, id: "" })}
         />
 
+        {showNetworkError && <NetworkErrorPopup onRetry={() => window.location.reload()} />}
+
         {popup.show && (
           <PopupNotification
             type={popup.type}
             message={popup.message}
             onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
-            autoClose={popup.type === "success"}
+            autoClose
             autoCloseMs={1000}
           />
         )}

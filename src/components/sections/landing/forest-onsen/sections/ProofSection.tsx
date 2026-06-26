@@ -14,8 +14,8 @@ export function ProofSection() {
             color: c.greenDeep,
           }}
         >
-          "Onsen đích thực không nằm ở nhiệt độ nước, mà ở chất lượng khoáng và sự
-          tĩnh tại."
+          &quot;Onsen đích thực không nằm ở nhiệt độ nước, mà ở chất lượng khoáng và sự
+          tĩnh tại.&quot;
         </p>
         <div className="mt-5 text-[13.5px] tracking-wider font-medium" style={{ color: c.greenSoft }}>
           KTS Tadakatsu Honda - Cố vấn khoáng nóng dự án
