@@ -89,7 +89,7 @@ function articleToFormState(article?: NewsArticle): FormState {
       source: "",
       metaTitle: "",
       metaDescription: "",
-      isIndexed: false,
+      isIndexed: true,
       canonicalUrl: "",
       displayPublishedAt: "",
       isFeatured: false,

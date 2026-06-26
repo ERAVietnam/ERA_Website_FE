@@ -3,6 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { LayoutWrapper } from "@/components/layout/LayoutWrapper";
 import { Providers } from "@/components/providers/Providers";
+import {
+  GoogleTagManagerScript,
+  GoogleTagManagerNoScript,
+} from "@/components/analytics/GoogleTagManager";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,7 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" data-scroll-behavior="smooth" className={`${inter.variable} h-full antialiased`}>
+      <GoogleTagManagerScript />
       <body className="min-h-full flex flex-col">
+        <GoogleTagManagerNoScript />
         <Providers>
           <LayoutWrapper>{children}</LayoutWrapper>
         </Providers>

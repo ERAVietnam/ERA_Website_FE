@@ -34,7 +34,9 @@ export const NewsDetailPage = memo(function NewsDetailPage({
   const encodedUrl = encodeURIComponent(pageUrl);
   const encodedTitle = encodeURIComponent(article.title);
 
-  const shareLinks = [
+  const isPressRelease = article.category.slug === "thong-cao-bao-chi";
+
+  const shareLinks =[
     { name: "Facebook", src: "/shared/fb_icon.svg", href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
     { name: "Twitter", src: "/shared/x_icon.svg", href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}` },
     { name: "LinkedIn", src: "/shared/linkedin_icon.svg", href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}` },
@@ -53,12 +55,12 @@ export const NewsDetailPage = memo(function NewsDetailPage({
       <Container size="full" className="max-w-[1200px]">
         <div
           className={`grid gap-8 lg:gap-12 ${
-            isPreview
+            isPreview || isPressRelease
               ? "grid-cols-1 max-w-[800px] mx-auto"
               : "grid-cols-1 lg:grid-cols-[minmax(0,1fr)_320px]"
           }`}
         >
-          <article className={`pt-20 md:pt-16 pb-12 ${isPreview ? "" : "lg:pl-0"}`}>
+          <article className={`pt-20 md:pt-16 pb-12 ${isPreview || isPressRelease ? "" : "lg:pl-0"}`}>
           {!isPreview && (
             /* Breadcrumb */
             <div className="mb-4 flex items-center gap-2">
@@ -251,7 +253,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
           )}
           </article>
 
-          {!isPreview && (
+          {!isPreview && !isPressRelease && (
             <aside className="hidden lg:block pt-24 md:pt-20">
               <div className="sticky top-24">
                 <ProjectsSidebar />

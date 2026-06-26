@@ -325,7 +325,7 @@ export function ProjectsManageForm({
       startYear: "",
       progress: "Đang xây dựng",
       content: "",
-      isIndexed: false,
+      isIndexed: true,
       canonicalUrl: "",
       publicationStatus: "draft",
       faqs: createEmptyFaqItems(),
