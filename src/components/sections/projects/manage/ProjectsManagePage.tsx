@@ -11,7 +11,7 @@ import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { projectsApi } from "@/api/domains/projects";
 import type { Project, ProjectPublicationStatus } from "@/types/api";
-import { PROJECT_FAQ_MAX_ITEMS, PROJECT_FAQ_MIN_ITEMS } from "@/lib/projects";
+import { PROJECT_FAQ_MAX_ITEMS, PROJECT_FAQ_MIN_ITEMS, PROJECT_TAGS } from "@/lib/projects";
 
 function apiProjectToFormData(project: Project): ProjectFormData {
   const faqs = (project.faqs ?? [])
@@ -70,6 +70,7 @@ export function ProjectsManagePage() {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [publicationFilter, setPublicationFilter] = useState<ProjectPublicationStatus | "">("");
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -94,6 +95,7 @@ export function ProjectsManagePage() {
       const data = await projectsApi.getProjects({
         search: debouncedSearch || undefined,
         publicationStatus: publicationFilter || undefined,
+        tags: selectedTags.length > 0 ? selectedTags.join(",") : undefined,
         page,
         limit: 10,
       });
@@ -104,7 +106,7 @@ export function ProjectsManagePage() {
     } finally {
       setLoading(false);
     }
-  }, [debouncedSearch, publicationFilter, page]);
+  }, [debouncedSearch, publicationFilter, selectedTags, page]);
 
   useEffect(() => {
     if (showForm) return;
@@ -340,6 +342,12 @@ export function ProjectsManagePage() {
               publicationFilter={publicationFilter}
               onPublicationFilterChange={(value) => {
                 setPublicationFilter(value);
+                setPage(1);
+              }}
+              selectedTags={selectedTags}
+              availableTags={PROJECT_TAGS}
+              onTagsChange={(tags) => {
+                setSelectedTags(tags);
                 setPage(1);
               }}
               page={page}

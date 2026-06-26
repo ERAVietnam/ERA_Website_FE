@@ -13,6 +13,7 @@ import { AdminTable } from "@/components/ui/admin/AdminTable";
 import { AdminEmptyState } from "@/components/ui/admin/AdminEmptyState";
 import { SearchInput } from "@/components/ui/admin/SearchInput";
 import { SelectField } from "@/components/ui/admin/SelectField";
+import { TagFilter } from "@/components/ui/admin/TagFilter";
 import { ViewModeToggle } from "@/components/ui/admin/ViewModeToggle";
 import { ProjectsManageActions } from "./ProjectsManageActions";
 import { Plus, FileText, X, MapPin, Building } from "lucide-react";
@@ -38,6 +39,9 @@ interface Props {
   onSearchChange: (value: string) => void;
   publicationFilter: ProjectPublicationStatus | "";
   onPublicationFilterChange: (value: ProjectPublicationStatus | "") => void;
+  selectedTags: string[];
+  availableTags: readonly string[];
+  onTagsChange: (tags: string[]) => void;
   page: number;
   totalPages: number;
   onPageChange: (page: number) => void;
@@ -59,6 +63,9 @@ export const ProjectsManageList = memo(function ProjectsManageList({
   onSearchChange,
   publicationFilter,
   onPublicationFilterChange,
+  selectedTags,
+  availableTags,
+  onTagsChange,
   page,
   totalPages,
   onPageChange,
@@ -77,6 +84,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
   const handleClearFilters = () => {
     onSearchChange("");
     onPublicationFilterChange("");
+    onTagsChange([]);
     onPageChange(1);
   };
 
@@ -117,20 +125,28 @@ export const ProjectsManageList = memo(function ProjectsManageList({
           </button>
         }
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <SearchInput
-            value={searchInput}
-            onChange={onSearchChange}
-            placeholder="Tìm theo tên dự án..."
-          />
-          <SelectField
-            value={publicationFilter}
-            onChange={(value) => {
-              onPublicationFilterChange(value as ProjectPublicationStatus | "");
-              onPageChange(1);
-            }}
-            placeholder="Tất cả trạng thái bài viết"
-            options={publicationOptions}
+        <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <SearchInput
+              value={searchInput}
+              onChange={onSearchChange}
+              placeholder="Tìm theo tên dự án..."
+            />
+            <SelectField
+              value={publicationFilter}
+              onChange={(value) => {
+                onPublicationFilterChange(value as ProjectPublicationStatus | "");
+                onPageChange(1);
+              }}
+              placeholder="Tất cả trạng thái bài viết"
+              options={publicationOptions}
+            />
+          </div>
+          <TagFilter
+            options={availableTags}
+            selected={selectedTags}
+            onChange={onTagsChange}
+            placeholder="Lọc theo tags"
           />
         </div>
       </AdminFilters>
