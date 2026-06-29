@@ -11,6 +11,7 @@ import { createArticleSchema } from "@/schemas/news.schema";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { SelectField } from "@/components/ui/admin/SelectField";
 import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { NewsPreviewDialog } from "./NewsPreviewDialog";
 import { useAuth } from "@/contexts/AuthContext";
@@ -60,6 +61,52 @@ function toSlug(str: string): string {
     .trim()
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-");
+}
+
+function extractApiFieldError(err: unknown): { field: string; message: string } | null {
+  const error = err as {
+    status?: string;
+    data?: unknown;
+    response?: { data?: unknown };
+    message?: string;
+  };
+  const payload = error?.data ?? error?.response?.data;
+  if (!payload || typeof payload !== "object") return null;
+
+  const getMessage = (field: string, rawMessage?: unknown): string => {
+    if (typeof rawMessage === "string" && rawMessage.trim()) return rawMessage;
+    if (field === "slug") return "Slug đã tồn tại ở bài đăng cũ, vui lòng đổi slug khác";
+    return "Dữ liệu không hợp lệ";
+  };
+
+  // Response body dạng: { status, data: { field, message } }
+  const nested = (payload as Record<string, unknown>).data;
+  if (
+    nested &&
+    typeof nested === "object" &&
+    "field" in nested &&
+    typeof (nested as Record<string, unknown>).field === "string"
+  ) {
+    const field = (nested as Record<string, unknown>).field as string;
+    return {
+      field,
+      message: getMessage(field, (nested as Record<string, unknown>).message),
+    };
+  }
+
+  // Hoặc dạng trực tiếp: { field, message }
+  if (
+    "field" in payload &&
+    typeof (payload as Record<string, unknown>).field === "string"
+  ) {
+    const field = (payload as Record<string, unknown>).field as string;
+    return {
+      field,
+      message: getMessage(field, (payload as Record<string, unknown>).message),
+    };
+  }
+
+  return null;
 }
 
 interface FormState {
@@ -130,6 +177,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const [featuredImageFile, setFeaturedImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>(initialData?.featuredImage?.url || "");
+  const [isDraggingImage, setIsDraggingImage] = useState(false);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string>(initialData?.pdfMedia?.url || "");
   const [categories, setCategories] = useState<NewsCategory[]>([]);
@@ -285,6 +333,26 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     }
   };
 
+  const handleDragOverImage = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDraggingImage(true);
+  };
+
+  const handleDragLeaveImage = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDraggingImage(false);
+  };
+
+  const handleDropImage = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDraggingImage(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith("image/")) {
+      setFeaturedImageFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleRemoveImage = () => {
     setFeaturedImageFile(null);
     setImagePreview("");
@@ -343,24 +411,15 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       setPopup({ show: true, type: "success", message: "Đã gửi bài viết đi duyệt!" });
       onSave(saved);
     } catch (err) {
-      const error = err as { status?: string; data?: unknown; message?: string };
-      const errorData = error?.data;
-      if (
-        errorData &&
-        typeof errorData === "object" &&
-        "field" in errorData &&
-        typeof (errorData as Record<string, unknown>).field === "string"
-      ) {
-        const field = (errorData as Record<string, unknown>).field as string;
-        const fieldMessage =
-          typeof (errorData as Record<string, unknown>).message === "string"
-            ? ((errorData as Record<string, unknown>).message as string)
-            : "Dữ liệu không hợp lệ";
-        setFieldErrors((prev) => ({ ...prev, [field]: fieldMessage }));
-        const element = document.getElementById(`field-${field}`);
+      const fieldError = extractApiFieldError(err);
+      if (fieldError) {
+        setFieldErrors((prev) => ({ ...prev, [fieldError.field]: fieldError.message }));
+        const element = document.getElementById(`field-${fieldError.field}`);
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "center" });
-          const focusable = element.querySelector('input, textarea, select, [contenteditable="true"]') as HTMLElement | null;
+          const focusable = element.querySelector(
+            'input, textarea, select, [contenteditable="true"]',
+          ) as HTMLElement | null;
           if (focusable) focusable.focus();
         }
         return;
@@ -389,7 +448,19 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       setPopup({ show: true, type: "success", message: "Duyệt bài viết thành công!" });
       onSave(saved);
     } catch (err) {
-      const error = err as { status?: string; data?: unknown; message?: string };
+      const fieldError = extractApiFieldError(err);
+      if (fieldError) {
+        setFieldErrors((prev) => ({ ...prev, [fieldError.field]: fieldError.message }));
+        const element = document.getElementById(`field-${fieldError.field}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+          const focusable = element.querySelector(
+            'input, textarea, select, [contenteditable="true"]',
+          ) as HTMLElement | null;
+          if (focusable) focusable.focus();
+        }
+        return;
+      }
       setShowNetworkError(true);
     } finally {
       setIsLoading(false);
@@ -414,7 +485,19 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       setPopup({ show: true, type: "success", message: "Đã hủy duyệt bài viết!" });
       onSave(saved);
     } catch (err) {
-      const error = err as { status?: string; data?: unknown; message?: string };
+      const fieldError = extractApiFieldError(err);
+      if (fieldError) {
+        setFieldErrors((prev) => ({ ...prev, [fieldError.field]: fieldError.message }));
+        const element = document.getElementById(`field-${fieldError.field}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+          const focusable = element.querySelector(
+            'input, textarea, select, [contenteditable="true"]',
+          ) as HTMLElement | null;
+          if (focusable) focusable.focus();
+        }
+        return;
+      }
       setShowNetworkError(true);
     } finally {
       setIsLoading(false);
@@ -439,7 +522,19 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       setPopup({ show: true, type: "success", message: "Đã từ chối duyệt bài viết!" });
       onSave(saved);
     } catch (err) {
-      const error = err as { status?: string; data?: unknown; message?: string };
+      const fieldError = extractApiFieldError(err);
+      if (fieldError) {
+        setFieldErrors((prev) => ({ ...prev, [fieldError.field]: fieldError.message }));
+        const element = document.getElementById(`field-${fieldError.field}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+          const focusable = element.querySelector(
+            'input, textarea, select, [contenteditable="true"]',
+          ) as HTMLElement | null;
+          if (focusable) focusable.focus();
+        }
+        return;
+      }
       setShowNetworkError(true);
     } finally {
       setIsLoading(false);
@@ -598,7 +693,36 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
       onSave(saved);
     } catch (err) {
-      const error = err as { status?: string; data?: unknown; message?: string };
+      const fieldError = extractApiFieldError(err);
+      if (fieldError) {
+        setFieldErrors((prev) => ({ ...prev, [fieldError.field]: fieldError.message }));
+        const element = document.getElementById(`field-${fieldError.field}`);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+          const focusable = element.querySelector(
+            'input, textarea, select, [contenteditable="true"]',
+          ) as HTMLElement | null;
+          if (focusable) focusable.focus();
+        }
+        return;
+      }
+
+      const status = (err as { status?: string; response?: { status?: number } })?.status;
+      const httpStatus = (err as { response?: { status?: number } })?.response?.status;
+      if (status === "fail.alreadyExists" || httpStatus === 409) {
+        setFieldErrors((prev) => ({
+          ...prev,
+          slug: "Slug đã tồn tại, vui lòng đổi slug khác",
+        }));
+        const element = document.getElementById("field-slug");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "center" });
+          const focusable = element.querySelector("input") as HTMLElement | null;
+          if (focusable) focusable.focus();
+        }
+        return;
+      }
+
       setShowNetworkError(true);
     } finally {
       setIsLoading(false);
@@ -764,26 +888,13 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Danh mục <span style={{ color: colors.primary.DEFAULT }}>*</span>
                 </label>
-                <div className="relative">
-                  <select
-                    value={form.categoryId}
-                    onChange={(e) => update("categoryId", e.target.value)}
-                    disabled={isReadOnly}
-                    className={`${inputBaseClass} appearance-none cursor-pointer ${fieldErrors.categoryId ? errorInputClass : ""}`}
-                  >
-                    <option value="">Chọn danh mục</option>
-                    {allowedCategories.map((cat) => (
-                      <option key={cat.id} value={cat.id}>
-                        {cat.name}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </div>
-                </div>
+                <SelectField
+                  value={form.categoryId}
+                  onChange={(value) => update("categoryId", value)}
+                  placeholder="Chọn danh mục"
+                  disabled={isReadOnly}
+                  options={allowedCategories.map((cat) => ({ value: cat.id, label: cat.name }))}
+                />
                 {fieldErrors.categoryId && <p className="mt-1 text-xs text-red-500">{fieldErrors.categoryId}</p>}
               </div>
             </div>
@@ -794,26 +905,13 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Quốc gia
                 </label>
-                <div className="relative">
-                  <select
-                    value={form.countryCode}
-                    onChange={(e) => update("countryCode", e.target.value)}
-                    disabled={isReadOnly}
-                    className={`${inputBaseClass} appearance-none cursor-pointer`}
-                  >
-                    <option value="">Chọn quốc gia</option>
-                    {COUNTRY_OPTIONS.map((c) => (
-                      <option key={c.value} value={c.value}>
-                        {c.flag} {c.label}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </div>
-                </div>
+                <SelectField
+                  value={form.countryCode}
+                  onChange={(value) => update("countryCode", value)}
+                  placeholder="Chọn quốc gia"
+                  disabled={isReadOnly}
+                  options={COUNTRY_OPTIONS.map((c) => ({ value: c.value, label: `${c.flag} ${c.label}` }))}
+                />
               </div>
             )}
 
@@ -980,7 +1078,16 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                   Không có ảnh đại diện
                 </div>
               ) : (
-                <label className="flex flex-col items-center justify-center gap-2 w-full h-32 rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors">
+                <label
+                  onDragOver={handleDragOverImage}
+                  onDragLeave={handleDragLeaveImage}
+                  onDrop={handleDropImage}
+                  className={`flex flex-col items-center justify-center gap-2 w-full h-32 rounded-xl border-2 border-dashed cursor-pointer transition-colors ${
+                    isDraggingImage
+                      ? "border-red-400 bg-red-50"
+                      : "border-gray-300 bg-gray-50 hover:bg-gray-100"
+                  }`}
+                >
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-gray-400">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                     <polyline points="17 8 12 3 7 8" />

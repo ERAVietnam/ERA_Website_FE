@@ -9,23 +9,14 @@ import { ProjectsSidebar } from "./ProjectsSidebar";
 import { getProjectImage } from "@/lib/projects";
 import type { Project } from "@/types/api";
 import { ProjectsFaqSection } from "./ProjectsFaqSection";
+import { ProjectOverviewTable } from "./ProjectOverviewTable";
+import { ExpandableProjectContent } from "./ExpandableProjectContent";
 
 interface ProjectsDetailContentSectionProps {
   project: Project;
 }
 
 export function ProjectsDetailContentSection({ project }: ProjectsDetailContentSectionProps) {
-  const infoRows = [
-    { label: "Tên dự án", value: project.projectName || project.name },
-    { label: "Chủ đầu tư", value: project.investor },
-    { label: "Hình thức sở hữu", value: project.ownership },
-    { label: "Tổng diện tích", value: project.area },
-    { label: "Mật độ xây dựng", value: project.density },
-    { label: "Quy mô phát triển", value: project.scale },
-    { label: "Thởi điểm khởi công", value: project.startYear },
-    { label: "Tiến độ", value: project.progress, highlight: true },
-  ].filter((row) => row.value);
-
   const imageUrl = getProjectImage(project);
 
   return (
@@ -51,7 +42,7 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
 
             {/* Title */}
             <h1
-              className="mb-3"
+              className="mb-5"
               style={{
                 color: colors.primary.DEFAULT,
                 fontWeight: 800,
@@ -61,54 +52,9 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
             >
               Dự án {project.name}
             </h1>
-            <p
-              className="mb-6"
-              style={{
-                color: colors.primary.navy.DEFAULT,
-                fontWeight: 700,
-                fontSize: "15px",
-              }}
-            >
-              Tổng quan dự án {project.projectName}
-            </p>
 
             {/* Info Table */}
-            {infoRows.length > 0 && (
-              <div className="rounded-xl border border-gray-100 overflow-hidden mb-8">
-                <div
-                  className="px-5 py-3 text-sm font-semibold"
-                  style={{
-                    backgroundColor: colors.gray[50],
-                    color: colors.neutral.foreground,
-                  }}
-                >
-                  Thông tin chi tiết
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2">
-                  {infoRows.map((row, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center justify-between px-5 py-3 text-sm border-b border-gray-50 last:border-b-0"
-                      style={{
-                        borderRight: i % 2 === 0 ? `1px solid ${colors.gray[50]}` : undefined,
-                      }}
-                    >
-                      <span style={{ color: colors.gray[500] }}>{row.label}</span>
-                      <span
-                        className="font-medium text-right ml-4"
-                        style={{
-                          color: row.highlight
-                            ? colors.primary.DEFAULT
-                            : colors.neutral.foreground,
-                        }}
-                      >
-                        {row.value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            <ProjectOverviewTable project={project} />
 
             {/* Main Image */}
             {imageUrl && (
@@ -125,19 +71,7 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
             )}
 
             {/* Highlight Section */}
-            {project.content && (
-              <div className="mb-8">
-                <div
-                  className="ck-content"
-                  style={{
-                    color: colors.neutral.foreground,
-                    fontSize: "15px",
-                    lineHeight: 1.8,
-                  }}
-                  dangerouslySetInnerHTML={{ __html: project.content }}
-                />
-              </div>
-            )}
+            <ExpandableProjectContent content={project.content} />
 
             <ProjectsFaqSection items={project.faqs ?? []} />
 

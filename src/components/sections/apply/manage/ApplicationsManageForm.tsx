@@ -4,7 +4,8 @@ import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import { X, Loader2, Download, Trash2, FileText, Upload, ChevronDown } from "lucide-react";
+import { X, Loader2, Download, Trash2, FileText, Upload } from "lucide-react";
+import { SelectField } from "@/components/ui/admin/SelectField";
 import { formatDateTime } from "@/lib/date";
 import { mediaApi } from "@/api/domains/media";
 import { ApplicationStatusLogDialog } from "./ApplicationStatusLogDialog";
@@ -357,22 +358,14 @@ export function ApplicationsManageForm({
             <label className={labelClass}>
               Vị trí ứng tuyển <span style={{ color: colors.primary.DEFAULT }}>*</span>
             </label>
-            <div className="relative">
-              <select
-                value={form.jobPostingId}
-                onChange={(e) => update("jobPostingId", e.target.value)}
-                disabled={!canUpdate}
-                className={`${inputClass} appearance-none cursor-pointer ${fieldErrors.jobPostingId ? errorInputClass : ""} ${!canUpdate ? "bg-gray-50" : ""}`}
-              >
-                <option value="" disabled>Chọn vị trí ứng tuyển</option>
-                {jobs.map((job) => (
-                  <option key={job.id} value={job.id}>
-                    {job.title}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" />
-            </div>
+            <SelectField
+              value={form.jobPostingId ?? ""}
+              onChange={(value) => update("jobPostingId", value)}
+              placeholder="Chọn vị trí ứng tuyển"
+              disabled={!canUpdate}
+              error={!!fieldErrors.jobPostingId}
+              options={jobs.map((job) => ({ value: job.id, label: job.title }))}
+            />
             {fieldErrors.jobPostingId && <p className="mt-1 text-xs text-red-500">{fieldErrors.jobPostingId}</p>}
           </div>
 

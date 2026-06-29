@@ -5,6 +5,7 @@ import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
+import { SelectField } from "@/components/ui/admin/SelectField";
 import Image from "next/image";
 
 const months = ["01", "02", "03", "04", "05", "06"];
@@ -48,31 +49,14 @@ function YearlyHeroSection({
             Sự kiện lớn nhất trong năm của ERA Vietnam
           </p>
           <div className="relative shrink-0">
-            <select
+            <SelectField
               value={selectedYear}
-              onChange={(e) => onChange(e.target.value)}
-              className="appearance-none text-sm text-white pr-8 pl-3 py-2.5 outline-none cursor-pointer border-0 rounded-lg w-full md:w-40"
-              style={{ backgroundColor: colors.secondary.DEFAULT }}
-            >
-              {yearlyYears.map((y) => (
-                <option key={y} value={y}>
-                  {y}
-                </option>
-              ))}
-            </select>
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white pointer-events-none"
-            >
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
+              onChange={onChange}
+              options={yearlyYears.map((y) => ({ value: y, label: y }))}
+              buttonClassName="text-sm text-white pr-8 pl-3 py-2.5 border-0 rounded-lg w-full md:w-40 outline-none"
+              buttonStyle={{ backgroundColor: colors.secondary.DEFAULT }}
+              iconClassName="text-white"
+            />
           </div>
         </div>
       </Container>

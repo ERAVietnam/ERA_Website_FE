@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { SelectField } from "@/components/ui/admin/SelectField";
 import { X, Loader2, Eye, CheckCircle, History } from "lucide-react";
 import { ApplyJobPreviewDialog } from "./ApplyJobPreviewDialog";
 import { createJobSchema } from "@/schemas/recruitment.schema";
@@ -308,17 +309,13 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
                 <label className={labelClass}>
                   Địa điểm <span style={{ color: colors.primary.DEFAULT }}>*</span>
                 </label>
-                <select
-                  className={`${inputClass} appearance-none cursor-pointer ${fieldErrors.location ? errorInputClass : ""}`}
+                <SelectField
                   value={form.location}
-                  onChange={(e) => update("location", e.target.value)}
-                >
-                  {locations.map((loc) => (
-                    <option key={loc.value} value={loc.value}>
-                      {loc.label}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(value) => update("location", value)}
+                  placeholder="Chọn địa điểm"
+                  error={!!fieldErrors.location}
+                  options={locations.slice(1)}
+                />
                 {fieldErrors.location && <p className="mt-1 text-xs text-red-500">{fieldErrors.location}</p>}
               </div>
               <div id="field-quantity">
@@ -351,17 +348,13 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
                 <label className={labelClass}>
                   Loại hình <span style={{ color: colors.primary.DEFAULT }}>*</span>
                 </label>
-                <select
-                  className={`${inputClass} appearance-none cursor-pointer ${fieldErrors.type ? errorInputClass : ""}`}
+                <SelectField
                   value={form.type}
-                  onChange={(e) => update("type", e.target.value)}
-                >
-                  {types.map((t) => (
-                    <option key={t.value} value={t.value}>
-                      {t.label}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(value) => update("type", value)}
+                  placeholder="Chọn loại hình"
+                  error={!!fieldErrors.type}
+                  options={types.slice(1)}
+                />
                 {fieldErrors.type && <p className="mt-1 text-xs text-red-500">{fieldErrors.type}</p>}
               </div>
             </div>
@@ -370,17 +363,13 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div id="field-workMode">
                 <label className={labelClass}>Hình thức làm việc</label>
-                <select
-                  className={`${inputClass} appearance-none cursor-pointer ${fieldErrors.workMode ? errorInputClass : ""}`}
+                <SelectField
                   value={form.workMode}
-                  onChange={(e) => update("workMode", e.target.value)}
-                >
-                  {workModes.map((m) => (
-                    <option key={m.value} value={m.value}>
-                      {m.label}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(value) => update("workMode", value)}
+                  placeholder="Chọn hình thức"
+                  error={!!fieldErrors.workMode}
+                  options={workModes.slice(1)}
+                />
                 {fieldErrors.workMode && <p className="mt-1 text-xs text-red-500">{fieldErrors.workMode}</p>}
               </div>
               <div id="field-experience">

@@ -5,7 +5,8 @@ import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
-import { Upload, ChevronDown } from "lucide-react";
+import { Upload } from "lucide-react";
+import { SelectField } from "@/components/ui/admin/SelectField";
 import { recruitmentApi } from "@/api/domains/recruitment";
 import { mediaApi } from "@/api/domains/media";
 import { ApplySuccessPopup } from "./ApplySuccessPopup";
@@ -244,30 +245,18 @@ export function ApplySection() {
                   >
                     Vị trí mong muốn <span className="text-red-500">*</span>
                   </label>
-                  <div className="relative">
-                    <select
-                      value={position}
-                      onChange={(e) => {
-                        setPosition(e.target.value);
-                        setErrors((prev) => ({ ...prev, position: undefined }));
-                      }}
-                      className={`${inputClass(errors.position)} appearance-none cursor-pointer`}
-                      style={{ color: position ? colors.gray[800] : colors.gray[400] }}
-                    >
-                      <option value="" disabled>
-                        Chọn vị trí ứng tuyển
-                      </option>
-                      {jobs.map((p) => (
-                        <option key={p.id} value={p.title}>
-                          {p.title}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDown
-                      size={16}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400"
-                    />
-                  </div>
+                  <SelectField
+                    value={position}
+                    onChange={(value) => {
+                      setPosition(value);
+                      setErrors((prev) => ({ ...prev, position: undefined }));
+                    }}
+                    placeholder="Chọn vị trí ứng tuyển"
+                    error={!!errors.position}
+                    emptyClassName="text-gray-400"
+                    options={jobs.map((p) => ({ value: p.title, label: p.title }))}
+                    buttonClassName={inputClass(errors.position)}
+                  />
                   {errors.position && <p className="mt-1 text-xs text-red-500">{errors.position}</p>}
                 </div>
 

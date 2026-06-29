@@ -1,3 +1,8 @@
+"use client";
+
+import { useState, useRef, useEffect, useId } from "react";
+import { ChevronDown } from "lucide-react";
+
 interface SelectOption {
   value: string;
   label: string;
@@ -9,6 +14,12 @@ interface SelectFieldProps {
   options: SelectOption[];
   placeholder?: string;
   className?: string;
+  buttonClassName?: string;
+  buttonStyle?: React.CSSProperties;
+  emptyClassName?: string;
+  iconClassName?: string;
+  disabled?: boolean;
+  error?: boolean;
 }
 
 export function SelectField({
@@ -17,26 +28,88 @@ export function SelectField({
   options,
   placeholder = "Chọn...",
   className = "",
+  buttonClassName = "",
+  buttonStyle,
+  emptyClassName = "",
+  iconClassName = "text-gray-400",
+  disabled,
+  error,
 }: SelectFieldProps) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const id = useId();
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const selectedOption = options.find((o) => o.value === value);
+  const isEmpty = !selectedOption;
+  const selectedLabel = selectedOption?.label ?? placeholder;
+
+  const baseButtonClass =
+    "w-full flex items-center justify-between rounded-lg border bg-white px-4 py-2.5 pr-9 text-sm text-left outline-none transition-colors";
+  const stateClass = error
+    ? "border-red-300 bg-red-50/30 text-gray-800 focus:border-red-400"
+    : "border-gray-200 text-gray-800 focus:border-gray-400";
+  const disabledClass = disabled ? "cursor-not-allowed bg-gray-50 text-gray-400" : "";
+
   return (
-    <div className={`relative ${className}`}>
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full cursor-pointer appearance-none rounded-lg border border-gray-200 bg-white py-2 pl-3 pr-9 text-sm text-gray-800 outline-none transition-colors focus:border-gray-400"
+    <div ref={ref} className={`relative ${className}`}>
+      <button
+        type="button"
+        id={id}
+        disabled={disabled}
+        onClick={() => setOpen((p) => !p)}
+        className={`${baseButtonClass} ${stateClass} ${disabledClass} ${buttonClassName}`}
+        style={buttonStyle}
       >
-        <option value="">{placeholder}</option>
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
-      <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
-      </div>
+        <span className={`truncate ${isEmpty ? emptyClassName : ""}`}>{selectedLabel}</span>
+        <ChevronDown
+          size={16}
+          className={`shrink-0 transition-transform ${iconClassName} ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {open && !disabled && (
+        <div className="absolute top-full left-0 right-0 z-50 mt-2 max-h-60 overflow-auto rounded-xl border border-gray-100 bg-white py-1 shadow-xl">
+          {value !== "" && (
+            <button
+              type="button"
+              onClick={() => {
+                onChange("");
+                setOpen(false);
+              }}
+              className="w-full px-4 py-2 text-left text-sm text-gray-500 hover:bg-gray-50"
+            >
+              {placeholder}
+            </button>
+          )}
+          {options.map((opt) => (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => {
+                onChange(opt.value);
+                setOpen(false);
+              }}
+              className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 ${
+                value === opt.value
+                  ? "bg-gray-50 font-medium text-gray-900"
+                  : "text-gray-700"
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

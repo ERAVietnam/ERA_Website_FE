@@ -10,7 +10,7 @@ interface ProjectsFaqSectionProps {
 }
 
 export function ProjectsFaqSection({ items }: ProjectsFaqSectionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   if (items.length === 0) return null;
 
