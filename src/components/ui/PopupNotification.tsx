@@ -19,15 +19,17 @@ export function PopupNotification({
   autoCloseMs = 3000,
 }: PopupNotificationProps) {
   const popupRef = useRef<HTMLDivElement>(null);
+  // Lỗi bắt buộc phải do ngườі dùng tự tắt; chỉ success mới tự động đóng
+  const shouldAutoClose = autoClose && type === "success";
 
   useEffect(() => {
-    if (autoClose) {
+    if (shouldAutoClose) {
       const timer = setTimeout(() => {
         onClose();
       }, autoCloseMs);
       return () => clearTimeout(timer);
     }
-  }, [autoClose, autoCloseMs, onClose]);
+  }, [shouldAutoClose, autoCloseMs, onClose]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -36,11 +38,11 @@ export function PopupNotification({
       }
     }
 
-    if (!autoClose) {
+    if (!shouldAutoClose) {
       document.addEventListener("mousedown", handleClickOutside);
       return () => document.removeEventListener("mousedown", handleClickOutside);
     }
-  }, [autoClose, onClose]);
+  }, [shouldAutoClose, onClose]);
 
   const isSuccess = type === "success";
 
@@ -54,7 +56,7 @@ export function PopupNotification({
             : "border-red-500 bg-red-50"
         }`}
       >
-        {!autoClose && (
+        {!shouldAutoClose && (
           <button
             onClick={onClose}
             className={`absolute top-3 right-3 rounded-full p-1 transition-colors ${

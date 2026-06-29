@@ -7,7 +7,10 @@ import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { X, Loader2, Download, Trash2, FileText, Upload } from "lucide-react";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import { formatDateTime } from "@/lib/date";
+import { extractApiError } from "@/lib/api-errors";
 import { mediaApi } from "@/api/domains/media";
+import { PopupNotification } from "@/components/ui/PopupNotification";
+import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ApplicationStatusLogDialog } from "./ApplicationStatusLogDialog";
 import { recruitmentApi } from "@/api/domains/recruitment";
 import type { JobApplication, JobPosting, ApplicationStatus, UpdateApplicationInput, JobApplicationLog } from "@/types/api";
@@ -83,14 +86,26 @@ export function ApplicationsManageForm({
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [logs, setLogs] = useState<JobApplicationLog[]>([]);
+  const [popup, setPopup] = useState<{ show: boolean; type: "success" | "error"; message: string }>({
+    show: false,
+    type: "error",
+    message: "",
+  });
+  const [showNetworkError, setShowNetworkError] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const loadLogs = useCallback(async () => {
     try {
       const data = await recruitmentApi.getApplicationLogs(application.id);
       setLogs(data);
-    } catch {
+    } catch (err) {
       setLogs([]);
+      const { message, isNetworkError } = extractApiError(err);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message: `Không thể tải lịch sử: ${message}` });
+      }
     }
   }, [application.id]);
 
@@ -192,6 +207,15 @@ export function ApplicationsManageForm({
       });
 
       setForm((prev) => ({ ...prev, cvFile: null }));
+    } catch (err) {
+      const { field, message, isNetworkError } = extractApiError(err);
+      if (field === "cvMediaId" || field === "file") {
+        setFieldErrors((prev) => ({ ...prev, cv: message }));
+      } else if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
     } finally {
       setIsSaving(false);
     }
@@ -221,6 +245,18 @@ export function ApplicationsManageForm({
     <div className="grid grid-cols-1 md:grid-cols-[1fr_11rem] gap-6 items-start">
       {/* Main form */}
       <div className="flex-1 min-w-0 bg-white rounded-xl border border-gray-200 p-6 shadow-sm space-y-6">
+        {showNetworkError && <NetworkErrorPopup onRetry={() => window.location.reload()} />}
+
+        {popup.show && (
+          <PopupNotification
+            type={popup.type}
+            message={popup.message}
+            onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+            autoClose
+            autoCloseMs={1000}
+          />
+        )}
+
         <div className="flex items-start justify-between">
           <h2 className="text-xl font-black" style={{ color: colors.primary.navy.DEFAULT }}>
             Chi tiết ứng viên

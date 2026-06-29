@@ -5,6 +5,7 @@ import { Section } from "@/components/ui/Section";
 import { MagazineManageList } from "./MagazineManageList";
 import { MagazineManageForm } from "./MagazineManageForm";
 import { magazinesApi } from "@/api/domains/magazines";
+import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -45,10 +46,15 @@ export default function MagazineManagePage() {
       const response = await magazinesApi.getAllMagazines(filters);
       setItems(response.items);
       setMeta(response.meta);
-    } catch {
+    } catch (err) {
       setItems([]);
       setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      setShowNetworkError(true);
+      const { message, isNetworkError } = extractApiError(err);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
     } finally {
       setLoading(false);
     }
@@ -108,8 +114,13 @@ export default function MagazineManagePage() {
       await magazinesApi.deleteMagazine(id);
       setItems((prev) => prev.filter((item) => item.id !== id));
       setPopup({ show: true, type: "success", message: "Xóa e-magazine thành công!" });
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      const { message, isNetworkError } = extractApiError(err);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
     }
   };
 
@@ -136,8 +147,13 @@ export default function MagazineManagePage() {
         setItems((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
         setPopup({ show: true, type: "success", message: "Đã gỡ e-magazine về bản nháp!" });
       }
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      const { message, isNetworkError } = extractApiError(err);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
     }
   };
 

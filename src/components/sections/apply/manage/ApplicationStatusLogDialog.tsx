@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { X, Loader2 } from "lucide-react";
 import { formatDateTime } from "@/lib/date";
+import { extractApiError } from "@/lib/api-errors";
 import { recruitmentApi } from "@/api/domains/recruitment";
 import type { JobApplicationLog, ApplicationStatus } from "@/types/api";
 
@@ -42,12 +43,14 @@ export function ApplicationStatusLogDialog({
   const [note, setNote] = useState("");
   const [logs, setLogs] = useState<JobApplicationLog[]>([]);
   const [logsLoading, setLogsLoading] = useState(false);
+  const [logsError, setLogsError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
     queueMicrotask(() => {
       setNote("");
       setLogsLoading(true);
+      setLogsError(null);
     });
     recruitmentApi
       .getApplicationLogs(applicationId)
@@ -61,7 +64,11 @@ export function ApplicationStatusLogDialog({
           ),
         );
       })
-      .catch(() => setLogs([]))
+      .catch((err) => {
+        setLogs([]);
+        const { message, isNetworkError } = extractApiError(err);
+        setLogsError(isNetworkError ? "Không thể kết nối đến máy chủ, vui lòng kiểm tra mạng." : message);
+      })
       .finally(() => setLogsLoading(false));
   }, [isOpen, applicationId, status]);
 
@@ -94,7 +101,9 @@ export function ApplicationStatusLogDialog({
 
           <div>
             <h4 className="text-sm font-semibold text-gray-700 mb-2">Lịch sử ghi chú của trạng thái này</h4>
-            {logsLoading ? (
+            {logsError ? (
+              <p className="text-sm text-red-500 py-3">{logsError}</p>
+            ) : logsLoading ? (
               <div className="flex items-center gap-2 text-sm text-gray-500 py-4">
                 <Loader2 size={14} className="animate-spin" /> Đang tải...
               </div>

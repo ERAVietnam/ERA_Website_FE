@@ -8,6 +8,7 @@ import { X, Loader2, History, Eye } from "lucide-react";
 import { newsApi } from "@/api/domains/news";
 import { mediaApi } from "@/api/domains/media";
 import { createArticleSchema } from "@/schemas/news.schema";
+import { extractApiError, showFieldError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -61,52 +62,6 @@ function toSlug(str: string): string {
     .trim()
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-");
-}
-
-function extractApiFieldError(err: unknown): { field: string; message: string } | null {
-  const error = err as {
-    status?: string;
-    data?: unknown;
-    response?: { data?: unknown };
-    message?: string;
-  };
-  const payload = error?.data ?? error?.response?.data;
-  if (!payload || typeof payload !== "object") return null;
-
-  const getMessage = (field: string, rawMessage?: unknown): string => {
-    if (typeof rawMessage === "string" && rawMessage.trim()) return rawMessage;
-    if (field === "slug") return "Slug đã tồn tại ở bài đăng cũ, vui lòng đổi slug khác";
-    return "Dữ liệu không hợp lệ";
-  };
-
-  // Response body dạng: { status, data: { field, message } }
-  const nested = (payload as Record<string, unknown>).data;
-  if (
-    nested &&
-    typeof nested === "object" &&
-    "field" in nested &&
-    typeof (nested as Record<string, unknown>).field === "string"
-  ) {
-    const field = (nested as Record<string, unknown>).field as string;
-    return {
-      field,
-      message: getMessage(field, (nested as Record<string, unknown>).message),
-    };
-  }
-
-  // Hoặc dạng trực tiếp: { field, message }
-  if (
-    "field" in payload &&
-    typeof (payload as Record<string, unknown>).field === "string"
-  ) {
-    const field = (payload as Record<string, unknown>).field as string;
-    return {
-      field,
-      message: getMessage(field, (payload as Record<string, unknown>).message),
-    };
-  }
-
-  return null;
 }
 
 interface FormState {
@@ -233,7 +188,18 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   }, [initialData]);
 
   useEffect(() => {
-    newsApi.getCategories().then(setCategories).catch(() => setCategories([]));
+    newsApi
+      .getCategories()
+      .then(setCategories)
+      .catch((err) => {
+        const { message, isNetworkError } = extractApiError(err);
+        if (isNetworkError) {
+          setShowNetworkError(true);
+        } else {
+          setPopup({ show: true, type: "error", message: `Không thể tải danh mục: ${message}` });
+        }
+        setCategories([]);
+      });
   }, []);
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
@@ -244,6 +210,19 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       }
       return next;
     });
+  };
+
+  const handleApiError = (err: unknown) => {
+    const { field, message, isNetworkError } = extractApiError(err);
+    if (field) {
+      showFieldError(field, message, setFieldErrors);
+      return;
+    }
+    if (isNetworkError) {
+      setShowNetworkError(true);
+      return;
+    }
+    setPopup({ show: true, type: "error", message });
   };
 
   const buildPreviewArticle = (): NewsArticle | null => {
@@ -411,20 +390,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       setPopup({ show: true, type: "success", message: "Đã gửi bài viết đi duyệt!" });
       onSave(saved);
     } catch (err) {
-      const fieldError = extractApiFieldError(err);
-      if (fieldError) {
-        setFieldErrors((prev) => ({ ...prev, [fieldError.field]: fieldError.message }));
-        const element = document.getElementById(`field-${fieldError.field}`);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-          const focusable = element.querySelector(
-            'input, textarea, select, [contenteditable="true"]',
-          ) as HTMLElement | null;
-          if (focusable) focusable.focus();
-        }
-        return;
-      }
-      setShowNetworkError(true);
+      handleApiError(err);
     } finally {
       setIsLoading(false);
     }
@@ -448,20 +414,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       setPopup({ show: true, type: "success", message: "Duyệt bài viết thành công!" });
       onSave(saved);
     } catch (err) {
-      const fieldError = extractApiFieldError(err);
-      if (fieldError) {
-        setFieldErrors((prev) => ({ ...prev, [fieldError.field]: fieldError.message }));
-        const element = document.getElementById(`field-${fieldError.field}`);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-          const focusable = element.querySelector(
-            'input, textarea, select, [contenteditable="true"]',
-          ) as HTMLElement | null;
-          if (focusable) focusable.focus();
-        }
-        return;
-      }
-      setShowNetworkError(true);
+      handleApiError(err);
     } finally {
       setIsLoading(false);
     }
@@ -485,20 +438,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       setPopup({ show: true, type: "success", message: "Đã hủy duyệt bài viết!" });
       onSave(saved);
     } catch (err) {
-      const fieldError = extractApiFieldError(err);
-      if (fieldError) {
-        setFieldErrors((prev) => ({ ...prev, [fieldError.field]: fieldError.message }));
-        const element = document.getElementById(`field-${fieldError.field}`);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-          const focusable = element.querySelector(
-            'input, textarea, select, [contenteditable="true"]',
-          ) as HTMLElement | null;
-          if (focusable) focusable.focus();
-        }
-        return;
-      }
-      setShowNetworkError(true);
+      handleApiError(err);
     } finally {
       setIsLoading(false);
     }
@@ -522,20 +462,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       setPopup({ show: true, type: "success", message: "Đã từ chối duyệt bài viết!" });
       onSave(saved);
     } catch (err) {
-      const fieldError = extractApiFieldError(err);
-      if (fieldError) {
-        setFieldErrors((prev) => ({ ...prev, [fieldError.field]: fieldError.message }));
-        const element = document.getElementById(`field-${fieldError.field}`);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-          const focusable = element.querySelector(
-            'input, textarea, select, [contenteditable="true"]',
-          ) as HTMLElement | null;
-          if (focusable) focusable.focus();
-        }
-        return;
-      }
-      setShowNetworkError(true);
+      handleApiError(err);
     } finally {
       setIsLoading(false);
     }
@@ -693,37 +620,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
       onSave(saved);
     } catch (err) {
-      const fieldError = extractApiFieldError(err);
-      if (fieldError) {
-        setFieldErrors((prev) => ({ ...prev, [fieldError.field]: fieldError.message }));
-        const element = document.getElementById(`field-${fieldError.field}`);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-          const focusable = element.querySelector(
-            'input, textarea, select, [contenteditable="true"]',
-          ) as HTMLElement | null;
-          if (focusable) focusable.focus();
-        }
-        return;
-      }
-
-      const status = (err as { status?: string; response?: { status?: number } })?.status;
-      const httpStatus = (err as { response?: { status?: number } })?.response?.status;
-      if (status === "fail.alreadyExists" || httpStatus === 409) {
-        setFieldErrors((prev) => ({
-          ...prev,
-          slug: "Slug đã tồn tại, vui lòng đổi slug khác",
-        }));
-        const element = document.getElementById("field-slug");
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-          const focusable = element.querySelector("input") as HTMLElement | null;
-          if (focusable) focusable.focus();
-        }
-        return;
-      }
-
-      setShowNetworkError(true);
+      handleApiError(err);
     } finally {
       setIsLoading(false);
     }
@@ -1050,10 +947,13 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
             </div>
 
             {/* Image Upload */}
-            <div>
+            <div id="field-featuredImageMediaId">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Ảnh đại diện
               </label>
+              {fieldErrors.featuredImageMediaId && (
+                <p className="mb-2 text-xs text-red-500">{fieldErrors.featuredImageMediaId}</p>
+              )}
               {imagePreview ? (
                 <div className="relative inline-block rounded-xl overflow-hidden border border-gray-200 bg-gray-100">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1140,6 +1040,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   File PDF đính kèm
                 </label>
+                {fieldErrors.pdfMediaId && (
+                  <p className="mb-2 text-xs text-red-500">{fieldErrors.pdfMediaId}</p>
+                )}
                 {pdfPreviewUrl && (
                   <div className="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
                     <div className="min-w-0 flex items-center gap-3">

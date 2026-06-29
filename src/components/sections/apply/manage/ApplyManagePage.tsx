@@ -8,6 +8,7 @@ import { ApplyJobPreviewDialog } from "./ApplyJobPreviewDialog";
 import { ApplyJobLogsDialog } from "./ApplyJobLogsDialog";
 import { Pagination } from "@/components/ui/Pagination";
 import { recruitmentApi } from "@/api/domains/recruitment";
+import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -125,16 +126,25 @@ export default function ApplyManagePage() {
   });
   const [logsDialog, setLogsDialog] = useState<{ show: boolean; logs: JobPostingLog[] }>({ show: false, logs: [] });
 
+  const handleApiError = (err: unknown) => {
+    const { message, isNetworkError } = extractApiError(err);
+    if (isNetworkError) {
+      setShowNetworkError(true);
+    } else {
+      setPopup({ show: true, type: "error", message });
+    }
+  };
+
   const fetchJobs = useCallback(async () => {
     setLoading(true);
     try {
       const response = await recruitmentApi.getJobs(filters);
       setJobs(response.items.map(jobPostingToForm));
       setMeta(response.meta);
-    } catch {
+    } catch (err) {
       setJobs([]);
       setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      setShowNetworkError(true);
+      handleApiError(err);
     } finally {
       setLoading(false);
     }
@@ -182,8 +192,8 @@ export default function ApplyManagePage() {
         setEditing(createdForm);
         setPopup({ show: true, type: "success", message: "Tạo tin tuyển dụng thành công!" });
       }
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 
@@ -200,8 +210,8 @@ export default function ApplyManagePage() {
     try {
       const logs = await recruitmentApi.getJobLogs(id);
       setLogsDialog({ show: true, logs });
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 
@@ -217,8 +227,8 @@ export default function ApplyManagePage() {
       await recruitmentApi.deleteJob(id);
       setJobs((prev) => prev.filter((j) => j.id !== id));
       setPopup({ show: true, type: "success", message: "Xóa tin tuyển dụng thành công!" });
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 
@@ -261,8 +271,8 @@ export default function ApplyManagePage() {
       }
       const label = status === "open" ? "Đăng tuyển" : status === "closed" ? "Đóng tuyển" : "Gỡ bài";
       setPopup({ show: true, type: "success", message: `${label} thành công!` });
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 

@@ -7,6 +7,7 @@ import { X, Loader2 } from "lucide-react";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { accountsApi } from "@/api/domains/accounts";
 import { createAccountSchema, updateAccountSchema } from "@/schemas/account.schema";
+import { extractApiError, showFieldError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -186,7 +187,18 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
   }, [initialData]);
 
   useEffect(() => {
-    accountsApi.getPermissions().then(setPermissions).catch(() => setPermissions([]));
+    accountsApi
+      .getPermissions()
+      .then(setPermissions)
+      .catch((err) => {
+        const { message, isNetworkError } = extractApiError(err);
+        if (isNetworkError) {
+          setShowNetworkError(true);
+        } else {
+          setPopup({ show: true, type: "error", message: `Không thể tải danh sách quyền: ${message}` });
+        }
+        setPermissions([]);
+      });
   }, []);
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
@@ -346,8 +358,15 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
           : "Tạo tài khoản thành công!",
       });
       onSave(saved);
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      const { field, message, isNetworkError } = extractApiError(err);
+      if (field) {
+        showFieldError(field, message, setFieldErrors);
+      } else if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
     } finally {
       setIsLoading(false);
     }

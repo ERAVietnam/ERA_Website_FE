@@ -9,6 +9,7 @@ import { Upload } from "lucide-react";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import { recruitmentApi } from "@/api/domains/recruitment";
 import { mediaApi } from "@/api/domains/media";
+import { extractApiError } from "@/lib/api-errors";
 import { ApplySuccessPopup } from "./ApplySuccessPopup";
 import type { JobPosting } from "@/types/api";
 
@@ -101,15 +102,8 @@ export function ApplySection() {
       setPosition("");
       setCvFile(null);
     } catch (err) {
-      const error = err as {
-        response?: { data?: { message?: string } };
-        message?: string;
-      };
-      const message =
-        error?.response?.data?.message ||
-        error?.message ||
-        "Nộp đơn thất bại. Vui lòng thử lại.";
-      setErrors({ server: message });
+      const { message, isNetworkError } = extractApiError(err);
+      setErrors({ server: isNetworkError ? "Không thể kết nối đến máy chủ, vui lòng kiểm tra mạng và thử lại." : message });
     } finally {
       setIsSubmitting(false);
     }
