@@ -4,9 +4,20 @@ import { useState } from "react";
 import { projectInfo } from "../data";
 import { c } from "../theme";
 import { submitLead } from "../lib/submit-lead";
+import { SelectField } from "@/components/ui/admin/SelectField";
+
+const PRODUCT_OPTIONS = [
+  { value: "3PN trực diện Hồ Thiên Nga", label: "3PN trực diện Hồ Thiên Nga" },
+  { value: "Garden Villa", label: "Garden Villa" },
+  { value: "Duplex / Mezza", label: "Duplex / Mezza" },
+  { value: "Penthouse", label: "Penthouse" },
+  { value: "Căn hộ 1PN - 2PN", label: "Căn hộ 1PN - 2PN" },
+  { value: "Chưa xác định", label: "Chưa xác định" },
+];
 
 export function FinalCtaSection() {
   const [isLoading, setIsLoading] = useState(false);
+  const [sanpham, setSanpham] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,7 +27,7 @@ export function FinalCtaSection() {
       await submitLead({
         hoten: (form.hoten as HTMLInputElement).value,
         sdt: (form.sdt as HTMLInputElement).value,
-        sanpham: (form.sanpham as HTMLSelectElement).value,
+        sanpham,
         formId: "FORM4",
       });
       window.location.href = "/thank-you-eco-retreat";
@@ -116,23 +127,16 @@ export function FinalCtaSection() {
               <label className="block text-xs font-medium mb-1 tracking-wide" style={{ color: c.inkSoft }}>
                 Dòng sản phẩm quan tâm
               </label>
-              <select
-                name="sanpham"
-                required
-                defaultValue=""
-                className="w-full px-4 py-3 rounded-lg border text-[15px] transition-all focus:outline-none focus:ring-2"
-                style={{ borderColor: c.line }}
-              >
-                <option value="" disabled>
-                  Chọn dòng sản phẩm
-                </option>
-                <option>3PN trực diện Hồ Thiên Nga</option>
-                <option>Garden Villa</option>
-                <option>Duplex / Mezza</option>
-                <option>Penthouse</option>
-                <option>Căn hộ 1PN - 2PN</option>
-                <option>Chưa xác định</option>
-              </select>
+              <SelectField
+                value={sanpham}
+                onChange={setSanpham}
+                placeholder="Chọn dòng sản phẩm"
+                options={PRODUCT_OPTIONS}
+                emptyClassName="text-gray-400"
+                buttonClassName="w-full px-4 py-3 rounded-lg border bg-white text-[15px] transition-all focus:outline-none focus:ring-2"
+                buttonStyle={{ borderColor: c.line }}
+              />
+              <input type="hidden" name="sanpham" value={sanpham} />
             </div>
             <button
               type="submit"

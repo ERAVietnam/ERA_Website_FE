@@ -92,13 +92,17 @@ export default function VeChungToi() {
 - `lib/*.ts` → Pure TypeScript, **không cần** directive
 
 ### Landing Page Pattern
-- Mỗi landing page nằm trong `components/sections/landing/<project>/`
+- Landing page routes nằm trong `app/(landing)/<slug>/page.tsx` để chia sẻ layout/tracking scripts qua route group.
+- Components landing page nằm trong `components/sections/landing/<project>/`.
 - Cấu trúc chuẩn:
   ```
-  landing/<project>/
-  ├── page.tsx              # Export metadata + render landing component
+  app/(landing)/
+  └── <slug>/
+      └── page.tsx            # Export metadata + render landing component
+
+  components/sections/landing/<project>/
   ├── index.tsx             # Re-export
-  ├── ForestOnsenLanding.tsx # Compose các sections
+  ├── <Project>Landing.tsx  # Compose các sections
   ├── theme.ts              # Color tokens dùng riêng cho landing
   ├── data.ts               # Mock data (units, faq, infrastructure...)
   └── sections/             # Mỗi section 1 file (Navbar, Hero, ...)
@@ -129,7 +133,8 @@ export default function VeChungToi() {
 | `src/components/ui/Pagination.tsx` | Phân trang |
 | `src/components/ui/PasswordInput.tsx` | Input mật khẩu có toggle ẩn/hiện |
 | `src/components/ui/PopupNotification.tsx` | Thông báo popup |
-| `src/components/ui/admin/*` | Shared admin list UI: `AdminListHeader`, `AdminFilters`, `AdminLoading`, `AdminTable`, `AdminEmptyState`, `SearchInput`, `SelectField`, `ViewModeToggle` |
+| `src/components/ui/NetworkErrorPopup.tsx` | Popup lỗi mạng duy nhất, thay thế các thông báo lỗi chung |
+| `src/components/ui/admin/*` | Shared admin list UI: `AdminListHeader`, `AdminFilters`, `AdminLoading`, `AdminTable`, `AdminEmptyState`, `SearchInput`, `SelectField`, `TagFilter`, `ViewModeToggle` |
 | `src/components/shared/CountryFlag.tsx` | Inline SVG country flag component |
 | `src/components/sections/news/manage/NewsManageActions.tsx` | Shared news admin action buttons (table/card layouts) |
 
@@ -231,7 +236,7 @@ const nextConfig = {
 | File | Mô tả |
 |------|-------|
 | `src/app/robots.ts` | Cho phép crawl toàn bộ, chặn `/quan-ly` routes |
-| `src/app/sitemap.ts` | Static URLs + dynamic project detail URLs từ API |
+| `src/app/sitemap.ts` | Static URLs + dynamic project detail URLs từ API. Chỉ đưa project/news có `isIndexed === true` vào sitemap. |
 | `src/app/layout.tsx` | Google site verification: `k7gJl-mR813vH7LjJj1wD4B23PDH4N-F_bEW9pHylmc` |
 
 **Trạng thái:**
@@ -241,7 +246,20 @@ const nextConfig = {
 
 ---
 
-## 7.2 Backend Integration
+## 7.2 Analytics & Tracking
+
+| File | Mô tả |
+|------|-------|
+| `src/components/analytics/GoogleTagManager.tsx` | GTM noscript fallback. Script GTM chính được inject trong `<head>` của `layout.tsx` qua `NEXT_PUBLIC_GTM_ID`. |
+| `src/components/analytics/MgidSensor.tsx` | MGID Sensor script, tự động áp dụng cho mọi landing page trong route group `(landing)`. |
+
+### Landing page tracking
+- Landing pages nằm trong `src/app/(landing)/` để chia sẻ layout/tracking scripts.
+- MGID hiện chạy trên `/duan-canho-forest-onsen/` và `/thank-you-eco-retreat/`, dễ mở rộng cho landing mới.
+
+---
+
+## 7.3 Backend Integration
 
 ### Tech Stack
 | Layer | Công nghệ |
@@ -287,7 +305,7 @@ const nextConfig = {
 
 ---
 
-## 7.3 Project Module
+## 7.4 Project Module
 
 ### Public pages
 - `/du-an` tải danh sách dự án đã publish từ API và hỗ trợ tìm kiếm.
@@ -296,11 +314,16 @@ const nextConfig = {
 - Nhấn Enter hoặc nút `TÌM` điều hướng về `/du-an/?search=...`.
 - `/du-an/[slug]` dùng ISR (`revalidate = 300`), metadata động và chỉ lấy project đã publish.
 
+### Admin pages
+- `/du-an/quan-ly/` quản lý dự án với bộ lọc tìm kiếm theo tên, trạng thái xuất bản và **tags đa lựa chọn** (`TagFilter`).
+- Tags filter gửi query `tags=tag1,tag2` về API; BE dùng `hasEvery` để lọc dự án chứa tất cả tag đã chọn.
+
 ### Project form
 - `location` trên API vẫn là một chuỗi.
 - UI tách thành dropdown 34 tỉnh/thành bắt buộc và địa chỉ chi tiết không bắt buộc.
 - Trước khi gửi API, FE ghép thành `Tỉnh/Thành phố, địa chỉ chi tiết`.
 - Project dùng `tags: string[]` thay cho các field type/status cũ.
+- Form tạo/sửa dự án hiển thị đầy đủ 10 tags từ `PROJECT_TAGS`.
 
 ### Project FAQ
 - Mỗi project bắt buộc có từ 2 đến 5 FAQ.
@@ -403,11 +426,12 @@ Các module news, projects, recruitment và magazines đã lấy dữ liệu t�
 | Issue | File | Mức độ | Ghi chú |
 |-------|------|--------|---------|
 | `setState` trong `useEffect` | `ApplyGalleryModal.tsx:33` | Medium | Có thể gây cascading renders |
-| `any` type | `RichEditor.tsx`, `Button.tsx:forwardRef` | Medium | Cần thay bằng proper types |
 | `<img>` thay vì `<Image>` | `Footer.tsx` (BCT logo ×2) | Low | BCT logo không cần optimize |
 | `no-unescaped-entities` | `ProjectsDetailContentSection.tsx`, `ProjectsManageList.tsx` | Low | `"` nên escape thành `&quot;` |
 | Unused imports | `NewsManagePage.tsx` (colors), nhiều file khác | Low | Dọn dẹp định kỳ |
 | Turbopack panic `/tuyen-dung/` | Dev server only | Low | Xóa `.next` và chạy lại nếu gặp |
+| `any` type | `RichEditor.tsx`, `Button.tsx:forwardRef` | Done | Đã thay bằng proper types |
+| Popup lỗi chung | Nhiều file | Done | Đã thay bằng `NetworkErrorPopup` |
 | Dead code removed | May 2026 | Done | Đã xóa `Badge.tsx`, `SectionTitle.tsx`, `ImagePlaceholder.tsx`, `CompassCollabSection.tsx`, `CompassLoadingAnimation.tsx`, 12 CKEditor sub-packages, `themeClasses`, `cssVariables`, `color()`, `getRoute()`, `RouteKey` |
 
 ---
@@ -419,7 +443,7 @@ Các module news, projects, recruitment và magazines đã lấy dữ liệu t�
   - `AdminListHeader` cho header tiêu đề + subtitle + nút tạo
   - `AdminFilters` cho panel bộ lọc
   - `AdminLoading`, `AdminTable`, `AdminEmptyState` cho trạng thái list
-  - `SearchInput` / `SelectField` cho controls lọc
+  - `SearchInput` / `SelectField` / `TagFilter` cho controls lọc
   - `ViewModeToggle` cho chuyển đổi table/card view
 
 ### News actions
