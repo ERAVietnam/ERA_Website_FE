@@ -24,6 +24,7 @@ import {
 import { SelectField } from "@/components/ui/admin/SelectField";
 import { recruitmentApi } from "@/api/domains/recruitment";
 import { mediaApi } from "@/api/domains/media";
+import { extractApiError } from "@/lib/api-errors";
 import { ApplySuccessPopup } from "./ApplySuccessPopup";
 import type { JobFormData } from "./manage/ApplyManageForm";
 import type { JobPosting } from "@/types/api";
@@ -359,15 +360,8 @@ function JobApplyForm({
       setSuccess(true);
       setName(""); setPhone(""); setEmail(""); setPortfolio(""); setPosition(defaultPosition ?? ""); setCvFile(null);
     } catch (err) {
-      const error = err as {
-        response?: { data?: { message?: string } };
-        message?: string;
-      };
-      const message =
-        error?.response?.data?.message ||
-        error?.message ||
-        "Có lỗi xảy ra, vui lòng thử lại.";
-      setErrors({ server: message });
+      const { message, isNetworkError } = extractApiError(err);
+      setErrors({ server: isNetworkError ? "Không thể kết nối đến máy chủ, vui lòng kiểm tra mạng và thử lại." : message });
     } finally {
       setIsSubmitting(false);
     }

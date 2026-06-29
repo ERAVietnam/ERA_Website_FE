@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { ChevronDown, X, Loader2, Eye, History } from "lucide-react";
 import { mediaApi } from "@/api/domains/media";
 import { projectsApi } from "@/api/domains/projects";
+import { extractApiError } from "@/lib/api-errors";
 import { compressImage } from "@/lib/imageCompression";
 import { createProjectSchema, projectDetailsSchema } from "@/schemas/projects.schema";
 import { useAuth } from "@/contexts/AuthContext";
@@ -544,7 +545,7 @@ export function ProjectsManageForm({
       setIsEditingFaqs(false);
       showPopup("success", "Cập nhật câu hỏi thường gặp thành công!");
     } catch (err) {
-      showNetworkErrorPopup();
+      handleApiError(err);
     } finally {
       setIsSavingFaqs(false);
     }
@@ -553,7 +554,26 @@ export function ProjectsManageForm({
   const showPopup = (type: "success" | "error", message: string) => {
     setPopup({ show: true, type, message });
   };
-  const showNetworkErrorPopup = () => setShowNetworkError(true);
+  const handleApiError = (err: unknown) => {
+    const { field, message, isNetworkError } = extractApiError(err);
+    if (isNetworkError) {
+      setShowNetworkError(true);
+      return;
+    }
+    if (field) {
+      setFieldErrors((prev) => ({ ...prev, [field]: message }));
+      const element = document.getElementById(`field-${field}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        const focusable = element.querySelector(
+          "input, textarea, select, [contenteditable='true']"
+        ) as HTMLElement | null;
+        if (focusable) focusable.focus();
+      }
+      return;
+    }
+    showPopup("error", message);
+  };
 
   const handleCancelRequest = () => {
     if (isDirty || isFaqDirty) {
@@ -594,7 +614,7 @@ export function ProjectsManageForm({
       showPopup("success", successMessage);
       onActionDone?.(project);
     } catch (err) {
-      showNetworkErrorPopup();
+      handleApiError(err);
     } finally {
       setIsProcessing(false);
     }

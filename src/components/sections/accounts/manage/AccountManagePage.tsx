@@ -6,6 +6,7 @@ import { AccountManageList } from "./AccountManageList";
 import { AccountManageForm } from "./AccountManageForm";
 import { Pagination } from "@/components/ui/Pagination";
 import { accountsApi } from "@/api/domains/accounts";
+import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -43,10 +44,15 @@ export default function AccountManagePage() {
       const response = await accountsApi.getAccounts(filters);
       setItems(response.items);
       setMeta(response.meta);
-    } catch {
+    } catch (err) {
       setItems([]);
       setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      setShowNetworkError(true);
+      const { message, isNetworkError } = extractApiError(err);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
     } finally {
       setLoading(false);
     }
@@ -101,8 +107,13 @@ export default function AccountManagePage() {
           message: "Xóa tài khoản thành công!",
         });
       })
-      .catch(() => {
-        setShowNetworkError(true);
+      .catch((err) => {
+        const { message, isNetworkError } = extractApiError(err);
+        if (isNetworkError) {
+          setShowNetworkError(true);
+        } else {
+          setPopup({ show: true, type: "error", message });
+        }
       });
   };
 

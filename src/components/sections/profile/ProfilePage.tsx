@@ -9,6 +9,7 @@ import { User, Loader2, Lock, ChevronDown } from "lucide-react";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { useAuth } from "@/contexts/AuthContext";
 import { authApi } from "@/api/domains/auth";
+import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 
@@ -81,8 +82,15 @@ export default function ProfilePage() {
       setTimeout(() => {
         router.push("/tin-tuc/quan-ly");
       }, 1200);
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      const { field, message, isNetworkError } = extractApiError(err);
+      if (field) {
+        setFieldErrors((prev) => ({ ...prev, [field]: message }));
+      } else if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
     } finally {
       setIsLoading(false);
     }

@@ -6,6 +6,7 @@ import { colors } from "@/lib/theme";
 import { X, Loader2, FileText, ImageIcon, CheckCircle, RotateCcw } from "lucide-react";
 import { mediaApi } from "@/api/domains/media";
 import { magazinesApi } from "@/api/domains/magazines";
+import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -136,6 +137,27 @@ export function MagazineManageForm({ initialData, onSave, onCancel }: Props) {
     onCancel();
   };
 
+  const handleApiError = (err: unknown) => {
+    const { field, message, isNetworkError } = extractApiError(err);
+    if (isNetworkError) {
+      setShowNetworkError(true);
+      return;
+    }
+    if (field) {
+      const mappedField =
+        field === "pdfMediaId" ? "pdf" : field === "coverImageMediaId" ? "cover" : field;
+      setFieldErrors((prev) => ({ ...prev, [mappedField]: message }));
+      const element = document.getElementById(`field-${mappedField}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        const focusable = element.querySelector("input, textarea, select") as HTMLElement | null;
+        if (focusable) focusable.focus();
+      }
+      return;
+    }
+    setPopup({ show: true, type: "error", message });
+  };
+
   const validate = (): boolean => {
     const errors: Record<string, string> = {};
     if (!form.title.trim()) errors.title = "Vui lòng nhập tiêu đề";
@@ -186,8 +208,8 @@ export function MagazineManageForm({ initialData, onSave, onCancel }: Props) {
       });
 
       onSave(saved);
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     } finally {
       setIsLoading(false);
     }
@@ -231,8 +253,8 @@ export function MagazineManageForm({ initialData, onSave, onCancel }: Props) {
       });
 
       onSave(saved);
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     } finally {
       setIsLoading(false);
     }

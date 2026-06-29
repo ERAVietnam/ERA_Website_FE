@@ -8,6 +8,7 @@ import { NewsPreviewDialog } from "./NewsPreviewDialog";
 import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { Pagination } from "@/components/ui/Pagination";
 import { newsApi } from "@/api/domains/news";
+import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -78,10 +79,15 @@ export default function NewsManagePage() {
       const response = await newsApi.getArticles(filters);
       setItems(response.items);
       setMeta(response.meta);
-    } catch {
+    } catch (err) {
       setItems([]);
       setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      setShowNetworkError(true);
+      const { message, isNetworkError } = extractApiError(err);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
     } finally {
       setLoading(false);
     }
@@ -92,7 +98,18 @@ export default function NewsManagePage() {
   }, [fetchItems]);
 
   useEffect(() => {
-    newsApi.getCategories().then(setCategories).catch(() => setCategories([]));
+    newsApi
+      .getCategories()
+      .then(setCategories)
+      .catch((err) => {
+        const { message, isNetworkError } = extractApiError(err);
+        if (isNetworkError) {
+          setShowNetworkError(true);
+        } else {
+          setPopup({ show: true, type: "error", message: `Không thể tải danh mục: ${message}` });
+        }
+        setCategories([]);
+      });
   }, []);
 
   useEffect(() => {
@@ -131,8 +148,13 @@ export default function NewsManagePage() {
       setEditing(article);
       setIsViewing(false);
       setShowForm(true);
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      const { message, isNetworkError } = extractApiError(err);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
     }
   };
 
@@ -142,8 +164,13 @@ export default function NewsManagePage() {
       setEditing(article);
       setIsViewing(true);
       setShowForm(true);
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      const { message, isNetworkError } = extractApiError(err);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
     }
   };
 
@@ -151,8 +178,13 @@ export default function NewsManagePage() {
     try {
       const article = await newsApi.getArticleById(id);
       setPreviewArticle(article);
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      const { message, isNetworkError } = extractApiError(err);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
     }
   };
 
@@ -174,8 +206,13 @@ export default function NewsManagePage() {
           message: "Xóa bài viết thành công!",
         });
       })
-      .catch(() => {
-        setShowNetworkError(true);
+      .catch((err) => {
+        const { message, isNetworkError } = extractApiError(err);
+        if (isNetworkError) {
+          setShowNetworkError(true);
+        } else {
+          setPopup({ show: true, type: "error", message });
+        }
       });
   };
 
@@ -213,8 +250,13 @@ export default function NewsManagePage() {
           setPopup({ show: true, type: "success", message: "Đã từ chối duyệt bài viết!" });
         }
         refreshItems();
-      } catch {
-        setShowNetworkError(true);
+      } catch (err) {
+        const { message, isNetworkError } = extractApiError(err);
+        if (isNetworkError) {
+          setShowNetworkError(true);
+        } else {
+          setPopup({ show: true, type: "error", message });
+        }
       } finally {
         setActionLoading(null);
       }

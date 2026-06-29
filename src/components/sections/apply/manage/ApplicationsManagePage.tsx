@@ -6,6 +6,7 @@ import { ApplicationsManageList } from "./ApplicationsManageList";
 import { ApplicationsManageForm } from "./ApplicationsManageForm";
 import { Pagination } from "@/components/ui/Pagination";
 import { recruitmentApi } from "@/api/domains/recruitment";
+import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -45,16 +46,25 @@ export default function ApplicationsManagePage() {
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({ show: false, id: "" });
   const [showNetworkError, setShowNetworkError] = useState(false);
 
+  const handleApiError = (err: unknown) => {
+    const { message, isNetworkError } = extractApiError(err);
+    if (isNetworkError) {
+      setShowNetworkError(true);
+    } else {
+      setPopup({ show: true, type: "error", message });
+    }
+  };
+
   const loadApplications = useCallback(async () => {
     setLoading(true);
     try {
       const response = await recruitmentApi.getApplications(filters);
       setItems(response.items);
       setMeta(response.meta);
-    } catch {
+    } catch (err) {
       setItems([]);
       setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      setShowNetworkError(true);
+      handleApiError(err);
     } finally {
       setLoading(false);
     }
@@ -64,8 +74,14 @@ export default function ApplicationsManagePage() {
     try {
       const response = await recruitmentApi.getJobs({ limit: 1000 });
       setJobs(response.items);
-    } catch {
+    } catch (err) {
       setJobs([]);
+      const { message, isNetworkError } = extractApiError(err);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message: `Không thể tải danh sách vị trí: ${message}` });
+      }
     }
   }, []);
 
@@ -129,8 +145,8 @@ export default function ApplicationsManagePage() {
       setItems((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
       setEditing(updated);
       setPopup({ show: true, type: "success", message: "Cập nhật thông tin thành công!" });
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 
@@ -140,8 +156,8 @@ export default function ApplicationsManagePage() {
       const updated = await recruitmentApi.updateApplicationStatus(editing.id, { status });
       setItems((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
       setEditing(updated);
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 
@@ -150,8 +166,8 @@ export default function ApplicationsManagePage() {
     try {
       await recruitmentApi.createApplicationLog(editing.id, data);
       setPopup({ show: true, type: "success", message: "Lưu ghi chú thành công!" });
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 
@@ -172,8 +188,8 @@ export default function ApplicationsManagePage() {
         setEditing(null);
       }
       setPopup({ show: true, type: "success", message: "Xóa đơn ứng tuyển thành công!" });
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 

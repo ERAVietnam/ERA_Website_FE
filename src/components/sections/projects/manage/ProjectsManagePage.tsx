@@ -10,6 +10,7 @@ import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { projectsApi } from "@/api/domains/projects";
+import { extractApiError } from "@/lib/api-errors";
 import type { Project, ProjectPublicationStatus } from "@/types/api";
 import { PROJECT_FAQ_MAX_ITEMS, PROJECT_FAQ_MIN_ITEMS, PROJECT_TAGS } from "@/lib/projects";
 
@@ -82,11 +83,15 @@ export function ProjectsManagePage() {
   }, [searchInput]);
 
   const showPopup = (type: "success" | "error", message: string) => {
-    if (type === "error") {
-      setShowNetworkError(true);
-      return;
-    }
     setPopup({ show: true, type, message });
+  };
+  const handleApiError = (err: unknown) => {
+    const { message, isNetworkError } = extractApiError(err);
+    if (isNetworkError) {
+      setShowNetworkError(true);
+    } else {
+      showPopup("error", message);
+    }
   };
 
   const fetchProjects = useCallback(async () => {
@@ -101,8 +106,8 @@ export function ProjectsManagePage() {
       });
       setProjects(data.items);
       setTotalPages(data.meta.totalPages);
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     } finally {
       setLoading(false);
     }
@@ -152,8 +157,8 @@ export function ProjectsManagePage() {
 
       setEditing(apiProjectToFormData(saved));
       fetchProjects();
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     } finally {
       setSaving(false);
     }
@@ -164,8 +169,8 @@ export function ProjectsManagePage() {
       const detail = await projectsApi.getProjectById(project.id);
       setEditing(apiProjectToFormData(detail));
       setShowForm(true);
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 
@@ -182,8 +187,8 @@ export function ProjectsManagePage() {
           await projectsApi.deleteProject(id);
           showPopup("success", "Xóa dự án thành công!");
           fetchProjects();
-        } catch {
-          setShowNetworkError(true);
+        } catch (err) {
+          handleApiError(err);
         }
       },
     });
@@ -228,8 +233,8 @@ export function ProjectsManagePage() {
           await action(id);
           showPopup("success", successMessage);
           fetchProjects();
-        } catch {
-          setShowNetworkError(true);
+        } catch (err) {
+          handleApiError(err);
         }
       },
     });
@@ -286,8 +291,8 @@ export function ProjectsManagePage() {
   const handleListPreview = async (project: Project) => {
     try {
       setPreviewProject(await projectsApi.getProjectById(project.id));
-    } catch {
-      setShowNetworkError(true);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 

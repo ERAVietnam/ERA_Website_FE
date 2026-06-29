@@ -5,6 +5,7 @@ import { X, Loader2 } from "lucide-react";
 import { projectsApi } from "@/api/domains/projects";
 import { colors } from "@/lib/theme";
 import { formatDateTime } from "@/lib/date";
+import { extractApiError } from "@/lib/api-errors";
 import type { ProjectLog } from "@/types/api";
 
 interface ProjectHistoryDialogProps {
@@ -38,7 +39,10 @@ export function ProjectHistoryDialog({ projectId, isOpen, onClose }: ProjectHist
     projectsApi
       .getProjectLogs(projectId)
       .then((data) => setLogs(data))
-      .catch(() => setError("Không thể tải lịch sử dự án."))
+      .catch((err) => {
+        const { message, isNetworkError } = extractApiError(err);
+        setError(isNetworkError ? "Không thể kết nối đến máy chủ, vui lòng kiểm tra mạng." : message);
+      })
       .finally(() => setLoading(false));
   }, [isOpen, projectId]);
 
