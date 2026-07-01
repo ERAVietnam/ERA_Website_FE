@@ -14,6 +14,7 @@ import { getArticleImage } from "@/lib/news";
 import { extractHeadings } from "@/lib/toc";
 import { NewsTableOfContents } from "./NewsTableOfContents";
 import { FileText } from "lucide-react";
+import { NewsFaqSection } from "./NewsFaqSection";
 import type { NewsArticle } from "@/types/api";
 
 interface NewsDetailPageProps {
@@ -150,6 +151,8 @@ export const NewsDetailPage = memo(function NewsDetailPage({
             }}
             dangerouslySetInnerHTML={{ __html: processedContent }}
           />
+
+          <NewsFaqSection items={article.faqs ?? []} />
 
           {article.pdfMedia && (
             <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">

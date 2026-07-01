@@ -18,6 +18,8 @@ import {
   ImageTextAlternative,
   Heading,
   FontColor,
+  FontBackgroundColor,
+  Underline,
   Indent,
   IndentBlock,
   WordCount,
@@ -26,6 +28,8 @@ import {
   Table,
   TableToolbar,
   TableColumnResize,
+  TableCellProperties,
+  TableProperties,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import type { EditorConfig, PluginConstructor, Editor } from "@ckeditor/ckeditor5-core";
@@ -120,9 +124,13 @@ class CustomEditor extends ClassicEditor {
     WordCount,
     Undo,
     Alignment,
+    Underline,
+    FontBackgroundColor,
     Table,
     TableToolbar,
     TableColumnResize,
+    TableCellProperties,
+    TableProperties,
     CustomUploadAdapterPlugin,
   ] as PluginConstructor[];
 
@@ -133,7 +141,9 @@ class CustomEditor extends ClassicEditor {
       "|",
       "bold",
       "italic",
+      "underline",
       "fontColor",
+      "fontBackgroundColor",
       "|",
       "link",
       "imageUpload",
@@ -157,7 +167,14 @@ class CustomEditor extends ClassicEditor {
       ],
     },
     table: {
-      contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
+      contentToolbar: [
+        "tableColumn",
+        "tableRow",
+        "mergeTableCells",
+        "|",
+        "tableCellProperties",
+        "tableProperties",
+      ],
       columnResize: { unit: "px" },
     },
   } as EditorConfig;
@@ -178,6 +195,8 @@ class PlainEditor extends ClassicEditor {
     WordCount,
     Undo,
     Alignment,
+    Underline,
+    FontBackgroundColor,
   ] as PluginConstructor[];
 
   static defaultConfig = {
@@ -263,7 +282,9 @@ export default function RichEditor({
     ? [
         "bold",
         "italic",
+        "underline",
         "fontColor",
+        "fontBackgroundColor",
         "|",
         "bulletedList",
         "numberedList",
@@ -278,7 +299,8 @@ export default function RichEditor({
         "|",
         "bold",
         "italic",
-        ...(disableFontColor ? [] : ["fontColor"]),
+        "underline",
+        ...(disableFontColor ? [] : ["fontColor", "fontBackgroundColor"]),
         "|",
         "link",
         ...(disableImage ? [] : ["imageUpload"]),

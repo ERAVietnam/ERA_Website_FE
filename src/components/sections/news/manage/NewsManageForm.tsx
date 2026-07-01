@@ -8,6 +8,7 @@ import { X, Loader2, History, Eye } from "lucide-react";
 import { newsApi } from "@/api/domains/news";
 import { mediaApi } from "@/api/domains/media";
 import { createArticleSchema } from "@/schemas/news.schema";
+import { NEWS_FAQ_MIN_ITEMS, NEWS_FAQ_MAX_ITEMS, validateNewsFaqs } from "@/lib/news";
 import { extractApiError, showFieldError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
@@ -20,7 +21,7 @@ import { getNewsScopeBySlug } from "@/lib/permissions";
 import { compressImage } from "@/lib/imageCompression";
 import { COUNTRY_OPTIONS } from "@/lib/country";
 import { newsStatusConfig } from "@/lib/news/status";
-import type { NewsCategory, NewsArticle } from "@/types/api";
+import type { NewsCategory, NewsArticle, NewsFaqInput } from "@/types/api";
 
 
 
@@ -78,6 +79,7 @@ interface FormState {
   displayPublishedAt: string;
   isFeatured: boolean;
   countryCode: string;
+  faqs: NewsFaqInput[];
 }
 
 function articleToFormState(article?: NewsArticle): FormState {
@@ -96,7 +98,14 @@ function articleToFormState(article?: NewsArticle): FormState {
       displayPublishedAt: "",
       isFeatured: false,
       countryCode: "",
+      faqs: Array.from({ length: NEWS_FAQ_MIN_ITEMS }, () => ({ question: "", answer: "" })),
     };
+  }
+  const faqs = (article.faqs ?? [])
+    .slice(0, NEWS_FAQ_MAX_ITEMS)
+    .map(({ question, answer }) => ({ question, answer }));
+  while (faqs.length < NEWS_FAQ_MIN_ITEMS) {
+    faqs.push({ question: "", answer: "" });
   }
   return {
     title: article.title,
@@ -114,6 +123,7 @@ function articleToFormState(article?: NewsArticle): FormState {
       : "",
     isFeatured: article.isFeatured,
     countryCode: article.countryCode ?? "",
+    faqs,
   };
 }
 
@@ -170,12 +180,40 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   const initialImagePreview = initialData?.featuredImage?.url || "";
   const initialPdfPreview = initialData?.pdfMedia?.url || "";
 
-  const isDirty =
-    JSON.stringify(form) !== JSON.stringify(initialForm) ||
-    imagePreview !== initialImagePreview ||
-    featuredImageFile !== null ||
-    pdfPreviewUrl !== initialPdfPreview ||
-    pdfFile !== null;
+  const [isEditingFaqs, setIsEditingFaqs] = useState(!initialData);
+  const [isSavingFaqs, setIsSavingFaqs] = useState(false);
+  const [isFaqDirty, setIsFaqDirty] = useState(false);
+
+  const canEditFaqs =
+    !isReadOnly &&
+    (isSuperAdmin ||
+      hasPermission("news.articles.all.update") ||
+      (articleScope && hasPermission(`news.articles.${articleScope}.update`)));
+
+  const isArticleDirty = useMemo(() => {
+    const { faqs: _formFaqs, ...restForm } = form;
+    const { faqs: _initialFaqs, ...restInitial } = initialForm;
+    return (
+      JSON.stringify(restForm) !== JSON.stringify(restInitial) ||
+      imagePreview !== initialImagePreview ||
+      featuredImageFile !== null ||
+      pdfPreviewUrl !== initialPdfPreview ||
+      pdfFile !== null
+    );
+  }, [form, initialForm, imagePreview, initialImagePreview, featuredImageFile, pdfPreviewUrl, initialPdfPreview, pdfFile]);
+
+  const isDirty = useMemo(() => {
+    if (!initialData) {
+      return (
+        JSON.stringify(form) !== JSON.stringify(initialForm) ||
+        imagePreview !== initialImagePreview ||
+        featuredImageFile !== null ||
+        pdfPreviewUrl !== initialPdfPreview ||
+        pdfFile !== null
+      );
+    }
+    return isArticleDirty || isFaqDirty;
+  }, [initialData, form, initialForm, imagePreview, initialImagePreview, featuredImageFile, pdfPreviewUrl, initialPdfPreview, pdfFile, isArticleDirty, isFaqDirty]);
 
   useEffect(() => {
     queueMicrotask(() => {
@@ -184,6 +222,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       setFeaturedImageFile(null);
       setPdfFile(null);
       setPdfPreviewUrl(initialData?.pdfMedia?.url || "");
+      setIsEditingFaqs(!initialData);
+      setIsFaqDirty(false);
     });
   }, [initialData]);
 
@@ -210,6 +250,16 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       }
       return next;
     });
+  };
+
+  const updateFaqs = (faqs: NewsFaqInput[]) => {
+    setForm((prev) => ({ ...prev, faqs }));
+    if (initialData) {
+      setIsFaqDirty(JSON.stringify(faqs) !== JSON.stringify(initialForm.faqs));
+    }
+    if (fieldErrors.faqs) {
+      setFieldErrors((prev) => ({ ...prev, faqs: "" }));
+    }
   };
 
   const handleApiError = (err: unknown) => {
@@ -260,6 +310,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         ? new Date(form.displayPublishedAt).toISOString()
         : undefined,
       isFeatured: form.isFeatured,
+      faqs: form.faqs as NewsArticle["faqs"],
       countryCode: form.countryCode || null,
       categoryId: form.categoryId,
       category,
@@ -360,10 +411,43 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   };
 
   const handleCancelRequest = () => {
-    if (isDirty) {
+    if (isDirty || isFaqDirty) {
       setShowCancelConfirm(true);
     } else {
       onCancel();
+    }
+  };
+
+  const handleSaveFaqs = async () => {
+    if (!initialData?.id || !canEditFaqs) return;
+
+    const faqError = validateNewsFaqs(form.faqs);
+    if (faqError) {
+      setFieldErrors((prev) => ({ ...prev, faqs: faqError }));
+      return;
+    }
+
+    setIsSavingFaqs(true);
+    try {
+      const article = await newsApi.updateArticleFaqs(
+        initialData.id,
+        form.faqs.map((faq) => ({
+          question: faq.question.trim(),
+          answer: faq.answer.trim(),
+        }))
+      );
+      setForm((prev) => ({
+        ...prev,
+        faqs: (article.faqs ?? prev.faqs).map(({ question, answer }) => ({ question, answer })),
+      }));
+      setFieldErrors((prev) => ({ ...prev, faqs: "" }));
+      setIsEditingFaqs(false);
+      setIsFaqDirty(false);
+      setPopup({ show: true, type: "success", message: "Cập nhật câu hỏi thường gặp thành công!" });
+    } catch (err) {
+      handleApiError(err);
+    } finally {
+      setIsSavingFaqs(false);
     }
   };
 
@@ -374,6 +458,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const handleSubmitForReview = async () => {
     if (!initialData?.id) return;
+    if (isFaqDirty) {
+      setPopup({ show: true, type: "error", message: "Vui lòng lưu câu hỏi thường gặp trước khi gửi duyệt." });
+      return;
+    }
     if (isDirty) {
       setPendingAction({ type: "unsaved_changes" });
       return;
@@ -398,6 +486,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const handlePublish = async () => {
     if (!initialData?.id) return;
+    if (isFaqDirty) {
+      setPopup({ show: true, type: "error", message: "Vui lòng lưu câu hỏi thường gặp trước khi duyệt." });
+      return;
+    }
     if (isDirty) {
       setPendingAction({ type: "unsaved_changes" });
       return;
@@ -422,6 +514,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const handleRevoke = async () => {
     if (!initialData?.id) return;
+    if (isFaqDirty) {
+      setPopup({ show: true, type: "error", message: "Vui lòng lưu câu hỏi thường gặp trước khi hủy duyệt." });
+      return;
+    }
     if (isDirty) {
       setPendingAction({ type: "unsaved_changes" });
       return;
@@ -446,6 +542,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const handleReject = async () => {
     if (!initialData?.id) return;
+    if (isFaqDirty) {
+      setPopup({ show: true, type: "error", message: "Vui lòng lưu câu hỏi thường gặp trước khi từ chối duyệt." });
+      return;
+    }
     if (isDirty) {
       setPendingAction({ type: "unsaved_changes" });
       return;
@@ -521,7 +621,15 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     setPopup((prev) => ({ ...prev, show: false }));
     setFieldErrors({});
 
-    const validation = createArticleSchema.safeParse({
+    if (initialData?.id && isFaqDirty) {
+      setPopup({ show: true, type: "error", message: "Vui lòng lưu câu hỏi thường gặp trước khi lưu thay đổi bài viết." });
+      return;
+    }
+
+    const validationSchema = initialData?.id
+      ? createArticleSchema.omit({ faqs: true })
+      : createArticleSchema;
+    const validation = validationSchema.safeParse({
       ...form,
       author: undefined,
       countryCode: form.countryCode || undefined,
@@ -610,7 +718,13 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
       const saved = initialData?.id
         ? await newsApi.updateArticle(initialData.id, payload)
-        : await newsApi.createArticle(payload);
+        : await newsApi.createArticle({
+            ...payload,
+            faqs: form.faqs.map((faq) => ({
+              question: faq.question.trim(),
+              answer: faq.answer.trim(),
+            })),
+          });
 
       setPopup({
         show: true,
@@ -1033,6 +1147,104 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                 <RichEditor value={form.content} onChange={(val) => update("content", val)} disabled={isReadOnly} />
               </div>
               {fieldErrors.content && <p className="mt-1 text-xs text-red-500">{fieldErrors.content}</p>}
+            </div>
+
+            {/* FAQs */}
+            <div id="field-faqs">
+              <div className="mb-3 flex items-center justify-between">
+                <label className="block text-sm font-semibold text-gray-700">
+                  Câu hỏi thường gặp
+                </label>
+                <div className="flex items-center gap-3">
+                  {initialData?.id && canEditFaqs && !isEditingFaqs && (
+                    <button
+                      type="button"
+                      onClick={() => setIsEditingFaqs(true)}
+                      className="text-sm font-semibold text-blue-600 hover:text-blue-700"
+                    >
+                      Chỉnh sửa
+                    </button>
+                  )}
+                  {initialData?.id && canEditFaqs && isEditingFaqs && (
+                    <button
+                      type="button"
+                      onClick={handleSaveFaqs}
+                      disabled={!isFaqDirty || isSavingFaqs}
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      {isSavingFaqs && <Loader2 size={14} className="animate-spin" />}
+                      Lưu
+                    </button>
+                  )}
+                </div>
+              </div>
+              <div className="space-y-3">
+                {form.faqs.map((item, i) => (
+                  <div key={i} className="rounded-xl border border-gray-200 bg-gray-50/40 p-4">
+                    <div className="mb-3 flex items-start gap-2">
+                      <div className="flex-1">
+                        <label className="mb-1.5 block text-xs font-semibold text-gray-500">
+                          Câu hỏi {i + 1}
+                        </label>
+                        <input
+                          type="text"
+                          className={`${inputBaseClass} ${fieldErrors.faqs ? errorInputClass : ""}`}
+                          value={item.question}
+                          onChange={(e) => {
+                            const next = [...form.faqs];
+                            next[i] = { ...next[i], question: e.target.value };
+                            updateFaqs(next);
+                          }}
+                          disabled={isReadOnly || isSavingFaqs || (!!initialData?.id && !isEditingFaqs)}
+                          placeholder="Nhập câu hỏi"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = form.faqs.filter((_, idx) => idx !== i);
+                          updateFaqs(next);
+                        }}
+                        disabled={isReadOnly || isSavingFaqs || (!!initialData?.id && !isEditingFaqs) || form.faqs.length <= NEWS_FAQ_MIN_ITEMS}
+                        className="mt-6 shrink-0 rounded-lg border border-gray-200 bg-white p-2 text-gray-400 transition-colors hover:border-red-200 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-30"
+                        aria-label={`Xóa câu hỏi ${i + 1}`}
+                      >
+                        <span className="text-lg leading-none">−</span>
+                      </button>
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block text-xs font-semibold text-gray-500">
+                        Câu trả lờ {i + 1}
+                      </label>
+                      <div className={`overflow-hidden rounded-lg border bg-white ${fieldErrors.faqs ? "border-red-300" : "border-gray-200"}`}>
+                        <RichEditor
+                          value={item.answer}
+                          onChange={(value) => {
+                            const next = [...form.faqs];
+                            next[i] = { ...next[i], answer: value };
+                            updateFaqs(next);
+                          }}
+                          disabled={isReadOnly || isSavingFaqs || (!!initialData?.id && !isEditingFaqs)}
+                          disableImage
+                          compact
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => updateFaqs([...form.faqs, { question: "", answer: "" }])}
+                  disabled={isReadOnly || isSavingFaqs || (!!initialData?.id && !isEditingFaqs) || form.faqs.length >= NEWS_FAQ_MAX_ITEMS}
+                  className="flex items-center gap-1.5 text-sm font-medium rounded-lg border border-dashed border-gray-300 px-4 py-2 text-gray-500 hover:border-gray-400 hover:text-gray-700 transition-colors disabled:opacity-50"
+                >
+                  <span className="text-lg leading-none">+</span> Thêm câu hỏi
+                </button>
+                <p className="text-xs text-gray-400">
+                  Tối thiểu {NEWS_FAQ_MIN_ITEMS} và tối đa {NEWS_FAQ_MAX_ITEMS} câu hỏi.
+                </p>
+                {fieldErrors.faqs && <p className="mt-1 text-xs text-red-500">{fieldErrors.faqs}</p>}
+              </div>
             </div>
 
             {isPressReleaseCategory && (

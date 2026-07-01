@@ -15,6 +15,7 @@ export const ENDPOINTS = {
     CREATE: '/articles',
     UPDATE: (id: string) => `/articles/${id}`,
     DELETE: (id: string) => `/articles/${id}`,
+    FAQS: (id: string) => `/articles/${id}/faqs`,
     LOGS: (id: string) => `/articles/${id}/logs`,
   },
   MEDIA: {

@@ -22,6 +22,21 @@ export interface Media {
   createdAt: string;
 }
 
+export interface NewsFaq {
+  id: string;
+  articleId: string;
+  question: string;
+  answer: string;
+  position: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface NewsFaqInput {
+  question: string;
+  answer: string;
+}
+
 export interface NewsArticle {
   id: string;
   categoryId: string;
@@ -50,6 +65,7 @@ export interface NewsArticle {
   createdAt: string;
   updatedAt: string;
   category: Pick<NewsCategory, 'id' | 'name' | 'slug'>;
+  faqs?: NewsFaq[];
 }
 
 export interface CreateArticleInput {
@@ -69,6 +85,7 @@ export interface CreateArticleInput {
   status?: 'draft' | 'pending' | 'published';
   isFeatured?: boolean;
   countryCode?: string;
+  faqs: NewsFaqInput[];
 }
 
 export type UpdateArticleInput = Partial<CreateArticleInput>;
