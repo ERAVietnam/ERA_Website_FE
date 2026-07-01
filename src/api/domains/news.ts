@@ -6,6 +6,7 @@ import type {
   NewsCategory,
   CreateArticleInput,
   UpdateArticleInput,
+  NewsFaqInput,
   ArticleFilters,
   PaginatedResponse,
 } from '@/types/api';
@@ -34,6 +35,9 @@ export const newsApi = {
 
   updateArticle: (id: string, data: UpdateArticleInput) =>
     apiClient.patch<NewsArticle>(ENDPOINTS.NEWS.UPDATE(id), data).then((res) => res.data),
+
+  updateArticleFaqs: (id: string, faqs: NewsFaqInput[]) =>
+    apiClient.patch<NewsArticle>(ENDPOINTS.NEWS.FAQS(id), { faqs }).then((res) => res.data),
 
   deleteArticle: (id: string) =>
     apiClient.delete<void>(ENDPOINTS.NEWS.DELETE(id)).then((res) => res.data),
