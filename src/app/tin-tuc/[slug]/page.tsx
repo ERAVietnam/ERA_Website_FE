@@ -4,6 +4,8 @@ import { NewsDetailPage } from "@/components/sections/news";
 import { newsApi } from "@/api/domains/news";
 import type { NewsArticle } from "@/types/api";
 
+export const revalidate = 300;
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -22,6 +24,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const { slug } = await params;
+    console.log(`[news:metadata] slug=${slug}`);
     const article = await newsApi.getArticleBySlug(slug);
 
     const title = article.metaTitle?.trim() || article.title?.trim() || "ERA Vietnam";
@@ -53,7 +56,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         images: imageUrl ? [imageUrl] : undefined,
       },
     };
-  } catch {
+  } catch (error) {
+    console.error(`[news:metadata] error for slug=${params}`, error);
     return {
       title: "Không tìm thấy bài viết | ERA Vietnam",
     };
@@ -73,11 +77,14 @@ function isArticleVisible(article: NewsArticle): boolean {
 
 export default async function NewsDetail({ params }: Props) {
   const { slug } = await params;
+  console.log(`[news:detail] slug=${slug}`);
 
   let article: NewsArticle | null = null;
   try {
     article = await newsApi.getArticleBySlug(slug);
-  } catch {
+    console.log(`[news:detail] found article id=${article?.id ?? 'null'}, status=${(article as NewsArticle & { status?: string })?.status ?? 'unknown'}`);
+  } catch (error) {
+    console.error(`[news:detail] error fetching slug=${slug}`, error);
     article = null;
   }
 
