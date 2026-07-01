@@ -161,15 +161,19 @@ async function processContentImages(content: string): Promise<string> {
       const base64 = img.getAttribute("src")!;
       const file = base64ToFile(base64, `project-content-img-${Date.now()}-${i}`);
 
-      // Ảnh GIF giữ nguyên để không mất animation; các ảnh khác nén về WebP
+      // Ảnh đầu tiên giữ nguyên định dạng gốc (thường dùng làm featured fallback)
+      // Ảnh GIF cũng giữ nguyên để không mất animation
+      const isFirstImage = i === 0;
       const isGif = file.type === "image/gif";
-      const compressedFile = isGif
-        ? file
-        : await compressImage(file, {
+      const shouldConvertToWebP = !isFirstImage && !isGif;
+
+      const compressedFile = shouldConvertToWebP
+        ? await compressImage(file, {
             maxSizeMB: 1,
             maxWidthOrHeight: 1600,
             fileType: "image/webp",
-          });
+          })
+        : file;
 
       const upload = await mediaApi.uploadImage(compressedFile, "projects");
       img.setAttribute("src", upload.url);
@@ -500,7 +504,11 @@ export function ProjectsManageForm({
     if (imageFile) {
       setIsUploadingImage(true);
       try {
-        const upload = await mediaApi.uploadImage(imageFile, "projects");
+        const compressedFile = await compressImage(imageFile, {
+          maxSizeMB: 1.5,
+          maxWidthOrHeight: 1920,
+        });
+        const upload = await mediaApi.uploadImage(compressedFile, "projects");
         imageMediaId = upload.id;
       } finally {
         setIsUploadingImage(false);

@@ -220,6 +220,30 @@ body {
   margin-bottom: 0.25em;
 }
 
+/* Text alignment — chỉ áp dụng cho text, không cho ảnh */
+.ck-content .text-align-left {
+  text-align: left;
+}
+
+.ck-content .text-align-right {
+  text-align: right;
+}
+
+.ck-content .text-align-center {
+  text-align: center;
+}
+
+.ck-content .text-align-justify {
+  text-align: justify;
+}
+
+/* Đảm bảo ảnh không bị ảnh hưởng bởi alignment */
+.ck-content figure,
+.ck-content .image,
+.ck-content .image_resized {
+  text-align: left !important;
+}
+
 .ck-content .image,
 .ck-content .image_resized,
 .ck-content figure {
@@ -251,6 +275,31 @@ body {
   margin-left: auto !important;
   margin-right: auto !important;
   border-radius: 0 !important;
+}
+
+/* Table styles */
+.ck-content .table {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.ck-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.ck-content table th,
+.ck-content table td {
+  border: 1px solid var(--border);
+  padding: 0.5em 0.75em;
+  vertical-align: top;
+}
+
+.ck-content table th {
+  background-color: var(--gray-50);
+  font-weight: 600;
+  text-align: left;
 }
 
 /* Ensure all content images stretch to full content width */

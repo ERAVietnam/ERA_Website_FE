@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { colors, withOpacity } from "@/lib/theme";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import {
@@ -22,6 +22,10 @@ import {
   IndentBlock,
   WordCount,
   Undo,
+  Alignment,
+  Table,
+  TableToolbar,
+  TableColumnResize,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import type { EditorConfig, PluginConstructor, Editor } from "@ckeditor/ckeditor5-core";
@@ -115,6 +119,10 @@ class CustomEditor extends ClassicEditor {
     IndentBlock,
     WordCount,
     Undo,
+    Alignment,
+    Table,
+    TableToolbar,
+    TableColumnResize,
     CustomUploadAdapterPlugin,
   ] as PluginConstructor[];
 
@@ -135,6 +143,8 @@ class CustomEditor extends ClassicEditor {
       "indent",
       "outdent",
       "|",
+      "alignment",
+      "|",
       "undo",
       "redo",
     ],
@@ -145,6 +155,10 @@ class CustomEditor extends ClassicEditor {
         "imageTextAlternative",
         "toggleImageCaption",
       ],
+    },
+    table: {
+      contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
+      columnResize: { unit: "px" },
     },
   } as EditorConfig;
 }
@@ -163,6 +177,7 @@ class PlainEditor extends ClassicEditor {
     IndentBlock,
     WordCount,
     Undo,
+    Alignment,
   ] as PluginConstructor[];
 
   static defaultConfig = {
@@ -180,6 +195,8 @@ class PlainEditor extends ClassicEditor {
       "numberedList",
       "indent",
       "outdent",
+      "|",
+      "alignment",
       "|",
       "undo",
       "redo",
@@ -205,6 +222,9 @@ export default function RichEditor({
   compact?: boolean;
 }) {
   const wordCountRef = useRef<HTMLDivElement>(null);
+  const isFocusedRef = useRef(false);
+  const isLocalChangeRef = useRef(false);
+  const [displayData, setDisplayData] = useState(value);
 
   useEffect(() => {
     const styleId = "ckeditor-custom-height";
@@ -227,6 +247,18 @@ export default function RichEditor({
     }
   }, []);
 
+  // Tránh CKEditor bị setData trong lúc ngưởi dùng đang gõ gây lỗi
+  // model-nodelist-offset-out-of-bounds.
+  useEffect(() => {
+    if (isLocalChangeRef.current) {
+      isLocalChangeRef.current = false;
+      return;
+    }
+    if (!isFocusedRef.current && value !== displayData) {
+      setDisplayData(value);
+    }
+  }, [value, displayData]);
+
   const toolbarItems = compact
     ? [
         "bold",
@@ -235,6 +267,8 @@ export default function RichEditor({
         "|",
         "bulletedList",
         "numberedList",
+        "|",
+        "alignment",
         "|",
         "undo",
         "redo",
@@ -254,6 +288,10 @@ export default function RichEditor({
         "indent",
         "outdent",
         "|",
+        "alignment",
+        "|",
+        "insertTable",
+        "|",
         "undo",
         "redo",
       ];
@@ -262,11 +300,20 @@ export default function RichEditor({
     <div className={compact ? "faq-rich-editor" : undefined}>
       <CKEditor
         editor={disableImage ? PlainEditor : CustomEditor}
-        data={value}
+        data={displayData}
         disabled={disabled}
         config={{ toolbar: toolbarItems }}
         onChange={(_event, editor) => {
-          onChange(editor.getData());
+          const data = editor.getData();
+          isLocalChangeRef.current = true;
+          setDisplayData(data);
+          onChange(data);
+        }}
+        onFocus={() => {
+          isFocusedRef.current = true;
+        }}
+        onBlur={() => {
+          isFocusedRef.current = false;
         }}
         onReady={(editor) => {
           if (wordCountRef.current) {
