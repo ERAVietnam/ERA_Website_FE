@@ -1,4 +1,5 @@
 import type { NewsArticle, Project, JobPosting } from "@/types/api";
+import type { Office } from "./offices";
 
 const BASE_URL = "https://era.com.vn";
 const LOGO_URL = `${BASE_URL}/logo.svg`;
@@ -122,6 +123,58 @@ function parseEmploymentType(type: string): string {
   if (normalized.includes("intern")) return "INTERN";
   if (normalized.includes("temporary")) return "TEMPORARY";
   return "FULL_TIME";
+}
+
+function parseAddress(address: string): Record<string, unknown> {
+  // Simple heuristic: split by comma, last part is city/country, rest is street.
+  const parts = address.split(",").map((p) => p.trim());
+  const addressCountry = "VN";
+  const addressLocality = parts.length > 1 ? parts[parts.length - 2] : parts[parts.length - 1];
+  const addressRegion = parts.length > 2 ? parts[parts.length - 3] : undefined;
+  const streetAddress = parts.slice(0, parts.length - 2).join(", ") || parts[0];
+
+  return {
+    "@type": "PostalAddress",
+    streetAddress,
+    addressLocality,
+    ...(addressRegion ? { addressRegion } : {}),
+    addressCountry,
+  };
+}
+
+export function localBusinessJsonLd(office: Office): Record<string, unknown> {
+  const result: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    name: office.name,
+    description: `Văn phòng ERA Vietnam - ${office.name}`,
+    address: parseAddress(office.address),
+    url: "https://era.com.vn/lien-he/",
+  };
+
+  if (office.phone) {
+    result.telephone = office.phone;
+  }
+
+  if (office.geo) {
+    result.geo = {
+      "@type": "GeoCoordinates",
+      latitude: office.geo.lat,
+      longitude: office.geo.lng,
+    };
+  }
+
+  // Default opening hours: Monday-Friday 08:30-17:30. Update if needed.
+  result.openingHoursSpecification = [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:30",
+      closes: "17:30",
+    },
+  ];
+
+  return result;
 }
 
 export function jobPostingJsonLd(job: JobPosting): Record<string, unknown> {
