@@ -5,6 +5,9 @@ import {
   ContactOfficesSection,
   ContactFormSection,
 } from "@/components/sections/contact";
+import { JsonLd } from "@/components/shared/JsonLd";
+import { breadcrumbJsonLd, localBusinessJsonLd } from "@/lib/jsonLd";
+import { mainOffices } from "@/lib/offices";
 
 export const metadata: Metadata = {
   title: "Liên hệ ERA Vietnam - Tư vấn bất động sản chuyên nghiệp",
@@ -26,12 +29,23 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+  const breadcrumbItems = [
+    { name: "Trang chủ", url: "https://era.com.vn/" },
+    { name: "Liên hệ", url: "https://era.com.vn/lien-he/" },
+  ];
+
   return (
-    <main>
-      <ContactHeroSection />
-      <ContactCardsSection />
-      <ContactOfficesSection />
-      <ContactFormSection />
-    </main>
+    <>
+      <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
+      {mainOffices.map((office) => (
+        <JsonLd key={office.id} data={localBusinessJsonLd(office)} />
+      ))}
+      <main>
+        <ContactHeroSection />
+        <ContactCardsSection />
+        <ContactOfficesSection />
+        <ContactFormSection />
+      </main>
+    </>
   );
 }
