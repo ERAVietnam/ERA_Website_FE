@@ -1,12 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { colors } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
 import { ProjectsSidebar } from "./ProjectsSidebar";
-import { getProjectImage } from "@/lib/projects";
 import type { Project } from "@/types/api";
 import { ProjectsFaqSection } from "./ProjectsFaqSection";
 import { ProjectOverviewTable } from "./ProjectOverviewTable";
@@ -17,8 +15,6 @@ interface ProjectsDetailContentSectionProps {
 }
 
 export function ProjectsDetailContentSection({ project }: ProjectsDetailContentSectionProps) {
-  const imageUrl = getProjectImage(project);
-
   return (
     <section className="pt-16 md:pt-20 pb-6 bg-white">
       <Container size="lg">
@@ -55,20 +51,6 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
 
             {/* Info Table */}
             <ProjectOverviewTable project={project} />
-
-            {/* Main Image */}
-            {imageUrl && (
-              <div className="relative rounded-xl overflow-hidden mb-8 aspect-[16/9]">
-                <Image
-                  src={imageUrl}
-                  alt={project.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                  priority
-                />
-              </div>
-            )}
 
             {/* Highlight Section */}
             <ExpandableProjectContent content={project.content} />

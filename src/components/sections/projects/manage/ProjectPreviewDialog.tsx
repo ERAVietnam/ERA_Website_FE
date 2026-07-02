@@ -44,7 +44,6 @@ export function ProjectPreviewDialog({ project, imagePreviewUrl, isOpen, onClose
   if (!isOpen || !project) return null;
 
   const isPubliclyViewable = !!project.id && project.publicationStatus === "published";
-  const coverImageUrl = imagePreviewUrl || project.imageMedia?.url;
   const completedFaqItems = project.faqs.filter(
     (item) => item.question.trim() && item.answer.trim()
   );
@@ -100,18 +99,6 @@ export function ProjectPreviewDialog({ project, imagePreviewUrl, isOpen, onClose
 
             {/* Info Table */}
             <ProjectOverviewTable project={project} />
-
-            {/* Main Image */}
-            {coverImageUrl && (
-              <div className="relative rounded-xl overflow-hidden mb-8 aspect-[16/9]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={coverImageUrl}
-                  alt={project.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
 
             {/* Highlight Section */}
             <ExpandableProjectContent content={project.content} />

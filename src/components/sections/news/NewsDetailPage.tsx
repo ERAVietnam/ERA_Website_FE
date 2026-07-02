@@ -123,21 +123,6 @@ export const NewsDetailPage = memo(function NewsDetailPage({
             {article.summary}
           </p>
 
-          {/* Featured Image */}
-          {article.featuredImage?.url ? (
-            <div className="relative overflow-hidden mb-8 aspect-video">
-              <Image
-                src={article.featuredImage.url}
-                alt={article.title}
-                fill
-                className="object-cover"
-                sizes="100vw"
-                loading="eager"
-                priority
-              />
-            </div>
-          ) : null}
-
           {/* Table of Contents */}
           <NewsTableOfContents headings={headings} />
 
