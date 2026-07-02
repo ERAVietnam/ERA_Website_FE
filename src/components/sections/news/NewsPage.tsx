@@ -17,10 +17,12 @@ export async function NewsPage() {
   let articles: NewsArticle[] = [];
 
   try {
-    [categories, articles] = await Promise.all([
+    const [categoriesData, articlesData] = await Promise.all([
       newsApi.getCategories(),
       newsApi.getPublishedArticles(),
     ]);
+    categories = categoriesData;
+    articles = articlesData.items;
   } catch {
     categories = [];
     articles = [];

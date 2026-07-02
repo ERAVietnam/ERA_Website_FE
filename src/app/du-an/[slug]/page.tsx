@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { ProjectsDetailPage } from "@/components/sections/projects";
 import { projectsApi } from "@/api/domains/projects";
 import type { Project } from "@/types/api";
+import { JsonLd } from "@/components/shared/JsonLd";
+import { breadcrumbJsonLd, realEstateListingJsonLd } from "@/lib/jsonLd";
 
 export const revalidate = 300;
 
@@ -83,5 +85,17 @@ export default async function ProjectDetail({ params }: Props) {
     notFound();
   }
 
-  return <ProjectsDetailPage project={project} relatedProjects={relatedProjects} />;
+  const breadcrumbItems = [
+    { name: "Trang chủ", url: "https://era.com.vn/" },
+    { name: "Dự án", url: "https://era.com.vn/du-an/" },
+    { name: project.name, url: `https://era.com.vn/du-an/${slug}/` },
+  ];
+
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
+      <JsonLd data={realEstateListingJsonLd(project)} />
+      <ProjectsDetailPage project={project} relatedProjects={relatedProjects} />
+    </>
+  );
 }

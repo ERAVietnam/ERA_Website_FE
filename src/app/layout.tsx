@@ -4,6 +4,8 @@ import "./globals.css";
 import { LayoutWrapper } from "@/components/layout/LayoutWrapper";
 import { Providers } from "@/components/providers/Providers";
 import { GoogleTagManagerNoScript } from "@/components/analytics/GoogleTagManager";
+import { JsonLd } from "@/components/shared/JsonLd";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonLd";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
@@ -36,6 +38,8 @@ export default function RootLayout({
             }}
           />
         )}
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
       </head>
       <body className="min-h-full flex flex-col">
         <GoogleTagManagerNoScript />

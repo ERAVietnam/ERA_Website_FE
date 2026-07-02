@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NewsSearchPage } from "@/components/sections/news/NewsSearchPage";
 import { newsApi } from "@/api/domains/news";
+import type { NewsArticle } from "@/types/api";
 
 export const revalidate = 300;
 
@@ -37,9 +38,10 @@ export default async function NewsSearchRoute({
     notFound();
   }
 
-  let articles: Awaited<ReturnType<typeof newsApi.getPublishedArticles>> = [];
+  let articles: NewsArticle[] = [];
   try {
-    articles = await newsApi.getPublishedArticles({ search: query, limit: 999 });
+    const data = await newsApi.getPublishedArticles({ search: query, limit: 999 });
+    articles = data.items;
   } catch {
     articles = [];
   }

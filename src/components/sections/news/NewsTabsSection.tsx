@@ -167,7 +167,7 @@ export function NewsSearchBox({ query, onQueryChange, onSubmit }: NewsSearchBoxP
     const timer = setTimeout(async () => {
       try {
         const data = await newsApi.getPublishedArticles({ search: term, limit: 8 });
-        setResults(data);
+        setResults(data.items);
         setOpen(true);
       } catch {
         setResults([]);
