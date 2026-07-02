@@ -5,7 +5,8 @@ import { NewsSectionClient } from "./NewsSectionClient";
 export async function NewsSection() {
   let articles: NewsArticle[] = [];
   try {
-    articles = await newsApi.getPublishedArticles({ limit: 6 });
+    const data = await newsApi.getPublishedArticles({ limit: 6 });
+    articles = data.items;
   } catch {
     return null;
   }

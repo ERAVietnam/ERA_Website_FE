@@ -18,8 +18,8 @@ export const newsApi = {
   getArticles: (filters?: ArticleFilters) =>
     apiClient.get<PaginatedResponse<NewsArticle>>(ENDPOINTS.NEWS.LIST, { params: filters }).then((res) => res.data),
 
-  getPublishedArticles: (filters?: Omit<ArticleFilters, 'status'> & { excludeId?: string; limit?: number }) =>
-    apiClient.get<NewsArticle[]>(ENDPOINTS.NEWS.PUBLISHED, { params: filters }).then((res) => res.data),
+  getPublishedArticles: (filters?: Omit<ArticleFilters, 'status'> & { excludeId?: string; page?: number; limit?: number }) =>
+    apiClient.get<PaginatedResponse<NewsArticle>>(ENDPOINTS.NEWS.PUBLISHED, { params: filters }).then((res) => res.data),
 
   getArticleById: (id: string) =>
     apiClient.get<NewsArticle>(ENDPOINTS.NEWS.DETAIL(id)).then((res) => res.data),

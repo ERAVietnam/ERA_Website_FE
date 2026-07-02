@@ -2,6 +2,8 @@ import { ApplyJobDetailPage } from "@/components/sections/apply";
 import { recruitmentApi } from "@/api/domains/recruitment";
 import type { JobPosting } from "@/types/api";
 import { ROUTES } from "@/lib/routes";
+import { JsonLd } from "@/components/shared/JsonLd";
+import { breadcrumbJsonLd, jobPostingJsonLd } from "@/lib/jsonLd";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -63,12 +65,22 @@ export default async function JobDetail({ params }: Props) {
   const otherJobs = publishedJobs.filter((j) => j.id !== job.id).slice(0, 4);
   const availablePositions = publishedJobs.map((j) => j.title);
 
+  const breadcrumbItems = [
+    { name: "Trang chủ", url: "https://era.com.vn/" },
+    { name: "Tuyển dụng", url: "https://era.com.vn/tuyen-dung/" },
+    { name: job.title, url: `https://era.com.vn/tuyen-dung/chi-tiet-cong-viec/${slug}/` },
+  ];
+
   return (
-    <ApplyJobDetailPage
-      job={job}
-      otherJobs={otherJobs}
-      defaultPosition={job.title}
-      availablePositions={availablePositions}
-    />
+    <>
+      <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
+      <JsonLd data={jobPostingJsonLd(job)} />
+      <ApplyJobDetailPage
+        job={job}
+        otherJobs={otherJobs}
+        defaultPosition={job.title}
+        availablePositions={availablePositions}
+      />
+    </>
   );
 }

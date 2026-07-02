@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { NewsDetailPage } from "@/components/sections/news";
 import { newsApi } from "@/api/domains/news";
 import type { NewsArticle } from "@/types/api";
+import { JsonLd } from "@/components/shared/JsonLd";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const revalidate = 300;
 
@@ -12,8 +14,8 @@ interface Props {
 
 export async function generateStaticParams() {
   try {
-    const articles = await newsApi.getPublishedArticles();
-    return articles.map((article: NewsArticle) => ({
+    const data = await newsApi.getPublishedArticles();
+    return data.items.map((article: NewsArticle) => ({
       slug: article.slug,
     }));
   } catch {
@@ -24,7 +26,6 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const { slug } = await params;
-    console.log(`[news:metadata] slug=${slug}`);
     const article = await newsApi.getArticleBySlug(slug);
 
     const title = article.metaTitle?.trim() || article.title?.trim() || "ERA Vietnam";
@@ -57,7 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     };
   } catch (error) {
-    console.error(`[news:metadata] error for slug=${params}`, error);
+    console.error(`[news:metadata] error for slug=${(await params).slug}`, error);
     return {
       title: "Không tìm thấy bài viết | ERA Vietnam",
     };
@@ -77,12 +78,10 @@ function isArticleVisible(article: NewsArticle): boolean {
 
 export default async function NewsDetail({ params }: Props) {
   const { slug } = await params;
-  console.log(`[news:detail] slug=${slug}`);
 
   let article: NewsArticle | null = null;
   try {
     article = await newsApi.getArticleBySlug(slug);
-    console.log(`[news:detail] found article id=${article?.id ?? 'null'}, status=${(article as NewsArticle & { status?: string })?.status ?? 'unknown'}`);
   } catch (error) {
     console.error(`[news:detail] error fetching slug=${slug}`, error);
     article = null;
@@ -111,6 +110,7 @@ export default async function NewsDetail({ params }: Props) {
         excludeId: article.id,
         limit: 3,
       })
+      .then((data) => data.items)
       .catch(() => [] as NewsArticle[]);
   } catch {
     relatedArticles = [];
@@ -118,5 +118,25 @@ export default async function NewsDetail({ params }: Props) {
 
   const filteredRelated = relatedArticles.filter((a) => a.id !== article.id).slice(0, 3);
 
-  return <NewsDetailPage article={article} relatedArticles={filteredRelated} />;
+  const breadcrumbItems = [
+    { name: "Trang chủ", url: "https://era.com.vn/" },
+    { name: "Tin tức", url: "https://era.com.vn/tin-tuc/" },
+    ...(article.category
+      ? [
+          {
+            name: article.category.name,
+            url: `https://era.com.vn/tin-tuc/${article.category.slug}/`,
+          },
+        ]
+      : []),
+    { name: article.title, url: `https://era.com.vn/tin-tuc/${slug}/` },
+  ];
+
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
+      <JsonLd data={articleJsonLd(article)} />
+      <NewsDetailPage article={article} relatedArticles={filteredRelated} />
+    </>
+  );
 }

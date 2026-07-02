@@ -4,7 +4,7 @@ import type { NewsArticle, NewsCategory } from "@/types/api";
 
 export const getCategoryPageData = cache(async (categorySlug: string) => {
   try {
-    const [categories, articles] = await Promise.all([
+    const [categories, data] = await Promise.all([
       newsApi.getCategories(),
       newsApi.getPublishedArticles({ categorySlug }),
     ]);
@@ -17,7 +17,7 @@ export const getCategoryPageData = cache(async (categorySlug: string) => {
       return null;
     }
 
-    const sortedArticles = articles
+    const sortedArticles = data.items
       .filter((article: NewsArticle) => article.category.slug === categorySlug)
       .sort((a: NewsArticle, b: NewsArticle) => {
         const dateA = new Date(a.displayPublishedAt || a.publishedAt || a.createdAt).getTime();
