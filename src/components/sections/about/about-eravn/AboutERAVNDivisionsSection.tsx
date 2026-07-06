@@ -9,17 +9,17 @@ import type { HonorAgent } from "@/types/api";
 
 const DIVISIONS_SLUG = "he-thong-divisions-tai-era-vietnam";
 const DIVISION_TEAM_NAMES = [
-  "Elite",
-  "Galaxy",
-  "Legend",
-  "Universe",
-  "Ability",
-  "AEM",
-  "Happy Plus",
-  "Heli",
-  "Mercury",
-  "SUN",
-  "Tara",
+  "Elite Group",
+  "Galaxy Group",
+  "Legend Group",
+  "Universe Group",
+  "Ability Division",
+  "AEM Division",
+  "Happy Plus Division",
+  "Heli Division",
+  "Mercury Division",
+  "SUN Division",
+  "Tara Division",
 ];
 
 export default function AboutERAVNDivisionsSection() {
