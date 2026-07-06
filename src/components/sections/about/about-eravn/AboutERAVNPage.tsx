@@ -34,7 +34,7 @@ export default function AboutERAVNPage() {
       <AboutERAVNServicesSection />
       <AboutERAVNDivisionsSection />
       <AboutERAVNAppSection />
-      {/* <AboutERAVNAwardsSection /> */}
+      <AboutERAVNAwardsSection />
       <AboutERAVNESGSection />
       <AboutERAVNFAQSection />
     </main>

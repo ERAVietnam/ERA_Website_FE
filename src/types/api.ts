@@ -202,6 +202,43 @@ export interface AccountFilters {
   limit?: number;
 }
 
+export interface Agent {
+  id: string;
+  name: string;
+  avatar?: string | null;
+  code?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AgentFilters {
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface CreateAgentInput {
+  name: string;
+  avatar?: string | null;
+  code?: string | null;
+}
+
+export type UpdateAgentInput = Partial<CreateAgentInput>;
+
+export interface HonorAgent extends Agent {
+  position: number;
+}
+
+export interface HonorCategory {
+  id: string;
+  slug: string;
+  name: string;
+  position: number;
+  agents: HonorAgent[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface CreateAccountInput {
   name: string;
   email: string;

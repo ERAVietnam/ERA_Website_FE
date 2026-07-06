@@ -47,6 +47,8 @@ const moduleLabels: Record<string, string> = {
   recruitment: "Tuyển dụng",
   projects: "Dự án",
   magazine: "E-Magazine",
+  agents: "Agent",
+  honors: "Vinh danh và Hệ thống",
 };
 
 const resourceLabels: Record<string, string> = {
@@ -55,6 +57,7 @@ const resourceLabels: Record<string, string> = {
   accounts: "Tài khoản",
   permissions: "Quyền",
   jobs: "Tin tuyển dụng",
+  all: "Tất cả",
 };
 
 const actionLabels: Record<string, string> = {

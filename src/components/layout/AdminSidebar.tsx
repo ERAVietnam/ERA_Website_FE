@@ -18,6 +18,8 @@ import {
   BookOpen,
   Building2,
   FileUser,
+  BadgeCheck,
+  Trophy,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { hasAnyNewsArticleViewPermission } from "@/lib/permissions";
@@ -47,6 +49,18 @@ const menuItems: MenuItem[] = [
     label: "Dự án",
     icon: Building2,
     visible: (hasPermission) => hasPermission("projects.all.view"),
+  },
+  {
+    href: "/agents/quan-ly",
+    label: "Agent",
+    icon: BadgeCheck,
+    visible: (hasPermission) => hasPermission("agents.all.view"),
+  },
+  {
+    href: "/vinh-danh-va-he-thong/quan-ly",
+    label: "Vinh danh và Hệ thống",
+    icon: Trophy,
+    visible: (hasPermission) => hasPermission("honors.all.view"),
   },
   {
     href: "/tuyen-dung/quan-ly",
