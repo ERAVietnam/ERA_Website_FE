@@ -482,6 +482,7 @@ export interface ProjectFilters {
   search?: string;
   tags?: string;
   publicationStatus?: ProjectPublicationStatus;
+  province?: string;
   page?: number;
   limit?: number;
 }

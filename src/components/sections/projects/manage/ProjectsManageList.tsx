@@ -17,7 +17,7 @@ import { TagFilter } from "@/components/ui/admin/TagFilter";
 import { ViewModeToggle } from "@/components/ui/admin/ViewModeToggle";
 import { ProjectsManageActions } from "./ProjectsManageActions";
 import { Plus, FileText, X, MapPin, Building } from "lucide-react";
-import { getProjectCardImage } from "@/lib/projects";
+import { getProjectCardImage, VIETNAM_PROVINCES } from "@/lib/projects";
 import type { Project, ProjectPublicationStatus } from "@/types/api";
 
 const publicationOptions: { value: ProjectPublicationStatus; label: string }[] = [
@@ -39,6 +39,8 @@ interface Props {
   onSearchChange: (value: string) => void;
   publicationFilter: ProjectPublicationStatus | "";
   onPublicationFilterChange: (value: ProjectPublicationStatus | "") => void;
+  provinceFilter: string;
+  onProvinceFilterChange: (value: string) => void;
   selectedTags: string[];
   availableTags: readonly string[];
   onTagsChange: (tags: string[]) => void;
@@ -63,6 +65,8 @@ export const ProjectsManageList = memo(function ProjectsManageList({
   onSearchChange,
   publicationFilter,
   onPublicationFilterChange,
+  provinceFilter,
+  onProvinceFilterChange,
   selectedTags,
   availableTags,
   onTagsChange,
@@ -84,6 +88,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
   const handleClearFilters = () => {
     onSearchChange("");
     onPublicationFilterChange("");
+    onProvinceFilterChange("");
     onTagsChange([]);
     onPageChange(1);
   };
@@ -141,6 +146,18 @@ export const ProjectsManageList = memo(function ProjectsManageList({
               placeholder="Tất cả trạng thái bài viết"
               options={publicationOptions}
             />
+            <SelectField
+              value={provinceFilter}
+              onChange={(value) => {
+                onProvinceFilterChange(value);
+                onPageChange(1);
+              }}
+              placeholder="Tất cả tỉnh/thành phố"
+              options={VIETNAM_PROVINCES.map((province) => ({
+                value: province,
+                label: province,
+              }))}
+            />
           </div>
           <TagFilter
             options={availableTags}
@@ -168,7 +185,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 min-w-[280px] max-w-[420px]">Dự án</th>
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Tags</th>
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Trạng thái bài viết</th>
-              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 min-w-[180px]">Địa điểm</th>
+              <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-[240px] min-w-[200px] max-w-[280px]">Địa điểm</th>
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 whitespace-nowrap">Chủ đầu tư</th>
               {showActionsColumn && (
                 <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-48 min-w-[200px]">Thao tác</th>
@@ -229,10 +246,10 @@ export const ProjectsManageList = memo(function ProjectsManageList({
                       {publication.label}
                     </span>
                   </td>
-                  <td className="px-5 py-4 text-gray-600">
-                    <div className="flex items-center gap-1.5">
-                      <MapPin size={14} className="text-gray-400 shrink-0" />
-                      <span className="truncate" title={project.location}>{project.location || "—"}</span>
+                  <td className="px-5 py-4 text-gray-600 w-[240px] min-w-[200px] max-w-[280px]">
+                    <div className="flex items-start gap-1.5">
+                      <MapPin size={14} className="mt-0.5 text-gray-400 shrink-0" />
+                      <span className="whitespace-normal break-words leading-5" title={project.location}>{project.location || "—"}</span>
                     </div>
                   </td>
                   <td className="px-5 py-4 text-gray-600">

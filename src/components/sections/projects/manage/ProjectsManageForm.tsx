@@ -16,46 +16,11 @@ import {
   PROJECT_FAQ_MAX_ITEMS,
   PROJECT_FAQ_MIN_ITEMS,
   PROJECT_TAGS,
+  VIETNAM_PROVINCES,
   validateProjectFaqs,
 } from "@/lib/projects";
 
 const FORM_TAGS = PROJECT_TAGS;
-const VIETNAM_PROVINCES: string[] = [
-  "Thành phố Hà Nội",
-  "Thành phố Hải Phòng",
-  "Thành phố Huế",
-  "Thành phố Đà Nẵng",
-  "Thành phố Hồ Chí Minh",
-  "Thành phố Cần Thơ",
-  "Tỉnh An Giang",
-  "Tỉnh Bắc Ninh",
-  "Tỉnh Cà Mau",
-  "Tỉnh Cao Bằng",
-  "Tỉnh Đắk Lắk",
-  "Tỉnh Điện Biên",
-  "Tỉnh Đồng Nai",
-  "Tỉnh Đồng Tháp",
-  "Tỉnh Gia Lai",
-  "Tỉnh Hà Tĩnh",
-  "Tỉnh Hưng Yên",
-  "Tỉnh Khánh Hòa",
-  "Tỉnh Lai Châu",
-  "Tỉnh Lâm Đồng",
-  "Tỉnh Lạng Sơn",
-  "Tỉnh Lào Cai",
-  "Tỉnh Nghệ An",
-  "Tỉnh Ninh Bình",
-  "Tỉnh Phú Thọ",
-  "Tỉnh Quảng Ngãi",
-  "Tỉnh Quảng Ninh",
-  "Tỉnh Quảng Trị",
-  "Tỉnh Sơn La",
-  "Tỉnh Tây Ninh",
-  "Tỉnh Thái Nguyên",
-  "Tỉnh Thanh Hóa",
-  "Tỉnh Tuyên Quang",
-  "Tỉnh Vĩnh Long",
-];
 const createEmptyFaqItems = () =>
   Array.from({ length: PROJECT_FAQ_MIN_ITEMS }, () => ({ question: "", answer: "" }));
 
