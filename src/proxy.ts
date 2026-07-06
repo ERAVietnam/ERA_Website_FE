@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const PROTECTED_PATHS = ["/quan-ly", "/ho-so-ca-nhan"];
-
 const NEWS_CATEGORY_SLUGS = new Set([
   "tin-thi-truong",
   "tin-du-an",
@@ -11,8 +9,10 @@ const NEWS_CATEGORY_SLUGS = new Set([
 ]);
 
 function isProtectedRoute(pathname: string): boolean {
-  return PROTECTED_PATHS.some(
-    (path) => pathname === path || pathname.startsWith(`${path}/`)
+  return (
+    pathname.includes("/quan-ly") ||
+    pathname === "/ho-so-ca-nhan" ||
+    pathname.startsWith("/ho-so-ca-nhan/")
   );
 }
 

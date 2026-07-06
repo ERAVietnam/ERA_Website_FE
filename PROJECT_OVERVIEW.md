@@ -151,7 +151,7 @@ export default function VeChungToi() {
 | `src/lib/newsCategoryServer.ts` | Server-side news category helpers |
 | `src/lib/magazine/status.ts` | Magazine status badge config |
 | `src/lib/recruitment/status.ts` | Recruitment status badge config |
-| `src/lib/projects.ts` | Project helpers |
+| `src/lib/projects.ts` | Project helpers, FAQ constants, `PROJECT_TAGS`, `VIETNAM_PROVINCES` |
 | `src/lib/permissions.ts` | Permission utilities |
 | `src/lib/cookies.ts` | Cookie helpers |
 | `src/lib/country.ts` | Country code utilities |
@@ -211,7 +211,10 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/tin-tuc/tim-kiem` | `app/tin-tuc/tim-kiem/page.tsx` | `NewsSearchPage` |
 | `/tin-tuc/quan-ly` | `app/tin-tuc/quan-ly/page.tsx` | `NewsManagePage` |
 | `/tap-chi/quan-ly` | `app/tap-chi/quan-ly/page.tsx` | `MagazineManagePage` |
+| `/agents/quan-ly` | `app/agents/quan-ly/page.tsx` | `AgentManagePage` |
+| `/vinh-danh-va-he-thong/quan-ly` | `app/vinh-danh-va-he-thong/quan-ly/page.tsx` | `HonorsManagePage` |
 | `/tai-khoan/quan-ly` | `app/tai-khoan/quan-ly/page.tsx` | `AccountManagePage` |
+| `/ho-so-ca-nhan` | `app/ho-so-ca-nhan/page.tsx` | `ProfilePage` |
 | `/gia-nhap` | `app/gia-nhap/page.tsx` | `JoinPage` |
 | `/tuyen-dung` | `app/tuyen-dung/page.tsx` | `ApplyPage` |
 | `/tuyen-dung/chi-tiet-cong-viec/[slug]` | `app/tuyen-dung/chi-tiet-cong-viec/[slug]/page.tsx` | `ApplyJobDetailPage` |
@@ -244,7 +247,7 @@ const nextConfig = {
 
 | File | Mô tả |
 |------|-------|
-| `src/app/robots.ts` | Cho phép crawl toàn bộ, chặn các admin path cụ thể: `/tin-tuc/quan-ly`, `/du-an/quan-ly`, `/tuyen-dung/quan-ly` |
+| `src/app/robots.ts` | Cho phép crawl public pages, chặn các admin/private paths: `/tin-tuc/quan-ly`, `/tap-chi/quan-ly`, `/du-an/quan-ly`, `/agents/quan-ly`, `/vinh-danh-va-he-thong/quan-ly`, `/tuyen-dung/quan-ly`, `/tuyen-dung/ung-vien`, `/tai-khoan/quan-ly`, `/ho-so-ca-nhan` |
 | `src/app/sitemap.ts` | Static URLs + dynamic project detail URLs từ API. Chỉ đưa project/news có `isIndexed === true` vào sitemap. |
 | `src/app/layout.tsx` | Google site verification: `k7gJl-mR813vH7LjJj1wD4B23PDH4N-F_bEW9pHylmc` |
 
@@ -297,12 +300,12 @@ const nextConfig = {
 | `src/api/client.ts` | Axios instance với `withCredentials: true` |
 | `src/api/interceptors.ts` | Response interceptor: unwrap response data, tự động refresh token qua cookie khi 401, retry request |
 | `src/api/config.ts` | `BASE_URL` từ `NEXT_PUBLIC_API_URL` |
-| `src/api/domains/*.ts` | API helpers theo module (auth, accounts, news, media, magazines, recruitment, projects) |
+| `src/api/domains/*.ts` | API helpers theo module (auth, accounts, news, media, magazines, recruitment, projects, agents, honors) |
 
 ### Route Guard
 | File | Mô tả |
 |------|-------|
-| `src/proxy.ts` | Next.js proxy redirect URL danh mục tin tức cũ (`/tin-tuc/danh-muc/<slug>`) sang URL mới và bảo vệ server-side cho path match trực tiếp `/quan-ly` / `/ho-so-ca-nhan`. Kiểm tra cookie `era_auth_state`, redirect về `/dang-nhap` nếu chưa đăng nhập, và set `Cache-Control: no-store`. |
+| `src/proxy.ts` | Next.js proxy redirect URL danh mục tin tức cũ (`/tin-tuc/danh-muc/<slug>`) sang URL mới và bảo vệ server-side cho mọi path chứa `/quan-ly` hoặc `/ho-so-ca-nhan`. Kiểm tra cookie `era_auth_state`, redirect về `/dang-nhap` nếu chưa đăng nhập, và set `Cache-Control: no-store`. |
 | `src/components/guards/AuthGuard.tsx` | Client-side guard dự phòng. Dựa vào `AuthContext.isAuthenticated`, redirect về `/dang-nhap` nếu chưa đăng nhập. |
 | `src/app/(admin)/layout.tsx` | Wrap admin pages bằng `<AuthGuard>` để áp dụng bảo vệ client-side cho toàn bộ admin routes. |
 
@@ -343,13 +346,15 @@ const nextConfig = {
 - `/du-an/[slug]` dùng ISR (`revalidate = 300`), metadata động và chỉ lấy project đã publish.
 
 ### Admin pages
-- `/du-an/quan-ly/` quản lý dự án với bộ lọc tìm kiếm theo tên, trạng thái xuất bản và **tags đa lựa chọn** (`TagFilter`).
+- `/du-an/quan-ly/` quản lý dự án với bộ lọc tìm kiếm theo tên, trạng thái xuất bản, tỉnh/thành phố và **tags đa lựa chọn** (`TagFilter`).
 - Tags filter gửi query `tags=tag1,tag2` về API; BE dùng `hasEvery` để lọc dự án chứa tất cả tag đã chọn.
+- Tỉnh/thành phố filter dùng dropdown từ `VIETNAM_PROVINCES`, gửi query `province` về API; BE lọc bằng `location contains province`.
 
 ### Project form
 - `location` trên API vẫn là một chuỗi.
 - UI tách thành dropdown 34 tỉnh/thành bắt buộc và địa chỉ chi tiết không bắt buộc.
 - Trước khi gửi API, FE ghép thành `Tỉnh/Thành phố, địa chỉ chi tiết`.
+- Danh sách 34 tỉnh/thành nằm trong `src/lib/projects.ts` với constant `VIETNAM_PROVINCES`, dùng chung cho form và filter list.
 - Project dùng `tags: string[]` thay cho các field type/status cũ.
 - Form tạo/sửa dự án hiển thị đầy đủ 10 tags từ `PROJECT_TAGS`.
 
@@ -361,6 +366,33 @@ const nextConfig = {
 - FAQ chỉ sửa được khi project ở trạng thái `draft` hoặc `pending`; `published` chỉ đọc.
 - Câu trả lời FAQ lưu HTML từ CKEditor compact: bold, italic, font color, bullet list và numbered list.
 - `ProjectsFaqSection` dùng chung cho preview và trang chi tiết công khai.
+
+---
+
+## 7.6 Agents / Honors Module
+
+### Agents admin
+- `/agents/quan-ly` quản lý danh sách agent.
+- API domain: `src/api/domains/agents.ts`.
+- Permission FE sidebar dùng `agents.all.view`.
+- Form hỗ trợ tạo/sửa/xóa agent với fields:
+  - `name` bắt buộc
+  - `avatar` optional
+  - `code` optional
+- Avatar upload dùng drag/drop hoặc chọn file, upload qua `mediaApi.upload(..., folder='agents')`.
+- FE truyền `filenameBase` theo tên agent để BE tạo tên file dạng slug tên agent + random suffix.
+- UI không hiển thị trực tiếp URL ảnh avatar; chỉ hiển thị preview.
+
+### Vinh danh và Hệ thống admin
+- `/vinh-danh-va-he-thong/quan-ly` cho phép chọn một honor category rồi thêm/sắp xếp danh sách agents trong category đó.
+- API domain: `src/api/domains/honors.ts`.
+- Permission FE sidebar dùng `honors.all.view`.
+- Save danh sách gọi `PATCH /honors/categories/:slug/agents` với list `agentIds` theo đúng thứ tự UI.
+
+### Public About ERA Vietnam
+- `AboutERAVNDivisionsSection` gọi `honorsApi.getPublicCategories()` và lấy category `he-thong-divisions-tai-era-vietnam`.
+- `AboutERAVNAwardsSection` tab “Vinh Danh Thường Niên” gọi `honorsApi.getPublicCategories()` để render Best Achievers, Top 2, Top 10, Top 50, Top 3 groups, Diamond Club và Division Directors.
+- Tab “Vinh Danh Tháng” hiện vẫn còn data/image hardcoded.
 
 ---
 
@@ -423,10 +455,10 @@ Với `images.unoptimized: true`:
 ## 13. Mock Data Status
 
 Nhiều section đang dùng mock data hardcoded inline:
-- `AboutERAVNAwardsSection` — achievers, agents, divisions
+- `AboutERAVNAwardsSection` — tab “Vinh Danh Tháng” còn hardcoded image/data; tab “Vinh Danh Thường Niên” đã lấy data từ Honors API nhưng file vẫn còn một số mock arrays cũ ở top-level.
 - Một số section marketing/landing — nội dung giới thiệu, gallery, testimonial
 
-Các module news, projects, recruitment và magazines đã lấy dữ liệu từ API. Project FAQ và News FAQ không còn dùng mock data.
+Các module news, projects, recruitment, magazines, agents và honors đã lấy dữ liệu từ API. Project FAQ và News FAQ không còn dùng mock data. `AboutERAVNDivisionsSection` đã lấy danh sách divisions thật từ Honors API.
 
 ---
 
@@ -459,7 +491,7 @@ Các module news, projects, recruitment và magazines đã lấy dữ liệu t�
 ## 16. Architecture Decisions & Rules
 
 ### Admin list UI
-- Mọi trang quản lý list (`NewsManageList`, `MagazineManageList`, `ApplyManageList`, `AccountManageList`) dùng chung các base components trong `src/components/ui/admin/`:
+- Mọi trang quản lý list (`NewsManageList`, `MagazineManageList`, `ProjectsManageList`, `ApplyManageList`, `ApplicationsManageList`, `AccountManageList`, `AgentManagePage`, `HonorsManagePage`) ưu tiên dùng chung các base components trong `src/components/ui/admin/`:
   - `AdminListHeader` cho header tiêu đề + subtitle + nút tạo
   - `AdminFilters` cho panel bộ lọc
   - `AdminLoading`, `AdminTable`, `AdminEmptyState` cho trạng thái list
