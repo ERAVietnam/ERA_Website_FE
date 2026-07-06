@@ -71,6 +71,7 @@ export function ProjectsManagePage() {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [publicationFilter, setPublicationFilter] = useState<ProjectPublicationStatus | "">("");
+  const [provinceFilter, setProvinceFilter] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -100,6 +101,7 @@ export function ProjectsManagePage() {
       const data = await projectsApi.getProjects({
         search: debouncedSearch || undefined,
         publicationStatus: publicationFilter || undefined,
+        province: provinceFilter || undefined,
         tags: selectedTags.length > 0 ? selectedTags.join(",") : undefined,
         page,
         limit: 10,
@@ -111,7 +113,7 @@ export function ProjectsManagePage() {
     } finally {
       setLoading(false);
     }
-  }, [debouncedSearch, publicationFilter, selectedTags, page]);
+  }, [debouncedSearch, publicationFilter, provinceFilter, selectedTags, page]);
 
   useEffect(() => {
     if (showForm) return;
@@ -347,6 +349,11 @@ export function ProjectsManagePage() {
               publicationFilter={publicationFilter}
               onPublicationFilterChange={(value) => {
                 setPublicationFilter(value);
+                setPage(1);
+              }}
+              provinceFilter={provinceFilter}
+              onProvinceFilterChange={(value) => {
+                setProvinceFilter(value);
                 setPage(1);
               }}
               selectedTags={selectedTags}
