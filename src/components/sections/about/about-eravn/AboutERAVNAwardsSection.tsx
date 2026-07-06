@@ -596,7 +596,7 @@ export default function AboutERAVNAwardsSection() {
             </div>
 
             {/* Best Achievers */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
               {achievers.map((achiever, index) => (
                 <div
                   key={`${achiever.name}-${index}`}
@@ -615,9 +615,9 @@ export default function AboutERAVNAwardsSection() {
             </div>
 
             {/* Agent Tables */}
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            {/* <div className="grid grid-cols-1 lg:grid-cols-5 gap-6"> */}
               {/* Promoted Agents */}
-              <div
+              {/* <div
                 className="lg:col-span-2 rounded-2xl p-5 text-white"
                 style={{ backgroundColor: colors.primary.navy.DEFAULT }}
               >
@@ -643,10 +643,10 @@ export default function AboutERAVNAwardsSection() {
                 <button className="mt-6 text-sm flex items-center gap-1 mx-auto hover:underline text-white">
                   Xem thêm <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
                 </button>
-              </div>
+              </div> */}
 
               {/* Official Agents */}
-              <div
+              {/* <div
                 className="lg:col-span-3 rounded-2xl border border-gray-100 p-5 bg-white shadow-sm"
               >
                 <h4 className="font-semibold text-2xl mb-6 text-center" style={{ color: colors.primary.navy.DEFAULT }}>
@@ -674,7 +674,7 @@ export default function AboutERAVNAwardsSection() {
                   Xem thêm <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
                 </button>
               </div>
-            </div>
+            </div> */}
           </>
         )}
 
