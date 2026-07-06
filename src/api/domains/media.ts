@@ -8,27 +8,39 @@ export interface UploadMediaResponse {
   folder: string;
 }
 
+export interface UploadMediaOptions {
+  filenameBase?: string;
+}
+
 export const mediaApi = {
-  uploadImage: (file: File, folder?: 'news' | 'magazine' | 'recruitment' | 'projects' | 'general') => {
+  uploadImage: (
+    file: File,
+    folder?: 'news' | 'magazine' | 'recruitment' | 'projects' | 'agents' | 'general',
+    options?: UploadMediaOptions,
+  ) => {
     const formData = new FormData();
     formData.append('file', file);
 
     return apiClient
       .post<UploadMediaResponse>(ENDPOINTS.MEDIA.UPLOAD, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
-        params: folder ? { folder } : undefined,
+        params: { ...(folder ? { folder } : {}), ...(options?.filenameBase ? { filenameBase: options.filenameBase } : {}) },
       })
       .then((res) => res.data);
   },
 
-  uploadFile: (file: File, folder?: 'news' | 'magazine' | 'recruitment' | 'projects' | 'general') => {
+  uploadFile: (
+    file: File,
+    folder?: 'news' | 'magazine' | 'recruitment' | 'projects' | 'agents' | 'general',
+    options?: UploadMediaOptions,
+  ) => {
     const formData = new FormData();
     formData.append('file', file);
 
     return apiClient
       .post<UploadMediaResponse>(ENDPOINTS.MEDIA.UPLOAD, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
-        params: folder ? { folder } : undefined,
+        params: { ...(folder ? { folder } : {}), ...(options?.filenameBase ? { filenameBase: options.filenameBase } : {}) },
       })
       .then((res) => res.data);
   },

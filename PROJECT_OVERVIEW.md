@@ -203,17 +203,26 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/du-an/quan-ly` | `app/du-an/quan-ly/page.tsx` | `ProjectsManagePage` |
 | `/tin-tuc` | `app/tin-tuc/page.tsx` | `NewsPage` |
 | `/tin-tuc/[slug]` | `app/tin-tuc/[slug]/page.tsx` | `NewsDetailPage` |
+| `/tin-tuc/tin-thi-truong` | `app/tin-tuc/tin-thi-truong/page.tsx` | `NewsCategoryPage` |
+| `/tin-tuc/tin-du-an` | `app/tin-tuc/tin-du-an/page.tsx` | `NewsCategoryPage` |
+| `/tin-tuc/era-news` | `app/tin-tuc/era-news/page.tsx` | `NewsCategoryPage` |
+| `/tin-tuc/thong-cao-bao-chi` | `app/tin-tuc/thong-cao-bao-chi/page.tsx` | `NewsCategoryPage` |
+| `/tin-tuc/tap-chi` | `app/tin-tuc/tap-chi/page.tsx` | `MagazinesPage` |
+| `/tin-tuc/tim-kiem` | `app/tin-tuc/tim-kiem/page.tsx` | `NewsSearchPage` |
 | `/tin-tuc/quan-ly` | `app/tin-tuc/quan-ly/page.tsx` | `NewsManagePage` |
+| `/tap-chi/quan-ly` | `app/tap-chi/quan-ly/page.tsx` | `MagazineManagePage` |
+| `/tai-khoan/quan-ly` | `app/tai-khoan/quan-ly/page.tsx` | `AccountManagePage` |
 | `/gia-nhap` | `app/gia-nhap/page.tsx` | `JoinPage` |
 | `/tuyen-dung` | `app/tuyen-dung/page.tsx` | `ApplyPage` |
-| `/tuyen-dung/chi-tiet-cong-viec` | `app/tuyen-dung/chi-tiet-cong-viec/page.tsx` | `ApplyJobDetailPage` |
+| `/tuyen-dung/chi-tiet-cong-viec/[slug]` | `app/tuyen-dung/chi-tiet-cong-viec/[slug]/page.tsx` | `ApplyJobDetailPage` |
 | `/tuyen-dung/quan-ly` | `app/tuyen-dung/quan-ly/page.tsx` | `ApplyManagePage` |
-| `/thank-you-eco-retreat` | `app/thank-you-eco-retreat/page.tsx` | `ThankYouEcoRetreatPage` |
+| `/tuyen-dung/ung-vien` | `app/tuyen-dung/ung-vien/page.tsx` | `ApplicationsManagePage` |
+| `/thank-you-eco-retreat` | `app/(landing)/thank-you-eco-retreat/page.tsx` | `ThankYouEcoRetreatPage` |
 | `/academy` | `app/academy/page.tsx` | `AcademyPage` |
 | `/lien-he` | `app/lien-he/page.tsx` | `ContactPage` |
 | `/dieu-khoan-su-dung` | `app/dieu-khoan-su-dung/page.tsx` | `LegalPage` |
 | `/chinh-sach-bao-mat` | `app/chinh-sach-bao-mat/page.tsx` | `LegalPage` |
-| `/duan-canho-forest-onsen` | `app/duan-canho-forest-onsen/page.tsx` | `ForestOnsenLanding` |
+| `/duan-canho-forest-onsen` | `app/(landing)/duan-canho-forest-onsen/page.tsx` | `ForestOnsenLanding` |
 
 ---
 
@@ -235,7 +244,7 @@ const nextConfig = {
 
 | File | Mô tả |
 |------|-------|
-| `src/app/robots.ts` | Cho phép crawl toàn bộ, chặn `/quan-ly` routes |
+| `src/app/robots.ts` | Cho phép crawl toàn bộ, chặn các admin path cụ thể: `/tin-tuc/quan-ly`, `/du-an/quan-ly`, `/tuyen-dung/quan-ly` |
 | `src/app/sitemap.ts` | Static URLs + dynamic project detail URLs từ API. Chỉ đưa project/news có `isIndexed === true` vào sitemap. |
 | `src/app/layout.tsx` | Google site verification: `k7gJl-mR813vH7LjJj1wD4B23PDH4N-F_bEW9pHylmc` |
 
@@ -293,7 +302,7 @@ const nextConfig = {
 ### Route Guard
 | File | Mô tả |
 |------|-------|
-| `src/proxy.ts` | Next.js proxy (middleware) bảo vệ routes `/quan-ly` và `/ho-so-ca-nhan` ở server-side. Kiểm tra cookie `era_auth_state`, redirect về `/dang-nhap` nếu chưa đăng nhập. Set `Cache-Control: no-store` để tránh bfcache. |
+| `src/proxy.ts` | Next.js proxy redirect URL danh mục tin tức cũ (`/tin-tuc/danh-muc/<slug>`) sang URL mới và bảo vệ server-side cho path match trực tiếp `/quan-ly` / `/ho-so-ca-nhan`. Kiểm tra cookie `era_auth_state`, redirect về `/dang-nhap` nếu chưa đăng nhập, và set `Cache-Control: no-store`. |
 | `src/components/guards/AuthGuard.tsx` | Client-side guard dự phòng. Dựa vào `AuthContext.isAuthenticated`, redirect về `/dang-nhap` nếu chưa đăng nhập. |
 | `src/app/(admin)/layout.tsx` | Wrap admin pages bằng `<AuthGuard>` để áp dụng bảo vệ client-side cho toàn bộ admin routes. |
 
@@ -305,7 +314,26 @@ const nextConfig = {
 
 ---
 
-## 7.4 Project Module
+## 7.4 News Module
+
+### Public pages
+- `/tin-tuc` tải danh sách tin đã publish từ API và gom theo danh mục.
+- Category pages có route riêng: `/tin-tuc/tin-thi-truong`, `/tin-tuc/tin-du-an`, `/tin-tuc/era-news`, `/tin-tuc/thong-cao-bao-chi`.
+- `/tin-tuc/[slug]` render chi tiết bài viết, metadata động, chỉ hiển thị bài đã publish và không nằm trong tương lai theo `displayPublishedAt` / `publishedAt`.
+- Trang chi tiết tin tức render `NewsFaqSection` nếu bài có FAQ.
+- Với danh mục `thong-cao-bao-chi`, trang chi tiết dùng layout một cột và hiển thị file PDF đính kèm ở cuối nội dung nếu có.
+
+### Admin form
+- Khi tạo bài viết, bắt buộc nhập 2-5 FAQ. FAQ gửi cùng payload create.
+- Khi sửa bài viết đã tồn tại, phần thông tin chính và phần FAQ có thao tác lưu độc lập.
+- FAQ dùng endpoint `PATCH /articles/:id/faqs`; chỉ sửa khi bài ở trạng thái `draft` hoặc `pending`, bài `published` chỉ đọc.
+- Câu trả lời FAQ lưu HTML từ CKEditor compact: bold, italic, font color, bullet list và numbered list.
+- Với category `thong-cao-bao-chi`, form cho phép upload tối đa 1 file PDF optional; FE gửi `pdfMediaId` về API.
+- Với category `era-news`, form hiển thị `countryCode` (`SG / US / VN`) và public detail render `CountryFlag`.
+
+---
+
+## 7.5 Project Module
 
 ### Public pages
 - `/du-an` tải danh sách dự án đã publish từ API và hỗ trợ tìm kiếm.
@@ -338,17 +366,9 @@ const nextConfig = {
 
 ## 8. Animation Convention
 
-> **Current**: Project đang không dùng animation library. Các section render static.
->
-> Nếu cần thêm animation sau này, đề xuất dùng Framer Motion với pattern:
-> ```tsx
-> <motion.div
->   initial={{ opacity: 0, y: 20 }}
->   whileInView={{ opacity: 1, y: 0 }}
->   viewport={{ once: true }}
->   transition={{ delay: index * 0.1 }}
-> >
-> ```
+- Project có dùng Framer Motion, hiện rõ nhất ở `CompassMergeAnimation`.
+- Không dùng animation đại trà cho mọi section; chỉ dùng khi animation phục vụ nội dung hoặc interaction cụ thể.
+- Pattern ưu tiên: animation nằm trong component client riêng, không đẩy motion logic vào `app/*/page.tsx`.
 
 ---
 
@@ -370,7 +390,7 @@ const nextConfig = {
 
 Hiện có **4 kiểu tab** khác nhau trong project:
 
-1. **Underline indicator** — `AboutERAVNTabs`, `NewsTabsSection`, `ProjectsListSection`
+1. **Underline indicator** — `AboutERAVNTabs`, `NewsTabsSection`
 2. **Pill toggle** — `ApplyRecruitmentSection`, `AcademyCoursesSection`, `ContactOfficesSection`
 3. **Border container** — `AboutERAVNAwardsSection`
 4. **Rounded-full segmented** — `LegalPageLayout`
@@ -406,7 +426,7 @@ Nhiều section đang dùng mock data hardcoded inline:
 - `AboutERAVNAwardsSection` — achievers, agents, divisions
 - Một số section marketing/landing — nội dung giới thiệu, gallery, testimonial
 
-Các module news, projects, recruitment và magazines đã lấy dữ liệu từ API. Project FAQ không còn dùng mock data.
+Các module news, projects, recruitment và magazines đã lấy dữ liệu từ API. Project FAQ và News FAQ không còn dùng mock data.
 
 ---
 
@@ -466,4 +486,4 @@ Các module news, projects, recruitment và magazines đã lấy dữ liệu t�
 - **Mobile Header**: Floating pills pattern + slide drawer
 - **CKEditor**: Custom upload adapter (base64), license GPL
 - **Path Alias**: `@/*` → `./src/*`
-- **Metadata**: Mỗi page đều có `Metadata` export với OpenGraph
+- **Metadata**: Public pages chính có `metadata` hoặc `generateMetadata`; admin pages và route handlers không bắt buộc export metadata riêng

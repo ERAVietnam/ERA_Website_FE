@@ -73,4 +73,17 @@ export const ENDPOINTS = {
     REVOKE: (id: string) => `/projects/${id}/revoke`,
     LOGS: (id: string) => `/projects/${id}/logs`,
   },
+  AGENTS: {
+    LIST: '/agents',
+    DETAIL: (id: string) => `/agents/${id}`,
+    CREATE: '/agents',
+    UPDATE: (id: string) => `/agents/${id}`,
+    DELETE: (id: string) => `/agents/${id}`,
+  },
+  HONORS: {
+    PUBLIC_CATEGORIES: '/honors/public/categories',
+    CATEGORIES: '/honors/categories',
+    CATEGORY: (slug: string) => `/honors/categories/${slug}`,
+    CATEGORY_AGENTS: (slug: string) => `/honors/categories/${slug}/agents`,
+  },
 } as const;

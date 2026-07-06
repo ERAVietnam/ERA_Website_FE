@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import Image from "next/image";
+import { honorsApi } from "@/api/domains/honors";
+import type { HonorAgent, HonorCategory } from "@/types/api";
 
 const months = ["01", "02", "03", "04", "05", "06"];
 const years = ["2026", "2025", "2024"];
@@ -301,20 +303,44 @@ function RankBadge({ rank, size = "sm" }: { rank: number; size?: "sm" | "lg" }) 
 function PlaceholderAvatar({ src, alt, size = "md" }: { src?: string; alt: string; size?: "sm" | "md" | "lg" | "xl" | "xxl" }) {
   const [error, setError] = useState(false);
   const sizeClasses = {
-    sm: "w-14 h-14",
-    md: "w-20 h-20",
-    lg: "w-28 h-28",
-    xl: "w-44 h-44 md:w-56 md:h-56",
+    sm: "w-16 h-16",
+    md: "w-24 h-24",
+    lg: "w-32 h-32",
+    xl: "w-48 h-48 md:w-60 md:h-60",
     xxl: "w-72 h-72 md:w-96 md:h-96",
   };
   const showImage = src && !error;
   return (
     <div className={`${sizeClasses[size]} rounded-full overflow-hidden ${showImage ? "bg-white" : "bg-gray-300"} border-4 border-white shadow-lg relative shrink-0`}>
       {showImage ? (
-        <Image src={src} alt={alt} fill className="object-cover" onError={() => setError(true)} />
+        <img src={src} alt={alt} className="h-full w-full object-cover object-top" onError={() => setError(true)} />
       ) : null}
     </div>
   );
+}
+
+type RankedPerson = {
+  rank: number;
+  name: string;
+  division: string;
+  image?: string;
+};
+
+function toRankedPeople(agents: HonorAgent[] | undefined, rankOffset = 1): RankedPerson[] {
+  return (agents ?? []).map((agent, index) => ({
+    rank: rankOffset + index,
+    name: agent.name,
+    division: agent.code ?? "",
+    image: agent.avatar ?? "",
+  }));
+}
+
+function toPeople(agents: HonorAgent[] | undefined): Array<{ name: string; division: string; image?: string }> {
+  return (agents ?? []).map((agent) => ({
+    name: agent.name,
+    division: agent.code ?? "",
+    image: agent.avatar ?? "",
+  }));
 }
 
 function PersonCard({
@@ -411,6 +437,63 @@ export default function AboutERAVNAwardsSection() {
   const [selectedYear, setSelectedYear] = useState("2026");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedYearlyYear, setSelectedYearlyYear] = useState("2026");
+  const [honorCategories, setHonorCategories] = useState<HonorCategory[]>([]);
+
+  useEffect(() => {
+    honorsApi
+      .getPublicCategories()
+      .then(setHonorCategories)
+      .catch(() => setHonorCategories([]));
+  }, []);
+
+  const getHonorAgents = (slug: string) =>
+    honorCategories.find((category) => category.slug === slug)?.agents ?? [];
+
+  const bestAchiever = toRankedPeople(getHonorAgents("best-achievers"), 1)[0] ?? {
+    rank: 1,
+    name: "",
+    division: "",
+    image: "",
+  };
+  const topTwo = toRankedPeople(getHonorAgents("best-achievers-top-2"), 2);
+  const topTen = toRankedPeople(getHonorAgents("best-achievers-top-10"), 4);
+  const topFifty = toRankedPeople(getHonorAgents("best-achievers-top-50"), 11);
+  const topCategories = [
+    {
+      title: "Top 3 Project Director",
+      items: toRankedPeople(getHonorAgents("top-3-project-director"), 1),
+    },
+    {
+      title: "Top 3 Resales",
+      items: toRankedPeople(getHonorAgents("top-3-resales"), 1),
+    },
+    {
+      title: "Top 3 Rookies",
+      items: toRankedPeople(getHonorAgents("top-3-rookies"), 1),
+    },
+    {
+      sections: [
+        {
+          title: "Top Broker Doanh số",
+          items: toRankedPeople(getHonorAgents("top-broker-doanh-so"), 1),
+        },
+        {
+          title: "Top 3 Divisions",
+          items: toRankedPeople(getHonorAgents("top-3-divisions"), 1),
+        },
+      ],
+    },
+    {
+      title: "Top 3 Recruiters",
+      items: toRankedPeople(getHonorAgents("top-3-recruiters"), 1),
+    },
+    {
+      title: "Top 3 ERA Ant Plus",
+      items: toRankedPeople(getHonorAgents("top-3-era-ant-plus"), 1),
+    },
+  ];
+  const diamondClub = toPeople(getHonorAgents("diamond-club"));
+  const divisionDirectors = toPeople(getHonorAgents("division-directors"));
 
   return (
     <Section id="awards" padding="md" bg="white" noContainer>
