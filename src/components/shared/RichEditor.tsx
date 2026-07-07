@@ -256,6 +256,40 @@ export default function RichEditor({
           height: auto !important;
           overflow-y: visible !important;
         }
+        .richtext-editor .ck-editor__editable_inline {
+          font-size: 18px !important;
+          font-weight: 400 !important;
+          line-height: 1.75 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline h1 {
+          font-size: 26px !important;
+          font-weight: 800 !important;
+          line-height: 1.3 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline h2 {
+          font-size: 24px !important;
+          font-weight: 700 !important;
+          line-height: 1.35 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline h3 {
+          font-size: 22px !important;
+          font-weight: 700 !important;
+          line-height: 1.4 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline h4,
+        .richtext-editor .ck-editor__editable_inline h5,
+        .richtext-editor .ck-editor__editable_inline h6 {
+          font-size: 18px !important;
+          font-weight: 600 !important;
+          line-height: 1.45 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline p,
+        .richtext-editor .ck-editor__editable_inline ul,
+        .richtext-editor .ck-editor__editable_inline ol,
+        .richtext-editor .ck-editor__editable_inline blockquote {
+          font-size: inherit !important;
+          line-height: inherit !important;
+        }
         .faq-rich-editor .ck-editor__editable_inline {
           min-height: calc(4 * 1.5em + 2rem) !important;
           height: auto !important;
@@ -319,7 +353,7 @@ export default function RichEditor({
       ];
 
   return (
-    <div className={compact ? "faq-rich-editor" : undefined}>
+    <div className={compact ? "faq-rich-editor" : "richtext-editor"}>
       <CKEditor
         editor={disableImage ? PlainEditor : CustomEditor}
         data={displayData}

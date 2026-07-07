@@ -90,8 +90,8 @@ export function ProjectPreviewDialog({ project, imagePreviewUrl, isOpen, onClose
               style={{
                 color: colors.primary.DEFAULT,
                 fontWeight: 800,
-                fontSize: "clamp(22px, 3.5vw, 32px)",
-                lineHeight: 1.2,
+                fontSize: "26px",
+                lineHeight: 1.3,
               }}
             >
               Dự án {project.name}

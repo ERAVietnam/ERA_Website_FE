@@ -340,3 +340,44 @@ body {
   padding: 0;
   font-size: inherit;
 }
+
+/* Public detail rich text sizing */
+.richtext-content {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+.richtext-content h1 {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.richtext-content h2 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.richtext-content h3 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.richtext-content h4,
+.richtext-content h5,
+.richtext-content h6 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.richtext-content p,
+.richtext-content ul,
+.richtext-content ol,
+.richtext-content blockquote {
+  font-size: inherit;
+  line-height: inherit;
+}
