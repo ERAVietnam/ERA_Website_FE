@@ -381,3 +381,7 @@ body {
   font-size: inherit;
   line-height: inherit;
 }
+
+.faq-answer-content > :last-child {
+  margin-bottom: 0;
+}

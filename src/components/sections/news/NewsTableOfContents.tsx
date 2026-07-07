@@ -13,6 +13,8 @@ export function NewsTableOfContents({ headings }: NewsTableOfContentsProps) {
 
   if (headings.length === 0) return null;
 
+  const baseLevel = Math.min(...headings.map((heading) => heading.level));
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -45,7 +47,7 @@ export function NewsTableOfContents({ headings }: NewsTableOfContentsProps) {
               type="button"
               onClick={() => scrollTo(h.id)}
               className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-b-0"
-              style={{ paddingLeft: `${12 + (h.level - 1) * 16}px` }}
+              style={{ paddingLeft: `${12 + (h.level - baseLevel) * 16}px` }}
             >
               {h.text}
             </button>
