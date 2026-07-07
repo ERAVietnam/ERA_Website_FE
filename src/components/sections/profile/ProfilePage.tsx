@@ -33,7 +33,7 @@ interface ProfileForm {
 export default function ProfilePage() {
   const router = useRouter();
   const { account } = useAuth();
-  const [isProfileExpanded, setIsProfileExpanded] = useState(true);
+  const [isProfileExpanded, setIsProfileExpanded] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [profileForm, setProfileForm] = useState<ProfileForm>({
     fullName: account?.name || "",

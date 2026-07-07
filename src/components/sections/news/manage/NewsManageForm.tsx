@@ -299,7 +299,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       id: base?.id ?? "preview",
       title: form.title,
       slug: form.slug,
-      summary: form.summary || null,
+      summary: null,
       content: form.content,
       source: form.source || null,
       metaTitle: form.metaTitle || null,
@@ -699,7 +699,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       const payload = {
         title: form.title,
         slug: form.slug,
-        summary: form.summary || undefined,
+        summary: null,
         content: processedContent,
         categoryId: form.categoryId,
         featuredImageMediaId,
@@ -1121,21 +1121,6 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                   />
                 </label>
               )}
-            </div>
-
-            {/* Summary */}
-            <div id="field-summary">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Tóm tắt bài viết
-              </label>
-              <textarea
-                value={form.summary}
-                onChange={(e) => update("summary", e.target.value)}
-                placeholder="Nhập tóm tắt ngắn gọn nội dung bài viết..."
-                rows={3}
-                disabled={isReadOnly}
-                className={`${inputBaseClass} resize-none`}
-              />
             </div>
 
             {/* Content */}

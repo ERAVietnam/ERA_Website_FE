@@ -111,18 +111,6 @@ export const NewsDetailPage = memo(function NewsDetailPage({
             {article.title}
           </h1>
 
-          {/* Excerpt */}
-          <p
-            className="mb-8"
-            style={{
-              color: colors.gray[600],
-              fontSize: "15px",
-              lineHeight: 1.6,
-            }}
-          >
-            {article.summary}
-          </p>
-
           {/* Table of Contents */}
           <NewsTableOfContents headings={headings} />
 
@@ -279,7 +267,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
                         alt={item.title}
                         fill
                         className="object-cover"
-                        style={{ transition: "transform 0.3s ease" }}
+                        style={{ objectPosition: "top right", transition: "transform 0.3s ease" }}
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         loading="lazy"
                       />
