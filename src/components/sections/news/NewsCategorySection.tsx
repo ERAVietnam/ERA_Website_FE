@@ -46,6 +46,7 @@ export const NewsCategorySection = memo(function NewsCategorySection({
               alt={featuredArticle.title}
               fill
               className="object-cover"
+              style={{ objectPosition: "top right" }}
               sizes="100vw"
               loading="lazy"
             />
@@ -112,6 +113,7 @@ export const NewsCategorySection = memo(function NewsCategorySection({
                   alt={item.title}
                   fill
                   className="object-cover"
+                  style={{ objectPosition: "top right" }}
                   sizes="96px"
                   loading="lazy"
                 />

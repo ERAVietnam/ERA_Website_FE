@@ -58,12 +58,13 @@ export function NewsCategoryPage({ category, articles }: NewsCategoryPageProps) 
                 href={`${ROUTES.news}/${item.slug}`}
                 className="group bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col"
               >
-                <div className="relative h-44 bg-gray-100 overflow-hidden">
+                <div className="relative h-56 bg-gray-100 overflow-hidden">
                   <Image
                     src={getArticleImage(item) || placeholderImg}
                     alt={item.title}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    style={{ objectPosition: "top right" }}
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     loading="lazy"
                   />
@@ -75,12 +76,9 @@ export function NewsCategoryPage({ category, articles }: NewsCategoryPageProps) 
                   </span>
                 </div>
                 <div className="p-5 flex flex-col flex-1">
-                  <h2 className="font-bold leading-snug line-clamp-2 min-h-[2.75rem] group-hover:text-[#C8102E] transition-colors" style={{ color: colors.neutral.foreground, fontSize: "18px" }}>
+                  <h2 className="font-bold leading-snug line-clamp-3 min-h-[4.125rem] group-hover:text-[#C8102E] transition-colors" style={{ color: colors.neutral.foreground, fontSize: "18px" }}>
                     {item.title}
                   </h2>
-                  <p className="text-sm line-clamp-2 min-h-[2.75rem] mt-2" style={{ color: colors.gray[500] }}>
-                    {item.summary}
-                  </p>
                   <div className="flex items-center justify-between pt-4 mt-auto">
                     <div className="text-xs space-y-0.5" style={{ color: colors.gray[400] }}>
                       <p className="flex items-center gap-1">

@@ -71,7 +71,7 @@ export interface NewsArticle {
 export interface CreateArticleInput {
   title: string;
   slug: string;
-  summary?: string;
+  summary?: string | null;
   content: string;
   categoryId: string;
   featuredImageMediaId?: string | null;

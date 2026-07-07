@@ -280,6 +280,7 @@ export function NewsSearchBox({ query, onQueryChange, onSubmit }: NewsSearchBoxP
                             alt={article.title}
                             fill
                             className="object-cover"
+                            style={{ objectPosition: "top right" }}
                             sizes="64px"
                           />
                         ) : (
