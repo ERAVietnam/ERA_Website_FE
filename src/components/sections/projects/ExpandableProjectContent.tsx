@@ -48,11 +48,9 @@ export function ExpandableProjectContent({ content }: ExpandableProjectContentPr
     >
       <div
         ref={contentRef}
-        className="ck-content transition-all duration-300"
+        className="ck-content richtext-content transition-all duration-300"
         style={{
           color: colors.neutral.foreground,
-          fontSize: "15px",
-          lineHeight: 1.8,
           maxHeight: expanded ? undefined : `calc(${COLLAPSED_HEIGHT} - ${FADE_HEIGHT}px)`,
           overflow: expanded ? "visible" : "hidden",
         }}

@@ -104,7 +104,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
             style={{
               color: colors.primary.DEFAULT,
               fontWeight: 800,
-              fontSize: "clamp(24px, 4vw, 32px)",
+              fontSize: "26px",
               lineHeight: 1.3,
             }}
           >
@@ -116,11 +116,9 @@ export const NewsDetailPage = memo(function NewsDetailPage({
 
           {/* Body Content */}
           <div
-            className="mb-8 ck-content"
+            className="mb-8 ck-content richtext-content"
             style={{
               color: colors.neutral.foreground,
-              fontSize: "15px",
-              lineHeight: 1.8,
             }}
             dangerouslySetInnerHTML={{ __html: processedContent }}
           />
@@ -296,14 +294,6 @@ export const NewsDetailPage = memo(function NewsDetailPage({
                     >
                       {item.title}
                     </h4>
-                    <p
-                      className="text-sm line-clamp-3"
-                      style={{
-                        color: colors.gray[500],
-                      }}
-                    >
-                      {item.summary}
-                    </p>
                   </div>
                 </Link>
               ))}

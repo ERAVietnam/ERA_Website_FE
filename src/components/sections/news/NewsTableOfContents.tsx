@@ -16,7 +16,9 @@ export function NewsTableOfContents({ headings }: NewsTableOfContentsProps) {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      const offset = 140;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
     }
     setOpen(false);
   };
@@ -43,7 +45,7 @@ export function NewsTableOfContents({ headings }: NewsTableOfContentsProps) {
               type="button"
               onClick={() => scrollTo(h.id)}
               className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-b-0"
-              style={{ paddingLeft: `${12 + (h.level - 2) * 16}px` }}
+              style={{ paddingLeft: `${12 + (h.level - 1) * 16}px` }}
             >
               {h.text}
             </button>

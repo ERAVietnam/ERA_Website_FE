@@ -3,7 +3,7 @@ export interface TocHeading {
   id: string;
   /** Plain text of the heading (HTML tags stripped, entities decoded) */
   text: string;
-  /** Heading level: 2 = h2, 3 = h3, 4 = h4 */
+  /** Heading level: 1 = h1, 2 = h2, ..., 6 = h6 */
   level: number;
 }
 
@@ -19,7 +19,7 @@ function decodeEntities(text: string): string {
 }
 
 /**
- * Parse HTML content from CKEditor, find all h2/h3/h4 headings,
+ * Parse HTML content from CKEditor, find all h1-h6 headings,
  * inject id attributes for scroll targets, and return the modified
  * HTML along with the extracted heading list.
  */
@@ -31,7 +31,7 @@ export function extractHeadings(html: string): {
   let counter = 0;
 
   const newHtml = html.replace(
-    /<h([2-4])(\s[^>]*)?>(.+?)<\/h\1>/gi,
+    /<h([1-6])(\s[^>]*)?>(.+?)<\/h\1>/gi,
     (_match, level: string, attrs: string | undefined, inner: string) => {
       const id = `toc-heading-${counter++}`;
       const cleanText = decodeEntities(

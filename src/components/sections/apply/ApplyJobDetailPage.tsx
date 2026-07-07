@@ -95,7 +95,7 @@ export function ApplyJobDetailPage({
       <div className={`max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-8 ${isPreview ? "pt-10 md:pt-14" : ""}`}>
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
           <div className="flex-1 min-w-0 max-w-2xl">
-            <h1 className="mb-4" style={{ color: colors.primary.DEFAULT, fontWeight: 900, fontSize: "clamp(26px, 3.5vw, 40px)", lineHeight: 1.2 }}>
+            <h1 className="mb-4" style={{ color: colors.primary.DEFAULT, fontWeight: 800, fontSize: "26px", lineHeight: 1.3 }}>
               {title}
             </h1>
             <div className="flex flex-wrap items-center gap-3 text-sm">
@@ -162,7 +162,7 @@ export function ApplyJobDetailPage({
               <section>
                 <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Mô tả công việc</h2>
                 <div
-                  className="ck-content text-gray-600 leading-relaxed"
+                  className="ck-content richtext-content text-gray-600"
                   dangerouslySetInnerHTML={{ __html: job!.description }}
                 />
               </section>
@@ -173,7 +173,7 @@ export function ApplyJobDetailPage({
               <section>
                 <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Yêu cầu công việc</h2>
                 <div
-                  className="ck-content text-gray-600 leading-relaxed"
+                  className="ck-content richtext-content text-gray-600"
                   dangerouslySetInnerHTML={{ __html: job!.requirements }}
                 />
               </section>
@@ -185,7 +185,7 @@ export function ApplyJobDetailPage({
                 <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Đặc Quyền & Phúc Lợi</h2>
                 <div className="rounded-2xl p-5 space-y-4" style={{ backgroundColor: colors.secondary.DEFAULT }}>
                   <div
-                    className="ck-content leading-relaxed text-white [&_*]:!text-white"
+                    className="ck-content richtext-content text-white [&_*]:!text-white"
                     dangerouslySetInnerHTML={{ __html: job!.benefits }}
                   />
                 </div>
@@ -197,7 +197,7 @@ export function ApplyJobDetailPage({
               <section>
                 <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Thờі gian làm việc</h2>
                 <div
-                  className="ck-content text-gray-600 leading-relaxed"
+                  className="ck-content richtext-content text-gray-600"
                   dangerouslySetInnerHTML={{ __html: job!.workingTime ?? "" }}
                 />
               </section>
