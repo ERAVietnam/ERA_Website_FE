@@ -14,7 +14,6 @@ import { AdminEmptyState } from "@/components/ui/admin/AdminEmptyState";
 import { SearchInput } from "@/components/ui/admin/SearchInput";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import { TagFilter } from "@/components/ui/admin/TagFilter";
-import { ViewModeToggle } from "@/components/ui/admin/ViewModeToggle";
 import { ProjectsManageActions } from "./ProjectsManageActions";
 import { Plus, FileText, X, MapPin, Building } from "lucide-react";
 import { getProjectCardImage, VIETNAM_PROVINCES } from "@/lib/projects";
@@ -178,7 +177,8 @@ export const ProjectsManageList = memo(function ProjectsManageList({
       )}
 
       {!loading && total > 0 && (
-        <AdminTable>
+        <div className="hidden md:block">
+          <AdminTable>
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50/50">
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">STT</th>
@@ -275,7 +275,107 @@ export const ProjectsManageList = memo(function ProjectsManageList({
               );
             })}
           </tbody>
-        </AdminTable>
+          </AdminTable>
+        </div>
+      )}
+
+      {!loading && total > 0 && (
+        <div className="space-y-3 md:hidden">
+          {projects.map((project) => {
+            const publication = publicationLabels[project.publicationStatus];
+            const thumbnailUrl = getProjectCardImage(project);
+
+            return (
+              <div
+                key={project.id}
+                className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => onPreview?.(project)}
+                  className="relative h-28 w-24 shrink-0 overflow-hidden rounded-lg bg-gray-100"
+                >
+                  {thumbnailUrl ? (
+                    <Image
+                      src={thumbnailUrl}
+                      alt={project.name}
+                      fill
+                      className="object-cover"
+                      style={{ objectPosition: "top right" }}
+                      sizes="96px"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-gray-400">
+                      <Building size={22} />
+                    </div>
+                  )}
+                </button>
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <button
+                    type="button"
+                    onClick={() => onPreview?.(project)}
+                    className="text-left w-full group"
+                  >
+                    <h3 className="line-clamp-2 text-sm font-bold leading-snug text-gray-900 transition-colors group-hover:text-[#C8102E]">
+                      {project.name}
+                    </h3>
+                  </button>
+
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    <span
+                      className="inline-flex rounded-md px-2 py-0.5 text-[10px] font-semibold"
+                      style={{ color: publication.color, backgroundColor: publication.bg }}
+                    >
+                      {publication.label}
+                    </span>
+                    {(project.tags ?? []).slice(0, 2).map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex rounded-md border px-2 py-0.5 text-[10px] font-medium"
+                        style={{
+                          color: colors.primary.navy.DEFAULT,
+                          borderColor: colors.gray[200],
+                          backgroundColor: colors.gray[50],
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {(project.tags ?? []).length > 2 && (
+                      <span className="inline-flex rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 text-[10px] font-medium text-gray-500">
+                        +{(project.tags ?? []).length - 2}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="mt-2 space-y-0.5 text-[11px] text-gray-400">
+                    <p className="truncate">{project.investor || "—"}</p>
+                    <p className="line-clamp-1">{project.location || "—"}</p>
+                  </div>
+
+                </div>
+                </div>
+                <div className="mt-3 border-t border-gray-100 pt-2">
+                  <div className="flex justify-end">
+                    <ProjectsManageActions
+                      project={project}
+                      onEdit={onEdit}
+                      onDelete={onDelete}
+                      onPreview={onPreview}
+                      onPublish={onPublish}
+                      onRevoke={onRevoke}
+                      onSubmitForReview={onSubmitForReview}
+                      onReject={onReject}
+                      onViewHistory={onViewHistory}
+                      layout="card"
+                    />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       )}
 
       {!loading && total > 0 && (

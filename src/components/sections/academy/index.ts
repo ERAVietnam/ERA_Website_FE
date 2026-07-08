@@ -1,7 +1,9 @@
 export { AcademyHeroSection } from "./AcademyHeroSection";
-export { AcademyRoadmapSection } from "./AcademyRoadmapSection";
 export { AcademyCoursesSection } from "./AcademyCoursesSection";
-export { AcademyTestimonialsSection } from "./AcademyTestimonialsSection";
+export { AcademyRoadmapSection } from "./AcademyRoadmapSection";
 export { AcademyOnlineSection } from "./AcademyOnlineSection";
+export { AcademyActivitiesSection } from "./AcademyActivitiesSection";
 export { AcademyMyEraSection } from "./AcademyMyEraSection";
+export { AcademyTestimonialsSection } from "./AcademyTestimonialsSection";
+export { AcademyFaqSection } from "./AcademyFaqSection";
 export { AcademyPage } from "./AcademyPage";

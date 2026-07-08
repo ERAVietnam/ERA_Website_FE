@@ -294,6 +294,7 @@ export default function RichEditor({
           min-height: calc(4 * 1.5em + 2rem) !important;
           height: auto !important;
           overflow-y: visible !important;
+          color: ${colors.gray[500]} !important;
         }
       `;
       document.head.appendChild(style);

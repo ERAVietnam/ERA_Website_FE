@@ -77,7 +77,7 @@ export function ProjectsHeroSection({
               className="flex-1 bg-transparent text-sm outline-none text-gray-700 placeholder:text-gray-400"
             />
             {showSuggestions && suggestions.length > 0 && (
-              <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-100 overflow-hidden z-20">
+              <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-100 overflow-y-auto max-h-[340px] z-20">
                 {suggestions.map((project) => {
                   const thumbnailUrl = getProjectCardImage(project);
                   return (

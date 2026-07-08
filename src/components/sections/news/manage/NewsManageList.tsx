@@ -1,6 +1,4 @@
 "use client";
-
-import { useState } from "react";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
 import { Plus, X } from "lucide-react";
@@ -13,7 +11,6 @@ import { SearchInput } from "@/components/ui/admin/SearchInput";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import { AdminTable } from "@/components/ui/admin/AdminTable";
 import { AdminEmptyState } from "@/components/ui/admin/AdminEmptyState";
-import { ViewModeToggle } from "@/components/ui/admin/ViewModeToggle";
 import { NewsManageActions } from "./NewsManageActions";
 import {
   hasAnyNewsArticleCreatePermission,
@@ -73,7 +70,6 @@ export function NewsManageList({
 }: Props) {
   const { hasPermission } = useAuth();
   const { guard } = usePermissionWarning();
-  const [viewMode, setViewMode] = useState<"table" | "card">("table");
 
   const showActionsColumn =
     hasAnyNewsArticleViewPermission(hasPermission) ||
@@ -91,7 +87,6 @@ export function NewsManageList({
         subtitle={meta.total > 0 ? `Hiển thị ${items.length} / ${meta.total} bài viết` : "Không có bài viết nào"}
       >
         <div className="flex items-center gap-3">
-          <ViewModeToggle value={viewMode} onChange={setViewMode} />
           {hasAnyNewsArticleCreatePermission(hasPermission) && (
             <Button
               variant="primary"
@@ -178,8 +173,9 @@ export function NewsManageList({
 
       {loading && <AdminLoading />}
 
-      {!loading && viewMode === "table" && (
-        <AdminTable>
+      {!loading && (
+        <div className="hidden md:block">
+          <AdminTable>
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50/50">
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">STT</th>
@@ -271,54 +267,66 @@ export function NewsManageList({
                 )}
               </tbody>
           </AdminTable>
-        )}
+        </div>
+      )}
 
-      {!loading && viewMode === "card" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {!loading && (
+        <div className="space-y-3 md:hidden">
           {items.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col"
+              className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm transition-shadow hover:shadow-md"
             >
-              <div className="relative h-44 bg-gray-100 overflow-hidden">
+              <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => onView(item.id)}
+                className="relative h-28 w-24 shrink-0 overflow-hidden rounded-lg bg-gray-100"
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={getArticleImage(item) || placeholderImg}
                   alt={item.title}
                   className="w-full h-full object-cover"
                 />
-                <span
-                  className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-md text-white"
-                  style={{ backgroundColor: colors.primary.DEFAULT }}
-                >
-                  {item.category.name}
-                </span>
-                <span
-                  className="absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-md"
-                  style={{
-                    color: newsStatusConfig[item.status]?.color,
-                    backgroundColor: newsStatusConfig[item.status]?.bg,
-                  }}
-                >
-                  {newsStatusConfig[item.status]?.label}
-                </span>
-              </div>
-              <div className="p-5 flex flex-col flex-1">
+              </button>
+              <div className="flex min-w-0 flex-1 flex-col">
                 <button
                   onClick={() => onView(item.id)}
                   className="text-left w-full group"
                 >
-                  <h3 className="font-bold text-gray-900 group-hover:text-[#C8102E] transition-colors leading-snug line-clamp-2 min-h-[2.75rem]">
+                  <h3 className="line-clamp-2 text-sm font-bold leading-snug text-gray-900 transition-colors group-hover:text-[#C8102E]">
                     {item.title}
                   </h3>
                 </button>
-                <p className="text-sm text-gray-500 line-clamp-2 min-h-[2.75rem] mt-2">{item.summary}</p>
-                <div className="flex items-center justify-between pt-4 mt-auto">
-                  <div className="text-xs text-gray-400 space-y-0.5">
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  <span
+                    className="inline-flex rounded-md px-2 py-0.5 text-[10px] font-semibold text-white"
+                    style={{ backgroundColor: colors.primary.DEFAULT }}
+                  >
+                    {item.category.name}
+                  </span>
+                  <span
+                    className="inline-flex rounded-md px-2 py-0.5 text-[10px] font-semibold"
+                    style={{
+                      color: newsStatusConfig[item.status]?.color,
+                      backgroundColor: newsStatusConfig[item.status]?.bg,
+                    }}
+                  >
+                    {newsStatusConfig[item.status]?.label}
+                  </span>
+                </div>
+                <div className="mt-2 text-[11px] text-gray-400">
+                  <div className="space-y-0.5">
                     <p>{item.author?.name || "—"}</p>
                     <p>{formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt)}</p>
                   </div>
-                  <NewsManageActions
+                </div>
+              </div>
+              </div>
+                <div className="mt-3 border-t border-gray-100 pt-2">
+                  <div className="flex justify-end">
+                    <NewsManageActions
                     item={item}
                     currentAccountId={currentAccountId}
                     onEdit={onEdit}
@@ -329,10 +337,10 @@ export function NewsManageList({
                     onSubmitForReview={onSubmitForReview}
                     onReject={onReject}
                     onViewHistory={onViewHistory}
-                    layout="card"
-                  />
+                      layout="card"
+                    />
+                  </div>
                 </div>
-              </div>
             </div>
           ))}
           {items.length === 0 && (

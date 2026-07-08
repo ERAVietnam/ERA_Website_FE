@@ -1,19 +1,23 @@
 import { AcademyHeroSection } from "./AcademyHeroSection";
-import { AcademyRoadmapSection } from "./AcademyRoadmapSection";
 import { AcademyCoursesSection } from "./AcademyCoursesSection";
-import { AcademyTestimonialsSection } from "./AcademyTestimonialsSection";
+import { AcademyRoadmapSection } from "./AcademyRoadmapSection";
 import { AcademyOnlineSection } from "./AcademyOnlineSection";
+import { AcademyActivitiesSection } from "./AcademyActivitiesSection";
 import { AcademyMyEraSection } from "./AcademyMyEraSection";
+import { AcademyTestimonialsSection } from "./AcademyTestimonialsSection";
+import { AcademyFaqSection } from "./AcademyFaqSection";
 
 export function AcademyPage() {
   return (
     <main>
       <AcademyHeroSection />
-      <AcademyRoadmapSection />
       <AcademyCoursesSection />
-      <AcademyTestimonialsSection />
+      <AcademyRoadmapSection />
       <AcademyOnlineSection />
+      <AcademyActivitiesSection />
       <AcademyMyEraSection />
+      <AcademyTestimonialsSection />
+      <AcademyFaqSection />
     </main>
   );
 }

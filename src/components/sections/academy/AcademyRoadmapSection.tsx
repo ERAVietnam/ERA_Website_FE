@@ -1,112 +1,96 @@
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
+import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
+import { ArrowRight } from "lucide-react";
 
-const roadmapColors = [
-  colors.secondary.DEFAULT,
-  colors.tertiary.orange.DEFAULT,
-  colors.primary.navy.DEFAULT,
-  colors.primary.DEFAULT,
-];
-
-const roadmapCards = [
+const tracks = [
   {
-    id: 1,
-    title: "ONBOARDING",
-    description: "Nền tảng vững chắc cho khởi đầu bứt phá tại ERA Vietnam.",
-    bgColor: roadmapColors[0],
-    icon: "/academy/aca_onboard_icon.svg",
+    image: "/academy/c22f7bc6b0feb8910dc28767f1ca9a399478b568.webp",
+    title: "DÀNH CHO NGƯỜI MỚI",
+    titleLines: ["DÀNH CHO", "NGƯỜI MỚI"],
+    color: "#38BDF8",
+    button: "ĐĂNG KÝ TƯ VẤN",
+    bullets: [
+      "Chưa phải là môi giới tại Era Vietnam",
+      "Tham khảo khóa học phù hợp và lịch đào tạo sắp tới",
+    ],
   },
   {
-    id: 2,
-    title: "EXPERT SERIES",
-    description: "Chuỗi đào tạo chuyên sâu về kỹ năng và kiến thức thị trường.",
-    bgColor: roadmapColors[1],
-    icon: "/academy/aca_series_icon.svg",
+    image: "/academy/09c0f7380f27e8c9a2ad689340af5ebcd18fdb7d.webp",
+    title: "DÀNH CHO NGƯỜI CÓ KINH NGHIỆM",
+    titleLines: ["DÀNH CHO NGƯỜI", "CÓ KINH NGHIỆM"],
+    color: "#F97316",
+    button: "ĐĂNG KÝ TƯ VẤN",
+    bullets: [
+      "Tôi muốn gia nhập ERA Vietnam",
+      "Tìm hiểu cơ hội sự nghiệp và lộ trình đào tạo khi gia nhập ERA Vietnam",
+    ],
   },
   {
-    id: 3,
-    title: "PRO COACHING",
-    description: "Kèm cặp 1:1 từ những thủ lĩnh thực chiến hàng đầu.",
-    bgColor: roadmapColors[2],
-    icon: "/academy/aca_coach_icon.svg",
-  },
-  {
-    id: 4,
-    title: "REALTY TALK",
-    description: "Giao lưu, chia sẻ kinh nghiệm thực tế từ các chuyên gia.",
-    bgColor: roadmapColors[3],
-    icon: "/academy/aca_talk_icon.svg",
+    image: "/academy/3d6da0ea19e2fdbf7dd9dc84de60f732d2ec0ca6.webp",
+    title: "DÀNH CHO AGENT TẠI ERA VIETNAM",
+    titleLines: ["DÀNH CHO AGENT", "TẠI ERA VIETNAM"],
+    color: colors.primary.DEFAULT,
+    button: "TRUY CẬP MY ERA",
+    bullets: [
+      "Tôi là Agent của ERA Vietnam",
+      "Khám phá khóa học liệu online siêu đa dạng & lịch đào tạo mới nhất cùng App My ERA",
+    ],
   },
 ];
 
 export function AcademyRoadmapSection() {
   return (
-    <Section padding="sm" bg="white">
-        {/* Section Title */}
-        <h2 
-          className="text-center mb-10"
-          style={{
-            color: colors.primary.DEFAULT,
-            fontWeight: 800,
-            fontSize: 'clamp(28px, 5vw, 36px)',
-          }}
-        >
-          LỘ TRÌNH CHI TIẾT
+    <Section padding="md" bg="gray">
+      <div className="text-center">
+        <p className="mb-2 text-sm" style={{ color: colors.primary.navy.DEFAULT }}>
+          Bắt đầu ngay hôm nay
+        </p>
+        <h2 className="text-3xl font-black leading-tight md:text-4xl" style={{ color: colors.primary.navy.DEFAULT }}>
+          CHỌN LỘ TRÌNH <span style={{ color: colors.primary.DEFAULT }}>PHÙ HỢP VỚI BẠN</span>
         </h2>
+        <p className="mt-3 text-sm text-gray-600">
+          Dù bạn đang ở đâu trong sự nghiệp, ERA Academy có đúng chương trình dành cho bạn.
+        </p>
+      </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 grid-rows-4 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1 gap-5">
-          {roadmapCards.map((card) => (
-            <article 
-              key={card.id}
-              className="rounded-3xl p-6 cursor-pointer hover:shadow-xl hover:scale-[1.03] transition-all duration-200 flex flex-row items-center gap-4 h-full lg:flex-col lg:items-start"
-              style={{ 
-                backgroundColor: card.bgColor,
-              }}
-            >
-              {/* Icon Container */}
-              <div 
-                className="w-14 h-14 rounded-3xl flex items-center justify-center flex-shrink-0 mb-0 lg:mb-5"
-                style={{ backgroundColor: colors.neutral.white }}
-              >
-                <Image
-                  src={card.icon}
-                  alt={card.title}
-                  width={28}
-                  height={28}
-                  className="w-7 h-7"
-                />
-              </div>
-              
-              {/* Text Content */}
-              <div className="flex-1 min-w-0">
-                {/* Title */}
-                <h3 
-                  className="text-white mb-1 lg:mb-3"
-                  style={{
-                    fontWeight: 700,
-                    fontSize: '20px',
-                  }}
-                >
-                  {card.title}
+      <div className="mt-10 grid gap-6 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center">
+        {tracks.map((track, index) => (
+          <div key={track.title} className="contents">
+            <article className="rounded-xl bg-white p-5 shadow-[0_10px_28px_rgba(15,23,42,0.12)]">
+                <div className="relative h-56 overflow-hidden rounded-lg bg-gray-100">
+                  <Image src={track.image} alt={track.title} fill className="object-cover" sizes="360px" />
+                </div>
+                <h3 className="mt-6 min-h-[48px] text-center text-lg font-black leading-tight" style={{ color: track.color }}>
+                  {track.titleLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
                 </h3>
-                
-                {/* Description */}
-                <p 
-                  className="text-white/90"
-                  style={{
-                    fontWeight: 400,
-                    fontSize: '14px',
-                    lineHeight: 1.5,
-                  }}
+                <ul className="mt-5 min-h-[96px] list-disc space-y-2 pl-5 text-sm leading-relaxed text-gray-700">
+                  {track.bullets.map((bullet) => (
+                    <li key={bullet}>{bullet}</li>
+                  ))}
+                </ul>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  className="mt-6 w-full rounded-lg"
+                  style={{ backgroundColor: track.color }}
                 >
-                  {card.description}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
+                  {track.button}
+                </Button>
+              </article>
+              {index < tracks.length - 1 && (
+                <div className="hidden h-12 w-12 items-center justify-center rounded-full bg-white text-[#D4112D] shadow-md md:flex">
+                  <ArrowRight size={24} strokeWidth={2.5} />
+                </div>
+              )}
+          </div>
+        ))}
+      </div>
     </Section>
   );
 }

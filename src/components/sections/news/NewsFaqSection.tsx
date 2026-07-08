@@ -9,6 +9,10 @@ interface NewsFaqSectionProps {
   items: NewsFaqInput[];
 }
 
+function trimTrailingEmptyParagraphs(html: string) {
+  return html.replace(/(?:<p>(?:\s|&nbsp;|&#160;|<br\s*\/?>)*<\/p>\s*)+$/gi, "");
+}
+
 export function NewsFaqSection({ items }: NewsFaqSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -20,8 +24,9 @@ export function NewsFaqSection({ items }: NewsFaqSectionProps) {
         className="mb-4"
         style={{
           color: colors.neutral.foreground,
-          fontWeight: 800,
-          fontSize: "18px",
+          fontWeight: 700,
+          fontSize: "22px",
+          lineHeight: 1.35,
         }}
       >
         Câu hỏi thường gặp
@@ -40,8 +45,12 @@ export function NewsFaqSection({ items }: NewsFaqSectionProps) {
                 aria-expanded={isOpen}
               >
                 <span
-                  className="text-sm font-semibold"
-                  style={{ color: colors.primary.navy.DEFAULT }}
+                  className="font-semibold"
+                  style={{
+                    color: colors.primary.navy.DEFAULT,
+                    fontSize: "16px",
+                    lineHeight: 1.5,
+                  }}
                 >
                   {item.question}
                 </span>
@@ -54,9 +63,9 @@ export function NewsFaqSection({ items }: NewsFaqSectionProps) {
 
               {isOpen && (
                 <div
-                  className="ck-content faq-answer-content px-5 pb-4 text-sm leading-7"
+                  className="ck-content faq-richtext-content faq-answer-content px-5 pb-3"
                   style={{ color: colors.gray[600] }}
-                  dangerouslySetInnerHTML={{ __html: item.answer }}
+                  dangerouslySetInnerHTML={{ __html: trimTrailingEmptyParagraphs(item.answer) }}
                 />
               )}
             </div>

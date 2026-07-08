@@ -116,7 +116,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
 
           {/* Body Content */}
           <div
-            className="mb-8 ck-content richtext-content"
+            className="mb-12 ck-content richtext-content"
             style={{
               color: colors.neutral.foreground,
             }}

@@ -123,8 +123,15 @@ export function ApplicationsManageList({
 
       {loading && <AdminLoading />}
 
-      {!loading && (
-        <AdminTable>
+      {!loading && items.length === 0 && (
+        <div className="rounded-xl border border-gray-200 bg-white">
+          <AdminEmptyState message="Chưa có đơn ứng tuyển nào." />
+        </div>
+      )}
+
+      {!loading && items.length > 0 && (
+        <div className="hidden md:block">
+          <AdminTable>
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50/50">
               <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">STT</th>
@@ -237,6 +244,103 @@ export function ApplicationsManageList({
             )}
           </tbody>
         </AdminTable>
+        </div>
+      )}
+
+      {!loading && items.length > 0 && (
+        <div className="space-y-3 md:hidden">
+          {items.map((item) => {
+            const statusColor = STATUS_COLORS[item.status];
+            return (
+              <div key={item.id} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                <div className="mb-3 flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <h3 className="line-clamp-2 font-semibold text-gray-900">{item.fullName}</h3>
+                    <p className="mt-1 line-clamp-2 text-sm text-gray-600">{item.jobPosting?.title || "—"}</p>
+                  </div>
+                  <span
+                    className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold"
+                    style={{ backgroundColor: statusColor.bg, color: statusColor.text }}
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: statusColor.dot }} />
+                    {STATUS_OPTIONS.find((s) => s.value === item.status)?.label || item.status}
+                  </span>
+                </div>
+
+                <div className="space-y-1.5 text-sm text-gray-600">
+                  <p><span className="font-medium text-gray-700">SĐT:</span> {item.phone}</p>
+                  <p className="break-words"><span className="font-medium text-gray-700">Email:</span> {item.email || "—"}</p>
+                  <p><span className="font-medium text-gray-700">Ngày nộp:</span> {formatDateTime(item.appliedAt)}</p>
+                  <div>
+                    <span className="font-medium text-gray-700">CV:</span>{" "}
+                    {item.cvMedia ? (
+                      <a
+                        href={item.cvMedia.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex max-w-full items-center gap-1.5 align-middle text-sm font-medium text-blue-600 hover:text-blue-700"
+                        title={item.cvMedia.filename}
+                      >
+                        <FileText size={14} className="flex-shrink-0" />
+                        <span className="truncate">{item.cvMedia.filename}</span>
+                      </a>
+                    ) : (
+                      <span className="text-gray-400">Chưa đính kèm</span>
+                    )}
+                  </div>
+                </div>
+
+                {showActionsColumn && (
+                  <div className="mt-3 flex flex-wrap items-center gap-1 border-t border-gray-100 pt-2">
+                    {(canView || canUpdate) && (
+                      <Button
+                        variant="ghost"
+                        isIconOnly
+                        size="md"
+                        onClick={() => onEdit(item)}
+                        title="Xem chi tiết"
+                      >
+                        <Pencil size={15} className="text-gray-500" />
+                      </Button>
+                    )}
+                    {canView && item.cvMedia && (
+                      <Button
+                        variant="ghost"
+                        isIconOnly
+                        size="md"
+                        asChild
+                        title="Tải CV"
+                        className="hover:!bg-blue-50"
+                      >
+                        <a href={item.cvMedia.url} download={item.cvMedia.filename} target="_blank" rel="noopener noreferrer">
+                          <Download size={15} className="text-blue-500" />
+                        </a>
+                      </Button>
+                    )}
+                    {canDelete && (
+                      <Button
+                        variant="ghost"
+                        isIconOnly
+                        size="md"
+                        onClick={() =>
+                          guard(
+                            "recruitment.applications.all.delete",
+                            () => onDelete(item.id),
+                            "Bạn không có quyền xóa đơn ứng tuyển.",
+                          )
+                        }
+                        title="Xóa"
+                        className="hover:!bg-red-50"
+                      >
+                        <Trash2 size={15} className="text-red-500" />
+                      </Button>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       )}
 
       {warning.show && (
