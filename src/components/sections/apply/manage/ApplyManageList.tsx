@@ -134,8 +134,15 @@ export function ApplyManageList({
 
       {loading && <AdminLoading />}
 
-      {!loading && (
-        <AdminTable>
+      {!loading && jobs.length === 0 && (
+        <div className="rounded-xl border border-gray-200 bg-white">
+          <AdminEmptyState message="Chưa có tin tuyển dụng nào. Hãy bấm &quot;Tạo tin tuyển dụng&quot; để thêm." />
+        </div>
+      )}
+
+      {!loading && jobs.length > 0 && (
+        <div className="hidden md:block">
+          <AdminTable>
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50/50">
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">
@@ -311,7 +318,139 @@ export function ApplyManageList({
                 )}
               </tbody>
           </AdminTable>
-        )}
+        </div>
+      )}
+
+      {!loading && jobs.length > 0 && (
+        <div className="space-y-3 md:hidden">
+          {jobs.map((job) => {
+            const status = recruitmentStatusConfig[job.status];
+            return (
+              <div key={job.id} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                <div className="mb-3 flex items-start justify-between gap-3">
+                  <h3 className="line-clamp-2 font-semibold text-gray-900">{job.title}</h3>
+                  <span
+                    className="flex-shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold"
+                    style={{ color: status.color, backgroundColor: status.bg }}
+                  >
+                    {status.label}
+                  </span>
+                </div>
+
+                <div className="space-y-1.5 text-sm text-gray-600">
+                  <p><span className="font-medium text-gray-700">Địa điểm:</span> {job.location || "—"}</p>
+                  <p><span className="font-medium text-gray-700">Mức lương:</span> {formatSalary(job) || "—"}</p>
+                  <p><span className="font-medium text-gray-700">Hạn nộp:</span> {formatDateShort(job.deadline) || "—"}</p>
+                </div>
+
+                {showActionsColumn && (
+                  <div className="mt-3 flex flex-wrap items-center gap-1 border-t border-gray-100 pt-2">
+                    {canPublish && onStatusChange && (
+                      <>
+                        {job.status === "draft" && (
+                          <Button
+                            variant="ghost"
+                            isIconOnly
+                            size="md"
+                            onClick={() => job.id && onStatusChange(job.id, "open")}
+                            title="Đăng tuyển"
+                            className="hover:!bg-green-50"
+                          >
+                            <CheckCircle size={15} className="text-green-600" />
+                          </Button>
+                        )}
+                        {job.status === "open" && (
+                          <>
+                            <Button
+                              variant="ghost"
+                              isIconOnly
+                              size="md"
+                              onClick={() => job.id && onStatusChange(job.id, "draft")}
+                              title="Gỡ bài"
+                              className="hover:!bg-amber-50"
+                            >
+                              <RotateCcw size={15} className="text-amber-600" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              isIconOnly
+                              size="md"
+                              onClick={() => job.id && onStatusChange(job.id, "closed")}
+                              title="Đóng tuyển"
+                              className="hover:!bg-red-50"
+                            >
+                              <XCircle size={15} className="text-red-500" />
+                            </Button>
+                          </>
+                        )}
+                        {job.status === "closed" && (
+                          <Button
+                            variant="ghost"
+                            isIconOnly
+                            size="md"
+                            onClick={() => job.id && onStatusChange(job.id, "open")}
+                            title="Mở lại"
+                            className="hover:!bg-green-50"
+                          >
+                            <Send size={15} className="text-green-600" />
+                          </Button>
+                        )}
+                      </>
+                    )}
+                    {canView && onPreview && (
+                      <Button
+                        variant="ghost"
+                        isIconOnly
+                        size="md"
+                        onClick={() => onPreview(job)}
+                        title="Xem trước"
+                        className="hover:!bg-blue-50"
+                      >
+                        <Eye size={15} className="text-blue-600" />
+                      </Button>
+                    )}
+                    {canView && onViewLogs && (
+                      <Button
+                        variant="ghost"
+                        isIconOnly
+                        size="md"
+                        onClick={() => job.id && onViewLogs(job.id)}
+                        title="Lịch sử"
+                        className="hover:!bg-purple-50"
+                      >
+                        <History size={15} className="text-purple-600" />
+                      </Button>
+                    )}
+                    {canUpdate && (
+                      <Button
+                        variant="ghost"
+                        isIconOnly
+                        size="md"
+                        onClick={() => onEdit(job)}
+                        title="Chỉnh sửa"
+                      >
+                        <Pencil size={15} className="text-gray-500" />
+                      </Button>
+                    )}
+                    {canDelete && (
+                      <Button
+                        variant="ghost"
+                        isIconOnly
+                        size="md"
+                        onClick={() => job.id && onDelete(job.id)}
+                        title="Xoá"
+                        className="hover:!bg-red-50"
+                      >
+                        <Trash2 size={15} className="text-red-500" />
+                      </Button>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

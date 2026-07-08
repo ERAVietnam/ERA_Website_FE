@@ -179,7 +179,7 @@ export function ProjectsManageActions({
 
   if (layout === "card") {
     return (
-      <div className="flex items-center gap-1.5 flex-nowrap justify-end">
+      <div className="flex w-full flex-wrap items-center justify-end gap-1.5">
         {buttons.map((btn) => btn)}
       </div>
     );

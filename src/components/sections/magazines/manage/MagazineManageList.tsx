@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { useAuth } from "@/contexts/AuthContext";
 import { Pagination } from "@/components/ui/Pagination";
@@ -24,7 +23,6 @@ import { AdminTable } from "@/components/ui/admin/AdminTable";
 import { AdminEmptyState } from "@/components/ui/admin/AdminEmptyState";
 import { SearchInput } from "@/components/ui/admin/SearchInput";
 import { SelectField } from "@/components/ui/admin/SelectField";
-import { ViewModeToggle } from "@/components/ui/admin/ViewModeToggle";
 import type { EMagazine, MagazineFilters, PaginationMeta } from "@/types/api";
 
 interface Props {
@@ -60,7 +58,6 @@ export function MagazineManageList({
   onAdd,
 }: Props) {
   const { hasPermission } = useAuth();
-  const [viewMode, setViewMode] = useState<"table" | "card">("table");
 
   const canView = hasPermission("magazine.articles.all.view");
   const canCreate = hasPermission("magazine.articles.all.create");
@@ -88,7 +85,6 @@ export function MagazineManageList({
         subtitle={meta.total > 0 ? `Hiển thị ${items.length} / ${meta.total} e-magazine` : "Không có e-magazine nào"}
       >
         <div className="flex items-center gap-2">
-          <ViewModeToggle value={viewMode} onChange={setViewMode} />
           {canCreate && (
             <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">
               <Plus size={16} />
@@ -136,8 +132,9 @@ export function MagazineManageList({
         </div>
       )}
 
-      {!loading && items.length > 0 && viewMode === "table" && (
-        <AdminTable>
+      {!loading && items.length > 0 && (
+        <div className="hidden md:block">
+          <AdminTable>
               <thead>
                 <tr className="border-b border-gray-100 bg-gray-50/50">
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5 w-16">STT</th>
@@ -253,18 +250,20 @@ export function MagazineManageList({
                 })}
               </tbody>
           </AdminTable>
-        )}
+        </div>
+      )}
 
-      {!loading && items.length > 0 && viewMode === "card" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {!loading && items.length > 0 && (
+        <div className="space-y-3 md:hidden">
           {items.map((item) => {
             const status = magazineStatusConfig[item.status];
             return (
               <div
                 key={item.id}
-                className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 flex flex-col"
+                className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
               >
-                <div className="relative aspect-[210/297] bg-gray-100 overflow-hidden">
+                <div className="flex gap-3">
+                <div className="h-28 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
                   {item.coverImageMedia?.url ? (
                     <img
                       src={item.coverImageMedia.url}
@@ -276,25 +275,30 @@ export function MagazineManageList({
                       <ImageIcon size={40} />
                     </div>
                   )}
-                  <span
-                    className="absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-md"
-                    style={{ color: status.color, backgroundColor: status.bg }}
-                  >
-                    {status.label}
-                  </span>
                 </div>
 
-                <div className="p-4 flex flex-col flex-1">
-                  <h3 className="font-bold text-gray-800 line-clamp-2 mb-2" title={item.title}>
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <h3 className="mb-2 line-clamp-2 font-bold text-gray-800" title={item.title}>
                     {item.title}
                   </h3>
-                  <p className="text-sm text-gray-500 line-clamp-2 mb-3 flex-1">
+                  <div className="mb-2">
+                    <span
+                      className="inline-block rounded-md px-2.5 py-1 text-xs font-semibold"
+                      style={{ color: status.color, backgroundColor: status.bg }}
+                    >
+                      {status.label}
+                    </span>
+                  </div>
+                  <p className="mb-2 line-clamp-2 text-sm text-gray-500">
                     {item.description || "Không có mô tả"}
                   </p>
                   <p className="text-xs text-gray-400 mb-4">Ngày xuất bản: {formatDateShort(item.publishedDate) || "—"}</p>
 
+                </div>
+                </div>
+
                   {showActionsColumn && (
-                  <div className="flex items-center gap-1 pt-3 border-t border-gray-100">
+                  <div className="mt-3 flex flex-wrap items-center justify-end gap-1 border-t border-gray-100 pt-2">
                     {canPublish && (
                       item.status === "draft" ? (
                         <Button
@@ -349,7 +353,6 @@ export function MagazineManageList({
                     )}
                   </div>
                 )}
-                </div>
               </div>
             );
           })}

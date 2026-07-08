@@ -1,13 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { colors, withOpacity } from "@/lib/theme";
+import { getProjectCardImage } from "@/lib/projects";
+import { projectsApi } from "@/api/domains/projects";
+import type { Project } from "@/types/api";
 
 export function ProjectsSection() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState<Project[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const fetchSuggestions = useCallback(async (query: string) => {
+    if (!query.trim()) {
+      setSuggestions([]);
+      return;
+    }
+
+    try {
+      const data = await projectsApi.getPublishedProjects({
+        search: query.trim(),
+        limit: 8,
+      });
+      setSuggestions(data.items);
+    } catch {
+      setSuggestions([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      fetchSuggestions(searchQuery);
+    }, 250);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, fetchSuggestions]);
+
+  const handleSearch = () => {
+    const search = searchQuery.trim();
+    setShowSuggestions(false);
+    router.push(search ? `/du-an/?search=${encodeURIComponent(search)}` : "/du-an/");
+  };
+
+  const handleSelectSuggestion = (project: Project) => {
+    setSearchQuery(project.name);
+    setShowSuggestions(false);
+    router.push(`/du-an/${project.slug}/`);
+  };
 
   return (
     <Section
@@ -50,7 +94,7 @@ export function ProjectsSection() {
 
         {/* Search Box - Mobile: icon button; Desktop: text button */}
         <div 
-          className="flex items-center gap-3 lg:gap-4 p-3 lg:p-4 lg:pr-5 rounded-2xl lg:rounded-3xl mb-12 lg:mb-16"
+          className="relative flex items-center gap-3 lg:gap-4 p-3 lg:p-4 lg:pr-5 rounded-2xl lg:rounded-3xl mb-12 lg:mb-16"
           style={{ 
             backgroundColor: colors.neutral.white, 
             boxShadow: `0 10px 60px ${withOpacity(colors.neutral.black, 0.12)}` 
@@ -69,18 +113,70 @@ export function ProjectsSection() {
               type="text"
               placeholder="Khám phá giỏ hàng 100+ dự án của ERA"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setShowSuggestions(true);
+              }}
+              onFocus={() => setShowSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleSearch();
+              }}
               className="flex-1 outline-none text-sm bg-transparent"
               style={{ 
                 color: colors.gray[700],
               }}
             />
           </div>
+          {showSuggestions && suggestions.length > 0 && (
+            <div className="absolute left-3 right-3 lg:left-4 lg:right-[156px] top-full mt-2 z-20 max-h-[360px] overflow-y-auto rounded-xl border border-gray-100 bg-white shadow-xl">
+              {suggestions.map((project) => {
+                const thumbnailUrl = getProjectCardImage(project);
+                return (
+                  <button
+                    key={project.id}
+                    type="button"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      handleSelectSuggestion(project);
+                    }}
+                    className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-gray-50"
+                  >
+                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-gray-100">
+                      {thumbnailUrl ? (
+                        <Image
+                          src={thumbnailUrl}
+                          alt={project.name}
+                          fill
+                          className="object-cover"
+                          style={{ objectPosition: "top right" }}
+                          sizes="48px"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center text-[10px] text-gray-400">
+                          ERA
+                        </div>
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-semibold text-gray-900">
+                        {project.name}
+                      </p>
+                      <p className="truncate text-xs text-gray-500">
+                        {project.location || "—"}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          )}
           {/* Mobile: Icon button */}
           <Button
             variant="primary"
             size="sm"
             className="lg:hidden w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 p-0"
+            onClick={handleSearch}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
               <circle cx="11" cy="11" r="8"/>
@@ -92,6 +188,7 @@ export function ProjectsSection() {
             variant="primary"
             size="md"
             className="hidden lg:block px-10 py-3 rounded-xl font-semibold text-sm"
+            onClick={handleSearch}
           >
             Tìm kiếm
           </Button>

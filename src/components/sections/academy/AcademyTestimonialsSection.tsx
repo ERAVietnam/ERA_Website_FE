@@ -1,154 +1,73 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
-import { colors, withOpacity } from "@/lib/theme";
+import { colors } from "@/lib/theme";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 const testimonials = [
   {
-    id: 1,
-    quote: "Những khóa học tại ERA Academy thực sự đã thay đổi hoàn toàn cách tôi làm việc. Từ một ngườI mới vào nghề, tôi đã tự tin hơn trong việc tư vấn và chốt những giao dịch triệu đô.",
-    name: "Nguyễn Phương Linh",
-    role: "Elite Agent - ERA Vietnam",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100",
+    name: "Trần Mỹ Trinh",
+    role: "Agent ERA Vietnam",
+    color: "#38BDF8",
+    quote:
+      "Tiêu chuẩn đào tạo quốc tế của ERA Academy chính là chìa khóa giúp tôi nâng cấp bản thân. Tôi học được cách xây dựng hình ảnh cá nhân chuyên nghiệp, tác phong chuẩn mực để tự tin làm việc với các nhà đầu tư lớn và khách hàng nước ngoài.",
   },
   {
-    id: 2,
-    quote: "Lộ trình Pro Coaching là bước ngoặt lớn nhất sự nghiệp của tôi. Sự dẫn dắt tận tâm từ các Trainer giúp tôi nắm vững kiến thức thực tế chỉ sau 3 tháng.",
-    name: "Lê Minh Hoàng",
-    role: "Senior Consultant - ERA Vietnam",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100",
+    name: "Phạm Thùy Dương",
+    role: "Agent ERA Vietnam",
+    color: "#F97316",
+    quote:
+      "Điều tôi thích nhất ở ERA Academy là sự thực chiến. Các giảng viên không chỉ dạy lý thuyết suông mà còn cho chúng tôi đóng vai roleplay, xử lý các tình huống thực tế khó nhằn.",
+  },
+  {
+    name: "Trần Mỹ Trinh",
+    role: "Agent ERA Vietnam",
+    color: colors.primary.DEFAULT,
+    quote:
+      "Ở ERA Academy, bạn không bao giờ bị bỏ lại phía trước. Hệ thống mentor, coach hướng dẫn theo sát từng bước giúp những người mới như tôi định hình được phong cách bán hàng riêng và xây dựng tệp khách hàng từ con số 0.",
   },
 ];
 
 export function AcademyTestimonialsSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const prev = () =>
-    setActiveIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1));
-  const next = () =>
-    setActiveIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1));
-
-  const visible = testimonials.slice(activeIndex, activeIndex + 2);
-  const display =
-    visible.length < 2
-      ? [...visible, ...testimonials.slice(0, 2 - visible.length)]
-      : visible;
-
   return (
     <Section padding="md" bg="gray">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <h2
-          style={{
-            color: colors.primary.navy.DEFAULT,
-            fontWeight: 800,
-            fontSize: 'clamp(24px, 3vw, 32px)',
-            lineHeight: 1.2,
-          }}
-        >
-          Học viên nói gì về ERA Academy
-        </h2>
+      <h2 className="mb-10 text-center text-3xl font-black leading-tight md:text-4xl" style={{ color: colors.primary.navy.DEFAULT }}>
+        AGENT NÓI GÌ VỀ <span style={{ color: colors.primary.DEFAULT }}>"ERA ACADEMY"</span>
+      </h2>
 
-        <div className="flex gap-2">
-          <button
-            onClick={prev}
-            className="w-10 h-10 rounded-full border flex items-center justify-center transition-colors hover:bg-white"
-            style={{ borderColor: colors.border.dark }}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-          <button
-            onClick={next}
-            className="w-10 h-10 rounded-full border flex items-center justify-center transition-colors hover:bg-white"
-            style={{ borderColor: colors.border.dark }}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {display.map((t) => (
-          <div
-            key={t.id}
-            className="rounded-2xl p-6 md:p-8 flex flex-col shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            style={{ backgroundColor: colors.primary.navy.DEFAULT }}
-          >
-            {/* Quote mark */}
-            <div
-              className="mb-4 text-4xl leading-none"
-              style={{ color: colors.tertiary.orange.DEFAULT, fontWeight: 900 }}
-            >
-              &quot;
-            </div>
-
-            {/* Quote text */}
-            <p
-              className="mb-6 italic"
-              style={{
-                color: withOpacity(colors.neutral.white, 0.9),
-                fontSize: '14px',
-                lineHeight: 1.7,
-              }}
-            >
-              &ldquo;{t.quote}&rdquo;
-            </p>
-
-            {/* Author */}
-            <div className="flex items-center gap-3 mt-auto">
-              <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+      <div className="relative mx-auto max-w-6xl px-12">
+        <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-3">
+          {testimonials.map((item, index) => (
+            <article key={`${item.name}-${index}`} className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-[0_8px_24px_rgba(15,23,42,0.12)] transition-transform duration-300 hover:scale-[1.02]">
+              <span className="absolute right-0 top-0 h-9 w-9 rounded-bl-xl" style={{ backgroundColor: item.color }} />
+              <div className="mx-auto h-[120px] w-[120px] overflow-hidden rounded-full shadow-lg">
                 <Image
-                  src={t.avatar}
-                  alt={t.name}
-                  fill
-                  className="object-cover"
-                  sizes="40px"
-                  loading="lazy"
+                  src="/academy/360e4806bcd6e858d5cafd68d9a2293177ad649b.webp"
+                  alt={item.name}
+                  width={120}
+                  height={120}
+                  className="h-full w-full object-cover"
                 />
               </div>
-              <div>
-                <p
-                  style={{
-                    color: colors.neutral.white,
-                    fontWeight: 600,
-                    fontSize: '14px',
-                  }}
-                >
-                  {t.name}
-                </p>
-                <p
-                  style={{
-                    color: withOpacity(colors.neutral.white, 0.7),
-                    fontSize: '13px',
-                  }}
-                >
-                  {t.role}
-                </p>
+              <div className="mt-4 text-center">
+                <h3 className="font-bold" style={{ color: colors.primary.navy.DEFAULT }}>{item.name}</h3>
+                <p className="text-xs text-gray-500">{item.role}</p>
+                <div className="mt-2 flex justify-center gap-0.5 text-[#F97316]">
+                  {Array.from({ length: 5 }).map((_, star) => (
+                    <Star key={star} size={14} fill="currentColor" />
+                  ))}
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+              <p className="mt-4 text-xs leading-relaxed text-gray-600">"{item.quote}"</p>
+            </article>
+          ))}
+        </div>
+
+        <button className="absolute left-0 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#D4112D] shadow md:flex">
+          <ChevronLeft size={18} />
+        </button>
+        <button className="absolute right-0 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#D4112D] shadow md:flex">
+          <ChevronRight size={18} />
+        </button>
       </div>
     </Section>
   );

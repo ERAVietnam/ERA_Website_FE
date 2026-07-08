@@ -69,7 +69,7 @@ export const NewsCategorySection = memo(function NewsCategorySection({
               TIÊU ĐIỂM
             </div>
             <h3
-              className="text-white mb-3 leading-tight"
+              className="text-white mb-3 leading-tight line-clamp-3"
               style={{
                 fontWeight: 700,
                 fontSize: "30px",
@@ -79,7 +79,7 @@ export const NewsCategorySection = memo(function NewsCategorySection({
             </h3>
             <div className="flex items-end justify-between gap-4">
               <p
-                className="text-white/80 line-clamp-2 flex-1"
+                className="hidden text-white/80 line-clamp-2 flex-1 sm:block"
                 style={{
                   fontWeight: 400,
                   fontSize: "16px",

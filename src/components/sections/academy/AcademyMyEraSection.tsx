@@ -1,117 +1,88 @@
-"use client";
-
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
-import { colors, withOpacity } from "@/lib/theme";
+import { colors } from "@/lib/theme";
+
+const comingSoon = [
+  {
+    image: "/academy/96eea6f6fe868f0a9b527e1defc1fa4f3e1cfa77.webp",
+    title: "SIÊU AGENT THỨ CẤP",
+    color: colors.primary.DEFAULT,
+  },
+  {
+    image: "/academy/e358269ef687fc8d097a3e5ddb30bd21a22cbddb.webp",
+    title: "SIÊU AGENT SƠ CẤP",
+    color: colors.primary.navy.DEFAULT,
+  },
+];
 
 export function AcademyMyEraSection() {
   return (
-    <Section padding="md" bg="gray">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-        {/* Left: Phone Image */}
-        <div className="relative flex justify-center">
-          <Image
-            src="/academy/aca_myera.webp"
-            alt="MYERA App"
-            width={400}
-            height={500}
-            className="h-auto w-full max-w-sm object-contain"
-            loading="lazy"
-          />
-        </div>
+    <Section padding="md" bg="white">
+      <div className="text-center">
+        <p className="mb-2 text-xl" style={{ color: colors.primary.navy.DEFAULT }}>
+          Sự nghiệp của bạn
+        </p>
+        <h2 className="text-2xl font-black leading-tight md:text-4xl" style={{ color: colors.primary.navy.DEFAULT }}>
+          <span style={{ color: colors.primary.DEFAULT }}>ĐỪNG CHỜ CƠ HỘI</span> - TẠO LỢI THẾ NGAY HÔM NAY
+        </h2>
+      </div>
 
-        {/* Right: Content */}
+      <div className="mx-auto mt-8 grid max-w-5xl items-center gap-8 md:grid-cols-2">
+        <div className="relative min-h-[320px] md:min-h-[460px]">
+          <Image src="/academy/1dcbfb277bdbf8b44b5169a9976b672c6b035ce7.webp" alt="My ERA Academy" fill className="object-contain" sizes="480px" />
+        </div>
         <div>
-          <h2
-            className="mb-4"
-            style={{
-              fontWeight: 900,
-              fontSize: 'clamp(28px, 3.5vw, 40px)',
-              lineHeight: 1.1,
-            }}
-          >
-            <span style={{ color: colors.primary.navy.DEFAULT }}>QUẢN LÝ VIỆC HỌC</span>
-            <br />
-            <span style={{ color: colors.primary.navy.DEFAULT }}>NGAY TRÊN </span>
-            <span style={{ color: colors.primary.DEFAULT }}>MYERA</span>
-          </h2>
-
-          <p
-            className="mb-6"
-            style={{
-              color: colors.gray[600],
-              fontWeight: 400,
-              fontSize: '15px',
-              lineHeight: 1.6,
-            }}
-          >
-            Ứng dụng dành riêng cho Agent ERA Vietnam.
-            <br />
-            Theo dõi lịch học, kết quả đào tạo và đăng ký sự kiện chỉ với một chạm.
-          </p>
-
-          {/* Store Badges */}
-          <div className="flex flex-wrap gap-4 mb-8">
-            <a href="#" className="inline-block transition-opacity hover:opacity-90">
-              <Image
-                src="/academy/aca_myera_ios.webp"
-                alt="Download on the App Store"
-                width={140}
-                height={42}
-                className="h-14 w-auto object-contain"
-                loading="lazy"
-              />
-            </a>
-            <a href="#" className="inline-block transition-opacity hover:opacity-90">
-              <Image
-                src="/academy/aca_myera_and.webp"
-                alt="Get it on Google Play"
-                width={140}
-                height={42}
-                className="h-14 w-auto object-contain"
-                loading="lazy"
-              />
-            </a>
+          <div className="relative h-28 w-full max-w-[420px] md:h-36">
+            <Image
+              src="/home/aca_era_logo.svg"
+              alt="ERA Academy"
+              fill
+              className="object-contain object-left"
+              sizes="420px"
+            />
           </div>
-
-          {/* Divider */}
-          <div
-            className="h-px w-full mb-8"
-            style={{ backgroundColor: colors.gray[200] }}
-          />
-
-          {/* CTA Block */}
-          <h3
-            className="mb-2"
-            style={{
-              color: colors.primary.DEFAULT,
-              fontWeight: 700,
-              fontSize: 'clamp(20px, 2.5vw, 28px)',
-            }}
-          >
-            Start Your Global Journey
-          </h3>
-          <p
-            className="mb-6"
-            style={{
-              color: colors.gray[600],
-              fontWeight: 400,
-              fontSize: '14px',
-              lineHeight: 1.6,
-            }}
-          >
-            Join the next cohort of ERA professionals. Enrollments are now open for the Singapore Mastery session.
+          <p className="mt-8 text-2xl font-bold uppercase leading-snug text-[#D4112D] md:text-3xl">
+            HỌC MỌI LÚC, GIỜI MỌI NƠI<br />
+            ĐỘT PHÁ MỌI RÀO CẢN
           </p>
-
-          <Button
-            variant="primary"
-            size="lg"
-            className="w-full rounded-[24px] font-bold uppercase tracking-wide"
-          >
-            Apply Now
-          </Button>
+          <div className="mt-8 max-w-md space-y-4">
+            <Button
+              variant="primary"
+              size="lg"
+              className="w-full rounded-lg"
+              style={{ backgroundColor: "#0B3279" }}
+            >
+              TRUY CẬP MY ERA
+            </Button>
+            <Button variant="primary" size="lg" className="w-full rounded-lg">
+              GIA NHẬP ERA VIETNAM
+            </Button>
+          </div>
         </div>
+      </div>
+
+      <div className="mt-20 text-center">
+        <h3 className="text-3xl font-black md:text-4xl" style={{ color: colors.primary.navy.DEFAULT }}>
+          COMMING <span style={{ color: colors.primary.DEFAULT }}>SOON</span>
+        </h3>
+        <p className="mt-2 text-sm text-gray-500">Các khóa sắp ra mắt</p>
+      </div>
+
+      <div className="mx-auto mt-8 grid max-w-4xl gap-8 md:grid-cols-2">
+        {comingSoon.map((item) => (
+          <article
+            key={item.title}
+            className="rounded-2xl bg-white p-5 shadow-[0_12px_34px_rgba(15,23,42,0.12)] transition-transform duration-300 hover:scale-[1.02]"
+          >
+            <div className="relative h-56 overflow-hidden rounded-xl bg-gray-100 md:h-60">
+              <Image src={item.image} alt={item.title} fill className="object-cover" sizes="420px" />
+            </div>
+            <h4 className="px-4 pb-2 pt-7 text-center text-2xl font-black leading-tight md:text-3xl" style={{ color: item.color }}>
+              {item.title}
+            </h4>
+          </article>
+        ))}
       </div>
     </Section>
   );
