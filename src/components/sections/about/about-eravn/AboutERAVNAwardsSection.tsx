@@ -8,10 +8,8 @@ import { colors } from "@/lib/theme";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import Image from "next/image";
 import { honorsApi } from "@/api/domains/honors";
-import type { HonorAgent, HonorCategory } from "@/types/api";
-
-const months = ["01", "02", "03", "04", "05", "06"];
-const years = ["2026", "2025", "2024"];
+import { monthlyHonorsApi } from "@/api/domains/monthly-honors";
+import type { HonorAgent, HonorCategory, MonthlyHonorList } from "@/types/api";
 
 const yearlyYears = ["2026", "2025", "2024"];
 
@@ -438,6 +436,7 @@ export default function AboutERAVNAwardsSection() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedYearlyYear, setSelectedYearlyYear] = useState("2026");
   const [honorCategories, setHonorCategories] = useState<HonorCategory[]>([]);
+  const [monthlyHonorLists, setMonthlyHonorLists] = useState<MonthlyHonorList[]>([]);
 
   useEffect(() => {
     honorsApi
@@ -445,6 +444,32 @@ export default function AboutERAVNAwardsSection() {
       .then(setHonorCategories)
       .catch(() => setHonorCategories([]));
   }, []);
+
+  useEffect(() => {
+    monthlyHonorsApi
+      .getPublicLists({ page: 1, limit: 100 })
+      .then((response) => {
+        setMonthlyHonorLists(response.items);
+        const latest = response.items[0];
+        if (latest) {
+          setSelectedMonth(String(latest.month).padStart(2, "0"));
+          setSelectedYear(String(latest.year));
+        }
+      })
+      .catch(() => setMonthlyHonorLists([]));
+  }, []);
+
+  const availableMonthlyPeriods = monthlyHonorLists.map((list) => ({
+    month: String(list.month).padStart(2, "0"),
+    year: String(list.year),
+    label: `${String(list.month).padStart(2, "0")}/${list.year}`,
+  }));
+  const selectedMonthlyHonor =
+    monthlyHonorLists.find(
+      (list) =>
+        String(list.month).padStart(2, "0") === selectedMonth &&
+        String(list.year) === selectedYear,
+    ) ?? monthlyHonorLists[0];
 
   const getHonorAgents = (slug: string) =>
     honorCategories.find((category) => category.slug === slug)?.agents ?? [];
@@ -566,29 +591,34 @@ export default function AboutERAVNAwardsSection() {
                 </Button>
                 {dropdownOpen && (
                   <div className="absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-gray-100 p-2 z-10 min-w-[140px]">
-                    <div className="grid grid-cols-3 gap-1">
-                      {months.map((m) => (
+                    <div className="grid grid-cols-1 gap-1">
+                      {availableMonthlyPeriods.map((period) => (
                         <button
-                          key={m}
-                          onClick={() => { setSelectedMonth(m); setDropdownOpen(false); }}
-                          className={`px-2 py-1 rounded text-xs ${selectedMonth === m ? "text-white" : "hover:bg-gray-50"}`}
-                          style={selectedMonth === m ? { backgroundColor: colors.primary.navy.DEFAULT } : undefined}
+                          key={`${period.month}-${period.year}`}
+                          onClick={() => {
+                            setSelectedMonth(period.month);
+                            setSelectedYear(period.year);
+                            setDropdownOpen(false);
+                          }}
+                          className={`px-2 py-1 rounded text-xs text-left ${
+                            selectedMonth === period.month && selectedYear === period.year
+                              ? "text-white"
+                              : "hover:bg-gray-50"
+                          }`}
+                          style={
+                            selectedMonth === period.month && selectedYear === period.year
+                              ? { backgroundColor: colors.primary.navy.DEFAULT }
+                              : undefined
+                          }
                         >
-                          {m}
+                          {period.label}
                         </button>
                       ))}
-                    </div>
-                    <div className="border-t border-gray-100 mt-1 pt-1 grid grid-cols-1 gap-1">
-                      {years.map((y) => (
-                        <button
-                          key={y}
-                          onClick={() => { setSelectedYear(y); setDropdownOpen(false); }}
-                          className={`px-2 py-1 rounded text-xs text-left ${selectedYear === y ? "text-white" : "hover:bg-gray-50"}`}
-                          style={selectedYear === y ? { backgroundColor: colors.primary.navy.DEFAULT } : undefined}
-                        >
-                          {y}
-                        </button>
-                      ))}
+                      {availableMonthlyPeriods.length === 0 && (
+                        <div className="px-2 py-1 text-xs text-gray-400">
+                          Chưa có dữ liệu
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
@@ -597,21 +627,25 @@ export default function AboutERAVNAwardsSection() {
 
             {/* Best Achievers */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
-              {achievers.map((achiever, index) => (
+              {(selectedMonthlyHonor?.agents ?? []).map((membership, index) => (
                 <div
-                  key={`${achiever.name}-${index}`}
+                  key={membership.id}
                   className="rounded-xl overflow-hidden shadow-md relative group border-2 border-white"
                 >
                   <div className="aspect-square relative">
-                    <Image
-                      src={achiever.image}
-                      alt={achiever.name}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    <img
+                      src={membership.image}
+                      alt={membership.agent.name}
+                      className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-110"
                     />
                   </div>
                 </div>
               ))}
+              {!selectedMonthlyHonor?.agents?.length && (
+                <div className="col-span-2 md:col-span-4 rounded-xl border border-dashed border-gray-200 bg-white p-8 text-center text-sm text-gray-400">
+                  Chưa có dữ liệu vinh danh tháng.
+                </div>
+              )}
             </div>
 
             {/* Agent Tables */}

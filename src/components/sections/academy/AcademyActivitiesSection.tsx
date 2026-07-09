@@ -32,13 +32,13 @@ export function AcademyActivitiesSection() {
       </h2>
 
       <div className="mx-auto max-w-4xl">
-        <div className="relative h-[260px] overflow-hidden rounded-2xl bg-gray-100 shadow-[0_8px_24px_rgba(15,23,42,0.15)] ring-4 ring-white md:h-[420px]">
+        <div className="group relative h-[260px] overflow-hidden rounded-2xl bg-gray-100 shadow-[0_8px_24px_rgba(15,23,42,0.15)] ring-4 ring-white md:h-[420px]">
           <Image
             key={activityImages[activeIndex]}
             src={activityImages[activeIndex]}
             alt={`Hoạt động ERA Academy ${activeIndex + 1}`}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             sizes="900px"
           />
         </div>
@@ -59,12 +59,12 @@ export function AcademyActivitiesSection() {
                 type="button"
                 key={image}
                 onClick={() => setActiveIndex(index)}
-                className={`relative mx-1 h-14 w-24 flex-shrink-0 overflow-hidden rounded-md bg-gray-100 shadow transition duration-300 ${
+                className={`group relative mx-1 h-14 w-24 flex-shrink-0 overflow-hidden rounded-md bg-gray-100 shadow transition duration-300 ${
                   index === activeIndex ? "scale-110 ring-2 ring-[#D4112D]" : "opacity-55 hover:opacity-80"
                 }`}
                 aria-label={`Xem hoạt động ${index + 1}`}
               >
-                <Image src={image} alt={`Hoạt động ${index + 1}`} fill className="object-cover" sizes="96px" />
+                <Image src={image} alt={`Hoạt động ${index + 1}`} fill className="object-cover transition-transform duration-300 group-hover:scale-[1.08]" sizes="96px" />
               </button>
             ))}
           </div>

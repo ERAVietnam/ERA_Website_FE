@@ -86,4 +86,12 @@ export const ENDPOINTS = {
     CATEGORY: (slug: string) => `/honors/categories/${slug}`,
     CATEGORY_AGENTS: (slug: string) => `/honors/categories/${slug}/agents`,
   },
+  MONTHLY_HONORS: {
+    PUBLIC_LIST: '/monthly-honors/public',
+    LIST: '/monthly-honors',
+    DETAIL: (id: string) => `/monthly-honors/${id}`,
+    CREATE: '/monthly-honors',
+    UPDATE: (id: string) => `/monthly-honors/${id}`,
+    DELETE: (id: string) => `/monthly-honors/${id}`,
+  },
 } as const;

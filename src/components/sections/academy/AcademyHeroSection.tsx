@@ -7,10 +7,10 @@ import { colors } from "@/lib/theme";
 
 const slides = [
   { id: 1, image: "/academy/7ea82947a4bdd06d4bbde0f684dd2269c1d263a7.webp", alt: "ERA Academy banner 1" },
-  { id: 2, image: "/academy/academy-banner-2.png", alt: "ERA Academy banner 2" },
-  { id: 3, image: "/academy/academy-banner-3.png", alt: "ERA Academy banner 3" },
-  { id: 4, image: "/academy/academy-banner-4.png", alt: "ERA Academy banner 4" },
-  { id: 5, image: "/academy/academy-banner-5.png", alt: "ERA Academy banner 5" },
+  { id: 2, image: "/academy/7ea82947a4bdd06d4bbde0f684dd2269c1d263a7.webp", alt: "ERA Academy banner 2" },
+  { id: 3, image: "/academy/7ea82947a4bdd06d4bbde0f684dd2269c1d263a7.webp", alt: "ERA Academy banner 3" },
+  { id: 4, image: "/academy/7ea82947a4bdd06d4bbde0f684dd2269c1d263a7.webp", alt: "ERA Academy banner 4" },
+  { id: 5, image: "/academy/7ea82947a4bdd06d4bbde0f684dd2269c1d263a7.webp", alt: "ERA Academy banner 5" },
 ];
 
 const stats = [
@@ -144,7 +144,7 @@ export function AcademyHeroSection() {
           {stats.map((stat) => (
             <div
               key={stat.value}
-              className="rounded-2xl bg-white px-4 py-6 text-center shadow-[0_12px_30px_rgba(15,23,42,0.12)]"
+              className="rounded-2xl bg-white px-4 py-6 text-center shadow-[0_12px_30px_rgba(15,23,42,0.12)] transition-transform duration-300 hover:scale-[1.03]"
             >
               <div className="text-4xl font-black text-[#D4112D] md:text-5xl">{stat.value}</div>
               <div className="mt-3 whitespace-pre-line text-xs font-black leading-tight tracking-wide text-[#070A3D]">

@@ -227,7 +227,6 @@ export default function AgentManagePage() {
         });
         avatarUrl = upload.url;
       }
-
       const payload = {
         name: form.name.trim(),
         avatar: avatarUrl,
@@ -416,6 +415,7 @@ export default function AgentManagePage() {
                     />
                   </label>
                 </div>
+
               </form>
             </div>
 

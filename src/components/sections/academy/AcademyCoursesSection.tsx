@@ -105,20 +105,20 @@ export function AcademyCoursesSection() {
           {courses.map((course) => (
             <article
               key={course.title}
-              className="grid gap-6 rounded-xl bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.08)] md:grid-cols-[minmax(0,1.05fr)_minmax(260px,0.95fr)]"
+              className="group grid gap-6 rounded-xl bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.08)] md:grid-cols-[minmax(0,1.05fr)_minmax(260px,0.95fr)]"
             >
               <div className="relative min-h-[210px] overflow-hidden rounded-lg bg-gray-100">
                 <Image
                   src={course.image}
                   alt={course.title}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   sizes="(min-width: 768px) 520px, 100vw"
                 />
               </div>
               <div className="flex flex-col justify-center">
                 <p className="mb-2 text-xs font-medium text-gray-500">{course.eyebrow}</p>
-                <h3 className="text-xl font-bold leading-snug" style={{ color: colors.primary.DEFAULT }}>
+                <h3 className="text-xl font-bold leading-snug transition-all duration-300 group-hover:font-black" style={{ color: colors.primary.DEFAULT }}>
                   {course.title}
                 </h3>
                 <ol className="mt-4 list-decimal space-y-1.5 pl-4 text-sm leading-relaxed text-gray-600">

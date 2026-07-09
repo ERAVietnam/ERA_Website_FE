@@ -58,7 +58,7 @@ export function AcademyRoadmapSection() {
       <div className="mt-10 grid gap-6 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center">
         {tracks.map((track, index) => (
           <div key={track.title} className="contents">
-            <article className="rounded-xl bg-white p-5 shadow-[0_10px_28px_rgba(15,23,42,0.12)]">
+            <article className="rounded-xl bg-white p-5 shadow-[0_10px_28px_rgba(15,23,42,0.12)] transition-transform duration-300 hover:scale-[1.02]">
                 <div className="relative h-56 overflow-hidden rounded-lg bg-gray-100">
                   <Image src={track.image} alt={track.title} fill className="object-cover" sizes="360px" />
                 </div>

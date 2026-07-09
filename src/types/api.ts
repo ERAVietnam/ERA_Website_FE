@@ -239,6 +239,47 @@ export interface HonorCategory {
   updatedAt: string;
 }
 
+export interface MonthlyHonorAgent {
+  id: string;
+  agentId: string;
+  image: string;
+  position: number;
+  createdAt: string;
+  updatedAt: string;
+  agent: Agent;
+}
+
+export interface MonthlyHonorList {
+  id: string;
+  month: number;
+  year: number;
+  title?: string | null;
+  agents: MonthlyHonorAgent[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface MonthlyHonorFilters {
+  month?: number;
+  year?: number;
+  page?: number;
+  limit?: number;
+}
+
+export interface MonthlyHonorAgentInput {
+  agentId: string;
+  image: string;
+}
+
+export interface CreateMonthlyHonorInput {
+  month: number;
+  year: number;
+  title?: string | null;
+  agents: MonthlyHonorAgentInput[];
+}
+
+export type UpdateMonthlyHonorInput = Partial<CreateMonthlyHonorInput>;
+
 export interface CreateAccountInput {
   name: string;
   email: string;
