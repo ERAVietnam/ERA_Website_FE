@@ -30,18 +30,18 @@ export function AcademyOnlineSection() {
       </h2>
 
       <div className="mx-auto grid max-w-5xl items-stretch gap-6 lg:grid-cols-[1.35fr_1fr]">
-        <div className="relative h-[260px] overflow-hidden rounded-lg bg-gray-100 shadow-sm md:h-[330px]">
-          <Image src={mainVideo.image} alt={mainVideo.title} fill className="object-cover" sizes="640px" />
+        <div className="group relative h-[260px] overflow-hidden rounded-lg bg-gray-100 shadow-sm md:h-[330px]">
+          <Image src={mainVideo.image} alt={mainVideo.title} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" sizes="640px" />
         </div>
 
         <div className="flex h-full flex-col gap-5">
           {[mainVideo, ...sideVideos].map((video) => (
-            <article key={video.title} className="grid flex-1 grid-cols-[132px_1fr] gap-4">
+            <article key={video.title} className="group grid flex-1 grid-cols-[132px_1fr] gap-4">
               <div className="relative h-full min-h-20 overflow-hidden rounded-md bg-gray-100">
-                <Image src={video.image} alt={video.title} fill className="object-cover" sizes="132px" />
+                <Image src={video.image} alt={video.title} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.06]" sizes="132px" />
               </div>
               <div className="flex flex-col justify-center">
-                <h3 className="line-clamp-2 text-sm font-bold leading-snug" style={{ color: colors.primary.navy.DEFAULT }}>
+                <h3 className="line-clamp-2 text-sm font-bold leading-snug transition-all duration-300 group-hover:font-black" style={{ color: colors.primary.navy.DEFAULT }}>
                   {video.title}
                 </h3>
                 <p className="mt-1 text-xs text-gray-500">Trainer: {video.trainer}</p>
