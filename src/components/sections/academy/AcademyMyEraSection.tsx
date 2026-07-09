@@ -24,7 +24,16 @@ export function AcademyMyEraSection() {
           Sự nghiệp của bạn
         </p>
         <h2 className="text-2xl font-black leading-tight md:text-4xl" style={{ color: colors.primary.navy.DEFAULT }}>
-          <span style={{ color: colors.primary.DEFAULT }}>ĐỪNG CHỜ CƠ HỘI</span> - TẠO LỢI THẾ NGAY HÔM NAY
+          <span className="md:hidden">
+            <span className="block" style={{ color: colors.primary.DEFAULT }}>
+              ĐỪNG CHỜ CƠ HỘI
+            </span>
+            <span className="block">TẠO LỢI THẾ</span>
+            <span className="block">NGAY HÔM NAY</span>
+          </span>
+          <span className="hidden md:inline">
+            <span style={{ color: colors.primary.DEFAULT }}>ĐỪNG CHỜ CƠ HỘI</span> - TẠO LỢI THẾ NGAY HÔM NAY
+          </span>
         </h2>
       </div>
 

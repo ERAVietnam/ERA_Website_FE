@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
@@ -16,6 +16,7 @@ const activityImages = [
 
 export function AcademyActivitiesSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const touchStartXRef = useRef<number | null>(null);
 
   const goPrev = () => {
     setActiveIndex((prev) => (prev - 1 + activityImages.length) % activityImages.length);
@@ -25,25 +26,81 @@ export function AcademyActivitiesSection() {
     setActiveIndex((prev) => (prev + 1) % activityImages.length);
   };
 
+  useEffect(() => {
+    const intervalId = window.setInterval(goNext, 4000);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    touchStartXRef.current = event.touches[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartXRef.current === null) return;
+
+    const endX = event.changedTouches[0]?.clientX ?? touchStartXRef.current;
+    const deltaX = endX - touchStartXRef.current;
+
+    if (Math.abs(deltaX) > 40) {
+      if (deltaX < 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+    }
+
+    touchStartXRef.current = null;
+  };
+
   return (
     <Section padding="md" bg="gray">
       <h2 className="mb-8 text-center text-3xl font-black leading-tight md:text-4xl" style={{ color: colors.primary.navy.DEFAULT }}>
-        CÁC HOẠT ĐỘNG <span style={{ color: colors.primary.DEFAULT }}>NỔI BẬT</span>
+        <span className="block md:inline">CÁC HOẠT ĐỘNG</span>
+        <span className="block md:inline md:ml-2" style={{ color: colors.primary.DEFAULT }}>
+          NỔI BẬT
+        </span>
       </h2>
 
       <div className="mx-auto max-w-4xl">
-        <div className="group relative h-[260px] overflow-hidden rounded-2xl bg-gray-100 shadow-[0_8px_24px_rgba(15,23,42,0.15)] ring-4 ring-white md:h-[420px]">
-          <Image
-            key={activityImages[activeIndex]}
-            src={activityImages[activeIndex]}
-            alt={`Hoạt động ERA Academy ${activeIndex + 1}`}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-            sizes="900px"
-          />
+        <div
+          className="group relative h-[260px] overflow-hidden rounded-2xl bg-gray-100 shadow-[0_8px_24px_rgba(15,23,42,0.15)] ring-4 ring-white md:h-[420px]"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div
+            className="flex h-full transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+          >
+            {activityImages.map((image, index) => (
+              <div key={image} className="relative h-full min-w-full overflow-hidden">
+                <Image
+                  src={image}
+                  alt={`Hoạt động ERA Academy ${index + 1}`}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="900px"
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-8 flex items-center justify-center gap-4">
+        <div className="mt-5 flex items-center justify-center gap-2 md:hidden">
+          {activityImages.map((image, index) => (
+            <button
+              type="button"
+              key={image}
+              onClick={() => setActiveIndex(index)}
+              className={`h-2.5 rounded-full transition-all ${
+                index === activeIndex ? "w-7 bg-[#D4112D]" : "w-2.5 bg-gray-300"
+              }`}
+              aria-label={`Xem hoạt động ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        <div className="mt-8 hidden items-center justify-center gap-4 md:flex">
           <button
             type="button"
             onClick={goPrev}

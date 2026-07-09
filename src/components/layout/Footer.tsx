@@ -253,20 +253,36 @@ export function Footer() {
                 Chính sách bảo mật
               </Link>
             </div>
-            <img
-              src="/shared/bct_icon.svg"
-              alt="Bộ Công Thương"
-              className="h-12 w-auto self-start"
-            />
+            <Link
+              href="http://online.gov.vn/nen-tang/83f3a2b6-2943-4aad-8a47-d20ce57305c6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="self-start transition-opacity hover:opacity-80"
+              aria-label="Bộ Công Thương"
+            >
+              <img
+                src="/shared/bct_icon.svg"
+                alt="Bộ Công Thương"
+                className="h-12 w-auto"
+              />
+            </Link>
           </div>
 
           {/* Desktop */}
           <div className="hidden lg:flex flex-row justify-between items-center gap-4">
-            <img
-              src="/shared/bct_icon.svg"
-              alt="Bộ Công Thương"
-              className="h-12 w-auto"
-            />
+            <Link
+              href="http://online.gov.vn/nen-tang/83f3a2b6-2943-4aad-8a47-d20ce57305c6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-opacity hover:opacity-80"
+              aria-label="Bộ Công Thương"
+            >
+              <img
+                src="/shared/bct_icon.svg"
+                alt="Bộ Công Thương"
+                className="h-12 w-auto"
+              />
+            </Link>
             
             <div className="flex items-center gap-6">
               <p className="text-xs" style={s.textFaint}>© 2026 ERA Vietnam. All rights reserved.</p>

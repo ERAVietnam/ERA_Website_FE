@@ -64,7 +64,10 @@ export function AcademyCoursesSection() {
     <Section padding="sm" bg="white" className="pt-24 md:pt-28">
       <div className="text-center">
         <h2 className="text-3xl font-black leading-tight md:text-4xl" style={{ color: colors.primary.navy.DEFAULT }}>
-          <span style={{ color: colors.primary.DEFAULT }}>ERA ACADEMY</span> PHÙ HỢP VỚI AI ?
+          <span className="block md:inline" style={{ color: colors.primary.DEFAULT }}>
+            ERA ACADEMY
+          </span>
+          <span className="block md:inline md:ml-2">PHÙ HỢP VỚI AI ?</span>
         </h2>
         <p className="mt-3 text-sm" style={{ color: colors.primary.navy.DEFAULT }}>
           Bắt đầu đúng cách từ việc chọn đúng khóa học
@@ -72,12 +75,11 @@ export function AcademyCoursesSection() {
       </div>
 
       <div className="mt-10 grid gap-6 lg:grid-cols-[180px_1fr]">
-        <aside className="h-fit rounded-xl bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
+        <aside className="h-fit rounded-xl lg:bg-white lg:p-5 lg:shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
           <button
             type="button"
             onClick={() => setIsFilterOpen((prev) => !prev)}
-            className="mb-0 flex w-full items-center justify-between text-left text-xs font-black uppercase lg:pointer-events-none lg:mb-4"
-            style={{ color: colors.primary.DEFAULT }}
+            className="mb-0 flex w-full items-center justify-between rounded-lg bg-[#C8102E] px-4 py-3 text-left text-xs font-black uppercase text-white lg:pointer-events-none lg:mb-4 lg:rounded-none lg:bg-transparent lg:px-0 lg:py-0 lg:text-[#C8102E]"
           >
             Chọn khóa học
             <ChevronDown
