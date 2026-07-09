@@ -37,7 +37,7 @@ export function AcademyFaqSection() {
 
   return (
     <Section padding="md" bg="white">
-      <h2 className="mb-10 text-center text-3xl font-black md:text-4xl" style={{ color: colors.primary.DEFAULT }}>
+      <h2 className="mb-10 text-center text-2xl font-extrabold md:text-4xl md:font-black" style={{ color: colors.primary.DEFAULT }}>
         CÂU HỎI THƯỜNG GẶP - FAQ
       </h2>
 

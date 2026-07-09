@@ -80,8 +80,19 @@ export function AcademyHeroSection() {
   return (
     <>
       <Section padding="none" bg="white" noContainer>
+        <section className="relative h-[52vh] overflow-hidden bg-[#071331] md:hidden">
+          <Image
+            src={slides[0].image}
+            alt={slides[0].alt}
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+        </section>
+
         <section
-          className="relative h-[60vh] cursor-grab overflow-hidden bg-[#071331] active:cursor-grabbing md:h-[80vh]"
+          className="relative hidden h-[80vh] cursor-grab overflow-hidden bg-[#071331] active:cursor-grabbing md:block"
           onTouchStart={(e) => handleStart(e.touches[0].clientX)}
           onTouchMove={(e) => handleMove(e.touches[0].clientX)}
           onTouchEnd={handleEnd}
@@ -139,8 +150,8 @@ export function AcademyHeroSection() {
         </section>
       </Section>
 
-      <Section padding="none" bg="gray" className="pb-0 pt-10 md:pt-12">
-        <div className="relative z-10 mb-[-56px] grid grid-cols-2 gap-4 md:mb-[-64px] md:grid-cols-4 md:gap-6">
+      <Section padding="none" bg="gray" className="pb-0 pt-0 md:pt-12">
+        <div className="relative z-10 -mt-16 mb-[-56px] grid grid-cols-2 gap-4 md:mt-0 md:mb-[-64px] md:grid-cols-4 md:gap-6">
           {stats.map((stat) => (
             <div
               key={stat.value}
