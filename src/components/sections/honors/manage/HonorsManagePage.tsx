@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   CalendarDays,
-  Eye,
   Loader2,
   Pencil,
   Plus,
@@ -19,6 +18,7 @@ import { honorsApi } from "@/api/domains/honors";
 import { mediaApi } from "@/api/domains/media";
 import { monthlyHonorsApi } from "@/api/domains/monthly-honors";
 import { Button } from "@/components/ui/Button";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { Pagination } from "@/components/ui/Pagination";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { Section } from "@/components/ui/Section";
@@ -105,6 +105,7 @@ export default function HonorsManagePage() {
     createEmptyMonthlyHonorForm(),
   );
   const [monthlySaving, setMonthlySaving] = useState(false);
+  const [monthlyDeletingId, setMonthlyDeletingId] = useState<string | null>(null);
   const [monthlyFieldErrors, setMonthlyFieldErrors] = useState<
     Record<string, string>
   >({});
@@ -125,6 +126,21 @@ export default function HonorsManagePage() {
     message: string;
   }>({ show: false, type: "success", message: "" });
   const [showNetworkError, setShowNetworkError] = useState(false);
+  const [confirm, setConfirm] = useState<{
+    show: boolean;
+    title: string;
+    message: string;
+    variant: "warning" | "danger";
+    confirmLabel: string;
+    onConfirm: () => void;
+  }>({
+    show: false,
+    title: "",
+    message: "",
+    variant: "danger",
+    confirmLabel: "Xác nhận",
+    onConfirm: () => {},
+  });
 
   const canUpdate = hasPermission("honors.all.update");
   const canCreate = hasPermission("honors.all.create");
@@ -484,6 +500,47 @@ export default function HonorsManagePage() {
     }
   };
 
+  const handleDeleteMonthlyHonor = (item: MonthlyHonorList) => {
+    guard(
+      "honors.all.delete",
+      () => {
+        const label =
+          item.title ||
+          `Vinh danh tháng ${String(item.month).padStart(2, "0")}/${item.year}`;
+        setConfirm({
+          show: true,
+          title: "Xác nhận xóa",
+          message: `Bạn có chắc muốn xóa "${label}"? Hành động này sẽ xóa cả hình ảnh vinh danh tháng liên quan.`,
+          variant: "danger",
+          confirmLabel: "Xóa",
+          onConfirm: async () => {
+            setConfirm((prev) => ({ ...prev, show: false }));
+            setMonthlyDeletingId(item.id);
+            try {
+              await monthlyHonorsApi.deleteList(item.id);
+              setPopup({
+                show: true,
+                type: "success",
+                message: "Đã xóa list vinh danh tháng.",
+              });
+              loadMonthlyHonors().catch(() => {});
+            } catch (error) {
+              const apiError = extractApiError(error);
+              setPopup({
+                show: true,
+                type: "error",
+                message: apiError.message || "Không thể xóa list vinh danh tháng.",
+              });
+            } finally {
+              setMonthlyDeletingId(null);
+            }
+          },
+        });
+      },
+      "Bạn không có quyền xóa list vinh danh tháng.",
+    );
+  };
+
   return (
     <Section padding="md" bg="gray">
       <div className="space-y-8">
@@ -509,6 +566,17 @@ export default function HonorsManagePage() {
             autoClose={false}
           />
         )}
+
+        <ConfirmDialog
+          isOpen={confirm.show}
+          title={confirm.title}
+          message={confirm.message}
+          variant={confirm.variant}
+          confirmLabel={confirm.confirmLabel}
+          cancelLabel="Hủy"
+          onConfirm={confirm.onConfirm}
+          onCancel={() => setConfirm((prev) => ({ ...prev, show: false }))}
+        />
 
         <AdminListHeader
           title="Vinh danh và Hệ thống"
@@ -597,7 +665,9 @@ export default function HonorsManagePage() {
             loading={monthlyLoading}
             meta={monthlyMeta}
             canManage={canManageMonthly}
+            deletingId={monthlyDeletingId}
             onEdit={openMonthlyEdit}
+            onDelete={handleDeleteMonthlyHonor}
             onPageChange={(page) =>
               setMonthlyFilters((prev) => ({ ...prev, page }))
             }
@@ -1139,14 +1209,18 @@ function MonthlyHonorsList({
   loading,
   meta,
   canManage,
+  deletingId,
   onEdit,
+  onDelete,
   onPageChange,
 }: {
   items: MonthlyHonorList[];
   loading: boolean;
   meta: PaginationMeta;
   canManage: boolean;
+  deletingId: string | null;
   onEdit: (item: MonthlyHonorList) => void;
+  onDelete: (item: MonthlyHonorList) => void;
   onPageChange: (page: number) => void;
 }) {
   return (
@@ -1230,7 +1304,11 @@ function MonthlyHonorsList({
                   </td>
                   {canManage && (
                     <td className="px-5 py-4">
-                      <MonthlyHonorActionsEditable onEdit={() => onEdit(item)} />
+                      <MonthlyHonorActionsEditable
+                        isDeleting={deletingId === item.id}
+                        onEdit={() => onEdit(item)}
+                        onDelete={() => onDelete(item)}
+                      />
                     </td>
                   )}
                 </tr>
@@ -1267,7 +1345,11 @@ function MonthlyHonorsList({
 
               {canManage && (
                 <div className="mt-3 flex items-center justify-end gap-1 border-t border-gray-100 pt-2">
-                  <MonthlyHonorActionsEditable onEdit={() => onEdit(item)} />
+                  <MonthlyHonorActionsEditable
+                    isDeleting={deletingId === item.id}
+                    onEdit={() => onEdit(item)}
+                    onDelete={() => onDelete(item)}
+                  />
                 </div>
               )}
             </div>
@@ -1284,34 +1366,17 @@ function MonthlyHonorsList({
   );
 }
 
-function MonthlyHonorActions({ onEdit }: { onEdit: () => void }) {
+function MonthlyHonorActionsEditable({
+  isDeleting,
+  onEdit,
+  onDelete,
+}: {
+  isDeleting: boolean;
+  onEdit: () => void;
+  onDelete: () => void;
+}) {
   return (
     <div className="flex items-center justify-end gap-1">
-      <Button variant="ghost" isIconOnly size="md" title="Xem chi tiết">
-        <Eye size={15} className="text-gray-500" />
-      </Button>
-      <Button variant="ghost" isIconOnly size="md" title="Chỉnh sửa">
-        <Pencil size={15} className="text-gray-500" />
-      </Button>
-      <Button
-        variant="ghost"
-        isIconOnly
-        size="md"
-        title="Xóa"
-        className="hover:!bg-red-50"
-      >
-        <Trash2 size={15} className="text-red-500" />
-      </Button>
-    </div>
-  );
-}
-
-function MonthlyHonorActionsEditable({ onEdit }: { onEdit: () => void }) {
-  return (
-    <div className="flex items-center justify-end gap-1">
-      <Button variant="ghost" isIconOnly size="md" title="Xem chi tiết">
-        <Eye size={15} className="text-gray-500" />
-      </Button>
       <Button
         variant="ghost"
         isIconOnly
@@ -1327,8 +1392,14 @@ function MonthlyHonorActionsEditable({ onEdit }: { onEdit: () => void }) {
         size="md"
         title="Xóa"
         className="hover:!bg-red-50"
+        disabled={isDeleting}
+        onClick={onDelete}
       >
-        <Trash2 size={15} className="text-red-500" />
+        {isDeleting ? (
+          <Loader2 size={15} className="animate-spin text-red-500" />
+        ) : (
+          <Trash2 size={15} className="text-red-500" />
+        )}
       </Button>
     </div>
   );

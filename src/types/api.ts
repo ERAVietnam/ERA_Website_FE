@@ -198,6 +198,7 @@ export interface ManagementAccount {
 
 export interface AccountFilters {
   search?: string;
+  isActive?: boolean;
   page?: number;
   limit?: number;
 }

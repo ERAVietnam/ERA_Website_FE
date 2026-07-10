@@ -31,6 +31,7 @@ export default function AccountManagePage() {
     id: "",
   });
   const [searchInput, setSearchInput] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
   const [meta, setMeta] = useState<PaginationMeta>({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
   const [filters, setFilters] = useState<AccountFilters>({
     page: 1,
@@ -75,6 +76,15 @@ export default function AccountManagePage() {
 
   const handlePageChange = (page: number) => {
     setFilters((prev) => ({ ...prev, page }));
+  };
+
+  const handleStatusFilterChange = (value: string) => {
+    setStatusFilter(value);
+    setFilters((prev) => ({
+      ...prev,
+      isActive: value === "" ? undefined : value === "active",
+      page: 1,
+    }));
   };
 
   const handleSave = (account?: ManagementAccount) => {
@@ -166,6 +176,8 @@ export default function AccountManagePage() {
                 loading={loading}
                 searchInput={searchInput}
                 onSearchChange={setSearchInput}
+                statusFilter={statusFilter}
+                onStatusFilterChange={handleStatusFilterChange}
                 meta={meta}
                 onEdit={handleEdit}
                 onDelete={handleDelete}

@@ -12,6 +12,7 @@ import { authApi } from "@/api/domains/auth";
 import type { Account } from "@/types/api";
 import { ROUTES } from "@/lib/routes";
 import { setCookie, getCookie, deleteCookie } from "@/lib/cookies";
+import { hasPermissionAccess } from "@/lib/system-permissions";
 
 interface AuthContextValue {
   account: Account | null;
@@ -99,8 +100,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     (...permissions: string[]) => {
       if (!account) return false;
       // Super admin bypass mọi quyền
-      if (account.permissions.includes("system.super_admin")) return true;
-      return permissions.some((p) => account.permissions.includes(p));
+      return hasPermissionAccess(account.permissions, permissions);
     },
     [account]
   );
