@@ -13,6 +13,7 @@ import { AdminLoading } from "@/components/ui/admin/AdminLoading";
 import { AdminTable } from "@/components/ui/admin/AdminTable";
 import { AdminEmptyState } from "@/components/ui/admin/AdminEmptyState";
 import { SearchInput } from "@/components/ui/admin/SearchInput";
+import { SelectField } from "@/components/ui/admin/SelectField";
 import type { ManagementAccount, PaginationMeta } from "@/types/api";
 
 interface Props {
@@ -21,6 +22,8 @@ interface Props {
   loading?: boolean;
   searchInput: string;
   onSearchChange: (value: string) => void;
+  statusFilter: string;
+  onStatusFilterChange: (value: string) => void;
   meta: PaginationMeta;
   onEdit: (account: ManagementAccount) => void;
   onDelete: (id: string) => void;
@@ -33,6 +36,8 @@ export function AccountManageList({
   loading,
   searchInput,
   onSearchChange,
+  statusFilter,
+  onStatusFilterChange,
   meta,
   onEdit,
   onDelete,
@@ -79,12 +84,22 @@ export function AccountManageList({
         )}
       </AdminListHeader>
 
-      <SearchInput
-        value={searchInput}
-        onChange={onSearchChange}
-        placeholder="Tìm theo tên hoặc email..."
-        className="max-w-md"
-      />
+      <div className="grid gap-3 md:grid-cols-[minmax(0,24rem)_220px]">
+        <SearchInput
+          value={searchInput}
+          onChange={onSearchChange}
+          placeholder="Tìm theo tên hoặc email..."
+        />
+        <SelectField
+          value={statusFilter}
+          onChange={onStatusFilterChange}
+          placeholder="Tất cả trạng thái"
+          options={[
+            { value: "active", label: "Đang hoạt động" },
+            { value: "locked", label: "Đã khóa" },
+          ]}
+        />
+      </div>
 
       {loading && <AdminLoading />}
 

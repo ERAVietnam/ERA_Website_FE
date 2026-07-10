@@ -37,4 +37,9 @@ export const monthlyHonorsApi = {
     apiClient
       .patch<MonthlyHonorList>(ENDPOINTS.MONTHLY_HONORS.UPDATE(id), data)
       .then((res) => res.data),
+
+  deleteList: (id: string) =>
+    apiClient
+      .delete<void>(ENDPOINTS.MONTHLY_HONORS.DELETE(id))
+      .then((res) => res.data),
 };
