@@ -20,6 +20,7 @@ import {
   FileUser,
   BadgeCheck,
   Trophy,
+  GraduationCap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { hasAnyNewsArticleViewPermission } from "@/lib/permissions";
@@ -61,6 +62,12 @@ const menuItems: MenuItem[] = [
     label: "Vinh danh và Hệ thống",
     icon: Trophy,
     visible: (hasPermission) => hasPermission("honors.all.view"),
+  },
+  {
+    href: "/khoa-hoc/quan-ly",
+    label: "Khóa học",
+    icon: GraduationCap,
+    visible: (hasPermission) => hasPermission("academy.courses.all.view"),
   },
   {
     href: "/tuyen-dung/quan-ly",

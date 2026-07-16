@@ -94,4 +94,15 @@ export const ENDPOINTS = {
     UPDATE: (id: string) => `/monthly-honors/${id}`,
     DELETE: (id: string) => `/monthly-honors/${id}`,
   },
+  ACADEMY_COURSES: {
+    PUBLIC_LIST: '/academy-courses/public',
+    PUBLIC_TAGS: '/academy-courses/public/tags',
+    LIST: '/academy-courses',
+    DETAIL: (id: string) => `/academy-courses/${id}`,
+    CREATE: '/academy-courses',
+    UPDATE: (id: string) => `/academy-courses/${id}`,
+    DELETE: (id: string) => `/academy-courses/${id}`,
+    TAGS: '/academy-courses/tags',
+    TAG_DETAIL: (id: string) => `/academy-courses/tags/${id}`,
+  },
 } as const;

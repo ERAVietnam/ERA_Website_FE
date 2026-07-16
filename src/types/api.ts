@@ -226,6 +226,52 @@ export interface CreateAgentInput {
 
 export type UpdateAgentInput = Partial<CreateAgentInput>;
 
+export interface AcademyCourseTag {
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AcademyCourse {
+  id: string;
+  imageMediaId?: string | null;
+  imageMedia?: Media | null;
+  title: string;
+  description: string;
+  openingDate?: string | null;
+  isActive: boolean;
+  tags: AcademyCourseTag[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AcademyCourseFilters {
+  search?: string;
+  tagId?: string;
+  tagIds?: string;
+  isActive?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface CreateAcademyCourseInput {
+  imageMediaId?: string | null;
+  title: string;
+  description: string;
+  openingDate?: string | null;
+  isActive?: boolean;
+  tagIds?: string[];
+}
+
+export type UpdateAcademyCourseInput = Partial<CreateAcademyCourseInput>;
+
+export interface CreateAcademyCourseTagInput {
+  name: string;
+}
+
+export type UpdateAcademyCourseTagInput = Partial<CreateAcademyCourseTagInput>;
+
 export interface HonorAgent extends Agent {
   position: number;
 }

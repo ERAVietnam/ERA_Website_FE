@@ -519,3 +519,97 @@ Các module news, projects, recruitment, magazines, agents và honors đã lấy
 - **CKEditor**: Custom upload adapter (base64), license GPL
 - **Path Alias**: `@/*` → `./src/*`
 - **Metadata**: Public pages chính có `metadata` hoặc `generateMetadata`; admin pages và route handlers không bắt buộc export metadata riêng
+
+---
+
+## 18. Current Codebase Additions - Academy Courses, Monthly Honors, Admin Routes
+
+> Section n?y c?p nh?t tr?ng th?i codebase hi?n t?i. N?u c? ?i?m n?o m?u thu?n v?i c?c ph?n c? ph?a tr?n, ?u ti?n section n?y.
+
+### Routes added / updated
+
+| Route | Page File | Main Component |
+|-------|-----------|----------------|
+| `/academy` | `app/academy/page.tsx` | `AcademyPage` |
+| `/khoa-hoc/quan-ly` | `app/(admin)/khoa-hoc/quan-ly/page.tsx` | `AcademyCourseManagePage` |
+
+Admin/private route handling:
+
+- `src/proxy.ts` protects all paths containing `/quan-ly`, so `/khoa-hoc/quan-ly` is protected server-side by `era_auth_state`.
+- `src/app/(admin)/layout.tsx` wraps admin pages with `AuthGuard`.
+- `src/components/layout/LayoutWrapper.tsx` includes `/khoa-hoc/quan-ly` in `ADMIN_PATHS`, so public Header/Footer/ToTop are hidden for this route.
+- `src/app/robots.ts` disallows `/khoa-hoc/quan-ly`.
+
+### Academy public page
+
+- `AcademyCoursesSection` no longer uses hardcoded course mock data for the course list.
+- Public course list uses:
+  - `GET /academy-courses/public`
+  - `GET /academy-courses/public/tags`
+- Filter ?Ch?n kh?a h?c? supports multi-select tags.
+- FE sends multi-tag filter as `tagIds=id1,id2,id3`.
+- Backend returns courses matching at least one selected tag.
+- Empty filtered result displays neutral gray empty state: ?Ch?a c? kh?a h?c ph? h?p.?
+- Course card keeps the mock UI sizing/layout: left image column, title, tag line, bullet-style description, opening date/COMING SOON, CTA button.
+- Course `description` comes from richtext HTML, but public card extracts list/text items and renders them as compact bullet/numbered text so richtext heading sizes do not break the card layout.
+
+### Academy course admin
+
+- New admin page: `/khoa-hoc/quan-ly`.
+- Component: `src/components/sections/academy/manage/AcademyCourseManagePage.tsx`.
+- API domain: `src/api/domains/academy-courses.ts`.
+- Types added in `src/types/api.ts`:
+  - `AcademyCourse`
+  - `AcademyCourseTag`
+  - `AcademyCourseFilters`
+  - `CreateAcademyCourseInput`
+  - `UpdateAcademyCourseInput`
+  - tag create/update input types
+- Sidebar item ?Kh?a h?c? uses permission `academy.courses.all.view`.
+- Admin features:
+  - List/search/filter courses.
+  - Filter by tag and active status.
+  - Create/update/delete course.
+  - Upload course image via `mediaApi.uploadImage(..., 'academy')`.
+  - Choose multiple tags for a course.
+  - Richtext description uses shared `RichEditor` with `disableImage` and `compact`, matching News FAQ answer editor.
+  - `openingDate` optional; empty value means public UI displays `COMING SOON`.
+  - `isActive` controls whether course appears in public API.
+- UI uses shared admin components: `AdminListHeader`, `AdminFilters`, `SearchInput`, `SelectField`, `AdminTable`, `AdminEmptyState`, `Pagination`, `ConfirmDialog`, `PopupNotification`, `NetworkErrorPopup`.
+
+### Media API update
+
+- `src/api/domains/media.ts` upload folder union includes `academy`.
+- Course images are uploaded to Cloudflare R2 folder `academy` through the backend media endpoint.
+
+### Honors / Monthly honors public data
+
+- `/ve-chung-toi/ve-era-viet-nam/` awards area now uses real APIs for monthly honors instead of mock data.
+- API domain: `src/api/domains/monthly-honors.ts`.
+- Monthly honors admin UI is integrated inside `/vinh-danh-va-he-thong/quan-ly`.
+- Public monthly honors uses `GET /monthly-honors/public`.
+- Admin monthly honors uses `GET/POST/PATCH/DELETE /monthly-honors`.
+
+### API domains currently active
+
+`src/api/domains/*.ts` currently includes helpers for:
+
+- `auth`
+- `accounts`
+- `news`
+- `media`
+- `magazines`
+- `recruitment`
+- `projects`
+- `agents`
+- `honors`
+- `monthly-honors`
+- `academy-courses`
+
+### Mock data status update
+
+- Academy course list on `/academy` uses real API data.
+- News, projects, recruitment, magazines, agents, honors, monthly honors, and academy courses have API-backed admin/public flows where implemented.
+- Some marketing-only Academy sections still intentionally use static content/images: hero banners, stats, roadmap, videos, activities, testimonials, FAQ.
+- Landing/marketing sections outside the CMS scope may still contain hardcoded content by design.
+

@@ -44,6 +44,7 @@ const ADMIN_PATHS = [
   "/du-an/quan-ly",
   "/agents/quan-ly",
   "/vinh-danh-va-he-thong/quan-ly",
+  "/khoa-hoc/quan-ly",
   "/tuyen-dung/quan-ly",
   "/tuyen-dung/ung-vien",
   "/tai-khoan/quan-ly",
