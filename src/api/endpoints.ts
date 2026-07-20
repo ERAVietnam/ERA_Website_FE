@@ -30,6 +30,8 @@ export const ENDPOINTS = {
     UPDATE: (id: string) => `/accounts/${id}`,
     DELETE: (id: string) => `/accounts/${id}`,
     PERMISSIONS: '/accounts/permissions',
+    NEWS_REVIEWERS: '/accounts/news-reviewers',
+    PROJECT_REVIEWERS: '/accounts/project-reviewers',
     ASSIGN_PERMISSIONS: (id: string) => `/accounts/${id}/permissions`,
   },
   RECRUITMENT: {

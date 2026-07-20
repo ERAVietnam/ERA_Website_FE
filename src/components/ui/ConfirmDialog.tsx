@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { AlertTriangle } from "lucide-react";
@@ -11,6 +12,7 @@ interface ConfirmDialogProps {
   confirmLabel?: string;
   cancelLabel?: string;
   variant?: "danger" | "warning";
+  children?: ReactNode;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -22,6 +24,7 @@ export function ConfirmDialog({
   confirmLabel = "Vẫn hủy",
   cancelLabel = "Ở lại",
   variant = "danger",
+  children,
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) {
@@ -55,7 +58,10 @@ export function ConfirmDialog({
           <h3 className="mb-2 text-lg font-bold" style={{ color: titleColor }}>
             {title}
           </h3>
-          <p className="mb-6 text-sm text-gray-600">{message}</p>
+          <p className={children ? "mb-4 text-sm text-gray-600" : "mb-6 text-sm text-gray-600"}>
+            {message}
+          </p>
+          {children && <div className="mb-6 w-full text-left">{children}</div>}
           <div className="flex w-full flex-col-reverse gap-3 sm:flex-row">
             <Button
               type="button"

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { ProjectsManageList } from "./ProjectsManageList";
 import { ProjectsManageForm, type ProjectFormData } from "./ProjectsManageForm";
@@ -9,9 +10,11 @@ import { ProjectHistoryDialog } from "./ProjectHistoryDialog";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
 import { projectsApi } from "@/api/domains/projects";
+import { accountsApi } from "@/api/domains/accounts";
 import { extractApiError } from "@/lib/api-errors";
-import type { Project, ProjectPublicationStatus } from "@/types/api";
+import type { AccountReviewer, Project, ProjectPublicationStatus } from "@/types/api";
 import { PROJECT_FAQ_MAX_ITEMS, PROJECT_FAQ_MIN_ITEMS, PROJECT_TAGS } from "@/lib/projects";
 
 function apiProjectToFormData(project: Project): ProjectFormData {
@@ -47,6 +50,7 @@ function apiProjectToFormData(project: Project): ProjectFormData {
 }
 
 export function ProjectsManagePage() {
+  const searchParams = useSearchParams();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -64,10 +68,13 @@ export function ProjectsManagePage() {
     message: string;
     variant: "warning" | "danger";
     confirmLabel: string;
-    onConfirm: () => void;
-  }>({ show: false, title: "", message: "", variant: "warning", confirmLabel: "Xác nhận", onConfirm: () => {} });
+    isSubmit: boolean;
+    onConfirm: (notifyAccountId?: string | null) => void;
+  }>({ show: false, title: "", message: "", variant: "warning", confirmLabel: "X?c nh?n", isSubmit: false, onConfirm: () => {} });
   const [previewProject, setPreviewProject] = useState<Project | null>(null);
   const [historyProjectId, setHistoryProjectId] = useState<string | null>(null);
+  const [projectReviewers, setProjectReviewers] = useState<AccountReviewer[]>([]);
+  const [notifyAccountId, setNotifyAccountId] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [publicationFilter, setPublicationFilter] = useState<ProjectPublicationStatus | "">("");
@@ -75,6 +82,7 @@ export function ProjectsManagePage() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const handledEditIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -119,6 +127,13 @@ export function ProjectsManagePage() {
     if (showForm) return;
     queueMicrotask(fetchProjects);
   }, [showForm, fetchProjects]);
+
+  useEffect(() => {
+    accountsApi
+      .getProjectReviewers()
+      .then(setProjectReviewers)
+      .catch(() => setProjectReviewers([]));
+  }, []);
 
   const handleSave = async (data: ProjectFormData) => {
     setSaving(true);
@@ -176,6 +191,24 @@ export function ProjectsManagePage() {
     }
   };
 
+  const handleEditById = async (id: string) => {
+    try {
+      const detail = await projectsApi.getProjectById(id);
+      setEditing(apiProjectToFormData(detail));
+      setShowForm(true);
+    } catch (err) {
+      handleApiError(err);
+    }
+  };
+
+  useEffect(() => {
+    const editId = searchParams.get("edit");
+    if (!editId || handledEditIdRef.current === editId) return;
+
+    handledEditIdRef.current = editId;
+    void handleEditById(editId);
+  }, [searchParams]);
+
   const handleDelete = (id: string) => {
     setConfirm({
       show: true,
@@ -183,6 +216,7 @@ export function ProjectsManagePage() {
       message: "Bạn có chắc muốn xóa dự án này?",
       variant: "danger",
       confirmLabel: "Xóa",
+      isSubmit: false,
       onConfirm: async () => {
         setConfirm((prev) => ({ ...prev, show: false }));
         try {
@@ -214,25 +248,33 @@ export function ProjectsManagePage() {
   };
 
   const openListActionConfirm = (
-    action: (id: string) => Promise<unknown>,
+    action: (id: string, data?: any) => Promise<unknown>,
     id: string,
     title: string,
     message: string,
     successMessage: string,
     errorMessage: string,
     variant: "warning" | "danger" = "warning",
-    confirmLabel: string = "Xác nhận"
+    confirmLabel: string = "X?c nh?n",
+    isSubmit: boolean = false,
   ) => {
+    if (isSubmit) {
+      setNotifyAccountId("");
+    }
     setConfirm({
       show: true,
       title,
       message,
       variant,
       confirmLabel,
-      onConfirm: async () => {
+      isSubmit,
+      onConfirm: async (selectedNotifyAccountId?: string | null) => {
         setConfirm((prev) => ({ ...prev, show: false }));
         try {
-          await action(id);
+          await action(
+            id,
+            isSubmit ? { notifyAccountId: selectedNotifyAccountId || null } : undefined,
+          );
           showPopup("success", successMessage);
           fetchProjects();
         } catch (err) {
@@ -246,12 +288,13 @@ export function ProjectsManagePage() {
     openListActionConfirm(
       projectsApi.submitProjectForReview,
       id,
-      "Xác nhận gửi duyệt",
-      "Bạn có chắc muốn gửi dự án đi duyệt?",
-      "Đã gửi dự án đi duyệt!",
-      "Gửi duyệt thất bại.",
+      "X?c nh?n g?i duy?t",
+      "B?n c? ch?c mu?n g?i d? ?n ?i duy?t?",
+      "?? g?i d? ?n ?i duy?t!",
+      "G?i duy?t th?t b?i.",
       "warning",
-      "Gửi duyệt"
+      "G?i duy?t",
+      true,
     );
 
   const handleListPublish = (id: string) =>
@@ -324,9 +367,17 @@ export function ProjectsManagePage() {
           variant={confirm.variant}
           confirmLabel={confirm.confirmLabel}
           cancelLabel="Hủy"
-          onConfirm={confirm.onConfirm}
+          onConfirm={() => confirm.onConfirm(notifyAccountId || null)}
           onCancel={() => setConfirm((prev) => ({ ...prev, show: false }))}
-        />
+        >
+          {confirm.isSubmit && (
+            <ReviewerNotifySelect
+              value={notifyAccountId}
+              reviewers={projectReviewers}
+              onChange={setNotifyAccountId}
+            />
+          )}
+        </ConfirmDialog>
 
         {showForm ? (
           <ProjectsManageForm

@@ -5,6 +5,7 @@ import type {
   ProjectLog,
   CreateProjectInput,
   UpdateProjectInput,
+  SubmitForReviewInput,
   ProjectFilters,
   PaginatedResponse,
   ProjectFaqInput,
@@ -35,8 +36,8 @@ export const projectsApi = {
   updateProjectFaqs: (id: string, faqs: ProjectFaqInput[]) =>
     apiClient.patch<Project>(ENDPOINTS.PROJECTS.FAQS(id), { faqs }).then((res) => res.data),
 
-  submitProjectForReview: (id: string, note?: string) =>
-    apiClient.post<Project>(ENDPOINTS.PROJECTS.SUBMIT(id), { note }).then((res) => res.data),
+  submitProjectForReview: (id: string, data?: SubmitForReviewInput) =>
+    apiClient.post<Project>(ENDPOINTS.PROJECTS.SUBMIT(id), data ?? {}).then((res) => res.data),
 
   publishProject: (id: string, note?: string) =>
     apiClient.post<Project>(ENDPOINTS.PROJECTS.PUBLISH(id), { note }).then((res) => res.data),
