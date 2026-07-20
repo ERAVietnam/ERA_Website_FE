@@ -187,7 +187,7 @@ export function Footer() {
                 <p className="text-sm font-semibold" style={s.textWhite}>VP Hà Nội:</p>
               </div>
               <p className="text-xs leading-relaxed pl-6" style={s.textMuted}>
-                P201 Toà nhà Viễn Đông, số 36 Hoàng Cầu, Phường Ô Chợ Dừa, Hà Nội
+                Tầng 1, Tòa C, UDIC Complex, đường Hoàng Đạo Thúy, Phường Yên Hòa, Quận Cầu Giấy, Hà Nội
               </p>
             </div>
           </div>

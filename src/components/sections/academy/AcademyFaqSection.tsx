@@ -8,19 +8,19 @@ import { ChevronDown } from "lucide-react";
 const faqs = [
   {
     question: "ERA Academy có mất phí không?",
-    answer: "Một số khóa học nội bộ dành cho Agent ERA được hỗ trợ theo chính sách từng thời điểm. Các khóa chuyên sâu sẽ có thông tin riêng khi mở đăng ký.",
+    answer: "Nếu bạn là Agent chính thức tại ERA Vietnam thì các khóa học tại ERA Academy hoàn toàn miễn phí.",
   },
   {
     question: "Môi giới bên ngoài có thể tham gia học các khóa học của ERA không?",
-    answer: "Có thể đăng ký tư vấn để được định hướng lộ trình phù hợp trước khi tham gia chương trình.",
+    answer: "Có thể đăng ký tư vấn để được định hướng lộ trình phù hợp trước khi lựa chọn khóa học.",
   },
   {
     question: "Có chứng nhận sau các khóa học không?",
-    answer: "Các khóa học đủ điều kiện hoàn thành sẽ có xác nhận/chứng nhận theo quy định của chương trình.",
+    answer: "Đối với các khóa học có lộ trình dài hạn và có quy định riêng, bạn sẽ được cấp Chứng nhận hoàn thành khóa học khi xét đủ điều kiện.",
   },
   {
     question: "Khóa học là online hay offline?",
-    answer: "ERA Academy kết hợp cả online và offline, tùy nội dung đào tạo và lịch triển khai thực tế.",
+    answer: "ERA Academy là sự kết hợp cả online và offline, tùy vào nội dung đào tạo và lịch trình triển khai thực tế.",
   },
   {
     question: "Tôi có thể học nhiều chương trình cùng một lúc không?",
@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     question: "Là người mới hoàn toàn tôi nên bắt đầu từ đâu?",
-    answer: "Bạn nên bắt đầu từ nhóm khóa onboarding và tư vấn lộ trình để nắm nền tảng nghề môi giới bất động sản.",
+    answer: "Bạn nên bắt đầu từ các khóa Onboarding: Induction, Project Marketing 101 (Thị trường sơ cấp), Resales 101 (Thị trường sơ cấp) để nắm vững kiến thức về ERA Vietnam, kiến thức chung về ngành Bất động sản.",
   },
 ];
 
