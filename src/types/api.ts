@@ -88,7 +88,14 @@ export interface CreateArticleInput {
   faqs: NewsFaqInput[];
 }
 
-export type UpdateArticleInput = Partial<CreateArticleInput>;
+export type UpdateArticleInput = Partial<CreateArticleInput> & {
+  notifyAccountId?: string | null;
+};
+
+export interface SubmitForReviewInput {
+  note?: string | null;
+  notifyAccountId?: string | null;
+}
 
 export type EMagazineStatus = 'draft' | 'published';
 
@@ -190,10 +197,18 @@ export interface ManagementAccount {
   name: string;
   email: string;
   isActive: boolean;
+  isNewsReviewer: boolean;
+  isProjectReviewer: boolean;
   isPasswordChanged: boolean;
   createdAt: string;
   updatedAt: string;
   permissions: Permission[];
+}
+
+export interface AccountReviewer {
+  id: string;
+  name: string;
+  email: string;
 }
 
 export interface AccountFilters {
@@ -331,6 +346,8 @@ export interface CreateAccountInput {
   name: string;
   email: string;
   password: string;
+  isNewsReviewer?: boolean;
+  isProjectReviewer?: boolean;
 }
 
 export interface UpdateAccountInput {
@@ -338,6 +355,8 @@ export interface UpdateAccountInput {
   email?: string;
   password?: string;
   isActive?: boolean;
+  isNewsReviewer?: boolean;
+  isProjectReviewer?: boolean;
 }
 
 export interface AssignPermissionsInput {

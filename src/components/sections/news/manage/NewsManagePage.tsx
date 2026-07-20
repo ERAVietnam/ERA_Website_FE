@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { NewsManageList } from "./NewsManageList";
 import { NewsManageForm } from "./NewsManageForm";
@@ -12,8 +13,10 @@ import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
 import { useAuth } from "@/contexts/AuthContext";
-import type { NewsArticle, NewsCategory, PaginationMeta, ArticleFilters } from "@/types/api";
+import { accountsApi } from "@/api/domains/accounts";
+import type { NewsArticle, NewsCategory, PaginationMeta, ArticleFilters, AccountReviewer } from "@/types/api";
 
 const DEFAULT_LIMIT = 10;
 
@@ -48,6 +51,7 @@ const actionMessages: Record<ActionType, { title: string; message: string; confi
 };
 
 export default function NewsManagePage() {
+  const searchParams = useSearchParams();
   const { hasPermission, account } = useAuth();
   const [items, setItems] = useState<NewsArticle[]>([]);
   const [categories, setCategories] = useState<NewsCategory[]>([]);
@@ -66,12 +70,15 @@ export default function NewsManagePage() {
   const [showNetworkError, setShowNetworkError] = useState(false);
   const [previewArticle, setPreviewArticle] = useState<NewsArticle | null>(null);
   const [historyArticleId, setHistoryArticleId] = useState<string | null>(null);
+  const [newsReviewers, setNewsReviewers] = useState<AccountReviewer[]>([]);
+  const [notifyAccountId, setNotifyAccountId] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [meta, setMeta] = useState<PaginationMeta>({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
   const [filters, setFilters] = useState<ArticleFilters>({
     page: 1,
     limit: DEFAULT_LIMIT,
   });
+  const handledEditIdRef = useRef<string | null>(null);
 
   const fetchItems = useCallback(async () => {
     setLoading(true);
@@ -96,6 +103,13 @@ export default function NewsManagePage() {
   useEffect(() => {
     queueMicrotask(fetchItems);
   }, [fetchItems]);
+
+  useEffect(() => {
+    accountsApi
+      .getNewsReviewers()
+      .then(setNewsReviewers)
+      .catch(() => setNewsReviewers([]));
+  }, []);
 
   useEffect(() => {
     newsApi
@@ -221,8 +235,19 @@ export default function NewsManagePage() {
   };
 
   const openActionConfirm = (id: string, type: ActionType) => {
+    if (type === "submit") {
+      setNotifyAccountId("");
+    }
     setActionConfirm({ type, id });
   };
+
+  useEffect(() => {
+    const editId = searchParams.get("edit");
+    if (!editId || handledEditIdRef.current === editId) return;
+
+    handledEditIdRef.current = editId;
+    void handleEdit(editId);
+  }, [searchParams]);
 
   const closeActionConfirm = () => {
     setActionConfirm({ type: null, id: "" });
@@ -243,7 +268,10 @@ export default function NewsManagePage() {
           await newsApi.revokeArticle(id);
           setPopup({ show: true, type: "success", message: "Đã hủy duyệt bài viết!" });
         } else if (type === "submit") {
-          await newsApi.updateArticle(id, { status: "pending" });
+          await newsApi.updateArticle(id, {
+            status: "pending",
+            notifyAccountId: notifyAccountId || null,
+          });
           setPopup({ show: true, type: "success", message: "Đã gửi bài viết đi duyệt!" });
         } else if (type === "reject") {
           await newsApi.updateArticle(id, { status: "draft" });
@@ -312,7 +340,15 @@ export default function NewsManagePage() {
             cancelLabel="Hủy"
             onConfirm={handleConfirmAction}
             onCancel={closeActionConfirm}
-          />
+          >
+            {actionConfirm.type === "submit" && (
+              <ReviewerNotifySelect
+                value={notifyAccountId}
+                reviewers={newsReviewers}
+                onChange={setNotifyAccountId}
+              />
+            )}
+          </ConfirmDialog>
 
           {showForm ? (
             <NewsManageForm

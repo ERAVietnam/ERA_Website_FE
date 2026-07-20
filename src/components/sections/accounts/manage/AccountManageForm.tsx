@@ -26,11 +26,21 @@ interface FormState {
   password: string;
   confirmPassword: string;
   isActive: boolean;
+  isNewsReviewer: boolean;
+  isProjectReviewer: boolean;
 }
 
 function accountToFormState(account?: ManagementAccount): FormState {
   if (!account) {
-    return { name: "", email: "", password: "", confirmPassword: "", isActive: true };
+    return {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      isActive: true,
+      isNewsReviewer: false,
+      isProjectReviewer: false,
+    };
   }
   return {
     name: account.name,
@@ -38,6 +48,8 @@ function accountToFormState(account?: ManagementAccount): FormState {
     password: "",
     confirmPassword: "",
     isActive: account.isActive,
+    isNewsReviewer: account.isNewsReviewer,
+    isProjectReviewer: account.isProjectReviewer,
   };
 }
 
@@ -295,7 +307,14 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
     const permissionIds = Array.from(selectedPermissionIds);
     const schema = initialData ? updateAccountSchema : createAccountSchema;
     const validationData = initialData
-      ? { name: form.name, email: form.email, isActive: form.isActive, permissionIds }
+      ? {
+          name: form.name,
+          email: form.email,
+          isActive: form.isActive,
+          isNewsReviewer: form.isNewsReviewer,
+          isProjectReviewer: form.isProjectReviewer,
+          permissionIds,
+        }
       : { ...form, permissionIds };
     const validation = schema.safeParse(validationData);
 
@@ -331,10 +350,19 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
       const canAssign = hasPermission("auth.permissions.all.assign");
       let saved: ManagementAccount;
       if (initialData?.id) {
-        const payload: { name: string; email: string; isActive: boolean; password?: string } = {
+        const payload: {
+          name: string;
+          email: string;
+          isActive: boolean;
+          isNewsReviewer: boolean;
+          isProjectReviewer: boolean;
+          password?: string;
+        } = {
           name: form.name,
           email: form.email,
           isActive: form.isActive,
+          isNewsReviewer: form.isNewsReviewer,
+          isProjectReviewer: form.isProjectReviewer,
         };
         if (form.password.trim()) {
           payload.password = form.password;
@@ -348,6 +376,8 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
           name: form.name,
           email: form.email,
           password: form.password,
+          isNewsReviewer: form.isNewsReviewer,
+          isProjectReviewer: form.isProjectReviewer,
         });
         if (canAssign && permissionIds.length > 0) {
           saved = await accountsApi.assignPermissions(saved.id, { permissionIds });
@@ -550,6 +580,46 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
                       >
                         {moduleLabels[module] || module}
                       </div>
+                      {module === "news" && (
+                        <div className="border-b border-gray-100 bg-red-50/40 px-5 py-4">
+                          <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-red-100 bg-white p-3 transition-colors hover:bg-red-50/50">
+                            <input
+                              type="checkbox"
+                              checked={form.isNewsReviewer}
+                              onChange={(e) => update("isNewsReviewer", e.target.checked)}
+                              className="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                            />
+                            <span className="space-y-1">
+                              <span className="block text-sm font-semibold text-gray-800">
+                                Thêm vào list reviewer tin tức
+                              </span>
+                              <span className="block text-xs leading-relaxed text-gray-500">
+                                Người này sẽ xuất hiện trong danh sách chọn người nhận email khi gửi duyệt bài viết tin tức.
+                              </span>
+                            </span>
+                          </label>
+                        </div>
+                      )}
+                      {module === "projects" && (
+                        <div className="border-b border-gray-100 bg-red-50/40 px-5 py-4">
+                          <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-red-100 bg-white p-3 transition-colors hover:bg-red-50/50">
+                            <input
+                              type="checkbox"
+                              checked={form.isProjectReviewer}
+                              onChange={(e) => update("isProjectReviewer", e.target.checked)}
+                              className="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                            />
+                            <span className="space-y-1">
+                              <span className="block text-sm font-semibold text-gray-800">
+                                Thêm vào list reviewer dự án
+                              </span>
+                              <span className="block text-xs leading-relaxed text-gray-500">
+                                Người này sẽ xuất hiện trong danh sách chọn người nhận email khi gửi duyệt dự án.
+                              </span>
+                            </span>
+                          </label>
+                        </div>
+                      )}
                       <div className="divide-y divide-gray-100">
                         {Object.entries(resources).map(([resource, perms]) =>
                           getResourceSections(module, resource, perms).map(({ key, label, perms: sectionPerms }) => {

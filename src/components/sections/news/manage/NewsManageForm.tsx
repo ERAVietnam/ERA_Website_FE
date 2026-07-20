@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { X, Loader2, History, Eye } from "lucide-react";
 import { newsApi } from "@/api/domains/news";
+import { accountsApi } from "@/api/domains/accounts";
 import { mediaApi } from "@/api/domains/media";
 import { createArticleSchema } from "@/schemas/news.schema";
 import { NEWS_FAQ_MIN_ITEMS, NEWS_FAQ_MAX_ITEMS, validateNewsFaqs } from "@/lib/news";
@@ -14,6 +15,7 @@ import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { SelectField } from "@/components/ui/admin/SelectField";
+import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
 import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { NewsPreviewDialog } from "./NewsPreviewDialog";
 import { useAuth } from "@/contexts/AuthContext";
@@ -21,7 +23,7 @@ import { getNewsScopeBySlug } from "@/lib/permissions";
 import { compressImage } from "@/lib/imageCompression";
 import { COUNTRY_OPTIONS } from "@/lib/country";
 import { newsStatusConfig } from "@/lib/news/status";
-import type { NewsCategory, NewsArticle, NewsFaqInput } from "@/types/api";
+import type { NewsCategory, NewsArticle, NewsFaqInput, AccountReviewer } from "@/types/api";
 
 
 
@@ -175,6 +177,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   const [showHistory, setShowHistory] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [showNetworkError, setShowNetworkError] = useState(false);
+  const [newsReviewers, setNewsReviewers] = useState<AccountReviewer[]>([]);
+  const [notifyAccountId, setNotifyAccountId] = useState("");
 
   const initialForm = useMemo(() => articleToFormState(initialData), [initialData]);
   const initialImagePreview = initialData?.featuredImage?.url || "";
@@ -240,6 +244,13 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         }
         setCategories([]);
       });
+  }, []);
+
+  useEffect(() => {
+    accountsApi
+      .getNewsReviewers()
+      .then(setNewsReviewers)
+      .catch(() => setNewsReviewers([]));
   }, []);
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
@@ -467,6 +478,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       return;
     }
     if (!pendingAction || pendingAction.type !== "submit") {
+      setNotifyAccountId("");
       setPendingAction({ type: "submit" });
       return;
     }
@@ -474,7 +486,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     setPopup((prev) => ({ ...prev, show: false }));
     setIsLoading(true);
     try {
-      const saved = await newsApi.updateArticle(initialData.id, { status: "pending" });
+      const saved = await newsApi.updateArticle(initialData.id, {
+        status: "pending",
+        notifyAccountId: notifyAccountId || null,
+      });
       setPopup({ show: true, type: "success", message: "Đã gửi bài viết đi duyệt!" });
       onSave(saved);
     } catch (err) {
@@ -868,7 +883,15 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
             }
           }}
           onCancel={() => setPendingAction(null)}
-        />
+        >
+          {pendingAction?.type === "submit" && (
+            <ReviewerNotifySelect
+              value={notifyAccountId}
+              reviewers={newsReviewers}
+              onChange={setNotifyAccountId}
+            />
+          )}
+        </ConfirmDialog>
 
         {initialData?.id && (
           <ArticleHistoryDialog

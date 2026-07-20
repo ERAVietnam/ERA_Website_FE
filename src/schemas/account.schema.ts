@@ -6,6 +6,8 @@ export const createAccountSchema = z
     email: z.string().min(1, 'Email không được để trống').email('Email không hợp lệ'),
     password: z.string().min(6, 'Mật khẩu tối thiểu 6 ký tự'),
     confirmPassword: z.string().min(1, 'Vui lòng xác nhận mật khẩu'),
+    isNewsReviewer: z.boolean().optional(),
+    isProjectReviewer: z.boolean().optional(),
     permissionIds: z.array(z.string().uuid()).optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -20,6 +22,8 @@ export const updateAccountSchema = z.object({
   email: z.string().email('Email không hợp lệ').optional(),
   password: z.string().min(6, 'Mật khẩu tối thiểu 6 ký tự').optional(),
   isActive: z.boolean().optional(),
+  isNewsReviewer: z.boolean().optional(),
+  isProjectReviewer: z.boolean().optional(),
 });
 
 export type UpdateAccountSchema = z.infer<typeof updateAccountSchema>;

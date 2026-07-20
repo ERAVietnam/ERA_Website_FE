@@ -7,11 +7,13 @@ import { Button } from "@/components/ui/Button";
 import { ChevronDown, X, Loader2, Eye, History } from "lucide-react";
 import { mediaApi } from "@/api/domains/media";
 import { projectsApi } from "@/api/domains/projects";
+import { accountsApi } from "@/api/domains/accounts";
 import { extractApiError } from "@/lib/api-errors";
 import { compressImage } from "@/lib/imageCompression";
 import { createProjectSchema, projectDetailsSchema } from "@/schemas/projects.schema";
+import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
 import { useAuth } from "@/contexts/AuthContext";
-import type { Media, Project, ProjectPublicationStatus } from "@/types/api";
+import type { AccountReviewer, Media, Project, ProjectPublicationStatus } from "@/types/api";
 import {
   PROJECT_FAQ_MAX_ITEMS,
   PROJECT_FAQ_MIN_ITEMS,
@@ -329,6 +331,8 @@ export function ProjectsManageForm({
     | { type: "unsaved_changes"; callback?: () => void }
   >(null);
   const [showNetworkError, setShowNetworkError] = useState(false);
+  const [projectReviewers, setProjectReviewers] = useState<AccountReviewer[]>([]);
+  const [notifyAccountId, setNotifyAccountId] = useState("");
   const initialLocation = splitProjectLocation(initialData?.location);
   const [province, setProvince] = useState(initialLocation.province);
   const [addressDetail, setAddressDetail] = useState(initialLocation.addressDetail);
@@ -358,6 +362,13 @@ export function ProjectsManageForm({
       setPendingAction(null);
     });
   }, [initialData]);
+
+  useEffect(() => {
+    accountsApi
+      .getProjectReviewers()
+      .then(setProjectReviewers)
+      .catch(() => setProjectReviewers([]));
+  }, []);
 
   useEffect(() => {
     if (!isProvinceOpen) return;
@@ -577,6 +588,9 @@ export function ProjectsManageForm({
       return;
     }
     if (!pendingAction || pendingAction.type !== actionType) {
+      if (actionType === "submit") {
+        setNotifyAccountId("");
+      }
       setPendingAction({ type: actionType });
       return;
     }
@@ -597,7 +611,7 @@ export function ProjectsManageForm({
     const id = initialData?.id;
     if (!id) return;
     runWorkflowAction(
-      () => projectsApi.submitProjectForReview(id),
+      () => projectsApi.submitProjectForReview(id, { notifyAccountId: notifyAccountId || null }),
       "Đã gửi dự án đi duyệt!",
       "Gửi duyệt thất bại.",
       "submit"
@@ -1301,7 +1315,15 @@ export function ProjectsManageForm({
           }
         }}
         onCancel={() => setPendingAction(null)}
-      />
+      >
+        {pendingAction?.type === "submit" && (
+          <ReviewerNotifySelect
+            value={notifyAccountId}
+            reviewers={projectReviewers}
+            onChange={setNotifyAccountId}
+          />
+        )}
+      </ConfirmDialog>
     </div>
   );
 }

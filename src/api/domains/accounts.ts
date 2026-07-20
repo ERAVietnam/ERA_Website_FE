@@ -6,6 +6,7 @@ import type {
   CreateAccountInput,
   UpdateAccountInput,
   AssignPermissionsInput,
+  AccountReviewer,
   AccountFilters,
   PaginatedResponse,
 } from '@/types/api';
@@ -39,6 +40,16 @@ export const accountsApi = {
   getPermissions: () =>
     apiClient
       .get<Permission[]>(ENDPOINTS.ACCOUNTS.PERMISSIONS)
+      .then((res) => res.data),
+
+  getNewsReviewers: () =>
+    apiClient
+      .get<AccountReviewer[]>(ENDPOINTS.ACCOUNTS.NEWS_REVIEWERS)
+      .then((res) => res.data),
+
+  getProjectReviewers: () =>
+    apiClient
+      .get<AccountReviewer[]>(ENDPOINTS.ACCOUNTS.PROJECT_REVIEWERS)
       .then((res) => res.data),
 
   assignPermissions: (id: string, data: AssignPermissionsInput) =>
