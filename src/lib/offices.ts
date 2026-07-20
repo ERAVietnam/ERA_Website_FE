@@ -39,11 +39,11 @@ export const offices: Office[] = [
     id: "north",
     region: "MIỀN BẮC",
     name: "ERA Vietnam - Chi nhánh Hà Nội",
-    address: "Tòa nhà Viễn Đông, số 36 Hoàng Cầu, Quận Đống Đa, Hà Nội",
+    address: "Tầng 1, Tòa C, UDIC Complex, đường Hoàng Đạo Thúy, Phường Yên Hòa, Quận Cầu Giấy, Hà Nội",
     phone: "+84986628222",
     mapSrc:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.3464456601896!2d105.82146467471416!3d21.018819488121032!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abb4623fb1d3%3A0x10291e8bc5361d64!2sPeakview%20Tower!5e0!3m2!1svi!2s!4v1776248860207!5m2!1svi!2s",
-    geo: { lat: 21.0188195, lng: 105.8214647 },
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.5965805420437!2d105.79819587471391!3d21.0088023884648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aca12481376d%3A0x7a5dab5f1536c13d!2sUDIC%20Complex!5e0!3m2!1sen!2s!4v1784522400011!5m2!1sen!2s",
+    geo: { lat: 21.0088023884648, lng: 105.79819587471391 },
     isMainOffice: true,
   },
   {
