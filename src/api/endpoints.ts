@@ -96,6 +96,16 @@ export const ENDPOINTS = {
     UPDATE: (id: string) => `/monthly-honors/${id}`,
     DELETE: (id: string) => `/monthly-honors/${id}`,
   },
+  ANNUAL_HONORS: {
+    PUBLIC_LIST: '/annual-honors/public',
+    LIST: '/annual-honors',
+    DETAIL: (id: string) => `/annual-honors/${id}`,
+    CREATE: '/annual-honors',
+    UPDATE: (id: string) => `/annual-honors/${id}`,
+    DELETE: (id: string) => `/annual-honors/${id}`,
+    CATEGORY_AGENTS: (id: string, slug: string) =>
+      `/annual-honors/${id}/categories/${slug}/agents`,
+  },
   ACADEMY_COURSES: {
     PUBLIC_LIST: '/academy-courses/public',
     PUBLIC_TAGS: '/academy-courses/public/tags',
