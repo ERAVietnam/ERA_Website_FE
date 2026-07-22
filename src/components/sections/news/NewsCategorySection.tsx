@@ -69,10 +69,11 @@ export const NewsCategorySection = memo(function NewsCategorySection({
               TIÊU ĐIỂM
             </div>
             <h3
-              className="text-white mb-3 leading-tight line-clamp-3"
+              className="text-white mb-3 line-clamp-3"
               style={{
                 fontWeight: 700,
                 fontSize: "30px",
+                lineHeight: 1.5,
               }}
             >
               {featuredArticle.title}
