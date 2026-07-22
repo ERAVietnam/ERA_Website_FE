@@ -52,7 +52,7 @@ export function AcademyMyEraSection() {
             />
           </div>
           <p className="mt-8 text-2xl font-bold uppercase leading-snug text-[#D4112D] md:text-3xl">
-            HỌC MỌI LÚC, GIỜI MỌI NƠI<br />
+            HỌC MỌI LÚC, GIỎI MỌI NƠI<br />
             ĐỘT PHÁ MỌI RÀO CẢN
           </p>
           <div className="mt-8 max-w-md space-y-4">
