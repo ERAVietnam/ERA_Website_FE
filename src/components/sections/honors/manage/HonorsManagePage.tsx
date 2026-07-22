@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2, Plus, X } from "lucide-react";
 import { agentsApi } from "@/api/domains/agents";
 import { annualHonorsApi } from "@/api/domains/annual-honors";
 import { honorsApi } from "@/api/domains/honors";
@@ -9,10 +9,10 @@ import { mediaApi } from "@/api/domains/media";
 import { monthlyHonorsApi } from "@/api/domains/monthly-honors";
 import { Button } from "@/components/ui/Button";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import { Pagination } from "@/components/ui/Pagination";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { Section } from "@/components/ui/Section";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
-import { Pagination } from "@/components/ui/Pagination";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import { AdminListHeader } from "@/components/ui/admin/AdminListHeader";
 import { AdminLoading } from "@/components/ui/admin/AdminLoading";
@@ -20,6 +20,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
 import { extractApiError } from "@/lib/api-errors";
 import { compressImage } from "@/lib/imageCompression";
+import { colors } from "@/lib/theme";
 import type {
   Agent,
   AnnualHonorFilters,
@@ -34,6 +35,7 @@ import type {
   UpdateMonthlyHonorInput,
 } from "@/types/api";
 import { AnnualHonorsEditor } from "./AnnualHonorsEditor";
+import { AnnualHonorsList } from "./AnnualHonorsList";
 import { MonthlyHonorCreateForm } from "./MonthlyHonorCreateForm";
 import { MonthlyHonorsList } from "./MonthlyHonorsList";
 import {
@@ -67,6 +69,8 @@ export default function HonorsManagePage() {
   const [annualForm, setAnnualForm] = useState<AnnualHonorFormState>(() =>
     createEmptyAnnualHonorForm(),
   );
+  const [annualDraftCategoryAgentIds, setAnnualDraftCategoryAgentIds] =
+    useState<Record<string, string[]>>({});
   const [annualSaving, setAnnualSaving] = useState(false);
   const [annualDeletingId, setAnnualDeletingId] = useState<string | null>(null);
   const [annualFieldErrors, setAnnualFieldErrors] = useState<Record<string, string>>({});
@@ -139,6 +143,8 @@ export default function HonorsManagePage() {
       ? annualEditing.categories.find((category) => category.slug === selectedSlug) ??
         annualCategories.find((category) => category.slug === selectedSlug) ??
         null
+      : viewMode === "annual" && showAnnualForm
+        ? annualCategories.find((category) => category.slug === selectedSlug) ?? null
       : viewMode === "system"
         ? systemCategory
         : null;
@@ -275,9 +281,15 @@ export default function HonorsManagePage() {
     const category =
       viewMode === "annual" && annualEditing
         ? annualEditing.categories.find((item) => item.slug === slug)
-        : categories.find((item) => item.slug === slug);
+        : viewMode === "annual" && showAnnualForm
+          ? null
+          : categories.find((item) => item.slug === slug);
     setSelectedSlug(slug);
-    setSelectedIds(category?.agents.map((agent) => agent.id) ?? []);
+    setSelectedIds(
+      viewMode === "annual" && showAnnualForm
+        ? annualDraftCategoryAgentIds[slug] ?? []
+        : category?.agents.map((agent) => agent.id) ?? [],
+    );
     setAgentSearch("");
   };
 
@@ -310,11 +322,29 @@ export default function HonorsManagePage() {
 
   const addAgent = (agentId: string) => {
     if (selectedIdSet.has(agentId)) return;
-    setSelectedIds((prev) => [...prev, agentId]);
+    setSelectedIds((prev) => {
+      const next = [...prev, agentId];
+      if (viewMode === "annual" && showAnnualForm && selectedSlug) {
+        setAnnualDraftCategoryAgentIds((draft) => ({
+          ...draft,
+          [selectedSlug]: next,
+        }));
+      }
+      return next;
+    });
   };
 
   const removeAgent = (agentId: string) => {
-    setSelectedIds((prev) => prev.filter((id) => id !== agentId));
+    setSelectedIds((prev) => {
+      const next = prev.filter((id) => id !== agentId);
+      if (viewMode === "annual" && showAnnualForm && selectedSlug) {
+        setAnnualDraftCategoryAgentIds((draft) => ({
+          ...draft,
+          [selectedSlug]: next,
+        }));
+      }
+      return next;
+    });
   };
 
   const moveAgent = (agentId: string, direction: -1 | 1) => {
@@ -324,6 +354,12 @@ export default function HonorsManagePage() {
       if (index < 0 || nextIndex < 0 || nextIndex >= prev.length) return prev;
       const next = [...prev];
       [next[index], next[nextIndex]] = [next[nextIndex], next[index]];
+      if (viewMode === "annual" && showAnnualForm && selectedSlug) {
+        setAnnualDraftCategoryAgentIds((draft) => ({
+          ...draft,
+          [selectedSlug]: next,
+        }));
+      }
       return next;
     });
   };
@@ -373,8 +409,13 @@ export default function HonorsManagePage() {
   };
 
   const openAnnualCreate = () => {
+    const firstSlug = annualCategories[0]?.slug ?? "";
     setAnnualEditing(null);
     setAnnualForm(createEmptyAnnualHonorForm());
+    setAnnualDraftCategoryAgentIds({});
+    setSelectedSlug(firstSlug);
+    setSelectedIds([]);
+    setAgentSearch("");
     setAnnualFieldErrors({});
     setShowAnnualForm(true);
   };
@@ -394,6 +435,9 @@ export default function HonorsManagePage() {
     setShowAnnualForm(false);
     setAnnualEditing(null);
     setAnnualForm(createEmptyAnnualHonorForm());
+    setAnnualDraftCategoryAgentIds({});
+    setSelectedIds([]);
+    setAgentSearch("");
     setAnnualFieldErrors({});
   };
 
@@ -418,6 +462,15 @@ export default function HonorsManagePage() {
 
     if (!Number.isInteger(year) || year < 1900 || year > 9999) {
       errors.year = "Vui lòng nhập năm hợp lệ.";
+    }
+
+    if (
+      Number.isInteger(year) &&
+      annualItems.some(
+        (item) => item.year === year && item.id !== annualEditing?.id,
+      )
+    ) {
+      errors.year = "Năm vinh danh thường niên này đã tồn tại.";
     }
 
     if (annualForm.title.trim().length > 255) {
@@ -446,7 +499,19 @@ export default function HonorsManagePage() {
         const updated = await annualHonorsApi.updateList(annualEditing.id, payload);
         setAnnualEditing(updated);
       } else {
-        await annualHonorsApi.createList(payload as CreateAnnualHonorInput);
+        const created = await annualHonorsApi.createList(
+          payload as CreateAnnualHonorInput,
+        );
+        const draftEntries = Object.entries(annualDraftCategoryAgentIds).filter(
+          ([, agentIds]) => agentIds.length > 0,
+        );
+        if (draftEntries.length > 0) {
+          await Promise.all(
+            draftEntries.map(([slug, agentIds]) =>
+              annualHonorsApi.updateCategoryAgents(created.id, slug, agentIds),
+            ),
+          );
+        }
       }
 
       setPopup({
@@ -459,6 +524,37 @@ export default function HonorsManagePage() {
       closeAnnualForm();
       setAnnualFilters((prev) => ({ ...prev, page: 1 }));
       loadAnnualHonors().catch(() => {});
+    } catch (err) {
+      const { message, isNetworkError } = extractApiError(err);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
+    } finally {
+      setAnnualSaving(false);
+    }
+  };
+
+  const handleSaveAnnualMetadata = async () => {
+    if (!annualEditing) return;
+
+    const errors = validateAnnualForm();
+    setAnnualFieldErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+
+    setAnnualSaving(true);
+    try {
+      const updated = await annualHonorsApi.updateList(annualEditing.id, {
+        year: Number(annualForm.year),
+        title: annualForm.title.trim() || null,
+      });
+      setAnnualEditing(updated);
+      setPopup({
+        show: true,
+        type: "success",
+        message: "Cập nhật thông tin list vinh danh thường niên thành công!",
+      });
     } catch (err) {
       const { message, isNetworkError } = extractApiError(err);
       if (isNetworkError) {
@@ -870,74 +966,69 @@ export default function HonorsManagePage() {
         {viewMode === "annual" && showAnnualForm ? (
           <form
             onSubmit={handleSaveAnnualHonor}
-            className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
+            className="space-y-6"
           >
-            <div className="mb-5">
-              <h2 className="text-lg font-bold text-gray-900">
-                {annualEditing
-                  ? "Chỉnh sửa list vinh danh thường niên"
-                  : "Tạo list vinh danh thường niên"}
-              </h2>
-              <p className="text-sm text-gray-500">
-                Mỗi năm chỉ được tạo một list vinh danh thường niên.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <div>
-                <label className="mb-1.5 block text-sm font-semibold text-gray-700">
-                  Năm
-                </label>
-                <input
-                  type="number"
-                  min={1900}
-                  max={9999}
-                  value={annualForm.year}
-                  onChange={(event) => updateAnnualForm("year", event.target.value)}
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none transition-colors focus:border-gray-400"
-                />
-                {annualFieldErrors.year && (
-                  <p className="mt-1 text-xs text-red-500">{annualFieldErrors.year}</p>
-                )}
-              </div>
-
-              <div>
-                <label className="mb-1.5 block text-sm font-semibold text-gray-700">
-                  Tiêu đề
-                </label>
-                <input
-                  value={annualForm.title}
-                  onChange={(event) => updateAnnualForm("title", event.target.value)}
-                  placeholder="Ví dụ: ERA Awards 2026"
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none transition-colors focus:border-gray-400"
-                />
-                {annualFieldErrors.title && (
-                  <p className="mt-1 text-xs text-red-500">{annualFieldErrors.title}</p>
-                )}
-              </div>
-            </div>
-
-            <div className="mt-6 flex justify-end gap-2">
-              <Button type="button" variant="outline" size="sm" onClick={closeAnnualForm}>
-                Hủy
-              </Button>
-              <Button type="submit" variant="primary" size="sm" disabled={annualSaving}>
-                {annualSaving ? "Đang lưu..." : annualEditing ? "Lưu thay đổi" : "Tạo list"}
-              </Button>
-            </div>
-          </form>
-        ) : viewMode === "annual" && annualEditing ? (
-          <div className="space-y-5">
-            <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-              <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+              <div className="mb-6 flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm text-gray-500">List đang chỉnh sửa</p>
-                  <h2 className="text-xl font-bold text-gray-900">
-                    {annualEditing.title || `ERA Awards ${annualEditing.year}`}
+                  <h2
+                    className="text-xl font-black"
+                    style={{ color: colors.primary.navy.DEFAULT }}
+                  >
+                    {annualEditing
+                      ? "Chỉnh sửa list vinh danh thường niên"
+                      : "Tạo list vinh danh thường niên"}
                   </h2>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Chọn năm, đặt tên list, chọn hạng mục và thêm agent vào từng hạng mục.
+                  </p>
                 </div>
-                <div className="w-full md:w-80">
-                  <label className="mb-1.5 block text-sm font-semibold text-gray-700">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  isIconOnly
+                  size="sm"
+                  onClick={closeAnnualForm}
+                  disabled={annualSaving}
+                >
+                  <X size={20} className="text-gray-500" />
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-[12rem_1fr_20rem]">
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-700">
+                    Năm <span style={{ color: colors.primary.DEFAULT }}>*</span>
+                  </label>
+                  <input
+                    value={annualForm.year}
+                    onChange={(event) => updateAnnualForm("year", event.target.value)}
+                    inputMode="numeric"
+                    placeholder="2026"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-800 outline-none transition-colors placeholder:text-gray-400 focus:border-gray-400"
+                  />
+                  {annualFieldErrors.year && (
+                    <p className="mt-1 text-xs text-red-500">{annualFieldErrors.year}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-700">
+                    Tên list
+                  </label>
+                  <input
+                    value={annualForm.title}
+                    onChange={(event) => updateAnnualForm("title", event.target.value)}
+                    placeholder="Ví dụ: ERA Awards 2026"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-800 outline-none transition-colors placeholder:text-gray-400 focus:border-gray-400"
+                  />
+                  {annualFieldErrors.title && (
+                    <p className="mt-1 text-xs text-red-500">{annualFieldErrors.title}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-700">
                     Mục vinh danh trong năm
                   </label>
                   <SelectField
@@ -961,6 +1052,132 @@ export default function HonorsManagePage() {
               selectedAgents={selectedAgents}
               filteredAgents={filteredAgents}
               agentSearch={agentSearch}
+              canUpdate={canCreate}
+              onCategoryChange={handleCategoryChange}
+              onAgentSearchChange={setAgentSearch}
+              onAddAgent={addAgent}
+              onRemoveAgent={removeAgent}
+              onMoveAgent={moveAgent}
+            />
+
+            <div className="flex justify-end gap-2">
+              <Button type="button" variant="outline" size="sm" onClick={closeAnnualForm} disabled={annualSaving}>
+                Hủy
+              </Button>
+              <Button type="submit" variant="primary" size="sm" disabled={annualSaving}>
+                {annualSaving ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" /> Đang lưu...
+                  </>
+                ) : annualEditing ? (
+                  "Lưu thay đổi"
+                ) : (
+                  "Tạo list"
+                )}
+              </Button>
+            </div>
+          </form>
+        ) : viewMode === "annual" && annualEditing ? (
+          <div className="space-y-5">
+            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+              <div className="mb-6 flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm text-gray-500">List đang chỉnh sửa</p>
+                  <h2
+                    className="text-xl font-black"
+                    style={{ color: colors.primary.navy.DEFAULT }}
+                  >
+                    {annualEditing.title || `ERA Awards ${annualEditing.year}`}
+                  </h2>
+                </div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  isIconOnly
+                  size="sm"
+                  onClick={closeAnnualEditor}
+                  disabled={annualSaving}
+                >
+                  <X size={20} className="text-gray-500" />
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-700">
+                    Năm <span style={{ color: colors.primary.DEFAULT }}>*</span>
+                  </label>
+                  <input
+                    value={annualForm.year}
+                    onChange={(event) => updateAnnualForm("year", event.target.value)}
+                    inputMode="numeric"
+                    placeholder="2026"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-800 outline-none transition-colors placeholder:text-gray-400 focus:border-gray-400"
+                  />
+                  {annualFieldErrors.year && (
+                    <p className="mt-1 text-xs text-red-500">{annualFieldErrors.year}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-700">
+                    Tên list
+                  </label>
+                  <input
+                    value={annualForm.title}
+                    onChange={(event) => updateAnnualForm("title", event.target.value)}
+                    placeholder="Ví dụ: ERA Awards 2026"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-800 outline-none transition-colors placeholder:text-gray-400 focus:border-gray-400"
+                  />
+                  {annualFieldErrors.title && (
+                    <p className="mt-1 text-xs text-red-500">{annualFieldErrors.title}</p>
+                  )}
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-gray-700">
+                    Mục vinh danh trong năm
+                  </label>
+                  <SelectField
+                    value={selectedSlug}
+                    onChange={handleCategoryChange}
+                    options={annualCategories.map((category) => ({
+                      value: category.slug,
+                      label: category.name,
+                    }))}
+                    placeholder="Chọn mục"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-5 flex justify-end">
+                <Button
+                  type="button"
+                  variant="primary"
+                  size="sm"
+                  className="gap-2"
+                  disabled={annualSaving}
+                  onClick={handleSaveAnnualMetadata}
+                >
+                  {annualSaving ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" /> Đang lưu...
+                    </>
+                  ) : (
+                    "Lưu thông tin list"
+                  )}
+                </Button>
+              </div>
+            </div>
+
+            <AnnualHonorsEditor
+              categories={annualCategories}
+              selectedSlug={selectedSlug}
+              selectedCategory={selectedCategory}
+              selectedIds={selectedIds}
+              selectedAgents={selectedAgents}
+              filteredAgents={filteredAgents}
+              agentSearch={agentSearch}
               canUpdate={canUpdate}
               onCategoryChange={handleCategoryChange}
               onAgentSearchChange={setAgentSearch}
@@ -969,6 +1186,19 @@ export default function HonorsManagePage() {
               onMoveAgent={moveAgent}
             />
           </div>
+        ) : (viewMode as HonorsViewMode) === "annual" ? (
+          <AnnualHonorsList
+            items={annualItems}
+            loading={annualLoading}
+            meta={annualMeta}
+            canManage={canUpdate || canDelete}
+            deletingId={annualDeletingId}
+            onEdit={openAnnualEdit}
+            onDelete={handleDeleteAnnualHonor}
+            onPageChange={(page) =>
+              setAnnualFilters((prev) => ({ ...prev, page }))
+            }
+          />
         ) : viewMode === "annual" ? (
           <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
             <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
