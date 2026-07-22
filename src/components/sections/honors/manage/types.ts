@@ -1,6 +1,6 @@
-import type { MonthlyHonorList } from "@/types/api";
+import type { AnnualHonorList, MonthlyHonorList } from "@/types/api";
 
-export type HonorsViewMode = "annual" | "monthly";
+export type HonorsViewMode = "system" | "annual" | "monthly";
 
 export const DEFAULT_LIMIT = 10;
 
@@ -42,5 +42,26 @@ export function monthlyHonorToFormState(
       image: membership.image,
       file: null,
     })),
+  };
+}
+
+export interface AnnualHonorFormState {
+  year: string;
+  title: string;
+}
+
+export function createEmptyAnnualHonorForm(): AnnualHonorFormState {
+  return {
+    year: String(new Date().getFullYear()),
+    title: "",
+  };
+}
+
+export function annualHonorToFormState(
+  item: AnnualHonorList,
+): AnnualHonorFormState {
+  return {
+    year: String(item.year),
+    title: item.title ?? "",
   };
 }

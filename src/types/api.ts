@@ -342,6 +342,28 @@ export interface CreateMonthlyHonorInput {
 
 export type UpdateMonthlyHonorInput = Partial<CreateMonthlyHonorInput>;
 
+export interface AnnualHonorList {
+  id: string;
+  year: number;
+  title?: string | null;
+  categories: HonorCategory[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AnnualHonorFilters {
+  year?: number;
+  page?: number;
+  limit?: number;
+}
+
+export interface CreateAnnualHonorInput {
+  year: number;
+  title?: string | null;
+}
+
+export type UpdateAnnualHonorInput = Partial<CreateAnnualHonorInput>;
+
 export interface CreateAccountInput {
   name: string;
   email: string;

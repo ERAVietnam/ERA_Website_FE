@@ -7,18 +7,18 @@ import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import Image from "next/image";
-import { honorsApi } from "@/api/domains/honors";
+import { annualHonorsApi } from "@/api/domains/annual-honors";
 import { monthlyHonorsApi } from "@/api/domains/monthly-honors";
-import type { HonorAgent, HonorCategory, MonthlyHonorList } from "@/types/api";
-
-const yearlyYears = ["2026", "2025", "2024"];
+import type { AnnualHonorList, HonorAgent, MonthlyHonorList } from "@/types/api";
 
 function YearlyHeroSection({
   selectedYear,
   onChange,
+  years,
 }: {
   selectedYear: string;
   onChange: (year: string) => void;
+  years: string[];
 }) {
   return (
     <section className="relative w-full">
@@ -52,7 +52,7 @@ function YearlyHeroSection({
             <SelectField
               value={selectedYear}
               onChange={onChange}
-              options={yearlyYears.map((y) => ({ value: y, label: y }))}
+              options={(years.length > 0 ? years : [selectedYear]).map((y) => ({ value: y, label: y }))}
               buttonClassName="text-sm text-white pr-8 pl-3 py-2.5 border-0 rounded-lg w-full md:w-40 outline-none"
               buttonStyle={{ backgroundColor: colors.secondary.DEFAULT }}
               iconClassName="text-white"
@@ -435,14 +435,20 @@ export default function AboutERAVNAwardsSection() {
   const [selectedYear, setSelectedYear] = useState("2026");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedYearlyYear, setSelectedYearlyYear] = useState("2026");
-  const [honorCategories, setHonorCategories] = useState<HonorCategory[]>([]);
+  const [annualHonorLists, setAnnualHonorLists] = useState<AnnualHonorList[]>([]);
   const [monthlyHonorLists, setMonthlyHonorLists] = useState<MonthlyHonorList[]>([]);
 
   useEffect(() => {
-    honorsApi
-      .getPublicCategories()
-      .then(setHonorCategories)
-      .catch(() => setHonorCategories([]));
+    annualHonorsApi
+      .getPublicLists({ page: 1, limit: 100 })
+      .then((response) => {
+        setAnnualHonorLists(response.items);
+        const latest = response.items[0];
+        if (latest) {
+          setSelectedYearlyYear(String(latest.year));
+        }
+      })
+      .catch(() => setAnnualHonorLists([]));
   }, []);
 
   useEffect(() => {
@@ -470,9 +476,14 @@ export default function AboutERAVNAwardsSection() {
         String(list.month).padStart(2, "0") === selectedMonth &&
         String(list.year) === selectedYear,
     ) ?? monthlyHonorLists[0];
+  const availableYearlyYears = annualHonorLists.map((list) => String(list.year));
+  const selectedAnnualHonor =
+    annualHonorLists.find((list) => String(list.year) === selectedYearlyYear) ??
+    annualHonorLists[0];
 
   const getHonorAgents = (slug: string) =>
-    honorCategories.find((category) => category.slug === slug)?.agents ?? [];
+    selectedAnnualHonor?.categories.find((category) => category.slug === slug)
+      ?.agents ?? [];
 
   const bestAchiever = toRankedPeople(getHonorAgents("best-achievers"), 1)[0] ?? {
     rank: 1,
@@ -564,6 +575,7 @@ export default function AboutERAVNAwardsSection() {
         <YearlyHeroSection
           selectedYear={selectedYearlyYear}
           onChange={setSelectedYearlyYear}
+          years={availableYearlyYears}
         />
       )}
 
