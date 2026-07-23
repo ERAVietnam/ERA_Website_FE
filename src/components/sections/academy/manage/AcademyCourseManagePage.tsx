@@ -141,6 +141,16 @@ export default function AcademyCourseManagePage() {
     const errors: Record<string, string> = {};
     if (!form.title.trim()) errors.title = "Vui lòng nhập tên khóa học.";
     if (!stripHtml(form.description).trim()) errors.description = "Vui lòng nhập mô tả khóa học.";
+    if (form.registrationUrl.trim()) {
+      try {
+        const url = new URL(form.registrationUrl.trim());
+        if (!["http:", "https:"].includes(url.protocol)) {
+          errors.registrationUrl = "Link đăng ký phải bắt đầu bằng http:// hoặc https://.";
+        }
+      } catch {
+        errors.registrationUrl = "Link đăng ký không hợp lệ.";
+      }
+    }
     return errors;
   };
 
@@ -193,6 +203,7 @@ export default function AcademyCourseManagePage() {
       const payload = {
         title: form.title.trim(),
         description: form.description,
+        registrationUrl: form.registrationUrl.trim() || null,
         openingDate: form.openingDate || null,
         isActive: form.isActive,
         imageMediaId,
