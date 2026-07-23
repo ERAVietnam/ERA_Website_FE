@@ -254,6 +254,7 @@ export interface AcademyCourse {
   imageMedia?: Media | null;
   title: string;
   description: string;
+  registrationUrl?: string | null;
   openingDate?: string | null;
   isActive: boolean;
   tags: AcademyCourseTag[];
@@ -274,6 +275,7 @@ export interface CreateAcademyCourseInput {
   imageMediaId?: string | null;
   title: string;
   description: string;
+  registrationUrl?: string | null;
   openingDate?: string | null;
   isActive?: boolean;
   tagIds?: string[];

@@ -16,7 +16,7 @@ export function AcademyPage() {
       <AcademyOnlineSection />
       <AcademyActivitiesSection />
       <AcademyMyEraSection />
-      <AcademyTestimonialsSection />
+      {/* <AcademyTestimonialsSection /> */}
       <AcademyFaqSection />
     </main>
   );

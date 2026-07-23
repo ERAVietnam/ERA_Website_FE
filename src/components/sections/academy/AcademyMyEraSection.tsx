@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
@@ -57,15 +58,16 @@ export function AcademyMyEraSection() {
           </p>
           <div className="mt-8 max-w-md space-y-4">
             <Button
+              asChild
               variant="primary"
               size="lg"
               className="w-full rounded-lg"
               style={{ backgroundColor: "#0B3279" }}
             >
-              TRUY CẬP MY ERA
+              <Link href="https://app.era.com.vn">TRUY CẬP MY ERA</Link>
             </Button>
-            <Button variant="primary" size="lg" className="w-full rounded-lg">
-              GIA NHẬP ERA VIETNAM
+            <Button asChild variant="primary" size="lg" className="w-full rounded-lg">
+              <Link href="https://app.era.com.vn/register">GIA NHẬP ERA VIETNAM</Link>
             </Button>
           </div>
         </div>

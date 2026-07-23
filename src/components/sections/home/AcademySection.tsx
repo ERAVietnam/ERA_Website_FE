@@ -50,7 +50,7 @@ export function AcademySection() {
 
             {/* CTA Button - Mobile: full width, Desktop: fit content */}
             <Button asChild variant="primary" size="lg" className="w-full lg:w-fit gap-3 uppercase" style={{ } as React.CSSProperties}>
-              <Link href="#">
+              <Link href={ROUTES.academy}>
                 Xem thông tin chi tiết
                 <svg className="hidden lg:block" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M12 5l7 7-7 7"/>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
@@ -91,12 +92,17 @@ export function AcademyRoadmapSection() {
                     ))}
                   </ul>
                   <Button
+                    asChild={index === 2}
                     variant="primary"
                     size="sm"
                     className="mt-4 w-full rounded-lg text-[10px] md:mt-6 md:text-sm"
                     style={{ backgroundColor: track.color }}
                   >
-                    {track.button}
+                    {index === 2 ? (
+                      <Link href="https://app.era.com.vn/">{track.button}</Link>
+                    ) : (
+                      track.button
+                    )}
                   </Button>
                 </div>
               </div>

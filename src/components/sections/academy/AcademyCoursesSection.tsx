@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { academyCoursesApi } from "@/api/domains/academy-courses";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
@@ -234,9 +235,15 @@ export function AcademyCoursesSection() {
                         {course.openingDate ? formatDate(course.openingDate) : "COMING SOON"}
                       </span>
                     </p>
-                    <Button variant="primary" size="sm" className="mt-4 w-full rounded-lg">
-                      ĐĂNG KÝ NGAY
-                    </Button>
+                    {course.registrationUrl ? (
+                      <Button asChild variant="primary" size="sm" className="mt-4 w-full rounded-lg">
+                        <Link href={course.registrationUrl}>ĐĂNG KÝ NGAY</Link>
+                      </Button>
+                    ) : (
+                      <Button variant="primary" size="sm" className="mt-4 w-full rounded-lg">
+                        ĐĂNG KÝ NGAY
+                      </Button>
+                    )}
                   </div>
                 </article>
               );

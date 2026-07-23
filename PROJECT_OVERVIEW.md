@@ -300,7 +300,7 @@ const nextConfig = {
 | `src/api/client.ts` | Axios instance với `withCredentials: true` |
 | `src/api/interceptors.ts` | Response interceptor: unwrap response data, tự động refresh token qua cookie khi 401, retry request |
 | `src/api/config.ts` | `BASE_URL` từ `NEXT_PUBLIC_API_URL` |
-| `src/api/domains/*.ts` | API helpers theo module (auth, accounts, news, media, magazines, recruitment, projects, agents, honors) |
+| `src/api/domains/*.ts` | API helpers theo module (auth, accounts, news, media, magazines, recruitment, projects, agents, honors, monthly honors, annual honors, academy courses) |
 
 ### Route Guard
 | File | Mô tả |
@@ -391,8 +391,8 @@ const nextConfig = {
 
 ### Public About ERA Vietnam
 - `AboutERAVNDivisionsSection` gọi `honorsApi.getPublicCategories()` và lấy category `he-thong-divisions-tai-era-vietnam`.
-- `AboutERAVNAwardsSection` tab “Vinh Danh Thường Niên” gọi `honorsApi.getPublicCategories()` để render Best Achievers, Top 2, Top 10, Top 50, Top 3 groups, Diamond Club và Division Directors.
-- Tab “Vinh Danh Tháng” hiện vẫn còn data/image hardcoded.
+- `AboutERAVNAwardsSection` tab “Vinh Danh Thường Niên” gọi `annualHonorsApi.getPublicLists()` để render danh sách vinh danh theo năm.
+- Tab “Vinh Danh Tháng” gọi `monthlyHonorsApi.getPublicLists()` để render danh sách vinh danh theo tháng.
 
 ---
 
@@ -455,10 +455,10 @@ Với `images.unoptimized: true`:
 ## 13. Mock Data Status
 
 Nhiều section đang dùng mock data hardcoded inline:
-- `AboutERAVNAwardsSection` — tab “Vinh Danh Tháng” còn hardcoded image/data; tab “Vinh Danh Thường Niên” đã lấy data từ Honors API nhưng file vẫn còn một số mock arrays cũ ở top-level.
+- `AboutERAVNAwardsSection` — tab “Vinh Danh Tháng” lấy data từ Monthly Honors API; tab “Vinh Danh Thường Niên” lấy data từ Annual Honors API.
 - Một số section marketing/landing — nội dung giới thiệu, gallery, testimonial
 
-Các module news, projects, recruitment, magazines, agents và honors đã lấy dữ liệu từ API. Project FAQ và News FAQ không còn dùng mock data. `AboutERAVNDivisionsSection` đã lấy danh sách divisions thật từ Honors API.
+Các module news, projects, recruitment, magazines, agents, honors, monthly honors, annual honors và academy courses đã lấy dữ liệu từ API ở các luồng đã triển khai. Project FAQ và News FAQ không còn dùng mock data. `AboutERAVNDivisionsSection` đã lấy danh sách divisions thật từ Honors API.
 
 ---
 
@@ -590,6 +590,32 @@ Admin/private route handling:
 - Public monthly honors uses `GET /monthly-honors/public`.
 - Admin monthly honors uses `GET/POST/PATCH/DELETE /monthly-honors`.
 
+### Annual honors public/admin data
+
+- `/ve-chung-toi/ve-era-viet-nam/` awards area uses real annual honor lists instead of the old single fixed annual grouping.
+- API domain: `src/api/domains/annual-honors.ts`.
+- Annual honors admin UI is integrated inside `/vinh-danh-va-he-thong/quan-ly` under the `Vinh danh thường niên` management option.
+- Public annual honors uses `GET /annual-honors/public`.
+- Admin annual honors uses:
+  - `GET /annual-honors`
+  - `GET /annual-honors/:id`
+  - `POST /annual-honors`
+  - `PATCH /annual-honors/:id`
+  - `PATCH /annual-honors/:id/categories/:slug/agents`
+  - `DELETE /annual-honors/:id`
+- Each annual list has `year`, optional `title`, and category-specific agent memberships. Year must be unique.
+- The 2026 migration copies current legacy honor memberships into the 2026 annual list, excluding the system divisions category.
+- Permission group is shared with honors: `honors.all.view/create/update/delete`.
+
+### Reviewer notification flow
+
+- Account create/update form has reviewer flags:
+  - `isNewsReviewer`
+  - `isProjectReviewer`
+- Submit-review dialogs/forms for news and projects include `ReviewerNotifySelect`.
+- FE sends optional `notifyAccountId` when submitting news/project for review.
+- Email button deep-links back to the admin edit form with `?edit=<id>`.
+
 ### API domains currently active
 
 `src/api/domains/*.ts` currently includes helpers for:
@@ -604,12 +630,13 @@ Admin/private route handling:
 - `agents`
 - `honors`
 - `monthly-honors`
+- `annual-honors`
 - `academy-courses`
 
 ### Mock data status update
 
 - Academy course list on `/academy` uses real API data.
-- News, projects, recruitment, magazines, agents, honors, monthly honors, and academy courses have API-backed admin/public flows where implemented.
+- News, projects, recruitment, magazines, agents, honors, monthly honors, annual honors, and academy courses have API-backed admin/public flows where implemented.
 - Some marketing-only Academy sections still intentionally use static content/images: hero banners, stats, roadmap, videos, activities, testimonials, FAQ.
 - Landing/marketing sections outside the CMS scope may still contain hardcoded content by design.
 
