@@ -12,6 +12,8 @@ import { extractApiError } from "@/lib/api-errors";
 import { compressImage } from "@/lib/imageCompression";
 import { createProjectSchema, projectDetailsSchema } from "@/schemas/projects.schema";
 import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
+import { ImageGridModal } from "@/components/shared/ImageGridModal";
+import type { ImageGridItem, ImageGridVariant } from "@/components/shared/image-grid-layout";
 import { useAuth } from "@/contexts/AuthContext";
 import type { AccountReviewer, Media, Project, ProjectPublicationStatus } from "@/types/api";
 import {
@@ -274,6 +276,17 @@ interface Props {
   loading?: boolean;
 }
 
+type ImageGridModalState = {
+  isOpen: boolean;
+  mode: "insert" | "edit";
+  layoutId?: string;
+  count?: number;
+  variant?: ImageGridVariant;
+  images: ImageGridItem[];
+  insertHtml?: (html: string) => void;
+  replaceHtml?: (layoutId: string, html: string) => void;
+};
+
 export function ProjectsManageForm({
   initialData,
   onSave,
@@ -309,6 +322,11 @@ export function ProjectsManageForm({
   const [isProcessingContent, setIsProcessingContent] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
+  const [imageGridModal, setImageGridModal] = useState<ImageGridModalState>({
+    isOpen: false,
+    mode: "insert",
+    images: [],
+  });
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [popup, setPopup] = useState<{
     show: boolean;
@@ -398,6 +416,34 @@ export function ProjectsManageForm({
       setFieldErrors((prev) => ({ ...prev, [key]: "" }));
     }
     setIsDirty(true);
+  };
+
+  const openImageGridModal = (
+    options: Omit<ImageGridModalState, "isOpen" | "images"> & { images?: ImageGridItem[] }
+  ) => {
+    setImageGridModal({ ...options, images: options.images ?? [], isOpen: true });
+  };
+
+  const closeImageGridModal = () => {
+    setImageGridModal({
+      isOpen: false,
+      mode: "insert",
+      images: [],
+    });
+  };
+
+  const saveImageGrid = (html: string, layoutId: string) => {
+    if (imageGridModal.mode === "edit" && imageGridModal.layoutId && imageGridModal.replaceHtml) {
+      imageGridModal.replaceHtml(imageGridModal.layoutId, html);
+      return;
+    }
+
+    if (imageGridModal.insertHtml) {
+      imageGridModal.insertHtml(html);
+      return;
+    }
+
+    update("content", `${form.content || ""}\n${html}`);
   };
 
   const updateFaqs = (faqs: ProjectFormData["faqs"]) => {
@@ -956,6 +1002,7 @@ export function ProjectsManageForm({
                 value={form.content}
                 onChange={(val) => update("content", val)}
                 disabled={isReadOnly || isSubmitting}
+                onOpenImageGrid={openImageGridModal}
               />
             </div>
           </div>
@@ -1324,6 +1371,15 @@ export function ProjectsManageForm({
           />
         )}
       </ConfirmDialog>
+      <ImageGridModal
+        isOpen={imageGridModal.isOpen}
+        initialImages={imageGridModal.images}
+        initialLayoutId={imageGridModal.layoutId}
+        initialCount={imageGridModal.count}
+        initialVariant={imageGridModal.variant}
+        onClose={closeImageGridModal}
+        onSave={saveImageGrid}
+      />
     </div>
   );
 }

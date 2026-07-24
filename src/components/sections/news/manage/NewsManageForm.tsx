@@ -18,6 +18,8 @@ import { SelectField } from "@/components/ui/admin/SelectField";
 import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
 import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { NewsPreviewDialog } from "./NewsPreviewDialog";
+import { ImageGridModal } from "@/components/shared/ImageGridModal";
+import type { ImageGridItem, ImageGridVariant } from "@/components/shared/image-grid-layout";
 import { useAuth } from "@/contexts/AuthContext";
 import { getNewsScopeBySlug } from "@/lib/permissions";
 import { compressImage } from "@/lib/imageCompression";
@@ -55,6 +57,17 @@ interface Props {
   onSave: (article?: NewsArticle) => void;
   onCancel: () => void;
 }
+
+type ImageGridModalState = {
+  isOpen: boolean;
+  mode: "insert" | "edit";
+  layoutId?: string;
+  count?: number;
+  variant?: ImageGridVariant;
+  images: ImageGridItem[];
+  insertHtml?: (html: string) => void;
+  replaceHtml?: (layoutId: string, html: string) => void;
+};
 
 function toSlug(str: string): string {
   return str
@@ -176,6 +189,11 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   >(null);
   const [showHistory, setShowHistory] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [imageGridModal, setImageGridModal] = useState<ImageGridModalState>({
+    isOpen: false,
+    mode: "insert",
+    images: [],
+  });
   const [showNetworkError, setShowNetworkError] = useState(false);
   const [newsReviewers, setNewsReviewers] = useState<AccountReviewer[]>([]);
   const [notifyAccountId, setNotifyAccountId] = useState("");
@@ -261,6 +279,34 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       }
       return next;
     });
+  };
+
+  const openImageGridModal = (
+    options: Omit<ImageGridModalState, "isOpen" | "images"> & { images?: ImageGridItem[] }
+  ) => {
+    setImageGridModal({ ...options, images: options.images ?? [], isOpen: true });
+  };
+
+  const closeImageGridModal = () => {
+    setImageGridModal({
+      isOpen: false,
+      mode: "insert",
+      images: [],
+    });
+  };
+
+  const saveImageGrid = (html: string, layoutId: string) => {
+    if (imageGridModal.mode === "edit" && imageGridModal.layoutId && imageGridModal.replaceHtml) {
+      imageGridModal.replaceHtml(imageGridModal.layoutId, html);
+      return;
+    }
+
+    if (imageGridModal.insertHtml) {
+      imageGridModal.insertHtml(html);
+      return;
+    }
+
+    update("content", `${form.content || ""}\n${html}`);
   };
 
   const updateFaqs = (faqs: NewsFaqInput[]) => {
@@ -1152,7 +1198,12 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                 Nội dung chi tiết <span style={{ color: colors.primary.DEFAULT }}>*</span>
               </label>
               <div className={`rounded-lg border overflow-hidden transition-colors ${fieldErrors.content ? "border-red-300 focus-within:border-red-400" : "border-gray-200 focus-within:border-gray-400"}`}>
-                <RichEditor value={form.content} onChange={(val) => update("content", val)} disabled={isReadOnly} />
+                <RichEditor
+                  value={form.content}
+                  onChange={(val) => update("content", val)}
+                  disabled={isReadOnly}
+                  onOpenImageGrid={openImageGridModal}
+                />
               </div>
               {fieldErrors.content && <p className="mt-1 text-xs text-red-500">{fieldErrors.content}</p>}
             </div>
@@ -1482,6 +1533,15 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         article={buildPreviewArticle()}
         isOpen={showPreview}
         onClose={() => setShowPreview(false)}
+      />
+      <ImageGridModal
+        isOpen={imageGridModal.isOpen}
+        initialImages={imageGridModal.images}
+        initialLayoutId={imageGridModal.layoutId}
+        initialCount={imageGridModal.count}
+        initialVariant={imageGridModal.variant}
+        onClose={closeImageGridModal}
+        onSave={saveImageGrid}
       />
     </div>
   );
