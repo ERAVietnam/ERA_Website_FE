@@ -32,6 +32,10 @@ import {
   TableProperties,
   GeneralHtmlSupport,
   ButtonView,
+  createDropdown,
+  addListToDropdown,
+  ViewModel,
+  Collection,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import type { EditorConfig, PluginConstructor, Editor } from "@ckeditor/ckeditor5-core";
@@ -97,51 +101,84 @@ type ImageGridOpenHandler = (options: {
   replaceHtml: (layoutId: string, html: string) => void;
 }) => void;
 
-function ImageGridButtonPlugin(editor: Editor) {
-  editor.ui.componentFactory.add("imageGrid", (locale) => {
-    const button = new ButtonView(locale);
+function ImageLayoutDropdownPlugin(editor: Editor) {
+  editor.ui.componentFactory.add("imageLayout", (locale) => {
+    const dropdownView = createDropdown(locale);
 
-    button.set({
-      label: "Grid ảnh",
+    dropdownView.buttonView.set({
+      label: "Layout ảnh",
       tooltip: true,
       withText: true,
     });
 
-    button.on("execute", () => {
-      const open = editor.config.get("eraImageGrid.open" as never) as
-        | ImageGridOpenHandler
-        | undefined;
+    const items = new Collection<{ type: "button"; model: ViewModel }>();
 
-      if (!open) return;
-
-      open({
-        mode: "insert",
-        insertHtml: (html: string) => {
-          editor.model.change((writer) => {
-            const viewFragment = editor.data.processor.toView(html);
-            const gridFragment = editor.data.toModel(viewFragment);
-            const fragment = writer.createDocumentFragment();
-
-            writer.append(writer.createElement("paragraph"), fragment);
-
-            for (const child of Array.from(gridFragment.getChildren())) {
-              writer.append(child as Parameters<typeof writer.append>[0], fragment);
-            }
-
-            writer.append(writer.createElement("paragraph"), fragment);
-
-            editor.model.insertContent(fragment);
-          });
-          editor.editing.view.focus();
-        },
-        replaceHtml: (layoutId: string, html: string) => {
-          editor.setData(replaceImageGridHtml(editor.getData(), layoutId, html));
-          editor.editing.view.focus();
-        },
-      });
+    items.add({
+      type: "button",
+      model: new ViewModel({
+        label: "Grid ảnh",
+        withText: true,
+        layout: "grid",
+      }),
     });
 
-    return button;
+    items.add({
+      type: "button",
+      model: new ViewModel({
+        label: "List",
+        withText: true,
+        layout: "list",
+      }),
+    });
+
+    addListToDropdown(dropdownView, items);
+
+    dropdownView.on("execute", (eventInfo) => {
+      const rawSource = (eventInfo as unknown as { source: unknown }).source;
+      const layout =
+        rawSource && typeof rawSource === "object" && "layout" in rawSource
+          ? String((rawSource as { layout: unknown }).layout)
+          : "";
+
+      if (layout === "grid") {
+        const open = editor.config.get("eraImageGrid.open" as never) as
+          | ImageGridOpenHandler
+          | undefined;
+
+        if (!open) return;
+
+        open({
+          mode: "insert",
+          insertHtml: (html: string) => {
+            editor.model.change((writer) => {
+              const viewFragment = editor.data.processor.toView(html);
+              const gridFragment = editor.data.toModel(viewFragment);
+              const fragment = writer.createDocumentFragment();
+
+              writer.append(writer.createElement("paragraph"), fragment);
+
+              for (const child of Array.from(gridFragment.getChildren())) {
+                writer.append(child as Parameters<typeof writer.append>[0], fragment);
+              }
+
+              writer.append(writer.createElement("paragraph"), fragment);
+
+              editor.model.insertContent(fragment);
+            });
+            editor.editing.view.focus();
+          },
+          replaceHtml: (layoutId: string, html: string) => {
+            editor.setData(replaceImageGridHtml(editor.getData(), layoutId, html));
+            editor.editing.view.focus();
+          },
+        });
+      } else if (layout === "list") {
+        // eslint-disable-next-line no-console
+        console.log("List layout: chưa triển khai");
+      }
+    });
+
+    return dropdownView;
   });
 }
 
@@ -198,7 +235,7 @@ class CustomEditor extends ClassicEditor {
     TableCellProperties,
     TableProperties,
     GeneralHtmlSupport,
-    ImageGridButtonPlugin,
+    ImageLayoutDropdownPlugin,
     CustomUploadAdapterPlugin,
   ] as PluginConstructor[];
 
@@ -326,6 +363,7 @@ export default function RichEditor({
   disableFontColor = false,
   compact = false,
   onOpenImageGrid,
+  onOpenImageList,
 }: {
   value: string;
   onChange: (val: string) => void;
@@ -334,6 +372,7 @@ export default function RichEditor({
   disableFontColor?: boolean;
   compact?: boolean;
   onOpenImageGrid?: ImageGridOpenHandler;
+  onOpenImageList?: () => void;
 }) {
   const wordCountRef = useRef<HTMLDivElement>(null);
   const isFocusedRef = useRef(false);
@@ -579,7 +618,7 @@ export default function RichEditor({
         ...(disableFontColor ? [] : ["fontColor", "fontBackgroundColor"]),
         "|",
         "link",
-        ...(disableImage ? [] : [...(onOpenImageGrid ? ["imageGrid"] : []), "imageUpload"]),
+        ...(disableImage ? [] : [...(onOpenImageGrid ? ["imageLayout"] : []), "imageUpload"]),
         "|",
         "bulletedList",
         "numberedList",

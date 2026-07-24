@@ -77,6 +77,8 @@ export default function NewsManagePage() {
   const [filters, setFilters] = useState<ArticleFilters>({
     page: 1,
     limit: DEFAULT_LIMIT,
+    sortBy: "createdAt",
+    sortOrder: "desc",
   });
   const handledEditIdRef = useRef<string | null>(null);
 
