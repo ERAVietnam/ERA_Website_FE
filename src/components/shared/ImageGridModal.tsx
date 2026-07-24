@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ImagePlus, Loader2, PencilLine, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { colors } from "@/lib/theme";
 import {
   buildImageGridHtml,
   createImageGridId,
@@ -310,18 +309,18 @@ export function ImageGridModal({
         </div>
 
         <div className="flex items-center justify-end gap-3 border-t border-gray-100 px-6 py-4">
-          <Button type="button" variant="outline" className="bg-white" onClick={onClose}>
+          <Button type="button" variant="outline" size="sm" className="bg-white" onClick={onClose}>
             Hủy
           </Button>
-          <button
+          <Button
             type="button"
+            variant="primary"
+            size="sm"
             onClick={handleSave}
             disabled={images.some((image) => !image.src) || isProcessing}
-            className="rounded-lg px-5 py-2 text-sm font-semibold text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
-            style={{ backgroundColor: colors.primary.DEFAULT }}
           >
             Lưu grid
-          </button>
+          </Button>
         </div>
       </div>
     </div>

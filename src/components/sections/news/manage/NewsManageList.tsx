@@ -183,7 +183,7 @@ export function NewsManageList({
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Danh mục</th>
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Tác giả</th>
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Trạng thái</th>
-                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Ngày đăng</th>
+                  <th className="text-left font-semibold text-gray-600 px-5 py-3.5">Ngày tạo</th>
                   {showActionsColumn && (
                     <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-36">Thao tác</th>
                   )}
@@ -237,7 +237,7 @@ export function NewsManageList({
                       </span>
                     </td>
                     <td className="px-5 py-4 text-gray-600 whitespace-nowrap">
-                      {formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt)}
+                      {formatDate(item.createdAt)}
                     </td>
                     {showActionsColumn && (
                       <td className="px-5 py-4" onClick={(e) => e.stopPropagation()}>
@@ -319,7 +319,7 @@ export function NewsManageList({
                 <div className="mt-2 text-[11px] text-gray-400">
                   <div className="space-y-0.5">
                     <p>{item.author?.name || "—"}</p>
-                    <p>{formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt)}</p>
+                    <p>{formatDate(item.createdAt)}</p>
                   </div>
                 </div>
               </div>

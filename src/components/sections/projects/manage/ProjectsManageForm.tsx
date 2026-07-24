@@ -1380,6 +1380,7 @@ export function ProjectsManageForm({
         onClose={closeImageGridModal}
         onSave={saveImageGrid}
       />
+
     </div>
   );
 }
