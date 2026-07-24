@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ImagePlus, Loader2, Trash2, X } from "lucide-react";
+import { ImagePlus, Loader2, PencilLine, Trash2, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import {
@@ -51,6 +51,7 @@ export function ImageGridModal({
   const [variant, setVariant] = useState<ImageGridVariant>("default");
   const [images, setImages] = useState<ImageGridItem[]>([]);
   const [activeSlotIndex, setActiveSlotIndex] = useState(0);
+  const [editingAltIndex, setEditingAltIndex] = useState<number | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -62,7 +63,7 @@ export function ImageGridModal({
     setImageCount(nextCount);
     setVariant(initialVariant || getDefaultImageGridVariant(nextCount));
     setImages(
-      Array.from({ length: nextCount }, (_, index) => initialImages[index] || { src: "", alt: "" })
+      Array.from({ length: nextCount }, (_, index) => initialImages[index] || { src: "", alt: "", description: "" })
     );
     setActiveSlotIndex(0);
   }, [isOpen, initialImages, initialLayoutId, initialCount, initialVariant]);
@@ -97,7 +98,7 @@ export function ImageGridModal({
     setImageCount(safeCount);
     setVariant(getDefaultImageGridVariant(safeCount));
     setImages((prev) =>
-      Array.from({ length: safeCount }, (_, index) => prev[index] || { src: "", alt: "" })
+      Array.from({ length: safeCount }, (_, index) => prev[index] || { src: "", alt: "", description: "" })
     );
     setActiveSlotIndex(0);
   };
@@ -117,6 +118,7 @@ export function ImageGridModal({
       const nextImage = {
         src: await fileToDataUrl(selectedFile),
         alt: selectedFile.name.replace(/\.[^.]+$/, ""),
+        description: "",
       };
       setImages((prev) => {
         const next = [...prev];
@@ -206,8 +208,12 @@ export function ImageGridModal({
                 <button
                   type="button"
                   onClick={() => {
-                    setActiveSlotIndex(index);
-                    fileInputRef.current?.click();
+                    if (image.src) {
+                      setEditingAltIndex(index);
+                    } else {
+                      setActiveSlotIndex(index);
+                      fileInputRef.current?.click();
+                    }
                   }}
                   disabled={isProcessing}
                   className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-gray-50 text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
@@ -231,13 +237,14 @@ export function ImageGridModal({
                 {image.src && (
                   <button
                     type="button"
-                    onClick={() =>
+                    onClick={(event) => {
+                      event.stopPropagation();
                       setImages((prev) => {
                         const next = [...prev];
-                        next[index] = { src: "", alt: "" };
+                        next[index] = { src: "", alt: "", description: "" };
                         return next;
-                      })
-                    }
+                      });
+                    }}
                     className="absolute right-2 top-2 rounded-full bg-black/60 p-1.5 text-white opacity-0 transition-opacity hover:bg-black/80 group-hover:opacity-100"
                     aria-label={`Xóa ảnh ${index + 1}`}
                   >
@@ -246,6 +253,35 @@ export function ImageGridModal({
                 )}
 
                 {image.src && (
+                  <button
+                    type="button"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setActiveSlotIndex(index);
+                      fileInputRef.current?.click();
+                    }}
+                    className="absolute bottom-2 right-2 rounded-full bg-black/60 p-1.5 text-white opacity-0 transition-opacity hover:bg-black/80 group-hover:opacity-100"
+                    aria-label={`Đổi ảnh ${index + 1}`}
+                  >
+                    <PencilLine size={14} />
+                  </button>
+                )}
+
+                {image.src && (
+                  <input
+                    type="text"
+                    value={image.description || ""}
+                    onChange={(event) => {
+                      const next = [...images];
+                      next[index] = { ...next[index], description: event.target.value };
+                      setImages(next);
+                    }}
+                    placeholder="Mô tả ảnh"
+                    className="w-full border-t border-gray-200 px-3 py-2 text-xs text-gray-600 outline-none focus:border-gray-300"
+                  />
+                )}
+
+                {image.src && editingAltIndex === index && (
                   <input
                     type="text"
                     value={image.alt || ""}
@@ -254,8 +290,10 @@ export function ImageGridModal({
                       next[index] = { ...next[index], alt: event.target.value };
                       setImages(next);
                     }}
+                    onBlur={() => setEditingAltIndex(null)}
                     placeholder="Alt text"
                     className="w-full border-t border-gray-200 px-3 py-2 text-xs text-gray-600 outline-none focus:border-gray-300"
+                    autoFocus
                   />
                 )}
               </div>

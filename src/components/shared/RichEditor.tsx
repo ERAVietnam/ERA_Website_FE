@@ -117,9 +117,21 @@ function ImageGridButtonPlugin(editor: Editor) {
       open({
         mode: "insert",
         insertHtml: (html: string) => {
-          const viewFragment = editor.data.processor.toView(html);
-          const modelFragment = editor.data.toModel(viewFragment);
-          editor.model.insertContent(modelFragment);
+          editor.model.change((writer) => {
+            const viewFragment = editor.data.processor.toView(html);
+            const gridFragment = editor.data.toModel(viewFragment);
+            const fragment = writer.createDocumentFragment();
+
+            writer.append(writer.createElement("paragraph"), fragment);
+
+            for (const child of Array.from(gridFragment.getChildren())) {
+              writer.append(child as Parameters<typeof writer.append>[0], fragment);
+            }
+
+            writer.append(writer.createElement("paragraph"), fragment);
+
+            editor.model.insertContent(fragment);
+          });
           editor.editing.view.focus();
         },
         replaceHtml: (layoutId: string, html: string) => {
@@ -236,7 +248,7 @@ class CustomEditor extends ClassicEditor {
     htmlSupport: {
       allow: [
         {
-          name: /^(p|div|figure|img|span)$/,
+          name: /^(p|div|figure|img|span|br)$/,
           attributes: true,
           classes: true,
         },
@@ -465,13 +477,11 @@ export default function RichEditor({
           max-width: 100% !important;
           align-self: start !important;
           margin: 0 !important;
-          overflow: hidden;
           border-radius: 0 !important;
           background: transparent !important;
-          aspect-ratio: 4 / 3;
         }
-        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="2"] > .era-image-grid__item,
-        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"] > .era-image-grid__item {
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="2"] > .era-image-grid__item img,
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"] > .era-image-grid__item img {
           aspect-ratio: 16 / 9;
         }
         .richtext-editor .ck-editor__editable_inline .era-image-grid__item > p {
@@ -484,18 +494,36 @@ export default function RichEditor({
         }
         .richtext-editor .ck-editor__editable_inline .era-image-grid__item img {
           width: 100% !important;
-          height: 100% !important;
+          height: auto !important;
           object-fit: cover;
-          object-position: center;
+          object-position: top right;
           margin: 0 !important;
           display: block !important;
           pointer-events: none !important;
           user-select: none !important;
+          aspect-ratio: 4 / 3;
         }
-        .richtext-editor .ck-editor__editable_inline .era-image-grid-spacer {
+        .richtext-editor .ck-editor__editable_inline .era-image-grid__caption {
           display: block !important;
-          min-height: 1.25em !important;
-          margin: 0.25rem 0 !important;
+          width: 100% !important;
+          margin-top: 0 !important;
+          padding: 0.5rem !important;
+          text-align: center !important;
+          font-size: 18px !important;
+          font-style: italic !important;
+          color: #4b5563 !important;
+          line-height: 1.4 !important;
+          background-color: #f3f4f6 !important;
+          box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1) !important;
+          clear: both;
+        }
+        .richtext-editor .ck-editor__editable_inline p.era-image-grid-spacer {
+          display: block !important;
+          min-height: 1.75em !important;
+          line-height: 1.75 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          cursor: text !important;
         }
         .richtext-editor .ck-editor__editable_inline .era-image-grid-spacer::before {
           content: "";
