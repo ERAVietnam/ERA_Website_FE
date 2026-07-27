@@ -8,7 +8,7 @@ export function HeroSection() {
     <section id="top" className="relative pt-[54px] md:pt-[64px]">
       <div className="relative w-full overflow-hidden">
         <Image
-          src="/landing/eco-retreat/02_img/hero-rung-phuong.jpg"
+          src="/landing/eco-retreat/02_img/hero-rung-phuong.webp"
           alt="Biệt thự vườn Rừng Phượng giữa hàng phượng đỏ, ông bà nghỉ ngơi bên hiên, hai trẻ đọc sách trên thảm cỏ - Eco Retreat"
           width={1920}
           height={1022}
@@ -57,10 +57,10 @@ export function HeroSection() {
               >
                 Nơi
               </span>
-              <span className="block" style={{ color: c.red, marginBottom: "0.2em" }}>
+              <span className="block" style={{ color: c.red, marginBottom: "0.6rem" }}>
                 mùa tựu
               </span>
-              <span className="block" style={{ color: c.red, marginBottom: "0.06em" }}>
+              <span className="block" style={{ color: c.red, marginBottom: "0.6rem" }}>
                 trường đầu tiên
               </span>
               <span

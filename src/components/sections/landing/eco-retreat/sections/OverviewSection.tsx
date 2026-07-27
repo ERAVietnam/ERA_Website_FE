@@ -27,8 +27,10 @@ export function OverviewSection() {
             className="font-black leading-[1.06] tracking-tight mt-3.5 mb-4"
             style={{ color: c.green, fontSize: "clamp(30px,4.4vw,54px)" }}
           >
-            Tiểu khu trong đại đô thị{" "}
-            <span style={{ color: c.red }}>đã có người ở</span>
+            <span className="block mb-[0.6rem]">Tiểu khu trong đại</span>
+            <span className="block">
+              đô thị <span style={{ color: c.red }}>đã có người ở</span>
+            </span>
           </h2>
           <p
             className="mx-auto max-w-[820px]"
@@ -45,7 +47,7 @@ export function OverviewSection() {
         <div className="grid md:grid-cols-[2fr_1fr] gap-4" data-stack>
           <div className="group overflow-hidden rounded-[18px] min-h-[340px]">
             <Image
-              src="/landing/eco-retreat/02_img/rung-phuong-phoi-canh-tong-toan-canh-dai-do-thi-01.png"
+              src="/landing/eco-retreat/02_img/rung-phuong-phoi-canh-tong-toan-canh-dai-do-thi-01.webp"
               alt="Phối cảnh tổng thể đại đô thị Eco Retreat nhìn từ trên cao với hồ trung tâm"
               width={780}
               height={540}
@@ -56,7 +58,7 @@ export function OverviewSection() {
           </div>
           <div className="group overflow-hidden rounded-[18px] min-h-[340px]">
             <Image
-              src="/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-biet-thu-song-lap-tren-cao-05.png"
+              src="/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-biet-thu-song-lap-tren-cao-05.webp"
               alt="Biệt thự song lập Rừng Phượng giữa vườn phượng nhìn từ trên cao"
               width={390}
               height={540}

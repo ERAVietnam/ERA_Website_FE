@@ -5,22 +5,22 @@ import { c, fonts } from "../theme";
 
 const gallery = [
   {
-    image: "/landing/eco-retreat/02_img/rp-san-choi.png",
+    image: "/landing/eco-retreat/02_img/rp-san-choi.webp",
     alt: "Sân chơi vận động ngoài trởi Rừng Phượng với hố cát, đồ chơi gỗ, trẻ em vui đùa dưới tán phượng",
     title: "Sân chơi vận động",
   },
   {
-    image: "/landing/eco-retreat/02_img/rp-tram-doc-sach.png",
+    image: "/landing/eco-retreat/02_img/rp-tram-doc-sach.webp",
     alt: "Trạm đọc sách thông minh ngoài trởi và ô nhảy lò cò trên tuyến phố nội khu Rừng Phượng",
     title: "Trạm đọc thông minh",
   },
   {
-    image: "/landing/eco-retreat/02_img/rp-vuon-cay.png",
+    image: "/landing/eco-retreat/02_img/rp-vuon-cay.webp",
     alt: "Vườn cây ăn quả cộng đồng Rừng Phượng - xoài, cam, mít, trẻ em hái quả trên bãi cỏ",
     title: "Vườn cây ăn quả",
   },
   {
-    image: "/landing/eco-retreat/02_img/rp-tha-dieu.png",
+    image: "/landing/eco-retreat/02_img/rp-tha-dieu.webp",
     alt: "Bãi cỏ thả diều và hồ cảnh quan Rừng Phượng nhìn từ trên cao, lễ hội diều nhiều màu",
     title: "Hồ cảnh quan & bãi thả diều",
   },
@@ -61,7 +61,7 @@ export function AmenitySection() {
           style={{ color: c.green, fontSize: "clamp(30px,4.4vw,54px)" }}
         >
           Cả tiểu khu là{" "}
-          <span style={{ color: c.red }}>một lớp học ngoài trởi</span>
+          <span style={{ color: c.red }}>một lớp học ngoài trời</span>
         </h2>
         <p
           className="mx-auto max-w-[820px]"

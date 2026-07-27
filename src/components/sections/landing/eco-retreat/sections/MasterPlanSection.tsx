@@ -45,7 +45,7 @@ export function MasterPlanSection() {
         >
           <div className="group overflow-hidden rounded-[10px]">
             <Image
-              src="/landing/eco-retreat/02_img/rung-phuong-mat-bang-phan-khu-tong-the-01.png"
+              src="/landing/eco-retreat/02_img/rung-phuong-mat-bang-phan-khu-tong-the-01.webp"
               alt="Mặt bằng tổng thể tiểu khu Rừng Phượng - các dãy Hoa Phượng, trường Edison, mầm non và sông Bến Lức"
               width={1140}
               height={800}

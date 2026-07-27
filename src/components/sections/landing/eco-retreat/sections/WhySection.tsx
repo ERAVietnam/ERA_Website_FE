@@ -35,7 +35,7 @@ export function WhySection() {
       >
         <div className="group overflow-hidden rounded-[22px] min-h-[420px] h-full" style={{ boxShadow: "0 22px 54px rgba(0,0,0,0.16)" }}>
           <Image
-            src="/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-biet-thu-san-vuon-01.png"
+            src="/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-biet-thu-san-vuon-01.webp"
             alt="Biệt thự sân vườn Rừng Phượng buổi chiều, gia đình quây quần bên vườn phượng"
             width={580}
             height={620}

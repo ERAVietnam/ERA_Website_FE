@@ -26,7 +26,8 @@ export function FaqSection() {
           className="font-black leading-[1.06] tracking-tight mt-3.5"
           style={{ color: c.green, fontSize: "clamp(30px,4.4vw,54px)" }}
         >
-          Câu hỏi thường gặp về Rừng Phượng
+          <span className="block mb-[0.6rem]">Câu hỏi thường gặp</span>
+          <span className="block">về Rừng Phượng</span>
         </h2>
       </div>
 
