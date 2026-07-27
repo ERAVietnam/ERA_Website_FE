@@ -38,15 +38,18 @@ export function ProblemSection() {
         </p>
       </div>
 
-      <div className="group overflow-hidden rounded-[22px]" style={{ boxShadow: "0 24px 60px rgba(0,0,0,0.18)" }}>
+      <div
+        className="group overflow-hidden rounded-[22px] relative"
+        style={{ boxShadow: "0 24px 60px rgba(0,0,0,0.18)", height: "clamp(280px,42vw,540px)" }}
+      >
         <Image
-          src="/landing/eco-retreat/02_img/rp-vuon-cay.png"
+          src="/landing/eco-retreat/02_img/rp-vuon-cay.webp"
           alt="Trẻ em hái cam, chơi trên bãi cỏ trong vườn cây ăn trái cộng đồng Rừng Phượng, cây phượng nở đỏ"
-          width={1180}
-          height={540}
+          fill
           loading="lazy"
-          className="w-full object-cover block transition-transform duration-300 ease-out group-hover:scale-[1.03]"
-          style={{ height: "clamp(280px,42vw,540px)", willChange: "transform" }}
+          className="object-cover block transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+          style={{ willChange: "transform" }}
+          sizes="100vw"
         />
       </div>
 

@@ -43,8 +43,10 @@ export function EducationSection() {
             className="font-black leading-[1.06] tracking-tight mt-3.5 mb-4"
             style={{ color: c.green, fontSize: "clamp(30px,4.4vw,54px)" }}
           >
-            Trường liên cấp ngay trong khu,{" "}
-            <span style={{ color: c.red }}>con tự đi bộ đến lớp</span>
+            <span className="block mb-[0.6rem]">Trường liên cấp ngay trong</span>
+            <span className="block">
+              khu, <span style={{ color: c.red }}>con tự đi bộ đến lớp</span>
+            </span>
           </h2>
           <p
             className="mx-auto max-w-[820px]"
@@ -60,7 +62,7 @@ export function EducationSection() {
 
         <div className="group overflow-hidden rounded-[22px]" style={{ boxShadow: "0 20px 48px rgba(20,66,30,0.16)" }}>
           <Image
-            src="/landing/eco-retreat/02_img/rp-edison-toancanh.png"
+            src="/landing/eco-retreat/02_img/rp-edison-toancanh.webp"
             alt="Toàn cảnh trường Phổ thông Liên cấp Edison 22.088m² nhìn từ trên cao - sân bóng đá cỏ tự nhiên, đường chạy điền kinh, bể bơi, ven sông"
             width={1180}
             height={600}
@@ -76,13 +78,13 @@ export function EducationSection() {
         >
           {[
             {
-              image: "/landing/eco-retreat/02_img/rp-con-duong-hoc-tro.png",
+              image: "/landing/eco-retreat/02_img/rp-con-duong-hoc-tro.webp",
               alt: "Con đường học trò Rừng Phượng - mẹ mặc áo dài dắt con đi học dưới hàng phượng nở đỏ, xe bus trường học, học sinh đạp xe",
               title: "Con đường học trò",
               text: "Tuyến đi bộ khép kín, rợp bóng cây, đủ an toàn để con tự đến lớp.",
             },
             {
-              image: "/landing/eco-retreat/02_img/rp-mam-non.png",
+              image: "/landing/eco-retreat/02_img/rp-mam-non.webp",
               alt: "Trường mầm non nội khu Rừng Phượng 7.000m² giữa cây xanh, trẻ nhỏ vui chơi ngoài sân",
               title: "Mầm non nội khu 7.000 m²",
               text: "Ngay cạnh nhà, thuận tiện đưa đón trẻ nhỏ mỗi ngày.",

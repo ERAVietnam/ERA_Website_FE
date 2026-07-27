@@ -32,7 +32,7 @@ export const productLines = [
     count: "182 căn",
     badge: "Dòng chủ lực · 182 căn",
     badgeColor: "#E5391C",
-    image: "/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-nha-pho-vuon-hang-phuong-15.png",
+    image: "/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-nha-pho-vuon-hang-phuong-15.webp",
     description:
       "Dòng phổ biến nhất, hợp gia đình trẻ có con nhỏ. Diện tích lô từ 80 m², có vườn riêng, gần trường và công viên. 3 tầng + tum, DT sàn 178,5 - 270,7 m².",
   },
@@ -41,7 +41,7 @@ export const productLines = [
     count: "85 căn",
     badge: "85 căn",
     badgeColor: "#41B3E0",
-    image: "/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-shophouse-tuyen-giao-duc-10.png",
+    image: "/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-shophouse-tuyen-giao-duc-10.webp",
     description:
       "Mặt tiền trên Đại lộ Quảng trường 40m, kính lớn tầng 1, vừa ở vừa kinh doanh. Lô 6×30 m hoặc 7,2×20 m, 3 tầng + tum, DT sàn 280 - 401,6 m².",
   },
@@ -50,7 +50,7 @@ export const productLines = [
     count: "52 căn",
     badge: "52 căn",
     badgeColor: "#5B2D86",
-    image: "/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-biet-thu-song-lap-tren-cao-05.png",
+    image: "/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-biet-thu-song-lap-tren-cao-05.webp",
     description:
       "Đất riêng, sân vườn bao quanh, hợp gia đình đa thế hệ. Lô 9×18 m (162 - 270,7 m²), 2 tầng + tum, DT sàn 184,9 m².",
   },
@@ -59,7 +59,7 @@ export const productLines = [
     count: "6 căn",
     badge: "Khan hiếm · 6 căn",
     badgeColor: "#FF9015",
-    image: "/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-biet-thu-san-vuon-01.png",
+    image: "/landing/eco-retreat/02_img/rung-phuong-phoi-canh-sp-biet-thu-san-vuon-01.webp",
     description:
       "Chỉ 6 căn cả tiểu khu, lô 12×18 m (216 - 369,3 m²), sân vườn bao quanh bốn mặt. 2 tầng + tum, DT sàn tới 236,1 m².",
   },

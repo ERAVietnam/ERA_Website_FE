@@ -45,8 +45,12 @@ export function LocationSection() {
           className="font-black leading-[1.06] tracking-tight mt-3.5 mb-4"
           style={{ color: c.green, fontSize: "clamp(30px,4.4vw,54px)" }}
         >
-          Về trung tâm TP.HCM{" "}
-          <span style={{ color: c.red }}>30-40 phút</span>, đón ba trục cao tốc lớn
+          <span className="block mb-[0.6rem]">
+            Về trung tâm TP.HCM <span style={{ color: c.red }}>30-40</span>
+          </span>
+          <span className="block">
+            <span style={{ color: c.red }}>phút</span>, đón ba trục cao tốc lớn
+          </span>
         </h2>
         <p
           className="mx-auto max-w-[820px]"
@@ -64,7 +68,7 @@ export function LocationSection() {
 
       <div className="group overflow-hidden rounded-[22px]" style={{ boxShadow: "0 24px 60px rgba(0,0,0,0.18)" }}>
         <Image
-          src="/landing/eco-retreat/02_img/rp-vitri-ketnoi.png"
+          src="/landing/eco-retreat/02_img/rp-vitri-ketnoi.webp"
           alt="Bản đồ kết nối tiểu khu Rừng Phượng với cao tốc TP.HCM - Trung Lương và đường Nguyễn Hữu Trí"
           width={1180}
           height={640}

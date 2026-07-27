@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { c, fonts } from "../theme";
 import { projectInfo, stats } from "../data";
@@ -27,12 +26,10 @@ export function LeadBandSection() {
           backgroundSize: "26px 26px",
         }}
       />
-      <Image
-        src="/landing/eco-retreat/02_img/hoa-phuong.png"
+      <img
+        src="/landing/eco-retreat/02_img/hoa-phuong.webp"
         alt=""
         aria-hidden="true"
-        width={480}
-        height={480}
         className="absolute top-[-30px] right-[-30px] opacity-50 pointer-events-none z-[1]"
         style={{ width: "clamp(260px,34vw,480px)", height: "auto" }}
       />

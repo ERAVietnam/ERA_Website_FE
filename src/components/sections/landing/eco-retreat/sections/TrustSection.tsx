@@ -17,7 +17,7 @@ export function TrustSection() {
       style={{ background: "linear-gradient(120deg,#14421E,#1b3a2a)" }}
     >
       <Image
-        src="/landing/eco-retreat/02_img/rung-phuong-phoi-canh-tong-toan-canh-ven-song-03.png"
+        src="/landing/eco-retreat/02_img/rung-phuong-phoi-canh-tong-toan-canh-ven-song-03.webp"
         alt="Phối cảnh tiểu khu Rừng Phượng ven sông với biệt thự, tháp cao và cụm trường học"
         fill
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
