@@ -20,6 +20,9 @@ import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { NewsPreviewDialog } from "./NewsPreviewDialog";
 import { ImageGridModal } from "@/components/shared/ImageGridModal";
 import type { ImageGridItem, ImageGridVariant } from "@/components/shared/image-grid-layout";
+import { ImageCarouselModal } from "@/components/shared/ImageCarouselModal";
+import type { ImageCarouselItem } from "@/components/shared/image-carousel-layout";
+import { buildImageCarouselHtml } from "@/components/shared/image-carousel-layout";
 import { useAuth } from "@/contexts/AuthContext";
 import { getNewsScopeBySlug } from "@/lib/permissions";
 import { compressImage } from "@/lib/imageCompression";
@@ -67,6 +70,15 @@ type ImageGridModalState = {
   images: ImageGridItem[];
   insertHtml?: (html: string) => void;
   replaceHtml?: (layoutId: string, html: string) => void;
+};
+
+type ImageCarouselModalState = {
+  isOpen: boolean;
+  mode: "insert" | "edit";
+  carouselId?: string;
+  items: ImageCarouselItem[];
+  insertHtml?: (html: string) => void;
+  replaceHtml?: (carouselId: string, html: string) => void;
 };
 
 function toSlug(str: string): string {
@@ -194,6 +206,11 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     mode: "insert",
     images: [],
   });
+  const [imageCarouselModal, setImageCarouselModal] = useState<ImageCarouselModalState>({
+    isOpen: false,
+    mode: "insert",
+    items: [],
+  });
   const [showNetworkError, setShowNetworkError] = useState(false);
   const [newsReviewers, setNewsReviewers] = useState<AccountReviewer[]>([]);
   const [notifyAccountId, setNotifyAccountId] = useState("");
@@ -307,6 +324,39 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     }
 
     update("content", `${form.content || ""}\n${html}`);
+  };
+
+  const openImageCarouselModal = (
+    options: Omit<ImageCarouselModalState, "isOpen" | "items"> & { items?: ImageCarouselItem[] }
+  ) => {
+    setImageCarouselModal({ ...options, items: options.items ?? [], isOpen: true });
+  };
+
+  const closeImageCarouselModal = () => {
+    setImageCarouselModal({
+      isOpen: false,
+      mode: "insert",
+      items: [],
+    });
+  };
+
+  const saveImageCarousel = (items: ImageCarouselItem[]) => {
+    const html = buildImageCarouselHtml(items, imageCarouselModal.carouselId);
+
+    if (imageCarouselModal.mode === "edit" && imageCarouselModal.carouselId && imageCarouselModal.replaceHtml) {
+      imageCarouselModal.replaceHtml(imageCarouselModal.carouselId, html);
+      closeImageCarouselModal();
+      return;
+    }
+
+    if (imageCarouselModal.insertHtml) {
+      imageCarouselModal.insertHtml(html);
+      closeImageCarouselModal();
+      return;
+    }
+
+    update("content", `${form.content || ""}\n${html}`);
+    closeImageCarouselModal();
   };
 
   const updateFaqs = (faqs: NewsFaqInput[]) => {
@@ -1203,6 +1253,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                   onChange={(val) => update("content", val)}
                   disabled={isReadOnly}
                   onOpenImageGrid={openImageGridModal}
+                  onOpenImageCarousel={openImageCarouselModal}
                 />
               </div>
               {fieldErrors.content && <p className="mt-1 text-xs text-red-500">{fieldErrors.content}</p>}
@@ -1542,6 +1593,12 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         initialVariant={imageGridModal.variant}
         onClose={closeImageGridModal}
         onSave={saveImageGrid}
+      />
+      <ImageCarouselModal
+        isOpen={imageCarouselModal.isOpen}
+        initialItems={imageCarouselModal.items}
+        onClose={closeImageCarouselModal}
+        onSave={saveImageCarousel}
       />
 
     </div>

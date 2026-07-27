@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { colors } from "@/lib/theme";
+import { RichTextContent } from "@/components/shared/RichTextContent";
 import type { ProjectFaqInput } from "@/types/api";
 
 interface ProjectsFaqSectionProps {
@@ -53,10 +54,10 @@ export function ProjectsFaqSection({ items }: ProjectsFaqSectionProps) {
               </button>
 
               {isOpen && (
-                <div
+                <RichTextContent
+                  html={item.answer}
                   className="ck-content faq-answer-content px-5 pb-4 text-sm leading-7"
                   style={{ color: colors.gray[600] }}
-                  dangerouslySetInnerHTML={{ __html: item.answer }}
                 />
               )}
             </div>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { colors } from "@/lib/theme";
+import { RichTextContent } from "@/components/shared/RichTextContent";
 import type { NewsFaqInput } from "@/types/api";
 
 interface NewsFaqSectionProps {
@@ -62,10 +63,10 @@ export function NewsFaqSection({ items }: NewsFaqSectionProps) {
               </button>
 
               {isOpen && (
-                <div
+                <RichTextContent
+                  html={trimTrailingEmptyParagraphs(item.answer)}
                   className="ck-content faq-richtext-content faq-answer-content px-5 pb-3"
                   style={{ color: colors.gray[600] }}
-                  dangerouslySetInnerHTML={{ __html: trimTrailingEmptyParagraphs(item.answer) }}
                 />
               )}
             </div>
