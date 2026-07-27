@@ -26,6 +26,7 @@ import { recruitmentApi } from "@/api/domains/recruitment";
 import { mediaApi } from "@/api/domains/media";
 import { extractApiError } from "@/lib/api-errors";
 import { ApplySuccessPopup } from "./ApplySuccessPopup";
+import { RichTextContent } from "@/components/shared/RichTextContent";
 import type { JobFormData } from "./manage/ApplyManageForm";
 import type { JobPosting } from "@/types/api";
 
@@ -161,9 +162,9 @@ export function ApplyJobDetailPage({
             {hasDescriptionHtml && (
               <section>
                 <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Mô tả công việc</h2>
-                <div
+                <RichTextContent
+                  html={job!.description}
                   className="ck-content richtext-content text-gray-600"
-                  dangerouslySetInnerHTML={{ __html: job!.description }}
                 />
               </section>
             )}
@@ -172,9 +173,9 @@ export function ApplyJobDetailPage({
             {hasRequirementsHtml && (
               <section>
                 <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Yêu cầu công việc</h2>
-                <div
+                <RichTextContent
+                  html={job!.requirements}
                   className="ck-content richtext-content text-gray-600"
-                  dangerouslySetInnerHTML={{ __html: job!.requirements }}
                 />
               </section>
             )}
@@ -184,9 +185,9 @@ export function ApplyJobDetailPage({
               <section className="pt-4">
                 <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Đặc Quyền & Phúc Lợi</h2>
                 <div className="rounded-2xl p-5 space-y-4" style={{ backgroundColor: colors.secondary.DEFAULT }}>
-                  <div
+                  <RichTextContent
+                    html={job!.benefits}
                     className="ck-content richtext-content text-white [&_*]:!text-white"
-                    dangerouslySetInnerHTML={{ __html: job!.benefits }}
                   />
                 </div>
               </section>
@@ -196,9 +197,9 @@ export function ApplyJobDetailPage({
             {hasWorkingTimeHtml && (
               <section>
                 <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Thờі gian làm việc</h2>
-                <div
+                <RichTextContent
+                  html={job!.workingTime ?? ""}
                   className="ck-content richtext-content text-gray-600"
-                  dangerouslySetInnerHTML={{ __html: job!.workingTime ?? "" }}
                 />
               </section>
             )}

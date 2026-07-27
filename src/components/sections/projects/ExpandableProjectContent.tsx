@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { colors } from "@/lib/theme";
+import { RichTextContent } from "@/components/shared/RichTextContent";
 
 interface ExpandableProjectContentProps {
   content: string | null | undefined;
@@ -46,15 +47,15 @@ export function ExpandableProjectContent({ content }: ExpandableProjectContentPr
       className="mb-8 relative"
       style={{ paddingBottom: expanded ? 0 : FADE_HEIGHT }}
     >
-      <div
+      <RichTextContent
         ref={contentRef}
+        html={content}
         className="ck-content richtext-content transition-all duration-300"
         style={{
           color: colors.neutral.foreground,
           maxHeight: expanded ? undefined : `calc(${COLLAPSED_HEIGHT} - ${FADE_HEIGHT}px)`,
           overflow: expanded ? "visible" : "hidden",
         }}
-        dangerouslySetInnerHTML={{ __html: content }}
       />
 
       {!expanded && isOverflow && (

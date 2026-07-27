@@ -254,15 +254,23 @@ body {
   border-radius: 0 !important;
 }
 
-.ck-content figcaption {
+.ck-content figcaption,
+.ck-content figure figcaption {
   display: block !important;
-  text-align: left !important;
+  width: 100% !important;
+  margin: 0 !important;
+  margin-top: 0 !important;
+  padding: 0.5rem !important;
+  text-align: center !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  color: #4b5563 !important;
+  line-height: 1.5 !important;
+  background-color: #f3f4f6 !important;
+  box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1) !important;
   word-break: normal !important;
   overflow-wrap: break-word !important;
-  padding-top: 0.5em !important;
-  color: #6b7280 !important;
-  font-size: 0.875em !important;
-  line-height: 1.5 !important;
 }
 
 .ck-content .image img,
@@ -418,6 +426,73 @@ body {
   clear: both;
 }
 
+.ck-content .era-image-carousel,
+.ck-content [data-era-image-carousel="true"] {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100%;
+  margin: 0.75rem 0 !important;
+}
+
+.ck-content .era-image-carousel__track,
+.ck-content [data-era-image-carousel="true"] > .era-image-carousel__track {
+  display: flex !important;
+  gap: 0.5rem !important;
+  overflow-x: auto !important;
+  align-items: start !important;
+}
+
+.ck-content .era-image-carousel__item,
+.ck-content [data-era-image-carousel="true"] > .era-image-carousel__track > figure {
+  flex: 0 0 auto !important;
+  width: 280px !important;
+  max-width: 280px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  overflow: hidden;
+}
+
+.ck-content .era-image-carousel__item > p,
+.ck-content [data-era-image-carousel="true"] > .era-image-carousel__track > figure > p {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0 !important;
+}
+
+.ck-content .era-image-carousel__item img,
+.ck-content [data-era-image-carousel="true"] > .era-image-carousel__track > figure img,
+.ck-content [data-era-image-carousel="true"] > .era-image-carousel__track > figure > p > img {
+  width: 100% !important;
+  height: auto !important;
+  display: block !important;
+  object-fit: cover;
+  object-position: top right;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  aspect-ratio: 4 / 3;
+}
+
+.ck-content .era-image-carousel__item .era-image-carousel__caption {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  margin-top: 0 !important;
+  padding: 0.5rem !important;
+  text-align: center !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  font-style: italic !important;
+  color: #4b5563 !important;
+  line-height: 1.5 !important;
+  background-color: #f3f4f6 !important;
+  box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1) !important;
+  clear: both;
+}
+
 .ck-content:not(.ck-editor__editable_inline) .era-image-grid__edit,
 .ck-content:not(.ck-editor__editable_inline) [data-era-grid-edit="true"],
 .ck-content:not(.ck-editor__editable_inline) .era-image-grid__delete,
@@ -427,6 +502,16 @@ body {
 
 .ck-content:not(.ck-editor__editable_inline) [data-era-image-grid="true"] > p:has([data-era-grid-edit="true"]),
 .ck-content:not(.ck-editor__editable_inline) [data-era-image-grid="true"] > p:has([data-era-grid-delete="true"]) {
+  display: none !important;
+}
+
+.ck-content:not(.ck-editor__editable_inline) .era-image-carousel__header,
+.ck-content:not(.ck-editor__editable_inline) .era-image-carousel__actions,
+.ck-content:not(.ck-editor__editable_inline) .era-image-carousel__label,
+.ck-content:not(.ck-editor__editable_inline) .era-image-carousel__edit,
+.ck-content:not(.ck-editor__editable_inline) .era-image-carousel__delete,
+.ck-content:not(.ck-editor__editable_inline) [data-era-carousel-edit="true"],
+.ck-content:not(.ck-editor__editable_inline) [data-era-carousel-delete="true"] {
   display: none !important;
 }
 

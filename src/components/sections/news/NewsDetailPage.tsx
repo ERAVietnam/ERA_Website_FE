@@ -1,6 +1,6 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -15,6 +15,7 @@ import { extractHeadings } from "@/lib/toc";
 import { NewsTableOfContents } from "./NewsTableOfContents";
 import { FileText } from "lucide-react";
 import { NewsFaqSection } from "./NewsFaqSection";
+import { RichTextContent } from "@/components/shared/RichTextContent";
 import type { NewsArticle } from "@/types/api";
 
 interface NewsDetailPageProps {
@@ -29,7 +30,10 @@ export const NewsDetailPage = memo(function NewsDetailPage({
   relatedArticles = [],
   isPreview = false,
 }: NewsDetailPageProps) {
-  const { html: processedContent, headings } = extractHeadings(article.content);
+  const { html: processedContent, headings } = useMemo(
+    () => extractHeadings(article.content),
+    [article.content]
+  );
 
   const pageUrl = `https://era.com.vn/tin-tuc/${article.slug}/`;
   const encodedUrl = encodeURIComponent(pageUrl);
@@ -115,12 +119,12 @@ export const NewsDetailPage = memo(function NewsDetailPage({
           <NewsTableOfContents headings={headings} />
 
           {/* Body Content */}
-          <div
+          <RichTextContent
+            html={processedContent}
             className="mb-12 ck-content richtext-content"
             style={{
               color: colors.neutral.foreground,
             }}
-            dangerouslySetInnerHTML={{ __html: processedContent }}
           />
 
           <NewsFaqSection items={article.faqs ?? []} />

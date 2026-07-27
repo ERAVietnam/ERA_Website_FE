@@ -47,6 +47,11 @@ import {
   type ImageGridItem,
   type ImageGridVariant,
 } from "./image-grid-layout";
+import {
+  parseImageCarouselElement,
+  replaceImageCarouselHtml,
+  type ImageCarouselItem,
+} from "./image-carousel-layout";
 
 type FileLoader = Parameters<NonNullable<FileRepository["createUploadAdapter"]>>[0];
 
@@ -101,6 +106,14 @@ type ImageGridOpenHandler = (options: {
   replaceHtml: (layoutId: string, html: string) => void;
 }) => void;
 
+type ImageCarouselOpenHandler = (options: {
+  mode: "insert" | "edit";
+  carouselId?: string;
+  items?: ImageCarouselItem[];
+  insertHtml: (html: string) => void;
+  replaceHtml: (carouselId: string, html: string) => void;
+}) => void;
+
 function ImageLayoutDropdownPlugin(editor: Editor) {
   editor.ui.componentFactory.add("imageLayout", (locale) => {
     const dropdownView = createDropdown(locale);
@@ -128,6 +141,15 @@ function ImageLayoutDropdownPlugin(editor: Editor) {
         label: "List",
         withText: true,
         layout: "list",
+      }),
+    });
+
+    items.add({
+      type: "button",
+      model: new ViewModel({
+        label: "Carousel",
+        withText: true,
+        layout: "carousel",
       }),
     });
 
@@ -175,6 +197,38 @@ function ImageLayoutDropdownPlugin(editor: Editor) {
       } else if (layout === "list") {
         // eslint-disable-next-line no-console
         console.log("List layout: chưa triển khai");
+      } else if (layout === "carousel") {
+        const open = editor.config.get("eraImageCarousel.open" as never) as
+          | ImageCarouselOpenHandler
+          | undefined;
+
+        if (!open) return;
+
+        open({
+          mode: "insert",
+          insertHtml: (html: string) => {
+            editor.model.change((writer) => {
+              const viewFragment = editor.data.processor.toView(html);
+              const carouselFragment = editor.data.toModel(viewFragment);
+              const fragment = writer.createDocumentFragment();
+
+              writer.append(writer.createElement("paragraph"), fragment);
+
+              for (const child of Array.from(carouselFragment.getChildren())) {
+                writer.append(child as Parameters<typeof writer.append>[0], fragment);
+              }
+
+              writer.append(writer.createElement("paragraph"), fragment);
+
+              editor.model.insertContent(fragment);
+            });
+            editor.editing.view.focus();
+          },
+          replaceHtml: (carouselId: string, html: string) => {
+            editor.setData(replaceImageCarouselHtml(editor.getData(), carouselId, html));
+            editor.editing.view.focus();
+          },
+        });
       }
     });
 
@@ -363,6 +417,7 @@ export default function RichEditor({
   disableFontColor = false,
   compact = false,
   onOpenImageGrid,
+  onOpenImageCarousel,
   onOpenImageList,
 }: {
   value: string;
@@ -372,6 +427,7 @@ export default function RichEditor({
   disableFontColor?: boolean;
   compact?: boolean;
   onOpenImageGrid?: ImageGridOpenHandler;
+  onOpenImageCarousel?: ImageCarouselOpenHandler;
   onOpenImageList?: () => void;
 }) {
   const wordCountRef = useRef<HTMLDivElement>(null);
@@ -569,6 +625,133 @@ export default function RichEditor({
           display: inline-block;
           min-width: 1px;
         }
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel {
+          display: flex !important;
+          flex-direction: column !important;
+          margin: 0.75rem 0 !important;
+          padding: 0.75rem !important;
+          border: 1px dashed #d1d5db !important;
+          border-radius: 14px !important;
+          background: #f9fafb !important;
+          cursor: default;
+          user-select: none !important;
+          position: relative;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__header {
+          display: flex !important;
+          align-items: center !important;
+          justify-content: space-between !important;
+          margin-bottom: 0.75rem !important;
+          flex-shrink: 0 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__label {
+          color: #6b7280;
+          font-size: 12px;
+          font-weight: 600;
+          line-height: 1.4;
+          pointer-events: none;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__actions {
+          display: flex !important;
+          align-items: center !important;
+          gap: 0.25rem !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__edit,
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__delete {
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          position: static !important;
+          border: 0 !important;
+          border-radius: 999px !important;
+          background: #111827 !important;
+          color: #ffffff !important;
+          padding: 0.35rem 0.75rem !important;
+          font-size: 12px !important;
+          font-weight: 700 !important;
+          line-height: 1 !important;
+          cursor: pointer !important;
+          pointer-events: auto !important;
+          user-select: none !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__delete {
+          background: #dc2626 !important;
+        }
+        .richtext-editor--disabled .ck-editor__editable_inline .era-image-carousel__edit,
+        .richtext-editor--disabled .ck-editor__editable_inline .era-image-carousel__delete {
+          display: none !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__track {
+          display: flex !important;
+          gap: 0.5rem !important;
+          overflow-x: auto !important;
+          align-items: start !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__item {
+          flex: 0 0 auto !important;
+          width: 280px !important;
+          max-width: 280px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          border-radius: 0 !important;
+          background: transparent !important;
+          overflow: hidden;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__item > p,
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__item figure {
+          display: block !important;
+          width: 100% !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          line-height: 0 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__item img {
+          width: 100% !important;
+          height: auto !important;
+          object-fit: cover;
+          object-position: top right;
+          margin: 0 !important;
+          display: block !important;
+          pointer-events: none !important;
+          user-select: none !important;
+          aspect-ratio: 4 / 3;
+          border-radius: 0 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-carousel__item .era-image-carousel__caption {
+          display: block !important;
+          width: 100% !important;
+          margin: 0 !important;
+          margin-top: 0 !important;
+          padding: 0.5rem !important;
+          text-align: center !important;
+          font-size: 18px !important;
+          font-weight: 400 !important;
+          font-style: italic !important;
+          color: #4b5563 !important;
+          line-height: 1.4 !important;
+          background-color: #f3f4f6 !important;
+          box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1) !important;
+          clear: both;
+        }
+        .richtext-editor .ck-editor__editable_inline figure figcaption,
+        .richtext-editor .ck-editor__editable_inline .ck-content figure figcaption,
+        .richtext-editor .ck-editor__editable_inline .ck-editor__image-caption,
+        .richtext-editor .ck-editor__editable_inline .ck-editor__image-caption_focused,
+        .richtext-editor .ck-editor__editable_inline figcaption.ck-editor__image-caption_focused {
+          display: block !important;
+          width: 100% !important;
+          margin: 0 !important;
+          margin-top: 0 !important;
+          padding: 0.5rem !important;
+          text-align: center !important;
+          font-size: 18px !important;
+          font-weight: 400 !important;
+          font-style: italic !important;
+          color: #4b5563 !important;
+          line-height: 1.4 !important;
+          background-color: #f3f4f6 !important;
+          box-shadow: 0 2px 4px -1px rgb(0 0 0 / 0.1) !important;
+        }
         .faq-rich-editor .ck-editor__editable_inline {
           min-height: calc(4 * 1.5em + 2rem) !important;
           height: auto !important;
@@ -649,6 +832,22 @@ export default function RichEditor({
       }
     : undefined;
 
+  const handleOpenImageCarousel: ImageCarouselOpenHandler | undefined = onOpenImageCarousel
+    ? (options) => {
+        onOpenImageCarousel({
+          ...options,
+          insertHtml: (html) => {
+            allowGridMutationRef.current = true;
+            options.insertHtml(html);
+          },
+          replaceHtml: (carouselId, html) => {
+            allowGridMutationRef.current = true;
+            options.replaceHtml(carouselId, html);
+          },
+        });
+      }
+    : undefined;
+
   return (
     <div
       className={`${compact ? "faq-rich-editor" : "richtext-editor"} ${
@@ -663,6 +862,7 @@ export default function RichEditor({
           {
             toolbar: toolbarItems,
             eraImageGrid: { open: handleOpenImageGrid },
+            eraImageCarousel: { open: handleOpenImageCarousel },
           } as EditorConfig
         }
         onChange={(_event, editor) => {
@@ -700,6 +900,37 @@ export default function RichEditor({
         }}
         onReady={(editor) => {
           const editableElement = (editor.ui.view.editable.element ?? null) as HTMLElement | null;
+
+          const placeCaretInSpacer = (element: HTMLElement, prefer: "before" | "after" = "after") => {
+            if (!editableElement) return;
+            const spacer =
+              prefer === "before"
+                ? element.previousElementSibling
+                : element.nextElementSibling;
+            const fallbackSpacer =
+              prefer === "before"
+                ? element.nextElementSibling
+                : element.previousElementSibling;
+            const target =
+              spacer?.classList.contains("era-image-grid-spacer")
+                ? spacer
+                : fallbackSpacer?.classList.contains("era-image-grid-spacer")
+                ? fallbackSpacer
+                : null;
+
+            if (!target) return;
+
+            target.scrollIntoView({ block: "nearest" });
+            const range = document.createRange();
+            range.selectNodeContents(target);
+            range.collapse(false);
+
+            const selection = window.getSelection();
+            selection?.removeAllRanges();
+            selection?.addRange(range);
+            editableElement.focus();
+          };
+
           if (editableElement && handleOpenImageGrid && !disableImage) {
             const isSelectionInsideGrid = () => {
               const selection = window.getSelection();
@@ -709,33 +940,8 @@ export default function RichEditor({
               return !!element?.closest("[data-era-image-grid='true']");
             };
 
-            const placeCaretInSpacer = (gridElement: HTMLElement, prefer: "before" | "after" = "after") => {
-              const spacer =
-                prefer === "before"
-                  ? gridElement.previousElementSibling
-                  : gridElement.nextElementSibling;
-              const fallbackSpacer =
-                prefer === "before"
-                  ? gridElement.nextElementSibling
-                  : gridElement.previousElementSibling;
-              const target =
-                spacer?.classList.contains("era-image-grid-spacer")
-                  ? spacer
-                  : fallbackSpacer?.classList.contains("era-image-grid-spacer")
-                  ? fallbackSpacer
-                  : null;
-
-              if (!target) return;
-
-              target.scrollIntoView({ block: "nearest" });
-              const range = document.createRange();
-              range.selectNodeContents(target);
-              range.collapse(false);
-
-              const selection = window.getSelection();
-              selection?.removeAllRanges();
-              selection?.addRange(range);
-              editableElement.focus();
+            const placeCaretInGridSpacer = (gridElement: HTMLElement, prefer: "before" | "after" = "after") => {
+              placeCaretInSpacer(gridElement, prefer);
             };
 
             let lastGridEditorOpenAt = 0;
@@ -839,7 +1045,7 @@ export default function RichEditor({
 
               event.preventDefault();
               event.stopPropagation();
-              placeCaretInSpacer(gridElement, "before");
+              placeCaretInGridSpacer(gridElement, "before");
             };
 
             editableElement.addEventListener("pointerdown", redirectGridPointerToSpacer, true);
@@ -857,7 +1063,7 @@ export default function RichEditor({
 
               if (!gridElement || editButton) return;
 
-              placeCaretInSpacer(gridElement, "before");
+              placeCaretInGridSpacer(gridElement, "before");
             };
 
             document.addEventListener("selectionchange", redirectGridSelectionToSpacer);
@@ -899,6 +1105,132 @@ export default function RichEditor({
             editableElement.addEventListener("dragover", preventGridDragDrop, true);
             editableElement.addEventListener("drop", preventGridDragDrop, true);
           }
+
+          if (editableElement && handleOpenImageCarousel && !disableImage) {
+            let lastCarouselEditorOpenAt = 0;
+
+            const openCarouselEditor = (event: Event) => {
+              if (disabledRef.current) return;
+
+              const target = event.target as HTMLElement | null;
+              const editButton = target?.closest("[data-era-carousel-edit='true']") as HTMLElement | null;
+              if (!editButton) return;
+
+              const carouselElement = editButton.closest("[data-era-image-carousel='true']") as HTMLElement | null;
+              if (!carouselElement) return;
+
+              const parsedCarousel = parseImageCarouselElement(carouselElement);
+              if (!parsedCarousel) return;
+
+              const now = Date.now();
+              if (now - lastCarouselEditorOpenAt < 300) {
+                event.preventDefault();
+                event.stopPropagation();
+                return;
+              }
+              lastCarouselEditorOpenAt = now;
+
+              event.preventDefault();
+              event.stopPropagation();
+              handleOpenImageCarousel({
+                mode: "edit",
+                carouselId: parsedCarousel.carouselId,
+                items: parsedCarousel.items,
+                insertHtml: (html: string) => {
+                  const viewFragment = editor.data.processor.toView(html);
+                  const modelFragment = editor.data.toModel(viewFragment);
+                  editor.model.insertContent(modelFragment);
+                  editor.editing.view.focus();
+                },
+                replaceHtml: (carouselId: string, html: string) => {
+                  editor.setData(replaceImageCarouselHtml(editor.getData(), carouselId, html));
+                  editor.editing.view.focus();
+                },
+              });
+            };
+
+            editableElement.addEventListener("pointerdown", openCarouselEditor, true);
+            editableElement.addEventListener("click", openCarouselEditor, true);
+
+            const deleteCarousel = (event: Event) => {
+              if (disabledRef.current) return;
+
+              const target = event.target as HTMLElement | null;
+              const deleteButton = target?.closest("[data-era-carousel-delete='true']") as HTMLElement | null;
+              if (!deleteButton) return;
+
+              const carouselElement = deleteButton.closest("[data-era-image-carousel='true']") as HTMLElement | null;
+              const carouselId = carouselElement?.dataset.eraCarouselId;
+              if (!carouselElement || !carouselId) return;
+
+              event.preventDefault();
+              event.stopPropagation();
+
+              allowGridMutationRef.current = true;
+
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(editor.getData(), "text/html");
+              const targetCarousel = doc.querySelector(`[data-era-carousel-id="${CSS.escape(carouselId)}"]`);
+
+              if (!targetCarousel) return;
+
+              const previousSibling = targetCarousel.previousElementSibling;
+              const nextSibling = targetCarousel.nextElementSibling;
+
+              if (previousSibling?.classList.contains("era-image-grid-spacer")) {
+                previousSibling.remove();
+              }
+              if (nextSibling?.classList.contains("era-image-grid-spacer")) {
+                nextSibling.remove();
+              }
+              targetCarousel.remove();
+
+              editor.setData(doc.body.innerHTML || "<p><br></p>");
+              editor.editing.view.focus();
+            };
+
+            editableElement.addEventListener("pointerdown", deleteCarousel, true);
+            editableElement.addEventListener("click", deleteCarousel, true);
+
+            const redirectCarouselPointerToSpacer = (event: PointerEvent | MouseEvent) => {
+              const target = event.target as HTMLElement | null;
+              if (
+                !target ||
+                target.closest("[data-era-carousel-edit='true']") ||
+                target.closest("[data-era-carousel-delete='true']")
+              ) {
+                return;
+              }
+
+              const carouselElement = target.closest("[data-era-image-carousel='true']") as HTMLElement | null;
+              if (!carouselElement) return;
+
+              event.preventDefault();
+              event.stopPropagation();
+              placeCaretInSpacer(carouselElement, "before");
+            };
+
+            editableElement.addEventListener("pointerdown", redirectCarouselPointerToSpacer, true);
+            editableElement.addEventListener("mousedown", redirectCarouselPointerToSpacer, true);
+
+            editableElement.addEventListener("keydown", (event) => {
+              if (
+                (event.key === "Enter" || event.key === " ") &&
+                (event.target as HTMLElement)?.closest("[data-era-carousel-edit='true']")
+              ) {
+                openCarouselEditor(event);
+                return;
+              }
+              if (
+                (event.key === "Enter" || event.key === " ") &&
+                (event.target as HTMLElement)?.closest("[data-era-carousel-delete='true']")
+              ) {
+                deleteCarousel(event);
+                return;
+              }
+            });
+          }
+
           if (wordCountRef.current) {
             wordCountRef.current.innerHTML = "";
             const wordCountPlugin = editor.plugins.get("WordCount") as WordCount;
