@@ -14,6 +14,12 @@ import { createProjectSchema, projectDetailsSchema } from "@/schemas/projects.sc
 import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
 import { ImageGridModal } from "@/components/shared/ImageGridModal";
 import type { ImageGridItem, ImageGridVariant } from "@/components/shared/image-grid-layout";
+import { ImageCarouselModal } from "@/components/shared/ImageCarouselModal";
+import {
+  buildImageCarouselHtml,
+  parseImageCarouselElement,
+  type ImageCarouselItem,
+} from "@/components/shared/image-carousel-layout";
 import { useAuth } from "@/contexts/AuthContext";
 import type { AccountReviewer, Media, Project, ProjectPublicationStatus } from "@/types/api";
 import {
@@ -287,6 +293,15 @@ type ImageGridModalState = {
   replaceHtml?: (layoutId: string, html: string) => void;
 };
 
+type ImageCarouselModalState = {
+  isOpen: boolean;
+  mode: "insert" | "edit";
+  carouselId?: string;
+  items: ImageCarouselItem[];
+  insertHtml?: (html: string) => void;
+  replaceHtml?: (carouselId: string, html: string) => void;
+};
+
 export function ProjectsManageForm({
   initialData,
   onSave,
@@ -326,6 +341,11 @@ export function ProjectsManageForm({
     isOpen: false,
     mode: "insert",
     images: [],
+  });
+  const [imageCarouselModal, setImageCarouselModal] = useState<ImageCarouselModalState>({
+    isOpen: false,
+    mode: "insert",
+    items: [],
   });
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [popup, setPopup] = useState<{
@@ -444,6 +464,39 @@ export function ProjectsManageForm({
     }
 
     update("content", `${form.content || ""}\n${html}`);
+  };
+
+  const openImageCarouselModal = (
+    options: Omit<ImageCarouselModalState, "isOpen" | "items"> & { items?: ImageCarouselItem[] }
+  ) => {
+    setImageCarouselModal({ ...options, items: options.items ?? [], isOpen: true });
+  };
+
+  const closeImageCarouselModal = () => {
+    setImageCarouselModal({
+      isOpen: false,
+      mode: "insert",
+      items: [],
+    });
+  };
+
+  const saveImageCarousel = (items: ImageCarouselItem[]) => {
+    const html = buildImageCarouselHtml(items, imageCarouselModal.carouselId);
+
+    if (imageCarouselModal.mode === "edit" && imageCarouselModal.carouselId && imageCarouselModal.replaceHtml) {
+      imageCarouselModal.replaceHtml(imageCarouselModal.carouselId, html);
+      closeImageCarouselModal();
+      return;
+    }
+
+    if (imageCarouselModal.insertHtml) {
+      imageCarouselModal.insertHtml(html);
+      closeImageCarouselModal();
+      return;
+    }
+
+    update("content", `${form.content || ""}\n${html}`);
+    closeImageCarouselModal();
   };
 
   const updateFaqs = (faqs: ProjectFormData["faqs"]) => {
@@ -1003,6 +1056,7 @@ export function ProjectsManageForm({
                 onChange={(val) => update("content", val)}
                 disabled={isReadOnly || isSubmitting}
                 onOpenImageGrid={openImageGridModal}
+                onOpenImageCarousel={openImageCarouselModal}
               />
             </div>
           </div>
@@ -1379,6 +1433,12 @@ export function ProjectsManageForm({
         initialVariant={imageGridModal.variant}
         onClose={closeImageGridModal}
         onSave={saveImageGrid}
+      />
+      <ImageCarouselModal
+        isOpen={imageCarouselModal.isOpen}
+        initialItems={imageCarouselModal.items}
+        onClose={closeImageCarouselModal}
+        onSave={saveImageCarousel}
       />
 
     </div>

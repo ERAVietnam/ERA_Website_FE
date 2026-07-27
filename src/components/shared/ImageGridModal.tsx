@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ImagePlus, Loader2, PencilLine, Trash2, X } from "lucide-react";
+import { ImagePlus, Loader2, Trash2, X, GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import {
   buildImageGridHtml,
@@ -50,8 +50,8 @@ export function ImageGridModal({
   const [variant, setVariant] = useState<ImageGridVariant>("default");
   const [images, setImages] = useState<ImageGridItem[]>([]);
   const [activeSlotIndex, setActiveSlotIndex] = useState(0);
-  const [editingAltIndex, setEditingAltIndex] = useState<number | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -65,7 +65,13 @@ export function ImageGridModal({
       Array.from({ length: nextCount }, (_, index) => initialImages[index] || { src: "", alt: "", description: "" })
     );
     setActiveSlotIndex(0);
+    setDraggingIndex(null);
   }, [isOpen, initialImages, initialLayoutId, initialCount, initialVariant]);
+
+  const startUploadForSlot = (index: number) => {
+    setActiveSlotIndex(index);
+    fileInputRef.current?.click();
+  };
 
   if (!isOpen) return null;
 
@@ -106,28 +112,96 @@ export function ImageGridModal({
     setVariant(imageCount === 5 ? nextVariant : "default");
   };
 
+  const fillSlots = (
+    prev: ImageGridItem[],
+    newImages: ImageGridItem[],
+    startIndex: number
+  ): ImageGridItem[] => {
+    const next = [...prev];
+    let fileIndex = 0;
+
+    // Fill từ ô đang chọn đến cuối
+    let slot = startIndex;
+    while (slot < next.length && fileIndex < newImages.length) {
+      if (!next[slot].src) {
+        next[slot] = newImages[fileIndex];
+        fileIndex++;
+      }
+      slot++;
+    }
+
+    // Nếu còn ảnh, fill các ô trống từ đầu
+    slot = 0;
+    while (fileIndex < newImages.length && slot < next.length) {
+      if (!next[slot].src) {
+        next[slot] = newImages[fileIndex];
+        fileIndex++;
+      }
+      slot++;
+    }
+
+    // Nếu vẫn còn ảnh, ghi đè từ ô đang chọn trở đi
+    slot = startIndex;
+    while (fileIndex < newImages.length && slot < next.length) {
+      next[slot] = newImages[fileIndex];
+      fileIndex++;
+      slot++;
+    }
+
+    return next;
+  };
+
   const handleFiles = async (files: FileList | null) => {
     if (!files) return;
 
-    const selectedFile = Array.from(files).find((file) => file.type.startsWith("image/"));
-    if (!selectedFile) return;
+    const imageFiles = Array.from(files).filter((file) => file.type.startsWith("image/"));
+    if (imageFiles.length === 0) return;
 
     setIsProcessing(true);
     try {
-      const nextImage = {
-        src: await fileToDataUrl(selectedFile),
-        alt: selectedFile.name.replace(/\.[^.]+$/, ""),
-        description: "",
-      };
-      setImages((prev) => {
-        const next = [...prev];
-        next[activeSlotIndex] = nextImage;
-        return next;
-      });
+      const newImages = await Promise.all(
+        imageFiles.map(async (file) => ({
+          src: await fileToDataUrl(file),
+          alt: "",
+          description: "",
+        }))
+      );
+
+      setImages((prev) => fillSlots(prev, newImages, activeSlotIndex));
     } finally {
       setIsProcessing(false);
       if (fileInputRef.current) fileInputRef.current.value = "";
     }
+  };
+
+  const handleRemove = (index: number) => {
+    setImages((prev) => {
+      const next = [...prev];
+      next[index] = { src: "", alt: "", description: "" };
+      return next;
+    });
+  };
+
+  const handleDragStart = (index: number) => {
+    setDraggingIndex(index);
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (targetIndex: number) => {
+    if (draggingIndex === null || draggingIndex === targetIndex) return;
+    setImages((prev) => {
+      const next = [...prev];
+      [next[draggingIndex], next[targetIndex]] = [next[targetIndex], next[draggingIndex]];
+      return next;
+    });
+    setDraggingIndex(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggingIndex(null);
   };
 
   const handleSave = () => {
@@ -143,7 +217,7 @@ export function ImageGridModal({
           <div>
             <h3 className="text-lg font-bold text-gray-900">Chèn grid hình ảnh</h3>
             <p className="mt-1 text-sm text-gray-500">
-              Chọn số lượng ảnh, kiểu layout, rồi bấm từng ô để chọn hoặc đổi ảnh.
+              Chọn số lượng ảnh, kiểu layout, bấm từng ô để chọn ảnh. Có thể chọn nhiều ảnh cùng lúc và kéo thả để sắp xếp.
             </p>
           </div>
           <button
@@ -201,25 +275,31 @@ export function ImageGridModal({
             {images.map((image, index) => (
               <div
                 key={index}
-                className="group relative overflow-hidden border border-gray-200 bg-gray-50"
+                draggable={!!image.src}
+                onDragStart={() => handleDragStart(index)}
+                onDragOver={handleDragOver}
+                onDrop={() => handleDrop(index)}
+                onDragEnd={handleDragEnd}
+                className={`group relative overflow-hidden border border-gray-200 bg-gray-50 transition-opacity ${
+                  draggingIndex === index ? "opacity-50" : "opacity-100"
+                }`}
                 style={getSlotStyle(index)}
               >
+                {image.src && (
+                  <div className="absolute left-2 top-2 z-10 cursor-grab rounded-full bg-black/60 p-1.5 text-white opacity-0 transition-opacity hover:bg-black/80 active:cursor-grabbing group-hover:opacity-100">
+                    <GripVertical size={14} />
+                  </div>
+                )}
+
                 <button
                   type="button"
-                  onClick={() => {
-                    if (image.src) {
-                      setEditingAltIndex(index);
-                    } else {
-                      setActiveSlotIndex(index);
-                      fileInputRef.current?.click();
-                    }
-                  }}
+                  onClick={() => startUploadForSlot(index)}
                   disabled={isProcessing}
                   className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-gray-50 text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {image.src ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={image.src} alt={image.alt || ""} className="h-full w-full object-cover" />
+                    <img src={image.src} alt={image.alt || ""} className="h-full w-full object-cover" draggable={false} />
                   ) : (
                     <div className="flex flex-col items-center gap-2">
                       {isProcessing && activeSlotIndex === index ? (
@@ -238,13 +318,9 @@ export function ImageGridModal({
                     type="button"
                     onClick={(event) => {
                       event.stopPropagation();
-                      setImages((prev) => {
-                        const next = [...prev];
-                        next[index] = { src: "", alt: "", description: "" };
-                        return next;
-                      });
+                      handleRemove(index);
                     }}
-                    className="absolute right-2 top-2 rounded-full bg-black/60 p-1.5 text-white opacity-0 transition-opacity hover:bg-black/80 group-hover:opacity-100"
+                    className="absolute right-2 top-2 rounded-full bg-red-600 p-1.5 text-white opacity-0 transition-colors hover:bg-red-700 group-hover:opacity-100"
                     aria-label={`Xóa ảnh ${index + 1}`}
                   >
                     <Trash2 size={14} />
@@ -252,18 +328,17 @@ export function ImageGridModal({
                 )}
 
                 {image.src && (
-                  <button
-                    type="button"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setActiveSlotIndex(index);
-                      fileInputRef.current?.click();
+                  <input
+                    type="text"
+                    value={image.alt || ""}
+                    onChange={(event) => {
+                      const next = [...images];
+                      next[index] = { ...next[index], alt: event.target.value };
+                      setImages(next);
                     }}
-                    className="absolute bottom-2 right-2 rounded-full bg-black/60 p-1.5 text-white opacity-0 transition-opacity hover:bg-black/80 group-hover:opacity-100"
-                    aria-label={`Đổi ảnh ${index + 1}`}
-                  >
-                    <PencilLine size={14} />
-                  </button>
+                    placeholder="Alt text"
+                    className="w-full border-t border-gray-200 px-3 py-2 text-xs text-gray-700 outline-none focus:border-gray-300"
+                  />
                 )}
 
                 {image.src && (
@@ -276,23 +351,7 @@ export function ImageGridModal({
                       setImages(next);
                     }}
                     placeholder="Mô tả ảnh"
-                    className="w-full border-t border-gray-200 px-3 py-2 text-xs text-gray-600 outline-none focus:border-gray-300"
-                  />
-                )}
-
-                {image.src && editingAltIndex === index && (
-                  <input
-                    type="text"
-                    value={image.alt || ""}
-                    onChange={(event) => {
-                      const next = [...images];
-                      next[index] = { ...next[index], alt: event.target.value };
-                      setImages(next);
-                    }}
-                    onBlur={() => setEditingAltIndex(null)}
-                    placeholder="Alt text"
-                    className="w-full border-t border-gray-200 px-3 py-2 text-xs text-gray-600 outline-none focus:border-gray-300"
-                    autoFocus
+                    className="w-full border-t border-gray-200 bg-gray-100 px-3 py-2 text-center text-xs italic text-gray-600 outline-none transition-colors placeholder:text-gray-400 focus:border-gray-300 focus:bg-white"
                   />
                 )}
               </div>
@@ -303,6 +362,7 @@ export function ImageGridModal({
             ref={fileInputRef}
             type="file"
             accept="image/*"
+            multiple
             className="hidden"
             onChange={(event) => handleFiles(event.target.files)}
           />
