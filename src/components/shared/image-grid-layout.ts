@@ -4,7 +4,7 @@ export interface ImageGridItem {
   description?: string;
 }
 
-export type ImageGridVariant = "default" | "two-three" | "three-two";
+export type ImageGridVariant = "default" | "two-three" | "three-two" | "left-large" | "right-large";
 
 export const IMAGE_GRID_MAX_ITEMS = 6;
 export const IMAGE_GRID_MIN_ITEMS = 2;
@@ -33,7 +33,8 @@ export function buildImageGridHtml(
   const safeImages = images
     .filter((image) => image.src)
     .slice(0, IMAGE_GRID_MAX_ITEMS);
-  const safeVariant = safeImages.length === 5 ? variant : "default";
+  const safeVariant =
+    safeImages.length === 3 || safeImages.length === 5 ? variant : "default";
 
   const items = safeImages
     .map((image, index) => {
@@ -80,7 +81,10 @@ export function parseImageGridElement(element: HTMLElement): {
   const count = Number(element.dataset.eraImageCount) || images.length;
   const rawVariant = element.dataset.eraGridVariant;
   const variant: ImageGridVariant =
-    rawVariant === "three-two" || rawVariant === "two-three"
+    rawVariant === "three-two" ||
+    rawVariant === "two-three" ||
+    rawVariant === "left-large" ||
+    rawVariant === "right-large"
       ? rawVariant
       : getDefaultImageGridVariant(count);
 
