@@ -166,7 +166,7 @@ export function ImageCarouselModal({
 
               <div className="relative">
                 <div
-                  className="flex gap-3 overflow-x-auto rounded-xl border border-gray-100 bg-gray-50 p-3"
+                  className="flex gap-3 overflow-x-auto bg-gray-50 p-3"
                   style={{ scrollSnapType: "x mandatory" }}
                 >
                   {items.map((item, index) => (
@@ -176,12 +176,12 @@ export function ImageCarouselModal({
                       onDragStart={() => handleDragStart(index)}
                       onDragOver={(event) => handleDragOver(event, index)}
                       onDragEnd={handleDragEnd}
-                      className={`relative flex-shrink-0 w-[160px] select-none rounded-xl border bg-white p-2 shadow-sm transition-opacity ${
+                      className={`relative flex-shrink-0 w-[160px] select-none bg-white p-2 transition-opacity ${
                         draggingIndex === index ? "opacity-50" : "opacity-100"
                       }`}
                       style={{ scrollSnapAlign: "start" }}
                     >
-                      <div className="group relative aspect-[4/3] overflow-hidden rounded-lg bg-gray-100">
+                      <div className="group relative aspect-[4/3] overflow-hidden bg-gray-100">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={item.src}
