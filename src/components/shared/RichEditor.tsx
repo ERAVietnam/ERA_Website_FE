@@ -138,15 +138,6 @@ function ImageLayoutDropdownPlugin(editor: Editor) {
     items.add({
       type: "button",
       model: new ViewModel({
-        label: "List",
-        withText: true,
-        layout: "list",
-      }),
-    });
-
-    items.add({
-      type: "button",
-      model: new ViewModel({
         label: "Carousel",
         withText: true,
         layout: "carousel",
@@ -194,9 +185,6 @@ function ImageLayoutDropdownPlugin(editor: Editor) {
             editor.editing.view.focus();
           },
         });
-      } else if (layout === "list") {
-        // eslint-disable-next-line no-console
-        console.log("List layout: chưa triển khai");
       } else if (layout === "carousel") {
         const open = editor.config.get("eraImageCarousel.open" as never) as
           | ImageCarouselOpenHandler
@@ -492,7 +480,7 @@ export default function RichEditor({
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 0.5rem;
           margin: 0.75rem 0 !important;
-          padding: 0.5rem !important;
+          padding: 2.5rem 0.5rem 0.5rem !important;
           border: 1px dashed #d1d5db !important;
           border-radius: 14px !important;
           background: #f9fafb !important;
@@ -511,6 +499,79 @@ export default function RichEditor({
         .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="4"] {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] {
+          grid-template-columns: 1.5fr 1fr;
+          grid-template-rows: repeat(2, minmax(0, 1fr));
+          align-items: stretch !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(1) {
+          grid-row: span 2;
+          align-self: stretch !important;
+          height: 100% !important;
+          min-height: 0 !important;
+          display: grid !important;
+          grid-template-rows: 1fr auto !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(1) > p {
+          display: contents !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          line-height: 0 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(1) img,
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(1) > p > img,
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(1).image img,
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .image:nth-child(1) img {
+          width: 100% !important;
+          min-width: 0 !important;
+          max-width: 100% !important;
+          height: 100% !important;
+          aspect-ratio: auto !important;
+          object-fit: cover !important;
+          display: block !important;
+          margin: 0 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] {
+          grid-template-columns: 1fr 1.5fr;
+          grid-template-rows: repeat(2, minmax(0, 1fr));
+          align-items: stretch !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(1) {
+          grid-column: 2;
+          grid-row: span 2;
+          align-self: stretch !important;
+          height: 100% !important;
+          min-height: 0 !important;
+          display: grid !important;
+          grid-template-rows: 1fr auto !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(1) > p {
+          display: contents !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          line-height: 0 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(1) img,
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(1) > p > img,
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(1).image img,
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .image:nth-child(1) img {
+          width: 100% !important;
+          min-width: 0 !important;
+          max-width: 100% !important;
+          height: 100% !important;
+          aspect-ratio: auto !important;
+          object-fit: cover !important;
+          display: block !important;
+          margin: 0 !important;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(2) {
+          grid-column: 1;
+          grid-row: 1;
+        }
+        .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(3) {
+          grid-column: 1;
+          grid-row: 2;
+        }
         .richtext-editor .ck-editor__editable_inline .era-image-grid[data-era-image-count="5"] {
           grid-template-columns: repeat(6, minmax(0, 1fr));
         }
@@ -526,11 +587,14 @@ export default function RichEditor({
         }
         .richtext-editor .ck-editor__editable_inline .era-image-grid::before {
           content: "Grid hình ảnh - bấm để sửa";
-          grid-column: 1 / -1;
+          position: absolute;
+          top: 0.5rem;
+          left: 0.5rem;
           color: #6b7280;
           font-size: 12px;
           font-weight: 600;
           line-height: 1.4;
+          pointer-events: none;
         }
         .richtext-editor .ck-editor__editable_inline .era-image-grid__edit,
         .richtext-editor .ck-editor__editable_inline .era-image-grid__delete {

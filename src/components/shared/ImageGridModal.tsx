@@ -76,7 +76,13 @@ export function ImageGridModal({
   if (!isOpen) return null;
 
   const layoutOptions: Array<{ value: ImageGridVariant; label: string }> =
-    imageCount === 5
+    imageCount === 3
+      ? [
+          { value: "default", label: "Layout mặc định: 1 hàng ngang" },
+          { value: "left-large", label: "Layout 2: trái lớn, phải 2 nhỏ" },
+          { value: "right-large", label: "Layout 3: phải lớn, trái 2 nhỏ" },
+        ]
+      : imageCount === 5
       ? [
           { value: "three-two", label: "Layout 1: trên 3, dưới 2" },
           { value: "two-three", label: "Layout 2: trên 2, dưới 3" },
@@ -84,13 +90,30 @@ export function ImageGridModal({
       : [{ value: "default", label: "Layout mặc định" }];
 
   const gridTemplateColumns =
-    imageCount === 3 || imageCount === 6
+    imageCount === 3 && variant === "left-large"
+      ? "1.5fr 1fr"
+      : imageCount === 3 && variant === "right-large"
+      ? "1fr 1.5fr"
+      : imageCount === 3 || imageCount === 6
       ? "repeat(3, minmax(0, 1fr))"
       : imageCount === 5
       ? "repeat(6, minmax(0, 1fr))"
       : "repeat(2, minmax(0, 1fr))";
 
+  const gridTemplateRows =
+    imageCount === 3 && (variant === "left-large" || variant === "right-large")
+      ? "repeat(2, minmax(0, 1fr))"
+      : undefined;
+
   const getSlotStyle = (index: number): React.CSSProperties => {
+    if (imageCount === 3 && variant === "left-large") {
+      return index === 0 ? { gridRow: "span 2" } : {};
+    }
+    if (imageCount === 3 && variant === "right-large") {
+      if (index === 0) return { gridColumn: "2", gridRow: "span 2" };
+      if (index === 1) return { gridColumn: "1", gridRow: "1" };
+      return { gridColumn: "1", gridRow: "2" };
+    }
     if (imageCount !== 5) return {};
     if (variant === "three-two") {
       return index < 3 ? { gridColumn: "span 2" } : { gridColumn: "span 3" };
@@ -109,7 +132,7 @@ export function ImageGridModal({
   };
 
   const handleVariantChange = (nextVariant: ImageGridVariant) => {
-    setVariant(imageCount === 5 ? nextVariant : "default");
+    setVariant(imageCount === 3 || imageCount === 5 ? nextVariant : "default");
   };
 
   const fillSlots = (
@@ -270,6 +293,7 @@ export function ImageGridModal({
             className="grid gap-3"
             style={{
               gridTemplateColumns,
+              gridTemplateRows,
             }}
           >
             {images.map((image, index) => (
@@ -281,8 +305,10 @@ export function ImageGridModal({
                 onDrop={() => handleDrop(index)}
                 onDragEnd={handleDragEnd}
                 className={`group relative overflow-hidden border border-gray-200 bg-gray-50 transition-opacity ${
-                  draggingIndex === index ? "opacity-50" : "opacity-100"
-                }`}
+                  imageCount === 3 && (variant === "left-large" || variant === "right-large")
+                    ? "flex flex-col"
+                    : ""
+                } ${draggingIndex === index ? "opacity-50" : "opacity-100"}`}
                 style={getSlotStyle(index)}
               >
                 {image.src && (
@@ -295,7 +321,11 @@ export function ImageGridModal({
                   type="button"
                   onClick={() => startUploadForSlot(index)}
                   disabled={isProcessing}
-                  className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-gray-50 text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+                  className={`flex w-full items-center justify-center overflow-hidden bg-gray-50 text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60 ${
+                    imageCount === 3 && (variant === "left-large" || variant === "right-large")
+                      ? "flex-1"
+                      : "aspect-[4/3]"
+                  }`}
                 >
                   {image.src ? (
                     // eslint-disable-next-line @next/next/no-img-element
