@@ -17,8 +17,13 @@
 | Rich Editor | CKEditor 5 (monorepo package) |
 | Flag Icons | country-flag-icons (SVG, inline) |
 | Animation | Framer Motion |
+| Carousel | embla-carousel-react, embla-carousel-autoplay |
+| HTML Parsing | html-react-parser |
+| Lightbox | yet-another-react-lightbox |
+| Validation | zod |
 | Utilities | clsx, tailwind-merge |
 | Deploy | Vercel (Git integration, auto-deploy on push) |
+| React Compiler | babel-plugin-react-compiler (devDependency) |
 
 ---
 
@@ -134,7 +139,7 @@ export default function VeChungToi() {
 | `src/components/ui/PasswordInput.tsx` | Input mật khẩu có toggle ẩn/hiện |
 | `src/components/ui/PopupNotification.tsx` | Thông báo popup |
 | `src/components/ui/NetworkErrorPopup.tsx` | Popup lỗi mạng duy nhất, thay thế các thông báo lỗi chung |
-| `src/components/ui/admin/*` | Shared admin list UI: `AdminListHeader`, `AdminFilters`, `AdminLoading`, `AdminTable`, `AdminEmptyState`, `SearchInput`, `SelectField`, `TagFilter`, `ViewModeToggle` |
+| `src/components/ui/admin/*` | Shared admin list UI: `AdminListHeader`, `AdminFilters`, `AdminLoading`, `AdminTable`, `AdminEmptyState`, `SearchInput`, `SelectField`, `TagFilter`, `ViewModeToggle`, `ReviewerNotifySelect` |
 | `src/components/shared/CountryFlag.tsx` | Inline SVG country flag component |
 | `src/components/sections/news/manage/NewsManageActions.tsx` | Shared news admin action buttons (table/card layouts) |
 
@@ -193,6 +198,7 @@ Gray 500:    #6b7280              → colors.gray[500]
 | Route | Page File | Main Component |
 |-------|-----------|----------------|
 | `/` | `app/page.tsx` | `HomePage` |
+| `/dang-nhap` | `app/dang-nhap/page.tsx` | `LoginPage` |
 | `/ve-chung-toi` | `app/ve-chung-toi/page.tsx` | `AboutPage` |
 | `/ve-chung-toi/apac` | `app/ve-chung-toi/apac/page.tsx` | `ApacPage` |
 | `/ve-chung-toi/compass` | `app/ve-chung-toi/compass/page.tsx` | `CompassPage` |
@@ -211,6 +217,7 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/tin-tuc/tim-kiem` | `app/tin-tuc/tim-kiem/page.tsx` | `NewsSearchPage` |
 | `/tin-tuc/quan-ly` | `app/tin-tuc/quan-ly/page.tsx` | `NewsManagePage` |
 | `/tap-chi/quan-ly` | `app/tap-chi/quan-ly/page.tsx` | `MagazineManagePage` |
+| `/khoa-hoc/quan-ly` | `app/(admin)/khoa-hoc/quan-ly/page.tsx` | `AcademyCourseManagePage` |
 | `/agents/quan-ly` | `app/agents/quan-ly/page.tsx` | `AgentManagePage` |
 | `/vinh-danh-va-he-thong/quan-ly` | `app/vinh-danh-va-he-thong/quan-ly/page.tsx` | `HonorsManagePage` |
 | `/tai-khoan/quan-ly` | `app/tai-khoan/quan-ly/page.tsx` | `AccountManagePage` |
@@ -226,6 +233,7 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/dieu-khoan-su-dung` | `app/dieu-khoan-su-dung/page.tsx` | `LegalPage` |
 | `/chinh-sach-bao-mat` | `app/chinh-sach-bao-mat/page.tsx` | `LegalPage` |
 | `/duan-canho-forest-onsen` | `app/(landing)/duan-canho-forest-onsen/page.tsx` | `ForestOnsenLanding` |
+| `/phan-khu-rung-phuong-duan-eco-retreat` | `app/(landing)/phan-khu-rung-phuong-duan-eco-retreat/page.tsx` | `EcoRetreatLanding` |
 
 ---
 
@@ -267,7 +275,7 @@ const nextConfig = {
 
 ### Landing page tracking
 - Landing pages nằm trong `src/app/(landing)/` để chia sẻ layout/tracking scripts.
-- MGID hiện chạy trên `/duan-canho-forest-onsen/` và `/thank-you-eco-retreat/`, dễ mở rộng cho landing mới.
+- MGID hiện chạy trên `/duan-canho-forest-onsen/`, `/thank-you-eco-retreat/` và `/phan-khu-rung-phuong-duan-eco-retreat/`, dễ mở rộng cho landing mới.
 
 ---
 
@@ -302,12 +310,19 @@ const nextConfig = {
 | `src/api/config.ts` | `BASE_URL` từ `NEXT_PUBLIC_API_URL` |
 | `src/api/domains/*.ts` | API helpers theo module (auth, accounts, news, media, magazines, recruitment, projects, agents, honors, monthly honors, annual honors, academy courses) |
 
+### API Routes
+
+| File | Mô tả |
+|------|-------|
+| `src/app/api/revalidate/route.ts` | Webhook revalidate từ backend, xác thực bằng `REVALIDATE_SECRET` |
+| `src/app/api/submit-lead/route.ts` | Proxy submit lead lên Google Apps Script (`LEAD_SCRIPT_URL`) |
+
 ### Route Guard
 | File | Mô tả |
 |------|-------|
 | `src/proxy.ts` | Next.js proxy redirect URL danh mục tin tức cũ (`/tin-tuc/danh-muc/<slug>`) sang URL mới và bảo vệ server-side cho mọi path chứa `/quan-ly` hoặc `/ho-so-ca-nhan`. Kiểm tra cookie `era_auth_state`, redirect về `/dang-nhap` nếu chưa đăng nhập, và set `Cache-Control: no-store`. |
 | `src/components/guards/AuthGuard.tsx` | Client-side guard dự phòng. Dựa vào `AuthContext.isAuthenticated`, redirect về `/dang-nhap` nếu chưa đăng nhập. |
-| `src/app/(admin)/layout.tsx` | Wrap admin pages bằng `<AuthGuard>` để áp dụng bảo vệ client-side cho toàn bộ admin routes. |
+| `src/app/(admin)/layout.tsx` | Wrap admin pages bằng `<AuthGuard>` và render `AdminSidebar` cho toàn bộ admin routes. |
 
 ### Environment Variables
 | Variable | Mô tả |
@@ -456,7 +471,7 @@ Với `images.unoptimized: true`:
 
 Nhiều section đang dùng mock data hardcoded inline:
 - `AboutERAVNAwardsSection` — tab “Vinh Danh Tháng” lấy data từ Monthly Honors API; tab “Vinh Danh Thường Niên” lấy data từ Annual Honors API.
-- Một số section marketing/landing — nội dung giới thiệu, gallery, testimonial
+- Một số section marketing/landing — nội dung giới thiệu, gallery, testimonial (bao gồm landing Eco Retreat và Forest Onsen; các section marketing này được giữ static theo thiết kế).
 
 Các module news, projects, recruitment, magazines, agents, honors, monthly honors, annual honors và academy courses đã lấy dữ liệu từ API ở các luồng đã triển khai. Project FAQ và News FAQ không còn dùng mock data. `AboutERAVNDivisionsSection` đã lấy danh sách divisions thật từ Honors API.
 
@@ -482,6 +497,7 @@ Các module news, projects, recruitment, magazines, agents, honors, monthly hono
 | `no-unescaped-entities` | `ProjectsDetailContentSection.tsx`, `ProjectsManageList.tsx` | Low | `"` nên escape thành `&quot;` |
 | Unused imports | `NewsManagePage.tsx` (colors), nhiều file khác | Low | Dọn dẹp định kỳ |
 | Turbopack panic `/tuyen-dung/` | Dev server only | Low | Xóa `.next` và chạy lại nếu gặp |
+| Stale route constants | `src/lib/routes.ts` | Low | `commission`, `training`, `inventory`, `technology`, `brandStory`, `operations` chưa có page file tương ứng — cần tạo page hoặc dọn dẹp |
 | `any` type | `RichEditor.tsx`, `Button.tsx:forwardRef` | Done | Đã thay bằng proper types |
 | Popup lỗi chung | Nhiều file | Done | Đã thay bằng `NetworkErrorPopup` |
 | Dead code removed | May 2026 | Done | Đã xóa `Badge.tsx`, `SectionTitle.tsx`, `ImagePlaceholder.tsx`, `CompassCollabSection.tsx`, `CompassLoadingAnimation.tsx`, 12 CKEditor sub-packages, `themeClasses`, `cssVariables`, `color()`, `getRoute()`, `RouteKey` |
@@ -524,19 +540,21 @@ Các module news, projects, recruitment, magazines, agents, honors, monthly hono
 
 ## 18. Current Codebase Additions - Academy Courses, Monthly Honors, Admin Routes
 
-> Section n?y c?p nh?t tr?ng th?i codebase hi?n t?i. N?u c? ?i?m n?o m?u thu?n v?i c?c ph?n c? ph?a tr?n, ?u ti?n section n?y.
+> Section này cập nhật trạng thái codebase hiện tại. Nếu có điểm nào mâu thuẫn với các phần cũ phía trên, ưu tiên section này.
 
 ### Routes added / updated
 
 | Route | Page File | Main Component |
 |-------|-----------|----------------|
+| `/dang-nhap` | `app/dang-nhap/page.tsx` | `LoginPage` |
 | `/academy` | `app/academy/page.tsx` | `AcademyPage` |
 | `/khoa-hoc/quan-ly` | `app/(admin)/khoa-hoc/quan-ly/page.tsx` | `AcademyCourseManagePage` |
+| `/phan-khu-rung-phuong-duan-eco-retreat` | `app/(landing)/phan-khu-rung-phuong-duan-eco-retreat/page.tsx` | `EcoRetreatLanding` |
 
 Admin/private route handling:
 
 - `src/proxy.ts` protects all paths containing `/quan-ly`, so `/khoa-hoc/quan-ly` is protected server-side by `era_auth_state`.
-- `src/app/(admin)/layout.tsx` wraps admin pages with `AuthGuard`.
+- `src/app/(admin)/layout.tsx` wraps admin pages with `AuthGuard` and renders `AdminSidebar`.
 - `src/components/layout/LayoutWrapper.tsx` includes `/khoa-hoc/quan-ly` in `ADMIN_PATHS`, so public Header/Footer/ToTop are hidden for this route.
 - `src/app/robots.ts` disallows `/khoa-hoc/quan-ly`.
 
@@ -546,10 +564,10 @@ Admin/private route handling:
 - Public course list uses:
   - `GET /academy-courses/public`
   - `GET /academy-courses/public/tags`
-- Filter ?Ch?n kh?a h?c? supports multi-select tags.
+- Filter “Chọn khóa học” supports multi-select tags.
 - FE sends multi-tag filter as `tagIds=id1,id2,id3`.
 - Backend returns courses matching at least one selected tag.
-- Empty filtered result displays neutral gray empty state: ?Ch?a c? kh?a h?c ph? h?p.?
+- Empty filtered result displays neutral gray empty state: “Chưa có khóa học phù hợp.”
 - Course card keeps the mock UI sizing/layout: left image column, title, tag line, bullet-style description, opening date/COMING SOON, CTA button.
 - Course `description` comes from richtext HTML, but public card extracts list/text items and renders them as compact bullet/numbered text so richtext heading sizes do not break the card layout.
 
@@ -565,7 +583,7 @@ Admin/private route handling:
   - `CreateAcademyCourseInput`
   - `UpdateAcademyCourseInput`
   - tag create/update input types
-- Sidebar item ?Kh?a h?c? uses permission `academy.courses.all.view`.
+- Sidebar item “Khóa học” uses permission `academy.courses.all.view`.
 - Admin features:
   - List/search/filter courses.
   - Filter by tag and active status.
@@ -616,6 +634,13 @@ Admin/private route handling:
 - FE sends optional `notifyAccountId` when submitting news/project for review.
 - Email button deep-links back to the admin edit form with `?edit=<id>`.
 
+### API routes
+
+| File | Mô tả |
+|------|-------|
+| `src/app/api/revalidate/route.ts` | Webhook revalidate từ backend, xác thực bằng `REVALIDATE_SECRET` |
+| `src/app/api/submit-lead/route.ts` | Proxy submit lead lên Google Apps Script (`LEAD_SCRIPT_URL`) |
+
 ### API domains currently active
 
 `src/api/domains/*.ts` currently includes helpers for:
@@ -639,4 +664,5 @@ Admin/private route handling:
 - News, projects, recruitment, magazines, agents, honors, monthly honors, annual honors, and academy courses have API-backed admin/public flows where implemented.
 - Some marketing-only Academy sections still intentionally use static content/images: hero banners, stats, roadmap, videos, activities, testimonials, FAQ.
 - Landing/marketing sections outside the CMS scope may still contain hardcoded content by design.
+- Eco Retreat landing page (`/phan-khu-rung-phuong-duan-eco-retreat/`) renders real landing sections; marketing content inside landing is static by design.
 

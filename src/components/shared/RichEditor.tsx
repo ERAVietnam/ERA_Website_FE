@@ -124,6 +124,8 @@ function ImageLayoutDropdownPlugin(editor: Editor) {
       withText: true,
     });
 
+    dropdownView.bind("isEnabled").to(editor, "isReadOnly", (isReadOnly) => !isReadOnly);
+
     const items = new Collection<{ type: "button"; model: ViewModel }>();
 
     items.add({
