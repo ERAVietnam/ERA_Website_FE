@@ -234,7 +234,10 @@ export const NewsDetailPage = memo(function NewsDetailPage({
           {!isPreview && !isPressRelease && (
             <aside className="hidden lg:block pt-24 md:pt-20">
               <div className="sticky top-24">
-                <ProjectsSidebar />
+                <ProjectsSidebar
+                  sourceUrl={`/tin-tuc/${article.slug}/`}
+                  sourceLabel={`Bài viết: ${article.title}`}
+                />
               </div>
             </aside>
           )}

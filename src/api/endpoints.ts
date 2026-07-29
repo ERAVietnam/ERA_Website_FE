@@ -117,4 +117,7 @@ export const ENDPOINTS = {
     TAGS: '/academy-courses/tags',
     TAG_DETAIL: (id: string) => `/academy-courses/tags/${id}`,
   },
+  CONSULTATION: {
+    SUBMIT: '/consultation',
+  },
 } as const;

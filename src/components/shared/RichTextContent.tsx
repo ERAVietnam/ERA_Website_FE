@@ -1,12 +1,14 @@
 "use client";
 
-import { forwardRef, useRef, useImperativeHandle } from "react";
+import { forwardRef, useRef, useImperativeHandle, useState, useCallback } from "react";
 import parse, {
   type Element as HtmlElement,
   type HTMLReactParserOptions,
 } from "html-react-parser";
+import Lightbox from "yet-another-react-lightbox";
 import { ImageCarousel } from "./ImageCarousel";
 import type { ImageCarouselItem } from "./image-carousel-layout";
+import "yet-another-react-lightbox/styles.css";
 
 interface RichTextContentProps {
   html: string;
@@ -90,31 +92,101 @@ function extractCarouselItems(node: HtmlElement): ImageCarouselItem[] {
     .filter((item) => item.src);
 }
 
-const parserOptions: HTMLReactParserOptions = {
-  replace: (node) => {
-    if (
-      isHtmlElement(node) &&
-      node.attribs["data-era-image-carousel"] === "true"
-    ) {
-      const items = extractCarouselItems(node);
-      if (items.length === 0) return;
-      return <ImageCarousel items={items} />;
-    }
-  },
-};
+interface ClickableImageProps {
+  src: string;
+  alt?: string;
+  className?: string;
+  style?: React.CSSProperties;
+  onClick: () => void;
+}
+
+function ClickableImage({ src, alt, className, style, onClick }: ClickableImageProps) {
+  return (
+    <img
+      src={src}
+      alt={alt || ""}
+      className={className}
+      style={{ ...style, cursor: "zoom-in" }}
+      onClick={onClick}
+    />
+  );
+}
 
 export const RichTextContent = forwardRef<HTMLDivElement, RichTextContentProps>(
   function RichTextContent({ html, className, style }, forwardedRef) {
     const innerRef = useRef<HTMLDivElement>(null);
     useImperativeHandle(forwardedRef, () => innerRef.current as HTMLDivElement);
 
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [lightboxSlide, setLightboxSlide] = useState<{ src: string; alt: string }>({
+      src: "",
+      alt: "",
+    });
+
+    const openLightbox = useCallback((src: string, alt: string) => {
+      setLightboxSlide({ src, alt });
+      setLightboxOpen(true);
+    }, []);
+
+    const parserOptions: HTMLReactParserOptions = {
+      replace: (node) => {
+        if (
+          isHtmlElement(node) &&
+          node.attribs["data-era-image-carousel"] === "true"
+        ) {
+          const items = extractCarouselItems(node);
+          if (items.length === 0) return;
+          return <ImageCarousel items={items} />;
+        }
+
+        if (isHtmlElement(node) && node.name === "img") {
+          const { src, alt, class: classNameAttr, style: styleAttr } = node.attribs;
+          if (!src) return;
+
+          const parsedStyle = styleAttr
+            ? styleAttr.split(";").reduce<React.CSSProperties>((acc, declaration) => {
+                const [property, value] = declaration.split(":").map((s) => s.trim());
+                if (property && value) {
+                  const camelProperty = property.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+                  (acc as Record<string, string>)[camelProperty] = value;
+                }
+                return acc;
+              }, {})
+            : undefined;
+
+          return (
+            <ClickableImage
+              src={src}
+              alt={alt}
+              className={classNameAttr}
+              style={parsedStyle}
+              onClick={() => openLightbox(src, alt || "")}
+            />
+          );
+        }
+      },
+    };
+
     const sanitizedHtml = sanitizeHtml(html);
     const content = parse(sanitizedHtml, parserOptions);
 
     return (
-      <div ref={innerRef} className={className} style={style}>
-        {content}
-      </div>
+      <>
+        <div ref={innerRef} className={className} style={style}>
+          {content}
+        </div>
+        <Lightbox
+          open={lightboxOpen}
+          close={() => setLightboxOpen(false)}
+          slides={[{ src: lightboxSlide.src, alt: lightboxSlide.alt }]}
+          controller={{ closeOnBackdropClick: true, disableSwipeNavigation: true }}
+          carousel={{ finite: true, preload: 0 }}
+          render={{
+            buttonPrev: () => null,
+            buttonNext: () => null,
+          }}
+        />
+      </>
     );
   }
 );

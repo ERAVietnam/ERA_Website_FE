@@ -18,7 +18,7 @@ interface ImageCarouselModalProps {
   onSave: (items: ImageCarouselItem[]) => void;
 }
 
-const MIN_ITEMS = 3;
+const MIN_ITEMS = 4;
 const MAX_ITEMS = 10;
 
 function generateId() {
