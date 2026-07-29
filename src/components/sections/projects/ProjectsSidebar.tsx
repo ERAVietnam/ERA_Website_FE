@@ -4,15 +4,78 @@ import { useState } from "react";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
 import { Phone, MessageCircle } from "lucide-react";
+import { consultationApi } from "@/api/domains/consultation";
 
 interface ProjectsSidebarProps {
   hideConsultationForm?: boolean;
+  sourceUrl?: string;
+  sourceLabel?: string;
 }
 
-export function ProjectsSidebar({ hideConsultationForm = false }: ProjectsSidebarProps) {
+function isValidPhone(value: string): boolean {
+  const digits = value.replace(/\D/g, "");
+  return digits.length >= 9 && digits.length <= 11;
+}
+
+interface FormErrors {
+  name?: string;
+  phone?: string;
+  agree?: string;
+}
+
+export function ProjectsSidebar({
+  hideConsultationForm = false,
+  sourceUrl,
+  sourceLabel,
+}: ProjectsSidebarProps) {
   const [formName, setFormName] = useState("");
   const [formPhone, setFormPhone] = useState("");
   const [formAgree, setFormAgree] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const validate = (): FormErrors => {
+    const next: FormErrors = {};
+    if (formName.trim().length === 0) {
+      next.name = "Vui lòng nhập họ tên";
+    }
+    if (formPhone.trim().length === 0) {
+      next.phone = "Vui lòng nhập số điện thoại";
+    } else if (!isValidPhone(formPhone)) {
+      next.phone = "Số điện thoại không hợp lệ";
+    }
+    if (!formAgree) {
+      next.agree = "Vui lòng đồng ý với điều khoản dịch vụ";
+    }
+    return next;
+  };
+
+  const handleSubmit = async () => {
+    setSubmitError(null);
+    const nextErrors = validate();
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) return;
+
+    setLoading(true);
+    try {
+      await consultationApi.submit({
+        name: formName.trim(),
+        phone: formPhone.trim(),
+        sourceUrl,
+        sourceLabel,
+      });
+      setSuccess(true);
+      setFormName("");
+      setFormPhone("");
+      setFormAgree(false);
+    } catch {
+      setSubmitError("Gửi yêu cầu thất bại. Vui lòng thử lại sau.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="w-full lg:w-80 shrink-0">
@@ -39,41 +102,83 @@ export function ProjectsSidebar({ hideConsultationForm = false }: ProjectsSideba
                 </li>
               ))}
             </ul>
-            <div className="space-y-3">
-              <input
-                type="text"
-                placeholder="Họ tên *"
-                className="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg outline-none focus:border-gray-300 transition-colors"
-                value={formName}
-                onChange={(e) => setFormName(e.target.value)}
-              />
-              <input
-                type="tel"
-                placeholder="Số điện thoại *"
-                className="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg outline-none focus:border-gray-300 transition-colors"
-                value={formPhone}
-                onChange={(e) => setFormPhone(e.target.value)}
-              />
-              <label className="flex items-start gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="mt-0.5"
-                  checked={formAgree}
-                  onChange={(e) => setFormAgree(e.target.checked)}
-                />
-                <span className="text-[11px] text-gray-500 leading-tight">
-                  Tôi đồng ý với ERA/Vietnam về Điều khoản dịch vụ và Chính sách bảo mật.
-                </span>
-              </label>
-              <Button
-                variant="secondary"
-                size="sm"
-                className="w-full py-3"
-                onClick={() => window.open("https://zalo.me/0325381107", "_blank", "noopener,noreferrer")}
-              >
-                Nhận tư vấn ngay
-              </Button>
-            </div>
+
+            {success ? (
+              <div className="mb-4 rounded-lg bg-green-50 p-4 text-sm text-green-700">
+                Cảm ơn bạn đã gửi yêu cầu. Chuyên viên tư vấn của ERA Vietnam sẽ liên hệ lại trong thời gian sớm nhất.
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Họ tên *"
+                    className={`w-full px-4 py-3 text-sm border rounded-lg outline-none transition-colors ${
+                      errors.name ? "border-red-400 focus:border-red-500" : "border-gray-200 focus:border-gray-300"
+                    }`}
+                    value={formName}
+                    onChange={(e) => {
+                      setFormName(e.target.value);
+                      if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
+                    }}
+                    disabled={loading}
+                  />
+                  {errors.name && (
+                    <p className="mt-1 text-[11px] text-red-500">{errors.name}</p>
+                  )}
+                </div>
+                <div>
+                  <input
+                    type="tel"
+                    placeholder="Số điện thoại *"
+                    className={`w-full px-4 py-3 text-sm border rounded-lg outline-none transition-colors ${
+                      errors.phone ? "border-red-400 focus:border-red-500" : "border-gray-200 focus:border-gray-300"
+                    }`}
+                    value={formPhone}
+                    onChange={(e) => {
+                      setFormPhone(e.target.value);
+                      if (errors.phone) setErrors((prev) => ({ ...prev, phone: undefined }));
+                    }}
+                    disabled={loading}
+                  />
+                  {errors.phone && (
+                    <p className="mt-1 text-[11px] text-red-500">{errors.phone}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="flex items-start gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="mt-0.5"
+                      checked={formAgree}
+                      onChange={(e) => {
+                        setFormAgree(e.target.checked);
+                        if (errors.agree) setErrors((prev) => ({ ...prev, agree: undefined }));
+                      }}
+                      disabled={loading}
+                    />
+                    <span className="text-[11px] text-gray-500 leading-tight">
+                      Tôi đồng ý với ERA/Vietnam về Điều khoản dịch vụ và Chính sách bảo mật.
+                    </span>
+                  </label>
+                  {errors.agree && (
+                    <p className="mt-1 text-[11px] text-red-500">{errors.agree}</p>
+                  )}
+                </div>
+                {submitError && (
+                  <p className="text-[11px] text-red-500">{submitError}</p>
+                )}
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="w-full py-3"
+                  onClick={handleSubmit}
+                  disabled={loading}
+                >
+                  {loading ? "Đang gửi..." : "Nhận tư vấn ngay"}
+                </Button>
+              </div>
+            )}
 
             {/* Divider */}
             <div className="flex items-center gap-3 my-4">

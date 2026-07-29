@@ -208,7 +208,7 @@ export function ProjectsListSection({
             )}
           </div>
           <div className="sticky top-24 self-start">
-            <ProjectsSidebar />
+            <ProjectsSidebar sourceUrl="/du-an/" sourceLabel="Trang Dự Án" />
           </div>
         </div>
       </Container>

@@ -79,7 +79,10 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
 
           {/* Sidebar */}
           <div className="sticky top-24 self-start">
-            <ProjectsSidebar />
+            <ProjectsSidebar
+              sourceUrl={`/du-an/${project.slug}/`}
+              sourceLabel={`Dự án ${project.name}`}
+            />
           </div>
         </div>
       </Container>
