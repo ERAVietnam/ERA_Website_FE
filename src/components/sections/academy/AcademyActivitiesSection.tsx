@@ -93,7 +93,7 @@ export function AcademyActivitiesSection() {
               key={image}
               onClick={() => setActiveIndex(index)}
               className={`h-2.5 rounded-full transition-all ${
-                index === activeIndex ? "w-7 bg-[#D4112D]" : "w-2.5 bg-gray-300"
+                index === activeIndex ? "w-7 bg-academy-red" : "w-2.5 bg-gray-300"
               }`}
               aria-label={`Xem hoạt động ${index + 1}`}
             />
@@ -104,7 +104,7 @@ export function AcademyActivitiesSection() {
           <button
             type="button"
             onClick={goPrev}
-            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white text-[#D4112D] shadow transition hover:scale-105"
+            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white text-academy-red shadow transition hover:scale-105"
             aria-label="Ảnh trước"
           >
             <ChevronLeft size={18} />
@@ -117,7 +117,7 @@ export function AcademyActivitiesSection() {
                 key={image}
                 onClick={() => setActiveIndex(index)}
                 className={`group relative mx-1 h-14 w-24 flex-shrink-0 overflow-hidden rounded-md bg-gray-100 shadow transition duration-300 ${
-                  index === activeIndex ? "scale-110 ring-2 ring-[#D4112D]" : "opacity-55 hover:opacity-80"
+                  index === activeIndex ? "scale-110 ring-2 ring-academy-red" : "opacity-55 hover:opacity-80"
                 }`}
                 aria-label={`Xem hoạt động ${index + 1}`}
               >
@@ -129,7 +129,7 @@ export function AcademyActivitiesSection() {
           <button
             type="button"
             onClick={goNext}
-            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white text-[#D4112D] shadow transition hover:scale-105"
+            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white text-academy-red shadow transition hover:scale-105"
             aria-label="Ảnh tiếp theo"
           >
             <ChevronRight size={18} />

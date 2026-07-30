@@ -44,7 +44,7 @@ export function NewsArticleCard({
         </span>
       </div>
       <div className="p-5 flex flex-col flex-1">
-        <h2 className={`font-bold leading-snug ${titleLines} group-hover:text-[#C8102E] transition-colors`} style={{ color: colors.neutral.foreground, fontSize: "18px" }}>
+        <h2 className={`font-bold leading-snug ${titleLines} group-hover:text-primary transition-colors`} style={{ color: colors.neutral.foreground, fontSize: "18px" }}>
           {item.title}
         </h2>
         <div className="flex items-center justify-between pt-4 mt-auto">

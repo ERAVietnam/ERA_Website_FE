@@ -137,7 +137,7 @@ function OrbitRing({ radius, items, duration, reverse = false, paused, onPauseCh
                 >
                   {/* Icon placeholder */}
                   <div
-                    className={`relative bg-white rounded-2xl border border-gray-100 flex items-center justify-center transition-all duration-200 hover:scale-110 hover:border-[#C8102E] shadow-[0_4px_24px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(200,16,46,0.25)] overflow-hidden ${iconSize == null ? "w-14 h-14" : ""}`}
+                    className={`relative bg-white rounded-2xl border border-gray-100 flex items-center justify-center transition-all duration-200 hover:scale-110 hover:border-primary shadow-[0_4px_24px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(200,16,46,0.25)] overflow-hidden ${iconSize == null ? "w-14 h-14" : ""}`}
                     style={iconSize != null ? { width: iconSize, height: iconSize } : undefined}
                   >
                     <Image

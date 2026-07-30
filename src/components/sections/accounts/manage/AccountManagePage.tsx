@@ -1,82 +1,57 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { AccountManageList } from "./AccountManageList";
 import { AccountManageForm } from "./AccountManageForm";
 import { Pagination } from "@/components/ui/Pagination";
 import { accountsApi } from "@/api/domains/accounts";
-import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { useAuth } from "@/contexts/AuthContext";
-import type { ManagementAccount, PaginationMeta, AccountFilters } from "@/types/api";
+import { usePopupNotification } from "@/hooks/usePopupNotification";
+import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
+import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
+import { useAdminList } from "@/hooks/useAdminList";
+import type { ManagementAccount, AccountFilters } from "@/types/api";
 
 const DEFAULT_LIMIT = 10;
 
 export default function AccountManagePage() {
   const { account } = useAuth();
-  const [items, setItems] = useState<ManagementAccount[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { popup, showSuccess, showError, closePopup } = usePopupNotification();
+  const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
+  const {
+    items,
+    setItems,
+    loading,
+    meta,
+    setFilters,
+    fetchItems: loadAccounts,
+    handlePageChange,
+  } = useAdminList<ManagementAccount, AccountFilters>(
+    (currentFilters) => accountsApi.getAccounts(currentFilters),
+    {
+      initialFilters: { page: 1, limit: DEFAULT_LIMIT },
+      defaultLimit: DEFAULT_LIMIT,
+      onError: handleApiError,
+    },
+  );
+  const { searchInput, setSearchInput } = useDebouncedSearch((value) => {
+    const search = value.trim() || undefined;
+    setFilters((prev) => {
+      if (prev.search === search) return prev;
+      return { ...prev, search, page: 1 };
+    });
+  });
   const [editing, setEditing] = useState<ManagementAccount | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [popup, setPopup] = useState<{
-    show: boolean;
-    type: "success" | "error";
-    message: string;
-  }>({ show: false, type: "success", message: "" });
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({
     show: false,
     id: "",
   });
-  const [searchInput, setSearchInput] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
-  const [meta, setMeta] = useState<PaginationMeta>({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-  const [filters, setFilters] = useState<AccountFilters>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-  });
-  const [showNetworkError, setShowNetworkError] = useState(false);
-
-  const loadAccounts = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await accountsApi.getAccounts(filters);
-      setItems(response.items);
-      setMeta(response.meta);
-    } catch (err) {
-      setItems([]);
-      setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
-    } finally {
-      setLoading(false);
-    }
-  }, [filters]);
-
-  useEffect(() => {
-    queueMicrotask(() => loadAccounts().finally(() => setLoading(false)));
-  }, [loadAccounts]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const search = searchInput.trim() || undefined;
-      setFilters((prev) => {
-        if (prev.search === search) return prev;
-        return { ...prev, search, page: 1 };
-      });
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
-
-  const handlePageChange = (page: number) => {
-    setFilters((prev) => ({ ...prev, page }));
-  };
 
   const handleStatusFilterChange = (value: string) => {
     setStatusFilter(value);
@@ -111,20 +86,9 @@ export default function AccountManagePage() {
       .deleteAccount(id)
       .then(() => {
         setItems((prev) => prev.filter((i) => i.id !== id));
-        setPopup({
-          show: true,
-          type: "success",
-          message: "Xóa tài khoản thành công!",
-        });
+        showSuccess("Xóa tài khoản thành công!");
       })
-      .catch((err) => {
-        const { message, isNetworkError } = extractApiError(err);
-        if (isNetworkError) {
-          setShowNetworkError(true);
-        } else {
-          setPopup({ show: true, type: "error", message });
-        }
-      });
+      .catch(handleApiError);
   };
 
   const handleAdd = () => {
@@ -146,7 +110,7 @@ export default function AccountManagePage() {
             <PopupNotification
               type={popup.type}
               message={popup.message}
-              onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+              onClose={closePopup}
               autoClose={popup.type === "success"}
               autoCloseMs={1000}
             />

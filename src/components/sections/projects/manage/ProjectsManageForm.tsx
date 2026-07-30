@@ -70,7 +70,7 @@ const RichEditor = dynamic(
     ssr: false,
     loading: () => (
       <div className="border-2 border-dashed border-gray-200 rounded-xl p-12 text-center">
-        <div className="inline-block h-8 w-8 animate-spin rounded-full border-3 border-gray-300 border-t-[#C8102E]" />
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-3 border-gray-300 border-t-primary" />
         <p className="mt-3 text-sm text-gray-400">Đang tải trình soạn thảo...</p>
       </div>
     ),
@@ -679,7 +679,7 @@ export function ProjectsManageForm({
                 checked={form.isIndexed}
                 onChange={(e) => update("isIndexed", e.target.checked)}
                 disabled={isReadOnly || isSubmitting}
-                className="h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
               />
               <label htmlFor="isIndexed" className="text-sm font-medium text-gray-700 cursor-pointer">
                 Cho phép Google lập chỉ mục (index)
@@ -754,7 +754,7 @@ export function ProjectsManageForm({
                         }}
                         className={`flex h-10 w-full items-center px-4 text-left text-sm transition-colors ${
                           province === item
-                            ? "bg-red-50 font-semibold text-[#C8102E]"
+                            ? "bg-red-50 font-semibold text-primary"
                             : "text-gray-700 hover:bg-gray-50"
                         }`}
                       >

@@ -141,7 +141,7 @@ export function AcademyCoursesSection() {
           <button
             type="button"
             onClick={() => setIsFilterOpen((prev) => !prev)}
-            className="mb-0 flex w-full items-center justify-between rounded-lg bg-[#C8102E] px-4 py-3 text-left text-xs font-black uppercase text-white lg:pointer-events-none lg:mb-4 lg:rounded-none lg:bg-transparent lg:px-0 lg:py-0 lg:text-[#C8102E]"
+            className="mb-0 flex w-full items-center justify-between rounded-lg bg-primary px-4 py-3 text-left text-xs font-black uppercase text-white lg:pointer-events-none lg:mb-4 lg:rounded-none lg:bg-transparent lg:px-0 lg:py-0 lg:text-primary"
           >
             Chọn khóa học
             <ChevronDown
@@ -161,7 +161,7 @@ export function AcademyCoursesSection() {
                 >
                   <span
                     className={`flex h-3.5 w-3.5 items-center justify-center rounded-sm border ${
-                      active ? "border-[#D4112D] bg-[#D4112D]" : "border-gray-300 bg-white"
+                      active ? "border-academy-red bg-academy-red" : "border-gray-300 bg-white"
                     }`}
                   >
                     {active && <span className="h-1.5 w-1.5 rounded-sm bg-white" />}
@@ -266,7 +266,7 @@ export function AcademyCoursesSection() {
                     type="button"
                     onClick={() => setPage(pageItem)}
                     className={`h-9 w-9 rounded-lg text-sm font-bold shadow-md ${
-                      pageItem === meta.page ? "bg-[#D4112D] text-white" : "bg-white text-gray-500"
+                      pageItem === meta.page ? "bg-academy-red text-white" : "bg-white text-gray-500"
                     }`}
                   >
                     {pageItem}

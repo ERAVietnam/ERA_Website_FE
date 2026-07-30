@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Loader2, Pencil, Plus, Trash2, Upload, UserRound, X } from "lucide-react";
 import { agentsApi } from "@/api/domains/agents";
 import { Button } from "@/components/ui/Button";
@@ -17,11 +17,15 @@ import { ImageUploadField } from "@/components/ui/admin/ImageUploadField";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
-import { extractApiError, showFieldError } from "@/lib/api-errors";
+import { usePopupNotification } from "@/hooks/usePopupNotification";
+import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
+import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
+import { useAdminList } from "@/hooks/useAdminList";
+import { showFieldError } from "@/lib/api-errors";
 import { formatDate } from "@/lib/date";
 import { compressAndUploadImage } from "@/lib/uploadImage";
 import { colors } from "@/lib/theme";
-import type { Agent, AgentFilters, PaginationMeta } from "@/types/api";
+import type { Agent, AgentFilters } from "@/types/api";
 
 const DEFAULT_LIMIT = 10;
 
@@ -42,32 +46,38 @@ function agentToFormState(agent?: Agent | null): AgentFormState {
 export default function AgentManagePage() {
   const { hasPermission } = useAuth();
   const { warning, guard, closeWarning } = usePermissionWarning();
-  const [items, setItems] = useState<Agent[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { popup, showSuccess, showError, closePopup } = usePopupNotification();
+  const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
+  const {
+    items,
+    setItems,
+    loading,
+    meta,
+    setFilters,
+    fetchItems: loadAgents,
+    handlePageChange,
+  } = useAdminList<Agent, AgentFilters>((currentFilters) => agentsApi.getAgents(currentFilters), {
+    initialFilters: { page: 1, limit: DEFAULT_LIMIT },
+    defaultLimit: DEFAULT_LIMIT,
+    onError: handleApiError,
+  });
+  const { searchInput, setSearchInput } = useDebouncedSearch((value) => {
+    const search = value.trim() || undefined;
+    setFilters((prev) => {
+      if (prev.search === search) return prev;
+      return { ...prev, search, page: 1 };
+    });
+  });
   const [editing, setEditing] = useState<Agent | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [searchInput, setSearchInput] = useState("");
-  const [filters, setFilters] = useState<AgentFilters>({ page: 1, limit: DEFAULT_LIMIT });
-  const [meta, setMeta] = useState<PaginationMeta>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-    total: 0,
-    totalPages: 0,
-  });
   const [form, setForm] = useState<AgentFormState>(() => agentToFormState());
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({
     show: false,
     id: "",
   });
-  const [popup, setPopup] = useState<{
-    show: boolean;
-    type: "success" | "error";
-    message: string;
-  }>({ show: false, type: "success", message: "" });
-  const [showNetworkError, setShowNetworkError] = useState(false);
 
   const canCreate = hasPermission("agents.all.create");
   const canUpdate = hasPermission("agents.all.update");
@@ -76,41 +86,6 @@ export default function AgentManagePage() {
 
   const initialForm = useMemo(() => agentToFormState(editing), [editing]);
   const isDirty = JSON.stringify(form) !== JSON.stringify(initialForm);
-
-  const loadAgents = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await agentsApi.getAgents(filters);
-      setItems(response.items);
-      setMeta(response.meta);
-    } catch (err) {
-      setItems([]);
-      setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
-    } finally {
-      setLoading(false);
-    }
-  }, [filters]);
-
-  useEffect(() => {
-    queueMicrotask(() => loadAgents());
-  }, [loadAgents]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const search = searchInput.trim() || undefined;
-      setFilters((prev) => {
-        if (prev.search === search) return prev;
-        return { ...prev, search, page: 1 };
-      });
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
 
   const openCreate = () => {
     setEditing(null);
@@ -161,11 +136,7 @@ export default function AgentManagePage() {
 
   const setAvatarFromFile = (file: File) => {
     if (!file.type.startsWith("image/")) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: "File avatar phải là hình ảnh.",
-      });
+      showError("File avatar phải là hình ảnh.");
       return;
     }
     setAvatarFile(file);
@@ -180,7 +151,7 @@ export default function AgentManagePage() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setPopup((prev) => ({ ...prev, show: false }));
+    closePopup();
 
     const errors = validateForm();
     setFieldErrors(errors);
@@ -206,11 +177,7 @@ export default function AgentManagePage() {
         ? await agentsApi.updateAgent(editing.id, payload)
         : await agentsApi.createAgent(payload);
 
-      setPopup({
-        show: true,
-        type: "success",
-        message: editing ? "Cập nhật agent thành công!" : "Tạo agent thành công!",
-      });
+      showSuccess(editing ? "Cập nhật agent thành công!" : "Tạo agent thành công!");
       setShowForm(false);
       setEditing(null);
       setForm(agentToFormState());
@@ -221,14 +188,9 @@ export default function AgentManagePage() {
       });
       loadAgents().catch(() => {});
     } catch (err) {
-      const { field, message, isNetworkError } = extractApiError(err);
-      if (field) {
-        showFieldError(field, message, setFieldErrors);
-      } else if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err, {
+        onFieldError: (field, message) => showFieldError(field, message, setFieldErrors),
+      });
     } finally {
       setIsSaving(false);
     }
@@ -240,16 +202,11 @@ export default function AgentManagePage() {
     setDeleteConfirm({ show: false, id: "" });
     try {
       await agentsApi.deleteAgent(id);
-      setPopup({ show: true, type: "success", message: "Xóa agent thành công!" });
+      showSuccess("Xóa agent thành công!");
       setItems((prev) => prev.filter((item) => item.id !== id));
       loadAgents().catch(() => {});
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     }
   };
 
@@ -266,7 +223,7 @@ export default function AgentManagePage() {
           <PopupNotification
             type={popup.type}
             message={popup.message}
-            onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+            onClose={closePopup}
             autoClose={popup.type === "success"}
             autoCloseMs={1000}
           />
@@ -501,7 +458,7 @@ export default function AgentManagePage() {
             <Pagination
               currentPage={meta.page}
               totalPages={meta.totalPages}
-              onPageChange={(page) => setFilters((prev) => ({ ...prev, page }))}
+              onPageChange={handlePageChange}
             />
           </>
         )}

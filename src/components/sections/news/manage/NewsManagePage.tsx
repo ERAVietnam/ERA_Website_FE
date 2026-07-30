@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { NewsManageList } from "./NewsManageList";
@@ -9,14 +9,17 @@ import { NewsPreviewDialog } from "./NewsPreviewDialog";
 import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { Pagination } from "@/components/ui/Pagination";
 import { newsApi } from "@/api/domains/news";
-import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
 import { useAuth } from "@/contexts/AuthContext";
 import { accountsApi } from "@/api/domains/accounts";
-import type { NewsArticle, NewsCategory, PaginationMeta, ArticleFilters, AccountReviewer } from "@/types/api";
+import { usePopupNotification } from "@/hooks/usePopupNotification";
+import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
+import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
+import { useAdminList } from "@/hooks/useAdminList";
+import type { NewsArticle, NewsCategory, ArticleFilters, AccountReviewer } from "@/types/api";
 
 const DEFAULT_LIMIT = 10;
 
@@ -53,58 +56,45 @@ const actionMessages: Record<ActionType, { title: string; message: string; confi
 export default function NewsManagePage() {
   const searchParams = useSearchParams();
   const { hasPermission, account } = useAuth();
-  const [items, setItems] = useState<NewsArticle[]>([]);
+  const { popup, showSuccess, showError, closePopup } = usePopupNotification();
+  const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
+  const {
+    items,
+    setItems,
+    loading,
+    meta,
+    filters,
+    setFilters,
+    fetchItems,
+    handlePageChange,
+    handleFilterChange,
+  } = useAdminList<NewsArticle, ArticleFilters>(
+    (currentFilters) => newsApi.getArticles(currentFilters),
+    {
+      initialFilters: { page: 1, limit: DEFAULT_LIMIT, sortBy: "createdAt", sortOrder: "desc" },
+      defaultLimit: DEFAULT_LIMIT,
+      onError: handleApiError,
+    },
+  );
+  const { searchInput, setSearchInput } = useDebouncedSearch((value) => {
+    const search = value.trim() || undefined;
+    setFilters((prev) => {
+      if (prev.search === search) return prev;
+      return { ...prev, search, page: 1 };
+    });
+  });
   const [categories, setCategories] = useState<NewsCategory[]>([]);
-  const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<NewsArticle | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [isViewing, setIsViewing] = useState(false);
-  const [popup, setPopup] = useState<{
-    show: boolean;
-    type: "success" | "error";
-    message: string;
-  }>({ show: false, type: "success", message: "" });
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({ show: false, id: "" });
   const [actionConfirm, setActionConfirm] = useState<ActionConfirm>({ type: null, id: "" });
   const [actionLoading, setActionLoading] = useState<string | null>(null);
-  const [showNetworkError, setShowNetworkError] = useState(false);
   const [previewArticle, setPreviewArticle] = useState<NewsArticle | null>(null);
   const [historyArticleId, setHistoryArticleId] = useState<string | null>(null);
   const [newsReviewers, setNewsReviewers] = useState<AccountReviewer[]>([]);
   const [notifyAccountId, setNotifyAccountId] = useState("");
-  const [searchInput, setSearchInput] = useState("");
-  const [meta, setMeta] = useState<PaginationMeta>({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-  const [filters, setFilters] = useState<ArticleFilters>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-    sortBy: "createdAt",
-    sortOrder: "desc",
-  });
   const handledEditIdRef = useRef<string | null>(null);
-
-  const fetchItems = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await newsApi.getArticles(filters);
-      setItems(response.items);
-      setMeta(response.meta);
-    } catch (err) {
-      setItems([]);
-      setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
-    } finally {
-      setLoading(false);
-    }
-  }, [filters]);
-
-  useEffect(() => {
-    queueMicrotask(fetchItems);
-  }, [fetchItems]);
 
   useEffect(() => {
     accountsApi
@@ -118,44 +108,16 @@ export default function NewsManagePage() {
       .getCategories()
       .then(setCategories)
       .catch((err) => {
-        const { message, isNetworkError } = extractApiError(err);
-        if (isNetworkError) {
-          setShowNetworkError(true);
-        } else {
-          setPopup({ show: true, type: "error", message: `Không thể tải danh mục: ${message}` });
-        }
+        handleApiError(err, { messagePrefix: "Không thể tải danh mục: " });
         setCategories([]);
       });
-  }, []);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const search = searchInput.trim() || undefined;
-      setFilters((prev) => {
-        if (prev.search === search) return prev;
-        return { ...prev, search, page: 1 };
-      });
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
+  }, [handleApiError]);
 
   const handleSave = (article?: NewsArticle) => {
     if (article) {
       setEditing(article);
     }
     fetchItems();
-  };
-
-  const handleFilterChange = (key: keyof ArticleFilters, value: ArticleFilters[typeof key]) => {
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value,
-      page: 1,
-    }));
-  };
-
-  const handlePageChange = (page: number) => {
-    setFilters((prev) => ({ ...prev, page }));
   };
 
   const handleEdit = async (id: string) => {
@@ -165,12 +127,7 @@ export default function NewsManagePage() {
       setIsViewing(false);
       setShowForm(true);
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     }
   };
 
@@ -181,12 +138,7 @@ export default function NewsManagePage() {
       setIsViewing(true);
       setShowForm(true);
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     }
   };
 
@@ -195,12 +147,7 @@ export default function NewsManagePage() {
       const article = await newsApi.getArticleById(id);
       setPreviewArticle(article);
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     }
   };
 
@@ -216,24 +163,9 @@ export default function NewsManagePage() {
       .deleteArticle(id)
       .then(() => {
         setItems((prev) => prev.filter((i) => i.id !== id));
-        setPopup({
-          show: true,
-          type: "success",
-          message: "Xóa bài viết thành công!",
-        });
+        showSuccess("Xóa bài viết thành công!");
       })
-      .catch((err) => {
-        const { message, isNetworkError } = extractApiError(err);
-        if (isNetworkError) {
-          setShowNetworkError(true);
-        } else {
-          setPopup({ show: true, type: "error", message });
-        }
-      });
-  };
-
-  const refreshItems = () => {
-    fetchItems();
+      .catch(handleApiError);
   };
 
   const openActionConfirm = (id: string, type: ActionType) => {
@@ -265,28 +197,23 @@ export default function NewsManagePage() {
       try {
         if (type === "publish") {
           await newsApi.publishArticle(id);
-          setPopup({ show: true, type: "success", message: "Duyệt bài viết thành công!" });
+          showSuccess("Duyệt bài viết thành công!");
         } else if (type === "revoke") {
           await newsApi.revokeArticle(id);
-          setPopup({ show: true, type: "success", message: "Đã hủy duyệt bài viết!" });
+          showSuccess("Đã hủy duyệt bài viết!");
         } else if (type === "submit") {
           await newsApi.updateArticle(id, {
             status: "pending",
             notifyAccountId: notifyAccountId || null,
           });
-          setPopup({ show: true, type: "success", message: "Đã gửi bài viết đi duyệt!" });
+          showSuccess("Đã gửi bài viết đi duyệt!");
         } else if (type === "reject") {
           await newsApi.updateArticle(id, { status: "draft" });
-          setPopup({ show: true, type: "success", message: "Đã từ chối duyệt bài viết!" });
+          showSuccess("Đã từ chối duyệt bài viết!");
         }
-        refreshItems();
+        fetchItems();
       } catch (err) {
-        const { message, isNetworkError } = extractApiError(err);
-        if (isNetworkError) {
-          setShowNetworkError(true);
-        } else {
-          setPopup({ show: true, type: "error", message });
-        }
+        handleApiError(err);
       } finally {
         setActionLoading(null);
       }
@@ -317,7 +244,7 @@ export default function NewsManagePage() {
             <PopupNotification
               type={popup.type}
               message={popup.message}
-              onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+              onClose={closePopup}
               autoClose
               autoCloseMs={1000}
             />

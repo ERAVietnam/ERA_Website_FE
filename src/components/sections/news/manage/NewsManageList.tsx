@@ -124,7 +124,7 @@ export function NewsManageList({
                 onFilterChange("status", undefined);
                 onPageChange(1);
               }}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#C8102E]"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-primary"
             >
               <X size={16} />
               Xóa bộ lọc
@@ -289,7 +289,7 @@ export function NewsManageList({
                   onClick={() => onView(item.id)}
                   className="text-left w-full group"
                 >
-                  <h3 className="line-clamp-2 text-sm font-bold leading-snug text-gray-900 transition-colors group-hover:text-[#C8102E]">
+                  <h3 className="line-clamp-2 text-sm font-bold leading-snug text-gray-900 transition-colors group-hover:text-primary">
                     {item.title}
                   </h3>
                 </button>

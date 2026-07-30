@@ -98,7 +98,7 @@ export function MagazineManageList({
           <button
             type="button"
             onClick={handleClearFilters}
-            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#C8102E]"
+            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-primary"
           >
             <X size={16} />
             Xóa bộ lọc

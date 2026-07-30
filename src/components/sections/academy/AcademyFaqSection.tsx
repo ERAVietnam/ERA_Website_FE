@@ -55,7 +55,7 @@ export function AcademyFaqSection() {
                 {faq.question}
                 <ChevronDown
                   size={16}
-                  className={`flex-shrink-0 text-[#D4112D] transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  className={`flex-shrink-0 text-academy-red transition-transform ${isOpen ? "rotate-180" : ""}`}
                 />
               </button>
               {isOpen && (

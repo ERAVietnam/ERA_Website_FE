@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { ProjectsManageList } from "./ProjectsManageList";
@@ -13,7 +13,10 @@ import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
 import { projectsApi } from "@/api/domains/projects";
 import { accountsApi } from "@/api/domains/accounts";
-import { extractApiError } from "@/lib/api-errors";
+import { usePopupNotification } from "@/hooks/usePopupNotification";
+import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
+import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
+import { useAdminList } from "@/hooks/useAdminList";
 import type { AccountReviewer, Project, ProjectPublicationStatus } from "@/types/api";
 import { PROJECT_FAQ_MAX_ITEMS, PROJECT_FAQ_MIN_ITEMS, PROJECT_TAGS } from "@/lib/projects";
 
@@ -49,19 +52,55 @@ function apiProjectToFormData(project: Project): ProjectFormData {
   };
 }
 
+interface ProjectsListFilters {
+  search?: string;
+  publicationStatus?: ProjectPublicationStatus;
+  province?: string;
+  tags: string[];
+  page: number;
+}
+
 export function ProjectsManagePage() {
   const searchParams = useSearchParams();
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [editing, setEditing] = useState<ProjectFormData | null>(null);
-  const [popup, setPopup] = useState<{
-    show: boolean;
-    type: "success" | "error";
-    message: string;
-  }>({ show: false, type: "success", message: "" });
-  const [showNetworkError, setShowNetworkError] = useState(false);
+  const { popup, showSuccess, showError, closePopup } = usePopupNotification();
+  const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
   const [showForm, setShowForm] = useState(false);
+  const {
+    items: projects,
+    loading,
+    meta,
+    filters,
+    setFilters,
+    fetchItems: fetchProjects,
+    handlePageChange,
+  } = useAdminList<Project, ProjectsListFilters>(
+    (currentFilters) =>
+      projectsApi.getProjects({
+        search: currentFilters.search,
+        publicationStatus: currentFilters.publicationStatus,
+        province: currentFilters.province,
+        tags: currentFilters.tags.length > 0 ? currentFilters.tags.join(",") : undefined,
+        page: currentFilters.page,
+        limit: 10,
+      }),
+    {
+      initialFilters: { tags: [], page: 1 },
+      defaultLimit: 10,
+      enabled: !showForm,
+      resetOnError: false,
+      initialLoading: false,
+      onError: handleApiError,
+    },
+  );
+  const { searchInput, setSearchInput } = useDebouncedSearch((value) => {
+    const search = value || undefined;
+    setFilters((prev) => {
+      if (prev.search === search) return prev;
+      return { ...prev, search, page: 1 };
+    });
+  });
   const [confirm, setConfirm] = useState<{
     show: boolean;
     title: string;
@@ -75,58 +114,12 @@ export function ProjectsManagePage() {
   const [historyProjectId, setHistoryProjectId] = useState<string | null>(null);
   const [projectReviewers, setProjectReviewers] = useState<AccountReviewer[]>([]);
   const [notifyAccountId, setNotifyAccountId] = useState("");
-  const [searchInput, setSearchInput] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [publicationFilter, setPublicationFilter] = useState<ProjectPublicationStatus | "">("");
-  const [provinceFilter, setProvinceFilter] = useState("");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const handledEditIdRef = useRef<string | null>(null);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearch(searchInput);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
-
   const showPopup = (type: "success" | "error", message: string) => {
-    setPopup({ show: true, type, message });
+    if (type === "success") showSuccess(message);
+    else showError(message);
   };
-  const handleApiError = (err: unknown) => {
-    const { message, isNetworkError } = extractApiError(err);
-    if (isNetworkError) {
-      setShowNetworkError(true);
-    } else {
-      showPopup("error", message);
-    }
-  };
-
-  const fetchProjects = useCallback(async () => {
-    setLoading(true);
-    try {
-      const data = await projectsApi.getProjects({
-        search: debouncedSearch || undefined,
-        publicationStatus: publicationFilter || undefined,
-        province: provinceFilter || undefined,
-        tags: selectedTags.length > 0 ? selectedTags.join(",") : undefined,
-        page,
-        limit: 10,
-      });
-      setProjects(data.items);
-      setTotalPages(data.meta.totalPages);
-    } catch (err) {
-      handleApiError(err);
-    } finally {
-      setLoading(false);
-    }
-  }, [debouncedSearch, publicationFilter, provinceFilter, selectedTags, page]);
-
-  useEffect(() => {
-    if (showForm) return;
-    queueMicrotask(fetchProjects);
-  }, [showForm, fetchProjects]);
 
   useEffect(() => {
     accountsApi
@@ -248,6 +241,7 @@ export function ProjectsManagePage() {
   };
 
   const openListActionConfirm = (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- action có signature khác nhau (submit nhận notifyAccountId, các action khác nhận note)
     action: (id: string, data?: any) => Promise<unknown>,
     id: string,
     title: string,
@@ -354,7 +348,7 @@ export function ProjectsManagePage() {
           <PopupNotification
             type={popup.type}
             message={popup.message}
-            onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+            onClose={closePopup}
             autoClose
             autoCloseMs={1000}
           />
@@ -395,27 +389,34 @@ export function ProjectsManagePage() {
               searchInput={searchInput}
               onSearchChange={(value) => {
                 setSearchInput(value);
-                setPage(1);
+                setFilters((prev) => (prev.page === 1 ? prev : { ...prev, page: 1 }));
               }}
-              publicationFilter={publicationFilter}
+              publicationFilter={filters.publicationStatus ?? ""}
               onPublicationFilterChange={(value) => {
-                setPublicationFilter(value);
-                setPage(1);
+                const publicationStatus = value || undefined;
+                setFilters((prev) =>
+                  prev.publicationStatus === publicationStatus && prev.page === 1
+                    ? prev
+                    : { ...prev, publicationStatus, page: 1 },
+                );
               }}
-              provinceFilter={provinceFilter}
+              provinceFilter={filters.province ?? ""}
               onProvinceFilterChange={(value) => {
-                setProvinceFilter(value);
-                setPage(1);
+                const province = value || undefined;
+                setFilters((prev) =>
+                  prev.province === province && prev.page === 1
+                    ? prev
+                    : { ...prev, province, page: 1 },
+                );
               }}
-              selectedTags={selectedTags}
+              selectedTags={filters.tags}
               availableTags={PROJECT_TAGS}
               onTagsChange={(tags) => {
-                setSelectedTags(tags);
-                setPage(1);
+                setFilters((prev) => ({ ...prev, tags, page: 1 }));
               }}
-              page={page}
-              totalPages={totalPages}
-              onPageChange={setPage}
+              page={filters.page}
+              totalPages={meta.totalPages}
+              onPageChange={handlePageChange}
               onEdit={handleEdit}
               onDelete={handleDelete}
               onAdd={handleAdd}

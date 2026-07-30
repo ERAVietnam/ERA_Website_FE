@@ -2,6 +2,7 @@ import { ApplyJobDetailPage } from "@/components/sections/apply";
 import { recruitmentApi } from "@/api/domains/recruitment";
 import type { JobPosting } from "@/types/api";
 import { ROUTES } from "@/lib/routes";
+import { colors } from "@/lib/theme";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd, jobPostingJsonLd } from "@/lib/jsonLd";
 
@@ -53,7 +54,7 @@ export default async function JobDetail({ params }: Props) {
           <a
             href={ROUTES.apply}
             className="inline-block mt-4 text-sm font-medium hover:underline"
-            style={{ color: "#C8102E" }}
+            style={{ color: colors.primary.DEFAULT }}
           >
             Quay lại danh sách tuyển dụng
           </a>

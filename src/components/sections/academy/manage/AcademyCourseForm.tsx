@@ -104,7 +104,7 @@ export function AcademyCourseForm({
                     type="checkbox"
                     checked={form.tagIds.includes(tag.id)}
                     onChange={() => onToggleTag(tag.id)}
-                    className="h-4 w-4 accent-[#C8102E]"
+                    className="h-4 w-4 accent-primary"
                   />
                   <span>{tag.name}</span>
                 </label>
@@ -170,7 +170,7 @@ export function AcademyCourseForm({
                   type="checkbox"
                   checked={form.isActive}
                   onChange={(event) => onUpdateForm("isActive", event.target.checked)}
-                  className="h-4 w-4 accent-[#C8102E]"
+                  className="h-4 w-4 accent-primary"
                 />
               </label>
             </div>

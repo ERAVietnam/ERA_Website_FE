@@ -365,7 +365,7 @@ function JobApplyForm({
   const positionOptions = positions?.length ? positions : jobs.map((j) => j.title);
 
   return (
-    <div id="apply-form" className="py-10" style={{ backgroundColor: "#f3f4f6" }}>
+    <div id="apply-form" className="py-10" style={{ backgroundColor: colors.gray[100] }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="bg-white rounded-2xl shadow-md border border-gray-100 p-6 md:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-stretch">

@@ -157,7 +157,7 @@ export function AcademyHeroSection() {
               key={stat.value}
               className="rounded-2xl bg-white px-4 py-6 text-center shadow-[0_12px_30px_rgba(15,23,42,0.12)] transition-transform duration-300 hover:scale-[1.03]"
             >
-              <div className="text-4xl font-black text-[#D4112D] md:text-5xl">{stat.value}</div>
+              <div className="text-4xl font-black text-academy-red md:text-5xl">{stat.value}</div>
               <div className="mt-3 whitespace-pre-line text-xs font-black leading-tight tracking-wide text-[#070A3D]">
                 {stat.label}
               </div>

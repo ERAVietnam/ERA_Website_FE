@@ -70,7 +70,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
           className={cn(
             "flex h-9 min-w-[36px] items-center justify-center rounded-lg border px-3 text-sm font-medium transition-colors",
             page === currentPage
-              ? "border-[#C8102E] bg-[#C8102E] text-white"
+              ? "border-primary bg-primary text-white"
               : page === "..."
               ? "cursor-default border-transparent bg-transparent text-gray-400"
               : "border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50"

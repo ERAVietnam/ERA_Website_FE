@@ -14,7 +14,7 @@ interface ImageCarouselProps {
 function CarouselCaption({ caption }: { caption?: string }) {
   if (!caption) return null;
   return (
-    <div className="bg-[#f3f4f6] p-2 text-center text-lg italic text-[#4b5563] shadow-md">
+    <div className="bg-gray-100 p-2 text-center text-lg italic text-gray-600 shadow-md">
       {caption}
     </div>
   );

@@ -116,7 +116,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
           <button
             type="button"
             onClick={handleClearFilters}
-            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#C8102E]"
+            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-primary"
           >
             <X size={16} />
             Xóa bộ lọc
@@ -311,7 +311,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
                     onClick={() => onPreview?.(project)}
                     className="text-left w-full group"
                   >
-                    <h3 className="line-clamp-2 text-sm font-bold leading-snug text-gray-900 transition-colors group-hover:text-[#C8102E]">
+                    <h3 className="line-clamp-2 text-sm font-bold leading-snug text-gray-900 transition-colors group-hover:text-primary">
                       {project.name}
                     </h3>
                   </button>

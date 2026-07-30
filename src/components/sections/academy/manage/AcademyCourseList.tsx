@@ -91,7 +91,7 @@ export function AcademyCourseList({
               <button
                 type="button"
                 onClick={onClearFilters}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#C8102E]"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-primary"
               >
                 <X size={16} />
                 Xóa bộ lọc
