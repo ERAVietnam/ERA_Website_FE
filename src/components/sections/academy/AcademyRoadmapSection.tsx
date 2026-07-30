@@ -108,7 +108,7 @@ export function AcademyRoadmapSection() {
               </div>
             </article>
               {index < tracks.length - 1 && (
-                <div className="hidden h-12 w-12 items-center justify-center rounded-full bg-white text-[#D4112D] shadow-md md:flex">
+                <div className="hidden h-12 w-12 items-center justify-center rounded-full bg-white text-academy-red shadow-md md:flex">
                   <ArrowRight size={24} strokeWidth={2.5} />
                 </div>
               )}

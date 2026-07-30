@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { X, ExternalLink } from "lucide-react";
+import { AdminDialog } from "@/components/ui/admin/AdminDialog";
 import { NewsDetailPage } from "@/components/sections/news/NewsDetailPage";
+import { newsStatusConfig } from "@/lib/news/status";
 import type { NewsArticle } from "@/types/api";
 
 interface NewsPreviewDialogProps {
@@ -12,57 +13,39 @@ interface NewsPreviewDialogProps {
 }
 
 export function NewsPreviewDialog({ article, isOpen, onClose }: NewsPreviewDialogProps) {
-  const dialogRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
-        onClose();
-      }
-    }
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    }
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [isOpen, onClose]);
-
   if (!isOpen || !article) return null;
 
+  const status = newsStatusConfig[article.status] ?? newsStatusConfig.draft;
+
+  // Đồng bộ với BE (getArticleBySlug): bài chỉ công khai khi đã published
+  // VÀ thờ điểm đăng hiển thị không ở tương lai.
+  const now = new Date();
+  const isPubliclyViewable =
+    article.status === "published" &&
+    (article.displayPublishedAt
+      ? new Date(article.displayPublishedAt) <= now
+      : !article.publishedAt || new Date(article.publishedAt) <= now);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 sm:p-8 overflow-hidden">
-      <div
-        ref={dialogRef}
-        className="relative flex flex-col w-full max-w-5xl max-h-[calc(100vh-2rem)] sm:max-h-[calc(100vh-4rem)] rounded-2xl bg-white shadow-2xl overflow-hidden"
-      >
-        <div className="flex-shrink-0 z-10 flex items-center justify-between rounded-t-2xl bg-gradient-to-r from-[#C8102E] to-[#9A0B22] px-5 py-3">
+    <AdminDialog isOpen={isOpen} onClose={onClose} maxWidth="max-w-5xl">
+        <div className="flex-shrink-0 z-10 flex items-center justify-between rounded-t-2xl bg-gradient-to-r from-primary to-primary-deeper px-5 py-3">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-base font-bold text-white">Xem trước bài viết</h3>
               <span
                 className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold"
                 style={{
-                  backgroundColor: article.status === "published" ? "#D1FAE5" : article.status === "pending" ? "#FEF3C7" : "#F3F4F6",
-                  color: article.status === "published" ? "#059669" : article.status === "pending" ? "#D97706" : "#6B7280",
+                  backgroundColor: status.bg,
+                  color: status.color,
                 }}
               >
-                {article.status === "published" ? "Đã đăng" : article.status === "pending" ? "Chờ duyệt" : "Bản nháp"}
+                {status.label}
               </span>
             </div>
             <p className="text-xs text-white/80 truncate">{article.title}</p>
           </div>
           <div className="flex items-center gap-2 ml-3">
-            {article.status === "published" && (
+            {isPubliclyViewable && (
               <a
                 href={`/tin-tuc/${article.slug}/`}
                 target="_blank"
@@ -87,7 +70,6 @@ export function NewsPreviewDialog({ article, isOpen, onClose }: NewsPreviewDialo
         <div className="flex-1 overflow-y-auto">
           <NewsDetailPage article={article} isPreview />
         </div>
-      </div>
-    </div>
+    </AdminDialog>
   );
 }

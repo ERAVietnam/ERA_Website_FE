@@ -62,11 +62,7 @@ export function AcademyCourseList({
       <div className="space-y-5">
         <AdminListHeader
           title="Quản lý khóa học"
-          subtitle={
-            meta.total > 0
-              ? `Hiển thị ${items.length} / ${meta.total} khóa học`
-              : "Không có khóa học nào"
-          }
+          count={{ shown: items.length, total: meta.total, noun: "khóa học" }}
         >
           {canCreate && (
             <Button
@@ -95,7 +91,7 @@ export function AcademyCourseList({
               <button
                 type="button"
                 onClick={onClearFilters}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#C8102E]"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-primary"
               >
                 <X size={16} />
                 Xóa bộ lọc

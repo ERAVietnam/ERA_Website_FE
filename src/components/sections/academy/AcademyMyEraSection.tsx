@@ -52,7 +52,7 @@ export function AcademyMyEraSection() {
               sizes="420px"
             />
           </div>
-          <p className="mt-8 text-2xl font-bold uppercase leading-snug text-[#D4112D] md:text-3xl">
+          <p className="mt-8 text-2xl font-bold uppercase leading-snug text-academy-red md:text-3xl">
             HỌC MỌI LÚC, GIỎI MỌI NƠI<br />
             ĐỘT PHÁ MỌI RÀO CẢN
           </p>

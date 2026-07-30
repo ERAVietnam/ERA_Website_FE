@@ -159,7 +159,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 rounded-xl border border-red-100 bg-red-50 px-4 py-3 transition-colors hover:bg-red-100"
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#C8102E] shadow-sm">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-primary shadow-sm">
                   <FileText size={18} />
                 </span>
                 <div className="min-w-0 flex-1">

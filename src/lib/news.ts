@@ -1,3 +1,5 @@
+export const NEWS_PLACEHOLDER = "/news/news_placeholder.webp";
+
 export function getFirstImageFromContent(content: string): string | null {
   const match = content.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
   return match?.[1] ?? null;

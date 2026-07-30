@@ -1,9 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Loader2, Pencil, Plus, Trash2, Upload, UserRound, X } from "lucide-react";
 import { agentsApi } from "@/api/domains/agents";
-import { mediaApi } from "@/api/domains/media";
 import { Button } from "@/components/ui/Button";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { Pagination } from "@/components/ui/Pagination";
@@ -14,14 +13,19 @@ import { AdminListHeader } from "@/components/ui/admin/AdminListHeader";
 import { AdminLoading } from "@/components/ui/admin/AdminLoading";
 import { AdminTable } from "@/components/ui/admin/AdminTable";
 import { SearchInput } from "@/components/ui/admin/SearchInput";
+import { ImageUploadField } from "@/components/ui/admin/ImageUploadField";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
-import { extractApiError, showFieldError } from "@/lib/api-errors";
+import { usePopupNotification } from "@/hooks/usePopupNotification";
+import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
+import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
+import { useAdminList } from "@/hooks/useAdminList";
+import { showFieldError } from "@/lib/api-errors";
 import { formatDate } from "@/lib/date";
-import { compressImage } from "@/lib/imageCompression";
+import { compressAndUploadImage } from "@/lib/uploadImage";
 import { colors } from "@/lib/theme";
-import type { Agent, AgentFilters, PaginationMeta } from "@/types/api";
+import type { Agent, AgentFilters } from "@/types/api";
 
 const DEFAULT_LIMIT = 10;
 
@@ -42,33 +46,38 @@ function agentToFormState(agent?: Agent | null): AgentFormState {
 export default function AgentManagePage() {
   const { hasPermission } = useAuth();
   const { warning, guard, closeWarning } = usePermissionWarning();
-  const [items, setItems] = useState<Agent[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { popup, showSuccess, showError, closePopup } = usePopupNotification();
+  const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
+  const {
+    items,
+    setItems,
+    loading,
+    meta,
+    setFilters,
+    fetchItems: loadAgents,
+    handlePageChange,
+  } = useAdminList<Agent, AgentFilters>((currentFilters) => agentsApi.getAgents(currentFilters), {
+    initialFilters: { page: 1, limit: DEFAULT_LIMIT },
+    defaultLimit: DEFAULT_LIMIT,
+    onError: handleApiError,
+  });
+  const { searchInput, setSearchInput } = useDebouncedSearch((value) => {
+    const search = value.trim() || undefined;
+    setFilters((prev) => {
+      if (prev.search === search) return prev;
+      return { ...prev, search, page: 1 };
+    });
+  });
   const [editing, setEditing] = useState<Agent | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [searchInput, setSearchInput] = useState("");
-  const [filters, setFilters] = useState<AgentFilters>({ page: 1, limit: DEFAULT_LIMIT });
-  const [meta, setMeta] = useState<PaginationMeta>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-    total: 0,
-    totalPages: 0,
-  });
   const [form, setForm] = useState<AgentFormState>(() => agentToFormState());
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
-  const [isDraggingAvatar, setIsDraggingAvatar] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({
     show: false,
     id: "",
   });
-  const [popup, setPopup] = useState<{
-    show: boolean;
-    type: "success" | "error";
-    message: string;
-  }>({ show: false, type: "success", message: "" });
-  const [showNetworkError, setShowNetworkError] = useState(false);
 
   const canCreate = hasPermission("agents.all.create");
   const canUpdate = hasPermission("agents.all.update");
@@ -77,41 +86,6 @@ export default function AgentManagePage() {
 
   const initialForm = useMemo(() => agentToFormState(editing), [editing]);
   const isDirty = JSON.stringify(form) !== JSON.stringify(initialForm);
-
-  const loadAgents = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await agentsApi.getAgents(filters);
-      setItems(response.items);
-      setMeta(response.meta);
-    } catch (err) {
-      setItems([]);
-      setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
-    } finally {
-      setLoading(false);
-    }
-  }, [filters]);
-
-  useEffect(() => {
-    queueMicrotask(() => loadAgents());
-  }, [loadAgents]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const search = searchInput.trim() || undefined;
-      setFilters((prev) => {
-        if (prev.search === search) return prev;
-        return { ...prev, search, page: 1 };
-      });
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
 
   const openCreate = () => {
     setEditing(null);
@@ -134,7 +108,6 @@ export default function AgentManagePage() {
     setEditing(null);
     setForm(agentToFormState());
     setAvatarFile(null);
-    setIsDraggingAvatar(false);
     setFieldErrors({});
   };
 
@@ -163,42 +136,12 @@ export default function AgentManagePage() {
 
   const setAvatarFromFile = (file: File) => {
     if (!file.type.startsWith("image/")) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: "File avatar phải là hình ảnh.",
-      });
+      showError("File avatar phải là hình ảnh.");
       return;
     }
     setAvatarFile(file);
     setForm((prev) => ({ ...prev, avatar: URL.createObjectURL(file) }));
     setFieldErrors((prev) => ({ ...prev, avatar: "" }));
-  };
-
-  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setAvatarFromFile(file);
-    }
-  };
-
-  const handleDragOverAvatar = (event: React.DragEvent) => {
-    event.preventDefault();
-    setIsDraggingAvatar(true);
-  };
-
-  const handleDragLeaveAvatar = (event: React.DragEvent) => {
-    event.preventDefault();
-    setIsDraggingAvatar(false);
-  };
-
-  const handleDropAvatar = (event: React.DragEvent) => {
-    event.preventDefault();
-    setIsDraggingAvatar(false);
-    const file = event.dataTransfer.files?.[0];
-    if (file) {
-      setAvatarFromFile(file);
-    }
   };
 
   const handleRemoveAvatar = () => {
@@ -208,7 +151,7 @@ export default function AgentManagePage() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setPopup((prev) => ({ ...prev, show: false }));
+    closePopup();
 
     const errors = validateForm();
     setFieldErrors(errors);
@@ -218,11 +161,9 @@ export default function AgentManagePage() {
     try {
       let avatarUrl = form.avatar.trim() || null;
       if (avatarFile) {
-        const compressedFile = await compressImage(avatarFile, {
+        const upload = await compressAndUploadImage(avatarFile, "agents", {
           maxSizeMB: 1,
           maxWidthOrHeight: 1200,
-        });
-        const upload = await mediaApi.uploadImage(compressedFile, "agents", {
           filenameBase: form.name.trim(),
         });
         avatarUrl = upload.url;
@@ -236,11 +177,7 @@ export default function AgentManagePage() {
         ? await agentsApi.updateAgent(editing.id, payload)
         : await agentsApi.createAgent(payload);
 
-      setPopup({
-        show: true,
-        type: "success",
-        message: editing ? "Cập nhật agent thành công!" : "Tạo agent thành công!",
-      });
+      showSuccess(editing ? "Cập nhật agent thành công!" : "Tạo agent thành công!");
       setShowForm(false);
       setEditing(null);
       setForm(agentToFormState());
@@ -251,14 +188,9 @@ export default function AgentManagePage() {
       });
       loadAgents().catch(() => {});
     } catch (err) {
-      const { field, message, isNetworkError } = extractApiError(err);
-      if (field) {
-        showFieldError(field, message, setFieldErrors);
-      } else if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err, {
+        onFieldError: (field, message) => showFieldError(field, message, setFieldErrors),
+      });
     } finally {
       setIsSaving(false);
     }
@@ -270,16 +202,11 @@ export default function AgentManagePage() {
     setDeleteConfirm({ show: false, id: "" });
     try {
       await agentsApi.deleteAgent(id);
-      setPopup({ show: true, type: "success", message: "Xóa agent thành công!" });
+      showSuccess("Xóa agent thành công!");
       setItems((prev) => prev.filter((item) => item.id !== id));
       loadAgents().catch(() => {});
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     }
   };
 
@@ -296,7 +223,7 @@ export default function AgentManagePage() {
           <PopupNotification
             type={popup.type}
             message={popup.message}
-            onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+            onClose={closePopup}
             autoClose={popup.type === "success"}
             autoCloseMs={1000}
           />
@@ -360,61 +287,26 @@ export default function AgentManagePage() {
                   {fieldErrors.code && <p className="mt-1 text-xs text-red-500">{fieldErrors.code}</p>}
                 </div>
 
-                <div id="field-avatar">
-                  <label className="mb-2 block text-sm font-semibold text-gray-700">
-                    Ảnh đại diện
-                  </label>
-                  {fieldErrors.avatar && <p className="mt-1 text-xs text-red-500">{fieldErrors.avatar}</p>}
-
-                  {form.avatar.trim() ? (
-                    <div className="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
-                      <div className="min-w-0 flex items-center gap-3">
-                        <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full bg-gray-200">
-                          <img src={form.avatar} alt="Avatar preview" className="h-full w-full object-cover object-top" />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-sm font-semibold text-gray-900">
-                            {avatarFile?.name || "Avatar hiện tại"}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {avatarFile ? "Ảnh sẽ được upload vào thư mục agents" : "Đã có ảnh đại diện"}
-                          </p>
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={handleRemoveAvatar}
-                        className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:border-red-300 hover:text-red-600"
-                      >
-                        Xoá ảnh
-                      </button>
-                    </div>
-                  ) : null}
-
-                  <label
-                    onDragOver={handleDragOverAvatar}
-                    onDragLeave={handleDragLeaveAvatar}
-                    onDrop={handleDropAvatar}
-                    className={`mt-3 flex h-32 w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed transition-colors ${
-                      isDraggingAvatar
-                        ? "border-red-400 bg-red-50"
-                        : "border-gray-300 bg-gray-50 hover:bg-gray-100"
-                    }`}
-                  >
-                    <Upload size={28} className="text-gray-400" />
-                    <span className="text-sm text-gray-500">
-                      Kéo thả ảnh vào đây hoặc{" "}
-                      <span className="font-semibold" style={{ color: colors.primary.DEFAULT }}>chọn file</span>
-                    </span>
-                    <span className="text-xs text-gray-400">Hỗ trợ: JPG, PNG, WEBP, GIF</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="sr-only"
-                      onChange={handleAvatarChange}
-                    />
-                  </label>
-                </div>
+                <ImageUploadField
+                  id="field-avatar"
+                  error={fieldErrors.avatar}
+                  errorClassName="mt-1 text-xs text-red-500"
+                  preview={form.avatar.trim() ? form.avatar : undefined}
+                  previewAlt="Avatar preview"
+                  previewVariant="avatar-row"
+                  fileName={avatarFile?.name || "Avatar hiện tại"}
+                  fileStatusText={
+                    avatarFile ? "Ảnh sẽ được upload vào thư mục agents" : "Đã có ảnh đại diện"
+                  }
+                  clearButtonText="Xoá ảnh"
+                  onFileSelect={setAvatarFromFile}
+                  onClear={handleRemoveAvatar}
+                  hintText="Hỗ trợ: JPG, PNG, WEBP, GIF"
+                  dropzoneSize="sm"
+                  dropzoneIcon={<Upload size={28} className="text-gray-400" />}
+                  alwaysShowDropzone
+                  validateImageType={false}
+                />
 
               </form>
             </div>
@@ -459,7 +351,7 @@ export default function AgentManagePage() {
         ) : (
           <>
             <div className="space-y-5">
-              <AdminListHeader title="Danh sách agent" subtitle={`Tổng cộng ${meta.total} agent`}>
+              <AdminListHeader title="Danh sách agent" count={{ format: "total", total: meta.total, noun: "agent" }}>
                 {canCreate && (
                   <Button
                     variant="primary"
@@ -566,7 +458,7 @@ export default function AgentManagePage() {
             <Pagination
               currentPage={meta.page}
               totalPages={meta.totalPages}
-              onPageChange={(page) => setFilters((prev) => ({ ...prev, page }))}
+              onPageChange={handlePageChange}
             />
           </>
         )}

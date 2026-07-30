@@ -1,15 +1,18 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { MagazineManageList } from "./MagazineManageList";
 import { MagazineManageForm } from "./MagazineManageForm";
 import { magazinesApi } from "@/api/domains/magazines";
-import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import type { EMagazine, MagazineFilters, PaginationMeta } from "@/types/api";
+import { usePopupNotification } from "@/hooks/usePopupNotification";
+import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
+import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
+import { useAdminList } from "@/hooks/useAdminList";
+import type { EMagazine, MagazineFilters } from "@/types/api";
 
 const DEFAULT_LIMIT = 9;
 
@@ -21,71 +24,36 @@ interface ActionConfirm {
 }
 
 export default function MagazineManagePage() {
-  const [items, setItems] = useState<EMagazine[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { popup, showSuccess, showError, closePopup } = usePopupNotification();
+  const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
+  const {
+    items,
+    setItems,
+    loading,
+    meta,
+    filters,
+    setFilters,
+    handlePageChange,
+    handleFilterChange,
+  } = useAdminList<EMagazine, MagazineFilters>(
+    (currentFilters) => magazinesApi.getAllMagazines(currentFilters),
+    {
+      initialFilters: { page: 1, limit: DEFAULT_LIMIT },
+      defaultLimit: DEFAULT_LIMIT,
+      onError: handleApiError,
+    },
+  );
+  const { searchInput, setSearchInput } = useDebouncedSearch((value) => {
+    const search = value.trim() || undefined;
+    setFilters((prev) => {
+      if (prev.search === search) return prev;
+      return { ...prev, search, page: 1 };
+    });
+  });
   const [editing, setEditing] = useState<EMagazine | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [popup, setPopup] = useState<{ show: boolean; type: "success" | "error"; message: string }>({
-    show: false,
-    type: "success",
-    message: "",
-  });
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({ show: false, id: "" });
   const [actionConfirm, setActionConfirm] = useState<ActionConfirm>({ type: null, id: "" });
-  const [searchInput, setSearchInput] = useState("");
-  const [meta, setMeta] = useState<PaginationMeta>({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-  const [filters, setFilters] = useState<MagazineFilters>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-  });
-  const [showNetworkError, setShowNetworkError] = useState(false);
-
-  const fetchItems = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await magazinesApi.getAllMagazines(filters);
-      setItems(response.items);
-      setMeta(response.meta);
-    } catch (err) {
-      setItems([]);
-      setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
-    } finally {
-      setLoading(false);
-    }
-  }, [filters]);
-
-  useEffect(() => {
-    queueMicrotask(fetchItems);
-  }, [fetchItems]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const search = searchInput.trim() || undefined;
-      setFilters((prev) => {
-        if (prev.search === search) return prev;
-        return { ...prev, search, page: 1 };
-      });
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
-
-  const handleFilterChange = (key: keyof MagazineFilters, value: MagazineFilters[typeof key]) => {
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value,
-      page: 1,
-    }));
-  };
-
-  const handlePageChange = (page: number) => {
-    setFilters((prev) => ({ ...prev, page }));
-  };
 
   const handleSave = (magazine?: EMagazine) => {
     if (!magazine) return;
@@ -113,14 +81,9 @@ export default function MagazineManagePage() {
     try {
       await magazinesApi.deleteMagazine(id);
       setItems((prev) => prev.filter((item) => item.id !== id));
-      setPopup({ show: true, type: "success", message: "Xóa e-magazine thành công!" });
+      showSuccess("Xóa e-magazine thành công!");
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     }
   };
 
@@ -141,19 +104,14 @@ export default function MagazineManagePage() {
       if (type === "publish") {
         const updated = await magazinesApi.publishMagazine(id);
         setItems((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
-        setPopup({ show: true, type: "success", message: "Đăng e-magazine thành công!" });
+        showSuccess("Đăng e-magazine thành công!");
       } else if (type === "unpublish") {
         const updated = await magazinesApi.unpublishMagazine(id);
         setItems((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
-        setPopup({ show: true, type: "success", message: "Đã gỡ e-magazine về bản nháp!" });
+        showSuccess("Đã gỡ e-magazine về bản nháp!");
       }
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     }
   };
 
@@ -191,7 +149,7 @@ export default function MagazineManagePage() {
           <PopupNotification
             type={popup.type}
             message={popup.message}
-            onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+            onClose={closePopup}
             autoClose
             autoCloseMs={1000}
           />

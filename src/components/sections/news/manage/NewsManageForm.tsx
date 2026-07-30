@@ -16,6 +16,7 @@ import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
+import { ImageUploadField } from "@/components/ui/admin/ImageUploadField";
 import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { NewsPreviewDialog } from "./NewsPreviewDialog";
 import { ImageGridModal } from "@/components/shared/ImageGridModal";
@@ -25,7 +26,8 @@ import type { ImageCarouselItem } from "@/components/shared/image-carousel-layou
 import { buildImageCarouselHtml } from "@/components/shared/image-carousel-layout";
 import { useAuth } from "@/contexts/AuthContext";
 import { getNewsScopeBySlug } from "@/lib/permissions";
-import { compressImage } from "@/lib/imageCompression";
+import { compressAndUploadImage } from "@/lib/uploadImage";
+import { processContentImages } from "@/lib/contentImages";
 import { COUNTRY_OPTIONS } from "@/lib/country";
 import { newsStatusConfig } from "@/lib/news/status";
 import type { NewsCategory, NewsArticle, NewsFaqInput, AccountReviewer } from "@/types/api";
@@ -38,7 +40,7 @@ const RichEditor = dynamic(
     ssr: false,
     loading: () => (
       <div className="border-2 border-dashed border-gray-200 rounded-xl p-12 text-center">
-        <div className="inline-block h-8 w-8 animate-spin rounded-full border-3 border-gray-300 border-t-[#C8102E]" />
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-3 border-gray-300 border-t-primary" />
         <p className="mt-3 text-sm text-gray-400">Đang tải trình soạn thảo...</p>
       </div>
     ),
@@ -169,7 +171,6 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const [featuredImageFile, setFeaturedImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>(initialData?.featuredImage?.url || "");
-  const [isDraggingImage, setIsDraggingImage] = useState(false);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string>(initialData?.pdfMedia?.url || "");
   const [categories, setCategories] = useState<NewsCategory[]>([]);
@@ -462,32 +463,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     }
   }, [isPressReleaseCategory, pdfFile, pdfPreviewUrl, selectedCategory]);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFeaturedImageFile(file);
-      setImagePreview(URL.createObjectURL(file));
-    }
-  };
-
-  const handleDragOverImage = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDraggingImage(true);
-  };
-
-  const handleDragLeaveImage = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDraggingImage(false);
-  };
-
-  const handleDropImage = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDraggingImage(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith("image/")) {
-      setFeaturedImageFile(file);
-      setImagePreview(URL.createObjectURL(file));
-    }
+  const handleImageSelect = (file: File) => {
+    setFeaturedImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
   };
 
   const handleRemoveImage = () => {
@@ -679,54 +657,6 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     }
   };
 
-  function base64ToFile(base64: string, baseFilename: string): File {
-    const arr = base64.split(",");
-    const mime = arr[0].match(/:(.*?);/)?.[1] || "image/png";
-    const ext = mime.split("/")[1] || "png";
-    const filename = `${baseFilename}.${ext}`;
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], filename, { type: mime });
-  }
-
-  async function processContentImages(content: string): Promise<string> {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(content, "text/html");
-    const images = Array.from(doc.querySelectorAll('img[src^="data:image"]'));
-
-    if (images.length === 0) return content;
-
-    await Promise.all(
-      images.map(async (img, i) => {
-        const base64 = img.getAttribute("src")!;
-        const file = base64ToFile(base64, `content-img-${Date.now()}-${i}`);
-
-        // Ảnh đầu tiên giữ nguyên định dạng gốc (thường dùng làm featured fallback)
-        // Ảnh GIF cũng giữ nguyên để không mất animation
-        const isFirstImage = i === 0;
-        const isGif = file.type === "image/gif";
-        const shouldConvertToWebP = !isFirstImage && !isGif;
-
-        const compressedFile = shouldConvertToWebP
-          ? await compressImage(file, {
-              maxSizeMB: 1,
-              maxWidthOrHeight: 1600,
-              fileType: "image/webp",
-            })
-          : file;
-
-        const upload = await mediaApi.uploadImage(compressedFile, "news");
-        img.setAttribute("src", upload.url);
-      })
-    );
-
-    return doc.body.innerHTML;
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPopup((prev) => ({ ...prev, show: false }));
@@ -780,11 +710,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       let pdfMediaId: string | undefined | null;
 
       if (featuredImageFile) {
-        const compressedFile = await compressImage(featuredImageFile, {
+        const upload = await compressAndUploadImage(featuredImageFile, "news", {
           maxSizeMB: 1.5,
           maxWidthOrHeight: 1920,
         });
-        const upload = await mediaApi.uploadImage(compressedFile, "news");
         featuredImageMediaId = upload.id;
       } else if (!imagePreview && initialData?.featuredImageMediaId) {
         featuredImageMediaId = null;
@@ -805,7 +734,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         pdfMediaId = null;
       }
 
-      const processedContent = await processContentImages(form.content);
+      const processedContent = await processContentImages(form.content, "news");
 
       const payload = {
         title: form.title,
@@ -1112,7 +1041,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                   checked={form.isIndexed}
                   onChange={(e) => update("isIndexed", e.target.checked)}
                   disabled={isReadOnly}
-                  className="h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                 />
                 <label htmlFor="isIndexed" className="text-sm font-medium text-gray-700 cursor-pointer">
                   Cho phép Google lập chỉ mục (index)
@@ -1168,7 +1097,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                     }
                   }}
                   disabled={isReadOnly}
-                  className="h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                 />
                 <label htmlFor="isFeatured" className="text-sm font-medium text-gray-700 cursor-pointer">
                   Đánh dấu là bài viết nổi bật
@@ -1180,67 +1109,17 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
             </div>
 
             {/* Image Upload */}
-            <div id="field-featuredImageMediaId">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Ảnh đại diện
-              </label>
-              {fieldErrors.featuredImageMediaId && (
-                <p className="mb-2 text-xs text-red-500">{fieldErrors.featuredImageMediaId}</p>
-              )}
-              {imagePreview ? (
-                <div className="relative inline-block rounded-xl overflow-hidden border border-gray-200 bg-gray-100">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={imagePreview}
-                    alt="Preview"
-                    className="w-full max-w-[200px] h-auto object-cover"
-                  />
-                  {!isReadOnly && (
-                    <button
-                      type="button"
-                      onClick={handleRemoveImage}
-                      className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors"
-                      title="Xoá ảnh"
-                    >
-                      <X size={14} />
-                    </button>
-                  )}
-                </div>
-              ) : isReadOnly ? (
-                <div className="flex items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 text-sm text-gray-400">
-                  Không có ảnh đại diện
-                </div>
-              ) : (
-                <label
-                  onDragOver={handleDragOverImage}
-                  onDragLeave={handleDragLeaveImage}
-                  onDrop={handleDropImage}
-                  className={`flex flex-col items-center justify-center gap-2 w-full h-32 rounded-xl border-2 border-dashed cursor-pointer transition-colors ${
-                    isDraggingImage
-                      ? "border-red-400 bg-red-50"
-                      : "border-gray-300 bg-gray-50 hover:bg-gray-100"
-                  }`}
-                >
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-gray-400">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="17 8 12 3 7 8" />
-                    <line x1="12" y1="3" x2="12" y2="15" />
-                  </svg>
-                  <span className="text-sm text-gray-500">
-                    Kéo thả ảnh vào đây hoặc{" "}
-                    <span className="font-semibold" style={{ color: colors.primary.DEFAULT }}>chọn file</span>
-                  </span>
-                  <span className="text-xs text-gray-400">Hỗ trợ: JPG, PNG, WEBP</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="sr-only"
-                    onChange={handleImageChange}
-                    disabled={isReadOnly}
-                  />
-                </label>
-              )}
-            </div>
+            <ImageUploadField
+              id="field-featuredImageMediaId"
+              error={fieldErrors.featuredImageMediaId}
+              preview={imagePreview}
+              onFileSelect={handleImageSelect}
+              onClear={isReadOnly ? undefined : handleRemoveImage}
+              isReadOnly={isReadOnly}
+              previewMaxWidth={200}
+              dropzoneSize="sm"
+              emptyReadOnlyText="Không có ảnh đại diện"
+            />
 
             {/* Content */}
             <div id="field-content">
@@ -1368,7 +1247,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                 {pdfPreviewUrl && (
                   <div className="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
                     <div className="min-w-0 flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#C8102E] shadow-sm">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-primary shadow-sm">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                           <polyline points="14 2 14 8 20 8" />

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { ImagePlus, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { ImageUploadField } from "@/components/ui/admin/ImageUploadField";
 import { colors } from "@/lib/theme";
 import type { AcademyCourse, AcademyCourseTag } from "@/types/api";
 import type { CourseFormState } from "./types";
@@ -17,7 +18,6 @@ interface Props {
   tags: AcademyCourseTag[];
   fieldErrors: Record<string, string>;
   imageFile: File | null;
-  isDraggingImage: boolean;
   isSaving: boolean;
   isDirty: boolean;
   inputBaseClass: string;
@@ -26,10 +26,8 @@ interface Props {
   onClose: () => void;
   onUpdateForm: <K extends keyof CourseFormState>(key: K, value: CourseFormState[K]) => void;
   onToggleTag: (tagId: string) => void;
-  onImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onImageDrop: (file: File) => void;
-  setImageFile: (file: File | null) => void;
-  setIsDraggingImage: (value: boolean) => void;
+  onImageSelect: (file: File) => void;
+  onImageClear: () => void;
 }
 
 export function AcademyCourseForm({
@@ -38,7 +36,6 @@ export function AcademyCourseForm({
   tags,
   fieldErrors,
   imageFile,
-  isDraggingImage,
   isSaving,
   isDirty,
   inputBaseClass,
@@ -47,10 +44,8 @@ export function AcademyCourseForm({
   onClose,
   onUpdateForm,
   onToggleTag,
-  onImageChange,
-  onImageDrop,
-  setImageFile,
-  setIsDraggingImage,
+  onImageSelect,
+  onImageClear,
 }: Props) {
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_11rem] md:items-start">
@@ -80,62 +75,22 @@ export function AcademyCourseForm({
             )}
           </div>
 
-          <div id="field-imageMediaId">
-            <label className="mb-2 block text-sm font-semibold text-gray-700">Ảnh khóa học</label>
-            {form.imageUrl ? (
-              <div className="mb-3 overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-gray-100">
-                  <img src={form.imageUrl} alt="Course preview" className="h-full w-full object-cover" />
-                </div>
-                <div className="flex items-center justify-between gap-3 px-4 py-3">
-                  <p className="min-w-0 truncate text-sm text-gray-600">
-                    {imageFile?.name || "Ảnh hiện tại"}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setImageFile(null);
-                      onUpdateForm("imageUrl", "");
-                      onUpdateForm("imageMediaId", null);
-                    }}
-                    className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:border-red-300 hover:text-red-600"
-                  >
-                    Xóa ảnh
-                  </button>
-                </div>
-              </div>
-            ) : null}
-
-            <label
-              onDragOver={(event) => {
-                event.preventDefault();
-                setIsDraggingImage(true);
-              }}
-              onDragLeave={(event) => {
-                event.preventDefault();
-                setIsDraggingImage(false);
-              }}
-              onDrop={(event) => {
-                event.preventDefault();
-                setIsDraggingImage(false);
-                const file = event.dataTransfer.files?.[0];
-                if (file) onImageDrop(file);
-              }}
-              className={`flex h-32 w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed transition-colors ${
-                isDraggingImage ? "border-red-400 bg-red-50" : "border-gray-300 bg-gray-50 hover:bg-gray-100"
-              }`}
-            >
-              <ImagePlus size={28} className="text-gray-400" />
-              <span className="text-sm text-gray-500">
-                Kéo thả ảnh vào đây hoặc{" "}
-                <span className="font-semibold" style={{ color: colors.primary.DEFAULT }}>
-                  chọn file
-                </span>
-              </span>
-              <span className="text-xs text-gray-400">Hỗ trợ JPG, PNG, WEBP, GIF</span>
-              <input type="file" accept="image/*" className="sr-only" onChange={onImageChange} />
-            </label>
-          </div>
+          <ImageUploadField
+            id="field-imageMediaId"
+            label="Ảnh khóa học"
+            preview={form.imageUrl || undefined}
+            previewAlt="Course preview"
+            previewVariant="banner"
+            fileName={imageFile?.name || "Ảnh hiện tại"}
+            clearButtonText="Xóa ảnh"
+            onFileSelect={onImageSelect}
+            onClear={onImageClear}
+            hintText="Hỗ trợ JPG, PNG, WEBP, GIF"
+            dropzoneSize="sm"
+            dropzoneIcon={<ImagePlus size={28} className="text-gray-400" />}
+            alwaysShowDropzone
+            validateImageType={false}
+          />
 
           <div id="field-tagIds">
             <label className="mb-2 block text-sm font-semibold text-gray-700">Tag khóa học</label>
@@ -149,7 +104,7 @@ export function AcademyCourseForm({
                     type="checkbox"
                     checked={form.tagIds.includes(tag.id)}
                     onChange={() => onToggleTag(tag.id)}
-                    className="h-4 w-4 accent-[#C8102E]"
+                    className="h-4 w-4 accent-primary"
                   />
                   <span>{tag.name}</span>
                 </label>
@@ -215,7 +170,7 @@ export function AcademyCourseForm({
                   type="checkbox"
                   checked={form.isActive}
                   onChange={(event) => onUpdateForm("isActive", event.target.checked)}
-                  className="h-4 w-4 accent-[#C8102E]"
+                  className="h-4 w-4 accent-primary"
                 />
               </label>
             </div>

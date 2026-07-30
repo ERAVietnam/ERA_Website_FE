@@ -68,8 +68,7 @@ export function MagazineManageList({
 
   const statusOptions = [
     { value: "", label: "Tất cả trạng thái" },
-    { value: "draft", label: "Bản nháp" },
-    { value: "published", label: "Đã đăng" },
+    ...Object.entries(magazineStatusConfig).map(([value, { label }]) => ({ value, label })),
   ];
 
   const handleClearFilters = () => {
@@ -82,7 +81,7 @@ export function MagazineManageList({
     <div className="space-y-5">
       <AdminListHeader
         title="Quản lý e-magazine"
-        subtitle={meta.total > 0 ? `Hiển thị ${items.length} / ${meta.total} e-magazine` : "Không có e-magazine nào"}
+        count={{ shown: items.length, total: meta.total, noun: "e-magazine" }}
       >
         <div className="flex items-center gap-2">
           {canCreate && (
@@ -99,7 +98,7 @@ export function MagazineManageList({
           <button
             type="button"
             onClick={handleClearFilters}
-            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#C8102E]"
+            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-primary"
           >
             <X size={16} />
             Xóa bộ lọc

@@ -545,7 +545,7 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
                   type="checkbox"
                   checked={form.isActive}
                   onChange={(e) => update("isActive", e.target.checked)}
-                  className="h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                 />
                 <label
                   htmlFor="isActive"
@@ -587,7 +587,7 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
                               type="checkbox"
                               checked={form.isNewsReviewer}
                               onChange={(e) => update("isNewsReviewer", e.target.checked)}
-                              className="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                              className="mt-0.5 h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                             />
                             <span className="space-y-1">
                               <span className="block text-sm font-semibold text-gray-800">
@@ -607,7 +607,7 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
                               type="checkbox"
                               checked={form.isProjectReviewer}
                               onChange={(e) => update("isProjectReviewer", e.target.checked)}
-                              className="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                              className="mt-0.5 h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                             />
                             <span className="space-y-1">
                               <span className="block text-sm font-semibold text-gray-800">
@@ -647,7 +647,7 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
                                           e.target.checked,
                                         )
                                       }
-                                      className="h-4 w-4 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                                      className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                                     />
                                     Chọn tất cả
                                   </label>
@@ -680,7 +680,7 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
                                           checked={selectedPermissionIds.has(p.id)}
                                           onChange={() => togglePermission(p.id)}
                                           disabled={isScopeDisabled}
-                                          className="h-4 w-4 mt-0.5 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                                          className="h-4 w-4 mt-0.5 rounded border-gray-300 text-primary focus:ring-primary"
                                         />
                                         <span className="text-sm text-gray-700 leading-snug">
                                           {label}

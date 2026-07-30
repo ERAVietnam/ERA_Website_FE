@@ -85,7 +85,7 @@ export function ApplicationsManageList({
     <div className="space-y-5">
       <AdminListHeader
         title="Danh sách ứng viên"
-        subtitle={`Tổng cộng ${meta.total} đơn ứng tuyển`}
+        count={{ format: "total", total: meta.total, noun: "đơn ứng tuyển" }}
       />
 
       <AdminFilters
@@ -93,7 +93,7 @@ export function ApplicationsManageList({
           <button
             type="button"
             onClick={handleClearFilters}
-            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#C8102E]"
+            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-primary"
           >
             <X size={16} />
             Xóa bộ lọc

@@ -142,10 +142,10 @@ export function JoinCultureSection() {
         {/* Header */}
         <div className="text-center mb-10 lg:mb-20">
           <h2 className="text-3xl md:text-4xl font-extrabold uppercase tracking-tight">
-            <span className="text-[#0C0C44]">Văn hoá & Môi trường</span>
+            <span className="text-primary-navy">Văn hoá & Môi trường</span>
             <br className="hidden sm:block" />
-            <span className="text-[#0C0C44]"> làm việc </span>
-            <span className="text-[#C8102E]">tại ERA</span>
+            <span className="text-primary-navy"> làm việc </span>
+            <span className="text-primary">tại ERA</span>
           </h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-[15px] leading-relaxed">
             Khám phá hệ sinh thái làm việc tiêu chuẩn quốc tế, nơi mỗi cá nhân

@@ -1,23 +1,15 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { c } from "../theme";
 import { submitLead } from "../lib/submit-lead";
+import { useInView } from "@/hooks/useInView";
 
 export function StickyWidget() {
   const [collapsed, setCollapsed] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const finalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => setHidden(entries[0].isIntersecting),
-      { threshold: 0.12 }
-    );
-    if (finalRef.current) observer.observe(finalRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const hidden = useInView(finalRef, { threshold: 0.12 });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

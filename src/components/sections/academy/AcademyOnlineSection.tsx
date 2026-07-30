@@ -106,7 +106,7 @@ export function AcademyOnlineSection() {
               key={video.title}
               onClick={() => setActiveIndex(index)}
               className={`h-2.5 rounded-full transition-all ${
-                index === activeIndex ? "w-7 bg-[#D4112D]" : "w-2.5 bg-gray-300"
+                index === activeIndex ? "w-7 bg-academy-red" : "w-2.5 bg-gray-300"
               }`}
               aria-label={`Xem video ${index + 1}`}
             />

@@ -301,7 +301,7 @@ export function ApplicationsManageForm({
                             : ""
                         } ${!canUpdate || isStatusLoading ? "cursor-not-allowed opacity-70" : "cursor-pointer hover:scale-105"}`}
                         style={{
-                          backgroundColor: isActive ? color.bg : "#F3F4F6",
+                          backgroundColor: isActive ? color.bg : colors.gray[100],
                           borderColor: isActive ? color.border : "#E5E7EB",
                           color: isActive ? color.text : "#9CA3AF",
                           ["--tw-ring-color" as string]: isCurrent ? color.border : undefined,
@@ -313,7 +313,7 @@ export function ApplicationsManageForm({
                         className={`mt-2 text-xs font-medium text-center px-1 ${
                           isCurrent ? "font-bold" : ""
                         }`}
-                        style={{ color: isCurrent ? color.text : "#6B7280" }}
+                        style={{ color: isCurrent ? color.text : colors.gray[500] }}
                       >
                         {step.label}
                       </span>

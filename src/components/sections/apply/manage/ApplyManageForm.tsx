@@ -16,7 +16,7 @@ const RichEditor = dynamic(
     ssr: false,
     loading: () => (
       <div className="border-2 border-dashed border-gray-200 rounded-xl p-12 text-center">
-        <div className="inline-block h-8 w-8 animate-spin rounded-full border-3 border-gray-300 border-t-[#C8102E]" />
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-3 border-gray-300 border-t-primary" />
         <p className="mt-3 text-sm text-gray-400">Đang tải trình soạn thảo...</p>
       </div>
     ),

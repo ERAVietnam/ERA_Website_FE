@@ -1,21 +1,23 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { academyCoursesApi } from "@/api/domains/academy-courses";
-import { mediaApi } from "@/api/domains/media";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { Section } from "@/components/ui/Section";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
-import { extractApiError, showFieldError } from "@/lib/api-errors";
-import { compressImage } from "@/lib/imageCompression";
+import { usePopupNotification } from "@/hooks/usePopupNotification";
+import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
+import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
+import { useAdminList } from "@/hooks/useAdminList";
+import { showFieldError } from "@/lib/api-errors";
+import { compressAndUploadImage } from "@/lib/uploadImage";
 import type {
   AcademyCourse,
   AcademyCourseFilters,
   AcademyCourseTag,
-  PaginationMeta,
 } from "@/types/api";
 import { AcademyCourseForm } from "./AcademyCourseForm";
 import { AcademyCourseList } from "./AcademyCourseList";
@@ -24,37 +26,49 @@ import { DEFAULT_LIMIT, courseToFormState, stripHtml, type CourseFormState } fro
 export default function AcademyCourseManagePage() {
   const { hasPermission } = useAuth();
   const { warning, guard, closeWarning } = usePermissionWarning();
-  const [items, setItems] = useState<AcademyCourse[]>([]);
+  const { popup, showSuccess, showError, closePopup } = usePopupNotification();
+  const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
   const [tags, setTags] = useState<AcademyCourseTag[]>([]);
-  const [loading, setLoading] = useState(true);
+  const {
+    items,
+    setItems,
+    loading,
+    meta,
+    filters,
+    setFilters,
+    fetchItems: loadData,
+  } = useAdminList<AcademyCourse, AcademyCourseFilters>(
+    async (currentFilters) => {
+      const [coursesResponse, tagsResponse] = await Promise.all([
+        academyCoursesApi.getCourses(currentFilters),
+        academyCoursesApi.getTags(),
+      ]);
+      setTags(tagsResponse);
+      return coursesResponse;
+    },
+    {
+      initialFilters: { page: 1, limit: DEFAULT_LIMIT },
+      defaultLimit: DEFAULT_LIMIT,
+      onError: handleApiError,
+    },
+  );
+  const { searchInput, setSearchInput } = useDebouncedSearch((value) => {
+    const search = value.trim() || undefined;
+    setFilters((prev) => {
+      if (prev.search === search) return prev;
+      return { ...prev, search, page: 1 };
+    });
+  });
   const [editing, setEditing] = useState<AcademyCourse | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [searchInput, setSearchInput] = useState("");
-  const [filters, setFilters] = useState<AcademyCourseFilters>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-  });
-  const [meta, setMeta] = useState<PaginationMeta>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-    total: 0,
-    totalPages: 0,
-  });
   const [form, setForm] = useState<CourseFormState>(() => courseToFormState());
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [isDraggingImage, setIsDraggingImage] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({
     show: false,
     id: "",
   });
-  const [popup, setPopup] = useState<{
-    show: boolean;
-    type: "success" | "error";
-    message: string;
-  }>({ show: false, type: "success", message: "" });
-  const [showNetworkError, setShowNetworkError] = useState(false);
 
   const canCreate = hasPermission("academy.courses.all.create");
   const canUpdate = hasPermission("academy.courses.all.update");
@@ -68,42 +82,6 @@ export default function AcademyCourseManagePage() {
     setSearchInput("");
     setFilters({ page: 1, limit: DEFAULT_LIMIT });
   };
-
-  const loadData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const [coursesResponse, tagsResponse] = await Promise.all([
-        academyCoursesApi.getCourses(filters),
-        academyCoursesApi.getTags(),
-      ]);
-      setItems(coursesResponse.items);
-      setMeta(coursesResponse.meta);
-      setTags(tagsResponse);
-    } catch (err) {
-      setItems([]);
-      setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) setShowNetworkError(true);
-      else setPopup({ show: true, type: "error", message });
-    } finally {
-      setLoading(false);
-    }
-  }, [filters]);
-
-  useEffect(() => {
-    queueMicrotask(() => loadData());
-  }, [loadData]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const search = searchInput.trim() || undefined;
-      setFilters((prev) => {
-        if (prev.search === search) return prev;
-        return { ...prev, search, page: 1 };
-      });
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
 
   const openCreate = () => {
     setEditing(null);
@@ -126,7 +104,6 @@ export default function AcademyCourseManagePage() {
     setEditing(null);
     setForm(courseToFormState());
     setImageFile(null);
-    setIsDraggingImage(false);
     setFieldErrors({});
   };
 
@@ -156,7 +133,7 @@ export default function AcademyCourseManagePage() {
 
   const setImageFromFile = (file: File) => {
     if (!file.type.startsWith("image/")) {
-      setPopup({ show: true, type: "error", message: "File ảnh phải là hình ảnh." });
+      showError("File ảnh phải là hình ảnh.");
       return;
     }
     setImageFile(file);
@@ -164,9 +141,10 @@ export default function AcademyCourseManagePage() {
     updateForm("imageMediaId", null);
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) setImageFromFile(file);
+  const handleImageClear = () => {
+    setImageFile(null);
+    updateForm("imageUrl", "");
+    updateForm("imageMediaId", null);
   };
 
   const toggleTag = (tagId: string) => {
@@ -180,7 +158,7 @@ export default function AcademyCourseManagePage() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setPopup((prev) => ({ ...prev, show: false }));
+    closePopup();
 
     const errors = validateForm();
     setFieldErrors(errors);
@@ -190,11 +168,9 @@ export default function AcademyCourseManagePage() {
     try {
       let imageMediaId = form.imageMediaId;
       if (imageFile) {
-        const compressedFile = await compressImage(imageFile, {
+        const upload = await compressAndUploadImage(imageFile, "academy", {
           maxSizeMB: 1,
           maxWidthOrHeight: 1400,
-        });
-        const upload = await mediaApi.uploadImage(compressedFile, "academy", {
           filenameBase: form.title.trim(),
         });
         imageMediaId = upload.id;
@@ -214,11 +190,7 @@ export default function AcademyCourseManagePage() {
         ? await academyCoursesApi.updateCourse(editing.id, payload)
         : await academyCoursesApi.createCourse(payload);
 
-      setPopup({
-        show: true,
-        type: "success",
-        message: editing ? "Cập nhật khóa học thành công." : "Tạo khóa học thành công.",
-      });
+      showSuccess(editing ? "Cập nhật khóa học thành công." : "Tạo khóa học thành công.");
       setShowForm(false);
       setEditing(null);
       setForm(courseToFormState());
@@ -229,10 +201,9 @@ export default function AcademyCourseManagePage() {
       });
       loadData().catch(() => {});
     } catch (err) {
-      const { field, message, isNetworkError } = extractApiError(err);
-      if (field) showFieldError(field, message, setFieldErrors);
-      else if (isNetworkError) setShowNetworkError(true);
-      else setPopup({ show: true, type: "error", message });
+      handleApiError(err, {
+        onFieldError: (field, message) => showFieldError(field, message, setFieldErrors),
+      });
     } finally {
       setIsSaving(false);
     }
@@ -244,13 +215,11 @@ export default function AcademyCourseManagePage() {
     setDeleteConfirm({ show: false, id: "" });
     try {
       await academyCoursesApi.deleteCourse(id);
-      setPopup({ show: true, type: "success", message: "Xóa khóa học thành công." });
+      showSuccess("Xóa khóa học thành công.");
       setItems((prev) => prev.filter((item) => item.id !== id));
       loadData().catch(() => {});
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) setShowNetworkError(true);
-      else setPopup({ show: true, type: "error", message });
+      handleApiError(err);
     }
   };
 
@@ -267,7 +236,7 @@ export default function AcademyCourseManagePage() {
           <PopupNotification
             type={popup.type}
             message={popup.message}
-            onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+            onClose={closePopup}
             autoClose={popup.type === "success"}
             autoCloseMs={1000}
           />
@@ -300,7 +269,6 @@ export default function AcademyCourseManagePage() {
             tags={tags}
             fieldErrors={fieldErrors}
             imageFile={imageFile}
-            isDraggingImage={isDraggingImage}
             isSaving={isSaving}
             isDirty={isDirty}
             inputBaseClass={inputBaseClass}
@@ -309,10 +277,8 @@ export default function AcademyCourseManagePage() {
             onClose={closeForm}
             onUpdateForm={updateForm}
             onToggleTag={toggleTag}
-            onImageChange={handleImageChange}
-            onImageDrop={setImageFromFile}
-            setImageFile={setImageFile}
-            setIsDraggingImage={setIsDraggingImage}
+            onImageSelect={setImageFromFile}
+            onImageClear={handleImageClear}
           />
         ) : (
           <AcademyCourseList

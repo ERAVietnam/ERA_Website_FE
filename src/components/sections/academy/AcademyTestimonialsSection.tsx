@@ -118,17 +118,17 @@ export function AcademyTestimonialsSection() {
               key={`${item.name}-${index}-dot`}
               onClick={() => setActiveIndex(index)}
               className={`h-2.5 rounded-full transition-all ${
-                index === activeIndex ? "w-7 bg-[#D4112D]" : "w-2.5 bg-gray-300"
+                index === activeIndex ? "w-7 bg-academy-red" : "w-2.5 bg-gray-300"
               }`}
               aria-label={`Xem đánh giá ${index + 1}`}
             />
           ))}
         </div>
 
-        <button className="absolute left-0 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#D4112D] shadow md:flex">
+        <button className="absolute left-0 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-academy-red shadow md:flex">
           <ChevronLeft size={18} />
         </button>
-        <button className="absolute right-0 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#D4112D] shadow md:flex">
+        <button className="absolute right-0 top-1/2 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-academy-red shadow md:flex">
           <ChevronRight size={18} />
         </button>
       </div>

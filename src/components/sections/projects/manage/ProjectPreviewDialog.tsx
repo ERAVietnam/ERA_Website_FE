@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { X, ExternalLink } from "lucide-react";
+import { AdminDialog } from "@/components/ui/admin/AdminDialog";
 import { colors } from "@/lib/theme";
 import type { ProjectFormData } from "./ProjectsManageForm";
 import { ProjectsFaqSection } from "../ProjectsFaqSection";
@@ -16,31 +16,6 @@ interface ProjectPreviewDialogProps {
 }
 
 export function ProjectPreviewDialog({ project, imagePreviewUrl, isOpen, onClose }: ProjectPreviewDialogProps) {
-  const dialogRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
-        onClose();
-      }
-    }
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    }
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [isOpen, onClose]);
-
   if (!isOpen || !project) return null;
 
   const isPubliclyViewable = !!project.id && project.publicationStatus === "published";
@@ -49,12 +24,8 @@ export function ProjectPreviewDialog({ project, imagePreviewUrl, isOpen, onClose
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 sm:p-8 overflow-hidden">
-      <div
-        ref={dialogRef}
-        className="relative flex flex-col w-full max-w-5xl max-h-[calc(100vh-2rem)] sm:max-h-[calc(100vh-4rem)] rounded-2xl bg-white shadow-2xl overflow-hidden"
-      >
-        <div className="flex-shrink-0 z-10 flex items-center justify-between rounded-t-2xl bg-gradient-to-r from-[#C8102E] to-[#9A0B22] px-5 py-3">
+    <AdminDialog isOpen={isOpen} onClose={onClose} maxWidth="max-w-5xl">
+        <div className="flex-shrink-0 z-10 flex items-center justify-between rounded-t-2xl bg-gradient-to-r from-primary to-primary-deeper px-5 py-3">
           <div className="min-w-0 flex-1">
             <h3 className="text-base font-bold text-white">Xem trước dự án</h3>
             <p className="text-xs text-white/80 truncate">{project.name}</p>
@@ -125,7 +96,6 @@ export function ProjectPreviewDialog({ project, imagePreviewUrl, isOpen, onClose
             )}
           </div>
         </div>
-      </div>
-    </div>
+    </AdminDialog>
   );
 }

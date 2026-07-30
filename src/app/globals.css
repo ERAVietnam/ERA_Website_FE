@@ -8,6 +8,11 @@
   /* Primary Colors */
   --primary: #C8102E;
   --primary-dark: #990038;
+  --primary-deeper: #9A0B22;
+  --primary-navy: #0C0C44;
+  
+  /* Academy Colors (riêng của Academy, không merge về primary) */
+  --academy-red: #D4112D;
   
   /* Secondary Colors */
   --secondary: #41B3E0;
@@ -80,10 +85,12 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-dark: var(--primary-dark);
+  --color-primary-deeper: var(--primary-deeper);
+  --color-primary-navy: var(--primary-navy);
+  --color-academy-red: var(--academy-red);
   --color-secondary: var(--secondary);
   --color-secondary-dark: var(--secondary-dark);
   --color-accent: var(--accent);
-  --color-accent-light: var(--accent-light);
   --color-muted: var(--muted);
   --color-muted-light: var(--muted-light);
   --color-muted-lighter: var(--muted-lighter);
@@ -112,32 +119,12 @@ body {
    Custom Utility Classes
    ============================================ */
 
-/* Text colors using CSS variables */
-.text-primary { color: var(--primary); }
-.text-secondary { color: var(--secondary); }
+/* Classes below have NO Tailwind utility equivalent -> kept manually */
 .text-muted-custom { color: var(--muted); }
 
-/* Background colors using CSS variables */
-.bg-primary { background-color: var(--primary); }
-.bg-primary-dark { background-color: var(--primary-dark); }
-.bg-secondary { background-color: var(--secondary); }
-.bg-secondary-dark { background-color: var(--secondary-dark); }
-.bg-accent { background-color: var(--accent); }
+/* bg-gray-50: Tailwind v4 default gray-50 is oklch(98.5% 0.002 247.839),
+   not var(--gray-50) (#f9fafb) -> kept to guarantee unchanged render */
 .bg-gray-50 { background-color: var(--gray-50); }
-
-/* Border colors using CSS variables */
-.border-primary { border-color: var(--primary); }
-.border-secondary { border-color: var(--secondary); }
-
-/* Hover states */
-.hover\:text-primary:hover { color: var(--primary); }
-.hover\:bg-primary-dark:hover { background-color: var(--primary-dark); }
-.hover\:text-secondary:hover { color: var(--secondary); }
-.hover\:bg-secondary-dark:hover { background-color: var(--secondary-dark); }
-
-/* Focus states */
-.focus\:border-primary:focus { border-color: var(--primary); }
-.focus\:ring-primary:focus { --tw-ring-color: rgb(var(--tw-ring-primary) / 0.2); }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {

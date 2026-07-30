@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
+import { useInView } from "@/hooks/useInView";
 
 const stats = [
   { value: 39, suffix: "+", label: "QUỐC GIA", icon: "/network/network_countries_icon.svg" },
@@ -51,44 +52,13 @@ function StatCounter({ value, suffix, isVisible }: { value: number; suffix: stri
 }
 
 export function GlobalNetworkSection() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isInView, setIsInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const videoId = "T4gQ37irTtg";
 
-  // Intersection Observer for stats counter
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Separate observer for video autoplay
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.3 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  // Intersection Observer for stats counter (bật 1 lần, không reset)
+  const isVisible = useInView(sectionRef, { threshold: 0.2, once: true });
+  // Separate observer for video autoplay (toggle theo trạng thái intersect)
+  const isInView = useInView(sectionRef, { threshold: 0.3 });
 
   // Build video URL based on visibility
   const getVideoUrl = (isMobile: boolean) => {

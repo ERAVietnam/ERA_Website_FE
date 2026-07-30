@@ -81,7 +81,7 @@ export function ApplyManageList({
     <div className="space-y-5">
       <AdminListHeader
         title="Quản lý tin tuyển dụng"
-        subtitle={meta.total > 0 ? `Hiển thị ${jobs.length} / ${meta.total} tin tuyển dụng` : "Không có tin tuyển dụng nào"}
+        count={{ shown: jobs.length, total: meta.total, noun: "tin tuyển dụng" }}
       >
         {canCreate && (
           <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">
@@ -101,7 +101,7 @@ export function ApplyManageList({
               onFilterChange("status", undefined);
               onFilterChange("page", 1);
             }}
-            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#C8102E]"
+            className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-primary"
           >
             <X size={16} />
             Xóa bộ lọc

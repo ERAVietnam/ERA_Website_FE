@@ -5,7 +5,6 @@ import { Loader2, Plus, X } from "lucide-react";
 import { agentsApi } from "@/api/domains/agents";
 import { annualHonorsApi } from "@/api/domains/annual-honors";
 import { honorsApi } from "@/api/domains/honors";
-import { mediaApi } from "@/api/domains/media";
 import { monthlyHonorsApi } from "@/api/domains/monthly-honors";
 import { Button } from "@/components/ui/Button";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -18,8 +17,10 @@ import { AdminListHeader } from "@/components/ui/admin/AdminListHeader";
 import { AdminLoading } from "@/components/ui/admin/AdminLoading";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
-import { extractApiError } from "@/lib/api-errors";
-import { compressImage } from "@/lib/imageCompression";
+import { usePopupNotification } from "@/hooks/usePopupNotification";
+import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
+import { useAdminList } from "@/hooks/useAdminList";
+import { compressAndUploadImage } from "@/lib/uploadImage";
 import { colors } from "@/lib/theme";
 import type {
   Agent,
@@ -30,7 +31,6 @@ import type {
   HonorCategory,
   MonthlyHonorFilters,
   MonthlyHonorList,
-  PaginationMeta,
   UpdateAnnualHonorInput,
   UpdateMonthlyHonorInput,
 } from "@/types/api";
@@ -61,9 +61,6 @@ export default function HonorsManagePage() {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [agentSearch, setAgentSearch] = useState("");
   const [loading, setLoading] = useState(true);
-  const [monthlyLoading, setMonthlyLoading] = useState(false);
-  const [annualLoading, setAnnualLoading] = useState(false);
-  const [annualItems, setAnnualItems] = useState<AnnualHonorList[]>([]);
   const [annualEditing, setAnnualEditing] = useState<AnnualHonorList | null>(null);
   const [showAnnualForm, setShowAnnualForm] = useState(false);
   const [annualForm, setAnnualForm] = useState<AnnualHonorFormState>(() =>
@@ -74,7 +71,6 @@ export default function HonorsManagePage() {
   const [annualSaving, setAnnualSaving] = useState(false);
   const [annualDeletingId, setAnnualDeletingId] = useState<string | null>(null);
   const [annualFieldErrors, setAnnualFieldErrors] = useState<Record<string, string>>({});
-  const [monthlyItems, setMonthlyItems] = useState<MonthlyHonorList[]>([]);
   const [showMonthlyForm, setShowMonthlyForm] = useState(false);
   const [monthlyEditing, setMonthlyEditing] = useState<MonthlyHonorList | null>(null);
   const [monthlyForm, setMonthlyForm] = useState<MonthlyHonorFormState>(() =>
@@ -85,33 +81,41 @@ export default function HonorsManagePage() {
   const [monthlyFieldErrors, setMonthlyFieldErrors] = useState<
     Record<string, string>
   >({});
-  const [monthlyFilters, setMonthlyFilters] = useState<MonthlyHonorFilters>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-  });
-  const [monthlyMeta, setMonthlyMeta] = useState<PaginationMeta>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-    total: 0,
-    totalPages: 0,
-  });
-  const [annualFilters, setAnnualFilters] = useState<AnnualHonorFilters>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-  });
-  const [annualMeta, setAnnualMeta] = useState<PaginationMeta>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-    total: 0,
-    totalPages: 0,
-  });
   const [saving, setSaving] = useState(false);
-  const [popup, setPopup] = useState<{
-    show: boolean;
-    type: "success" | "error";
-    message: string;
-  }>({ show: false, type: "success", message: "" });
-  const [showNetworkError, setShowNetworkError] = useState(false);
+  const { popup, showSuccess, showError, closePopup } = usePopupNotification();
+  const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
+  const {
+    items: monthlyItems,
+    loading: monthlyLoading,
+    meta: monthlyMeta,
+    setFilters: setMonthlyFilters,
+    fetchItems: loadMonthlyHonors,
+  } = useAdminList<MonthlyHonorList, MonthlyHonorFilters>(
+    (currentFilters) => monthlyHonorsApi.getLists(currentFilters),
+    {
+      initialFilters: { page: 1, limit: DEFAULT_LIMIT },
+      defaultLimit: DEFAULT_LIMIT,
+      enabled: viewMode === "monthly",
+      initialLoading: false,
+      onError: handleApiError,
+    },
+  );
+  const {
+    items: annualItems,
+    loading: annualLoading,
+    meta: annualMeta,
+    setFilters: setAnnualFilters,
+    fetchItems: loadAnnualHonors,
+  } = useAdminList<AnnualHonorList, AnnualHonorFilters>(
+    (currentFilters) => annualHonorsApi.getLists(currentFilters),
+    {
+      initialFilters: { page: 1, limit: DEFAULT_LIMIT },
+      defaultLimit: DEFAULT_LIMIT,
+      enabled: viewMode === "annual" && !annualEditing && !showAnnualForm,
+      initialLoading: false,
+      onError: handleApiError,
+    },
+  );
   const [confirm, setConfirm] = useState<{
     show: boolean;
     title: string;
@@ -202,80 +206,16 @@ export default function HonorsManagePage() {
       );
       setSelectedIds(activeCategory?.agents.map((agent) => agent.id) ?? []);
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     } finally {
       setLoading(false);
     }
-  }, [selectedSlug]);
-
-  const loadMonthlyHonors = useCallback(async () => {
-    setMonthlyLoading(true);
-    try {
-      const response = await monthlyHonorsApi.getLists(monthlyFilters);
-      setMonthlyItems(response.items);
-      setMonthlyMeta(response.meta);
-    } catch (err) {
-      setMonthlyItems([]);
-      setMonthlyMeta({
-        page: 1,
-        limit: DEFAULT_LIMIT,
-        total: 0,
-        totalPages: 0,
-      });
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
-    } finally {
-      setMonthlyLoading(false);
-    }
-  }, [monthlyFilters]);
-
-  const loadAnnualHonors = useCallback(async () => {
-    setAnnualLoading(true);
-    try {
-      const response = await annualHonorsApi.getLists(annualFilters);
-      setAnnualItems(response.items);
-      setAnnualMeta(response.meta);
-    } catch (err) {
-      setAnnualItems([]);
-      setAnnualMeta({
-        page: 1,
-        limit: DEFAULT_LIMIT,
-        total: 0,
-        totalPages: 0,
-      });
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
-    } finally {
-      setAnnualLoading(false);
-    }
-  }, [annualFilters]);
+  }, [selectedSlug, handleApiError]);
 
   useEffect(() => {
     queueMicrotask(() => loadData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (viewMode === "monthly") {
-      queueMicrotask(() => loadMonthlyHonors());
-    }
-    if (viewMode === "annual" && !annualEditing && !showAnnualForm) {
-      queueMicrotask(() => loadAnnualHonors());
-    }
-  }, [viewMode, loadMonthlyHonors, loadAnnualHonors, annualEditing, showAnnualForm]);
 
   const handleCategoryChange = (slug: string) => {
     const category =
@@ -391,18 +331,9 @@ export default function HonorsManagePage() {
         );
         setSelectedIds(updated.agents.map((agent) => agent.id));
       }
-      setPopup({
-        show: true,
-        type: "success",
-        message: "Cập nhật danh sách thành công!",
-      });
+      showSuccess("Cập nhật danh sách thành công!");
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     } finally {
       setSaving(false);
     }
@@ -482,7 +413,7 @@ export default function HonorsManagePage() {
 
   const handleSaveAnnualHonor = async (event: React.FormEvent) => {
     event.preventDefault();
-    setPopup((prev) => ({ ...prev, show: false }));
+    closePopup();
 
     const errors = validateAnnualForm();
     setAnnualFieldErrors(errors);
@@ -514,23 +445,16 @@ export default function HonorsManagePage() {
         }
       }
 
-      setPopup({
-        show: true,
-        type: "success",
-        message: annualEditing
+      showSuccess(
+        annualEditing
           ? "Cập nhật list vinh danh thường niên thành công!"
           : "Tạo list vinh danh thường niên thành công!",
-      });
+      );
       closeAnnualForm();
       setAnnualFilters((prev) => ({ ...prev, page: 1 }));
       loadAnnualHonors().catch(() => {});
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     } finally {
       setAnnualSaving(false);
     }
@@ -550,18 +474,9 @@ export default function HonorsManagePage() {
         title: annualForm.title.trim() || null,
       });
       setAnnualEditing(updated);
-      setPopup({
-        show: true,
-        type: "success",
-        message: "Cập nhật thông tin list vinh danh thường niên thành công!",
-      });
+      showSuccess("Cập nhật thông tin list vinh danh thường niên thành công!");
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     } finally {
       setAnnualSaving(false);
     }
@@ -583,20 +498,10 @@ export default function HonorsManagePage() {
             setAnnualDeletingId(item.id);
             try {
               await annualHonorsApi.deleteList(item.id);
-              setPopup({
-                show: true,
-                type: "success",
-                message: "Đã xóa list vinh danh thường niên.",
-              });
+              showSuccess("Đã xóa list vinh danh thường niên.");
               loadAnnualHonors().catch(() => {});
             } catch (error) {
-              const apiError = extractApiError(error);
-              setPopup({
-                show: true,
-                type: "error",
-                message:
-                  apiError.message || "Không thể xóa list vinh danh thường niên.",
-              });
+              handleApiError(error, { useNetworkPopup: false });
             } finally {
               setAnnualDeletingId(null);
             }
@@ -672,11 +577,7 @@ export default function HonorsManagePage() {
 
   const setMonthlyAgentFile = (agentId: string, file: File) => {
     if (!file.type.startsWith("image/")) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: "File vinh danh tháng phải là hình ảnh.",
-      });
+      showError("File vinh danh tháng phải là hình ảnh.");
       return;
     }
 
@@ -722,7 +623,7 @@ export default function HonorsManagePage() {
 
   const handleSaveMonthlyHonor = async (event: React.FormEvent) => {
     event.preventDefault();
-    setPopup((prev) => ({ ...prev, show: false }));
+    closePopup();
 
     const errors = validateMonthlyForm();
     setMonthlyFieldErrors(errors);
@@ -736,17 +637,11 @@ export default function HonorsManagePage() {
           let imageUrl = item.image.trim();
 
           if (item.file) {
-            const compressed = await compressImage(item.file, {
+            const upload = await compressAndUploadImage(item.file, "monthly-honors", {
               maxSizeMB: 1.5,
               maxWidthOrHeight: 1600,
+              filenameBase: `${agent?.name || "agent"}-${monthlyForm.year}-${monthlyForm.month}`,
             });
-            const upload = await mediaApi.uploadImage(
-              compressed,
-              "monthly-honors",
-              {
-                filenameBase: `${agent?.name || "agent"}-${monthlyForm.year}-${monthlyForm.month}`,
-              },
-            );
             imageUrl = upload.url;
           }
 
@@ -769,23 +664,16 @@ export default function HonorsManagePage() {
       } else {
         await monthlyHonorsApi.createList(payload as CreateMonthlyHonorInput);
       }
-      setPopup({
-        show: true,
-        type: "success",
-        message: monthlyEditing
+      showSuccess(
+        monthlyEditing
           ? "Cập nhật list vinh danh tháng thành công!"
           : "Tạo list vinh danh tháng thành công!",
-      });
+      );
       closeMonthlyForm();
       setMonthlyFilters((prev) => ({ ...prev, page: 1 }));
       loadMonthlyHonors().catch(() => {});
     } catch (err) {
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message });
-      }
+      handleApiError(err);
     } finally {
       setMonthlySaving(false);
     }
@@ -809,19 +697,10 @@ export default function HonorsManagePage() {
             setMonthlyDeletingId(item.id);
             try {
               await monthlyHonorsApi.deleteList(item.id);
-              setPopup({
-                show: true,
-                type: "success",
-                message: "Đã xóa list vinh danh tháng.",
-              });
+              showSuccess("Đã xóa list vinh danh tháng.");
               loadMonthlyHonors().catch(() => {});
             } catch (error) {
-              const apiError = extractApiError(error);
-              setPopup({
-                show: true,
-                type: "error",
-                message: apiError.message || "Không thể xóa list vinh danh tháng.",
-              });
+              handleApiError(error, { useNetworkPopup: false });
             } finally {
               setMonthlyDeletingId(null);
             }
@@ -843,7 +722,7 @@ export default function HonorsManagePage() {
           <PopupNotification
             type={popup.type}
             message={popup.message}
-            onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+            onClose={closePopup}
             autoClose={popup.type === "success"}
             autoCloseMs={1000}
           />

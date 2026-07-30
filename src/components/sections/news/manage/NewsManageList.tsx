@@ -18,7 +18,7 @@ import {
   hasAnyNewsArticleActionPermission,
 } from "@/lib/permissions";
 import { formatDate } from "@/lib/date";
-import { getArticleImage } from "@/lib/news";
+import { getArticleImage, NEWS_PLACEHOLDER } from "@/lib/news";
 import { newsStatusConfig } from "@/lib/news/status";
 import type { NewsArticle, NewsCategory, PaginationMeta, ArticleFilters } from "@/types/api";
 
@@ -78,13 +78,11 @@ export function NewsManageList({
     hasAnyNewsArticleActionPermission(hasPermission, "publish");
 
 
-  const placeholderImg = "/news/news_placeholder.webp";
-
   return (
     <div className="space-y-5">
       <AdminListHeader
         title="Danh sách tin tức"
-        subtitle={meta.total > 0 ? `Hiển thị ${items.length} / ${meta.total} bài viết` : "Không có bài viết nào"}
+        count={{ shown: items.length, total: meta.total, noun: "bài viết" }}
       >
         <div className="flex items-center gap-3">
           {hasAnyNewsArticleCreatePermission(hasPermission) && (
@@ -126,7 +124,7 @@ export function NewsManageList({
                 onFilterChange("status", undefined);
                 onPageChange(1);
               }}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-[#C8102E]"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 transition-colors hover:text-primary"
             >
               <X size={16} />
               Xóa bộ lọc
@@ -161,11 +159,7 @@ export function NewsManageList({
             value={filters.status || ""}
             onChange={(value) => onFilterChange("status", value || undefined)}
             placeholder="Tất cả trạng thái"
-            options={[
-              { value: "draft", label: "Bản nháp" },
-              { value: "pending", label: "Chờ duyệt" },
-              { value: "published", label: "Đã đăng" },
-            ]}
+            options={Object.entries(newsStatusConfig).map(([value, { label }]) => ({ value, label }))}
           />
         </div>
 
@@ -204,7 +198,7 @@ export function NewsManageList({
                         <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 shrink-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src={getArticleImage(item) || placeholderImg}
+                            src={getArticleImage(item) || NEWS_PLACEHOLDER}
                             alt={item.title}
                             className="w-full h-full object-cover"
                           />
@@ -285,7 +279,7 @@ export function NewsManageList({
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={getArticleImage(item) || placeholderImg}
+                  src={getArticleImage(item) || NEWS_PLACEHOLDER}
                   alt={item.title}
                   className="w-full h-full object-cover"
                 />
@@ -295,7 +289,7 @@ export function NewsManageList({
                   onClick={() => onView(item.id)}
                   className="text-left w-full group"
                 >
-                  <h3 className="line-clamp-2 text-sm font-bold leading-snug text-gray-900 transition-colors group-hover:text-[#C8102E]">
+                  <h3 className="line-clamp-2 text-sm font-bold leading-snug text-gray-900 transition-colors group-hover:text-primary">
                     {item.title}
                   </h3>
                 </button>

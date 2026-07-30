@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { ApplyManageForm, type JobFormData } from "./ApplyManageForm";
 import { ApplyManageList } from "./ApplyManageList";
@@ -8,12 +8,16 @@ import { ApplyJobPreviewDialog } from "./ApplyJobPreviewDialog";
 import { ApplyJobLogsDialog } from "./ApplyJobLogsDialog";
 import { Pagination } from "@/components/ui/Pagination";
 import { recruitmentApi } from "@/api/domains/recruitment";
-import { extractApiError } from "@/lib/api-errors";
+import { recruitmentStatusConfig } from "@/lib/recruitment/status";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { useAuth } from "@/contexts/AuthContext";
-import type { JobPosting, CreateJobInput, UpdateJobInput, JobStatus, JobPostingLog, JobFilters, PaginationMeta } from "@/types/api";
+import { usePopupNotification } from "@/hooks/usePopupNotification";
+import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
+import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
+import { useAdminList } from "@/hooks/useAdminList";
+import type { JobPosting, CreateJobInput, UpdateJobInput, JobStatus, JobPostingLog, JobFilters } from "@/types/api";
 
 function isDeadlineInPast(deadline?: string | null): boolean {
   if (!deadline) return false;
@@ -92,32 +96,45 @@ const locationOptions = [
 
 const statusOptions = [
   { value: "", label: "Tất cả trạng thái" },
-  { value: "draft", label: "Bản nháp" },
-  { value: "open", label: "Đang tuyển" },
-  { value: "closed", label: "Đã đóng" },
+  ...Object.entries(recruitmentStatusConfig).map(([value, { label }]) => ({ value, label })),
 ];
 
 export default function ApplyManagePage() {
   const { hasPermission } = useAuth();
   const canChangeStatus = hasPermission("recruitment.jobs.all.publish");
 
-  const [jobs, setJobs] = useState<JobFormData[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchInput, setSearchInput] = useState("");
-  const [meta, setMeta] = useState<PaginationMeta>({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-  const [filters, setFilters] = useState<JobFilters>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
+  const { popup, showSuccess, showError, closePopup } = usePopupNotification();
+  const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
+  const {
+    items: jobs,
+    setItems: setJobs,
+    loading,
+    meta,
+    filters,
+    setFilters,
+    handlePageChange,
+    handleFilterChange,
+  } = useAdminList<JobFormData, JobFilters>(
+    async (currentFilters) => {
+      const response = await recruitmentApi.getJobs(currentFilters);
+      return { ...response, items: response.items.map(jobPostingToForm) };
+    },
+    {
+      initialFilters: { page: 1, limit: DEFAULT_LIMIT },
+      defaultLimit: DEFAULT_LIMIT,
+      onError: handleApiError,
+    },
+  );
+  const { searchInput, setSearchInput } = useDebouncedSearch((value) => {
+    const search = value.trim() || undefined;
+    setFilters((prev) => {
+      if (prev.search === search) return prev;
+      return { ...prev, search, page: 1 };
+    });
   });
   const [editing, setEditing] = useState<JobFormData | null>(null);
   const [previewJob, setPreviewJob] = useState<JobFormData | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [popup, setPopup] = useState<{ show: boolean; type: "success" | "error"; message: string }>({
-    show: false,
-    type: "success",
-    message: "",
-  });
-  const [showNetworkError, setShowNetworkError] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({ show: false, id: "" });
   const [statusConfirm, setStatusConfirm] = useState<{ show: boolean; id: string; status: JobStatus | null }>({
     show: false,
@@ -126,57 +143,6 @@ export default function ApplyManagePage() {
   });
   const [logsDialog, setLogsDialog] = useState<{ show: boolean; logs: JobPostingLog[] }>({ show: false, logs: [] });
 
-  const handleApiError = (err: unknown) => {
-    const { message, isNetworkError } = extractApiError(err);
-    if (isNetworkError) {
-      setShowNetworkError(true);
-    } else {
-      setPopup({ show: true, type: "error", message });
-    }
-  };
-
-  const fetchJobs = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await recruitmentApi.getJobs(filters);
-      setJobs(response.items.map(jobPostingToForm));
-      setMeta(response.meta);
-    } catch (err) {
-      setJobs([]);
-      setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      handleApiError(err);
-    } finally {
-      setLoading(false);
-    }
-  }, [filters]);
-
-  useEffect(() => {
-    queueMicrotask(fetchJobs);
-  }, [fetchJobs]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const search = searchInput.trim() || undefined;
-      setFilters((prev) => {
-        if (prev.search === search) return prev;
-        return { ...prev, search, page: 1 };
-      });
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
-
-  const handleFilterChange = (key: keyof JobFilters, value: JobFilters[typeof key]) => {
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value,
-      page: 1,
-    }));
-  };
-
-  const handlePageChange = (page: number) => {
-    setFilters((prev) => ({ ...prev, page }));
-  };
-
   const handleSave = async (data: JobFormData) => {
     try {
       if (editing?.id) {
@@ -184,13 +150,13 @@ export default function ApplyManagePage() {
         const updatedForm = jobPostingToForm(updated);
         setJobs((prev) => prev.map((j) => (j.id === updated.id ? updatedForm : j)));
         setEditing(updatedForm);
-        setPopup({ show: true, type: "success", message: "Cập nhật tin tuyển dụng thành công!" });
+        showSuccess("Cập nhật tin tuyển dụng thành công!");
       } else {
         const created = await recruitmentApi.createJob(formToCreateInput(data));
         const createdForm = jobPostingToForm(created);
         setJobs((prev) => [createdForm, ...prev]);
         setEditing(createdForm);
-        setPopup({ show: true, type: "success", message: "Tạo tin tuyển dụng thành công!" });
+        showSuccess("Tạo tin tuyển dụng thành công!");
       }
     } catch (err) {
       handleApiError(err);
@@ -226,7 +192,7 @@ export default function ApplyManagePage() {
     try {
       await recruitmentApi.deleteJob(id);
       setJobs((prev) => prev.filter((j) => j.id !== id));
-      setPopup({ show: true, type: "success", message: "Xóa tin tuyển dụng thành công!" });
+      showSuccess("Xóa tin tuyển dụng thành công!");
     } catch (err) {
       handleApiError(err);
     }
@@ -235,11 +201,7 @@ export default function ApplyManagePage() {
   const handleStatusChange = (id: string, status: JobStatus) => {
     const job = jobs.find((j) => j.id === id);
     if (status === "open" && job && isDeadlineInPast(job.deadline)) {
-      setPopup({
-        show: true,
-        type: "error",
-        message: "Vui lòng cập nhật hạn nộp trong tương lai trước khi mở tuyển dụng.",
-      });
+      showError("Vui lòng cập nhật hạn nộp trong tương lai trước khi mở tuyển dụng.");
       return;
     }
     setStatusConfirm({ show: true, id, status });
@@ -254,11 +216,7 @@ export default function ApplyManagePage() {
     if (!id || !status) return;
     if (!canChangeStatus) {
       setStatusConfirm({ show: false, id: "", status: null });
-      setPopup({
-        show: true,
-        type: "error",
-        message: "Bạn không có quyền kiểm duyệt tin tuyển dụng.",
-      });
+      showError("Bạn không có quyền kiểm duyệt tin tuyển dụng.");
       return;
     }
     setStatusConfirm({ show: false, id: "", status: null });
@@ -270,7 +228,7 @@ export default function ApplyManagePage() {
         setEditing(updatedForm);
       }
       const label = status === "open" ? "Đăng tuyển" : status === "closed" ? "Đóng tuyển" : "Gỡ bài";
-      setPopup({ show: true, type: "success", message: `${label} thành công!` });
+      showSuccess(`${label} thành công!`);
     } catch (err) {
       handleApiError(err);
     }
@@ -382,7 +340,7 @@ export default function ApplyManagePage() {
         <PopupNotification
           type={popup.type}
           message={popup.message}
-          onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+          onClose={closePopup}
           autoClose={popup.type === "success"}
           autoCloseMs={1000}
         />

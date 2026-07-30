@@ -6,12 +6,15 @@ import { ApplicationsManageList } from "./ApplicationsManageList";
 import { ApplicationsManageForm } from "./ApplicationsManageForm";
 import { Pagination } from "@/components/ui/Pagination";
 import { recruitmentApi } from "@/api/domains/recruitment";
-import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { useAuth } from "@/contexts/AuthContext";
-import type { JobApplication, JobPosting, PaginationMeta, JobApplicationFilters, ApplicationStatus, UpdateApplicationInput } from "@/types/api";
+import { usePopupNotification } from "@/hooks/usePopupNotification";
+import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
+import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
+import { useAdminList } from "@/hooks/useAdminList";
+import type { JobApplication, JobPosting, JobApplicationFilters, ApplicationStatus, UpdateApplicationInput } from "@/types/api";
 
 const DEFAULT_LIMIT = 10;
 
@@ -20,55 +23,37 @@ export default function ApplicationsManagePage() {
   const canUpdate = hasPermission("recruitment.applications.all.update");
   const canDelete = hasPermission("recruitment.applications.all.delete");
 
-  const [items, setItems] = useState<JobApplication[]>([]);
   const [jobs, setJobs] = useState<JobPosting[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [searchInput, setSearchInput] = useState("");
   const [jobFilter, setJobFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [editing, setEditing] = useState<JobApplication | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [popup, setPopup] = useState<{ show: boolean; type: "success" | "error"; message: string }>({
-    show: false,
-    type: "error",
-    message: "",
-  });
-  const [meta, setMeta] = useState<PaginationMeta>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
-    total: 0,
-    totalPages: 0,
-  });
-  const [filters, setFilters] = useState<JobApplicationFilters>({
-    page: 1,
-    limit: DEFAULT_LIMIT,
+  const { popup, showSuccess, showError, closePopup } = usePopupNotification();
+  const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
+  const {
+    items,
+    setItems,
+    loading,
+    meta,
+    setMeta,
+    setFilters,
+    handlePageChange,
+  } = useAdminList<JobApplication, JobApplicationFilters>(
+    (currentFilters) => recruitmentApi.getApplications(currentFilters),
+    {
+      initialFilters: { page: 1, limit: DEFAULT_LIMIT },
+      defaultLimit: DEFAULT_LIMIT,
+      onError: handleApiError,
+    },
+  );
+  const { searchInput, setSearchInput } = useDebouncedSearch((value) => {
+    const search = value.trim() || undefined;
+    setFilters((prev) => {
+      if (prev.search === search) return prev;
+      return { ...prev, search, page: 1 };
+    });
   });
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({ show: false, id: "" });
-  const [showNetworkError, setShowNetworkError] = useState(false);
-
-  const handleApiError = (err: unknown) => {
-    const { message, isNetworkError } = extractApiError(err);
-    if (isNetworkError) {
-      setShowNetworkError(true);
-    } else {
-      setPopup({ show: true, type: "error", message });
-    }
-  };
-
-  const loadApplications = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response = await recruitmentApi.getApplications(filters);
-      setItems(response.items);
-      setMeta(response.meta);
-    } catch (err) {
-      setItems([]);
-      setMeta({ page: 1, limit: DEFAULT_LIMIT, total: 0, totalPages: 0 });
-      handleApiError(err);
-    } finally {
-      setLoading(false);
-    }
-  }, [filters]);
 
   const loadJobs = useCallback(async () => {
     try {
@@ -76,33 +61,13 @@ export default function ApplicationsManagePage() {
       setJobs(response.items);
     } catch (err) {
       setJobs([]);
-      const { message, isNetworkError } = extractApiError(err);
-      if (isNetworkError) {
-        setShowNetworkError(true);
-      } else {
-        setPopup({ show: true, type: "error", message: `Không thể tải danh sách vị trí: ${message}` });
-      }
+      handleApiError(err, { messagePrefix: "Không thể tải danh sách vị trí: " });
     }
-  }, []);
-
-  useEffect(() => {
-    queueMicrotask(loadApplications);
-  }, [loadApplications]);
+  }, [handleApiError]);
 
   useEffect(() => {
     queueMicrotask(loadJobs);
   }, [loadJobs]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const search = searchInput.trim() || undefined;
-      setFilters((prev) => {
-        if (prev.search === search) return prev;
-        return { ...prev, search, page: 1 };
-      });
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
 
   useEffect(() => {
     const jobPostingId = jobFilter || undefined;
@@ -112,7 +77,7 @@ export default function ApplicationsManagePage() {
         return { ...prev, jobPostingId, page: 1 };
       });
     });
-  }, [jobFilter]);
+  }, [jobFilter, setFilters]);
 
   useEffect(() => {
     const status = (statusFilter as ApplicationStatus) || undefined;
@@ -122,11 +87,7 @@ export default function ApplicationsManagePage() {
         return { ...prev, status, page: 1 };
       });
     });
-  }, [statusFilter]);
-
-  const handlePageChange = (page: number) => {
-    setFilters((prev) => ({ ...prev, page }));
-  };
+  }, [statusFilter, setFilters]);
 
   const handleEdit = (item: JobApplication) => {
     setEditing(item);
@@ -144,7 +105,7 @@ export default function ApplicationsManagePage() {
       const updated = await recruitmentApi.updateApplication(editing.id, data);
       setItems((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
       setEditing(updated);
-      setPopup({ show: true, type: "success", message: "Cập nhật thông tin thành công!" });
+      showSuccess("Cập nhật thông tin thành công!");
     } catch (err) {
       handleApiError(err);
     }
@@ -165,7 +126,7 @@ export default function ApplicationsManagePage() {
     if (!editing) return;
     try {
       await recruitmentApi.createApplicationLog(editing.id, data);
-      setPopup({ show: true, type: "success", message: "Lưu ghi chú thành công!" });
+      showSuccess("Lưu ghi chú thành công!");
     } catch (err) {
       handleApiError(err);
     }
@@ -187,7 +148,7 @@ export default function ApplicationsManagePage() {
         setShowForm(false);
         setEditing(null);
       }
-      setPopup({ show: true, type: "success", message: "Xóa đơn ứng tuyển thành công!" });
+      showSuccess("Xóa đơn ứng tuyển thành công!");
     } catch (err) {
       handleApiError(err);
     }
@@ -245,7 +206,7 @@ export default function ApplicationsManagePage() {
           <PopupNotification
             type={popup.type}
             message={popup.message}
-            onClose={() => setPopup((prev) => ({ ...prev, show: false }))}
+            onClose={closePopup}
             autoClose
             autoCloseMs={1000}
           />

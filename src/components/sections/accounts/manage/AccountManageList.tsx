@@ -64,7 +64,7 @@ export function AccountManageList({
     <div className="space-y-5">
       <AdminListHeader
         title="Danh sách tài khoản"
-        subtitle={`Tổng cộng ${meta.total} tài khoản`}
+        count={{ format: "total", total: meta.total, noun: "tài khoản" }}
       >
         {hasPermission("auth.accounts.all.create") && (
           <Button
