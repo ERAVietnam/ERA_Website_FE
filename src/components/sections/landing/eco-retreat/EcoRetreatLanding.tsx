@@ -18,7 +18,7 @@ import { FaqSection } from "./sections/FaqSection";
 import { FooterSection } from "./sections/FooterSection";
 import { FloatingButtons } from "./sections/FloatingButtons";
 import { MobileBar } from "./sections/MobileBar";
-import { useReveal } from "./hooks/useReveal";
+import { useReveal } from "@/hooks/useReveal";
 import { c, fonts } from "./theme";
 
 export default function EcoRetreatLanding() {

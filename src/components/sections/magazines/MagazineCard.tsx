@@ -5,19 +5,10 @@ import { FileText } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import type { EMagazine } from "@/types/api";
+import { formatMonthYear } from "@/lib/date";
 
 interface Props {
   magazine: EMagazine;
-}
-
-function formatDate(dateStr?: string | null): string {
-  if (!dateStr) return "";
-  const d = new Date(dateStr);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString("vi-VN", {
-    month: "short",
-    year: "numeric",
-  }).toUpperCase();
 }
 
 function handleDownload(pdfUrl: string, filename: string) {
@@ -34,7 +25,7 @@ function handleDownload(pdfUrl: string, filename: string) {
 export function MagazineCard({ magazine }: Props) {
   const pdfUrl = magazine.pdfMedia?.url;
   const coverUrl = magazine.coverImageMedia?.url;
-  const dateLabel = formatDate(magazine.publishedDate);
+  const dateLabel = formatMonthYear(magazine.publishedDate);
   const downloadFilename = `${magazine.title}.pdf`;
 
   const cardContent = (

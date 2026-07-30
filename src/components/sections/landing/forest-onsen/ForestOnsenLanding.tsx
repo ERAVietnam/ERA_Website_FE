@@ -23,7 +23,7 @@ import { FaqSection } from "./sections/FaqSection";
 import { FinalCtaSection } from "./sections/FinalCtaSection";
 import { StickyWidget } from "./sections/StickyWidget";
 import { c } from "./theme";
-import { useReveal } from "./hooks/useReveal";
+import { useReveal } from "@/hooks/useReveal";
 
 export default function ForestOnsenLanding() {
   useReveal();
