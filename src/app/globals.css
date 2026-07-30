@@ -630,13 +630,29 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .ck-content .era-image-grid[data-era-image-count="5"] > .era-image-grid__item,
-  .ck-content [data-era-image-grid="true"][data-era-image-count="5"] > figure,
-  .ck-content .era-image-grid[data-era-image-count="5"] > .era-image-grid__item:nth-child(-n + 2),
-  .ck-content [data-era-image-grid="true"][data-era-image-count="5"] > figure:nth-child(-n + 2),
-  .ck-content .era-image-grid[data-era-image-count="5"] > .era-image-grid__item:nth-child(n + 4),
-  .ck-content [data-era-image-grid="true"][data-era-image-count="5"] > figure:nth-child(n + 4) {
-    grid-column: auto;
+  .ck-content .era-image-grid[data-era-image-count="2"],
+  .ck-content [data-era-image-grid="true"][data-era-image-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ck-content .era-image-grid[data-era-image-count="4"],
+  .ck-content [data-era-image-grid="true"][data-era-image-count="4"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ck-content .era-image-grid[data-era-image-count="6"],
+  .ck-content [data-era-image-grid="true"][data-era-image-count="6"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ck-content .era-image-grid[data-era-image-count="3"]:not([data-era-grid-variant="left-large"]):not([data-era-grid-variant="right-large"]),
+  .ck-content [data-era-image-grid="true"][data-era-image-count="3"]:not([data-era-grid-variant="left-large"]):not([data-era-grid-variant="right-large"]) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ck-content .era-image-grid[data-era-image-count="5"],
+  .ck-content [data-era-image-grid="true"][data-era-image-count="5"] {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
 
@@ -754,4 +770,19 @@ body {
 .faq-richtext-content blockquote {
   font-size: inherit;
   line-height: inherit;
+}
+
+
+/* Project card tags marquee */
+@keyframes project-tag-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(var(--marquee-translate, -25%));
+  }
+}
+
+.animate-project-tag-marquee {
+  animation: project-tag-marquee var(--marquee-duration, 24s) linear infinite alternate;
 }

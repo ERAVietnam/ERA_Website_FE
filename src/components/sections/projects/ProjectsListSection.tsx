@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Section } from "@/components/ui/Section";
@@ -11,6 +11,57 @@ import { ProjectsSidebar } from "./ProjectsSidebar";
 import { projectsApi } from "@/api/domains/projects";
 import { getProjectCardImage } from "@/lib/projects";
 import type { Project, PaginationMeta } from "@/types/api";
+
+const TAG_MARQUEE_SPEED_PX_PER_SECOND = 40;
+
+function ProjectTags({ tags }: { tags: string[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const track = trackRef.current;
+    if (!container || !track) return;
+
+    const checkOverflow = () => {
+      const overflow = track.scrollWidth - container.clientWidth;
+      if (overflow > 0) {
+        const duration = track.scrollWidth / TAG_MARQUEE_SPEED_PX_PER_SECOND;
+        track.style.setProperty("--marquee-translate", `-${overflow}px`);
+        track.style.setProperty("--marquee-duration", `${duration}s`);
+        setShouldAnimate(true);
+      } else {
+        track.style.removeProperty("--marquee-translate");
+        track.style.removeProperty("--marquee-duration");
+        setShouldAnimate(false);
+      }
+    };
+
+    checkOverflow();
+    window.addEventListener("resize", checkOverflow);
+    return () => window.removeEventListener("resize", checkOverflow);
+  }, [tags]);
+
+  return (
+    <div ref={containerRef} className="mb-3 overflow-hidden">
+      <div
+        ref={trackRef}
+        className={`flex w-max ${shouldAnimate ? "animate-project-tag-marquee hover:[animation-play-state:paused]" : ""}`}
+      >
+        {tags.map((tag) => (
+          <span
+            key={tag}
+            className="text-xs px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 mr-1"
+            style={{ color: colors.primary.navy.DEFAULT, borderColor: colors.gray[200] }}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function ProjectCard({ project }: { project: Project }) {
   const imageUrl = getProjectCardImage(project);
@@ -53,15 +104,7 @@ function ProjectCard({ project }: { project: Project }) {
           <MapPin size={14} className="shrink-0" />
           <span className="truncate">{project.location}</span>
         </div>
-        {(project.tags ?? []).length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-3">
-            {(project.tags ?? []).map((tag) => (
-              <span key={tag} className="text-xs px-2 py-0.5 rounded-full border" style={{ color: colors.primary.navy.DEFAULT, borderColor: colors.gray[200] }}>
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
+        {(project.tags ?? []).length > 0 && <ProjectTags tags={project.tags ?? []} />}
         <span
           className="mt-auto inline-flex items-center justify-end gap-1 self-end text-sm font-semibold transition-colors hover:underline"
           style={{ color: colors.primary.navy.DEFAULT }}
@@ -148,7 +191,7 @@ export function ProjectsListSection({
 
   return (
     <Section padding="md" bg="white">
-      <Container size="lg">
+      <Container size="lg" className="px-0 sm:px-8 lg:px-10">
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1">
             {/* Grid */}
@@ -207,7 +250,7 @@ export function ProjectsListSection({
               </div>
             )}
           </div>
-          <div className="sticky top-24 self-start">
+          <div className="sticky top-24 self-start hidden lg:block">
             <ProjectsSidebar sourceUrl="/du-an/" sourceLabel="Trang Dự Án" />
           </div>
         </div>

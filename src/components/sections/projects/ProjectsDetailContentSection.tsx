@@ -22,16 +22,16 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
           {/* Main Content */}
           <div className="flex-1 min-w-0">
             {/* Breadcrumb */}
-            <nav className="flex items-center gap-2 text-sm mb-4">
+            <nav className="flex items-center gap-2 text-sm mb-4 overflow-hidden">
               <Link
                 href={ROUTES.projects}
-                className="hover:text-primary transition-colors"
+                className="shrink-0 hover:text-primary transition-colors"
                 style={{ color: colors.gray[500] }}
               >
                 Dự án
               </Link>
-              <span style={{ color: colors.gray[400] }}>/</span>
-              <span className="font-medium" style={{ color: colors.neutral.foreground }}>
+              <span className="shrink-0" style={{ color: colors.gray[400] }}>/</span>
+              <span className="font-medium min-w-0 truncate" style={{ color: colors.neutral.foreground }}>
                 {project.name}
               </span>
             </nav>
@@ -78,7 +78,7 @@ export function ProjectsDetailContentSection({ project }: ProjectsDetailContentS
           </div>
 
           {/* Sidebar */}
-          <div className="sticky top-24 self-start">
+          <div className="sticky top-24 self-start hidden lg:block">
             <ProjectsSidebar
               sourceUrl={`/du-an/${project.slug}/`}
               sourceLabel={`Dự án ${project.name}`}

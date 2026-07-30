@@ -68,7 +68,7 @@ export const NewsDetailPage = memo(function NewsDetailPage({
           <article className={`pt-20 md:pt-16 pb-12 ${isPreview || isPressRelease ? "" : "lg:pl-0"}`}>
           {!isPreview && (
             /* Breadcrumb */
-            <div className="mb-4 flex items-center gap-2">
+            <div className="mb-4 flex items-center gap-2 overflow-hidden">
               <Link
                 href={ROUTES.news}
                 style={{ color: colors.gray[500], fontSize: "14px" }}
@@ -82,8 +82,9 @@ export const NewsDetailPage = memo(function NewsDetailPage({
               >
                 /
               </span>
-              <span
-                className="truncate"
+              <Link
+                href={`${ROUTES.newsCategory}/${article.category.slug}`}
+                className="whitespace-nowrap hover:text-primary transition-colors"
                 style={{
                   color: colors.primary.DEFAULT,
                   fontSize: "14px",
@@ -91,14 +92,29 @@ export const NewsDetailPage = memo(function NewsDetailPage({
                 }}
               >
                 {article.category.name}
-              </span>
+              </Link>
               {article.category.slug === "era-news" && article.countryCode && (
                 <CountryFlag
                   code={article.countryCode}
                   width={20}
-                  className="ml-2 flex-shrink-0"
+                  className="flex-shrink-0"
                 />
               )}
+              <span
+                className="flex-shrink-0"
+                style={{ color: colors.gray[400] }}
+              >
+                /
+              </span>
+              <span
+                className="truncate min-w-0"
+                style={{
+                  color: colors.gray[500],
+                  fontSize: "14px",
+                }}
+              >
+                {article.title}
+              </span>
             </div>
           )}
 
