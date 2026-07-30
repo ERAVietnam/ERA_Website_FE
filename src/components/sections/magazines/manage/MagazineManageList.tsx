@@ -68,8 +68,7 @@ export function MagazineManageList({
 
   const statusOptions = [
     { value: "", label: "Tất cả trạng thái" },
-    { value: "draft", label: "Bản nháp" },
-    { value: "published", label: "Đã đăng" },
+    ...Object.entries(magazineStatusConfig).map(([value, { label }]) => ({ value, label })),
   ];
 
   const handleClearFilters = () => {

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { X, Loader2 } from "lucide-react";
 import { newsApi } from "@/api/domains/news";
 import { colors } from "@/lib/theme";
+import { newsStatusConfig } from "@/lib/news/status";
 import { formatDateTime } from "@/lib/date";
 import { extractApiError } from "@/lib/api-errors";
 import type { NewsArticleLog, JobStatus } from "@/types/api";
@@ -21,12 +22,6 @@ const eventLabels: Record<NewsArticleLog["eventType"], string> = {
   published: "Đăng bài viết",
   revoked: "Gỡ đăng",
   rejected: "Từ chối duyệt",
-};
-
-const statusLabels: Record<string, string> = {
-  draft: "Bản nháp",
-  pending: "Chờ duyệt",
-  published: "Đã đăng",
 };
 
 
@@ -138,11 +133,11 @@ export function ArticleHistoryDialog({ articleId, isOpen, onClose }: ArticleHist
                     <p className="text-xs text-gray-500 mt-1">
                       Trạng thái: {" "}
                       <span className="font-medium">
-                        {statusLabels[log.fromStatus ?? ""] || log.fromStatus || "—"}
+                        {(log.fromStatus && newsStatusConfig[log.fromStatus]?.label) || log.fromStatus || "—"}
                       </span>
                       {" → "}
                       <span className="font-medium">
-                        {statusLabels[log.toStatus ?? ""] || log.toStatus || "—"}
+                        {(log.toStatus && newsStatusConfig[log.toStatus]?.label) || log.toStatus || "—"}
                       </span>
                     </p>
                   )}

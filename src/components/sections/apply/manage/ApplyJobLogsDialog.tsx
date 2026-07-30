@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { colors } from "@/lib/theme";
 import { formatDateTime } from "@/lib/date";
+import { recruitmentStatusConfig } from "@/lib/recruitment/status";
 import type { JobPostingLog } from "@/types/api";
 
 interface Props {
@@ -18,12 +19,6 @@ const eventLabels: Record<string, string> = {
   unpublished: "Gỡ bài",
   closed: "Đóng tuyển",
   updated: "Cập nhật",
-};
-
-const statusLabels: Record<string, string> = {
-  draft: "Bản nháp",
-  open: "Đang tuyển",
-  closed: "Đã đóng",
 };
 
 
@@ -97,9 +92,9 @@ export function ApplyJobLogsDialog({ logs, isOpen, onClose }: Props) {
                   {(log.fromStatus || log.toStatus) && (
                     <p className="text-xs text-gray-500 mt-1">
                       Trạng thái: {" "}
-                      <span className="font-medium">{statusLabels[log.fromStatus ?? "" ] || log.fromStatus || "—"}</span>
+                      <span className="font-medium">{(log.fromStatus && recruitmentStatusConfig[log.fromStatus]?.label) || log.fromStatus || "—"}</span>
                       {" → "}
-                      <span className="font-medium">{statusLabels[log.toStatus ?? ""] || log.toStatus || "—"}</span>
+                      <span className="font-medium">{(log.toStatus && recruitmentStatusConfig[log.toStatus]?.label) || log.toStatus || "—"}</span>
                     </p>
                   )}
                   {log.note && <p className="text-xs text-gray-500 mt-1">Ghi chú: {log.note}</p>}

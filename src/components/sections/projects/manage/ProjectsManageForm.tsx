@@ -10,6 +10,7 @@ import { projectsApi } from "@/api/domains/projects";
 import { accountsApi } from "@/api/domains/accounts";
 import { extractApiError } from "@/lib/api-errors";
 import { compressImage } from "@/lib/imageCompression";
+import { processContentImages } from "@/lib/contentImages";
 import { createProjectSchema, projectDetailsSchema } from "@/schemas/projects.schema";
 import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
 import { ImageGridModal } from "@/components/shared/ImageGridModal";
@@ -108,54 +109,6 @@ function toSlug(str: string): string {
     .trim()
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-");
-}
-
-function base64ToFile(base64: string, baseFilename: string): File {
-  const arr = base64.split(",");
-  const mime = arr[0].match(/:(.*?);/)?.[1] || "image/png";
-  const ext = mime.split("/")[1] || "png";
-  const filename = `${baseFilename}.${ext}`;
-  const bstr = atob(arr[1]);
-  let n = bstr.length;
-  const u8arr = new Uint8Array(n);
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n);
-  }
-  return new File([u8arr], filename, { type: mime });
-}
-
-async function processContentImages(content: string): Promise<string> {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(content, "text/html");
-  const images = Array.from(doc.querySelectorAll('img[src^="data:image"]'));
-
-  if (images.length === 0) return content;
-
-  await Promise.all(
-    images.map(async (img, i) => {
-      const base64 = img.getAttribute("src")!;
-      const file = base64ToFile(base64, `project-content-img-${Date.now()}-${i}`);
-
-      // Ảnh đầu tiên giữ nguyên định dạng gốc (thường dùng làm featured fallback)
-      // Ảnh GIF cũng giữ nguyên để không mất animation
-      const isFirstImage = i === 0;
-      const isGif = file.type === "image/gif";
-      const shouldConvertToWebP = !isFirstImage && !isGif;
-
-      const compressedFile = shouldConvertToWebP
-        ? await compressImage(file, {
-            maxSizeMB: 1,
-            maxWidthOrHeight: 1600,
-            fileType: "image/webp",
-          })
-        : file;
-
-      const upload = await mediaApi.uploadImage(compressedFile, "projects");
-      img.setAttribute("src", upload.url);
-    })
-  );
-
-  return doc.body.innerHTML;
 }
 
 function ImageUploadField({
@@ -594,7 +547,7 @@ export function ProjectsManageForm({
 
     setIsProcessingContent(true);
     try {
-      const processedContent = await processContentImages(form.content);
+      const processedContent = await processContentImages(form.content, "projects", "project-content-img");
       onSave({ ...form, location: fullLocation, imageMediaId, content: processedContent });
     } finally {
       setIsProcessingContent(false);

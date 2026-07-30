@@ -16,7 +16,7 @@ import { SelectField } from "@/components/ui/admin/SelectField";
 import { TagFilter } from "@/components/ui/admin/TagFilter";
 import { ProjectsManageActions } from "./ProjectsManageActions";
 import { Plus, FileText, X, MapPin, Building } from "lucide-react";
-import { getProjectCardImage, VIETNAM_PROVINCES } from "@/lib/projects";
+import { getProjectCardImage, projectStatusConfig, VIETNAM_PROVINCES } from "@/lib/projects";
 import type { Project, ProjectPublicationStatus } from "@/types/api";
 
 const publicationOptions: { value: ProjectPublicationStatus; label: string }[] = [
@@ -24,12 +24,6 @@ const publicationOptions: { value: ProjectPublicationStatus; label: string }[] =
   { value: "pending", label: "Chờ duyệt" },
   { value: "published", label: "Đã đăng" },
 ];
-
-const publicationLabels: Record<ProjectPublicationStatus, { label: string; color: string; bg: string }> = {
-  draft: { label: "Bản nháp", color: colors.gray[600], bg: colors.gray[100] },
-  pending: { label: "Chờ duyệt", color: colors.tertiary.orange.dark || "#B45309", bg: "#FEF3C7" },
-  published: { label: "Đã đăng", color: "#16A34A", bg: "#F0FDF4" },
-};
 
 interface Props {
   projects: Project[];
@@ -194,7 +188,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
           </thead>
           <tbody className="divide-y divide-gray-50">
             {projects.map((project, i) => {
-              const publication = publicationLabels[project.publicationStatus];
+              const publication = projectStatusConfig[project.publicationStatus];
               return (
                 <tr key={project.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-5 py-4 text-gray-500 font-medium">
@@ -282,7 +276,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
       {!loading && total > 0 && (
         <div className="space-y-3 md:hidden">
           {projects.map((project) => {
-            const publication = publicationLabels[project.publicationStatus];
+            const publication = projectStatusConfig[project.publicationStatus];
             const thumbnailUrl = getProjectCardImage(project);
 
             return (

@@ -18,7 +18,7 @@ import {
   hasAnyNewsArticleActionPermission,
 } from "@/lib/permissions";
 import { formatDate } from "@/lib/date";
-import { getArticleImage } from "@/lib/news";
+import { getArticleImage, NEWS_PLACEHOLDER } from "@/lib/news";
 import { newsStatusConfig } from "@/lib/news/status";
 import type { NewsArticle, NewsCategory, PaginationMeta, ArticleFilters } from "@/types/api";
 
@@ -77,8 +77,6 @@ export function NewsManageList({
     hasAnyNewsArticleActionPermission(hasPermission, "delete") ||
     hasAnyNewsArticleActionPermission(hasPermission, "publish");
 
-
-  const placeholderImg = "/news/news_placeholder.webp";
 
   return (
     <div className="space-y-5">
@@ -161,11 +159,7 @@ export function NewsManageList({
             value={filters.status || ""}
             onChange={(value) => onFilterChange("status", value || undefined)}
             placeholder="Tất cả trạng thái"
-            options={[
-              { value: "draft", label: "Bản nháp" },
-              { value: "pending", label: "Chờ duyệt" },
-              { value: "published", label: "Đã đăng" },
-            ]}
+            options={Object.entries(newsStatusConfig).map(([value, { label }]) => ({ value, label }))}
           />
         </div>
 
@@ -204,7 +198,7 @@ export function NewsManageList({
                         <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 shrink-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
-                            src={getArticleImage(item) || placeholderImg}
+                            src={getArticleImage(item) || NEWS_PLACEHOLDER}
                             alt={item.title}
                             className="w-full h-full object-cover"
                           />
@@ -285,7 +279,7 @@ export function NewsManageList({
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={getArticleImage(item) || placeholderImg}
+                  src={getArticleImage(item) || NEWS_PLACEHOLDER}
                   alt={item.title}
                   className="w-full h-full object-cover"
                 />

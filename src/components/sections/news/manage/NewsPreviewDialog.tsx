@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { X, ExternalLink } from "lucide-react";
 import { NewsDetailPage } from "@/components/sections/news/NewsDetailPage";
+import { newsStatusConfig } from "@/lib/news/status";
 import type { NewsArticle } from "@/types/api";
 
 interface NewsPreviewDialogProps {
@@ -39,6 +40,8 @@ export function NewsPreviewDialog({ article, isOpen, onClose }: NewsPreviewDialo
 
   if (!isOpen || !article) return null;
 
+  const status = newsStatusConfig[article.status] ?? newsStatusConfig.draft;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 sm:p-8 overflow-hidden">
       <div
@@ -52,11 +55,11 @@ export function NewsPreviewDialog({ article, isOpen, onClose }: NewsPreviewDialo
               <span
                 className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold"
                 style={{
-                  backgroundColor: article.status === "published" ? "#D1FAE5" : article.status === "pending" ? "#FEF3C7" : "#F3F4F6",
-                  color: article.status === "published" ? "#059669" : article.status === "pending" ? "#D97706" : "#6B7280",
+                  backgroundColor: status.bg,
+                  color: status.color,
                 }}
               >
-                {article.status === "published" ? "Đã đăng" : article.status === "pending" ? "Chờ duyệt" : "Bản nháp"}
+                {status.label}
               </span>
             </div>
             <p className="text-xs text-white/80 truncate">{article.title}</p>

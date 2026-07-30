@@ -8,6 +8,7 @@ import { ApplyJobPreviewDialog } from "./ApplyJobPreviewDialog";
 import { ApplyJobLogsDialog } from "./ApplyJobLogsDialog";
 import { Pagination } from "@/components/ui/Pagination";
 import { recruitmentApi } from "@/api/domains/recruitment";
+import { recruitmentStatusConfig } from "@/lib/recruitment/status";
 import { extractApiError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
@@ -92,9 +93,7 @@ const locationOptions = [
 
 const statusOptions = [
   { value: "", label: "Tất cả trạng thái" },
-  { value: "draft", label: "Bản nháp" },
-  { value: "open", label: "Đang tuyển" },
-  { value: "closed", label: "Đã đóng" },
+  ...Object.entries(recruitmentStatusConfig).map(([value, { label }]) => ({ value, label })),
 ];
 
 export default function ApplyManagePage() {

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { X, ExternalLink } from "lucide-react";
 import { ApplyJobDetailPage } from "@/components/sections/apply/ApplyJobDetailPage";
 import { ROUTES } from "@/lib/routes";
+import { recruitmentStatusConfig } from "@/lib/recruitment/status";
 import type { JobFormData } from "./ApplyManageForm";
 
 interface ApplyJobPreviewDialogProps {
@@ -40,18 +41,6 @@ export function ApplyJobPreviewDialog({ job, isOpen, onClose }: ApplyJobPreviewD
 
   if (!isOpen || !job) return null;
 
-  const statusLabel: Record<string, string> = {
-    draft: "Bản nháp",
-    open: "Đang tuyển",
-    closed: "Đã đóng",
-  };
-
-  const statusColor: Record<string, { bg: string; text: string }> = {
-    draft: { bg: "#F3F4F6", text: "#6B7280" },
-    open: { bg: "#D1FAE5", text: "#059669" },
-    closed: { bg: "#FEE2E2", text: "#DC2626" },
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 sm:p-8 overflow-hidden">
       <div
@@ -65,11 +54,11 @@ export function ApplyJobPreviewDialog({ job, isOpen, onClose }: ApplyJobPreviewD
               <span
                 className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold"
                 style={{
-                  backgroundColor: statusColor[job.status]?.bg,
-                  color: statusColor[job.status]?.text,
+                  backgroundColor: recruitmentStatusConfig[job.status]?.bg,
+                  color: recruitmentStatusConfig[job.status]?.color,
                 }}
               >
-                {statusLabel[job.status] ?? job.status}
+                {recruitmentStatusConfig[job.status]?.label ?? job.status}
               </span>
             </div>
             <p className="text-xs text-white/80 truncate">{job.title || "Chưa có tiêu đề"}</p>

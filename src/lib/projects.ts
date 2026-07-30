@@ -1,5 +1,13 @@
 import { getFirstImageFromContent } from "./news";
-import type { Project, ProjectFaqInput } from "@/types/api";
+import { colors } from "@/lib/theme";
+import type { Project, ProjectFaqInput, ProjectPublicationStatus } from "@/types/api";
+
+/** Status config for projects (labels + colors) — intentionally different from news/magazine. */
+export const projectStatusConfig: Record<ProjectPublicationStatus, { label: string; color: string; bg: string }> = {
+  draft: { label: "Bản nháp", color: colors.gray[600], bg: colors.gray[100] },
+  pending: { label: "Chờ duyệt", color: colors.tertiary.orange.dark || "#B45309", bg: "#FEF3C7" },
+  published: { label: "Đã đăng", color: "#16A34A", bg: "#F0FDF4" },
+};
 
 export const PROJECT_FAQ_MIN_ITEMS = 2;
 export const PROJECT_FAQ_MAX_ITEMS = 5;
