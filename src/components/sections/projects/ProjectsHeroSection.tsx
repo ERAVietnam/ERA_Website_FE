@@ -60,9 +60,9 @@ export function ProjectsHeroSection({
 
       {/* Search Bar */}
       <Container size="lg" className="relative -mt-10 z-10">
-        <div className="bg-white rounded-xl shadow-lg p-4 md:p-5 flex flex-col md:flex-row items-stretch md:items-center gap-3 md:gap-4">
+        <div className="bg-white rounded-xl shadow-lg p-4 md:p-5 flex flex-row items-center gap-2 md:gap-4">
           {/* Search Input */}
-          <div className="flex-[2] relative flex items-center gap-2 px-4 py-2.5 rounded-lg bg-gray-50">
+          <div className="flex-1 min-w-0 relative flex items-center gap-2 px-3 md:px-4 py-2.5 rounded-lg bg-gray-50">
             <Search size={18} className="text-gray-400 shrink-0" />
             <input
               type="text"
@@ -73,8 +73,20 @@ export function ProjectsHeroSection({
               onKeyDown={(e) => {
                 if (e.key === "Enter") onSearch?.();
               }}
+              placeholder="Khám phá 100+ dự án"
+              className="md:hidden flex-1 min-w-0 bg-transparent text-sm outline-none text-gray-700 placeholder:text-gray-400"
+            />
+            <input
+              type="text"
+              value={value}
+              onChange={(e) => onChange?.(e.target.value)}
+              onFocus={() => setShowSuggestions?.(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions?.(false), 150)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") onSearch?.();
+              }}
               placeholder="Khám phá giỏ hàng 100+ dự án của ERA"
-              className="flex-1 bg-transparent text-sm outline-none text-gray-700 placeholder:text-gray-400"
+              className="hidden md:block flex-1 min-w-0 bg-transparent text-sm outline-none text-gray-700 placeholder:text-gray-400"
             />
             {showSuggestions && suggestions.length > 0 && (
               <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-100 overflow-y-auto max-h-[340px] z-20">
@@ -125,9 +137,11 @@ export function ProjectsHeroSection({
             variant="primary"
             size="sm"
             onClick={() => onSearch?.()}
-            className="gap-1.5 px-4 py-2 text-xs"
+            className="shrink-0 gap-1.5 px-3 py-2.5 md:px-4 md:py-2 text-[11px] md:text-xs"
           >
-            TÌM <ArrowRight size={12} />
+            <Search size={14} className="md:hidden" />
+            <span className="hidden md:inline">TÌM</span>
+            <ArrowRight size={12} className="hidden md:inline" />
           </Button>
         </div>
       </Container>

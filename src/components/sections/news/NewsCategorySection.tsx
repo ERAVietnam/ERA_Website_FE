@@ -39,7 +39,7 @@ export const NewsCategorySection = memo(function NewsCategorySection({
         href={`${ROUTES.news}/${featuredArticle.slug}`}
         className="block"
       >
-        <div className="relative h-[420px] rounded-2xl overflow-hidden cursor-pointer group transition-transform duration-300 hover:scale-[1.01]">
+        <div className="relative h-[220px] sm:h-[280px] lg:h-[380px] rounded-2xl overflow-hidden cursor-pointer group transition-transform duration-300 hover:scale-[1.01]">
           {getArticleImage(featuredArticle) ? (
             <Image
               src={getArticleImage(featuredArticle)!}
@@ -61,35 +61,33 @@ export const NewsCategorySection = memo(function NewsCategorySection({
             }}
           />
 
-          <div className="absolute bottom-0 left-0 right-0 p-6">
+          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
             <div
-              className="inline-flex px-4 py-1.5 rounded-full text-xs font-semibold text-white mb-3"
+              className="inline-flex px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-semibold text-white mb-2 sm:mb-3"
               style={{ backgroundColor: colors.primary.DEFAULT }}
             >
               TIÊU ĐIỂM
             </div>
             <h3
-              className="text-white mb-3 line-clamp-3"
+              className="text-white mb-2 sm:mb-3 line-clamp-2 sm:line-clamp-3 text-xl sm:text-2xl lg:text-[30px]"
               style={{
                 fontWeight: 700,
-                fontSize: "30px",
-                lineHeight: 1.5,
+                lineHeight: 1.4,
               }}
             >
               {featuredArticle.title}
             </h3>
             <div className="flex items-end justify-between gap-4">
               <p
-                className="hidden text-white/80 line-clamp-2 flex-1 sm:block"
+                className="text-white/80 line-clamp-1 sm:line-clamp-2 flex-1 text-sm sm:text-base"
                 style={{
                   fontWeight: 400,
-                  fontSize: "16px",
                 }}
               >
                 {featuredArticle.summary}
               </p>
               {category.slug === "era-news" && featuredArticle.countryCode && (
-                <CountryFlag code={featuredArticle.countryCode} width={24} className="flex-shrink-0" />
+                <CountryFlag code={featuredArticle.countryCode} width={20} className="flex-shrink-0 sm:w-6" />
               )}
             </div>
           </div>
@@ -122,22 +120,21 @@ export const NewsCategorySection = memo(function NewsCategorySection({
                 <div className="absolute inset-0" style={{ backgroundColor: colors.gray[200] }} />
               )}
             </div>
-            <div className="flex-1 py-1">
+            <div className="flex-1 py-1 flex flex-col">
               <h3
-                className="mb-2 line-clamp-2 group-hover:text-primary transition-colors"
+                className="mb-1.5 sm:mb-2 line-clamp-2 group-hover:text-primary transition-colors text-sm sm:text-base"
                 style={{
                   color: colors.neutral.foreground,
                   fontWeight: 700,
-                  fontSize: "18px",
                 }}
               >
                 {item.title}
               </h3>
               <p
+                className="mt-auto text-xs sm:text-sm"
                 style={{
                   color: colors.gray[400],
                   fontWeight: 400,
-                  fontSize: "14px",
                 }}
               >
                 {formatDate(item.displayPublishedAt || item.publishedAt || item.createdAt)} • {item.readTime || "1 phút đọc"}

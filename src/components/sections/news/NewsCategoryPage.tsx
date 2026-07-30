@@ -24,7 +24,7 @@ export function NewsCategoryPage({ category, articles }: NewsCategoryPageProps) 
       <Section padding="sm" bg="gray">
         <Link
           href={ROUTES.news}
-          className="inline-flex items-center gap-2 text-sm font-medium mb-6 hover:opacity-80 transition-opacity"
+          className="inline-flex items-center gap-2 text-sm font-medium mb-6 pt-8 md:pt-0 hover:opacity-80 transition-opacity"
           style={{ color: colors.gray[500] }}
         >
           <ArrowLeft size={16} />
