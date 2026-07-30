@@ -5,7 +5,6 @@ import { Loader2, Plus, X } from "lucide-react";
 import { agentsApi } from "@/api/domains/agents";
 import { annualHonorsApi } from "@/api/domains/annual-honors";
 import { honorsApi } from "@/api/domains/honors";
-import { mediaApi } from "@/api/domains/media";
 import { monthlyHonorsApi } from "@/api/domains/monthly-honors";
 import { Button } from "@/components/ui/Button";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
@@ -19,7 +18,7 @@ import { AdminLoading } from "@/components/ui/admin/AdminLoading";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
 import { extractApiError } from "@/lib/api-errors";
-import { compressImage } from "@/lib/imageCompression";
+import { compressAndUploadImage } from "@/lib/uploadImage";
 import { colors } from "@/lib/theme";
 import type {
   Agent,
@@ -736,17 +735,11 @@ export default function HonorsManagePage() {
           let imageUrl = item.image.trim();
 
           if (item.file) {
-            const compressed = await compressImage(item.file, {
+            const upload = await compressAndUploadImage(item.file, "monthly-honors", {
               maxSizeMB: 1.5,
               maxWidthOrHeight: 1600,
+              filenameBase: `${agent?.name || "agent"}-${monthlyForm.year}-${monthlyForm.month}`,
             });
-            const upload = await mediaApi.uploadImage(
-              compressed,
-              "monthly-honors",
-              {
-                filenameBase: `${agent?.name || "agent"}-${monthlyForm.year}-${monthlyForm.month}`,
-              },
-            );
             imageUrl = upload.url;
           }
 

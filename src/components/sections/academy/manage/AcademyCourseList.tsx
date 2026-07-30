@@ -62,11 +62,7 @@ export function AcademyCourseList({
       <div className="space-y-5">
         <AdminListHeader
           title="Quản lý khóa học"
-          subtitle={
-            meta.total > 0
-              ? `Hiển thị ${items.length} / ${meta.total} khóa học`
-              : "Không có khóa học nào"
-          }
+          count={{ shown: items.length, total: meta.total, noun: "khóa học" }}
         >
           {canCreate && (
             <Button

@@ -82,7 +82,7 @@ export function NewsManageList({
     <div className="space-y-5">
       <AdminListHeader
         title="Danh sách tin tức"
-        subtitle={meta.total > 0 ? `Hiển thị ${items.length} / ${meta.total} bài viết` : "Không có bài viết nào"}
+        count={{ shown: items.length, total: meta.total, noun: "bài viết" }}
       >
         <div className="flex items-center gap-3">
           {hasAnyNewsArticleCreatePermission(hasPermission) && (

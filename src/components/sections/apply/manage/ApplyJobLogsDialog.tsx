@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
+import { AdminDialog } from "@/components/ui/admin/AdminDialog";
 import { colors } from "@/lib/theme";
 import { formatDateTime } from "@/lib/date";
 import { recruitmentStatusConfig } from "@/lib/recruitment/status";
@@ -23,39 +23,10 @@ const eventLabels: Record<string, string> = {
 
 
 export function ApplyJobLogsDialog({ logs, isOpen, onClose }: Props) {
-  const dialogRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
-        onClose();
-      }
-    }
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    }
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [isOpen, onClose]);
-
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 sm:p-8 overflow-hidden">
-      <div
-        ref={dialogRef}
-        className="relative flex flex-col w-full max-w-2xl max-h-[calc(100vh-2rem)] sm:max-h-[calc(100vh-4rem)] rounded-2xl bg-white shadow-2xl overflow-hidden"
-      >
+    <AdminDialog isOpen={isOpen} onClose={onClose} maxWidth="max-w-2xl">
         <div className="flex-shrink-0 z-10 flex items-center justify-between rounded-t-2xl px-5 py-3" style={{ backgroundColor: colors.primary.navy.DEFAULT }}>
           <h3 className="text-base font-bold text-white">Lịch sử thay đổi</h3>
           <button
@@ -103,7 +74,6 @@ export function ApplyJobLogsDialog({ logs, isOpen, onClose }: Props) {
             </div>
           )}
         </div>
-      </div>
-    </div>
+    </AdminDialog>
   );
 }

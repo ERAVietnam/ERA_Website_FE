@@ -81,7 +81,7 @@ export function ApplyManageList({
     <div className="space-y-5">
       <AdminListHeader
         title="Quản lý tin tuyển dụng"
-        subtitle={meta.total > 0 ? `Hiển thị ${jobs.length} / ${meta.total} tin tuyển dụng` : "Không có tin tuyển dụng nào"}
+        count={{ shown: jobs.length, total: meta.total, noun: "tin tuyển dụng" }}
       >
         {canCreate && (
           <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">

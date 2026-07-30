@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { academyCoursesApi } from "@/api/domains/academy-courses";
-import { mediaApi } from "@/api/domains/media";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { PopupNotification } from "@/components/ui/PopupNotification";
@@ -10,7 +9,7 @@ import { Section } from "@/components/ui/Section";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
 import { extractApiError, showFieldError } from "@/lib/api-errors";
-import { compressImage } from "@/lib/imageCompression";
+import { compressAndUploadImage } from "@/lib/uploadImage";
 import type {
   AcademyCourse,
   AcademyCourseFilters,
@@ -44,7 +43,6 @@ export default function AcademyCourseManagePage() {
   });
   const [form, setForm] = useState<CourseFormState>(() => courseToFormState());
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [isDraggingImage, setIsDraggingImage] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; id: string }>({
     show: false,
     id: "",
@@ -126,7 +124,6 @@ export default function AcademyCourseManagePage() {
     setEditing(null);
     setForm(courseToFormState());
     setImageFile(null);
-    setIsDraggingImage(false);
     setFieldErrors({});
   };
 
@@ -164,9 +161,10 @@ export default function AcademyCourseManagePage() {
     updateForm("imageMediaId", null);
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) setImageFromFile(file);
+  const handleImageClear = () => {
+    setImageFile(null);
+    updateForm("imageUrl", "");
+    updateForm("imageMediaId", null);
   };
 
   const toggleTag = (tagId: string) => {
@@ -190,11 +188,9 @@ export default function AcademyCourseManagePage() {
     try {
       let imageMediaId = form.imageMediaId;
       if (imageFile) {
-        const compressedFile = await compressImage(imageFile, {
+        const upload = await compressAndUploadImage(imageFile, "academy", {
           maxSizeMB: 1,
           maxWidthOrHeight: 1400,
-        });
-        const upload = await mediaApi.uploadImage(compressedFile, "academy", {
           filenameBase: form.title.trim(),
         });
         imageMediaId = upload.id;
@@ -300,7 +296,6 @@ export default function AcademyCourseManagePage() {
             tags={tags}
             fieldErrors={fieldErrors}
             imageFile={imageFile}
-            isDraggingImage={isDraggingImage}
             isSaving={isSaving}
             isDirty={isDirty}
             inputBaseClass={inputBaseClass}
@@ -309,10 +304,8 @@ export default function AcademyCourseManagePage() {
             onClose={closeForm}
             onUpdateForm={updateForm}
             onToggleTag={toggleTag}
-            onImageChange={handleImageChange}
-            onImageDrop={setImageFromFile}
-            setImageFile={setImageFile}
-            setIsDraggingImage={setIsDraggingImage}
+            onImageSelect={setImageFromFile}
+            onImageClear={handleImageClear}
           />
         ) : (
           <AcademyCourseList

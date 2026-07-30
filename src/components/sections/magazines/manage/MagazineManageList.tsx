@@ -81,7 +81,7 @@ export function MagazineManageList({
     <div className="space-y-5">
       <AdminListHeader
         title="Quản lý e-magazine"
-        subtitle={meta.total > 0 ? `Hiển thị ${items.length} / ${meta.total} e-magazine` : "Không có e-magazine nào"}
+        count={{ shown: items.length, total: meta.total, noun: "e-magazine" }}
       >
         <div className="flex items-center gap-2">
           {canCreate && (

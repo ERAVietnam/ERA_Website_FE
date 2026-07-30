@@ -85,7 +85,7 @@ export function ApplicationsManageList({
     <div className="space-y-5">
       <AdminListHeader
         title="Danh sách ứng viên"
-        subtitle={`Tổng cộng ${meta.total} đơn ứng tuyển`}
+        count={{ format: "total", total: meta.total, noun: "đơn ứng tuyển" }}
       />
 
       <AdminFilters

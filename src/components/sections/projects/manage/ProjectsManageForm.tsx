@@ -5,14 +5,14 @@ import dynamic from "next/dynamic";
 import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
 import { ChevronDown, X, Loader2, Eye, History } from "lucide-react";
-import { mediaApi } from "@/api/domains/media";
 import { projectsApi } from "@/api/domains/projects";
 import { accountsApi } from "@/api/domains/accounts";
 import { extractApiError } from "@/lib/api-errors";
-import { compressImage } from "@/lib/imageCompression";
+import { compressAndUploadImage } from "@/lib/uploadImage";
 import { processContentImages } from "@/lib/contentImages";
 import { createProjectSchema, projectDetailsSchema } from "@/schemas/projects.schema";
 import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
+import { ImageUploadField } from "@/components/ui/admin/ImageUploadField";
 import { ImageGridModal } from "@/components/shared/ImageGridModal";
 import type { ImageGridItem, ImageGridVariant } from "@/components/shared/image-grid-layout";
 import { ImageCarouselModal } from "@/components/shared/ImageCarouselModal";
@@ -109,122 +109,6 @@ function toSlug(str: string): string {
     .trim()
     .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-");
-}
-
-function ImageUploadField({
-  preview,
-  isUploading,
-  isReadOnly,
-  disabled,
-  onChange,
-  onClear,
-}: {
-  preview?: string;
-  isUploading?: boolean;
-  isReadOnly?: boolean;
-  disabled?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClear: () => void;
-}) {
-  const [isDragging, setIsDragging] = useState(false);
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith("image/")) {
-      const syntheticEvent = {
-        target: { files: e.dataTransfer.files },
-      } as React.ChangeEvent<HTMLInputElement>;
-      onChange(syntheticEvent);
-    }
-  };
-
-  return (
-    <div>
-      <label className="block text-sm font-semibold mb-1.5 text-gray-700">
-        Ảnh đại diện
-      </label>
-
-      {preview ? (
-        <div className="relative inline-block rounded-xl overflow-hidden border border-gray-200 bg-gray-100">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={preview}
-            alt="Preview"
-            className="w-full max-w-[320px] h-auto object-cover"
-          />
-          <button
-            type="button"
-            onClick={onClear}
-            disabled={isReadOnly}
-            className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            title="Xoá ảnh"
-          >
-            <X size={14} />
-          </button>
-        </div>
-      ) : (
-        <label
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-          className={`flex flex-col items-center justify-center gap-2 w-full h-40 rounded-xl border-2 border-dashed cursor-pointer transition-colors ${
-            isDragging
-              ? "border-red-400 bg-red-50"
-              : "border-gray-300 bg-gray-50 hover:bg-gray-100"
-          }`}
-        >
-          {isUploading ? (
-            <>
-              <Loader2 size={24} className="animate-spin text-gray-400" />
-              <span className="text-sm text-gray-500">Đang tải ảnh lên...</span>
-            </>
-          ) : (
-            <>
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="text-gray-400"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="17 8 12 3 7 8" />
-                <line x1="12" y1="3" x2="12" y2="15" />
-              </svg>
-              <span className="text-sm text-gray-500">
-                Kéo thả ảnh vào đây hoặc{" "}
-                <span className="font-semibold" style={{ color: colors.primary.DEFAULT }}>
-                  chọn file
-                </span>
-              </span>
-              <span className="text-xs text-gray-400">Hỗ trợ: JPG, PNG, WEBP</span>
-            </>
-          )}
-          {!isReadOnly && (
-            <input
-              type="file"
-              accept="image/*"
-              className="sr-only"
-              onChange={onChange}
-              disabled={isUploading || disabled}
-            />
-          )}
-        </label>
-      )}
-    </div>
-  );
 }
 
 interface Props {
@@ -470,10 +354,7 @@ export function ProjectsManageForm({
     }
   };
 
-  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
+  const handleImageSelect = (file: File) => {
     setImageFile(file);
     setImagePreview(URL.createObjectURL(file));
     setIsDirty(true);
@@ -532,11 +413,10 @@ export function ProjectsManageForm({
     if (imageFile) {
       setIsUploadingImage(true);
       try {
-        const compressedFile = await compressImage(imageFile, {
+        const upload = await compressAndUploadImage(imageFile, "projects", {
           maxSizeMB: 1.5,
           maxWidthOrHeight: 1920,
         });
-        const upload = await mediaApi.uploadImage(compressedFile, "projects");
         imageMediaId = upload.id;
       } finally {
         setIsUploadingImage(false);
@@ -902,11 +782,14 @@ export function ProjectsManageForm({
           {/* Row 7: Image Upload */}
           <ImageUploadField
             preview={imagePreview}
+            onFileSelect={handleImageSelect}
+            onClear={handleClearImage}
             isUploading={isUploadingImage}
             isReadOnly={isReadOnly}
             disabled={isSubmitting}
-            onChange={handleImageChange}
-            onClear={handleClearImage}
+            labelClassName="block text-sm font-semibold mb-1.5 text-gray-700"
+            previewMaxWidth={320}
+            dropzoneSize="md"
           />
 
           {/* Info section */}

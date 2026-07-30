@@ -16,6 +16,7 @@ import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
+import { ImageUploadField } from "@/components/ui/admin/ImageUploadField";
 import { ArticleHistoryDialog } from "./ArticleHistoryDialog";
 import { NewsPreviewDialog } from "./NewsPreviewDialog";
 import { ImageGridModal } from "@/components/shared/ImageGridModal";
@@ -25,7 +26,7 @@ import type { ImageCarouselItem } from "@/components/shared/image-carousel-layou
 import { buildImageCarouselHtml } from "@/components/shared/image-carousel-layout";
 import { useAuth } from "@/contexts/AuthContext";
 import { getNewsScopeBySlug } from "@/lib/permissions";
-import { compressImage } from "@/lib/imageCompression";
+import { compressAndUploadImage } from "@/lib/uploadImage";
 import { processContentImages } from "@/lib/contentImages";
 import { COUNTRY_OPTIONS } from "@/lib/country";
 import { newsStatusConfig } from "@/lib/news/status";
@@ -170,7 +171,6 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
   const [featuredImageFile, setFeaturedImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>(initialData?.featuredImage?.url || "");
-  const [isDraggingImage, setIsDraggingImage] = useState(false);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string>(initialData?.pdfMedia?.url || "");
   const [categories, setCategories] = useState<NewsCategory[]>([]);
@@ -463,32 +463,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     }
   }, [isPressReleaseCategory, pdfFile, pdfPreviewUrl, selectedCategory]);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFeaturedImageFile(file);
-      setImagePreview(URL.createObjectURL(file));
-    }
-  };
-
-  const handleDragOverImage = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDraggingImage(true);
-  };
-
-  const handleDragLeaveImage = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDraggingImage(false);
-  };
-
-  const handleDropImage = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDraggingImage(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith("image/")) {
-      setFeaturedImageFile(file);
-      setImagePreview(URL.createObjectURL(file));
-    }
+  const handleImageSelect = (file: File) => {
+    setFeaturedImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
   };
 
   const handleRemoveImage = () => {
@@ -733,11 +710,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       let pdfMediaId: string | undefined | null;
 
       if (featuredImageFile) {
-        const compressedFile = await compressImage(featuredImageFile, {
+        const upload = await compressAndUploadImage(featuredImageFile, "news", {
           maxSizeMB: 1.5,
           maxWidthOrHeight: 1920,
         });
-        const upload = await mediaApi.uploadImage(compressedFile, "news");
         featuredImageMediaId = upload.id;
       } else if (!imagePreview && initialData?.featuredImageMediaId) {
         featuredImageMediaId = null;
@@ -1133,67 +1109,17 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
             </div>
 
             {/* Image Upload */}
-            <div id="field-featuredImageMediaId">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Ảnh đại diện
-              </label>
-              {fieldErrors.featuredImageMediaId && (
-                <p className="mb-2 text-xs text-red-500">{fieldErrors.featuredImageMediaId}</p>
-              )}
-              {imagePreview ? (
-                <div className="relative inline-block rounded-xl overflow-hidden border border-gray-200 bg-gray-100">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={imagePreview}
-                    alt="Preview"
-                    className="w-full max-w-[200px] h-auto object-cover"
-                  />
-                  {!isReadOnly && (
-                    <button
-                      type="button"
-                      onClick={handleRemoveImage}
-                      className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors"
-                      title="Xoá ảnh"
-                    >
-                      <X size={14} />
-                    </button>
-                  )}
-                </div>
-              ) : isReadOnly ? (
-                <div className="flex items-center justify-center w-full h-32 rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 text-sm text-gray-400">
-                  Không có ảnh đại diện
-                </div>
-              ) : (
-                <label
-                  onDragOver={handleDragOverImage}
-                  onDragLeave={handleDragLeaveImage}
-                  onDrop={handleDropImage}
-                  className={`flex flex-col items-center justify-center gap-2 w-full h-32 rounded-xl border-2 border-dashed cursor-pointer transition-colors ${
-                    isDraggingImage
-                      ? "border-red-400 bg-red-50"
-                      : "border-gray-300 bg-gray-50 hover:bg-gray-100"
-                  }`}
-                >
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-gray-400">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="17 8 12 3 7 8" />
-                    <line x1="12" y1="3" x2="12" y2="15" />
-                  </svg>
-                  <span className="text-sm text-gray-500">
-                    Kéo thả ảnh vào đây hoặc{" "}
-                    <span className="font-semibold" style={{ color: colors.primary.DEFAULT }}>chọn file</span>
-                  </span>
-                  <span className="text-xs text-gray-400">Hỗ trợ: JPG, PNG, WEBP</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="sr-only"
-                    onChange={handleImageChange}
-                    disabled={isReadOnly}
-                  />
-                </label>
-              )}
-            </div>
+            <ImageUploadField
+              id="field-featuredImageMediaId"
+              error={fieldErrors.featuredImageMediaId}
+              preview={imagePreview}
+              onFileSelect={handleImageSelect}
+              onClear={isReadOnly ? undefined : handleRemoveImage}
+              isReadOnly={isReadOnly}
+              previewMaxWidth={200}
+              dropzoneSize="sm"
+              emptyReadOnlyText="Không có ảnh đại diện"
+            />
 
             {/* Content */}
             <div id="field-content">
