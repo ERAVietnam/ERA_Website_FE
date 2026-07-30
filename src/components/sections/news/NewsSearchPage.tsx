@@ -116,9 +116,6 @@ export function NewsSearchPage({ search, articles }: NewsSearchPageProps) {
                   <h2 className="font-bold leading-snug line-clamp-2 min-h-[2.75rem] group-hover:text-[#C8102E] transition-colors" style={{ color: colors.neutral.foreground, fontSize: "18px" }}>
                     {item.title}
                   </h2>
-                  <p className="text-sm line-clamp-2 min-h-[2.75rem] mt-2" style={{ color: colors.gray[500] }}>
-                    {item.summary}
-                  </p>
                   <div className="flex items-center justify-between pt-4 mt-auto">
                     <div className="text-xs space-y-0.5" style={{ color: colors.gray[400] }}>
                       <p className="flex items-center gap-1">
