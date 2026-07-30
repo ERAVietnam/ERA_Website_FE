@@ -34,12 +34,12 @@ export const NewsCategorySection = memo(function NewsCategorySection({
   const sideArticles = articles.filter((_, i) => i !== (featuredIndex >= 0 ? featuredIndex : 0)).slice(0, 3);
 
   const featuredCard = (
-    <div className="lg:col-span-3">
+    <div className="lg:col-span-3 h-full">
       <Link
         href={`${ROUTES.news}/${featuredArticle.slug}`}
-        className="block"
+        className="block h-full"
       >
-        <div className="relative h-[220px] sm:h-[280px] lg:h-[380px] rounded-2xl overflow-hidden cursor-pointer group transition-transform duration-300 hover:scale-[1.01]">
+        <div className="relative h-[220px] sm:h-[280px] lg:min-h-[380px] lg:h-full rounded-2xl overflow-hidden cursor-pointer group transition-transform duration-300 hover:scale-[1.01]">
           {getArticleImage(featuredArticle) ? (
             <Image
               src={getArticleImage(featuredArticle)!}
@@ -78,14 +78,6 @@ export const NewsCategorySection = memo(function NewsCategorySection({
               {featuredArticle.title}
             </h3>
             <div className="flex items-end justify-between gap-4">
-              <p
-                className="text-white/80 line-clamp-1 sm:line-clamp-2 flex-1 text-sm sm:text-base"
-                style={{
-                  fontWeight: 400,
-                }}
-              >
-                {featuredArticle.summary}
-              </p>
               {category.slug === "era-news" && featuredArticle.countryCode && (
                 <CountryFlag code={featuredArticle.countryCode} width={20} className="flex-shrink-0 sm:w-6" />
               )}

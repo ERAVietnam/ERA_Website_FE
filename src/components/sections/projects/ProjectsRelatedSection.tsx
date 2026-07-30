@@ -7,6 +7,7 @@ import { colors } from "@/lib/theme";
 import { MapPin, ArrowRight, ChevronLeft, ChevronRight, Building } from "lucide-react";
 import { useState } from "react";
 import { getProjectCardImage } from "@/lib/projects";
+import { ProjectTags } from "./ProjectTags";
 import type { Project } from "@/types/api";
 
 interface ProjectsRelatedSectionProps {
@@ -104,6 +105,7 @@ export function ProjectsRelatedSection({ projects }: ProjectsRelatedSectionProps
                   <MapPin size={14} className="shrink-0 mt-0.5" />
                   <span className="line-clamp-2">{project.location}</span>
                 </div>
+                {(project.tags ?? []).length > 0 && <ProjectTags tags={project.tags ?? []} />}
                 <span
                   className="mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-colors hover:underline"
                   style={{ color: colors.primary.navy.DEFAULT }}
