@@ -20,6 +20,18 @@ export function formatDateShort(dateString?: string | null): string {
   });
 }
 
+export function formatMonthYear(dateString?: string | null): string {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return "";
+  return date
+    .toLocaleDateString("vi-VN", {
+      month: "short",
+      year: "numeric",
+    })
+    .toUpperCase();
+}
+
 export function formatDateTime(dateString?: string | null): string {
   if (!dateString) return "—";
   const date = new Date(dateString);

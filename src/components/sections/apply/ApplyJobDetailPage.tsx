@@ -27,6 +27,7 @@ import { mediaApi } from "@/api/domains/media";
 import { extractApiError } from "@/lib/api-errors";
 import { ApplySuccessPopup } from "./ApplySuccessPopup";
 import { RichTextContent } from "@/components/shared/RichTextContent";
+import { formatDateShort } from "@/lib/date";
 import type { JobFormData } from "./manage/ApplyManageForm";
 import type { JobPosting } from "@/types/api";
 
@@ -38,14 +39,7 @@ function formatSalaryLabel(job?: JobDetail): string | null {
 }
 
 function formatDeadline(dateStr?: string | null): string | null {
-  if (!dateStr) return null;
-  const d = new Date(dateStr);
-  if (Number.isNaN(d.getTime())) return null;
-  return d.toLocaleDateString("vi-VN", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
+  return formatDateShort(dateStr) || null;
 }
 
 interface ApplyJobDetailPageProps {

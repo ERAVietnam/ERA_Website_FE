@@ -1,13 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { colors } from "@/lib/theme";
-import { MapPin, ArrowRight, ChevronLeft, ChevronRight, Building } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { getProjectCardImage } from "@/lib/projects";
-import { ProjectTags } from "./ProjectTags";
+import { ProjectCard } from "./ProjectCard";
 import type { Project } from "@/types/api";
 
 interface ProjectsRelatedSectionProps {
@@ -62,58 +59,7 @@ export function ProjectsRelatedSection({ projects }: ProjectsRelatedSectionProps
         {/* Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.slice(scrollIndex, scrollIndex + 3).map((project) => (
-            <Link
-              key={project.id}
-              href={`/du-an/${project.slug}/`}
-              className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 group flex flex-col h-full"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                {(() => {
-                  const imageUrl = getProjectCardImage(project);
-                  return imageUrl ? (
-                    <Image
-                      src={imageUrl}
-                      alt={project.name}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">
-                      <Building size={32} />
-                    </div>
-                  );
-                })()}
-              </div>
-              <div className="p-4 flex flex-col flex-1">
-                <p
-                  className="text-[11px] font-bold uppercase tracking-wider mb-1"
-                  style={{ color: colors.primary.DEFAULT }}
-                >
-                  DỰ ÁN
-                </p>
-                <h3
-                  className="text-xl font-black mb-1 line-clamp-2 min-h-[3.5rem]"
-                  style={{ color: colors.primary.navy.DEFAULT }}
-                >
-                  {project.name}
-                </h3>
-                <div
-                  className="flex items-start gap-1 text-sm mb-4 line-clamp-2 min-h-[2.5rem]"
-                  style={{ color: colors.gray[500] }}
-                >
-                  <MapPin size={14} className="shrink-0 mt-0.5" />
-                  <span className="line-clamp-2">{project.location}</span>
-                </div>
-                {(project.tags ?? []).length > 0 && <ProjectTags tags={project.tags ?? []} />}
-                <span
-                  className="mt-auto inline-flex items-center gap-1 text-sm font-semibold transition-colors hover:underline"
-                  style={{ color: colors.primary.navy.DEFAULT }}
-                >
-                  Xem Chi Tiết <ArrowRight size={14} />
-                </span>
-              </div>
-            </Link>
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
       </Container>
