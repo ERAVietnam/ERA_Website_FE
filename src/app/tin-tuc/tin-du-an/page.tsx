@@ -3,5 +3,5 @@ import { createCategoryMetadata, createCategoryPage } from "@/lib/newsCategoryPa
 const CATEGORY_SLUG = "tin-du-an";
 
 export const generateMetadata = createCategoryMetadata(CATEGORY_SLUG);
-export const revalidate = 300;
+export const revalidate = 3600;
 export default createCategoryPage(CATEGORY_SLUG);

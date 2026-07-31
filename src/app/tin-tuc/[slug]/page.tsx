@@ -6,7 +6,7 @@ import type { NewsArticle } from "@/types/api";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { articleJsonLd, breadcrumbJsonLd } from "@/lib/jsonLd";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 interface Props {
   params: Promise<{ slug: string }>;

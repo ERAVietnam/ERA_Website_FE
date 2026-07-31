@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
-import { User, Loader2, Lock, ChevronDown, Settings, Globe, Mail, Camera } from "lucide-react";
+import { User, Loader2, Lock, ChevronDown } from "lucide-react";
 import { PasswordInput } from "@/components/ui/PasswordInput";
 import { useAuth } from "@/contexts/AuthContext";
 import { authApi } from "@/api/domains/auth";
@@ -19,32 +19,10 @@ interface PasswordForm {
   confirmPassword: string;
 }
 
-interface ProfileForm {
-  fullName: string;
-  avatar: string;
-  bio: string;
-  experience: string;
-  certificates: string;
-  socialLinks: string;
-  personalWebsite: string;
-  workEmail: string;
-}
-
 export default function ProfilePage() {
   const router = useRouter();
   const { account } = useAuth();
-  const [isProfileExpanded, setIsProfileExpanded] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [profileForm, setProfileForm] = useState<ProfileForm>({
-    fullName: account?.name || "",
-    avatar: "",
-    bio: "",
-    experience: "",
-    certificates: "",
-    socialLinks: "",
-    personalWebsite: "",
-    workEmail: account?.email || "",
-  });
   const [form, setForm] = useState<PasswordForm>({
     currentPassword: "",
     newPassword: "",
@@ -58,10 +36,6 @@ export default function ProfilePage() {
     message: string;
   }>({ show: false, type: "success", message: "" });
   const [showNetworkError, setShowNetworkError] = useState(false);
-
-  const updateProfile = <K extends keyof ProfileForm>(key: K, value: ProfileForm[K]) => {
-    setProfileForm((prev) => ({ ...prev, [key]: value }));
-  };
 
   const update = <K extends keyof PasswordForm>(key: K, value: PasswordForm[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -154,182 +128,6 @@ export default function ProfilePage() {
             </h1>
             <p className="text-sm text-gray-500">{account?.email}</p>
           </div>
-        </div>
-
-        {/* Profile settings card */}
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-          <button
-            type="button"
-            onClick={() => setIsProfileExpanded((prev) => !prev)}
-            className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors"
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className="p-2 rounded-lg"
-                style={{ backgroundColor: colors.primary.navy.DEFAULT }}
-              >
-                <Settings size={18} className="text-white" />
-              </div>
-              <h2
-                className="text-lg font-bold"
-                style={{ color: colors.primary.navy.DEFAULT }}
-              >
-                Cài đặt thông tin cá nhân
-              </h2>
-            </div>
-            <ChevronDown
-              size={20}
-              className={`text-gray-400 transition-transform duration-200 ${
-                isProfileExpanded ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-
-          {isProfileExpanded && (
-            <form className="px-6 pb-6 space-y-5" onSubmit={(e) => e.preventDefault()}>
-              {/* Full name */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Họ tên
-                </label>
-                <input
-                  type="text"
-                  value={profileForm.fullName}
-                  onChange={(e) => updateProfile("fullName", e.target.value)}
-                  placeholder="Nhập họ tên"
-                  className={inputBaseClass}
-                />
-              </div>
-
-              {/* Avatar */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Ảnh đại diện
-                </label>
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
-                    {profileForm.avatar ? (
-                      <img
-                        src={profileForm.avatar}
-                        alt="Avatar"
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <Camera size={24} className="text-gray-400" />
-                    )}
-                  </div>
-                  <button
-                    type="button"
-                    className="px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-                  >
-                    Tải ảnh lên
-                  </button>
-                </div>
-              </div>
-
-              {/* Bio */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Đoạn giới thiệu ngắn
-                </label>
-                <textarea
-                  value={profileForm.bio}
-                  onChange={(e) => updateProfile("bio", e.target.value)}
-                  placeholder="Giới thiệu ngắn gọn về bản thân"
-                  rows={3}
-                  className={inputBaseClass}
-                />
-              </div>
-
-              {/* Experience */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Kinh nghiệm làm việc / dự án
-                </label>
-                <textarea
-                  value={profileForm.experience}
-                  onChange={(e) => updateProfile("experience", e.target.value)}
-                  placeholder="Mô tả kinh nghiệm và các dự án đã tham gia"
-                  rows={4}
-                  className={inputBaseClass}
-                />
-              </div>
-
-              {/* Certificates */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Bằng cấp và chứng chỉ
-                </label>
-                <textarea
-                  value={profileForm.certificates}
-                  onChange={(e) => updateProfile("certificates", e.target.value)}
-                  placeholder="Liệt kê bằng cấp, chứng chỉ liên quan"
-                  rows={3}
-                  className={inputBaseClass}
-                />
-              </div>
-
-              {/* Social links */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Social links
-                </label>
-                <textarea
-                  value={profileForm.socialLinks}
-                  onChange={(e) => updateProfile("socialLinks", e.target.value)}
-                  placeholder="Facebook, LinkedIn, Instagram,..."
-                  rows={2}
-                  className={inputBaseClass}
-                />
-              </div>
-
-              {/* Personal website */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Web / blog cá nhân
-                </label>
-                <div className="relative">
-                  <Globe size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                  <input
-                    type="url"
-                    value={profileForm.personalWebsite}
-                    onChange={(e) => updateProfile("personalWebsite", e.target.value)}
-                    placeholder="https://example.com"
-                    className={`${inputBaseClass} pl-10`}
-                  />
-                </div>
-              </div>
-
-              {/* Work email */}
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Mail công việc
-                </label>
-                <div className="relative">
-                  <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                  <input
-                    type="email"
-                    value={profileForm.workEmail}
-                    onChange={(e) => updateProfile("workEmail", e.target.value)}
-                    placeholder="work@era.com.vn"
-                    className={`${inputBaseClass} pl-10`}
-                  />
-                </div>
-              </div>
-
-              <div className="pt-2">
-                <Button
-                  type="button"
-                  variant="primary"
-                  size="md"
-                  className="w-full sm:w-auto justify-center"
-                  disabled
-                >
-                  Lưu thay đổi
-                </Button>
-              </div>
-            </form>
-          )}
         </div>
 
         {/* Change password card */}

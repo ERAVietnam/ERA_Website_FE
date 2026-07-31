@@ -3,7 +3,7 @@ import { projectsApi } from "@/api/domains/projects";
 import { newsApi } from "@/api/domains/news";
 import type { NewsArticle, Project } from "@/types/api";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 const baseUrl = "https://era.com.vn";
 const SITEMAP_LIMIT = 100;
