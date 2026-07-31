@@ -4,7 +4,7 @@ import { NewsSearchPage } from "@/components/sections/news/NewsSearchPage";
 import { newsApi } from "@/api/domains/news";
 import type { NewsArticle } from "@/types/api";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export async function generateMetadata({
   searchParams,

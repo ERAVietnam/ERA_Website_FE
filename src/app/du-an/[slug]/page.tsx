@@ -6,7 +6,7 @@ import type { Project } from "@/types/api";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd, realEstateListingJsonLd } from "@/lib/jsonLd";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 interface Props {
   params: Promise<{ slug: string }>;

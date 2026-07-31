@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { NewsPage } from "@/components/sections/news";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Tin tức ERA Vietnam - Cập nhật thị trường BĐS và hoạt động nội bộ",
