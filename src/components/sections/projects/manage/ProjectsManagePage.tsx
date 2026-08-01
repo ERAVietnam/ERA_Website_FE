@@ -18,15 +18,12 @@ import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
 import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
 import { useAdminList } from "@/hooks/useAdminList";
 import type { AccountReviewer, Project, ProjectPublicationStatus } from "@/types/api";
-import { PROJECT_FAQ_MAX_ITEMS, PROJECT_FAQ_MIN_ITEMS, PROJECT_TAGS } from "@/lib/projects";
+import { PROJECT_FAQ_MAX_ITEMS, PROJECT_TAGS } from "@/lib/projects";
 
 function apiProjectToFormData(project: Project): ProjectFormData {
   const faqs = (project.faqs ?? [])
     .slice(0, PROJECT_FAQ_MAX_ITEMS)
     .map(({ question, answer }) => ({ question, answer }));
-  while (faqs.length < PROJECT_FAQ_MIN_ITEMS) {
-    faqs.push({ question: "", answer: "" });
-  }
 
   return {
     id: project.id,

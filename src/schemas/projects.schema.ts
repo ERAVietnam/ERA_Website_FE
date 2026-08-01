@@ -41,7 +41,6 @@ const projectFaqSchema = z.object({
 export const createProjectSchema = projectDetailsSchema.extend({
   faqs: z
     .array(projectFaqSchema)
-    .min(2, 'Dự án phải có ít nhất 2 câu hỏi thường gặp')
     .max(5, 'Dự án chỉ được có tối đa 5 câu hỏi thường gặp'),
 });
 

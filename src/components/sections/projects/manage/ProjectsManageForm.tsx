@@ -25,15 +25,12 @@ import { useAuth } from "@/contexts/AuthContext";
 import type { AccountReviewer, Media, Project, ProjectPublicationStatus } from "@/types/api";
 import {
   PROJECT_FAQ_MAX_ITEMS,
-  PROJECT_FAQ_MIN_ITEMS,
   PROJECT_TAGS,
   VIETNAM_PROVINCES,
   validateProjectFaqs,
 } from "@/lib/projects";
 
 const FORM_TAGS = PROJECT_TAGS;
-const createEmptyFaqItems = () =>
-  Array.from({ length: PROJECT_FAQ_MIN_ITEMS }, () => ({ question: "", answer: "" }));
 
 function splitProjectLocation(location?: string) {
   const normalized = location?.trim() ?? "";
@@ -165,7 +162,7 @@ export function ProjectsManageForm({
       isIndexed: true,
       canonicalUrl: "",
       publicationStatus: "draft",
-      faqs: createEmptyFaqItems(),
+      faqs: [],
     }
   );
   const [imagePreview, setImagePreview] = useState<string | undefined>(initialData?.imageMedia?.url ?? undefined);
@@ -964,8 +961,7 @@ export function ProjectsManageForm({
                       disabled={
                         isSubmitting ||
                         isSavingFaqs ||
-                        (!!initialData?.id && !isEditingFaqs) ||
-                        form.faqs.length <= PROJECT_FAQ_MIN_ITEMS
+                        (!!initialData?.id && !isEditingFaqs)
                       }
                       className="mt-6 shrink-0 rounded-lg border border-gray-200 bg-white p-2 text-gray-400 transition-colors hover:border-red-200 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-30"
                       aria-label={`Xóa câu hỏi ${i + 1}`}
@@ -1016,7 +1012,7 @@ export function ProjectsManageForm({
                 <span className="text-lg leading-none">+</span> Thêm câu hỏi
               </button>
               <p className="text-xs text-gray-400">
-                Tối thiểu {PROJECT_FAQ_MIN_ITEMS} và tối đa {PROJECT_FAQ_MAX_ITEMS} câu hỏi.
+                Tối đa {PROJECT_FAQ_MAX_ITEMS} câu hỏi, có thể để trống.
               </p>
               {fieldErrors.faqs && <p className={errorTextClass}>{fieldErrors.faqs}</p>}
             </div>
