@@ -39,6 +39,9 @@ export const newsApi = {
   updateArticleFaqs: (id: string, faqs: NewsFaqInput[]) =>
     apiClient.patch<NewsArticle>(ENDPOINTS.NEWS.FAQS(id), { faqs }).then((res) => res.data),
 
+  updateArticleFeatured: (id: string, isFeatured: boolean, replaceExisting?: boolean) =>
+    apiClient.patch<NewsArticle>(ENDPOINTS.NEWS.FEATURED(id), { isFeatured, replaceExisting }).then((res) => res.data),
+
   deleteArticle: (id: string) =>
     apiClient.delete<void>(ENDPOINTS.NEWS.DELETE(id)).then((res) => res.data),
 

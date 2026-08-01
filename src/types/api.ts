@@ -84,6 +84,7 @@ export interface CreateArticleInput {
   displayPublishedAt?: string;
   status?: 'draft' | 'pending' | 'published';
   isFeatured?: boolean;
+  replaceExistingFeatured?: boolean;
   countryCode?: string;
   faqs: NewsFaqInput[];
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
@@ -185,6 +185,9 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
     status === "published" ||
     (status === "pending" && !canPublishScope && !!initialData?.id) ||
     (status === "draft" && !!initialData?.id && !isAuthor);
+  // Bài đã đăng: form bị khóa, NHƯNG người có quyền kiểm duyệt vẫn được toggle nổi bật
+  const canTogglePublishedFeatured =
+    status === "published" && !!initialData?.id && !!canPublishScope;
 
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -221,6 +224,15 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   const [isSavingFaqs, setIsSavingFaqs] = useState(false);
   const [isFaqDirty, setIsFaqDirty] = useState(false);
 
+  const [isSavingFeatured, setIsSavingFeatured] = useState(false);
+  const [featuredReplaceTarget, setFeaturedReplaceTarget] = useState<{
+    id: string;
+    title: string;
+  } | null>(null);
+  const [featuredReplaceAction, setFeaturedReplaceAction] = useState<"toggle" | "save" | null>(null);
+  const replaceFeaturedOnSaveRef = useRef(false);
+  const skipSaveConfirmRef = useRef(false);
+
   const canEditFaqs =
     !isReadOnly &&
     (isSuperAdmin ||
@@ -230,6 +242,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   const isArticleDirty = useMemo(() => {
     const { faqs: _formFaqs, ...restForm } = form;
     const { faqs: _initialFaqs, ...restInitial } = initialForm;
+    if (status === "published") {
+      // Bài đã đăng: isFeatured được lưu ngay qua endpoint riêng, không tính dirty
+      restForm.isFeatured = restInitial.isFeatured;
+    }
     return (
       JSON.stringify(restForm) !== JSON.stringify(restInitial) ||
       imagePreview !== initialImagePreview ||
@@ -237,7 +253,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       pdfPreviewUrl !== initialPdfPreview ||
       pdfFile !== null
     );
-  }, [form, initialForm, imagePreview, initialImagePreview, featuredImageFile, pdfPreviewUrl, initialPdfPreview, pdfFile]);
+  }, [form, initialForm, status, imagePreview, initialImagePreview, featuredImageFile, pdfPreviewUrl, initialPdfPreview, pdfFile]);
 
   const isDirty = useMemo(() => {
     if (!initialData) {
@@ -294,6 +310,82 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       }
       return next;
     });
+  };
+
+  const handleTogglePublishedFeatured = async (checked: boolean) => {
+    if (!initialData?.id || isSavingFeatured) return;
+    setIsSavingFeatured(true);
+    try {
+      await newsApi.updateArticleFeatured(initialData.id, checked);
+      update("isFeatured", checked);
+      setPopup({
+        show: true,
+        type: "success",
+        message: checked
+          ? "Đã đánh dấu bài viết là nổi bật."
+          : "Đã gỡ đánh dấu nổi bật.",
+      });
+    } catch (error) {
+      const apiErr = error as {
+        data?: { existingFeatured?: { id: string; title: string } };
+      };
+      if (apiErr?.data?.existingFeatured) {
+        // Danh mục đã có bài nổi bật khác → hỏi xác nhận chuyển
+        setFeaturedReplaceTarget(apiErr.data.existingFeatured);
+        setFeaturedReplaceAction("toggle");
+      } else {
+        const { message, isNetworkError } = extractApiError(error);
+        if (isNetworkError) {
+          setShowNetworkError(true);
+        } else {
+          setPopup({ show: true, type: "error", message });
+        }
+      }
+    } finally {
+      setIsSavingFeatured(false);
+    }
+  };
+
+  const handleConfirmReplaceFeatured = async () => {
+    if (!featuredReplaceTarget) return;
+    if (featuredReplaceAction === "save") {
+      // Retry lưu form với cờ cho phép thay thế bài nổi bật cũ
+      replaceFeaturedOnSaveRef.current = true;
+      skipSaveConfirmRef.current = true;
+      setFeaturedReplaceTarget(null);
+      setFeaturedReplaceAction(null);
+      await handleSubmit({ preventDefault: () => {} } as React.FormEvent);
+      return;
+    }
+    if (!initialData?.id || isSavingFeatured) return;
+    setIsSavingFeatured(true);
+    try {
+      await newsApi.updateArticleFeatured(initialData.id, true, true);
+      update("isFeatured", true);
+      setFeaturedReplaceTarget(null);
+      setFeaturedReplaceAction(null);
+      setPopup({
+        show: true,
+        type: "success",
+        message: "Đã chuyển đánh dấu nổi bật sang bài viết này.",
+      });
+    } catch (error) {
+      const { message, isNetworkError } = extractApiError(error);
+      setFeaturedReplaceTarget(null);
+      setFeaturedReplaceAction(null);
+      if (isNetworkError) {
+        setShowNetworkError(true);
+      } else {
+        setPopup({ show: true, type: "error", message });
+      }
+    } finally {
+      setIsSavingFeatured(false);
+    }
+  };
+
+  const handleCancelReplaceFeatured = () => {
+    setFeaturedReplaceTarget(null);
+    setFeaturedReplaceAction(null);
   };
 
   const openImageGridModal = (
@@ -694,10 +786,11 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       return;
     }
 
-    if (initialData?.id && (!pendingAction || pendingAction.type !== "save")) {
+    if (initialData?.id && !skipSaveConfirmRef.current && (!pendingAction || pendingAction.type !== "save")) {
       setPendingAction({ type: "save" });
       return;
     }
+    skipSaveConfirmRef.current = false;
     setPendingAction(null);
 
     setIsLoading(true);
@@ -750,8 +843,10 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
           ? new Date(form.displayPublishedAt).toISOString()
           : undefined,
         isFeatured: form.isFeatured,
+        replaceExistingFeatured: replaceFeaturedOnSaveRef.current || undefined,
         countryCode: form.countryCode || undefined,
       };
+      replaceFeaturedOnSaveRef.current = false;
 
       const saved = initialData?.id
         ? await newsApi.updateArticle(initialData.id, payload)
@@ -771,7 +866,16 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
       onSave(saved);
     } catch (err) {
-      handleApiError(err);
+      const apiErr = err as {
+        data?: { field?: string; existingFeatured?: { id: string; title: string } };
+      };
+      if (apiErr?.data?.field === "isFeatured" && apiErr.data.existingFeatured) {
+        // Danh mục đã có bài nổi bật khác → hỏi xác nhận chuyển thay vì báo lỗi
+        setFeaturedReplaceTarget(apiErr.data.existingFeatured);
+        setFeaturedReplaceAction("save");
+      } else {
+        handleApiError(err);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -840,6 +944,16 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
           onCancel={() => setShowCancelConfirm(false)}
         />
 
+        <ConfirmDialog
+          isOpen={!!featuredReplaceTarget}
+          variant="warning"
+          title="Chuyển bài viết nổi bật?"
+          message={`Bài viết "${featuredReplaceTarget?.title ?? ""}" hiện đang được đánh dấu là nổi bật. Bạn có muốn chuyển sang bài này không?`}
+          confirmLabel="Xác nhận chuyển"
+          cancelLabel="Hủy"
+          onConfirm={handleConfirmReplaceFeatured}
+          onCancel={handleCancelReplaceFeatured}
+        />
         <ConfirmDialog
           isOpen={!!pendingAction}
           variant="warning"
@@ -1088,13 +1202,18 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                   type="checkbox"
                   checked={form.isFeatured}
                   onChange={(e) => {
+                    if (canTogglePublishedFeatured) {
+                      // Bài đã đăng: lưu ngay qua endpoint riêng
+                      void handleTogglePublishedFeatured(e.target.checked);
+                      return;
+                    }
                     update("isFeatured", e.target.checked);
                     if (fieldErrors.isFeatured) {
                       setFieldErrors((prev) => ({ ...prev, isFeatured: "" }));
                     }
                   }}
-                  disabled={isReadOnly}
-                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                  disabled={(isReadOnly && !canTogglePublishedFeatured) || isSavingFeatured}
+                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary disabled:cursor-not-allowed"
                 />
                 <label htmlFor="isFeatured" className="text-sm font-medium text-gray-700 cursor-pointer">
                   Đánh dấu là bài viết nổi bật
