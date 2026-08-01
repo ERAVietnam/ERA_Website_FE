@@ -9,7 +9,6 @@ export const projectStatusConfig: Record<ProjectPublicationStatus, { label: stri
   published: { label: "Đã đăng", color: "#16A34A", bg: "#F0FDF4" },
 };
 
-export const PROJECT_FAQ_MIN_ITEMS = 2;
 export const PROJECT_FAQ_MAX_ITEMS = 5;
 
 export const VIETNAM_PROVINCES: readonly string[] = [
@@ -57,8 +56,8 @@ function hasRichTextContent(value: string) {
 }
 
 export function validateProjectFaqs(faqs: ProjectFaqInput[]): string | null {
-  if (faqs.length < PROJECT_FAQ_MIN_ITEMS || faqs.length > PROJECT_FAQ_MAX_ITEMS) {
-    return `Dự án phải có từ ${PROJECT_FAQ_MIN_ITEMS} đến ${PROJECT_FAQ_MAX_ITEMS} câu hỏi thường gặp.`;
+  if (faqs.length > PROJECT_FAQ_MAX_ITEMS) {
+    return `Dự án chỉ được có tối đa ${PROJECT_FAQ_MAX_ITEMS} câu hỏi thường gặp.`;
   }
   if (
     faqs.some(

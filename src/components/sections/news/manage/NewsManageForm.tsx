@@ -9,7 +9,7 @@ import { newsApi } from "@/api/domains/news";
 import { accountsApi } from "@/api/domains/accounts";
 import { mediaApi } from "@/api/domains/media";
 import { createArticleSchema } from "@/schemas/news.schema";
-import { NEWS_FAQ_MIN_ITEMS, NEWS_FAQ_MAX_ITEMS, validateNewsFaqs } from "@/lib/news";
+import { NEWS_FAQ_MAX_ITEMS, validateNewsFaqs } from "@/lib/news";
 import { extractApiError, showFieldError } from "@/lib/api-errors";
 import { PopupNotification } from "@/components/ui/PopupNotification";
 import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
@@ -127,15 +127,12 @@ function articleToFormState(article?: NewsArticle): FormState {
       displayPublishedAt: "",
       isFeatured: false,
       countryCode: "",
-      faqs: Array.from({ length: NEWS_FAQ_MIN_ITEMS }, () => ({ question: "", answer: "" })),
+      faqs: [],
     };
   }
   const faqs = (article.faqs ?? [])
     .slice(0, NEWS_FAQ_MAX_ITEMS)
     .map(({ question, answer }) => ({ question, answer }));
-  while (faqs.length < NEWS_FAQ_MIN_ITEMS) {
-    faqs.push({ question: "", answer: "" });
-  }
   return {
     title: article.title,
     categoryId: article.categoryId,
@@ -1194,7 +1191,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                           const next = form.faqs.filter((_, idx) => idx !== i);
                           updateFaqs(next);
                         }}
-                        disabled={isReadOnly || isSavingFaqs || (!!initialData?.id && !isEditingFaqs) || form.faqs.length <= NEWS_FAQ_MIN_ITEMS}
+                        disabled={isReadOnly || isSavingFaqs || (!!initialData?.id && !isEditingFaqs)}
                         className="mt-6 shrink-0 rounded-lg border border-gray-200 bg-white p-2 text-gray-400 transition-colors hover:border-red-200 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-30"
                         aria-label={`Xóa câu hỏi ${i + 1}`}
                       >
@@ -1230,7 +1227,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                   <span className="text-lg leading-none">+</span> Thêm câu hỏi
                 </button>
                 <p className="text-xs text-gray-400">
-                  Tối thiểu {NEWS_FAQ_MIN_ITEMS} và tối đa {NEWS_FAQ_MAX_ITEMS} câu hỏi.
+                  Tối đa {NEWS_FAQ_MAX_ITEMS} câu hỏi, có thể để trống.
                 </p>
                 {fieldErrors.faqs && <p className="mt-1 text-xs text-red-500">{fieldErrors.faqs}</p>}
               </div>

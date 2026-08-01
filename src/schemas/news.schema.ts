@@ -26,7 +26,6 @@ export const createArticleSchema = z.object({
   content: z.string().min(1, 'Nội dung không được để trống'),
   faqs: z
     .array(newsFaqSchema)
-    .min(2, 'Bài viết phải có ít nhất 2 câu hỏi thường gặp')
     .max(5, 'Bài viết chỉ được có tối đa 5 câu hỏi thường gặp'),
   categoryId: z.string().uuid('Vui lòng chọn danh mục hợp lệ'),
   featuredImageMediaId: z.string().uuid().optional().nullable(),
