@@ -3,14 +3,31 @@
 import { useState } from "react";
 import { c, fonts } from "../theme";
 import { projectInfo, stats } from "../data";
+import { submitLead } from "../../lib/submit-lead";
+
+const SHEET = "ECO RETREAT - RỪNG PHƯỢNG";
 
 export function LeadBandSection() {
-  const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // UI-only placeholder: chưa gắn form lead
-    setSubmitted(true);
+    setIsLoading(true);
+    try {
+      const fd = new FormData(e.currentTarget);
+      const product = String(fd.get("product") || "");
+      await submitLead({
+        hoten: String(fd.get("name") || ""),
+        sdt: String(fd.get("phone") || ""),
+        ...(product !== "Dòng sản phẩm quan tâm" ? { sanpham: product } : {}),
+        formId: "RP_FORM1",
+        sheet: SHEET,
+      });
+      window.location.href = "/thank-you-eco-retreat";
+    } catch {
+      alert("Gửi thất bại, vui lòng thử lại.");
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -109,27 +126,8 @@ export function LeadBandSection() {
           className="p-6 md:p-[clamp(32px,3vw,44px)] flex flex-col justify-center"
           style={{ background: "rgba(255,255,255,0.9)", backdropFilter: "blur(18px)" }}
         >
-          {submitted ? (
-            <div className="text-center py-4">
-              <div
-                className="w-[58px] h-[58px] mx-auto mb-4 rounded-full flex items-center justify-center text-white text-[29px] font-black"
-                style={{ background: c.red }}
-              >
-                ✓
-              </div>
-              <div
-                className="font-extrabold text-[20px] mb-2"
-                style={{ color: c.green }}
-              >
-                Đã nhận thông tin!
-              </div>
-              <p className="text-[14.5px] leading-relaxed m-0" style={{ color: c.text }}>
-                ERA Vietnam sẽ liên hệ gửi bảng giá & sắp lịch tham quan trong thởi gian sớm nhất.
-              </p>
-            </div>
-          ) : (
-            <div>
-              <div className="font-extrabold text-[20px] mb-1" style={{ color: c.green }}>
+          <div>
+            <div className="font-extrabold text-[20px] mb-1" style={{ color: c.green }}>
                 Để lại thông tin
               </div>
               <div className="text-[13.5px] mb-[18px]" style={{ color: "#777" }}>
@@ -164,17 +162,17 @@ export function LeadBandSection() {
                 </select>
                 <button
                   type="submit"
-                  className="w-full text-white font-extrabold text-base py-4 rounded-[11px] transition-opacity hover:opacity-90"
+                  disabled={isLoading}
+                  className="w-full text-white font-extrabold text-base py-4 rounded-[11px] transition-opacity hover:opacity-90 disabled:opacity-60"
                   style={{ background: c.red, boxShadow: "0 10px 26px rgba(229,57,28,0.32)" }}
                 >
-                  Nhận bảng giá
+                  {isLoading ? "Đang gửi..." : "Nhận bảng giá"}
                 </button>
                 <div className="text-[11.5px] text-center leading-tight" style={{ color: "#999" }}>
                   Thông tin chỉ dùng để tư vấn dự án, không chia sẻ cho bên thứ ba.
                 </div>
               </form>
             </div>
-          )}
         </div>
       </div>
     </section>

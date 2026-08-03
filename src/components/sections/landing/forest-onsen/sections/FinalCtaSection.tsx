@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { projectInfo } from "../data";
 import { c } from "../theme";
-import { submitLead } from "../lib/submit-lead";
+import { submitLead } from "../../lib/submit-lead";
 import { SelectField } from "@/components/ui/admin/SelectField";
 
 const PRODUCT_OPTIONS = [
@@ -29,6 +29,7 @@ export function FinalCtaSection() {
         sdt: (form.sdt as HTMLInputElement).value,
         sanpham,
         formId: "FORM4",
+        sheet: "ECO RETREAT - FOREST ONSEN",
       });
       window.location.href = "/thank-you-eco-retreat";
     } catch {

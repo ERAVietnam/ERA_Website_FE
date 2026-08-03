@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { c } from "../theme";
-import { submitLead } from "../lib/submit-lead";
+import { submitLead } from "../../lib/submit-lead";
 import { useInView } from "@/hooks/useInView";
 
 export function StickyWidget() {
@@ -20,6 +20,7 @@ export function StickyWidget() {
         hoten: (form.hoten as HTMLInputElement).value,
         sdt: (form.sdt as HTMLInputElement).value,
         formId: "FORM1",
+        sheet: "ECO RETREAT - FOREST ONSEN",
       });
       window.location.href = "/thank-you-eco-retreat";
     } catch {
