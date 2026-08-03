@@ -3,6 +3,7 @@ export interface LeadPayload {
   hoten: string;
   sdt: string;
   sanpham?: string;
+  sheet: string;
   url: string;
   utm_source: string;
   utm_medium: string;
@@ -72,8 +73,10 @@ export async function submitLead(params: {
   hoten: string;
   sdt: string;
   sanpham?: string;
+  /** Tên tab trong Google Sheet (vd: "ECO RETREAT - FOREST ONSEN") */
+  sheet: string;
 }): Promise<boolean> {
-  const { formId, hoten, sdt, sanpham } = params;
+  const { formId, hoten, sdt, sanpham, sheet } = params;
 
   const utms = getUTMParams();
   const ip = await getIP();
@@ -88,6 +91,7 @@ export async function submitLead(params: {
     hoten: hoten.trim(),
     sdt: sdt.trim(),
     ...(sanpham ? { sanpham: sanpham.trim() } : {}),
+    sheet,
     url,
     ip,
     userAgent,

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { c } from "../theme";
-import { submitLead } from "../lib/submit-lead";
+import { submitLead } from "../../lib/submit-lead";
 
 interface LeadFormProps {
   formId: string;
@@ -24,6 +24,7 @@ export function LeadForm({ formId, title, subtitle, submitText, footnote }: Lead
         hoten: (form.hoten as HTMLInputElement).value,
         sdt: (form.sdt as HTMLInputElement).value,
         formId,
+        sheet: "ECO RETREAT - FOREST ONSEN",
       });
       window.location.href = "/thank-you-eco-retreat";
     } catch {
