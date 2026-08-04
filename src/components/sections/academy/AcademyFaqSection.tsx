@@ -36,7 +36,7 @@ export function AcademyFaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <Section padding="md" bg="white">
+    <Section padding="md" bg="gray">
       <h2 className="mb-10 text-center text-2xl font-extrabold md:text-4xl md:font-black" style={{ color: colors.primary.DEFAULT }}>
         CÂU HỎI THƯỜNG GẶP - FAQ
       </h2>

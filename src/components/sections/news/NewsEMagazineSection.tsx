@@ -62,9 +62,9 @@ export const NewsEMagazineSection = memo(function NewsEMagazineSection({
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl p-4 shadow-sm flex gap-4 h-56 animate-pulse"
+              className="bg-white rounded-2xl p-4 shadow-sm flex gap-4 h-44 animate-pulse"
             >
-              <div className="w-32 sm:w-40 aspect-[3/4] rounded-lg bg-gray-200" />
+              <div className="w-56 sm:w-72 aspect-[16/9] rounded-lg bg-gray-200" />
               <div className="flex-1 space-y-3">
                 <div className="h-5 bg-gray-200 rounded w-3/4" />
                 <div className="h-3 bg-gray-200 rounded w-1/3" />

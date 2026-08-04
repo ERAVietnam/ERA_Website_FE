@@ -156,12 +156,12 @@ export function MagazineManageList({
                       </td>
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="h-12 aspect-[210/297] flex-shrink-0 rounded-md border border-gray-200 bg-gray-100 overflow-hidden">
+                          <div className="h-12 aspect-[16/9] flex-shrink-0 rounded-md border border-gray-200 bg-gray-100 overflow-hidden">
                             {item.coverImageMedia?.url ? (
                               <img
                                 src={item.coverImageMedia.url}
                                 alt={item.title}
-                                className="h-full w-full object-contain"
+                                className="h-full w-full object-cover object-right-top"
                               />
                             ) : (
                               <div className="flex h-full w-full items-center justify-center text-gray-400">

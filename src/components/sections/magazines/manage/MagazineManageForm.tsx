@@ -429,8 +429,8 @@ export function MagazineManageForm({ initialData, onSave, onCancel }: Props) {
               <label className="block text-sm font-semibold text-gray-700 mb-2">Ảnh bìa</label>
               <div className="space-y-2">
                 {coverPreview && (
-                  <div className="relative w-40 aspect-[210/297] rounded-lg border border-gray-200 overflow-hidden bg-gray-50">
-                    <img src={coverPreview} alt="Cover preview" className="w-full h-full object-contain" />
+                  <div className="relative w-72 aspect-[16/9] rounded-lg border border-gray-200 overflow-hidden bg-gray-50">
+                    <img src={coverPreview} alt="Cover preview" className="w-full h-full object-cover object-right-top" />
                     <button
                       type="button"
                       onClick={handleRemoveCover}
