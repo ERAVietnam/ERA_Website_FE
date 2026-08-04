@@ -58,7 +58,7 @@ export function MagazineCard({ magazine }: Props) {
       {/* Content */}
       <div className="flex-1 flex flex-col min-w-0 pt-1">
         <h3
-          className="mb-1 line-clamp-2"
+          className="mb-1 line-clamp-2 pr-8"
           style={{
             color: colors.neutral.foreground,
             fontWeight: 700,
