@@ -391,7 +391,13 @@ export default function AgentManagePage() {
                   </thead>
                   <tbody className="divide-y divide-gray-50">
                     {items.map((item) => (
-                      <tr key={item.id} className="transition-colors hover:bg-gray-50/40">
+                      <tr
+                        key={item.id}
+                        onClick={() =>
+                          guard("agents.all.update", () => openEdit(item), "Bạn không có quyền chỉnh sửa agent.")
+                        }
+                        className="transition-colors hover:bg-gray-50/40 cursor-pointer"
+                      >
                         <td className="px-5 py-4">
                           <div className="flex items-center gap-3">
                             <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-100">
@@ -409,7 +415,7 @@ export default function AgentManagePage() {
                         <td className="px-5 py-4 text-gray-600">{item.code || "—"}</td>
                         <td className="px-5 py-4 text-gray-600">{formatDate(item.createdAt)}</td>
                         {canManage && (
-                          <td className="px-5 py-4">
+                          <td className="px-5 py-4" onClick={(e) => e.stopPropagation()}>
                             <div className="flex items-center justify-end gap-2">
                               {canUpdate && (
                                 <Button

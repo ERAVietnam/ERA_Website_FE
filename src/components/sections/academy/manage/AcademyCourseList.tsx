@@ -167,7 +167,17 @@ export function AcademyCourseList({
                 </thead>
                 <tbody className="divide-y divide-gray-50">
                   {items.map((item, index) => (
-                    <tr key={item.id} className="transition-colors hover:bg-gray-50/40">
+                    <tr
+                      key={item.id}
+                      onClick={() =>
+                        guard(
+                          "academy.courses.all.update",
+                          () => onEdit(item),
+                          "Bạn không có quyền chỉnh sửa khóa học.",
+                        )
+                      }
+                      className="transition-colors hover:bg-gray-50/40 cursor-pointer"
+                    >
                       <td className="px-5 py-4 font-medium text-gray-500">
                         {(meta.page - 1) * meta.limit + index + 1}
                       </td>
@@ -190,7 +200,7 @@ export function AcademyCourseList({
                         <StatusBadge isActive={item.isActive} />
                       </td>
                       {canManage && (
-                        <td className="px-5 py-4">
+                        <td className="px-5 py-4" onClick={(e) => e.stopPropagation()}>
                           <div className="flex items-center justify-end gap-2">
                             {canUpdate && (
                               <Button
@@ -238,7 +248,17 @@ export function AcademyCourseList({
 
             <div className="space-y-3 md:hidden">
               {items.map((item) => (
-                <article key={item.id} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+                <article
+                  key={item.id}
+                  onClick={() =>
+                    guard(
+                      "academy.courses.all.update",
+                      () => onEdit(item),
+                      "Bạn không có quyền chỉnh sửa khóa học.",
+                    )
+                  }
+                  className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm cursor-pointer"
+                >
                   <div className="flex gap-3">
                     <CourseImage course={item} className="h-20 w-28" />
                     <div className="min-w-0 flex-1">
@@ -256,7 +276,10 @@ export function AcademyCourseList({
                   {canManage && (
                     <>
                       <div className="my-3 h-px bg-gray-100" />
-                      <div className="flex justify-end gap-2">
+                      <div
+                        className="flex justify-end gap-2"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         {canUpdate && (
                           <Button variant="outline" size="sm" className="bg-white" onClick={() => onEdit(item)}>
                             Sửa
