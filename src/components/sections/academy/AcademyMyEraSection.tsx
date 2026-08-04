@@ -52,7 +52,7 @@ export function AcademyMyEraSection() {
               sizes="420px"
             />
           </div>
-          <p className="mt-8 text-2xl font-bold uppercase leading-snug text-academy-red md:text-3xl">
+          <p className="mt-8 text-xl font-semibold uppercase leading-snug text-academy-red md:text-2xl">
             HỌC MỌI LÚC, GIỎI MỌI NƠI<br />
             ĐỘT PHÁ MỌI RÀO CẢN
           </p>
@@ -60,20 +60,20 @@ export function AcademyMyEraSection() {
             <Button
               asChild
               variant="primary"
-              size="lg"
+              size="md"
               className="w-full rounded-lg"
               style={{ backgroundColor: "#0B3279" }}
             >
               <Link href="https://app.era.com.vn">TRUY CẬP MY ERA</Link>
             </Button>
-            <Button asChild variant="primary" size="lg" className="w-full rounded-lg">
+            <Button asChild variant="primary" size="md" className="w-full rounded-lg">
               <Link href="https://app.era.com.vn/register">GIA NHẬP ERA VIETNAM</Link>
             </Button>
           </div>
         </div>
       </div>
 
-      <div className="mt-20 text-center">
+      {/* <div className="mt-20 text-center">
         <h3 className="text-3xl font-black md:text-4xl" style={{ color: colors.primary.navy.DEFAULT }}>
           COMMING <span style={{ color: colors.primary.DEFAULT }}>SOON</span>
         </h3>
@@ -94,7 +94,7 @@ export function AcademyMyEraSection() {
             </h4>
           </article>
         ))}
-      </div>
+      </div> */}
     </Section>
   );
 }

@@ -37,14 +37,14 @@ export function MagazineCard({ magazine }: Props) {
       />
 
       {/* Magazine Cover */}
-      <div className="relative w-32 sm:w-40 aspect-[210/297] rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
+      <div className="relative w-56 sm:w-72 aspect-[16/9] rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
         {coverUrl ? (
           <Image
             src={coverUrl}
             alt={magazine.title}
             fill
-            className="object-contain"
-            sizes="160px"
+            className="object-cover object-right-top"
+            sizes="(min-width: 640px) 288px, 224px"
             loading="lazy"
           />
         ) : (
@@ -83,7 +83,7 @@ export function MagazineCard({ magazine }: Props) {
         {magazine.description && (
           <div className="border-l-2 border-primary pl-3 mb-3">
             <p
-              className="text-sm line-clamp-3"
+              className="text-sm line-clamp-2"
               style={{
                 color: colors.gray[600],
                 fontWeight: 400,

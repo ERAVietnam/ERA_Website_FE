@@ -1,7 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Section } from "@/components/ui/Section";
-import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { ArrowRight } from "lucide-react";
 
@@ -11,21 +9,21 @@ const tracks = [
     title: "DÀNH CHO NGƯỜI MỚI",
     titleLines: ["DÀNH CHO", "NGƯỜI MỚI"],
     color: "#38BDF8",
-    button: "ĐĂNG KÝ TƯ VẤN",
     bullets: [
-      "Chưa phải là môi giới tại Era Vietnam",
-      "Tham khảo khóa học phù hợp và lịch đào tạo sắp tới",
+      'Khóa học: Kỹ năng Tìm kiếm khách hàng "0 đồng"',
+      "Khóa học: Quy trình tư vấn & Kỹ năng trình bày dự án mới",
+      "Khóa học: Series Kỹ năng và Tư duy đột phá dành cho môi giới BĐS Thứ cấp",
     ],
   },
   {
     image: "/academy/09c0f7380f27e8c9a2ad689340af5ebcd18fdb7d.webp",
-    title: "DÀNH CHO NGƯỜI CÓ KINH NGHIỆM",
-    titleLines: ["DÀNH CHO NGƯỜI", "CÓ KINH NGHIỆM"],
+    title: "DÀNH CHO NGƯỜI ĐÃ CÓ KINH NGHIỆM",
+    titleLines: ["DÀNH CHO NGƯỜI ĐÃ", "CÓ KINH NGHIỆM"],
     color: "#F97316",
-    button: "ĐĂNG KÝ TƯ VẤN",
     bullets: [
-      "Tôi muốn gia nhập ERA Vietnam",
-      "Tìm hiểu cơ hội sự nghiệp và lộ trình đào tạo khi gia nhập ERA Vietnam",
+      "Khóa học: Series Đào tạo chuyên sâu Kỹ năng Quay - Chụp - Dựng BĐS",
+      "Khóa học: Xây dựng thương hiệu cá nhân: Làm video đúng cách để có khách hàng chất lượng",
+      "Khóa học: Phát triển kênh Video Marketing",
     ],
   },
   {
@@ -33,10 +31,10 @@ const tracks = [
     title: "DÀNH CHO AGENT TẠI ERA VIETNAM",
     titleLines: ["DÀNH CHO AGENT", "TẠI ERA VIETNAM"],
     color: colors.primary.DEFAULT,
-    button: "TRUY CẬP MY ERA",
     bullets: [
-      "Tôi là Agent của ERA Vietnam",
-      "Khám phá khóa học liệu online siêu đa dạng & lịch đào tạo mới nhất cùng App My ERA",
+      "Khóa học: Series Thực hành Pháp lý Chuyên sâu",
+      "Khóa học: Làm chủ Bộ công cụ AI thực chiến",
+      "Khóa học: Listing Độc quyền & Listing Presentation trong Thứ cấp",
     ],
   },
 ];
@@ -59,7 +57,7 @@ export function AcademyRoadmapSection() {
         </p>
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-center">
+      <div className="mx-auto mt-10 grid max-w-6xl gap-6 md:grid-cols-[1fr_auto_1fr_auto_1fr] md:items-stretch">
         {tracks.map((track, index) => (
           <div key={track.title} className="contents">
             <article className="rounded-xl bg-white p-4 shadow-[0_10px_28px_rgba(15,23,42,0.12)] transition-transform duration-300 hover:scale-[1.02] md:p-5">
@@ -86,29 +84,16 @@ export function AcademyRoadmapSection() {
                       </span>
                     ))}
                   </h3>
-                  <ul className="list-disc space-y-2 pl-4 text-xs leading-relaxed text-gray-700 md:mt-5 md:min-h-[96px] md:pl-5 md:text-sm">
+                  <ul className="list-disc space-y-2 pl-4 text-xs leading-relaxed text-gray-700 md:mt-5 md:pl-5 md:text-sm">
                     {track.bullets.map((bullet) => (
                       <li key={bullet}>{bullet}</li>
                     ))}
                   </ul>
-                  <Button
-                    asChild={index === 2}
-                    variant="primary"
-                    size="sm"
-                    className="mt-4 w-full rounded-lg text-[10px] md:mt-6 md:text-sm"
-                    style={{ backgroundColor: track.color }}
-                  >
-                    {index === 2 ? (
-                      <Link href="https://app.era.com.vn/">{track.button}</Link>
-                    ) : (
-                      track.button
-                    )}
-                  </Button>
                 </div>
               </div>
             </article>
               {index < tracks.length - 1 && (
-                <div className="hidden h-12 w-12 items-center justify-center rounded-full bg-white text-academy-red shadow-md md:flex">
+                <div className="hidden h-12 w-12 items-center justify-center self-center rounded-full bg-white text-academy-red shadow-md md:flex">
                   <ArrowRight size={24} strokeWidth={2.5} />
                 </div>
               )}
