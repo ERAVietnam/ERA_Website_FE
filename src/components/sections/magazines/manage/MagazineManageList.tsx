@@ -150,7 +150,11 @@ export function MagazineManageList({
                 {items.map((item, i) => {
                   const status = magazineStatusConfig[item.status];
                   return (
-                    <tr key={item.id ?? i} className="hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={item.id ?? i}
+                      onClick={() => onEdit(item)}
+                      className="hover:bg-gray-50 transition-colors cursor-pointer"
+                    >
                       <td className="px-5 py-4 text-gray-500 font-medium">
                         {(meta.page - 1) * meta.limit + i + 1}
                       </td>
@@ -191,7 +195,7 @@ export function MagazineManageList({
                         </span>
                       </td>
                       {showActionsColumn && (
-                        <td className="px-5 py-4">
+                        <td className="px-5 py-4" onClick={(e) => e.stopPropagation()}>
                           <div className="flex items-center justify-end gap-1">
                             {canPublish && (
                               item.status === "draft" ? (
@@ -259,7 +263,8 @@ export function MagazineManageList({
             return (
               <div
                 key={item.id}
-                className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
+                onClick={() => onEdit(item)}
+                className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm cursor-pointer"
               >
                 <div className="flex gap-3">
                 <div className="h-28 w-20 flex-shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
@@ -297,7 +302,10 @@ export function MagazineManageList({
                 </div>
 
                   {showActionsColumn && (
-                  <div className="mt-3 flex flex-wrap items-center justify-end gap-1 border-t border-gray-100 pt-2">
+                  <div
+                    className="mt-3 flex flex-wrap items-center justify-end gap-1 border-t border-gray-100 pt-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     {canPublish && (
                       item.status === "draft" ? (
                         <Button

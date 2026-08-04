@@ -190,7 +190,11 @@ export const ProjectsManageList = memo(function ProjectsManageList({
             {projects.map((project, i) => {
               const publication = projectStatusConfig[project.publicationStatus];
               return (
-                <tr key={project.id} className="hover:bg-gray-50 transition-colors">
+                <tr
+                  key={project.id}
+                  onClick={() => onEdit(project)}
+                  className="hover:bg-gray-50 transition-colors cursor-pointer"
+                >
                   <td className="px-5 py-4 text-gray-500 font-medium">
                     {(page - 1) * 10 + i + 1}
                   </td>
@@ -287,7 +291,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
                 <div className="flex gap-3">
                 <button
                   type="button"
-                  onClick={() => onPreview?.(project)}
+                  onClick={() => onEdit(project)}
                   className="relative h-28 w-24 shrink-0 overflow-hidden rounded-lg bg-gray-100"
                 >
                   {thumbnailUrl ? (
@@ -308,7 +312,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
                 <div className="flex min-w-0 flex-1 flex-col">
                   <button
                     type="button"
-                    onClick={() => onPreview?.(project)}
+                    onClick={() => onEdit(project)}
                     className="text-left w-full group"
                   >
                     <h3 className="line-clamp-2 text-sm font-bold leading-snug text-gray-900 transition-colors group-hover:text-primary">

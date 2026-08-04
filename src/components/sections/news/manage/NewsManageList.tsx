@@ -58,7 +58,6 @@ export function NewsManageList({
   onFilterChange,
   onPageChange,
   onEdit,
-  onView,
   onDelete,
   onAdd,
   onPreview,
@@ -187,7 +186,7 @@ export function NewsManageList({
                 {items.map((item, index) => (
                   <tr
                     key={item.id}
-                    onClick={() => onView(item.id)}
+                    onClick={() => onEdit(item.id)}
                     className="hover:bg-gray-100 transition-colors cursor-pointer"
                   >
                     <td className="px-5 py-4 text-gray-500 font-medium">
@@ -274,7 +273,7 @@ export function NewsManageList({
               <div className="flex gap-3">
               <button
                 type="button"
-                onClick={() => onView(item.id)}
+                onClick={() => onEdit(item.id)}
                 className="relative h-28 w-24 shrink-0 overflow-hidden rounded-lg bg-gray-100"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -286,7 +285,7 @@ export function NewsManageList({
               </button>
               <div className="flex min-w-0 flex-1 flex-col">
                 <button
-                  onClick={() => onView(item.id)}
+                  onClick={() => onEdit(item.id)}
                   className="text-left w-full group"
                 >
                   <h3 className="line-clamp-2 text-sm font-bold leading-snug text-gray-900 transition-colors group-hover:text-primary">

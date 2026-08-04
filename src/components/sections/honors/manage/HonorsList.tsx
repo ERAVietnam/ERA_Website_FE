@@ -96,7 +96,11 @@ export function HonorsList<T extends HonorsListItem>({
             </thead>
             <tbody className="divide-y divide-gray-50">
               {items.map((item, index) => (
-                <tr key={item.id} className="transition-colors hover:bg-gray-50">
+                <tr
+                  key={item.id}
+                  onClick={() => onEdit(item)}
+                  className="transition-colors hover:bg-gray-50 cursor-pointer"
+                >
                   <td className="px-5 py-4 font-medium text-gray-500">
                     {index + 1}
                   </td>
@@ -121,7 +125,7 @@ export function HonorsList<T extends HonorsListItem>({
                     {formatDate(item.createdAt)}
                   </td>
                   {canManage && (
-                    <td className="px-5 py-4">
+                    <td className="px-5 py-4" onClick={(e) => e.stopPropagation()}>
                       <HonorActionsEditable
                         isDeleting={deletingId === item.id}
                         onEdit={() => onEdit(item)}
@@ -141,7 +145,8 @@ export function HonorsList<T extends HonorsListItem>({
           {items.map((item) => (
             <div
               key={item.id}
-              className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm"
+              onClick={() => onEdit(item)}
+              className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm cursor-pointer"
             >
               <div className="flex items-start gap-3">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-400">
@@ -162,7 +167,10 @@ export function HonorsList<T extends HonorsListItem>({
               </div>
 
               {canManage && (
-                <div className="mt-3 flex items-center justify-end gap-1 border-t border-gray-100 pt-2">
+                <div
+                  className="mt-3 flex items-center justify-end gap-1 border-t border-gray-100 pt-2"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <HonorActionsEditable
                     isDeleting={deletingId === item.id}
                     onEdit={() => onEdit(item)}

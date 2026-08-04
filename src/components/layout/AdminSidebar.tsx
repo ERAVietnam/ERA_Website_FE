@@ -21,6 +21,8 @@ import {
   BadgeCheck,
   Trophy,
   GraduationCap,
+  ChevronsLeft,
+  PanelLeft,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { hasAnyNewsArticleViewPermission } from "@/lib/permissions";
@@ -89,7 +91,12 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+  collapsed?: boolean;
+  onToggleCollapse?: () => void;
+}
+
+export function AdminSidebar({ collapsed = false, onToggleCollapse }: AdminSidebarProps) {
   const { account, logout, hasPermission } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
@@ -103,7 +110,7 @@ export function AdminSidebar() {
   const profileContent = (
     <Link
       href="/ho-so-ca-nhan"
-      className="flex items-center gap-3 p-4 hover:bg-gray-50 transition-colors"
+      className="flex items-center gap-3 p-4 md:pr-12 hover:bg-gray-50 transition-colors"
       onClick={() => setMobileOpen(false)}
     >
       <div className="w-11 h-11 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
@@ -177,9 +184,9 @@ export function AdminSidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 flex flex-col z-50 transition-transform duration-200 md:translate-x-0 ${
-          mobileOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 flex flex-col z-50 transition-transform duration-200 ${
+          collapsed ? "md:-translate-x-full" : "md:translate-x-0"
+        } ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="flex items-center justify-end p-4 border-b border-gray-200 md:hidden">
           <button
@@ -192,6 +199,18 @@ export function AdminSidebar() {
         </div>
 
         {profileContent}
+
+        {/* Nút thu gọn sidebar (desktop) */}
+        {onToggleCollapse && (
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            title="Thu gọn menu"
+            className="absolute top-5 right-3 hidden md:inline-flex items-center justify-center w-8 h-8 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+          >
+            <ChevronsLeft size={18} />
+          </button>
+        )}
 
         {menuContent}
 
@@ -208,6 +227,20 @@ export function AdminSidebar() {
 
         {logoutContent}
       </aside>
+
+      {/* Thanh trắng thu gọn (desktop) */}
+      {collapsed && onToggleCollapse && (
+        <div className="hidden md:flex fixed left-0 top-0 h-screen w-14 bg-white border-r border-gray-200 z-50 flex-col items-center pt-4">
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            title="Mở rộng menu"
+            className="inline-flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            <PanelLeft size={20} />
+          </button>
+        </div>
+      )}
     </>
   );
 }
