@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
 import { useAuth } from "@/contexts/AuthContext";
 import {
@@ -19,6 +18,7 @@ import {
   Building2,
   FileUser,
   BadgeCheck,
+  UserPen,
   Trophy,
   GraduationCap,
   ChevronsLeft,
@@ -40,6 +40,12 @@ const menuItems: MenuItem[] = [
     label: "Tin tức",
     icon: Newspaper,
     visible: (hasPermission) => hasAnyNewsArticleViewPermission(hasPermission),
+  },
+  {
+    href: "/tac-gia/quan-ly",
+    label: "Tác giả",
+    icon: UserPen,
+    visible: (hasPermission) => hasPermission("authors.all.view"),
   },
   {
     href: "/tap-chi/quan-ly",

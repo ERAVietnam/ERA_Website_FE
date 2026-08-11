@@ -1,37 +1,77 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { colors } from "@/lib/theme";
-import type { AuthorPostItem } from "./mockAuthor";
+import { authorsApi } from "@/api/domains/authors";
+import { Pagination } from "@/components/ui/Pagination";
+import { formatDate } from "@/lib/date";
+import type { AuthorPublicArticle, PaginatedResponse } from "@/types/api";
+
+const PAGE_LIMIT = 6;
+
+type TabType = "written" | "reviewed";
 
 interface AuthorPostsTabsProps {
-  writtenPosts: AuthorPostItem[];
-  reviewedPosts?: AuthorPostItem[];
+  slug: string;
+  written: PaginatedResponse<AuthorPublicArticle>;
+  reviewed: PaginatedResponse<AuthorPublicArticle>;
   reviewNote?: string | null;
 }
 
-function PostCard({ post }: { post: AuthorPostItem }) {
+function ArticleCard({ article }: { article: AuthorPublicArticle }) {
+  const dateValue = article.displayPublishedAt || article.publishedAt;
+
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-4">
+    <Link
+      href={`/tin-tuc/${article.slug}`}
+      className="group rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-md"
+    >
       <p className="mb-1.5 text-xs text-gray-500">
-        {post.category} · {post.date}
+        {article.category?.name ? `${article.category.name} · ` : ""}
+        {dateValue ? formatDate(dateValue) : ""}
       </p>
-      <a
-        href={post.url}
-        className="block font-semibold leading-snug transition-colors hover:text-primary"
+      <p
+        className="line-clamp-2 font-semibold leading-snug transition-colors group-hover:text-primary"
         style={{ color: colors.primary.navy.DEFAULT }}
       >
-        {post.title}
-      </a>
-    </div>
+        {article.title}
+      </p>
+      {article.summary && (
+        <p className="mt-1.5 line-clamp-2 text-sm text-gray-500">{article.summary}</p>
+      )}
+    </Link>
   );
 }
 
-export function AuthorPostsTabs({ writtenPosts, reviewedPosts, reviewNote }: AuthorPostsTabsProps) {
-  const hasReviewed = !!reviewedPosts && reviewedPosts.length > 0;
-  const [activeTab, setActiveTab] = useState<"written" | "reviewed">("written");
+export function AuthorPostsTabs({ slug, written, reviewed, reviewNote }: AuthorPostsTabsProps) {
+  const hasReviewed = reviewed.meta.total > 0;
+  const [activeTab, setActiveTab] = useState<TabType>(
+    written.meta.total > 0 || !hasReviewed ? "written" : "reviewed",
+  );
+  const [data, setData] = useState<Record<TabType, PaginatedResponse<AuthorPublicArticle>>>({
+    written,
+    reviewed,
+  });
+  const [loading, setLoading] = useState(false);
 
-  const posts = activeTab === "written" ? writtenPosts : reviewedPosts ?? [];
+  const loadPage = async (type: TabType, page: number) => {
+    setLoading(true);
+    try {
+      const res = await authorsApi.getPublicArticles(slug, {
+        type,
+        page,
+        limit: PAGE_LIMIT,
+      });
+      setData((prev) => ({ ...prev, [type]: res }));
+    } catch {
+      // Giữ nguyên dữ liệu cũ nếu request lỗi
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const current = data[activeTab];
 
   return (
     <div>
@@ -48,7 +88,7 @@ export function AuthorPostsTabs({ writtenPosts, reviewedPosts, reviewNote }: Aut
                 : "border-transparent text-gray-500 hover:text-gray-700"
             }`}
           >
-            Bài đã viết ({writtenPosts.length})
+            Bài đã viết ({data.written.meta.total})
           </button>
           <button
             type="button"
@@ -61,7 +101,7 @@ export function AuthorPostsTabs({ writtenPosts, reviewedPosts, reviewNote }: Aut
                 : "border-transparent text-gray-500 hover:text-gray-700"
             }`}
           >
-            Bài đã kiểm duyệt ({reviewedPosts!.length})
+            Bài đã kiểm duyệt ({data.reviewed.meta.total})
           </button>
         </div>
       )}
@@ -78,27 +118,27 @@ export function AuthorPostsTabs({ writtenPosts, reviewedPosts, reviewNote }: Aut
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {posts.map((post, index) => (
-          <PostCard key={`${activeTab}-${index}`} post={post} />
-        ))}
-      </div>
-
-      {/* Pager giả — chỉ UI */}
-      <div className="mt-5 flex justify-center gap-2">
-        <span
-          className="rounded-md border px-3 py-1.5 text-sm text-white"
-          style={{ backgroundColor: colors.primary.navy.DEFAULT, borderColor: colors.primary.navy.DEFAULT }}
+      {current.items.length === 0 ? (
+        <p className="py-6 text-center text-sm text-gray-400">
+          {activeTab === "written" ? "Chưa có bài viết nào." : "Chưa có bài kiểm duyệt nào."}
+        </p>
+      ) : (
+        <div
+          className={`grid grid-cols-1 gap-4 sm:grid-cols-2 transition-opacity ${
+            loading ? "pointer-events-none opacity-50" : ""
+          }`}
         >
-          1
-        </span>
-        <a href="#" className="rounded-md border border-gray-200 px-3 py-1.5 text-sm" style={{ color: colors.primary.navy.DEFAULT }}>
-          2
-        </a>
-        <a href="#" className="rounded-md border border-gray-200 px-3 py-1.5 text-sm" style={{ color: colors.primary.navy.DEFAULT }}>
-          ›
-        </a>
-      </div>
+          {current.items.map((article) => (
+            <ArticleCard key={`${activeTab}-${article.id}`} article={article} />
+          ))}
+        </div>
+      )}
+
+      <Pagination
+        currentPage={current.meta.page}
+        totalPages={current.meta.totalPages}
+        onPageChange={(page) => loadPage(activeTab, page)}
+      />
     </div>
   );
 }

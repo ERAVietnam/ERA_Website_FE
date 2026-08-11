@@ -1,4 +1,4 @@
-import type { NewsArticle, Project, JobPosting } from "@/types/api";
+import type { NewsArticle, Project, JobPosting, Author } from "@/types/api";
 import type { Office } from "./offices";
 
 const BASE_URL = "https://era.com.vn";
@@ -65,11 +65,17 @@ export function articleJsonLd(article: NewsArticle): Record<string, unknown> {
     image: imageUrl ? [imageUrl] : undefined,
     datePublished: publishedAt ? new Date(publishedAt).toISOString() : undefined,
     dateModified: modifiedAt ? new Date(modifiedAt).toISOString() : undefined,
-    author: {
-      "@type": "Organization",
-      name: "ERA Vietnam",
-      url: BASE_URL,
-    },
+    author: article.displayAuthor?.isActive
+      ? {
+          "@type": "Person",
+          name: article.displayAuthor.fullName,
+          url: `${BASE_URL}/tac-gia/${article.displayAuthor.slug}/`,
+        }
+      : {
+          "@type": "Organization",
+          name: "ERA Vietnam",
+          url: BASE_URL,
+        },
     publisher: {
       "@type": "Organization",
       name: "ERA Vietnam",
@@ -83,6 +89,45 @@ export function articleJsonLd(article: NewsArticle): Record<string, unknown> {
       "@type": "WebPage",
       "@id": `${BASE_URL}/tin-tuc/${article.slug}/`,
     },
+  };
+}
+
+export function profilePageJsonLd(author: Author): Record<string, unknown> {
+  const authorUrl = `${BASE_URL}/tac-gia/${author.slug}/`;
+  const sameAs = [author.linkedinUrl, author.facebookUrl, author.youtubeUrl].filter(
+    (url): url is string => !!url,
+  );
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfilePage",
+        url: authorUrl,
+        name: `${author.fullName}${author.jobTitle ? ` — ${author.jobTitle}` : ""} | ERA Vietnam`,
+        dateModified: new Date(author.updatedAt).toISOString(),
+        mainEntity: { "@id": `${authorUrl}#person` },
+      },
+      {
+        "@type": "Person",
+        "@id": `${authorUrl}#person`,
+        name: author.fullName,
+        url: authorUrl,
+        ...(author.avatar ? { image: author.avatar } : {}),
+        ...(author.jobTitle ? { jobTitle: author.jobTitle } : {}),
+        description: author.bio,
+        ...(author.workEmail ? { email: author.workEmail } : {}),
+        ...(author.zaloPhone ? { telephone: author.zaloPhone } : {}),
+        knowsAbout: author.expertise,
+        areaServed: author.areasServed.map((name) => ({ "@type": "Place", name })),
+        worksFor: {
+          "@type": "RealEstateAgent",
+          name: "ERA Vietnam",
+          url: BASE_URL,
+        },
+        ...(sameAs.length > 0 ? { sameAs } : {}),
+      },
+    ],
   };
 }
 

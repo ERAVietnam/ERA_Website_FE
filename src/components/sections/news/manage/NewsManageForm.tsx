@@ -7,6 +7,7 @@ import { colors } from "@/lib/theme";
 import { X, Loader2, History, Eye } from "lucide-react";
 import { newsApi } from "@/api/domains/news";
 import { accountsApi } from "@/api/domains/accounts";
+import { authorsApi } from "@/api/domains/authors";
 import { mediaApi } from "@/api/domains/media";
 import { createArticleSchema } from "@/schemas/news.schema";
 import { NEWS_FAQ_MAX_ITEMS, validateNewsFaqs } from "@/lib/news";
@@ -30,7 +31,7 @@ import { compressAndUploadImage } from "@/lib/uploadImage";
 import { processContentImages } from "@/lib/contentImages";
 import { COUNTRY_OPTIONS } from "@/lib/country";
 import { newsStatusConfig } from "@/lib/news/status";
-import type { NewsCategory, NewsArticle, NewsFaqInput, AccountReviewer } from "@/types/api";
+import type { NewsCategory, NewsArticle, NewsFaqInput, AccountReviewer, AuthorOption } from "@/types/api";
 
 
 
@@ -101,6 +102,8 @@ interface FormState {
   summary: string;
   content: string;
   source: string;
+  displayAuthorId: string;
+  displayReviewerId: string;
   metaTitle: string;
   metaDescription: string;
   isIndexed: boolean;
@@ -120,6 +123,8 @@ function articleToFormState(article?: NewsArticle): FormState {
       summary: "",
       content: "",
       source: "",
+      displayAuthorId: "",
+      displayReviewerId: "",
       metaTitle: "",
       metaDescription: "",
       isIndexed: true,
@@ -140,6 +145,8 @@ function articleToFormState(article?: NewsArticle): FormState {
     summary: article.summary ?? "",
     content: article.content,
     source: article.source ?? "",
+    displayAuthorId: article.displayAuthorId ?? "",
+    displayReviewerId: article.displayReviewerId ?? "",
     metaTitle: article.metaTitle ?? "",
     metaDescription: article.metaDescription ?? "",
     isIndexed: article.isIndexed ?? false,
@@ -171,6 +178,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string>(initialData?.pdfMedia?.url || "");
   const [categories, setCategories] = useState<NewsCategory[]>([]);
+  const [authorOptions, setAuthorOptions] = useState<AuthorOption[]>([]);
 
   const articleCategory = initialData
     ? initialData.category ?? categories.find((c) => c.id === initialData.categoryId)
@@ -301,6 +309,30 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
       .then(setNewsReviewers)
       .catch(() => setNewsReviewers([]));
   }, []);
+
+  useEffect(() => {
+    authorsApi
+      .getAuthorOptions()
+      .then(setAuthorOptions)
+      .catch(() => {
+        // Chưa có tác giả hoặc thiếu quyền authors.all.view → dropdown hiện text thông báo
+        setAuthorOptions([]);
+      });
+  }, []);
+
+  const authorSelectOptions = useMemo(() => {
+    const opts = authorOptions.map((a) => ({ value: a.id, label: a.fullName }));
+    // Bảo đảm tác giả đang gắn sẵn trên bài luôn hiện trong dropdown (kể cả khi không tải được options)
+    for (const extra of [initialData?.displayAuthor, initialData?.displayReviewer]) {
+      if (extra && !opts.some((o) => o.value === extra.id)) {
+        opts.push({ value: extra.id, label: extra.fullName });
+      }
+    }
+    return opts;
+  }, [authorOptions, initialData]);
+
+  const hasAuthorOptions = authorSelectOptions.length > 0;
+  const emptyAuthorOptionsText = "Chưa có tác giả nào hoặc bạn không có quyền hiển thị";
 
   const update = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((prev) => {
@@ -835,6 +867,8 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         featuredImageMediaId,
         pdfMediaId,
         source: form.source || undefined,
+        displayAuthorId: form.displayAuthorId || null,
+        displayReviewerId: form.displayReviewerId || null,
         metaTitle: form.metaTitle || undefined,
         metaDescription: form.metaDescription || undefined,
         isIndexed: form.isIndexed,
@@ -1111,6 +1145,40 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
                   disabled={isReadOnly}
                   className={inputBaseClass}
                 />
+              </div>
+            </div>
+
+            {/* Tác giả / người kiểm duyệt hiển thị (byline công khai) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div id="field-displayAuthorId">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Tác giả hiển thị
+                </label>
+                <SelectField
+                  value={form.displayAuthorId}
+                  onChange={(value) => update("displayAuthorId", value)}
+                  placeholder={hasAuthorOptions ? "— Không chọn —" : emptyAuthorOptionsText}
+                  disabled={isReadOnly || !hasAuthorOptions}
+                  options={authorSelectOptions}
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  Byline công khai trên bài viết, link tới trang tác giả.
+                </p>
+              </div>
+              <div id="field-displayReviewerId">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Người kiểm duyệt hiển thị
+                </label>
+                <SelectField
+                  value={form.displayReviewerId}
+                  onChange={(value) => update("displayReviewerId", value)}
+                  placeholder={hasAuthorOptions ? "— Không chọn —" : emptyAuthorOptionsText}
+                  disabled={isReadOnly || !hasAuthorOptions}
+                  options={authorSelectOptions}
+                />
+                <p className="mt-1 text-xs text-gray-500">
+                  Hiển thị &quot;Kiểm duyệt bởi&quot; trên bài viết.
+                </p>
               </div>
             </div>
 

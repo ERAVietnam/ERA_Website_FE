@@ -41,6 +41,7 @@ function normalizePathname(pathname: string): string {
 
 const ADMIN_PATHS = [
   "/tin-tuc/quan-ly",
+  "/tac-gia/quan-ly",
   "/tap-chi/quan-ly",
   "/du-an/quan-ly",
   "/agents/quan-ly",

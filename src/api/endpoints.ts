@@ -83,6 +83,17 @@ export const ENDPOINTS = {
     UPDATE: (id: string) => `/agents/${id}`,
     DELETE: (id: string) => `/agents/${id}`,
   },
+  AUTHORS: {
+    LIST: '/authors',
+    OPTIONS: '/authors/options',
+    DETAIL: (id: string) => `/authors/${id}`,
+    CREATE: '/authors',
+    UPDATE: (id: string) => `/authors/${id}`,
+    DELETE: (id: string) => `/authors/${id}`,
+    PUBLIC_LIST: '/authors/public',
+    PUBLIC_DETAIL: (slug: string) => `/authors/public/${slug}`,
+    PUBLIC_ARTICLES: (slug: string) => `/authors/public/${slug}/articles`,
+  },
   HONORS: {
     PUBLIC_CATEGORIES: '/honors/public/categories',
     CATEGORIES: '/honors/categories',

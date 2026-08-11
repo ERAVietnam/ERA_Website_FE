@@ -51,6 +51,10 @@ export interface NewsArticle {
   source?: string | null;
   author: { id: string; name: string; email: string } | null;
   authorId: string;
+  displayAuthorId?: string | null;
+  displayReviewerId?: string | null;
+  displayAuthor?: { id: string; fullName: string; slug: string; isActive: boolean } | null;
+  displayReviewer?: { id: string; fullName: string; slug: string; isActive: boolean } | null;
   readTime?: string | null;
   viewCount: number;
   countryCode?: string | null;
@@ -86,6 +90,8 @@ export interface CreateArticleInput {
   isFeatured?: boolean;
   replaceExistingFeatured?: boolean;
   countryCode?: string;
+  displayAuthorId?: string | null;
+  displayReviewerId?: string | null;
   faqs: NewsFaqInput[];
 }
 
@@ -241,6 +247,121 @@ export interface CreateAgentInput {
 }
 
 export type UpdateAgentInput = Partial<CreateAgentInput>;
+
+export interface AuthorExperience {
+  yearRange: string;
+  name: string;
+  role: string;
+}
+
+export interface AuthorAward {
+  year: string;
+  name: string;
+  org: string;
+}
+
+export interface AuthorPressMention {
+  title: string;
+  url?: string | null;
+  source: string;
+  date: string;
+}
+
+export interface Author {
+  id: string;
+  slug: string;
+  fullName: string;
+  jobTitle?: string | null;
+  division?: string | null;
+  avatar?: string | null;
+  avatarAlt?: string | null;
+  bio: string;
+  startYear: number;
+  licenseNumber?: string | null;
+  licenseYear?: number | null;
+  associationMembers: string[];
+  workEmail?: string | null;
+  zaloPhone?: string | null;
+  expertise: string[];
+  areasServed: string[];
+  experiences: AuthorExperience[];
+  awards?: AuthorAward[] | null;
+  pressMentions?: AuthorPressMention[] | null;
+  linkedinUrl?: string | null;
+  facebookUrl?: string | null;
+  youtubeUrl?: string | null;
+  reviewNote?: string | null;
+  isActive: boolean;
+  isIndexed: boolean;
+  createdAt: string;
+  updatedAt: string;
+  _count?: { writtenArticles: number; reviewedArticles: number };
+}
+
+export interface AuthorFilters {
+  search?: string;
+  isActive?: boolean;
+  page?: number;
+  limit?: number;
+}
+
+export interface CreateAuthorInput {
+  slug: string;
+  fullName: string;
+  jobTitle?: string | null;
+  division?: string | null;
+  avatar?: string | null;
+  avatarAlt?: string | null;
+  bio: string;
+  startYear: number;
+  licenseNumber?: string | null;
+  licenseYear?: number | null;
+  associationMembers?: string[];
+  workEmail?: string | null;
+  zaloPhone?: string | null;
+  expertise: string[];
+  areasServed: string[];
+  experiences: AuthorExperience[];
+  awards?: AuthorAward[] | null;
+  pressMentions?: AuthorPressMention[] | null;
+  linkedinUrl?: string | null;
+  facebookUrl?: string | null;
+  youtubeUrl?: string | null;
+  reviewNote?: string | null;
+  isActive?: boolean;
+  isIndexed?: boolean;
+}
+
+export type UpdateAuthorInput = Partial<CreateAuthorInput>;
+
+export interface AuthorOption {
+  id: string;
+  fullName: string;
+  slug: string;
+}
+
+export interface AuthorPublicListItem {
+  slug: string;
+  updatedAt: string;
+  isIndexed: boolean;
+}
+
+export interface AuthorPublicArticle {
+  id: string;
+  title: string;
+  slug: string;
+  summary?: string | null;
+  publishedAt?: string | null;
+  displayPublishedAt?: string | null;
+  featuredImage?: { id: string; url: string; altText?: string | null } | null;
+  category?: { id: string; name: string; slug: string } | null;
+}
+
+export interface AuthorPublicArticlesFilters {
+  type?: 'written' | 'reviewed';
+  page?: number;
+  limit?: number;
+}
 
 export interface AcademyCourseTag {
   id: string;
