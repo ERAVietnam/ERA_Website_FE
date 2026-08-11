@@ -5,10 +5,13 @@ import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { colors } from "@/lib/theme";
 import { AuthorPostsTabs } from "./AuthorPostsTabs";
-import type { DisplayAuthor } from "./mockAuthor";
+import { formatDate } from "@/lib/date";
+import type { Author, AuthorPublicArticle, PaginatedResponse } from "@/types/api";
 
 interface AuthorProfilePageProps {
-  author: DisplayAuthor;
+  author: Author;
+  written: PaginatedResponse<AuthorPublicArticle>;
+  reviewed: PaginatedResponse<AuthorPublicArticle>;
 }
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
@@ -47,7 +50,7 @@ function TimelineItem({ year, name, role }: { year: string; name: string; role: 
   );
 }
 
-export function AuthorProfilePage({ author }: AuthorProfilePageProps) {
+export function AuthorProfilePage({ author, written, reviewed }: AuthorProfilePageProps) {
   const currentYear = new Date().getFullYear();
   const yearsExperience = author.startYear ? currentYear - author.startYear : null;
   const hasAwards = !!author.awards && author.awards.length > 0;
@@ -66,7 +69,7 @@ export function AuthorProfilePage({ author }: AuthorProfilePageProps) {
           <nav className="text-[13px] text-gray-500" aria-label="Breadcrumb">
             <Link href="/" className="hover:underline">Trang chủ</Link>
             <span className="mx-1.5">›</span>
-            <Link href="/tac-gia" className="hover:underline">Tác giả</Link>
+            <span>Tác giả</span>
             <span className="mx-1.5">›</span>
             <span aria-current="page" className="font-medium text-gray-800">{author.fullName}</span>
           </nav>
@@ -75,20 +78,22 @@ export function AuthorProfilePage({ author }: AuthorProfilePageProps) {
 
       {/* 1. Hero */}
       <Section padding="xs" bg="gray">
-        <Container size="lg" className="flex flex-col gap-6 sm:flex-row sm:items-start">
-          {author.avatarUrl ? (
-            <Image
-              src={author.avatarUrl}
-              alt={author.avatarAlt || author.fullName}
-              width={160}
-              height={160}
-              className="h-30 w-30 shrink-0 rounded-lg border border-gray-200 object-cover sm:h-40 sm:w-40"
-            />
-          ) : (
-            <div className="flex h-30 w-30 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-gray-100 sm:h-40 sm:w-40">
-              <User size={56} className="text-gray-400" />
-            </div>
-          )}
+        <Container size="lg" className="flex flex-col gap-6 sm:flex-row sm:items-stretch">
+          <div className="relative h-30 w-30 shrink-0 overflow-hidden rounded-lg border border-gray-200 sm:h-auto sm:w-40 sm:self-stretch">
+            {author.avatar ? (
+              <Image
+                src={author.avatar}
+                alt={author.avatarAlt || author.fullName}
+                fill
+                sizes="(min-width: 640px) 160px, 120px"
+                className="object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-gray-100">
+                <User size={56} className="text-gray-400" />
+              </div>
+            )}
+          </div>
 
           <div className="min-w-0 flex-1">
             <h1
@@ -105,7 +110,7 @@ export function AuthorProfilePage({ author }: AuthorProfilePageProps) {
               </p>
             )}
 
-            {(yearsExperience || author.licenseNumber || author.associationMember) && (
+            {(yearsExperience || author.licenseNumber || author.associationMembers.length > 0) && (
               <div className="mb-5 flex flex-wrap gap-2.5">
                 {yearsExperience && (
                   <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3.5 py-1.5 text-[13.5px] font-medium">
@@ -120,31 +125,38 @@ export function AuthorProfilePage({ author }: AuthorProfilePageProps) {
                     {author.licenseYear ? ` — cấp ${author.licenseYear}` : ""}
                   </span>
                 )}
-                {author.associationMember && (
-                  <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3.5 py-1.5 text-[13.5px] font-medium">
+                {author.associationMembers.map((member) => (
+                  <span
+                    key={member}
+                    className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3.5 py-1.5 text-[13.5px] font-medium"
+                  >
                     <span className="h-2 w-2 rounded-full" style={{ backgroundColor: colors.tertiary.orange.DEFAULT }} />
-                    {author.associationMember}
+                    {member}
                   </span>
-                )}
+                ))}
               </div>
             )}
 
             <div className="flex flex-wrap gap-2.5">
-              <a
-                href={`mailto:${author.workEmail}`}
-                className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
-              >
-                <Mail size={16} /> Gửi email
-              </a>
-              <a
-                href={`https://zalo.me/${author.zaloPhone}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-gray-50"
-                style={{ color: colors.primary.navy.DEFAULT, borderColor: colors.primary.navy.DEFAULT }}
-              >
-                <MessageCircle size={16} /> Chat Zalo
-              </a>
+              {author.workEmail && (
+                <a
+                  href={`mailto:${author.workEmail}`}
+                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                >
+                  <Mail size={16} /> Gửi email
+                </a>
+              )}
+              {author.zaloPhone && (
+                <a
+                  href={`https://zalo.me/${author.zaloPhone}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg border px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-gray-50"
+                  style={{ color: colors.primary.navy.DEFAULT, borderColor: colors.primary.navy.DEFAULT }}
+                >
+                  <MessageCircle size={16} /> Chat Zalo
+                </a>
+              )}
             </div>
           </div>
         </Container>
@@ -218,17 +230,23 @@ export function AuthorProfilePage({ author }: AuthorProfilePageProps) {
             <ul>
               {author.pressMentions!.map((press, index) => (
                 <li key={index} className="border-b border-gray-100 py-3 last:border-b-0">
-                  <a
-                    href={press.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium hover:text-primary hover:underline"
-                    style={{ color: colors.secondary.DEFAULT }}
-                  >
-                    {press.title}
-                  </a>
+                  {press.url ? (
+                    <a
+                      href={press.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium hover:text-primary hover:underline"
+                      style={{ color: colors.secondary.DEFAULT }}
+                    >
+                      {press.title}
+                    </a>
+                  ) : (
+                    <p className="font-medium" style={{ color: colors.secondary.DEFAULT }}>
+                      {press.title}
+                    </p>
+                  )}
                   <p className="mt-0.5 text-xs text-gray-500">
-                    {press.source} · {press.date}
+                    {press.source} · {press.date ? formatDate(press.date) : ""}
                   </p>
                 </li>
               ))}
@@ -242,8 +260,9 @@ export function AuthorProfilePage({ author }: AuthorProfilePageProps) {
         <Container size="lg">
           <SectionHeading>Nội dung</SectionHeading>
           <AuthorPostsTabs
-            writtenPosts={author.writtenPosts}
-            reviewedPosts={author.reviewedPosts}
+            slug={author.slug}
+            written={written}
+            reviewed={reviewed}
             reviewNote={author.reviewNote}
           />
         </Container>
@@ -268,7 +287,7 @@ export function AuthorProfilePage({ author }: AuthorProfilePageProps) {
               </a>
             ))}
           </div>
-          <p className="mt-4 text-[13px] text-gray-500">Cập nhật lần cuối: {author.updatedAt}</p>
+          <p className="mt-4 text-[13px] text-gray-500">Cập nhật lần cuối: {formatDate(author.updatedAt)}</p>
         </Container>
       </Section>
     </>

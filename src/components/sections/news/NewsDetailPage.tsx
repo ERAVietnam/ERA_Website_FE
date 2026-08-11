@@ -3,7 +3,6 @@
 import { memo, useMemo } from "react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
@@ -40,6 +39,9 @@ export const NewsDetailPage = memo(function NewsDetailPage({
   const encodedTitle = encodeURIComponent(article.title);
 
   const isPressRelease = article.category.slug === "thong-cao-bao-chi";
+
+  const visibleAuthor = article.displayAuthor?.isActive ? article.displayAuthor : null;
+  const visibleReviewer = article.displayReviewer?.isActive ? article.displayReviewer : null;
 
   const shareLinks =[
     { name: "Facebook", src: "/shared/fb_icon.svg", href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
@@ -130,6 +132,46 @@ export const NewsDetailPage = memo(function NewsDetailPage({
           >
             {article.title}
           </h1>
+
+          {/* Byline: tác giả / người kiểm duyệt hiển thị (chỉ render khi bài có gắn và tác giả đang active) */}
+          {(visibleAuthor || visibleReviewer) && (
+            <div
+              className="mb-6 flex flex-wrap items-center gap-x-2 gap-y-1"
+              style={{ color: colors.gray[500], fontSize: "14px" }}
+            >
+              {visibleAuthor && (
+                <span>
+                  Bởi{" "}
+                  <Link
+                    href={`/tac-gia/${visibleAuthor.slug}`}
+                    className="hover:underline"
+                    style={{ color: colors.primary.DEFAULT, fontWeight: 600 }}
+                  >
+                    {visibleAuthor.fullName}
+                  </Link>
+                </span>
+              )}
+              {visibleAuthor && visibleReviewer && <span aria-hidden>·</span>}
+              {visibleReviewer && (
+                <span>
+                  Kiểm duyệt:{" "}
+                  <Link
+                    href={`/tac-gia/${visibleReviewer.slug}`}
+                    className="hover:underline"
+                    style={{ color: colors.primary.DEFAULT, fontWeight: 600 }}
+                  >
+                    {visibleReviewer.fullName}
+                  </Link>
+                </span>
+              )}
+              <span aria-hidden>·</span>
+              <span>
+                {formatDate(
+                  article.displayPublishedAt || article.publishedAt || article.createdAt,
+                )}
+              </span>
+            </div>
+          )}
 
           {/* Table of Contents */}
           <NewsTableOfContents headings={headings} />

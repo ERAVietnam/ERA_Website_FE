@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { projectsApi } from "@/api/domains/projects";
 import { newsApi } from "@/api/domains/news";
+import { authorsApi } from "@/api/domains/authors";
 import type { NewsArticle, Project } from "@/types/api";
 
 export const revalidate = 3600;
@@ -88,11 +89,28 @@ async function fetchAllArticleRoutes(): Promise<MetadataRoute.Sitemap> {
   return routes;
 }
 
+async function fetchAllAuthorRoutes(): Promise<MetadataRoute.Sitemap> {
+  try {
+    const authors = await authorsApi.getPublicList();
+    return authors
+      .filter((author) => author.isIndexed === true)
+      .map((author) => ({
+        url: `${baseUrl}/tac-gia/${author.slug}/`,
+        lastModified: new Date(author.updatedAt),
+        changeFrequency: "weekly" as const,
+        priority: 0.6,
+      }));
+  } catch {
+    return [];
+  }
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [projectRoutes, articleRoutes] = await Promise.all([
+  const [projectRoutes, articleRoutes, authorRoutes] = await Promise.all([
     fetchAllProjectRoutes(),
     fetchAllArticleRoutes(),
+    fetchAllAuthorRoutes(),
   ]);
 
-  return [...staticRoutes, ...projectRoutes, ...articleRoutes];
+  return [...staticRoutes, ...projectRoutes, ...articleRoutes, ...authorRoutes];
 }
