@@ -14,7 +14,7 @@ const faqs = [
   {
     question: "Mạng lưới và quy mô của ERA Vietnam hiện nay ra sao?",
     answer:
-      "ERA Vietnam hiện có 3 văn phòng, hơn 2,300 agents và đã tham gia môi giới hơn 150 dự án sơ cấp và thứ cấp trên khắp cả nước. Công ty tự hào sở hữu 12 division với các leader giàu kinh nghiệm.",
+      "ERA Vietnam hiện có 3 văn phòng, hơn 2,700 agents và đã tham gia môi giới hơn 150 dự án sơ cấp và thứ cấp trên khắp cả nước. Công ty tự hào sở hữu 12 division với các leader giàu kinh nghiệm.",
   },
   {
     question: "Ứng dụng My ERA có những tính năng gì hỗ trợ Agent?",

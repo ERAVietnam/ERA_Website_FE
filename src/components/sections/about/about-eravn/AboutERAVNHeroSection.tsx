@@ -6,7 +6,7 @@ import { colors } from "@/lib/theme";
 
 const stats = [
   { value: "03", label: "VĂN PHÒNG" },
-  { value: "2,300+", label: "AGENTS" },
+  { value: "2,700+", label: "AGENTS" },
   { value: "150+", label: "DỰ ÁN SƠ CẤP\n& THỨ CẤP" },
 ];
 

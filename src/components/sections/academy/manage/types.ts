@@ -5,7 +5,6 @@ export const DEFAULT_LIMIT = 10;
 export interface CourseFormState {
   title: string;
   description: string;
-  registrationUrl: string;
   openingDate: string;
   isActive: boolean;
   imageMediaId: string | null;
@@ -24,7 +23,6 @@ export function courseToFormState(course?: AcademyCourse | null): CourseFormStat
   return {
     title: course?.title ?? "",
     description: course?.description ?? "",
-    registrationUrl: course?.registrationUrl ?? "",
     openingDate: toDateInputValue(course?.openingDate),
     isActive: course?.isActive ?? true,
     imageMediaId: course?.imageMediaId ?? null,
