@@ -133,23 +133,6 @@ export function AcademyCourseForm({
             )}
           </div>
 
-          <div id="field-registrationUrl">
-            <label className="mb-2 block text-sm font-semibold text-gray-700">Link đăng ký</label>
-            <input
-              type="url"
-              value={form.registrationUrl}
-              onChange={(event) => onUpdateForm("registrationUrl", event.target.value)}
-              placeholder="https://..."
-              className={`${inputBaseClass} ${fieldErrors.registrationUrl ? errorInputClass : ""}`}
-            />
-            <p className="mt-1 text-xs text-gray-400">
-              Link này dùng cho nút Đăng ký ngay ở card khóa học ngoài trang Academy.
-            </p>
-            {fieldErrors.registrationUrl && (
-              <p className="mt-1 text-xs text-red-500">{fieldErrors.registrationUrl}</p>
-            )}
-          </div>
-
           <div className="grid gap-4 sm:grid-cols-2">
             <div id="field-openingDate">
               <label className="mb-2 block text-sm font-semibold text-gray-700">Ngày mở khóa</label>

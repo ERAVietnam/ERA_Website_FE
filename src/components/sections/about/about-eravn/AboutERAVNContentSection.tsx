@@ -27,7 +27,7 @@ export default function AboutERAVNContentSection() {
               style={{ backgroundColor: colors.primary.DEFAULT }}
             >
               <div className="text-2xl font-bold text-white">
-                2,300+
+                2,700+
               </div>
               <div className="text-xs font-semibold text-white/90 uppercase tracking-wider">
                 Agents
