@@ -773,3 +773,17 @@ body {
 .animate-project-tag-marquee {
   animation: project-tag-marquee var(--marquee-duration, 24s) linear infinite alternate;
 }
+
+/* Monthly honor images marquee (chạy sang trái, lặp vô hạn) */
+@keyframes honor-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-honor-marquee {
+  animation: honor-marquee var(--honor-marquee-duration, 40s) linear infinite;
+}

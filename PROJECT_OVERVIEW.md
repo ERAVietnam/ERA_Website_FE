@@ -657,6 +657,8 @@ Admin/private route handling:
 - `monthly-honors`
 - `annual-honors`
 - `academy-courses`
+- `authors`
+- `consultation`
 
 ### Mock data status update
 
@@ -666,3 +668,126 @@ Admin/private route handling:
 - Landing/marketing sections outside the CMS scope may still contain hardcoded content by design.
 - Eco Retreat landing page (`/phan-khu-rung-phuong-duan-eco-retreat/`) renders real landing sections; marketing content inside landing is static by design.
 
+---
+
+## 19. Current Codebase Additions - Authors, Consultation, Rich Editor Image Layouts
+
+> Section này phản ánh các phần mới hơn trong codebase hiện tại. Nếu có điểm nào mâu thuẫn với các section cũ phía trên, ưu tiên section này.
+
+### Authors / Tác giả
+
+- Public route mới:
+  - `/tac-gia/[slug]` render trang hồ sơ tác giả.
+- Admin route mới:
+  - `/tac-gia/quan-ly` render `AuthorManagePage`.
+- API domain:
+  - `src/api/domains/authors.ts`.
+- API endpoints FE đang dùng:
+  - `GET /authors/public`
+  - `GET /authors/public/:slug`
+  - `GET /authors/public/:slug/articles`
+  - `GET /authors/options`
+  - `GET /authors`
+  - `GET /authors/:id`
+  - `POST /authors`
+  - `PATCH /authors/:id`
+  - `DELETE /authors/:id`
+- Sidebar admin có item “Tác giả”, hiển thị theo permission `authors.all.view`.
+- News form hiện có 2 field chọn tác giả hiển thị:
+  - `displayAuthorId`
+  - `displayReviewerId`
+- Trang chi tiết tin tức render link tác giả/người kiểm duyệt nếu author đang active.
+- JSON-LD:
+  - `articleJsonLd()` dùng `displayAuthor` active làm `Person`, fallback về `Organization`.
+  - `profilePageJsonLd()` render schema `ProfilePage` + `Person` cho trang tác giả.
+- Sitemap đã include public author pages nếu API public trả dữ liệu.
+
+### Consultation / Form tư vấn
+
+- Shared component:
+  - `src/components/shared/ConsultationCard.tsx`.
+- API domain:
+  - `src/api/domains/consultation.ts`.
+- Endpoint:
+  - `POST /consultation`.
+- Hiện FE gửi:
+  - `name`
+  - `phone`
+  - `sourceUrl`
+  - `sourceLabel`
+- `ToTopButton` có tích hợp consultation CTA trên mobile theo ngữ cảnh trang hiện tại.
+- Luồng hiện tại là gửi thông tin tư vấn qua backend/mail, không có table DB riêng ở FE layer.
+
+### RichEditor image layouts
+
+- `RichEditor` hiện hỗ trợ chèn layout ảnh trong content HTML, chưa đổi DB.
+- Grid image layout:
+  - `src/components/shared/ImageGridModal.tsx`
+  - `src/components/shared/image-grid-layout.ts`
+  - Nút toolbar: `Grid ảnh`.
+  - Hỗ trợ 2-6 ảnh.
+  - Có biến thể layout cho 3 ảnh và 5 ảnh.
+  - Sau khi lưu vào editor, grid có nút `Sửa` và `Xóa`; public/preview ẩn action buttons bằng CSS.
+- Carousel image layout:
+  - `src/components/shared/ImageCarouselModal.tsx`
+  - `src/components/shared/image-carousel-layout.ts`
+  - `src/components/shared/ImageCarousel.tsx`
+- Layout ảnh được lưu trực tiếp trong richtext HTML bằng các `data-era-*` attributes, ví dụ:
+  - `data-era-image-grid`
+  - `data-era-layout-id`
+  - `data-era-image-carousel`
+  - `data-era-carousel-id`
+- RichEditor có logic chặn chỉnh sửa trực tiếp bên trong block layout; người dùng phải bấm nút sửa/xóa của layout.
+
+### Admin/private route notes
+
+- `src/proxy.ts` bảo vệ mọi path có `/quan-ly`, nên `/tac-gia/quan-ly` đã được bảo vệ server-side theo cookie `era_auth_state`.
+- `src/components/layout/LayoutWrapper.tsx` có `/tac-gia/quan-ly` trong danh sách admin paths để ẩn Header/Footer public.
+- `src/app/robots.ts` hiện đang chặn nhiều admin/private routes. Nên đảm bảo luôn có `/tac-gia/quan-ly` trong danh sách disallow nếu chưa được thêm.
+
+### Media folder notes
+
+- FE media upload flow hiện đã có thêm folder phục vụ tác giả ở backend là `authors`.
+- Nếu FE upload avatar tác giả qua media API, cần dùng đúng folder `authors`.
+
+### Current known maintainability note
+
+- `RichEditor.tsx` đang chứa nhiều logic: CKEditor config, image upload, grid/carousel insert/edit/delete, runtime CSS và guard chống sửa layout trực tiếp.
+- Nếu tiếp tục thêm layout ảnh mới như list/zigzag/hierarchical, nên ưu tiên tách plugin/layout handling ra file riêng để tránh file này tiếp tục phình lớn.
+
+---
+
+## 20. Current verification notes - 2026-08-13
+
+> Section này ghi lại các điểm đã đối chiếu trực tiếp với codebase hiện tại. Nếu mâu thuẫn với nội dung cũ phía trên, ưu tiên section này.
+
+### Current admin routes
+
+- `src/app/(admin)/tac-gia/quan-ly/page.tsx` tồn tại và render `AuthorManagePage`.
+- `src/app/tac-gia/[slug]/page.tsx` tồn tại và render public author profile page.
+- `src/components/layout/LayoutWrapper.tsx` đã có `/tac-gia/quan-ly` trong `ADMIN_PATHS`, nên route này ẩn Header/Footer public.
+- `src/proxy.ts` bảo vệ mọi path chứa `/quan-ly`, nên `/tac-gia/quan-ly` đã được bảo vệ server-side bằng `era_auth_state`.
+
+### Current robots status
+
+- `src/app/robots.ts` hiện disallow:
+  - `/tin-tuc/quan-ly`
+  - `/tap-chi/quan-ly`
+  - `/du-an/quan-ly`
+  - `/agents/quan-ly`
+  - `/vinh-danh-va-he-thong/quan-ly`
+  - `/khoa-hoc/quan-ly`
+  - `/tuyen-dung/quan-ly`
+  - `/tuyen-dung/ung-vien`
+  - `/tai-khoan/quan-ly`
+  - `/ho-so-ca-nhan`
+- `src/app/robots.ts` hiện chưa thấy `/tac-gia/quan-ly` trong danh sách disallow.
+
+### Current API domains
+
+`src/api/domains/*.ts` hiện có thêm:
+
+- `authors.ts`
+- `consultation.ts`
+
+Các domain này tương ứng với backend modules `authors` và `consultation`.

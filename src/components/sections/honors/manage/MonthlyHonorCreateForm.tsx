@@ -18,9 +18,9 @@ interface MonthlyHonorCreateFormProps {
     value: MonthlyHonorFormState[K],
   ) => void;
   onAddAgent: (agentId: string) => void;
-  onRemoveAgent: (agentId: string) => void;
-  onMoveAgent: (agentId: string, direction: -1 | 1) => void;
-  onSetAgentFile: (agentId: string, file: File) => void;
+  onRemoveAgent: (index: number) => void;
+  onMoveAgent: (index: number, direction: -1 | 1) => void;
+  onSetAgentFile: (index: number, file: File) => void;
   onSubmit: (event: FormEvent) => void;
   onCancel: () => void;
   isEditing: boolean;
@@ -41,10 +41,10 @@ export function MonthlyHonorCreateForm({
   onCancel,
   isEditing,
 }: MonthlyHonorCreateFormProps) {
-  const selectedIdSet = new Set(form.agents.map((item) => item.agentId));
+  // Agent đã chọn vẫn hiển thị lại để có thể thêm lần nữa
+  // (1 agent có thể được vinh danh nhiều hạng mục trong cùng 1 tháng)
   const term = form.agentSearch.trim().toLowerCase();
   const availableAgents = agents.filter((agent) => {
-    if (selectedIdSet.has(agent.id)) return false;
     if (!term) return true;
     return (
       agent.name.toLowerCase().includes(term) ||
@@ -138,7 +138,7 @@ export function MonthlyHonorCreateForm({
           <div className="mb-4">
             <h2 className="font-bold text-gray-900">Danh sách agent</h2>
             <p className="text-sm text-gray-500">
-              Tìm và thêm agent vào list vinh danh tháng.
+              Tìm và thêm agent vào list vinh danh tháng. Có thể thêm cùng 1 agent nhiều lần nếu agent đó đứng đầu nhiều hạng mục.
             </p>
           </div>
 
@@ -198,7 +198,7 @@ export function MonthlyHonorCreateForm({
 
               return (
                 <div
-                  key={item.agentId}
+                  key={index}
                   className="rounded-xl border border-gray-100 bg-gray-50/40 p-3"
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -213,7 +213,7 @@ export function MonthlyHonorCreateForm({
                       <button
                         type="button"
                         disabled={index === 0}
-                        onClick={() => onMoveAgent(item.agentId, -1)}
+                        onClick={() => onMoveAgent(index, -1)}
                         className="rounded border border-gray-200 bg-white px-2 py-1 text-xs text-gray-500 disabled:opacity-30"
                       >
                         ↑
@@ -221,14 +221,14 @@ export function MonthlyHonorCreateForm({
                       <button
                         type="button"
                         disabled={index === form.agents.length - 1}
-                        onClick={() => onMoveAgent(item.agentId, 1)}
+                        onClick={() => onMoveAgent(index, 1)}
                         className="rounded border border-gray-200 bg-white px-2 py-1 text-xs text-gray-500 disabled:opacity-30"
                       >
                         ↓
                       </button>
                       <button
                         type="button"
-                        onClick={() => onRemoveAgent(item.agentId)}
+                        onClick={() => onRemoveAgent(index)}
                         className="rounded-lg p-2 text-red-500 transition-colors hover:bg-red-50"
                         aria-label={`Xóa ${agent.name}`}
                       >
@@ -254,7 +254,7 @@ export function MonthlyHonorCreateForm({
                           className="sr-only"
                           onChange={(event) => {
                             const file = event.target.files?.[0];
-                            if (file) onSetAgentFile(item.agentId, file);
+                            if (file) onSetAgentFile(index, file);
                           }}
                         />
                       </label>
@@ -271,13 +271,13 @@ export function MonthlyHonorCreateForm({
                         className="sr-only"
                         onChange={(event) => {
                           const file = event.target.files?.[0];
-                          if (file) onSetAgentFile(item.agentId, file);
+                          if (file) onSetAgentFile(index, file);
                         }}
                       />
                     </label>
-                    {errors[`image-${item.agentId}`] && (
+                    {errors[`image-${index}`] && (
                       <p className="mt-1 text-xs text-red-500">
-                        {errors[`image-${item.agentId}`]}
+                        {errors[`image-${index}`]}
                       </p>
                     )}
                   </div>
