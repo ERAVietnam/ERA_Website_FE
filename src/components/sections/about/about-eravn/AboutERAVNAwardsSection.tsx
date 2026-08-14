@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -9,7 +9,7 @@ import { SelectField } from "@/components/ui/admin/SelectField";
 import Image from "next/image";
 import { annualHonorsApi } from "@/api/domains/annual-honors";
 import { monthlyHonorsApi } from "@/api/domains/monthly-honors";
-import type { AnnualHonorList, HonorAgent, MonthlyHonorList } from "@/types/api";
+import type { AnnualHonorList, HonorAgent, MonthlyHonorAgent, MonthlyHonorList } from "@/types/api";
 
 function YearlyHeroSection({
   selectedYear,
@@ -429,6 +429,93 @@ function TopThreeCard({
   );
 }
 
+function HonorCard({ membership }: { membership: MonthlyHonorAgent }) {
+  return (
+    <div className="group relative w-52 flex-none overflow-hidden rounded-xl border-2 border-white shadow-md md:w-64">
+      <div className="relative aspect-square">
+        <img
+          src={membership.image}
+          alt={membership.agent.name}
+          className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-110"
+        />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Ảnh vinh danh tháng: đủ chỗ trên 1 hàng thì hiển thị tĩnh (căn giữa),
+ * chỉ khi tràn mới chạy marquee sang trái, lặp vô hạn.
+ */
+function MonthlyHonorMarquee({ agents }: { agents: MonthlyHonorAgent[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [shouldScroll, setShouldScroll] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const track = trackRef.current;
+    if (!container || !track) return;
+
+    const check = () => {
+      // Đo 1 card rồi nhân số ảnh thật — không dùng scrollWidth vì ở chế độ
+      // marquee track đã nhân bản (2×repeat) nên không phản ánh độ dài list
+      const firstCard = track.firstElementChild as HTMLElement | null;
+      if (!firstCard) return;
+      const cardWidth = firstCard.getBoundingClientRect().width;
+      const contentWidth = agents.length * cardWidth + (agents.length - 1) * 16; // gap-4
+      setShouldScroll(contentWidth > container.clientWidth + 1);
+    };
+    check();
+    const observer = new ResizeObserver(check);
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [agents.length, shouldScroll]);
+
+  if (agents.length === 0) {
+    return (
+      <div className="mb-5 rounded-xl border border-dashed border-gray-200 bg-white p-8 text-center text-sm text-gray-400">
+        Chưa có dữ liệu vinh danh tháng.
+      </div>
+    );
+  }
+
+  // py-3 + -my-3: chừa chỗ cho shadow card không bị overflow-hidden cắt
+  if (!shouldScroll) {
+    return (
+      <div ref={containerRef} className="-my-3 mb-2 overflow-hidden py-3">
+        <div ref={trackRef} className="mx-auto flex w-max gap-4">
+          {agents.map((membership) => (
+            <HonorCard key={membership.id} membership={membership} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Lặp list đủ dài để marquee liền mạch, track = 2 nửa giống hệt nhau
+  // để translateX(0 -> -50%) loop seamless
+  const repeatCount = Math.max(1, Math.ceil(8 / agents.length));
+  const halfTrack = Array.from({ length: repeatCount }, () => agents).flat();
+  const track = [...halfTrack, ...halfTrack];
+
+  return (
+    <div ref={containerRef} className="-my-3 mb-2 overflow-hidden py-3">
+      <div
+        ref={trackRef}
+        className="animate-honor-marquee flex w-max gap-4 hover:[animation-play-state:paused]"
+        style={{
+          "--honor-marquee-duration": `${halfTrack.length * 5}s`,
+        } as React.CSSProperties}
+      >
+        {track.map((membership, index) => (
+          <HonorCard key={`${membership.id}-${index}`} membership={membership} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function AboutERAVNAwardsSection() {
   const [activeTab, setActiveTab] = useState<"monthly" | "yearly">("monthly");
   const [selectedMonth, setSelectedMonth] = useState("03");
@@ -637,28 +724,8 @@ export default function AboutERAVNAwardsSection() {
               </div>
             </div>
 
-            {/* Best Achievers */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
-              {(selectedMonthlyHonor?.agents ?? []).map((membership, index) => (
-                <div
-                  key={membership.id}
-                  className="rounded-xl overflow-hidden shadow-md relative group border-2 border-white"
-                >
-                  <div className="aspect-square relative">
-                    <img
-                      src={membership.image}
-                      alt={membership.agent.name}
-                      className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                </div>
-              ))}
-              {!selectedMonthlyHonor?.agents?.length && (
-                <div className="col-span-2 md:col-span-4 rounded-xl border border-dashed border-gray-200 bg-white p-8 text-center text-sm text-gray-400">
-                  Chưa có dữ liệu vinh danh tháng.
-                </div>
-              )}
-            </div>
+            {/* Best Achievers — tĩnh nếu đủ 1 hàng, tràn mới chạy marquee */}
+            <MonthlyHonorMarquee agents={selectedMonthlyHonor?.agents ?? []} />
 
             {/* Agent Tables */}
             {/* <div className="grid grid-cols-1 lg:grid-cols-5 gap-6"> */}

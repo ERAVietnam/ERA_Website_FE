@@ -542,26 +542,23 @@ export default function HonorsManagePage() {
   };
 
   const addMonthlyAgent = (agentId: string) => {
-    setMonthlyForm((prev) => {
-      if (prev.agents.some((item) => item.agentId === agentId)) return prev;
-      return {
-        ...prev,
-        agents: [...prev.agents, { agentId, image: "", file: null }],
-      };
-    });
+    // Cho phép thêm cùng 1 agent nhiều lần (1 agent nhiều hạng mục trong tháng)
+    setMonthlyForm((prev) => ({
+      ...prev,
+      agents: [...prev.agents, { agentId, image: "", file: null }],
+    }));
     setMonthlyFieldErrors((prev) => ({ ...prev, agents: "" }));
   };
 
-  const removeMonthlyAgent = (agentId: string) => {
+  const removeMonthlyAgent = (index: number) => {
     setMonthlyForm((prev) => ({
       ...prev,
-      agents: prev.agents.filter((item) => item.agentId !== agentId),
+      agents: prev.agents.filter((_, itemIndex) => itemIndex !== index),
     }));
   };
 
-  const moveMonthlyAgent = (agentId: string, direction: -1 | 1) => {
+  const moveMonthlyAgent = (index: number, direction: -1 | 1) => {
     setMonthlyForm((prev) => {
-      const index = prev.agents.findIndex((item) => item.agentId === agentId);
       const nextIndex = index + direction;
       if (index < 0 || nextIndex < 0 || nextIndex >= prev.agents.length) {
         return prev;
@@ -575,7 +572,7 @@ export default function HonorsManagePage() {
     });
   };
 
-  const setMonthlyAgentFile = (agentId: string, file: File) => {
+  const setMonthlyAgentFile = (index: number, file: File) => {
     if (!file.type.startsWith("image/")) {
       showError("File vinh danh tháng phải là hình ảnh.");
       return;
@@ -584,11 +581,11 @@ export default function HonorsManagePage() {
     const previewUrl = URL.createObjectURL(file);
     setMonthlyForm((prev) => ({
       ...prev,
-      agents: prev.agents.map((item) =>
-        item.agentId === agentId ? { ...item, file, image: previewUrl } : item,
+      agents: prev.agents.map((item, itemIndex) =>
+        itemIndex === index ? { ...item, file, image: previewUrl } : item,
       ),
     }));
-    setMonthlyFieldErrors((prev) => ({ ...prev, [`image-${agentId}`]: "" }));
+    setMonthlyFieldErrors((prev) => ({ ...prev, [`image-${index}`]: "" }));
   };
 
   const validateMonthlyForm = () => {
@@ -612,9 +609,9 @@ export default function HonorsManagePage() {
       errors.agents = "Vui lòng thêm ít nhất 1 agent.";
     }
 
-    monthlyForm.agents.forEach((item) => {
+    monthlyForm.agents.forEach((item, index) => {
       if (!item.file && !item.image.trim()) {
-        errors[`image-${item.agentId}`] = "Vui lòng chọn ảnh vinh danh.";
+        errors[`image-${index}`] = "Vui lòng chọn ảnh vinh danh.";
       }
     });
 
