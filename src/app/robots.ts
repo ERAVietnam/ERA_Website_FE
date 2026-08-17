@@ -12,6 +12,7 @@ export default function robots(): MetadataRoute.Robots {
         "/agents/quan-ly",
         "/vinh-danh-va-he-thong/quan-ly",
         "/khoa-hoc/quan-ly",
+        "/tac-gia/quan-ly",
         "/tuyen-dung/quan-ly",
         "/tuyen-dung/ung-vien",
         "/tai-khoan/quan-ly",

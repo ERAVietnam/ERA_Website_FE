@@ -218,6 +218,8 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/tin-tuc/quan-ly` | `app/tin-tuc/quan-ly/page.tsx` | `NewsManagePage` |
 | `/tap-chi/quan-ly` | `app/tap-chi/quan-ly/page.tsx` | `MagazineManagePage` |
 | `/khoa-hoc/quan-ly` | `app/(admin)/khoa-hoc/quan-ly/page.tsx` | `AcademyCourseManagePage` |
+| `/tac-gia/[slug]` | `app/tac-gia/[slug]/page.tsx` | `AuthorProfilePage` |
+| `/tac-gia/quan-ly` | `app/(admin)/tac-gia/quan-ly/page.tsx` | `AuthorManagePage` |
 | `/agents/quan-ly` | `app/agents/quan-ly/page.tsx` | `AgentManagePage` |
 | `/vinh-danh-va-he-thong/quan-ly` | `app/vinh-danh-va-he-thong/quan-ly/page.tsx` | `HonorsManagePage` |
 | `/tai-khoan/quan-ly` | `app/tai-khoan/quan-ly/page.tsx` | `AccountManagePage` |
@@ -255,7 +257,7 @@ const nextConfig = {
 
 | File | Mô tả |
 |------|-------|
-| `src/app/robots.ts` | Cho phép crawl public pages, chặn các admin/private paths: `/tin-tuc/quan-ly`, `/tap-chi/quan-ly`, `/du-an/quan-ly`, `/agents/quan-ly`, `/vinh-danh-va-he-thong/quan-ly`, `/tuyen-dung/quan-ly`, `/tuyen-dung/ung-vien`, `/tai-khoan/quan-ly`, `/ho-so-ca-nhan` |
+| `src/app/robots.ts` | Cho phép crawl public pages, chặn các admin/private paths: `/tin-tuc/quan-ly`, `/tap-chi/quan-ly`, `/du-an/quan-ly`, `/agents/quan-ly`, `/vinh-danh-va-he-thong/quan-ly`, `/khoa-hoc/quan-ly`, `/tac-gia/quan-ly`, `/tuyen-dung/quan-ly`, `/tuyen-dung/ung-vien`, `/tai-khoan/quan-ly`, `/ho-so-ca-nhan` |
 | `src/app/sitemap.ts` | Static URLs + dynamic project detail URLs từ API. Chỉ đưa project/news có `isIndexed === true` vào sitemap. |
 | `src/app/layout.tsx` | Google site verification: `k7gJl-mR813vH7LjJj1wD4B23PDH4N-F_bEW9pHylmc` |
 
@@ -438,7 +440,7 @@ const nextConfig = {
 Hiện có **4 kiểu tab** khác nhau trong project:
 
 1. **Underline indicator** — `AboutERAVNTabs`, `NewsTabsSection`
-2. **Pill toggle** — `ApplyRecruitmentSection`, `AcademyCoursesSection`, `ContactOfficesSection`
+2. **Pill toggle** — `ApplyRecruitmentSection`, `ContactOfficesSection` (`AcademyCoursesSection` đã bỏ filter tag pill trên `/academy`)
 3. **Border container** — `AboutERAVNAwardsSection`
 4. **Rounded-full segmented** — `LegalPageLayout`
 
@@ -494,10 +496,11 @@ Các module news, projects, recruitment, magazines, agents, honors, monthly hono
 |-------|------|--------|---------|
 | `setState` trong `useEffect` | `ApplyGalleryModal.tsx:33` | Medium | Có thể gây cascading renders |
 | `<img>` thay vì `<Image>` | `Footer.tsx` (BCT logo ×2) | Low | BCT logo không cần optimize |
-| `no-unescaped-entities` | `ProjectsDetailContentSection.tsx`, `ProjectsManageList.tsx` | Low | `"` nên escape thành `&quot;` |
+| `no-unescaped-entities` | `ProjectsDetailContentSection.tsx`, `ProjectsManageList.tsx`, `AcademyTestimonialsSection.tsx` | Low | `"` nên escape thành `&quot;` |
 | Unused imports | `NewsManagePage.tsx` (colors), nhiều file khác | Low | Dọn dẹp định kỳ |
 | Turbopack panic `/tuyen-dung/` | Dev server only | Low | Xóa `.next` và chạy lại nếu gặp |
 | Stale route constants | `src/lib/routes.ts` | Low | `commission`, `training`, `inventory`, `technology`, `brandStory`, `operations` chưa có page file tương ứng — cần tạo page hoặc dọn dẹp |
+| Sidebar collapsed không persist | `AdminSidebar` | Low | F5 mất trạng thái thu gọn sidebar |
 | `any` type | `RichEditor.tsx`, `Button.tsx:forwardRef` | Done | Đã thay bằng proper types |
 | Popup lỗi chung | Nhiều file | Done | Đã thay bằng `NetworkErrorPopup` |
 | Dead code removed | May 2026 | Done | Đã xóa `Badge.tsx`, `SectionTitle.tsx`, `ImagePlaceholder.tsx`, `CompassCollabSection.tsx`, `CompassLoadingAnimation.tsx`, 12 CKEditor sub-packages, `themeClasses`, `cssVariables`, `color()`, `getRoute()`, `RouteKey` |
@@ -561,15 +564,13 @@ Admin/private route handling:
 ### Academy public page
 
 - `AcademyCoursesSection` no longer uses hardcoded course mock data for the course list.
-- Public course list uses:
-  - `GET /academy-courses/public`
-  - `GET /academy-courses/public/tags`
-- Filter “Chọn khóa học” supports multi-select tags.
-- FE sends multi-tag filter as `tagIds=id1,id2,id3`.
-- Backend returns courses matching at least one selected tag.
-- Empty filtered result displays neutral gray empty state: “Chưa có khóa học phù hợp.”
-- Course card keeps the mock UI sizing/layout: left image column, title, tag line, bullet-style description, opening date/COMING SOON, CTA button.
-- Course `description` comes from richtext HTML, but public card extracts list/text items and renders them as compact bullet/numbered text so richtext heading sizes do not break the card layout.
+- Public course list uses `GET /academy-courses/public` (không còn gọi tags API để filter).
+- Không còn sidebar filter tag / multi-select “Chọn khóa học”.
+- Mặc định hiển thị tối đa 6 khóa học (`DEFAULT_LIMIT = 6`) với phân trang.
+- Layout danh sách chuyển thành grid 2 cột (`md:grid-cols-2`) với padding ngang `md:px-20 lg:px-40`.
+- Card khóa học dọc: ảnh 16/9 + tag line + tiêu đề + bullet/numbered mô tả + ngày mở/COMING SOON.
+- Không còn nút CTA “ĐĂNG KÝ NGAY” trên card.
+- Course `description` vẫn được trích xuất từ richtext HTML thành bullet/numbered text để card gọn gàng.
 
 ### Academy course admin
 
@@ -597,8 +598,9 @@ Admin/private route handling:
 
 ### Media API update
 
-- `src/api/domains/media.ts` upload folder union includes `academy`.
+- `src/api/domains/media.ts` upload folder union includes `academy` và `authors`.
 - Course images are uploaded to Cloudflare R2 folder `academy` through the backend media endpoint.
+- Author avatars are uploaded to Cloudflare R2 folder `authors` through the backend media endpoint.
 
 ### Honors / Monthly honors public data
 
@@ -607,6 +609,8 @@ Admin/private route handling:
 - Monthly honors admin UI is integrated inside `/vinh-danh-va-he-thong/quan-ly`.
 - Public monthly honors uses `GET /monthly-honors/public`.
 - Admin monthly honors uses `GET/POST/PATCH/DELETE /monthly-honors`.
+- Tab “Vinh Danh Tháng” hiển thị ảnh vinh danh bằng `MonthlyHonorMarquee`: 1 hàng chạy sang trái, chỉ chạy khi track tràn container, tạm dừng khi hover.
+- Admin form cho phép thêm cùng một agent nhiều lần trong cùng list tháng (key quản lý theo `index` thay vì `agentId`).
 
 ### Annual honors public/admin data
 
@@ -743,7 +747,7 @@ Admin/private route handling:
 
 - `src/proxy.ts` bảo vệ mọi path có `/quan-ly`, nên `/tac-gia/quan-ly` đã được bảo vệ server-side theo cookie `era_auth_state`.
 - `src/components/layout/LayoutWrapper.tsx` có `/tac-gia/quan-ly` trong danh sách admin paths để ẩn Header/Footer public.
-- `src/app/robots.ts` hiện đang chặn nhiều admin/private routes. Nên đảm bảo luôn có `/tac-gia/quan-ly` trong danh sách disallow nếu chưa được thêm.
+- `src/app/robots.ts` đã bao gồm `/tac-gia/quan-ly` trong danh sách disallow.
 
 ### Media folder notes
 
@@ -777,11 +781,12 @@ Admin/private route handling:
   - `/agents/quan-ly`
   - `/vinh-danh-va-he-thong/quan-ly`
   - `/khoa-hoc/quan-ly`
+  - `/tac-gia/quan-ly`
   - `/tuyen-dung/quan-ly`
   - `/tuyen-dung/ung-vien`
   - `/tai-khoan/quan-ly`
   - `/ho-so-ca-nhan`
-- `src/app/robots.ts` hiện chưa thấy `/tac-gia/quan-ly` trong danh sách disallow.
+- `src/app/robots.ts` hiện đã có `/tac-gia/quan-ly` trong danh sách disallow.
 
 ### Current API domains
 
