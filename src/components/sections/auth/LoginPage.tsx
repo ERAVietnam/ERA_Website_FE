@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { useAuth } from "@/contexts/AuthContext";
@@ -97,6 +98,29 @@ export function LoginPage() {
               <Loader2 size={18} className="animate-spin mr-2" />
             ) : null}
             {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
+          </Button>
+
+          <Button
+            asChild
+            variant="outline"
+            size="md"
+            className="w-full justify-center gap-2"
+            style={{ backgroundColor: colors.neutral.white }}
+          >
+            <a
+              href="https://app.era.com.vn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="/home/apple-touch-icon.png"
+                alt="MyERA"
+                width={20}
+                height={20}
+                className="rounded-sm"
+              />
+              Vào MyERA
+            </a>
           </Button>
         </form>
       </div>
