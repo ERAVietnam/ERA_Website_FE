@@ -69,7 +69,7 @@ export const NewsCategorySection = memo(function NewsCategorySection({
               TIÊU ĐIỂM
             </div>
             <h3
-              className="text-white mb-2 sm:mb-3 line-clamp-2 sm:line-clamp-3 text-xl sm:text-2xl lg:text-[30px]"
+              className="text-white mb-2 sm:mb-3 line-clamp-2 sm:line-clamp-3 text-xl sm:text-2xl lg:text-[30px] pt-2"
               style={{
                 fontWeight: 700,
                 lineHeight: 1.4,
@@ -114,7 +114,7 @@ export const NewsCategorySection = memo(function NewsCategorySection({
             </div>
             <div className="flex-1 py-1 flex flex-col">
               <h3
-                className="mb-1.5 sm:mb-2 line-clamp-2 group-hover:text-primary transition-colors text-sm sm:text-base"
+                className="mb-1.5 sm:mb-2 line-clamp-2 group-hover:text-primary transition-colors text-sm sm:text-base pt-2"
                 style={{
                   color: colors.neutral.foreground,
                   fontWeight: 700,
