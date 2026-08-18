@@ -13,7 +13,7 @@ export function AcademyPage() {
       <AcademyHeroSection />
       <AcademyCoursesSection />
       <AcademyRoadmapSection />
-      <AcademyOnlineSection />
+      {/* <AcademyOnlineSection /> */}
       <AcademyActivitiesSection />
       <AcademyMyEraSection />
       {/* <AcademyTestimonialsSection /> */}

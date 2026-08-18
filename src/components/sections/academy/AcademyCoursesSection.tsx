@@ -6,24 +6,10 @@ import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
 import { formatDate } from "@/lib/date";
 import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
+import { RichTextContent } from "@/components/shared/RichTextContent";
 import type { AcademyCourse, PaginationMeta } from "@/types/api";
 
 const DEFAULT_LIMIT = 6;
-
-function extractBulletsFromHtml(html: string) {
-  if (typeof window === "undefined" || !html) return [];
-
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  const listItems = Array.from(doc.querySelectorAll("li"))
-    .map((item) => item.textContent?.trim() || "")
-    .filter(Boolean);
-
-  if (listItems.length > 0) return listItems;
-
-  return Array.from(doc.body.children)
-    .map((item) => item.textContent?.trim() || "")
-    .filter(Boolean);
-}
 
 function getVisiblePages(currentPage: number, totalPages: number) {
   const pages: (number | string)[] = [];
@@ -105,7 +91,7 @@ export function AcademyCoursesSection() {
         </p>
       </div>
 
-      <div className="mt-10 md:px-20 lg:px-40">
+      <div className="mt-10 md:px-4 lg:px-10">
         <div className="space-y-8">
           {loading && (
             <div className="rounded-xl bg-white p-8 text-center text-sm text-gray-500 shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
@@ -126,14 +112,12 @@ export function AcademyCoursesSection() {
           )}
 
           {!loading && !error && courses.length > 0 && (
-            <div className="grid gap-6 md:grid-cols-2">
-              {courses.map((course) => {
-                const bullets = extractBulletsFromHtml(course.description);
-                return (
-                  <article
-                    key={course.id}
-                    className="group flex h-full flex-col gap-5 rounded-xl bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.08)]"
-                  >
+            <div className="grid gap-6 md:grid-cols-3">
+              {courses.map((course) => (
+                <article
+                  key={course.id}
+                  className="group flex h-full flex-col gap-5 rounded-xl bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.08)]"
+                >
                     <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-gray-100">
                     {course.imageMedia?.url ? (
                       <img
@@ -157,11 +141,10 @@ export function AcademyCoursesSection() {
                     >
                       {course.title}
                     </h3>
-                    <ol className="mt-4 list-decimal space-y-1.5 pl-4 text-sm leading-relaxed text-gray-600">
-                      {bullets.map((bullet) => (
-                        <li key={bullet}>{bullet}</li>
-                      ))}
-                    </ol>
+                    <RichTextContent
+                      html={course.description}
+                      className="mt-4 ck-content text-sm leading-relaxed text-gray-600"
+                    />
                     <p className="mt-auto pt-4 text-xs italic text-gray-500">
                       Ngày mở dự kiến:{" "}
                       <span className="font-semibold text-[#F97316]">
@@ -170,8 +153,7 @@ export function AcademyCoursesSection() {
                     </p>
                   </div>
                 </article>
-              );
-              })}
+              ))}
             </div>
           )}
 
