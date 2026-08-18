@@ -787,3 +787,17 @@ body {
 .animate-honor-marquee {
   animation: honor-marquee var(--honor-marquee-duration, 40s) linear infinite;
 }
+
+/* About ERAVN tabs marquee (mobile) */
+@keyframes tabs-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-tabs-marquee {
+  animation: tabs-marquee var(--tabs-marquee-duration, 18s) linear infinite;
+}
