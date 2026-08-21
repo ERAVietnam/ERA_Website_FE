@@ -7,11 +7,11 @@ import { colors } from "@/lib/theme";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const activityImages = [
+  "/academy/RS (14).png",
   "/academy/985925bac5e00bd13350a5dfa95f0210167e31c8.webp",
-  "/academy/f2e95d3ee9547d79ed49d882343a65773056796f.webp",
-  "/academy/493f656c5855be30ee01d5dbab9165c0d92bbc98.webp",
-  "/academy/f9caffdd2a8780e1a41ae1238aa7ab6f7f243705.webp",
-  "/academy/e88127e1cd44b5ef4cd683a59f6a10e06970cfc2.webp",
+  "/academy/482962260_1102197531709626_6171454858199932770_n.jpg",
+  "/academy/506476915_1176623187600393_4498885068623432488_n.jpg",
+  "/academy/509030035_1176623607600351_1925553108330228974_n.jpg",
 ];
 
 export function AcademyActivitiesSection() {

@@ -29,14 +29,14 @@ export function NewsSearchPage({ search, articles }: NewsSearchPageProps) {
       <Section padding="sm" bg="gray">
         <Link
           href={ROUTES.news}
-          className="inline-flex items-center gap-2 text-sm font-medium mb-6 hover:opacity-80 transition-opacity"
+          className="inline-flex items-center gap-2 text-sm font-medium mt-8 md:mt-0 mb-6 hover:opacity-80 transition-opacity"
           style={{ color: colors.gray[500] }}
         >
           <ArrowLeft size={16} />
           Quay lại Tin tức
         </Link>
 
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-8">
+        <div className="flex items-center gap-3 mb-8">
           <div className="w-1 h-8 rounded-full shrink-0" style={{ backgroundColor: colors.primary.DEFAULT }} />
           <h1
             style={{

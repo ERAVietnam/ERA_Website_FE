@@ -52,6 +52,7 @@ export function Header() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [expandedMobileAbout, setExpandedMobileAbout] = useState(false);
+  const { isAuthenticated } = useAuth();
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -191,16 +192,20 @@ export function Header() {
               isScrolled ? "shadow-md" : ""
             )}
           >
-            <Link href="#" className="p-1.5 flex items-center justify-center">
-              <Image
-                src="/mobile_header/menu_user_icon.svg"
-                alt="User"
-                width={20}
-                height={20}
-                style={{ width: '20px', height: '20px' }}
-              />
-            </Link>
-            <div className="w-px h-4 bg-gray-300" />
+            {!isAuthenticated && (
+              <>
+                <Link href={ROUTES.login} className="p-1.5 flex items-center justify-center">
+                  <Image
+                    src="/mobile_header/menu_user_icon.svg"
+                    alt="User"
+                    width={20}
+                    height={20}
+                    style={{ width: '20px', height: '20px' }}
+                  />
+                </Link>
+                <div className="w-px h-4 bg-gray-300" />
+              </>
+            )}
             <button
               className="p-1.5 flex items-center justify-center"
               onClick={() => setIsMobileMenuOpen(true)}
