@@ -1,10 +1,122 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Section } from "@/components/ui/Section";
-import { Button } from "@/components/ui/Button";
 import { colors, withOpacity } from "@/lib/theme";
 import { offices } from "@/lib/offices";
+
+const officeLabels: Record<string, string> = {
+  south: "TPHCM",
+  central: "Đà Nẵng",
+  north: "Hà Nội",
+  "artisan-park": "Artisan Park",
+  "nha-be": "Nhà Bè",
+  "binh-tan": "Bình Tân",
+  "eco-retreat": "Eco Retreat",
+};
+
+function MarqueeOfficeTabs({
+  activeOffice,
+  onSelect,
+}: {
+  activeOffice: string;
+  onSelect: (id: string) => void;
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    let lastTime = performance.now();
+    const step = (time: number) => {
+      if (!container || isDraggingRef.current) {
+        rafRef.current = requestAnimationFrame(step);
+        return;
+      }
+      const delta = time - lastTime;
+      if (delta > 16) {
+        container.scrollLeft += 0.5;
+        const singleSetWidth = container.scrollWidth / 3;
+        if (container.scrollLeft >= singleSetWidth * 2) {
+          container.scrollLeft -= singleSetWidth;
+        }
+        lastTime = time;
+      }
+      rafRef.current = requestAnimationFrame(step);
+    };
+
+    rafRef.current = requestAnimationFrame(step);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    const container = scrollRef.current;
+    if (!container) return;
+    isDraggingRef.current = true;
+    startXRef.current = e.pageX - container.offsetLeft;
+    scrollLeftRef.current = container.scrollLeft;
+    container.style.cursor = "grabbing";
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const container = scrollRef.current;
+    if (!container || !isDraggingRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - container.offsetLeft;
+    const walk = (x - startXRef.current) * 1.2;
+    container.scrollLeft = scrollLeftRef.current - walk;
+  };
+
+  const stopDrag = () => {
+    const container = scrollRef.current;
+    if (container) container.style.cursor = "grab";
+    isDraggingRef.current = false;
+  };
+
+  const duplicatedOffices = [...offices, ...offices, ...offices];
+
+  return (
+    <div
+      ref={scrollRef}
+      className="flex gap-3 overflow-x-auto select-none w-full"
+      style={{
+        cursor: "grab",
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
+      }}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={stopDrag}
+      onMouseLeave={stopDrag}
+    >
+      {duplicatedOffices.map((office, idx) => {
+        const isActive = office.id === activeOffice;
+        return (
+          <button
+            key={`${office.id}-${idx}`}
+            onClick={() => onSelect(office.id)}
+            className="whitespace-nowrap flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-[1.02]"
+            style={{
+              backgroundColor: isActive
+                ? colors.primary.navy.DEFAULT
+                : colors.gray[100],
+              color: isActive ? colors.neutral.white : colors.gray[500],
+            }}
+          >
+            {officeLabels[office.id] || office.name}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
 
 export function ContactOfficesSection() {
   const [activeOffice, setActiveOffice] = useState("south");
@@ -32,32 +144,8 @@ export function ContactOfficesSection() {
 
         {/* Mobile Layout */}
         <div className="flex flex-col gap-4 lg:hidden">
-          {/* Tabs */}
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide w-full justify-between">
-            {offices.map((office) => {
-              const isActive = office.id === activeOffice;
-              return (
-                <Button
-                  key={office.id}
-                  variant={isActive ? "navy" : "ghost"}
-                  size="sm"
-                  className="whitespace-nowrap hover:scale-[1.02]"
-                  style={isActive ? undefined : { color: colors.gray[500] }}
-                  onClick={() => setActiveOffice(office.id)}
-                >
-                  {{
-                    south: "TPHCM",
-                    central: "Đà Nẵng",
-                    north: "Hà Nội",
-                    "artisan-park": "Artisan Park",
-                    "nha-be": "Nhà Bè",
-                    "binh-tan": "Bình Tân",
-                    "eco-retreat": "Eco Retreat",
-                  }[office.id] || office.name}
-                </Button>
-              );
-            })}
-          </div>
+          {/* Tabs - marquee auto-scroll */}
+          <MarqueeOfficeTabs activeOffice={activeOffice} onSelect={setActiveOffice} />
 
           {/* Map */}
           <div className="relative h-[280px]">
