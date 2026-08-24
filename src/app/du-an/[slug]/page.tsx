@@ -28,12 +28,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const project = await projectsApi.getProjectBySlug(slug);
 
+    const siteUrl = "https://era.com.vn";
+    const currentUrl = `${siteUrl}/du-an/${slug}/`;
     const title = project.name?.trim() || "ERA Vietnam";
     const description = project.content
       ? project.content.replace(/<[^>]+>/g, "").slice(0, 160)
       : undefined;
     const imageUrl = project.imageMedia?.url || undefined;
-    const canonicalUrl = project.canonicalUrl?.trim() || null;
+    const canonicalUrl = project.canonicalUrl?.trim() || currentUrl;
 
     return {
       title: `${title} | ERA Vietnam`,
