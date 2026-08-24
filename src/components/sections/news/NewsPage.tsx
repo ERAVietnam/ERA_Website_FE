@@ -6,8 +6,8 @@ import { newsApi } from "@/api/domains/news";
 import type { NewsArticle, NewsCategory } from "@/types/api";
 
 const SECTION_CONFIG: { slug: string; featuredPosition: "left" | "right" }[] = [
-  { slug: "tin-thi-truong", featuredPosition: "left" },
-  { slug: "tin-du-an", featuredPosition: "right" },
+  { slug: "tin-du-an", featuredPosition: "left" },
+  { slug: "tin-thi-truong", featuredPosition: "right" },
   { slug: "era-news", featuredPosition: "left" },
   { slug: "thong-cao-bao-chi", featuredPosition: "right" },
 ];
