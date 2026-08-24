@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
 import { ROUTES } from "@/lib/routes";
 import { NewsArticleCard } from "./NewsArticleCard";
+import { NewsSearchBox } from "./NewsTabsSection";
 import type { NewsArticle, NewsCategory } from "@/types/api";
 
 interface NewsCategoryPageProps {
@@ -15,6 +17,14 @@ interface NewsCategoryPageProps {
 
 
 export function NewsCategoryPage({ category, articles }: NewsCategoryPageProps) {
+  const [query, setQuery] = useState("");
+
+  const handleSearch = () => {
+    if (query.trim()) {
+      window.location.href = `/tin-tuc/tim-kiem?search=${encodeURIComponent(query.trim())}&categorySlug=${encodeURIComponent(category.slug)}`;
+    }
+  };
+
   return (
     <main className="min-h-screen bg-gray-50">
       <Section padding="sm" bg="gray">
@@ -38,6 +48,14 @@ export function NewsCategoryPage({ category, articles }: NewsCategoryPageProps) 
           >
             {category.name}
           </h1>
+        </div>
+
+        <div className="mb-6">
+          <NewsSearchBox
+            query={query}
+            onQueryChange={setQuery}
+            onSubmit={handleSearch}
+          />
         </div>
 
         {articles.length === 0 ? (
