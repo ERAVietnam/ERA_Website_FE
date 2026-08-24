@@ -13,14 +13,33 @@ import type { NewsArticle } from "@/types/api";
 interface NewsSearchPageProps {
   search: string;
   articles: NewsArticle[];
+  categorySlug?: string;
+  categoryName?: string;
 }
 
-export function NewsSearchPage({ search, articles }: NewsSearchPageProps) {
+export function NewsSearchPage({
+  search,
+  articles,
+  categorySlug,
+  categoryName,
+}: NewsSearchPageProps) {
   const [query, setQuery] = useState(search);
+
+  const buildSearchUrl = (term: string) => {
+    const params = new URLSearchParams();
+    if (term.trim()) {
+      params.set("search", term.trim());
+    }
+    if (categorySlug) {
+      params.set("categorySlug", categorySlug);
+    }
+    const qs = params.toString();
+    return `/tin-tuc/tim-kiem${qs ? `?${qs}` : ""}`;
+  };
 
   const handleSearch = () => {
     if (query.trim()) {
-      window.location.href = `/tin-tuc/tim-kiem?search=${encodeURIComponent(query.trim())}`;
+      window.location.href = buildSearchUrl(query);
     }
   };
 
@@ -58,13 +77,31 @@ export function NewsSearchPage({ search, articles }: NewsSearchPageProps) {
         </div>
 
         <div
-          className="flex items-center gap-2 mb-6 px-4 py-3 bg-white rounded-xl border border-gray-200"
+          className="flex flex-wrap items-center gap-2 mb-6 px-4 py-3 bg-white rounded-xl border border-gray-200"
         >
           <Search size={18} style={{ color: colors.primary.DEFAULT }} />
           <span className="text-sm text-gray-500">Từ khóa:</span>
           <span className="text-sm font-semibold" style={{ color: colors.neutral.foreground }}>
             {search}
           </span>
+          {categoryName && (
+            <>
+              <span className="text-sm text-gray-400">|</span>
+              <span className="text-sm text-gray-500">Danh mục:</span>
+              <span
+                className="text-sm font-semibold"
+                style={{ color: colors.primary.DEFAULT }}
+              >
+                {categoryName}
+              </span>
+              <Link
+                href={`/tin-tuc/tim-kiem?search=${encodeURIComponent(search)}`}
+                className="ml-1 text-xs text-gray-400 hover:text-primary transition-colors"
+              >
+                (xóa lọc)
+              </Link>
+            </>
+          )}
           <span className="text-sm text-gray-400 ml-auto">
             {articles.length} kết quả
           </span>

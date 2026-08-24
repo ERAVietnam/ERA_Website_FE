@@ -37,7 +37,7 @@ export function MagazineCard({ magazine }: Props) {
       />
 
       {/* Magazine Cover */}
-      <div className="relative w-56 sm:w-72 aspect-[16/9] rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
+      <div className="relative w-full sm:w-56 md:w-72 aspect-[16/9] rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
         {coverUrl ? (
           <Image
             src={coverUrl}
@@ -131,7 +131,7 @@ export function MagazineCard({ magazine }: Props) {
 
   if (!pdfUrl) {
     return (
-      <article className="relative bg-white rounded-2xl p-4 shadow-sm flex gap-4 overflow-hidden cursor-default">
+      <article className="relative bg-white rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row gap-4 overflow-hidden cursor-default">
         {cardContent}
       </article>
     );
@@ -142,7 +142,7 @@ export function MagazineCard({ magazine }: Props) {
       href={pdfUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative bg-white rounded-2xl p-4 shadow-sm flex gap-4 overflow-hidden transition-all duration-200 cursor-pointer hover:shadow-md hover:-translate-y-0.5"
+      className="relative bg-white rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row gap-4 overflow-hidden transition-all duration-200 cursor-pointer hover:shadow-md hover:-translate-y-0.5"
     >
       {cardContent}
     </a>
