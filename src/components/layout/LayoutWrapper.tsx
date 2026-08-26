@@ -33,6 +33,7 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/duan-canho-forest-onsen": { header: false, footer: true, toTop: false },
   "/thank-you-eco-retreat": { header: false, footer: false, toTop: false },
   "/phan-khu-rung-phuong-duan-eco-retreat": { header: false, footer: true, toTop: false },
+  "/du-an-phu-gia-bao-loc": { header: false, footer: true, toTop: false },
 };
 
 function normalizePathname(pathname: string): string {
