@@ -59,7 +59,7 @@ const highlightsDesktop = [
 
 export function OverviewSection() {
   return (
-    <section className="relative flex aspect-[390/1222] w-full flex-col items-center sm:aspect-auto sm:min-h-[220dvh]">
+    <section id="overview" className="relative flex aspect-[390/1222] w-full flex-col items-center sm:aspect-auto sm:min-h-[220dvh]">
       {/* Background */}
       <div
         className="absolute inset-0 block bg-cover bg-center bg-no-repeat sm:hidden"

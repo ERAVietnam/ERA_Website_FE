@@ -2,6 +2,8 @@ export interface LeadPayload {
   formId: string;
   hoten: string;
   sdt: string;
+  email?: string;
+  message?: string;
   sanpham?: string;
   sheet: string;
   url: string;
@@ -72,11 +74,13 @@ export async function submitLead(params: {
   formId: string;
   hoten: string;
   sdt: string;
+  email?: string;
+  message?: string;
   sanpham?: string;
   /** Tên tab trong Google Sheet (vd: "ECO RETREAT - FOREST ONSEN") */
   sheet: string;
 }): Promise<boolean> {
-  const { formId, hoten, sdt, sanpham, sheet } = params;
+  const { formId, hoten, sdt, email, message, sanpham, sheet } = params;
 
   const utms = getUTMParams();
   const ip = await getIP();
@@ -90,6 +94,8 @@ export async function submitLead(params: {
     formId,
     hoten: hoten.trim(),
     sdt: sdt.trim(),
+    ...(email ? { email: email.trim() } : {}),
+    ...(message ? { message: message.trim() } : {}),
     ...(sanpham ? { sanpham: sanpham.trim() } : {}),
     sheet,
     url,

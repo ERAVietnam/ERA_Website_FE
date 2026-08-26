@@ -21,7 +21,7 @@ export function HeroSection() {
   return (
     <section
       id="top"
-      className="relative flex aspect-[390/500] w-full flex-col items-center overflow-hidden text-center sm:aspect-auto sm:min-h-[110dvh]"
+      className="relative flex aspect-[390/500] w-full flex-col items-center overflow-hidden text-center sm:mt-14 sm:aspect-auto sm:min-h-[110dvh]"
     >
       {/* Desktop background */}
       <motion.div
@@ -49,7 +49,7 @@ export function HeroSection() {
         variants={staggerContainer}
         initial="initial"
         animate="animate"
-        className="relative z-10 mx-auto flex w-full max-w-5xl items-center justify-center gap-6 px-6 py-5 pt-8 sm:gap-10 sm:px-10 lg:gap-14 lg:px-16"
+        className="relative z-10 mx-auto flex w-full max-w-5xl items-center justify-center gap-8 px-6 pt-20 pb-2 sm:gap-12 sm:px-10 sm:pt-8 lg:gap-16 lg:px-16"
       >
         <motion.div variants={fadeUp} transition={{ duration: 0.7, ease: "easeOut" }}>
           <Image
@@ -88,7 +88,7 @@ export function HeroSection() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
-        className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 pt-10 sm:px-10 sm:pt-14 lg:px-16 lg:pt-20"
+        className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 pt-6 sm:px-10 sm:pt-10 lg:px-16 lg:pt-14"
       >
         {/* Desktop title */}
         <Image
