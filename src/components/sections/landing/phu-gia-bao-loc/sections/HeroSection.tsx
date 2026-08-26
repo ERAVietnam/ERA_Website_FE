@@ -21,7 +21,7 @@ export function HeroSection() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[60dvh] w-full flex-col items-center overflow-hidden text-center sm:min-h-[110dvh]"
+      className="relative flex aspect-[390/500] w-full flex-col items-center overflow-hidden text-center sm:aspect-auto sm:min-h-[110dvh]"
     >
       {/* Desktop background */}
       <motion.div
