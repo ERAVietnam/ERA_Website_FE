@@ -1,0 +1,1 @@
+export { PhuGiaBaoLocLanding } from "./PhuGiaBaoLocLanding";
