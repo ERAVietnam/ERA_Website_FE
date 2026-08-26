@@ -31,7 +31,7 @@ const stats = [
   { icon: "/landing/phu-gia-bao-loc/images/overview_logo_5.svg", label: "Quốc lộ 20", sub: "Mặt tiền huyết mạch" },
 ];
 
-const highlights = [
+const highlightsMobile = [
   [
     "Sổ hồng từng nền, quy hoạch 1/500,\nXây dựng ngay",
     "Ngân hàng Nam Á hỗ trợ vay với\nChính sách đặc biệt",
@@ -44,9 +44,22 @@ const highlights = [
   ],
 ];
 
+const highlightsDesktop = [
+  [
+    "Sổ hồng từng nền\nQuy hoạch 1/500\nXây dựng ngay",
+    "Ngân hàng Nam Á\nHỗ trợ vay với\nChính sách đặc biệt",
+    "Tiến độ thanh toán\nĐến 15 tháng,\nÂn hạn gốc 24 tháng",
+  ],
+  [
+    "Mặt tiền QL20,\nKết nối cao tốc\nDầu Giây - Liên Khương",
+    "Tiện ích nội khu gắn kết\nĐa thế hệ",
+    "Cộng đồng văn minh\nAn ninh khép kín 24/7",
+  ],
+];
+
 export function OverviewSection() {
   return (
-    <section className="relative flex min-h-[170dvh] w-full flex-col items-center sm:min-h-[220dvh]">
+    <section className="relative flex aspect-[390/1222] w-full flex-col items-center sm:aspect-auto sm:min-h-[220dvh]">
       {/* Background */}
       <div
         className="absolute inset-0 block bg-cover bg-center bg-no-repeat sm:hidden"
@@ -78,7 +91,7 @@ export function OverviewSection() {
                 alt={stat.label}
                 width={64}
                 height={64}
-                className="h-20 w-20 shrink-0 object-contain sm:h-14 sm:w-auto"
+                className="h-16 w-16 shrink-0 object-contain sm:h-14 sm:w-auto"
               />
               <div className="flex flex-col gap-1">
                 <div className="text-xl font-semibold sm:mt-3 sm:text-xl" style={gradientText}>
@@ -94,7 +107,7 @@ export function OverviewSection() {
 
         {/* Leaf divider */}
         <motion.div
-          className="my-10 flex items-center justify-center sm:my-14"
+          className="my-6 flex items-center justify-center sm:my-10"
           initial={{ opacity: 0, scaleX: 0.8 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -121,29 +134,60 @@ export function OverviewSection() {
           />
         </motion.div>
 
-        {/* Highlights */}
+        {/* Highlights - Mobile */}
         <motion.div
-          className="flex flex-col"
+          className="block sm:hidden"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
         >
-          {highlights.map((row, rowIdx) => (
+          {highlightsMobile.flat().map((item, idx) => (
+            <motion.div
+              key={idx}
+              className={`flex flex-col items-start justify-center px-[3vw] text-left ${
+                idx === 0
+                  ? "pt-[clamp(0rem,0.5vw,0.25rem)] pb-[clamp(0.5rem,1.5vw,1rem)]"
+                  : "py-[clamp(0.5rem,1.5vw,1rem)]"
+              }`}
+              variants={fadeUp}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              <div
+                className="whitespace-pre-line text-lg font-bold"
+                style={{ ...gradientText, filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.45))" }}
+              >
+                {item}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Highlights - Desktop */}
+        <motion.div
+          className="hidden sm:block"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+        >
+          {highlightsDesktop.map((row, rowIdx) => (
             <div key={rowIdx}>
-              <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr_auto_1fr]">
+              <div className="grid grid-cols-[1fr_auto_1fr_auto_1fr] gap-y-[clamp(0.75rem,1.5vw,1.5rem)]">
                 {row.flatMap((item, colIdx) => {
                   const cells = [
                     <motion.div
                       key={`item-${colIdx}`}
-                      className={`flex flex-col items-start justify-center px-4 pb-4 text-left sm:items-center sm:py-10 sm:text-center ${
-                        rowIdx === 0 && colIdx === 0 ? "pt-1 sm:pt-10" : "pt-4 sm:pt-10"
+                      className={`flex flex-col items-center justify-center px-4 text-center ${
+                        rowIdx === 0 && colIdx === 0
+                          ? "pt-[clamp(0rem,0.5vw,0.25rem)] pb-[clamp(0.5rem,1.5vw,1rem)]"
+                          : "py-[clamp(0.5rem,1.5vw,1rem)]"
                       }`}
                       variants={fadeUp}
                       transition={{ duration: 0.5, ease: "easeOut" }}
                     >
                       <div
-                        className="whitespace-pre-line text-lg font-bold sm:text-lg"
+                        className="whitespace-pre-line text-lg font-bold"
                         style={{ ...gradientText, filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.45))" }}
                       >
                         {item}
@@ -155,7 +199,7 @@ export function OverviewSection() {
                     cells.push(
                       <div
                         key={`divider-${colIdx}`}
-                        className="hidden h-full w-[0.5px] sm:block"
+                        className="h-full w-[0.5px]"
                         style={{
                           background: "linear-gradient(180deg, #C9A373, #FFE59B, #B18755)",
                         }}
@@ -169,7 +213,7 @@ export function OverviewSection() {
 
               {rowIdx === 0 && (
                 <div
-                  className="hidden h-[0.5px] w-full sm:block"
+                  className="h-[0.5px] w-full"
                   style={{
                     background: "linear-gradient(90deg, rgba(243,236,224,0), rgba(243,236,224,1) 50%, rgba(243,236,224,0))",
                   }}
