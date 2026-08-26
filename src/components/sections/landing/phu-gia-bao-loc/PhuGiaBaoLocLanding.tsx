@@ -2,6 +2,7 @@
 
 import { theme } from "./theme";
 
+import { Navbar } from "./sections/Navbar";
 import { HeroSection } from "./sections/HeroSection";
 import { OverviewSection } from "./sections/OverviewSection";
 import { LocationSection } from "./sections/LocationSection";
@@ -21,6 +22,7 @@ export function PhuGiaBaoLocLanding() {
       className="relative min-h-screen"
       style={{ fontFamily: sfPro, backgroundColor: theme.cream, color: theme.text }}
     >
+      <Navbar />
       <HeroSection />
       <OverviewSection />
       <LocationSection />

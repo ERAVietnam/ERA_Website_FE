@@ -162,7 +162,7 @@ const mobileParts = [
 
 export function AmenitySection() {
   return (
-    <section className="relative w-full bg-[#FBF7EF] py-10 sm:py-16">
+    <section id="amenity" className="relative w-full bg-[#FBF7EF] py-10 sm:py-16">
       <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-16">
         <motion.div
           className="hidden sm:block"
@@ -278,7 +278,7 @@ export function AmenitySection() {
             </div>
             <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_10.png" alt="Lối đi cư dân" className="flex-[3]" />
             <div>
-              <h3 className="text-3xl font-bold text-[#B25B3E]">Tuyệt tác kiến trúc Indochine vượt thởi gian</h3>
+              <h3 className="text-3xl font-bold text-[#B25B3E]">Tuyệt tác kiến trúc Indochine vượt thời gian</h3>
               <p className="mt-1 text-sm font-normal leading-relaxed text-[#555555]">
                 Nơi nét hoài cổ, quyến rũ của họa tiết Á Đông giao hòa hoàn hảo cùng vẻ phóng khoáng, hiện đại của kiến trúc Pháp. Tất cả tạo nên một không gian sống kiêu hãnh, vừa sang trọng tinh tế, vừa chạm mở bình yên giữa lòng thiên nhiên cao nguyên.
               </p>
