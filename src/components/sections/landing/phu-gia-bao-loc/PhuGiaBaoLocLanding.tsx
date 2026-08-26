@@ -7,7 +7,7 @@ import { OverviewSection } from "./sections/OverviewSection";
 import { LocationSection } from "./sections/LocationSection";
 import { ProductSection } from "./sections/ProductSection";
 import { AmenitySection } from "./sections/AmenitySection";
-import { FaqSection } from "./sections/FaqSection";
+import { ContactSection } from "./sections/ContactSection";
 import { FooterSection } from "./sections/FooterSection";
 import { FloatingButtons } from "./sections/FloatingButtons";
 import { LeadBandSection } from "./sections/LeadBandSection";
@@ -26,7 +26,7 @@ export function PhuGiaBaoLocLanding() {
       <LocationSection />
       <ProductSection />
       <AmenitySection />
-      <FaqSection />
+      <ContactSection />
       <FooterSection />
       <LeadBandSection />
       <FloatingButtons />

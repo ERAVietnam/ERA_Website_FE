@@ -82,7 +82,7 @@ export function OverviewSection() {
           {stats.map((stat, idx) => (
             <motion.div
               key={idx}
-              className="flex flex-row items-center gap-4 text-left sm:flex-col sm:items-center sm:text-center"
+              className="group flex flex-row items-center gap-4 text-left sm:flex-col sm:items-center sm:text-center"
               variants={fadeUp}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
@@ -91,7 +91,7 @@ export function OverviewSection() {
                 alt={stat.label}
                 width={64}
                 height={64}
-                className="h-16 w-16 shrink-0 object-contain sm:h-14 sm:w-auto"
+                className="h-16 w-16 shrink-0 object-contain transition-transform duration-300 group-hover:-translate-y-1 sm:h-14 sm:w-auto"
               />
               <div className="flex flex-col gap-1">
                 <div className="text-xl font-semibold sm:mt-3 sm:text-xl" style={gradientText}>
