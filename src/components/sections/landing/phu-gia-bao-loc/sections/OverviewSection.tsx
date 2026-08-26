@@ -1,12 +1,27 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const gradientText = {
   background: "linear-gradient(90deg, #C9A373, #FFE59B, #B18755)",
   WebkitBackgroundClip: "text",
   WebkitTextFillColor: "transparent",
 } as React.CSSProperties;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
 const stats = [
   { icon: "/landing/phu-gia-bao-loc/images/overview_logo_1.svg", label: "SỔ HỒNG RIÊNG", sub: "Quy hoạch 1/500" },
@@ -44,11 +59,19 @@ export function OverviewSection() {
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-16 sm:px-10 sm:pt-24 lg:px-16">
         {/* Stats row */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-5 sm:gap-4">
+        <motion.div
+          className="grid grid-cols-1 gap-6 sm:grid-cols-5 sm:gap-4"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {stats.map((stat, idx) => (
-            <div
+            <motion.div
               key={idx}
               className="flex flex-row items-center gap-4 text-left sm:flex-col sm:items-center sm:text-center"
+              variants={fadeUp}
+              transition={{ duration: 0.5, ease: "easeOut" }}
             >
               <Image
                 src={stat.icon}
@@ -65,12 +88,18 @@ export function OverviewSection() {
                   {stat.sub}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Leaf divider */}
-        <div className="my-10 flex items-center justify-center sm:my-14">
+        <motion.div
+          className="my-10 flex items-center justify-center sm:my-14"
+          initial={{ opacity: 0, scaleX: 0.8 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <div
             className="h-px max-w-md flex-1 sm:max-w-lg"
             style={{
@@ -90,20 +119,28 @@ export function OverviewSection() {
               background: "linear-gradient(90deg, rgba(199,154,107,0.1), #276F4E 30%, #4BD596 80%, rgba(75,213,150,0))",
             }}
           />
-        </div>
+        </motion.div>
 
         {/* Highlights */}
-        <div className="flex flex-col">
+        <motion.div
+          className="flex flex-col"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+        >
           {highlights.map((row, rowIdx) => (
             <div key={rowIdx}>
               <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr_auto_1fr]">
                 {row.flatMap((item, colIdx) => {
                   const cells = [
-                    <div
+                    <motion.div
                       key={`item-${colIdx}`}
                       className={`flex flex-col items-start justify-center px-4 pb-4 text-left sm:items-center sm:py-10 sm:text-center ${
                         rowIdx === 0 && colIdx === 0 ? "pt-1 sm:pt-10" : "pt-4 sm:pt-10"
                       }`}
+                      variants={fadeUp}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
                     >
                       <div
                         className="whitespace-pre-line text-lg font-bold sm:text-lg"
@@ -111,7 +148,7 @@ export function OverviewSection() {
                       >
                         {item}
                       </div>
-                    </div>,
+                    </motion.div>,
                   ];
 
                   if (colIdx < 2) {
@@ -140,7 +177,7 @@ export function OverviewSection() {
               )}
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
