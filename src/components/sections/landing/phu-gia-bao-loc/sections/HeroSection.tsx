@@ -58,7 +58,7 @@ export function HeroSection() {
             width={140}
             height={56}
             priority
-            className="h-8 w-auto sm:h-10"
+            className="h-10 w-auto sm:h-12"
           />
         </motion.div>
         <motion.div variants={fadeUp} transition={{ duration: 0.7, ease: "easeOut" }}>
@@ -68,7 +68,7 @@ export function HeroSection() {
             width={90}
             height={90}
             priority
-            className="h-8 w-auto sm:h-10"
+            className="h-10 w-auto sm:h-12"
           />
         </motion.div>
         <motion.div variants={fadeUp} transition={{ duration: 0.7, ease: "easeOut" }}>
@@ -78,7 +78,7 @@ export function HeroSection() {
             width={110}
             height={44}
             priority
-            className="h-8 w-auto sm:h-10"
+            className="h-10 w-auto sm:h-12"
           />
         </motion.div>
       </motion.div>
