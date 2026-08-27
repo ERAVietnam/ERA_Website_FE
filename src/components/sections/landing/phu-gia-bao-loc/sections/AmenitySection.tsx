@@ -124,7 +124,7 @@ function MobileCarousel({
 const mobileParts = [
   {
     title: "Công viên cảnh quan",
-    subtitle: "Cupid - Vườn mê Cung - Fern - Rose - Japanese Garden",
+    subtitle: "Cupid - Maze - Fern - Rose - Japanese Garden",
     images: [
       { src: "/landing/phu-gia-bao-loc/images/amenity_01.webp", alt: "Cảnh quan 1" },
       { src: "/landing/phu-gia-bao-loc/images/amenity_02.webp", alt: "Cảnh quan 2" },
@@ -182,7 +182,7 @@ export function AmenitySection() {
 
         {/* Park collage - desktop */}
         <motion.div
-          className="mt-10 hidden h-[400px] grid-cols-3 gap-4 sm:grid lg:h-[500px]"
+          className="mt-10 hidden h-[400px] grid-cols-3 gap-4 sm:grid lg:h-[480px]"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -190,22 +190,22 @@ export function AmenitySection() {
         >
           {/* Column 1: top = 1/2 bottom */}
           <motion.div className="flex h-full flex-col gap-4" variants={fadeUp} transition={{ duration: 0.5, ease: "easeOut" }}>
-            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_01.webp" alt="Cảnh quan 1" className="flex-[1]" />
+            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_01.webp" alt="Cảnh quan 1" className="flex-[1.25]" />
             <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_02.webp" alt="Cảnh quan 2" className="flex-[2]" />
           </motion.div>
 
           {/* Column 2: top = 2× bottom */}
           <motion.div className="flex h-full flex-col gap-4" variants={fadeUp} transition={{ duration: 0.5, ease: "easeOut" }}>
             <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_03.webp" alt="Cảnh quan 3" className="flex-[2]" />
-            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_04.webp" alt="Cảnh quan 4" className="flex-[1]" />
+            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_04.webp" alt="Cảnh quan 4" className="flex-[1.25]" />
           </motion.div>
 
           {/* Column 3: text + big image */}
           <motion.div className="flex h-full flex-col gap-4" variants={fadeUp} transition={{ duration: 0.5, ease: "easeOut" }}>
             <div>
-              <h3 className="text-3xl font-bold text-[#B25B3E]">Công viên cảnh quan</h3>
-              <p className="mt-1 text-sm font-normal leading-relaxed text-[#555555]">
-                Cupid - Vườn mê Cung - Fern - Rose - Japanese Garden
+              <h3 className="my-2 mb-3 text-3xl font-bold text-[#B25B3E]">Công viên cảnh quan</h3>
+              <p className="mt-1 mb-7 ml-1 text-sm font-normal leading-relaxed text-[#555555]">
+                Cupid - Maze - Fern - Rose - Japanese Garden
               </p>
             </div>
             <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_gardent.webp" alt="Công viên cảnh quan" className="flex-1" />
@@ -247,15 +247,15 @@ export function AmenitySection() {
         >
           {/* Left column */}
           <motion.div
-            className="flex h-[920px] flex-col gap-4 lg:h-[1160px]"
+            className="flex h-[920px] flex-col gap-4 lg:h-[1200px]"
             variants={fadeUp}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_05.webp" alt="Sân Pickleball" className="flex-[2]" />
             <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_06.webp" alt="Sân chơi trẻ em" className="flex-[1]" />
             <div>
-              <h3 className="text-3xl font-bold text-[#B25B3E]">Gia đình & cộng đồng</h3>
-              <p className="mt-1 text-sm font-normal leading-relaxed text-[#555555]">
+              <h3 className="mt-3 mb-1 ml-3 text-3xl font-bold text-[#B25B3E]">Gia đình & cộng đồng</h3>
+              <p className="mt-1 mb-1 ml-3 text-sm font-normal leading-relaxed text-[#555555]">
                 Khu BBQ & picnic ngoài trờ - Sân chơi trẻ em - Lối đi bộ và không gian xanh
               </p>
             </div>
@@ -267,19 +267,19 @@ export function AmenitySection() {
 
           {/* Right column */}
           <motion.div
-            className="flex h-[920px] flex-col gap-4 lg:h-[1160px]"
+            className="flex h-[920px] flex-col gap-4 lg:h-[1200px]"
             variants={fadeUp}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_09.webp" alt="Sân bóng rổ" className="flex-[1]" />
             <div>
-              <h3 className="text-3xl font-bold text-[#B25B3E]">Thể thao & vận động</h3>
-              <p className="mt-1 text-sm font-normal leading-relaxed text-[#555555]">Sân Pickleball - Sân bóng rổ</p>
+              <h3 className="mt-3 mb-1 ml-3 text-3xl font-bold text-[#B25B3E]">Thể thao & vận động</h3>
+              <p className="mt-1 mb-3 ml-3 text-sm font-normal leading-relaxed text-[#555555]">Sân Pickleball - Sân bóng rổ</p>
             </div>
             <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_10.webp" alt="Lối đi cư dân" className="flex-[3]" />
             <div>
-              <h3 className="text-3xl font-bold text-[#B25B3E]">Tuyệt tác kiến trúc Indochine vượt thời gian</h3>
-              <p className="mt-1 text-sm font-normal leading-relaxed text-[#555555]">
+              <h3 className="mt-3 mb-1 ml-3 text-3xl font-bold text-[#B25B3E]">Tuyệt tác kiến trúc Indochine vượt thời gian</h3>
+              <p className="mt-1 mb-1 ml-3 text-sm font-normal leading-relaxed text-[#555555]">
                 Nơi nét hoài cổ, quyến rũ của họa tiết Á Đông giao hòa hoàn hảo cùng vẻ phóng khoáng, hiện đại của kiến trúc Pháp. Tất cả tạo nên một không gian sống kiêu hãnh, vừa sang trọng tinh tế, vừa chạm mở bình yên giữa lòng thiên nhiên cao nguyên.
               </p>
             </div>

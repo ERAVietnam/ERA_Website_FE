@@ -20,49 +20,53 @@ const staggerContainer = {
 export function ProductSection() {
   return (
     <section className="relative w-full bg-[#FBF7EF]">
-      {/* Vị trí đắc địa */}
-      <div className="mx-auto max-w-6xl px-6 pt-16 sm:px-10 sm:py-20 lg:px-16">
-        <motion.div
-          className="text-center"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
-        >
-          <motion.div variants={fadeUp} transition={{ duration: 0.5, ease: "easeOut" }}>
-            <Image
-              src="/landing/phu-gia-bao-loc/images/product_title.svg"
-              alt="Vị Trí Đắc Địa"
-              width={403}
-              height={64}
-              className="mx-auto h-12 w-auto sm:h-16"
-            />
-          </motion.div>
-          <motion.p
-            className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-[#555555] sm:text-base"
-            variants={fadeUp}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+      {/* Title + text with custom background */}
+      <div className="w-full bg-[#fdecd2]">
+        <div className="mx-auto max-w-6xl px-6 pt-16 pb-10 text-center sm:px-10 sm:py-20 lg:px-16">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
           >
-            Tọa lạc ngay giao điểm Quốc lộ 20 và đường tránh, kết nối trục cao tốc Dầu Giây – Liên Khương, dự án sở hữu tọa độ kết nối hoàn hảo, di chuyển thông suốt không qua nội thị sầm uất, đón trọn biến độ tăng giá theo từng km hệ thống hoàn thiện ngay trước ngưỡng cửa.
-          </motion.p>
-        </motion.div>
-
-        <motion.div
-          className="-mx-6 mt-8 overflow-hidden rounded-2xl sm:mx-0 sm:mt-10"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <Image
-            src="/landing/phu-gia-bao-loc/images/product_map.webp"
-            alt="Bản đồ vị trí"
-            width={1280}
-            height={720}
-            className="w-full rounded-xl transition-transform duration-300 hover:scale-[1.02]"
-          />
-        </motion.div>
+            <motion.div variants={fadeUp} transition={{ duration: 0.5, ease: "easeOut" }}>
+              <Image
+                src="/landing/phu-gia-bao-loc/images/product_title.svg"
+                alt="Vị Trí Đắc Địa"
+                width={403}
+                height={64}
+                className="mx-auto h-12 w-auto sm:h-16"
+              />
+            </motion.div>
+            <motion.p
+              className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-[#555555] sm:text-base"
+              variants={fadeUp}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+              Tọa lạc ngay giao điểm Quốc lộ 20 và đường tránh, kết nối trục cao tốc Dầu Giây – Liên Khương, dự án sở
+              hữu tọa độ kết nối hoàn hảo, di chuyển thông suốt không qua nội thị sầm uất, đón trọn biến độ tăng giá theo
+              từng km hệ thống hoàn thiện ngay trước ngưỡng cửa.
+            </motion.p>
+          </motion.div>
+        </div>
       </div>
+
+      {/* Map full width */}
+      <motion.div
+        className="w-full overflow-hidden"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <Image
+          src="/landing/phu-gia-bao-loc/images/product_map.webp"
+          alt="Bản đồ vị trí"
+          width={1280}
+          height={720}
+          className="h-auto w-full"
+        />
+      </motion.div>
 
       {/* Brochure */}
       <motion.div
