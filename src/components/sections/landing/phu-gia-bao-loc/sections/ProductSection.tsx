@@ -77,7 +77,7 @@ export function ProductSection() {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <Image
-          src="/landing/phu-gia-bao-loc/images/product_brochure_mobile.webp"
+          src="/landing/phu-gia-bao-loc/images/product_brochure.webp"
           alt="Brochure Phú Gia Bảo Lộc"
           width={390}
           height={253}

@@ -33,14 +33,14 @@ const stats = [
 
 const highlightsMobile = [
   [
-    "Sổ hồng từng nền, quy hoạch 1/500,\nXây dựng ngay",
-    "Ngân hàng Nam Á hỗ trợ vay với\nChính sách đặc biệt",
-    "Tiến độ thanh toán đến 15 tháng,\nÂn hạn gốc 24 tháng",
+    "Sổ hồng từng nền, quy hoạch 1/500, xây dựng ngay",
+    "Ngân hàng Nam Á hỗ trợ vay với chính sách đặc biệt",
+    "Tiến độ thanh toán đến 15 tháng, ân hạn gốc 24 tháng",
   ],
   [
-    "Mặt tiền QL20, kết nối cao tốc\nDầu Giây - Liên Khương",
+    "Mặt tiền QL20, kết nối cao tốc Dầu Giây - Liên Khương",
     "Tiện ích nội khu gắn kết đa thế hệ",
-    "Cộng đồng văn minh\nAn ninh khép kín 24/7",
+    "Cộng đồng văn minh, An ninh khép kín 24/7",
   ],
 ];
 
@@ -70,7 +70,7 @@ export function OverviewSection() {
         style={{ backgroundImage: "url('/landing/phu-gia-bao-loc/images/overview_bg.webp')" }}
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-16 sm:px-10 sm:pt-24 lg:px-16">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-12 pt-16 sm:px-10 sm:pt-24 lg:px-16">
         {/* Stats row */}
         <motion.div
           className="grid grid-cols-1 gap-6 sm:grid-cols-5 sm:gap-4"
@@ -91,7 +91,7 @@ export function OverviewSection() {
                 alt={stat.label}
                 width={64}
                 height={64}
-                className="h-16 w-16 shrink-0 object-contain transition-transform duration-300 group-hover:-translate-y-1 sm:h-14 sm:w-auto"
+                className="mr-5 h-16 w-16 shrink-0 object-contain transition-transform duration-300 group-hover:-translate-y-1 sm:h-14 sm:w-auto"
               />
               <div className="flex flex-col gap-1">
                 <div className="text-xl font-semibold sm:mt-3 sm:text-xl" style={gradientText}>
@@ -154,7 +154,7 @@ export function OverviewSection() {
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
               <div
-                className="whitespace-pre-line text-lg font-bold"
+                className="whitespace-pre-line text-md font-bold"
                 style={{ ...gradientText, filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.45))" }}
               >
                 {item}

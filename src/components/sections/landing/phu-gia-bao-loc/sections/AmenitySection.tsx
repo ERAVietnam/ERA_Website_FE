@@ -143,7 +143,7 @@ const mobileParts = [
   },
   {
     title: "Gia đình & Cộng đồng",
-    subtitle: "Khu BBQ & picnic ngoài trờ - Sân chơi trẻ em - Lối đi bộ và không gian xanh",
+    subtitle: "Khu BBQ & picnic ngoài trời - Sân chơi trẻ em - Lối đi bộ và không gian xanh",
     images: [
       { src: "/landing/phu-gia-bao-loc/images/amenity_06.webp", alt: "Sân chơi trẻ em" },
       { src: "/landing/phu-gia-bao-loc/images/amenity_10.webp", alt: "Lối đi cư dân" },
@@ -256,7 +256,7 @@ export function AmenitySection() {
             <div>
               <h3 className="mt-3 mb-1 ml-3 text-3xl font-bold text-[#B25B3E]">Gia đình & cộng đồng</h3>
               <p className="mt-1 mb-1 ml-3 text-sm font-normal leading-relaxed text-[#555555]">
-                Khu BBQ & picnic ngoài trờ - Sân chơi trẻ em - Lối đi bộ và không gian xanh
+                Khu BBQ & picnic ngoài trời - Sân chơi trẻ em - Lối đi bộ và không gian xanh
               </p>
             </div>
             <div className="flex flex-1 gap-4">
