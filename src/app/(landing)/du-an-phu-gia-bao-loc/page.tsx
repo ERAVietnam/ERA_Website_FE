@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/landing/phu-gia-bao-loc/images/hero_bg.png",
+        url: "/landing/phu-gia-bao-loc/images/hero_bg.webp",
         alt: "Phú Gia Bảo Lộc",
       },
     ],
