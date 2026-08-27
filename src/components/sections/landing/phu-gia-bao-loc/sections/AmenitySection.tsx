@@ -126,27 +126,27 @@ const mobileParts = [
     title: "Công viên cảnh quan",
     subtitle: "Cupid - Vườn mê Cung - Fern - Rose - Japanese Garden",
     images: [
-      { src: "/landing/phu-gia-bao-loc/images/amenity_01.png", alt: "Cảnh quan 1" },
-      { src: "/landing/phu-gia-bao-loc/images/amenity_02.png", alt: "Cảnh quan 2" },
-      { src: "/landing/phu-gia-bao-loc/images/amenity_03.png", alt: "Cảnh quan 3" },
-      { src: "/landing/phu-gia-bao-loc/images/amenity_04.png", alt: "Cảnh quan 4" },
-      { src: "/landing/phu-gia-bao-loc/images/amenity_gardent.png", alt: "Công viên cảnh quan" },
+      { src: "/landing/phu-gia-bao-loc/images/amenity_01.webp", alt: "Cảnh quan 1" },
+      { src: "/landing/phu-gia-bao-loc/images/amenity_02.webp", alt: "Cảnh quan 2" },
+      { src: "/landing/phu-gia-bao-loc/images/amenity_03.webp", alt: "Cảnh quan 3" },
+      { src: "/landing/phu-gia-bao-loc/images/amenity_04.webp", alt: "Cảnh quan 4" },
+      { src: "/landing/phu-gia-bao-loc/images/amenity_gardent.webp", alt: "Công viên cảnh quan" },
     ],
   },
   {
     title: "Thể thao & vận động",
     subtitle: "Sân Pickleball · Sân bóng rổ",
     images: [
-      { src: "/landing/phu-gia-bao-loc/images/amenity_05.png", alt: "Sân Pickleball" },
-      { src: "/landing/phu-gia-bao-loc/images/amenity_09.png", alt: "Sân bóng rổ" },
+      { src: "/landing/phu-gia-bao-loc/images/amenity_05.webp", alt: "Sân Pickleball" },
+      { src: "/landing/phu-gia-bao-loc/images/amenity_09.webp", alt: "Sân bóng rổ" },
     ],
   },
   {
     title: "Gia đình & Cộng đồng",
     subtitle: "Khu BBQ & picnic ngoài trờ - Sân chơi trẻ em - Lối đi bộ và không gian xanh",
     images: [
-      { src: "/landing/phu-gia-bao-loc/images/amenity_06.png", alt: "Sân chơi trẻ em" },
-      { src: "/landing/phu-gia-bao-loc/images/amenity_10.png", alt: "Lối đi cư dân" },
+      { src: "/landing/phu-gia-bao-loc/images/amenity_06.webp", alt: "Sân chơi trẻ em" },
+      { src: "/landing/phu-gia-bao-loc/images/amenity_10.webp", alt: "Lối đi cư dân" },
     ],
   },
   {
@@ -154,8 +154,8 @@ const mobileParts = [
     subtitle:
       "Nơi nét hoài cổ, quyến rũ của họa tiết Á Đông giao hòa hoàn hảo cùng vẻ phóng khoáng, hiện đại của kiến trúc Pháp. Tất cả tạo nên một không gian sống kiêu hãnh, vừa sang trọng tinh tế, vừa chạm mở bình yên giữa lòng thiên nhiên cao nguyên.",
     images: [
-      { src: "/landing/phu-gia-bao-loc/images/amenity_07.png", alt: "Kiến trúc Indochine 1" },
-      { src: "/landing/phu-gia-bao-loc/images/amenity_08.png", alt: "Kiến trúc Indochine 2" },
+      { src: "/landing/phu-gia-bao-loc/images/amenity_07.webp", alt: "Kiến trúc Indochine 1" },
+      { src: "/landing/phu-gia-bao-loc/images/amenity_08.webp", alt: "Kiến trúc Indochine 2" },
     ],
   },
 ];
@@ -172,7 +172,7 @@ export function AmenitySection() {
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <Image
-            src="/landing/phu-gia-bao-loc/images/amenity_title.png"
+            src="/landing/phu-gia-bao-loc/images/amenity_title.svg"
             alt="Tiện Ích All-In-One Dành Cho Cư Dân"
             width={1121}
             height={106}
@@ -190,14 +190,14 @@ export function AmenitySection() {
         >
           {/* Column 1: top = 1/2 bottom */}
           <motion.div className="flex h-full flex-col gap-4" variants={fadeUp} transition={{ duration: 0.5, ease: "easeOut" }}>
-            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_01.png" alt="Cảnh quan 1" className="flex-[1]" />
-            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_02.png" alt="Cảnh quan 2" className="flex-[2]" />
+            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_01.webp" alt="Cảnh quan 1" className="flex-[1]" />
+            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_02.webp" alt="Cảnh quan 2" className="flex-[2]" />
           </motion.div>
 
           {/* Column 2: top = 2× bottom */}
           <motion.div className="flex h-full flex-col gap-4" variants={fadeUp} transition={{ duration: 0.5, ease: "easeOut" }}>
-            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_03.png" alt="Cảnh quan 3" className="flex-[2]" />
-            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_04.png" alt="Cảnh quan 4" className="flex-[1]" />
+            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_03.webp" alt="Cảnh quan 3" className="flex-[2]" />
+            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_04.webp" alt="Cảnh quan 4" className="flex-[1]" />
           </motion.div>
 
           {/* Column 3: text + big image */}
@@ -208,7 +208,7 @@ export function AmenitySection() {
                 Cupid - Vườn mê Cung - Fern - Rose - Japanese Garden
               </p>
             </div>
-            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_gardent.png" alt="Công viên cảnh quan" className="flex-1" />
+            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_gardent.webp" alt="Công viên cảnh quan" className="flex-1" />
           </motion.div>
         </motion.div>
 
@@ -251,8 +251,8 @@ export function AmenitySection() {
             variants={fadeUp}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_05.png" alt="Sân Pickleball" className="flex-[2]" />
-            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_06.png" alt="Sân chơi trẻ em" className="flex-[1]" />
+            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_05.webp" alt="Sân Pickleball" className="flex-[2]" />
+            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_06.webp" alt="Sân chơi trẻ em" className="flex-[1]" />
             <div>
               <h3 className="text-3xl font-bold text-[#B25B3E]">Gia đình & cộng đồng</h3>
               <p className="mt-1 text-sm font-normal leading-relaxed text-[#555555]">
@@ -260,8 +260,8 @@ export function AmenitySection() {
               </p>
             </div>
             <div className="flex flex-1 gap-4">
-              <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_07.png" alt="Kiến trúc Indochine 1" className="flex-1" />
-              <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_08.png" alt="Kiến trúc Indochine 2" className="flex-1" />
+              <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_07.webp" alt="Kiến trúc Indochine 1" className="flex-1" />
+              <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_08.webp" alt="Kiến trúc Indochine 2" className="flex-1" />
             </div>
           </motion.div>
 
@@ -271,12 +271,12 @@ export function AmenitySection() {
             variants={fadeUp}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_09.png" alt="Sân bóng rổ" className="flex-[1]" />
+            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_09.webp" alt="Sân bóng rổ" className="flex-[1]" />
             <div>
               <h3 className="text-3xl font-bold text-[#B25B3E]">Thể thao & vận động</h3>
               <p className="mt-1 text-sm font-normal leading-relaxed text-[#555555]">Sân Pickleball - Sân bóng rổ</p>
             </div>
-            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_10.png" alt="Lối đi cư dân" className="flex-[3]" />
+            <AmenityImage src="/landing/phu-gia-bao-loc/images/amenity_10.webp" alt="Lối đi cư dân" className="flex-[3]" />
             <div>
               <h3 className="text-3xl font-bold text-[#B25B3E]">Tuyệt tác kiến trúc Indochine vượt thời gian</h3>
               <p className="mt-1 text-sm font-normal leading-relaxed text-[#555555]">

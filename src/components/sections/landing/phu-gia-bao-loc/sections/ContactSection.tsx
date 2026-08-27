@@ -67,7 +67,7 @@ export function ContactSection() {
             Phú Gia Bảo Lộc – Khu biệt thự compound duy nhất tại trung tâm Bảo Lộc, nơi mở ra một chốn trở về riêng
             tư, an yên và thuần khiết giữa thiên nhiên cao nguyên. Sự hòa quyện hoàn hảo giữa hạ tầng chuẩn mực, hệ
             tiện ích nghỉ dưỡng toàn diện cùng cộng đồng cư dân tinh hoa không chỉ nuôi dưỡng trọn vẹn sức khỏe tinh
-            thần, mà còn là “ngôi nhà thứ hai” bảo chứng cho giá trị truyền đờ i dài hạn.
+            thần, mà còn là “ngôi nhà thứ hai” bảo chứng cho giá trị truyền đời dài hạn.
           </p>
         </motion.div>
 
@@ -153,7 +153,7 @@ export function ContactSection() {
 
                 <div className="flex flex-col gap-2 sm:col-span-2">
                   <label htmlFor="message" className="text-xs font-semibold uppercase tracking-wide text-[#B25B3E]">
-                    Lờ i nhắn
+                    Lời nhắn
                   </label>
                   <textarea
                     id="message"

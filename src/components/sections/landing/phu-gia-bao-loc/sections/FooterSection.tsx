@@ -17,7 +17,7 @@ export function FooterSection() {
         <div className="flex flex-col items-center gap-3">
           <span className="text-sm font-medium text-[#555555]">Chủ đầu tư</span>
           <Image
-            src="/landing/phu-gia-bao-loc/images/eras_logo.png"
+            src="/landing/phu-gia-bao-loc/images/eras_logo.svg"
             alt="ERAS Dalat"
             width={211}
             height={70}
@@ -29,7 +29,7 @@ export function FooterSection() {
         <div className="flex flex-col items-center gap-3">
           <span className="text-sm font-medium text-[#555555]">Đơn vị phân phối độc quyền</span>
           <Image
-            src="/landing/phu-gia-bao-loc/images/era_logo.png"
+            src="/landing/phu-gia-bao-loc/images/era_logo.svg"
             alt="ERA Real Estate"
             width={69}
             height={84}

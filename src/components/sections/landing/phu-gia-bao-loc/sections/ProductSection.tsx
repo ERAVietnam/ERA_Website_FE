@@ -31,7 +31,7 @@ export function ProductSection() {
         >
           <motion.div variants={fadeUp} transition={{ duration: 0.5, ease: "easeOut" }}>
             <Image
-              src="/landing/phu-gia-bao-loc/images/product_title.png"
+              src="/landing/phu-gia-bao-loc/images/product_title.svg"
               alt="Vị Trí Đắc Địa"
               width={403}
               height={64}
@@ -55,7 +55,7 @@ export function ProductSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <Image
-            src="/landing/phu-gia-bao-loc/images/product_map.png"
+            src="/landing/phu-gia-bao-loc/images/product_map.webp"
             alt="Bản đồ vị trí"
             width={1280}
             height={720}
@@ -73,14 +73,14 @@ export function ProductSection() {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <Image
-          src="/landing/phu-gia-bao-loc/images/product_brochure_mobile.png"
+          src="/landing/phu-gia-bao-loc/images/product_brochure_mobile.webp"
           alt="Brochure Phú Gia Bảo Lộc"
           width={390}
           height={253}
           className="block w-full transition-transform duration-300 hover:scale-[1.01] sm:hidden"
         />
         <Image
-          src="/landing/phu-gia-bao-loc/images/product_brochure.png"
+          src="/landing/phu-gia-bao-loc/images/product_brochure.webp"
           alt="Brochure Phú Gia Bảo Lộc"
           width={1920}
           height={960}
