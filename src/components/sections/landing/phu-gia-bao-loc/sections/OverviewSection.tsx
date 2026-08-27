@@ -63,11 +63,11 @@ export function OverviewSection() {
       {/* Background */}
       <div
         className="absolute inset-0 block bg-cover bg-center bg-no-repeat sm:hidden"
-        style={{ backgroundImage: "url('/landing/phu-gia-bao-loc/images/overview_bg_mobile.png')" }}
+        style={{ backgroundImage: "url('/landing/phu-gia-bao-loc/images/overview_bg_mobile.webp')" }}
       />
       <div
         className="absolute inset-0 hidden bg-cover bg-center bg-no-repeat sm:block"
-        style={{ backgroundImage: "url('/landing/phu-gia-bao-loc/images/overview_bg.png')" }}
+        style={{ backgroundImage: "url('/landing/phu-gia-bao-loc/images/overview_bg.webp')" }}
       />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-16 sm:px-10 sm:pt-24 lg:px-16">

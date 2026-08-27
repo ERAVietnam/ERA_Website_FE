@@ -96,7 +96,7 @@ export function LocationSection() {
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/landing/phu-gia-bao-loc/images/location_bg.png')" }}
+        style={{ backgroundImage: "url('/landing/phu-gia-bao-loc/images/location_bg.webp')" }}
       />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 sm:px-10 lg:px-16">
@@ -126,7 +126,7 @@ export function LocationSection() {
 
           <motion.div variants={fadeUp} transition={{ duration: 0.5, ease: "easeOut" }}>
             <Image
-              src="/landing/phu-gia-bao-loc/images/location_title.png"
+              src="/landing/phu-gia-bao-loc/images/location_title.svg"
               alt="Đắt Giá"
               width={589}
               height={204}

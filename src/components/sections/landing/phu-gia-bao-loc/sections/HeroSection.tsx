@@ -30,7 +30,7 @@ export function HeroSection() {
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="absolute inset-0 hidden bg-cover bg-top bg-no-repeat sm:block"
         style={{
-          backgroundImage: "url('/landing/phu-gia-bao-loc/images/hero_bg.png')",
+          backgroundImage: "url('/landing/phu-gia-bao-loc/images/hero_bg.webp')",
         }}
       />
       {/* Mobile background */}
@@ -40,7 +40,7 @@ export function HeroSection() {
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="absolute inset-0 block bg-cover bg-top bg-no-repeat sm:hidden"
         style={{
-          backgroundImage: "url('/landing/phu-gia-bao-loc/images/hero_bg_mobile.png')",
+          backgroundImage: "url('/landing/phu-gia-bao-loc/images/hero_bg_mobile.webp')",
         }}
       />
 
@@ -53,7 +53,7 @@ export function HeroSection() {
       >
         <motion.div variants={fadeUp} transition={{ duration: 0.7, ease: "easeOut" }}>
           <Image
-            src="/landing/phu-gia-bao-loc/images/eras_logo.png"
+            src="/landing/phu-gia-bao-loc/images/eras_logo.svg"
             alt="ERAS Dalat"
             width={140}
             height={56}
@@ -63,17 +63,17 @@ export function HeroSection() {
         </motion.div>
         <motion.div variants={fadeUp} transition={{ duration: 0.7, ease: "easeOut" }}>
           <Image
-            src="/landing/phu-gia-bao-loc/images/pgbl_green.png"
+            src="/landing/phu-gia-bao-loc/images/pgbl_green.svg"
             alt="Phú Gia Bảo Lộc"
             width={90}
             height={90}
             priority
             className="h-10 w-auto sm:h-12"
-          />
+          />  
         </motion.div>
         <motion.div variants={fadeUp} transition={{ duration: 0.7, ease: "easeOut" }}>
           <Image
-            src="/landing/phu-gia-bao-loc/images/era_logo.png"
+            src="/landing/phu-gia-bao-loc/images/era_logo.svg"
             alt="ERA Vietnam"
             width={110}
             height={44}
@@ -92,7 +92,7 @@ export function HeroSection() {
       >
         {/* Desktop title */}
         <Image
-          src="/landing/phu-gia-bao-loc/images/pgbl_hero_title.png"
+          src="/landing/phu-gia-bao-loc/images/pgbl_hero_title.svg"
           alt="Phú Gia Bảo Lộc"
           width={966}
           height={120}
@@ -101,7 +101,7 @@ export function HeroSection() {
         />
         {/* Mobile title */}
         <Image
-          src="/landing/phu-gia-bao-loc/images/pgbl_hero_title_mobile.png"
+          src="/landing/phu-gia-bao-loc/images/pgbl_hero_title_mobile.svg"
           alt="Phú Gia Bảo Lộc"
           width={257}
           height={123}
