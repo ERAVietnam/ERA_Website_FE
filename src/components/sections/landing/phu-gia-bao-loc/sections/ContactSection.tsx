@@ -161,7 +161,7 @@ export function ContactSection() {
                     value={form.message}
                     onChange={handleChange}
                     placeholder="Bạn cần ERA hỗ trợ vấn đề gì?"
-                    rows={4}
+                    rows={3}
                     className="resize-none rounded-xl border-0 bg-white px-4 py-3 text-sm text-[#555555] placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#327400]"
                   />
                 </div>
@@ -174,6 +174,10 @@ export function ContactSection() {
               >
                 {isLoading ? "Đang gửi..." : "Gửi yêu cầu tư vấn"}
               </button>
+              <p className="mt-4 text-center text-xs italic leading-relaxed text-[#555555]/70">
+                Lưu ý: Tôi đồng ý để Công ty Cổ phần BDS ERA Vietnam liên hệ qua điện thoại nhằm tư vấn và cung cấp thông
+                tin về dự án Phú Gia Bảo Lộc.
+              </p>
             </form>
           )}
         </motion.div>

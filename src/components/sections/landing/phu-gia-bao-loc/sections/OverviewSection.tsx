@@ -199,7 +199,7 @@ export function OverviewSection() {
                     cells.push(
                       <div
                         key={`divider-${colIdx}`}
-                        className="h-full w-[0.5px]"
+                        className="h-full w-px"
                         style={{
                           background: "linear-gradient(180deg, #C9A373, #FFE59B, #B18755)",
                         }}
@@ -213,7 +213,7 @@ export function OverviewSection() {
 
               {rowIdx === 0 && (
                 <div
-                  className="h-[0.5px] w-full"
+                  className="h-px w-full"
                   style={{
                     background: "linear-gradient(90deg, rgba(243,236,224,0), rgba(243,236,224,1) 50%, rgba(243,236,224,0))",
                   }}
