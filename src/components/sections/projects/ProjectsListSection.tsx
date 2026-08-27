@@ -9,6 +9,7 @@ import { colors } from "@/lib/theme";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ProjectsSidebar } from "./ProjectsSidebar";
 import { ProjectCard } from "./ProjectCard";
+import { FeaturedProjectCard } from "./FeaturedProjectCard";
 import { projectsApi } from "@/api/domains/projects";
 import type { Project, PaginationMeta } from "@/types/api";
 
@@ -95,15 +96,12 @@ export function ProjectsListSection({
               <div className="text-center py-16 text-gray-500">
                 <p className="text-base font-medium">Đang tải dự án...</p>
               </div>
-            ) : projects.length > 0 ? (
+            ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <FeaturedProjectCard />
                 {projects.map((project) => (
                   <ProjectCard key={project.id} project={project} />
                 ))}
-              </div>
-            ) : (
-              <div className="text-center py-16 text-gray-500">
-                <p className="text-base font-medium">Chưa có dự án nào phù hợp.</p>
               </div>
             )}
 
