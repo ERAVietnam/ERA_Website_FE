@@ -49,7 +49,7 @@ export function HeroSection() {
         variants={staggerContainer}
         initial="initial"
         animate="animate"
-        className="relative z-10 mx-auto flex w-full max-w-5xl items-center justify-center gap-8 px-6 pt-20 pb-2 sm:gap-12 sm:px-10 sm:pt-8 lg:gap-16 lg:px-16"
+        className="relative z-10 mx-auto flex w-full max-w-5xl items-center justify-center gap-8 px-6 pt-20 pb-2 sm:gap-12 sm:px-10 sm:pt-17 lg:gap-16 lg:px-16"
       >
         <motion.div variants={fadeUp} transition={{ duration: 0.7, ease: "easeOut" }}>
           <Image
