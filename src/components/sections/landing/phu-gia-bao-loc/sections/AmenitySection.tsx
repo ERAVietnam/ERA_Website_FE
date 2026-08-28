@@ -150,7 +150,7 @@ const mobileParts = [
     ],
   },
   {
-    title: "Tuyệt tác kiến trúc Indochine vượt thởi gian",
+    title: "Tuyệt tác kiến trúc Indochine vượt thời gian",
     subtitle:
       "Nơi nét hoài cổ, quyến rũ của họa tiết Á Đông giao hòa hoàn hảo cùng vẻ phóng khoáng, hiện đại của kiến trúc Pháp. Tất cả tạo nên một không gian sống kiêu hãnh, vừa sang trọng tinh tế, vừa chạm mở bình yên giữa lòng thiên nhiên cao nguyên.",
     images: [
