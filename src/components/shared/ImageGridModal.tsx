@@ -306,7 +306,7 @@ export function ImageGridModal({
                 onDragEnd={handleDragEnd}
                 className={`group relative overflow-hidden border border-gray-200 bg-gray-50 transition-opacity ${
                   imageCount === 3 && (variant === "left-large" || variant === "right-large")
-                    ? "flex flex-col"
+                    ? "flex flex-col min-h-0"
                     : ""
                 } ${draggingIndex === index ? "opacity-50" : "opacity-100"}`}
                 style={getSlotStyle(index)}
@@ -323,13 +323,22 @@ export function ImageGridModal({
                   disabled={isProcessing}
                   className={`flex w-full items-center justify-center overflow-hidden bg-gray-50 text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60 ${
                     imageCount === 3 && (variant === "left-large" || variant === "right-large")
-                      ? "flex-1"
+                      ? "flex-1 min-h-0"
                       : "aspect-[4/3]"
                   }`}
                 >
                   {image.src ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={image.src} alt={image.alt || ""} className="h-full w-full object-cover" draggable={false} />
+                    <img
+                      src={image.src}
+                      alt={image.alt || ""}
+                      className={`h-full w-full object-cover ${
+                        imageCount === 3 && (variant === "left-large" || variant === "right-large")
+                          ? "min-h-0"
+                          : ""
+                      }`}
+                      draggable={false}
+                    />
                   ) : (
                     <div className="flex flex-col items-center gap-2">
                       {isProcessing && activeSlotIndex === index ? (

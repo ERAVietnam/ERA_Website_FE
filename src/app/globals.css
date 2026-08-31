@@ -489,6 +489,63 @@ body {
   aspect-ratio: 4 / 3;
 }
 
+/* Layout 2 & 3 của grid 3 ảnh: 2 ảnh nhỏ luôn kín chiều cao ảnh lớn, kể cả caption */
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(2),
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(3),
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="left-large"] > figure:nth-child(2),
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="left-large"] > figure:nth-child(3),
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(2),
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(3),
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="right-large"] > figure:nth-child(2),
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="right-large"] > figure:nth-child(3) {
+  align-self: stretch !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  display: grid !important;
+  grid-template-rows: 1fr auto !important;
+}
+
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(2) > p,
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(3) > p,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="left-large"] > figure:nth-child(2) > p,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="left-large"] > figure:nth-child(3) > p,
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(2) > p,
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(3) > p,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="right-large"] > figure:nth-child(2) > p,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="right-large"] > figure:nth-child(3) > p {
+  display: contents !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0 !important;
+}
+
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(2) img,
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(3) img,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="left-large"] > figure:nth-child(2) > img,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="left-large"] > figure:nth-child(3) > img,
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(2) > p > img,
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="left-large"] > .era-image-grid__item:nth-child(3) > p > img,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="left-large"] > figure:nth-child(2) > p > img,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="left-large"] > figure:nth-child(3) > p > img,
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(2) img,
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(3) img,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="right-large"] > figure:nth-child(2) > img,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="right-large"] > figure:nth-child(3) > img,
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(2) > p > img,
+.ck-content .era-image-grid[data-era-image-count="3"][data-era-grid-variant="right-large"] > .era-image-grid__item:nth-child(3) > p > img,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="right-large"] > figure:nth-child(2) > p > img,
+.ck-content [data-era-image-grid="true"][data-era-image-count="3"][data-era-grid-variant="right-large"] > figure:nth-child(3) > p > img {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: auto !important;
+  object-fit: cover !important;
+  display: block !important;
+  margin: 0 !important;
+}
+
+
 .ck-content .era-image-grid__caption {
   display: block !important;
   width: 100% !important;
