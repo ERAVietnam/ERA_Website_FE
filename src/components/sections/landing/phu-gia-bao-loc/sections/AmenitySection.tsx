@@ -163,6 +163,8 @@ const mobileParts = [
 export function AmenitySection() {
   return (
     <section id="amenity" className="relative w-full bg-[#FBF7EF] py-10 sm:py-16">
+      <h2 className="sr-only">Tiện ích All-in-One dành cho cư dân Phú Gia Bảo Lộc</h2>
+
       <div className="mx-auto max-w-6xl px-6 sm:px-10 lg:px-16">
         <motion.div
           className="hidden sm:block"

@@ -20,6 +20,8 @@ const staggerContainer = {
 export function ProductSection() {
   return (
     <section className="relative w-full bg-[#FBF7EF]">
+      <h2 className="sr-only">Vị trí đắc địa của Phú Gia Bảo Lộc</h2>
+
       {/* Title + text with custom background */}
       <div className="w-full bg-[#fdecd2]">
         <div className="mx-auto max-w-6xl px-6 pt-16 pb-10 text-center sm:px-10 sm:py-20 lg:px-16">
