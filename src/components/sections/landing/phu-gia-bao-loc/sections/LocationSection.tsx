@@ -93,6 +93,8 @@ function PointsList({ points }: { points: string[] }) {
 export function LocationSection() {
   return (
     <section id="location" className="relative flex min-h-[90dvh] w-full items-center justify-center overflow-hidden py-14 sm:min-h-[80dvh] sm:py-20">
+      <h2 className="sr-only">Vị trí đắt giá của Phú Gia Bảo Lộc</h2>
+
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"

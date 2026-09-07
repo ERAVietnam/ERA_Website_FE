@@ -90,6 +90,8 @@ export function HeroSection() {
         transition={{ duration: 0.9, delay: 0.35, ease: "easeOut" }}
         className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-6 pt-6 sm:px-10 sm:pt-10 lg:px-16 lg:pt-14"
       >
+        <h1 className="sr-only">Phú Gia Bảo Lộc</h1>
+
         {/* Desktop title */}
         <Image
           src="/landing/phu-gia-bao-loc/images/pgbl_hero_title.svg"
