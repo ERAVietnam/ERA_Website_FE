@@ -12,7 +12,7 @@ export function InsightSection() {
           className="absolute inset-0 bg-cover bg-center hidden md:block"
           style={{
             backgroundImage:
-              "url('/landing/forest-onsen/02_img/onsen/forest-onsen-co-gai-onsen-suong-may.jpg')",
+              "url('/landing/forest-onsen/02_img/onsen/forest-onsen-co-gai-onsen-suong-may.webp')",
           }}
         />
         <div

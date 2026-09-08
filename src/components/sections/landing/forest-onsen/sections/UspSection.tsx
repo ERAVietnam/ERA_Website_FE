@@ -9,25 +9,25 @@ export function UspSection() {
       n: "01",
       title: "Onsen khoáng nóng chuẩn Nhật",
       desc: "Tổ hợp Onsen cao tầng đầu tiên Miền Nam, công nghệ ion hóa và micro bubble.",
-      img: "/landing/forest-onsen/02_img/canh/forest-onsen-vuon-onsen-kieu-nhat.jpg",
+      img: "/landing/forest-onsen/02_img/canh/forest-onsen-vuon-onsen-kieu-nhat.webp",
     },
     {
       n: "02",
       title: "Trực diện Hồ Thiên Nga 12ha",
       desc: "Vi khí hậu riêng, không khí trong lành, tầm nhìn không bị chắn.",
-      img: "/landing/forest-onsen/02_img/canh/forest-onsen-ban-cong-nam-view-ho-thien-nga.jpg",
+      img: "/landing/forest-onsen/02_img/canh/forest-onsen-ban-cong-nam-view-ho-thien-nga.webp",
     },
     {
       n: "03",
       title: "Wellness chỉ một nút bấm",
       desc: "Chu trình 20 - 45 - 90 phút, ngay dưới thềm nhà, vừa mọi quỹ thời gian.",
-      img: "/landing/forest-onsen/02_img/canh/forest-onsen-be-boi-vo-cuc-hoang-hon.jpg",
+      img: "/landing/forest-onsen/02_img/canh/forest-onsen-be-boi-vo-cuc-hoang-hon.webp",
     },
     {
       n: "04",
       title: "Bảo chứng kép, an tâm tuyệt đối",
       desc: "Ecopark hơn 20 năm và KTS Tadakatsu Honda, người sau Mori Onsen Hưng Yên.",
-      img: "/landing/forest-onsen/02_img/canh/forest-onsen-sanh-le-tan-onsen.jpg",
+      img: "/landing/forest-onsen/02_img/canh/forest-onsen-sanh-le-tan-onsen.webp",
     },
   ];
   return (

@@ -30,7 +30,7 @@ export function LookbookSection() {
         <div className="grid grid-cols-2 md:grid-cols-6 grid-rows-[150px_150px] md:grid-rows-[165px_165px] gap-3.5">
           <figure className="relative overflow-hidden rounded-2xl md:col-span-3 md:row-span-2 group min-h-[150px]">
             <Image
-              src="/landing/forest-onsen/02_img/canh/forest-onsen-phong-khach-thong-tang.jpg"
+              src="/landing/forest-onsen/02_img/canh/forest-onsen-phong-khach-thong-tang.webp"
               alt="Phòng khách thông tầng"
               fill
               className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
@@ -46,7 +46,7 @@ export function LookbookSection() {
           </figure>
           <figure className="relative overflow-hidden rounded-2xl md:col-span-3 md:row-span-2 group min-h-[150px]">
             <Image
-              src="/landing/forest-onsen/02_img/canh/forest-onsen-ban-cong-nam-view-ho-thien-nga.jpg"
+              src="/landing/forest-onsen/02_img/canh/forest-onsen-ban-cong-nam-view-ho-thien-nga.webp"
               alt="Ban công view Hồ Thiên Nga"
               fill
               className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
@@ -62,7 +62,7 @@ export function LookbookSection() {
           </figure>
           <figure className="relative overflow-hidden rounded-2xl md:col-span-2 group min-h-[150px]">
             <Image
-              src="/landing/forest-onsen/02_img/canh/forest-onsen-phong-ngu-view-ho.jpg"
+              src="/landing/forest-onsen/02_img/canh/forest-onsen-phong-ngu-view-ho.webp"
               alt="Phòng ngủ master"
               fill
               className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
@@ -78,7 +78,7 @@ export function LookbookSection() {
           </figure>
           <figure className="relative overflow-hidden rounded-2xl md:col-span-2 group min-h-[150px]">
             <Image
-              src="/landing/forest-onsen/02_img/canh/forest-onsen-phong-tam-bon-view-ho.jpg"
+              src="/landing/forest-onsen/02_img/canh/forest-onsen-phong-tam-bon-view-ho.webp"
               alt="Phòng tắm view hồ"
               fill
               className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
@@ -94,7 +94,7 @@ export function LookbookSection() {
           </figure>
           <figure className="relative overflow-hidden rounded-2xl md:col-span-2 group min-h-[150px]">
             <Image
-              src="/landing/forest-onsen/02_img/canh/forest-onsen-goc-thu-gian-view-ho.jpg"
+              src="/landing/forest-onsen/02_img/canh/forest-onsen-goc-thu-gian-view-ho.webp"
               alt="Góc thư giãn"
               fill
               className="object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"

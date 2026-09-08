@@ -10,7 +10,7 @@ export function LeadBandA() {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('/landing/forest-onsen/02_img/canh/forest-onsen-ban-cong-hoang-hon-thu-gian.jpg')",
+            "url('/landing/forest-onsen/02_img/canh/forest-onsen-ban-cong-hoang-hon-thu-gian.webp')",
         }}
       />
       <div

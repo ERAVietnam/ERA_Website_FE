@@ -35,7 +35,7 @@ export function ScaleSection() {
         style={{
           height: "clamp(420px,60vh,620px)",
           backgroundImage:
-            "url('/landing/forest-onsen/02_img/vitri/forest-onsen-masterplan-eco-retreat.jpg')",
+            "url('/landing/forest-onsen/02_img/vitri/forest-onsen-masterplan-eco-retreat.webp')",
         }}
       />
       <div className="max-w-[920px] mx-auto px-7 mt-12">

@@ -30,7 +30,7 @@ export function LocationSection() {
           style={{ boxShadow: "0 26px 60px -32px rgba(39,68,52,.4)" }}
         >
           <Image
-            src="/landing/forest-onsen/02_img/vitri/forest-onsen-ban-do-lien-ket-vung.jpg"
+            src="/landing/forest-onsen/02_img/vitri/forest-onsen-ban-do-lien-ket-vung.webp"
             alt="Bản đồ liên kết vùng Forest Onsen"
             width={1200}
             height={826}
