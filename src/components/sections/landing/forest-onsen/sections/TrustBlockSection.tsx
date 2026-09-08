@@ -37,7 +37,7 @@ export function TrustBlockSection() {
         <div className="grid grid-cols-1 md:grid-cols-[1.1fr_.9fr] gap-10 items-center rounded-2xl p-6 md:p-10" style={{ background: c.mist }}>
           <div className="rounded-xl overflow-hidden" style={{ boxShadow: "0 18px 44px -26px rgba(39,68,52,.4)" }}>
             <Image
-              src="/landing/forest-onsen/02_img/brand/forest-onsen-chung-nhan-era.jpg"
+              src="/landing/forest-onsen/02_img/brand/forest-onsen-chung-nhan-era.webp"
               alt="Chứng nhận đại lý phân phối chính thức"
               width={1100}
               height={646}

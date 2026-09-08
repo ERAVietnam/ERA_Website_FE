@@ -109,13 +109,13 @@ export const ritualSteps = [
     time: "14:00",
     title: "Bể sục và hồ bơi vô cực",
     desc: "Thư giãn ở jacuzzi rồi thả mình xuống làn nước vô cực nhìn ra Hồ Thiên Nga.",
-    image: "/landing/forest-onsen/02_img/onsen/forest-onsen-ho-boi-vo-cuc.jpg",
+    image: "/landing/forest-onsen/02_img/onsen/forest-onsen-ho-boi-vo-cuc.webp",
   },
   {
     time: "18:00",
     title: "Spa trị liệu, tĩnh tại cuối ngày",
     desc: "Một liệu trình spa nhẹ nhàng, rồi giấc ngủ sâu hơn vì cơ thể đã được chăm trọn vẹn.",
-    image: "/landing/forest-onsen/02_img/onsen/forest-onsen-spa-tri-lieu.jpg",
+    image: "/landing/forest-onsen/02_img/onsen/forest-onsen-spa-tri-lieu.webp",
   },
 ];
 
@@ -126,7 +126,7 @@ export const infrastructureItems = [
     items: [
       {
         title: "Mở rộng cao tốc TP.HCM - Trung Lương",
-        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-ct-trung-luong.jpg",
+        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-ct-trung-luong.webp",
         meta: [
           { label: "Vốn", value: "~32.270 tỷ" },
           { label: "Mốc", value: "Từ 2025" },
@@ -135,7 +135,7 @@ export const infrastructureItems = [
       },
       {
         title: "Đường nối Võ Văn Kiệt - cao tốc Trung Lương",
-        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-vo-van-kiet.jpg",
+        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-vo-van-kiet.webp",
         meta: [
           { label: "Vốn", value: "~1.557 tỷ" },
           { label: "Mốc", value: "Khởi công 2025" },
@@ -144,7 +144,7 @@ export const infrastructureItems = [
       },
       {
         title: 'Trục "xương sống" Nguyễn Hữu Trí',
-        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-nguyen-huu-tri.jpg",
+        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-nguyen-huu-tri.webp",
         meta: [
           { label: "Mốc", value: "Triển khai 2025" },
           { label: "Quy mô", value: "Mở rộng lộ giới 30m, kết nối liên tỉnh" },
@@ -158,7 +158,7 @@ export const infrastructureItems = [
     items: [
       {
         title: "Cao tốc Bến Lức - Long Thành thông xe",
-        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-cao-toc-ben-luc-long-thanh.jpg",
+        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-cao-toc-ben-luc-long-thanh.webp",
         meta: [
           { label: "Vốn", value: "hơn 31.320 tỷ" },
           { label: "Mốc", value: "Toàn tuyến Quý I/2026" },
@@ -167,7 +167,7 @@ export const infrastructureItems = [
       },
       {
         title: "Sân bay quốc tế Long Thành vận hành",
-        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-san-bay-long-thanh.jpg",
+        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-san-bay-long-thanh.webp",
         meta: [
           { label: "Vốn", value: "~109.111 tỷ (4,6 tỷ USD)" },
           { label: "Mốc", value: "Bay thương mại 02/09/2026" },
@@ -176,7 +176,7 @@ export const infrastructureItems = [
       },
       {
         title: "Vành đai 3 TP.HCM hoàn thiện",
-        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-vanh-dai-3.jpg",
+        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-vanh-dai-3.webp",
         meta: [
           { label: "Vốn", value: "~75.378 tỷ" },
           { label: "Mốc", value: "Thông xe kỹ thuật cuối 2025" },
@@ -185,7 +185,7 @@ export const infrastructureItems = [
       },
       {
         title: "Mở rộng Quốc lộ 1",
-        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-quoc-lo-1.jpg",
+        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-quoc-lo-1.webp",
         meta: [
           { label: "Mốc", value: "Triển khai 2025 - 2026" },
           { label: "Quy mô", value: "Nâng lên 10 - 12 làn xe" },
@@ -193,7 +193,7 @@ export const infrastructureItems = [
       },
       {
         title: "Triển khai đường Vành đai 4",
-        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-vanh-dai-4.jpg",
+        image: "/landing/forest-onsen/02_img/hatang/forest-onsen-ht-vanh-dai-4.webp",
         meta: [
           { label: "Vốn", value: "hơn 105.000 tỷ" },
           { label: "Mốc", value: "Khởi công 2025 - 2026" },

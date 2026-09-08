@@ -45,6 +45,7 @@ export function HeroSection() {
                 textShadow: "0 2px 18px rgba(255,255,255,0.6)",
               }}
             >
+              <span className="sr-only">Rừng Phượng Eco Retreat - </span>
               <span
                 className="block"
                 style={{

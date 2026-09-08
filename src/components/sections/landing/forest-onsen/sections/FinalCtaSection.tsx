@@ -44,7 +44,7 @@ export function FinalCtaSection() {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('/landing/forest-onsen/02_img/canh/forest-onsen-vuon-onsen-kieu-nhat.jpg')",
+            "url('/landing/forest-onsen/02_img/canh/forest-onsen-vuon-onsen-kieu-nhat.webp')",
         }}
       />
       <div

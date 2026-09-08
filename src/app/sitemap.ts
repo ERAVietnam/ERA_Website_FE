@@ -24,6 +24,8 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/tin-tuc/thong-cao-bao-chi/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
   { url: `${baseUrl}/tin-tuc/tap-chi/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
   { url: `${baseUrl}/du-an/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/duan-canho-forest-onsen/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/phan-khu-rung-phuong-duan-eco-retreat/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-phu-gia-bao-loc/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/gia-nhap/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/academy/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },

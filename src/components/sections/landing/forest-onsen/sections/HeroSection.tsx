@@ -13,7 +13,7 @@ export function HeroSection() {
         className="absolute inset-0 bg-cover bg-center kenburns"
         style={{
           backgroundImage:
-            "url('/landing/forest-onsen/02_img/canh/forest-onsen-4-thap-view-ho-thien-nga.jpg')",
+            "url('/landing/forest-onsen/02_img/canh/forest-onsen-4-thap-view-ho-thien-nga.webp')",
         }}
       />
       <div
@@ -36,6 +36,7 @@ export function HeroSection() {
             textShadow: "0 2px 40px rgba(0,0,0,.25)",
           }}
         >
+          <span className="sr-only">Forest Onsen Eco Retreat - </span>
           Mỗi ngày,
           <br />
           <em className="not-italic" style={{ fontStyle: "italic" }}>

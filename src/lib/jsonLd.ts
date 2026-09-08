@@ -39,6 +39,21 @@ interface BreadcrumbItem {
   url: string;
 }
 
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface StaticRealEstateListing {
+  name: string;
+  description: string;
+  url: string;
+  image: string;
+  address: string;
+  telephone?: string;
+  category?: string;
+}
+
 export function breadcrumbJsonLd(items: BreadcrumbItem[]): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
@@ -49,6 +64,46 @@ export function breadcrumbJsonLd(items: BreadcrumbItem[]): Record<string, unknow
       name: item.name,
       item: item.url,
     })),
+  };
+}
+
+export function faqPageJsonLd(items: FaqItem[]): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+}
+
+export function staticRealEstateListingJsonLd(
+  listing: StaticRealEstateListing,
+): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    name: listing.name,
+    description: listing.description,
+    url: listing.url,
+    image: [listing.image],
+    category: listing.category,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: listing.address,
+      addressCountry: "VN",
+    },
+    provider: {
+      "@type": "RealEstateAgent",
+      name: "ERA Vietnam",
+      url: BASE_URL,
+      ...(listing.telephone ? { telephone: listing.telephone } : {}),
+    },
   };
 }
 
