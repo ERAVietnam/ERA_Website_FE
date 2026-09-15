@@ -1,0 +1,132 @@
+/* ===== Accordion ảnh section hiện hữu ===== */
+.aq-hh-acc { display: flex; gap: clamp(7px, 0.8vw, 12px); height: clamp(330px, 40vw, 470px); }
+.aq-hh-o { position: relative; flex: 1 1 0; min-width: 0; margin: 0; overflow: hidden; border-radius: 16px; cursor: pointer; transition: flex-grow 0.55s cubic-bezier(0.4, 0, 0.2, 1); flex-grow: 0.78; }
+.aq-hh-img { object-fit: cover; transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1); }
+.aq-hh-cap { position: absolute; inset: auto 0 0 0; padding: clamp(13px, 1.5vw, 20px) clamp(10px, 1vw, 14px); color: #fff; background: linear-gradient(to top, rgba(9, 42, 48, 0.86) 0%, rgba(9, 42, 48, 0.38) 55%, rgba(9, 42, 48, 0) 100%); }
+.aq-hh-ten { display: block; font-size: clamp(13px, 1.15vw, 16px); font-weight: 700; line-height: 1.25; }
+.aq-hh-mo { display: block; font-size: 12px; line-height: 1.45; color: rgba(255, 255, 255, 0.86); margin-top: 5px; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.45s ease, opacity 0.35s ease; }
+.aq-hh-o:first-child { flex-grow: 2.55; }
+.aq-hh-o:first-child .aq-hh-mo { max-height: 60px; opacity: 1; }
+@media (hover: hover) {
+  .aq-hh-acc:hover .aq-hh-o:first-child { flex-grow: 0.78; }
+  .aq-hh-acc:hover .aq-hh-o:first-child .aq-hh-mo { max-height: 0; opacity: 0; }
+  .aq-hh-acc:hover .aq-hh-o:hover { flex-grow: 2.55; }
+  .aq-hh-acc:hover .aq-hh-o:hover .aq-hh-img { transform: scale(1.04); }
+  .aq-hh-acc:hover .aq-hh-o:hover .aq-hh-mo { max-height: 60px; opacity: 1; }
+}
+@media (max-width: 760px) {
+  .aq-hh-acc { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(150px, 34vw, 200px); height: auto; }
+  .aq-hh-o:first-child { grid-column: span 2; grid-row: span 2; }
+  .aq-hh-mo { max-height: 60px; opacity: 1; }
+}
+
+/* ===== Mosaic IntroSection (mobile) — mẫu xếp 1 cột dưới 720px ===== */
+@media (max-width: 720px) {
+  .aq-mosaic { grid-template-columns: 1fr !important; grid-template-rows: none !important; grid-template-areas: "big" "side1" "side2" "wide" !important; }
+  .aq-mosaic figure { aspect-ratio: 4 / 3; }
+}
+
+/* ===== Sơ đồ tuyến LocationSection (mobile) ===== */
+@media (max-width: 760px) {
+  .aq-route-row { flex-direction: column; }
+  .aq-route-row > div { flex: none !important; width: 100%; }
+  .aq-route-seg { display: flex; flex-direction: column; align-items: center; }
+  .aq-route-line { width: 0 !important; height: 34px; border-top: none !important; border-left: 4px dotted #9dc2cb; margin: 11px auto 4px !important; }
+}
+
+/* ===== Marquee ExperienceSection ===== */
+@keyframes wp-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ===== 3D carousel section Trải nghiệm ===== */
+.aq-day-3d { position: relative; overflow: hidden; perspective: 1400px; padding: clamp(14px, 1.8vw, 26px) 0; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 17%, #000 83%, transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 17%, #000 83%, transparent 100%); }
+.aq-day-track { display: flex; gap: clamp(12px, 1.4vw, 22px); width: max-content; transform-style: preserve-3d; animation: aqDayRun 52s linear infinite; }
+.aq-day-3d:hover .aq-day-track { animation-play-state: paused; }
+.aq-day-it { flex: 0 0 auto; width: clamp(196px, 23vw, 330px); aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; will-change: transform, opacity; box-shadow: 0 16px 40px rgba(16, 51, 59, 0.22); }
+.aq-day-it img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@keyframes aqDayRun { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .aq-day-track { animation: none; } }
+
+/* ===== Form giữa trang (mobile) ===== */
+@media (max-width: 640px) {
+  #aq-form-giua-1 form { grid-template-columns: 1fr !important; gap: 9px; }
+  #aq-form-giua-1 button { padding: 16px; }
+}
+
+/* ===== Villa grid (mobile) ===== */
+@media (max-width: 680px) {
+  #biet-thu .grid { grid-template-columns: 1fr !important; gap: 18px !important; max-width: 460px !important; }
+  #biet-thu .grid > div > div:first-child { height: 230px !important; }
+}
+
+/* ==========================================================
+   MOBILE theo dung mau index.html
+   ========================================================== */
+
+/* ----- Header: 1 hang - logo | hotline + hamburger ----- */
+@media (max-width: 860px) {
+  .aq-wp-headbar { flex-wrap: nowrap !important; padding: 10px 14px !important; gap: 10px !important; }
+  .aq-wp-logo { height: 36px !important; }
+  .aq-wp-nav { gap: 13px !important; margin-left: auto !important; flex-wrap: nowrap !important; }
+  .aq-wp-navlink, .aq-wp-cta { display: none !important; }
+  .aq-wp-hotline { font-size: 15px !important; font-weight: 800 !important; }
+  #aq-nut-menu { display: inline-flex !important; }
+}
+@media (max-width: 400px) {
+  .aq-wp-headbar { padding: 9px 12px !important; gap: 8px !important; }
+  .aq-wp-nav { gap: 10px !important; }
+  .aq-wp-hotline { font-size: 13.5px !important; }
+}
+
+/* ----- Hero: scrim don gian hon, h1 full width, anh zoom neo day ----- */
+@media (max-width: 860px) {
+  .aq-scrim {
+    background: linear-gradient(to top, rgba(16,51,59,.84) 0%, rgba(16,51,59,.58) 34%, rgba(16,51,59,.14) 64%, rgba(16,51,59,0) 84%) !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+  .aq-hero-mb { background-position: 50% 100% !important; transform: scale(1.45); transform-origin: 50% 100%; }
+  .aq-h1 { max-width: none !important; }
+  .aq-heroin { padding: 20px 18px 22px !important; }
+}
+@media (min-width: 601px) and (max-width: 860px) {
+  .aq-hero-mb { transform: scale(1.1); }
+}
+@media (max-height: 520px) {
+  .aq-heroin { padding: 12px 18px 14px !important; }
+}
+
+/* ----- Story: truc 3 dia danh xep doc, mui ten xoay 90 ----- */
+@media (max-width: 600px) {
+  .aq-truc { flex-direction: column !important; gap: 9px !important; margin: clamp(26px,4.5vw,36px) 0 !important; }
+  .aq-truc > span:nth-child(odd) { width: 100%; max-width: 240px; }
+  .aq-truc > span:nth-child(even) { transform: rotate(90deg); line-height: 1; }
+}
+
+/* ----- Connection: 2 cot o tablet ----- */
+@media (min-width: 700px) and (max-width: 1051px) {
+  .aq-why4 { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* ----- Intro: giu 2 cot den 720px; duoi 720px stack, text trai, figure 4/5 ----- */
+@media (max-width: 720px) {
+  .aq-intro { grid-template-columns: 1fr !important; }
+  .aq-intro-text { text-align: left !important; }
+  .aq-intro-text p { margin-left: 0 !important; }
+  .aq-intro-text span[style*="width: 1px"], .aq-intro-text span[style*="width:1px"] { margin-left: 0 !important; margin-right: auto !important; }
+  .aq-intro-fig { aspect-ratio: 4 / 5 !important; }
+}
+
+/* ----- Floating form: an tren mobile (theo mau, chi desktop) ----- */
+@media (max-width: 860px) {
+  .aq-wp-float { display: none !important; }
+}
+
+/* ===== Mobile fix: căn giữa chữ 3 pill địa danh (StorySection) ===== */
+@media (max-width: 600px) {
+  .aq-truc > span:nth-child(odd) { text-align: center; }
+}
+
+/* ===== Mobile fix: badge CAO TỐC được wrap xuống hàng ===== */
+@media (max-width: 760px) {
+  .aq-cautoc { white-space: normal !important; line-height: 1.35; min-width: 0 !important; }
+}
