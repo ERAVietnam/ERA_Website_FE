@@ -1,0 +1,1 @@
+export { WaterpointLanding } from "./WaterpointLanding";
