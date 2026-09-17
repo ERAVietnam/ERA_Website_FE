@@ -43,6 +43,7 @@ export function LeadSection() {
         sheet: "WATERPOINT",
       });
       setStatus("success");
+      window.location.href = "/thank-you-waterpoint";
     } catch {
       setStatus("error");
     }

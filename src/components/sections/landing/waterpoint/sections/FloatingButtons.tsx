@@ -7,7 +7,7 @@ import { submitLead } from "../../lib/submit-lead";
 
 // Nút mở form nhận tư vấn ở góc màn hình (desktop)
 export function FloatingButtons() {
-  const [formOpen, setFormOpen] = useState(false);
+  const [formOpen, setFormOpen] = useState(true);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,6 +23,7 @@ export function FloatingButtons() {
         sheet: "WATERPOINT",
       });
       setStatus("success");
+      window.location.href = "/thank-you-waterpoint";
     } catch {
       setStatus("error");
     }
@@ -56,7 +57,8 @@ export function FloatingButtons() {
               className="mb-1 leading-tight"
               style={{
                 fontFamily: "'WP Cormorant Garamond', serif",
-                fontWeight: 700,
+                fontWeight: 500,
+                fontStyle: "italic",
                 fontSize: 30,
                 color: theme.primary,
               }}
