@@ -17,6 +17,7 @@ export function HeroSection() {
     try {
       await submitLead({ formId: "WP_HERO", hoten: name, sdt: phone, sheet: "WATERPOINT" });
       setStatus("success");
+      window.location.href = "/thank-you-waterpoint";
     } catch {
       setStatus("error");
     }

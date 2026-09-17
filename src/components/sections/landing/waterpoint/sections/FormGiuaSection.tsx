@@ -18,6 +18,7 @@ export function FormGiuaSection() {
     try {
       await submitLead({ formId: "WP_FORM_GIUA", hoten: name, sdt: phone, sheet: "WATERPOINT" });
       setStatus("success");
+      window.location.href = "/thank-you-waterpoint";
     } catch {
       setStatus("error");
     }
