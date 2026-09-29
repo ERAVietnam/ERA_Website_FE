@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { theme } from "../theme";
 import { submitLead } from "../../lib/submit-lead";
 
-// Nút mở form nhận tư vấn ở góc màn hình (desktop)
+// Nút mở form nhận tư vấn ở góc màn hình (desktop) — UI theo bản 29/09
 export function FloatingButtons() {
   const [formOpen, setFormOpen] = useState(true);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -30,58 +29,77 @@ export function FloatingButtons() {
   };
 
   return (
-    <div className="aq-wp-float fixed right-4 bottom-[90px] z-[300] flex flex-col items-end gap-3 md:right-5 md:bottom-5">
+    <div className="aq-wp-float fixed right-5 bottom-5 z-[300] flex flex-col items-end gap-3">
       <AnimatePresence>
         {formOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 16, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.95 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="relative w-[296px] rounded-2xl border bg-white p-5"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 14 }}
+            transition={{ duration: 0.26, ease: "easeOut" }}
+            className="w-[296px] max-w-[calc(100vw-40px)] rounded-2xl bg-white"
             style={{
-              borderColor: theme.iceMid,
-              boxShadow: "0 24px 56px -22px rgba(16,51,59,.4)",
+              boxShadow: "0 18px 46px rgba(16,51,59,.26)",
+              padding: "16px 16px 15px",
             }}
           >
-            <button
-              type="button"
-              aria-label="Đóng form"
-              className="absolute top-2 right-3 text-lg leading-none"
-              style={{ color: theme.textMute }}
-              onClick={() => setFormOpen(false)}
-            >
-              ×
-            </button>
-            <div
-              className="mb-1 leading-tight"
-              style={{
-                fontFamily: "'WP Cormorant Garamond', serif",
-                fontWeight: 500,
-                fontStyle: "italic",
-                fontSize: 30,
-                color: theme.primary,
-              }}
-            >
-              Nhận tư vấn riêng
+            {/* Đầu: tiêu đề + nút đóng */}
+            <div className="flex items-start justify-between gap-2">
+              <p
+                className="m-0 italic"
+                style={{
+                  fontFamily: "'WP Cormorant Garamond', serif",
+                  color: "#1D5866",
+                  fontSize: 22,
+                  lineHeight: 1.2,
+                }}
+              >
+                Nhận tư vấn riêng
+              </p>
+              <button
+                type="button"
+                aria-label="Đóng khung tư vấn"
+                onClick={() => setFormOpen(false)}
+                className="shrink-0 cursor-pointer border-none"
+                style={{
+                  width: 26,
+                  height: 26,
+                  borderRadius: 8,
+                  background: "#EEF4F5",
+                  color: "#3D5C63",
+                  fontSize: 14,
+                  lineHeight: 1,
+                  padding: 0,
+                }}
+              >
+                ✕
+              </button>
             </div>
+
             {status === "success" ? (
-              <p className="mt-3 mb-1 text-sm font-bold" style={{ color: theme.primary }}>
+              <p className="mt-3 mb-1 text-sm font-bold" style={{ color: "#1D5866" }}>
                 Đã gửi thông tin thành công — tư vấn viên sẽ liên hệ trong ngày.
               </p>
             ) : (
               <>
-                <div className="mb-3 text-[11.5px]" style={{ color: theme.textSoft }}>
-                  Để lại thông tin, chuyên viên gọi lại trong ngày.
-                </div>
-                <form onSubmit={handleSubmit}>
+                <p className="m-0" style={{ fontSize: 12.5, color: "#48696F", lineHeight: 1.5, margin: "5px 0 12px" }}>
+                  Để lại thông tin, tư vấn viên gọi lại trong ngày.
+                </p>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-2">
                   <input
                     type="text"
                     name="hoten"
                     required
                     placeholder="Họ và tên"
-                    className="mb-2 w-full rounded-lg border px-3 py-2.5 text-sm focus:outline-none"
-                    style={{ borderColor: theme.iceMid }}
+                    className="w-full rounded-[10px] outline-none focus:border-[#2E7C8C]"
+                    style={{
+                      border: "1.5px solid #DCE9EB",
+                      padding: "12px 12px",
+                      fontSize: 14.5,
+                      color: "#10333B",
+                      background: "#FFFFFF",
+                      boxSizing: "border-box",
+                    }}
                   />
                   <input
                     type="tel"
@@ -89,21 +107,34 @@ export function FloatingButtons() {
                     required
                     placeholder="Số điện thoại"
                     pattern="[0-9 ]{9,13}"
-                    className="mb-3 w-full rounded-lg border px-3 py-2.5 text-sm focus:outline-none"
-                    style={{ borderColor: theme.iceMid }}
+                    className="w-full rounded-[10px] outline-none focus:border-[#2E7C8C]"
+                    style={{
+                      border: "1.5px solid #DCE9EB",
+                      padding: "12px 12px",
+                      fontSize: 14.5,
+                      color: "#10333B",
+                      background: "#FFFFFF",
+                      boxSizing: "border-box",
+                    }}
                   />
                   <button
                     type="submit"
                     disabled={status === "loading"}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white transition-all duration-300 active:scale-[0.98] disabled:opacity-60"
-                    style={{ background: theme.primary }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = theme.primaryLight)}
-                    onMouseLeave={(e) => (e.currentTarget.style.background = theme.primary)}
+                    className="aq-nut-gold cursor-pointer border-none rounded-full font-extrabold disabled:opacity-70"
+                    style={{
+                      padding: 13,
+                      background: "#E9A94B",
+                      color: "#10333B",
+                      fontSize: 14,
+                      letterSpacing: "0.04em",
+                      marginTop: 2,
+                      position: "relative",
+                      overflow: "hidden",
+                      boxShadow: "0 10px 24px rgba(233,169,75,.38)",
+                      transition: "transform .18s ease, box-shadow .18s ease, background .18s ease",
+                    }}
                   >
-                    {status === "loading" ? "Đang gửi..." : "Đăng ký ngay"}
-                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-[13px]">
-                      →
-                    </span>
+                    {status === "loading" ? "Đang gửi..." : "ĐĂNG KÝ NGAY"}
                   </button>
                 </form>
               </>
@@ -123,24 +154,22 @@ export function FloatingButtons() {
           title="Nhận tư vấn riêng"
           aria-label="Nhận tư vấn riêng"
           onClick={() => setFormOpen(true)}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.25 }}
-          className="flex h-[52px] w-[52px] items-center justify-center rounded-full text-white shadow-lg"
-          style={{ background: theme.primary, boxShadow: "0 6px 18px rgba(16,51,59,.35)" }}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.26 }}
+          className="cursor-pointer border-none text-white"
+          style={{
+            width: 52,
+            height: 52,
+            borderRadius: 999,
+            background: "#1D5866",
+            fontSize: 21,
+            lineHeight: 1,
+            boxShadow: "0 12px 30px rgba(16,51,59,.3)",
+            padding: 0,
+          }}
         >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
+          ✉
         </motion.button>
       )}
     </div>

@@ -55,8 +55,8 @@ const MOSAIC = [
   },
   {
     area: "side1",
-    src: "waterpoint-bo-ke-hoa-mat-nuoc",
-    alt: "Bờ kè hoa chạy dọc mặt nước trong khu",
+    src: "waterpoint-mat-nuoc-flycam-bai-co",
+    alt: "Mặt nước và bãi cỏ ven sông Waterpoint nhìn từ flycam",
     value: "8,6",
     unit: "ha",
     label: "MẶT NƯỚC",
@@ -128,8 +128,8 @@ export function IntroSection() {
               className="ml-auto"
               style={{ color: theme.primarySoft, fontSize: 17, lineHeight: 1.8, maxWidth: "46ch" }}
             >
-              Sông lớn ôm ba mặt, kênh đào chạy trong lòng khu, cây đã cao quá đầu ngườI và bãi
-              cỏ đủ rộng để thả một cánh diều. Không phải bản vẽ — đây là Waterpoint của hôm nay.
+              Ba mặt giáp sông lớn, kênh đào chạy trong lòng khu, cây xanh đã lớn và hơn 1.500 căn
+              thấp tầng đã bàn giao. Anh/chị xuống là thấy một khu đô thị đang sống.
             </p>
           </div>
 
@@ -190,8 +190,8 @@ export function IntroSection() {
             lineHeight: 1.45,
           }}
         >
-          Sông nước, cây xanh, khoảng trờI rộng — quê mình,
-          <br className="hidden sm:block" /> ở một phiên bản đầy đủ hơn.
+          Đô thị nghỉ dưỡng liền kề Sài Gòn —
+          <br className="hidden sm:block" /> ở được mỗi ngày, không chỉ cuối tuần.
         </motion.p>
       </div>
 

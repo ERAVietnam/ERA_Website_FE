@@ -12,13 +12,7 @@ export function VideoSection() {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <div
-      className="w-full px-[22px]"
-      style={{
-        background:
-          "linear-gradient(to bottom, #D8EAEC 0%, #D8EAEC 50%, #F4F9FA 50%, #F4F9FA 100%)",
-      }}
-    >
+    <div className="w-full px-[22px]" style={{ background: "#FDF3EA", padding: "clamp(40px,4.4vw,68px) 22px 0" }}>
       <figure className="mx-auto max-w-[820px]">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

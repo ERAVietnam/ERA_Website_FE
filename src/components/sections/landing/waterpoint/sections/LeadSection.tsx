@@ -57,7 +57,7 @@ export function LeadSection() {
     outline: "none",
     cursor: "pointer",
     color: theme.primarySoft,
-    background: "#FFFFFF",
+    background: "#F6FAFB",
     width: "100%",
   };
 
@@ -99,7 +99,7 @@ export function LeadSection() {
             className="m-0 font-extrabold"
             style={{ color: theme.white, fontSize: "clamp(22px,3.1vw,40px)", lineHeight: 1.15 }}
           >
-            ĐƯA CẢ GIA ĐÌNH ĐẾN WATERPOINT MỘT NGÀY
+            XUỐNG XEM NHÀ THẬT CUỐI TUẦN NÀY
           </h2>
           <p
             className="mt-3 italic"
@@ -110,13 +110,13 @@ export function LeadSection() {
               lineHeight: 1.4,
             }}
           >
-            Cảm nhận nơi dành riêng cho cả gia đình.
+            Tư vấn viên gửi giỏ hàng trước, hẹn giờ và dẫn anh/chị xem đúng căn phù hợp.
           </p>
           <div className="mt-[clamp(20px,2.4vw,30px)] flex flex-col gap-2.5">
             {[
-              "Một nơi ba mẹ có thể an tâm ở lại lâu hơn.",
-              "Các con có thêm khoảng trờI để trưởng thành.",
-              "Và những lần cả nhà sum họp không còn phải nghĩ “liệu có đủ chỗ?”",
+              "Xem căn đã xây xong, đúng diện tích và hướng nhìn.",
+              "Nhận bảng giá chi tiết và lịch thanh toán.",
+              "Đi một vòng tiện ích: trường, Club House, bến thuyền, bãi cỏ ven sông.",
             ].map((t) => (
               <div
                 key={t}
@@ -142,7 +142,11 @@ export function LeadSection() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, delay: 0.1 }}
           className="rounded-[18px] bg-white"
-          style={{ padding: "clamp(24px,2.8vw,36px)", boxShadow: "0 24px 60px rgba(16,51,59,0.3)" }}
+          style={{
+            padding: "clamp(24px,2.8vw,36px)",
+            borderTop: "5px solid #E9A94B",
+            boxShadow: "0 0 0 1px rgba(245,213,160,0.55), 0 28px 70px rgba(8,30,36,0.45)",
+          }}
         >
           <div className="text-[19px] font-extrabold" style={{ color: theme.primary }}>
             Nhận bảng giá &amp; đặt lịch tham quan
@@ -159,7 +163,7 @@ export function LeadSection() {
               Đã gửi thông tin thành công — tư vấn viên sẽ liên hệ trong ngày.
             </p>
           ) : (
-            <form onSubmit={onSubmit} className="mt-5 flex flex-col gap-3">
+            <form onSubmit={onSubmit} className="aq-lead-form mt-5 flex flex-col gap-3">
               <input
                 type="text"
                 required
@@ -198,13 +202,15 @@ export function LeadSection() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="cursor-pointer border-none bg-[#1D5866] py-[17px] font-extrabold tracking-[0.06em] text-white transition-colors hover:bg-[#2E7C8C] disabled:opacity-70"
+                className="aq-nut-gold cursor-pointer border-none py-[17px] font-extrabold tracking-[0.06em] disabled:opacity-70"
                 style={{
                   borderRadius: 11,
                   fontSize: 15,
+                  background: "#E9A94B",
+                  color: "#10333B",
                 }}
               >
-                {status === "loading" ? "ĐANG GỬI..." : "GỬI THÔNG TIN"}
+                {status === "loading" ? "ĐANG GỬI..." : "NHẬN BẢNG GIÁ & LỊCH XEM NHÀ →"}
               </button>
             </form>
           )}

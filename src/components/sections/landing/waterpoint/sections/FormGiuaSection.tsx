@@ -87,8 +87,8 @@ export function FormGiuaSection() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="cursor-pointer rounded-[11px] px-[26px] py-[15px] text-sm font-extrabold tracking-[0.05em] whitespace-nowrap transition-all hover:brightness-105 active:scale-[0.98] disabled:opacity-70"
-              style={{ background: "#F5B944", color: theme.primaryDark }}
+              className="aq-nut-gold cursor-pointer rounded-[11px] px-[26px] py-[15px] text-sm font-extrabold tracking-[0.05em] whitespace-nowrap disabled:opacity-70"
+              style={{ background: "#E9A94B", color: "#10333B" }}
             >
               {status === "loading" ? "ĐANG GỬI..." : "NHẬN GIỎ HÀNG"}
             </button>

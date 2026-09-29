@@ -84,7 +84,7 @@ export function ExistingSection() {
             className="mt-3 font-extrabold"
             style={{ color: theme.primary, fontSize: "clamp(22px,3.1vw,40px)", lineHeight: 1.15 }}
           >
-            MỘT ĐẠI ĐÔ THỊ ĐÃ BƯỚC VÀO CUỘC SỐNG
+            ĐÃ XÂY XONG, ĐÃ CÓ CƯ DÂN
           </h2>
           <p
             className="mt-3 italic"
@@ -95,7 +95,7 @@ export function ExistingSection() {
               lineHeight: 1.4,
             }}
           >
-            Một nơi cho cả gia đình không nên chỉ đẹp trên bản vẽ.
+            Xuống xem nhà là thấy cuộc sống đang diễn ra, không phải phối cảnh.
           </p>
         </motion.div>
 
@@ -131,9 +131,9 @@ export function ExistingSection() {
           className="mx-auto mt-[clamp(24px,2.6vw,34px)] mb-0 text-center"
           style={{ color: theme.text, fontSize: 18, lineHeight: 1.75, maxWidth: 860 }}
         >
-          Waterpoint hôm nay không còn là một đô thị của tương lai. Cuộc sống đã hiện hữu qua
-          những mái nhà sáng đèn, ngôi trường đón học sinh và những không gian cộng đồng được sử
-          dụng mỗi ngày.
+          Trường đã đón học sinh, Club House và hồ bơi đang mở cửa, cuối tuần bãi cỏ ven sông
+          kín lều cắm trại. Mua ở Waterpoint là mua vào một khu đã vận hành, không phải chờ tiện
+          ích hình thành.
         </motion.p>
 
         {/* 3 stat cards */}
@@ -174,8 +174,8 @@ export function ExistingSection() {
             maxWidth: 820,
           }}
         >
-          The Aqua đã hiện hữu để bước vào và cảm nhận. Không chỉ xem nơi mình sẽ sống, mà bắt đầu
-          hình dung những ngày cả gia đình thật sự sống tại đây.
+          Biệt thự The Aqua đã xây xong. Anh/chị bước vào từng căn, đứng ở sân vườn, nhìn đúng
+          khung cảnh mình sẽ sống — rồi mới quyết định.
         </motion.p>
       </div>
     </section>

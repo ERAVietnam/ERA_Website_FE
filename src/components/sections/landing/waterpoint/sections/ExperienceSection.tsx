@@ -72,7 +72,7 @@ export function ExperienceSection() {
             className="mt-3 font-extrabold"
             style={{ color: theme.primary, fontSize: "clamp(22px,3.1vw,40px)", lineHeight: 1.15 }}
           >
-            MỘT NGÀY TẠI WATERPOINT
+            CUỐI TUẦN Ở WATERPOINT
           </h2>
           <p
             className="mt-3 italic"
@@ -83,7 +83,7 @@ export function ExperienceSection() {
               lineHeight: 1.4,
             }}
           >
-            Mỗi thế hệ một nhịp sống riêng. Vẫn có những khoảng thời gian dành cho nhau.
+            Cắm trại, thả diều, đón gió sông — ngay trước cửa nhà.
           </p>
         </motion.div>
       </div>
@@ -124,17 +124,13 @@ export function ExperienceSection() {
             className="mx-auto mt-[clamp(26px,2.8vw,38px)] mb-0"
             style={{ color: theme.text, fontSize: 18, lineHeight: 1.75, maxWidth: 860 }}
           >
-            Tại Waterpoint, mỗi thế hệ có một nhịp sống riêng, nhưng vẫn luôn có khoảng thời gian
-            dành cho nhau. Ba mẹ thong thả giữa không gian xanh và mặt nước. Các con học tập, vui
-            chơi ngay trong Waterpoint. Cha mẹ vẫn thuận tiện kết nối TP.HCM khi công việc cần.
+            Sáng thứ Bảy, cả nhà xách lều ra bãi cỏ Harbour ven sông, đi bộ vài phút là tới. NgườI lớn trải bạt ngồi hóng gió, bọn trẻ chạy theo con diều đến trưa.
           </p>
           <p className="mx-auto mb-0" style={{ color: theme.text, fontSize: 18, lineHeight: 1.75, maxWidth: 860 }}>
-            Cuối tuần, ngôi nhà lại đông vui hơn. Ba mẹ từ miền Tây ghé lên, anh chị em từ Sài Gòn
-            trở về, trẻ nhỏ có khoảng vườn vui chơi, ngườI lớn có thêm thời gian bên nhau. Một ngôi
-            nhà rộng hơn, để những lần sum họp có thể kéo dài lâu hơn.
+            Chiều xuống, gió sông mát dần, cả nhà dạo bờ kè hoa ngắm hoàng hôn trên mặt nước. Không phải chất đồ lên xe, không phải chạy hàng giờ đi tìm chỗ cắm trại.
           </p>
           <p className="mx-auto mt-[clamp(26px,2.8vw,38px)] mb-0" style={{ color: theme.primarySoft, fontSize: 18, lineHeight: 1.7, maxWidth: 860 }}>
-            Và câu hỏi không còn là &ldquo;Nhà có đủ chỗ không?&rdquo; mà là
+            Và câu hỏi không còn là &ldquo;Cuối tuần này đi đâu?&rdquo; mà là
           </p>
           <p
             className="mx-auto mt-3 mb-0 text-center italic"
@@ -146,7 +142,7 @@ export function ExperienceSection() {
               maxWidth: 860,
             }}
           >
-            &ldquo;Cuối tuần này, cả nhà mình về nhé.&rdquo;
+            &ldquo;Chiều nay, cả nhà ra sông thả diều nhé.&rdquo;
           </p>
         </motion.div>
       </div>
