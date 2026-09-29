@@ -8,8 +8,9 @@ const fadeUp = {
   whileInView: { opacity: 1, y: 0 },
 };
 
-const PRICE_CARDS = [
-  { value: "12 – 35", unit: " tỷ", label: "khoảng giá mỗi căn" },
+const PRICE_CARDS: { value: string; unit: string; label: string; red?: boolean }[] = [
+  { value: "5,5", unit: " tỷ", label: "giỏ hàng nhà phố\nđộc quyền", red: true },
+  { value: "12 – 35", unit: " tỷ", label: "biệt thự – dinh thự" },
   { value: "470 – 682", unit: " m²", label: "diện tích đất" },
   { value: "366 – 478", unit: " m²", label: "diện tích xây dựng" },
   { value: "Đã xây", unit: "", label: "nhà hiện hữu, xem được ngay" },
@@ -41,7 +42,7 @@ export function PriceSection() {
               lineHeight: 1.4,
             }}
           >
-            Một quyết định lớn cần nhìn rõ cả ngôi nhà lẫn dòng tiền.
+            Nhìn rõ giá từng căn và dòng tiền trước khi xuống xem nhà.
           </p>
         </motion.div>
 
@@ -83,14 +84,22 @@ export function PriceSection() {
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.5, delay: i * 0.05 }}
                 className="rounded-[14px] bg-white text-center"
-                style={{ padding: "18px 16px" }}
+                style={{
+                  padding: c.red ? "16px 16px" : "18px 16px",
+                  border: c.red ? "2px solid #8B1A2B" : undefined,
+                }}
               >
-                <div className="leading-[1.15] font-black" style={{ color: theme.primary, fontSize: "clamp(19px,2.3vw,25px)" }}>
+                <div
+                  className="leading-[1.15] font-black"
+                  style={{ color: c.red ? "#8B1A2B" : theme.primary, fontSize: "clamp(19px,2.3vw,25px)" }}
+                >
                   {c.value}
                   {c.unit && <span className="text-[0.6em] font-bold">{c.unit}</span>}
                 </div>
                 <div className="mt-1.5 text-[12.5px] leading-[1.45]" style={{ color: theme.primarySoft }}>
-                  {c.label}
+                  {c.label.split("\n").map((line) => (
+                    <span key={line} className="block">{line}</span>
+                  ))}
                 </div>
               </motion.div>
             ))}

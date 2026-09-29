@@ -7,18 +7,17 @@ import "./waterpoint.css";
 import { Navbar } from "./sections/Navbar";
 import { HeroSection } from "./sections/HeroSection";
 import { IntroSection } from "./sections/IntroSection";
-import { StorySection } from "./sections/StorySection";
-import { VideoSection } from "./sections/VideoSection";
-import { ConnectionSection } from "./sections/ConnectionSection";
-import { LocationSection } from "./sections/LocationSection";
 import { MasterPlanSection } from "./sections/MasterPlanSection";
-import { ExistingSection } from "./sections/ExistingSection";
-import { AmenitySection } from "./sections/AmenitySection";
 import { Tour360Section } from "./sections/Tour360Section";
 import { FormGiuaSection } from "./sections/FormGiuaSection";
+import { VideoSection } from "./sections/VideoSection";
+import { LocationSection } from "./sections/LocationSection";
+import { ExistingSection } from "./sections/ExistingSection";
+import { AmenitySection } from "./sections/AmenitySection";
 import { VillaSection } from "./sections/VillaSection";
-import { ExperienceSection } from "./sections/ExperienceSection";
+import { SanPhamSection } from "./sections/SanPhamSection";
 import { PriceSection } from "./sections/PriceSection";
+import { ExperienceSection } from "./sections/ExperienceSection";
 import { LeadSection } from "./sections/LeadSection";
 import { FooterSection } from "./sections/FooterSection";
 import { FloatingButtons } from "./sections/FloatingButtons";
@@ -36,18 +35,17 @@ export function WaterpointLanding() {
       <Navbar />
       <HeroSection />
       <IntroSection />
-      <StorySection />
-      <VideoSection />
-      <ConnectionSection />
-      <LocationSection />
       <MasterPlanSection />
-      <ExistingSection />
-      <AmenitySection />
       <Tour360Section />
       <FormGiuaSection />
+      <VideoSection />
+      <LocationSection />
+      <ExistingSection />
+      <AmenitySection />
       <VillaSection />
-      <ExperienceSection />
+      <SanPhamSection />
       <PriceSection />
+      <ExperienceSection />
       <LeadSection />
       <FooterSection />
       <FloatingButtons />

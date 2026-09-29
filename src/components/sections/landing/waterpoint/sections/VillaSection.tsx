@@ -28,7 +28,7 @@ export function VillaSection() {
           className="mx-auto mb-[34px] max-w-[880px] text-center"
         >
           <span className="text-sm font-bold tracking-[0.17em]" style={{ color: theme.textSoft }}>
-            BỘ SƯU TẬP BIỆT THỰ THE AQUA
+            CÁC DÒNG BIỆT THỰ THE AQUA
           </span>
           <h2
             className="mt-3 font-extrabold"
@@ -45,7 +45,7 @@ export function VillaSection() {
               lineHeight: 1.4,
             }}
           >
-            Mỗi thế hệ một khoảng riêng.
+            Từ 225 m² cho gia đình trẻ đến hơn 1.300 m² cho đại gia đình.
           </p>
         </motion.div>
 

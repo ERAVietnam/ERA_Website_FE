@@ -77,6 +77,86 @@ function RouteSegment({ time }: { time: string }) {
   );
 }
 
+function MapPin({
+  left,
+  top,
+  num,
+  label,
+  colors,
+}: {
+  left: string;
+  top: string;
+  num: string;
+  label: string;
+  colors: { mid: string; dark: string; text: string; ring: string };
+}) {
+  return (
+    <span className="aq-pin pointer-events-none absolute z-[3]" style={{ left, top, width: 0, height: 0 }}>
+      <span
+        data-p="song"
+        className="absolute rounded-[50%] border-2"
+        style={{ left: -16, top: -6, width: 32, height: 12, borderColor: colors.ring }}
+      />
+      <span
+        data-p="bong"
+        className="absolute rounded-[50%]"
+        style={{
+          left: -15,
+          top: -5,
+          width: 30,
+          height: 10,
+          background: "radial-gradient(ellipse at center, rgba(9,42,48,.55) 0%, rgba(9,42,48,0) 70%)",
+        }}
+      />
+      <span data-p="than" className="absolute block" style={{ left: -19, bottom: 0, width: 38, height: 52 }}>
+        <svg width="38" height="52" viewBox="0 0 38 52" style={{ display: "block", overflow: "visible" }}>
+          <defs>
+            <radialGradient id={`aq-pin-g${num}`} cx="34%" cy="26%" r="78%">
+              <stop offset="0" stopColor={colors.mid} />
+              <stop offset=".48" stopColor={colors.text} />
+              <stop offset="1" stopColor={colors.dark} />
+            </radialGradient>
+          </defs>
+          <path
+            d="M19 51C19 51 3.5 31.5 3.5 19a15.5 15.5 0 1 1 31 0C34.5 31.5 19 51 19 51Z"
+            fill={`url(#aq-pin-g${num})`}
+            stroke="rgba(255,255,255,.85)"
+            strokeWidth="1.4"
+          />
+          <circle cx="19" cy="19" r="9.2" fill="#FFFFFF" />
+          <text
+            x="19"
+            y="23.4"
+            textAnchor="middle"
+            fontFamily="'WP Montserrat',sans-serif"
+            fontSize="12.5"
+            fontWeight="800"
+            fill={colors.text}
+          >
+            {num}
+          </text>
+        </svg>
+        <span
+          data-p="nhan"
+          className="absolute rounded-full whitespace-nowrap bg-white font-extrabold"
+          style={{
+            left: 40,
+            top: 8,
+            color: colors.text,
+            fontSize: 12,
+            letterSpacing: "0.05em",
+            lineHeight: 1,
+            padding: "7px 11px",
+            boxShadow: "0 6px 16px rgba(16,51,59,.22)",
+          }}
+        >
+          {label}
+        </span>
+      </span>
+    </span>
+  );
+}
+
 export function LocationSection() {
   return (
     <section id="vi-tri" className="w-full" style={{ background: theme.cream, padding: "clamp(58px,6vw,96px) 22px" }}>
@@ -106,7 +186,7 @@ export function LocationSection() {
               lineHeight: 1.4,
             }}
           >
-            Ở giữa không có nghĩa là xa cả hai. Mà là thuận cả hai hướng.
+            Thuận cả hai hướng: lên Sài Gòn đi làm, về miền Tây thăm nhà.
           </p>
         </motion.div>
 
@@ -225,6 +305,43 @@ export function LocationSection() {
           </div>
         </motion.div>
 
+        {/* Bản đồ vị trí với pin động */}
+        <motion.figure
+          {...fadeUp}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7 }}
+          id="aq-bando"
+          className="relative mx-auto max-w-[1080px]"
+          style={{ marginTop: "clamp(28px,3vw,44px)" }}
+        >
+          <Image
+            src="/landing/waterpoint/waterpoint-ban-do-vi-tri-ket-noi.webp"
+            alt="Bản đồ vị trí Waterpoint tại Bến Lức: nằm giữa TP.HCM và miền Tây, kết nối Vành đai 3, Vành đai 4, cao tốc TP.HCM – Trung Lương và sông Vàm Cỏ Đông"
+            width={1920}
+            height={1080}
+            className="block h-auto w-full"
+            style={{
+              filter: "saturate(1.9) contrast(1.4) brightness(0.8)",
+              WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%)",
+              maskImage: "linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%)",
+            }}
+          />
+          <MapPin
+            left="37.92%"
+            top="62.78%"
+            num="1"
+            label="WATERPOINT"
+            colors={{ mid: "#FF7A8C", dark: "#6E0718", text: "#C8102E", ring: "rgba(200,16,46,.6)" }}
+          />
+          <MapPin
+            left="54.22%"
+            top="44.72%"
+            num="2"
+            label="TRUNG TÂM TP.HCM"
+            colors={{ mid: "#5FC0D1", dark: "#0A2A31", text: "#1D5866", ring: "rgba(29,88,102,.6)" }}
+          />
+        </motion.figure>
+
         {/* Mô tả + 2 card thờI gian */}
         <motion.p
           {...fadeUp}
@@ -233,8 +350,9 @@ export function LocationSection() {
           className="mx-auto mt-[clamp(24px,2.6vw,34px)] mb-0 text-center"
           style={{ color: theme.text, fontSize: 18, lineHeight: 1.75, maxWidth: 860 }}
         >
-          Waterpoint kết nối trực tiếp với cao tốc TP.HCM - Trung Lương và mạng lưới giao thông
-          liên vùng, thuận tiện cho những gia đình có cuộc sống gắn với cả Sài Gòn và miền Tây.
+          Waterpoint kết nối trực tiếp cao tốc TP.HCM – Trung Lương. Lên Phú Mỹ Hưng khoảng 40
+          phút, về Tiền Giang khoảng 35 phút — hợp với gia đình có công việc ở Sài Gòn và ba mẹ
+          ở miền Tây.
         </motion.p>
 
         <div className="mt-[clamp(22px,2.4vw,32px)] grid gap-[18px]" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))" }}>
@@ -322,8 +440,7 @@ export function LocationSection() {
             maxWidth: 820,
           }}
         >
-          Sáng vẫn có thể về Sài Gòn khi công việc cần. Cuối tuần vẫn thuận đường về thăm ba mẹ -
-          Một vị trí giúp khoảng cách giữa công việc, quê nhà và gia đình trở nên gần hơn.
+          Không phải chọn giữa công việc ở Sài Gòn và ba mẹ ở quê — ở giữa là gần cả hai.
         </motion.p>
         <motion.p
           {...fadeUp}
@@ -332,11 +449,10 @@ export function LocationSection() {
           className="mx-auto mt-4 mb-0 text-center"
           style={{ color: theme.textSoft, fontSize: 12.5, lineHeight: 1.6, maxWidth: 720 }}
         >
-          Thời gian di chuyển mang tính tham khảo và phụ thuộc điều kiện giao thông thực tế.
+          ThờI gian di chuyển mang tính tham khảo và phụ thuộc điều kiện giao thông thực tế.
         </motion.p>
       </div>
 
-      {/* Mobile: sơ đồ tuyến xếp dọc */}
     </section>
   );
 }

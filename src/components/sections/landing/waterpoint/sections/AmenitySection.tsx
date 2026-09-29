@@ -14,19 +14,19 @@ const COLUMNS = [
     img: "canh-quan-hoa-ven-song",
     alt: "Cảnh quan hoa và hàng dừa ven sông tại Waterpoint",
     label: "CHO ÔNG BÀ",
-    desc: "Công viên, đường dạo, sông nước và những khoảng xanh cho một nhịp sống thư thái.",
+    desc: "Công viên ven sông, đường dạo quanh kênh và 8,6 ha mặt nước — đi bộ mỗi sáng không cần ra khỏi khu.",
   },
   {
     img: "ho-boi-ngoai-troi",
     alt: "Hồ bơi ngoài trờI trong khu tiện ích Waterpoint",
     label: "CHO BA MẸ",
-    desc: "Country Club 3 ha, gym, tennis, hồ bơi, Harbour và kết nối thuận tiện về TP.HCM.",
+    desc: "Country Club 3 ha với gym, tennis, hồ bơi. Harbour ven sông. Lên TP.HCM qua cao tốc khi công việc cần.",
   },
   {
     img: "san-choi-tre-em",
     alt: "Sân chơi trẻ em giữa khu biệt thự Waterpoint",
     label: "CHO CÁC CON",
-    desc: "EMASI Plus, sân chơi, thể thao và không gian xanh để tự do học hỏi, vui chơi, lớn lên.",
+    desc: "Sân chơi ngay giữa các dãy biệt thự, vài bước chân từ cửa nhà. Cuối tuần ra bãi cỏ ven sông thả diều.",
   },
 ];
 
@@ -52,7 +52,7 @@ export function AmenitySection() {
             className="mt-3 font-extrabold"
             style={{ color: theme.primary, fontSize: "clamp(22px,3.1vw,40px)", lineHeight: 1.15 }}
           >
-            MỘT NƠI CHO CẢ BA THẾ HỆ
+            TIỆN ÍCH KHÉP KÍN CHO GIA ĐÌNH ĐA THẾ HỆ
           </h2>
           <p
             className="mt-3 italic"
@@ -63,7 +63,7 @@ export function AmenitySection() {
               lineHeight: 1.4,
             }}
           >
-            Ba thế hệ, ba nhịp sống. Vẫn có thể gặp nhau mỗi ngày.
+            Ông bà, ba mẹ, các con — mỗi người có chỗ của mình, ngay trong khu.
           </p>
         </motion.div>
 
@@ -81,8 +81,7 @@ export function AmenitySection() {
             marginBottom: "clamp(26px,2.8vw,36px)",
           }}
         >
-          Đón ba mẹ về ở cùng, thêm một phòng ngủ là chưa đủ. Ở lâu dài cần đủ không gian và
-          tiện ích để mỗi thế hệ vẫn có cuộc sống của riêng mình.
+          Ở cùng ba mẹ lâu dài, thêm phòng ngủ là chưa đủ. Mỗi thế hệ cần tiện ích riêng trong tầm đi bộ, để không ai phải chờ người khác chở mới ra khỏi nhà được.
         </motion.p>
 
         {/* 3 cột ảnh */}
@@ -129,8 +128,7 @@ export function AmenitySection() {
             CHO CẢ GIA ĐÌNH
           </div>
           <p className="mt-2 mb-0 text-[18px] leading-[1.7]" style={{ color: theme.text }}>
-            Thêm những khoảng thời gian bên nhau, từ một vòng đi bộ ven sông đến những cuối tuần
-            quây quần.
+            Cuối tuần cắm trại, thả diều trên bãi cỏ ven sông, tối đi dạo bờ kè — không phải lái xe đi đâu xa.
           </p>
         </motion.div>
 
@@ -148,8 +146,8 @@ export function AmenitySection() {
             maxWidth: 860,
           }}
         >
-          &ldquo;Gần nhau khi muốn, có khoảng riêng khi cần&rdquo; - Để ba thế hệ thực sự sống cùng
-          nhau, căn nhà cần đủ chỗ cho cả sự sum vầy lẫn cuộc sống riêng tư.
+          &ldquo;Gần nhau khi muốn, có khoảng riêng khi cần&rdquo; — điều một căn hộ ba phòng
+          ngủ khó làm được.
         </motion.p>
       </div>
     </section>

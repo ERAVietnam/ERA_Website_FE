@@ -142,7 +142,7 @@ export function Tour360Section() {
             className="font-black tracking-[0.02em]"
             style={{ color: theme.primary, fontSize: "clamp(26px,3.8vw,48px)", lineHeight: 1.1 }}
           >
-            TƯƠNG TÁC VIEW THỰC CĂN NHÀ
+            XEM BIỆT THỰ 360°
           </h2>
           <p
             className="mt-3 italic"
@@ -153,7 +153,7 @@ export function Tour360Section() {
               lineHeight: 1.4,
             }}
           >
-            Từ những lần ba mẹ ghé thăm - đến những ngày an tâm ở lại.
+            Kéo để xoay và nhìn trọn không gian một căn biệt thự đã hoàn thiện ở Waterpoint.
           </p>
         </motion.div>
 
@@ -185,52 +185,7 @@ export function Tour360Section() {
           </div>
         </motion.div>
 
-        {/* Text + highlights dưới viewer */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.7 }}
-          className="mt-[clamp(24px,2.8vw,36px)] grid gap-[clamp(20px,2.6vw,34px)]"
-          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}
-        >
-          <div>
-            <p className="m-0" style={{ color: theme.text, fontSize: 18, lineHeight: 1.75 }}>
-              Một căn hộ 3 phòng ngủ có thể vừa đủ, cho đến khi ba mẹ lên ở lâu hơn, con trẻ lớn
-              dần và những cuối tuần cả nhà muốn quây quần. Khi ấy, &ldquo;đủ&rdquo; bắt đầu thành
-              &ldquo;chật&rdquo;.
-            </p>
-            <p className="mt-4 mb-0" style={{ color: theme.text, fontSize: 18, lineHeight: 1.75 }}>
-              The Aqua mang đến những căn biệt thự rộng rãi với nhiều phòng ngủ và sân vườn, để
-              mỗi thế hệ có khoảng riêng, cả gia đình vẫn có chỗ để gần nhau.
-            </p>
-          </div>
-          <div>
-            <div className="flex flex-wrap gap-2.5">
-              {["8,6 ha mặt nước", "3,5 ha công viên ven sông", "11,9 ha thể thao & sân tập golf", "hồ bơi vô cực"].map(
-                (t) => (
-                  <span
-                    key={t}
-                    className="rounded-full font-bold"
-                    style={{
-                      background: theme.white,
-                      fontSize: 13.5,
-                      color: theme.primary,
-                      padding: "12px 16px",
-                    }}
-                  >
-                    {t}
-                  </span>
-                ),
-              )}
-            </div>
-            <p className="mt-[18px] mb-0" style={{ color: theme.text, fontSize: 18, lineHeight: 1.75 }}>
-              Thêm phòng thì dễ. Thêm chỗ để cả nhà vẫn muốn ở cùng nhau mới khó. Tuỳ nhu cầu mỗi
-              gia đình, The Aqua có nhiều lựa chọn về kiến trúc và diện tích.
-            </p>
-          </div>
-        </motion.div>
-      </div>
+              </div>
     </section>
   );
 }
