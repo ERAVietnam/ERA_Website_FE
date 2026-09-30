@@ -3,6 +3,7 @@
 import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
 import { rc } from "./palette";
+import { Reveal } from "./Reveal";
 
 const CHOICES = [
   {
@@ -29,6 +30,7 @@ const CHOICES = [
 export function ResalesChoiceSection() {
   return (
     <Section bg="white" padding="none" className="py-10 md:py-14">
+      <Reveal>
       <div className="text-xs font-extrabold tracking-[0.16em]" style={{ color: colors.primary.DEFAULT }}>
         ĐÃ ĐẾN LÚC PHẢI LỰA CHỌN
       </div>
@@ -69,7 +71,8 @@ export function ResalesChoiceSection() {
             </p>
           </div>
         ))}
-      </div>
+      </div>      </Reveal>
+
     </Section>
   );
 }

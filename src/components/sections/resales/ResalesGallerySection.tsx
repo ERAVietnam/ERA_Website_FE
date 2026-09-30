@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
 import { rc } from "./palette";
+import { Reveal } from "./Reveal";
 
 const GALLERY = [
   { src: "/resale/0992014297d91e6635f5e1cceff7380586aeecbc.webp", alt: "Toàn thể ERA Vietnam tại sự kiện VNBC", w: 2048, h: 1365 },
@@ -17,6 +18,7 @@ const GALLERY = [
 export function ResalesGallerySection() {
   return (
     <Section bg="white" padding="none" className="py-10 md:py-14">
+      <Reveal>
       <div className="text-base font-extrabold tracking-[0.16em]" style={{ color: colors.primary.DEFAULT }}>
         #TEAMERA
       </div>
@@ -45,7 +47,8 @@ export function ResalesGallerySection() {
             />
           </div>
         ))}
-      </div>
+      </div>      </Reveal>
+
     </Section>
   );
 }

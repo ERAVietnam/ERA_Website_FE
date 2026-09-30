@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { rc } from "./palette";
+import { Reveal } from "./Reveal";
 import { submitLeadBeacon } from "../landing/lib/submit-lead";
 
 const INFO = [
@@ -127,6 +128,7 @@ export function ResalesHeroSection() {
       </div>
 
       <Container className="relative z-10 py-14 md:py-20">
+        <Reveal>
         <div className="text-xl italic" style={{ color: colors.neutral.white }}>
           Workshop
         </div>
@@ -239,6 +241,16 @@ export function ResalesHeroSection() {
                 </div>
                 <p className="mt-4 font-extrabold" style={{ color: rc.navy, fontSize: 17 }}>
                   Đăng ký thành công!
+                </p>
+                <p className="mt-2 max-w-sm text-sm leading-relaxed" style={{ color: colors.gray[600] }}>
+                  Phòng Thứ Cấp ERA Vietnam đã nhận được thông tin, trong 24h sẽ có ngườI liên hệ với
+                  bạn (không tính ngày nghỉ lễ và các ngày cuối tuần)
+                </p>
+                <p className="mt-2 text-sm" style={{ color: colors.gray[600] }}>
+                  Mọi thắc mắc cần hỗ trợ bạn có thể liên hệ Hotline:{" "}
+                  <a href="tel:0909163139" className="font-bold" style={{ color: rc.navy }}>
+                    090 9163139
+                  </a>
                 </p>
               </div>
             ) : (
@@ -355,6 +367,7 @@ export function ResalesHeroSection() {
             </div>
           ))}
         </div>
+        </Reveal>
       </Container>
     </section>
   );
