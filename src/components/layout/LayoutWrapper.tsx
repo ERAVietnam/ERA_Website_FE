@@ -37,6 +37,7 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/du-an-phu-gia-bao-loc": { header: false, footer: true, toTop: false },
   "/du-an-waterpoint": { header: false, footer: true, toTop: false },
   "/pk-nagomi-du-an-waterpoint": { header: false, footer: true, toTop: false },
+  "/tuyen-dung-thu-cap": { header: false },
 };
 
 function normalizePathname(pathname: string): string {
