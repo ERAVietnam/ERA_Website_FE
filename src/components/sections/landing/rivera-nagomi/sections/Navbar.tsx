@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { HOTLINE, HOTLINE_TEL, IMG } from "../theme";
 
@@ -15,11 +15,35 @@ const NAV = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [hide, setHide] = useState(false);
+  const lastY = useRef(0);
+
+  /* Ẩn header khi cuộn xuống, hiện lại khi cuộn lên (menu mobile đang mở thì luôn hiện) */
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y > lastY.current && y > 80) setHide(true);
+      else setHide(false);
+      lastY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  /* Cuộn mượt tới section — dùng scrollIntoView thay vì mặc định của anchor
+     để URL không bị gắn thêm #tien-ich... (scroll-margin-top ở section vẫn được tôn trọng) */
+  const scrollTo = (e: React.MouseEvent, hash: string) => {
+    e.preventDefault();
+    setOpen(false);
+    const el = document.querySelector(hash);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+    else if (hash === "#top") window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
-    <header className={`hdr${open ? " open" : ""}`}>
+    <header className={`hdr${open ? " open" : ""}${hide && !open ? " hdr-hide" : ""}`}>
       <div className="hdr-in">
-        <a className="brand" href="#top" aria-label="Rivera Nagomi – về đầu trang">
+        <a className="brand" href="#top" aria-label="Rivera Nagomi – về đầu trang" onClick={(e) => scrollTo(e, "#top")}>
           <Image
             src={`${IMG}/waterpoint-logo.png`}
             alt="Logo khu đô thị Waterpoint của Nam Long"
@@ -31,14 +55,14 @@ export function Navbar() {
         </a>
         <nav className="nav" id="nav" aria-label="Điều hướng trang">
           {NAV.map((n) => (
-            <a key={n.href} href={n.href} className={n.opt ? "opt" : ""}>
+            <a key={n.href} href={n.href} className={n.opt ? "opt" : ""} onClick={(e) => scrollTo(e, n.href)}>
               {n.label}
             </a>
           ))}
           <a className="nav-tel" href={`tel:${HOTLINE_TEL}`}>
             {HOTLINE}
           </a>
-          <a className="nav-cta" href="#dang-ky">
+          <a className="nav-cta" href="#dang-ky" onClick={(e) => scrollTo(e, "#dang-ky")}>
             Đăng ký tham quan
           </a>
         </nav>

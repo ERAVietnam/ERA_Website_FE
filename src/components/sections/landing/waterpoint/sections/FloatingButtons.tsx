@@ -2,30 +2,26 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { submitLead } from "../../lib/submit-lead";
+import { submitLeadBeacon } from "../../lib/submit-lead";
 
 // Nút mở form nhận tư vấn ở góc màn hình (desktop) — UI theo bản 29/09
 export function FloatingButtons() {
   const [formOpen, setFormOpen] = useState(true);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (status === "loading") return;
     const form = e.currentTarget;
-    setStatus("loading");
-    try {
-      await submitLead({
-        formId: "WP_FLOAT",
-        hoten: (form.hoten as HTMLInputElement).value,
-        sdt: (form.sdt as HTMLInputElement).value,
-        sheet: "WATERPOINT",
-      });
-      setStatus("success");
-      window.location.href = "/thank-you-waterpoint";
-    } catch {
-      setStatus("error");
-    }
+    // Gửi ngầm không chờ kết quả — thành công/lỗi đều báo thành công và chuyển trang ngay
+    submitLeadBeacon({
+      formId: "WP_FLOAT",
+      hoten: (form.hoten as HTMLInputElement).value,
+      sdt: (form.sdt as HTMLInputElement).value,
+      sheet: "WATERPOINT",
+    });
+    setStatus("success");
+    window.location.href = "/thank-you-waterpoint";
   };
 
   return (

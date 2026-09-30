@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { theme } from "../theme";
 import { MAU_TABS, MAU_NHA, type MauNha } from "../data";
-import { submitLead } from "../../lib/submit-lead";
+import { submitLeadBeacon } from "../../lib/submit-lead";
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -341,23 +341,19 @@ function MauGiaModal({ mau, onClose }: { mau: MauNha; onClose: () => void }) {
     return () => document.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (status === "loading") return;
-    setStatus("loading");
-    try {
-      await submitLead({
-        formId: "WP_SANPHAM",
-        hoten: name,
-        sdt: phone,
-        sanpham: `Nhận giá mẫu ${mauFull}`,
-        sheet: "WATERPOINT",
-      });
-      setStatus("success");
-      window.location.href = "/thank-you-waterpoint";
-    } catch {
-      setStatus("error");
-    }
+    // Gửi ngầm không chờ kết quả — thành công/lỗi đều báo thành công và chuyển trang ngay
+    submitLeadBeacon({
+      formId: "WP_SANPHAM",
+      hoten: name,
+      sdt: phone,
+      sanpham: `Nhận giá mẫu ${mauFull}`,
+      sheet: "WATERPOINT",
+    });
+    setStatus("success");
+    window.location.href = "/thank-you-waterpoint";
   };
 
   const inputStyle: React.CSSProperties = {

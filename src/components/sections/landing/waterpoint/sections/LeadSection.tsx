@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { theme } from "../theme";
-import { submitLead } from "../../lib/submit-lead";
+import { submitLeadBeacon } from "../../lib/submit-lead";
 
 const VILLA_LABELS: Record<string, string> = {
   detached: "Detached Villa · 225 - 292 m²",
@@ -26,27 +26,23 @@ export function LeadSection() {
   const [visit, setVisit] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (status === "loading") return;
-    setStatus("loading");
-    try {
-      await submitLead({
-        formId: "WP_LEAD",
-        hoten: name,
-        sdt: phone,
-        // Script chỉ ghi cột Q/R (Email/Lờ i nhắn) cho tab PGBL — với tab WATERPOINT
-        // gộp loại biệt thự + thờ i điểm tham quan vào cột P "Sản phẩm" để không bị mất dữ liệu
-        sanpham:
-          (VILLA_LABELS[villa] || "") +
-          (visit ? ` — Tham quan: ${VISIT_LABELS[visit]}` : ""),
-        sheet: "WATERPOINT",
-      });
-      setStatus("success");
-      window.location.href = "/thank-you-waterpoint";
-    } catch {
-      setStatus("error");
-    }
+    // Gửi ngầm không chờ kết quả — thành công/lỗi đều báo thành công và chuyển trang ngay
+    submitLeadBeacon({
+      formId: "WP_LEAD",
+      hoten: name,
+      sdt: phone,
+      // Script chỉ ghi cột Q/R (Email/Lờ i nhắn) cho tab PGBL — với tab WATERPOINT
+      // gộp loại biệt thự + thờ i điểm tham quan vào cột P "Sản phẩm" để không bị mất dữ liệu
+      sanpham:
+        (VILLA_LABELS[villa] || "") +
+        (visit ? ` — Tham quan: ${VISIT_LABELS[visit]}` : ""),
+      sheet: "WATERPOINT",
+    });
+    setStatus("success");
+    window.location.href = "/thank-you-waterpoint";
   };
 
   const selectStyle: React.CSSProperties = {
