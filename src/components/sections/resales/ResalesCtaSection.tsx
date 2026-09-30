@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { colors } from "@/lib/theme";
 import { rc } from "./palette";
+import { Reveal } from "./Reveal";
 import { submitLeadBeacon } from "../landing/lib/submit-lead";
 
 const inputStyle: React.CSSProperties = {
@@ -77,6 +78,7 @@ export function ResalesCtaSection() {
       </div>
 
       <Container className="relative z-10 py-16 md:py-24">
+          <Reveal>
         <h2
           className="mx-auto max-w-3xl text-center font-black"
           style={{ color: colors.neutral.white, fontSize: "clamp(24px, 3.4vw, 42px)", lineHeight: 1.25 }}
@@ -104,6 +106,16 @@ export function ResalesCtaSection() {
               </div>
               <p className="mt-4 font-extrabold" style={{ color: colors.neutral.white, fontSize: 17 }}>
                 Đăng ký thành công!
+              </p>
+              <p className="mt-2 max-w-md text-sm leading-relaxed" style={{ color: colors.neutral.white, opacity: 0.85 }}>
+                Phòng Thứ Cấp ERA Vietnam đã nhận được thông tin, trong 24h sẽ có ngườI liên hệ với
+                bạn (không tính ngày nghỉ lễ và các ngày cuối tuần)
+              </p>
+              <p className="mt-2 text-sm" style={{ color: colors.neutral.white, opacity: 0.85 }}>
+                Mọi thắc mắc cần hỗ trợ bạn có thể liên hệ Hotline:{" "}
+                <a href="tel:0909163139" className="font-bold" style={{ color: colors.tertiary.orange.DEFAULT }}>
+                  090 9163139
+                </a>
               </p>
             </div>
           ) : (
@@ -194,6 +206,7 @@ export function ResalesCtaSection() {
           </form>
           )}
         </div>
+          </Reveal>
       </Container>
     </section>
   );

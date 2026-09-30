@@ -5,6 +5,7 @@ import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { colors } from "@/lib/theme";
 import { rc } from "./palette";
+import { Reveal } from "./Reveal";
 
 const FAQS = [
   {
@@ -69,6 +70,7 @@ export function ResalesFaqSection() {
       </div>
 
       <Container className="relative z-10">
+        <Reveal>
         <h2
         className="font-black"
         style={{
@@ -96,6 +98,7 @@ export function ResalesFaqSection() {
           </div>
         ))}
         </div>
+        </Reveal>
       </Container>
     </Section>
   );

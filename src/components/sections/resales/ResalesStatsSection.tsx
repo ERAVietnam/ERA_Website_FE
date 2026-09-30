@@ -3,6 +3,7 @@
 import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
 import { rc } from "./palette";
+import { Reveal } from "./Reveal";
 
 const STATS = [
   { value: "1971", label: "Thương hiệu ERA Real Estate ra đờI tại Mỹ" },
@@ -17,6 +18,7 @@ const STATS = [
 export function ResalesStatsSection() {
   return (
     <Section bg="none" padding="none" noContainer>
+      <Reveal>
       <div style={{ backgroundColor: rc.redBand }}>
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-20">
           <h2
@@ -45,7 +47,8 @@ export function ResalesStatsSection() {
             ))}
           </div>
         </div>
-      </div>
+      </div>      </Reveal>
+
     </Section>
   );
 }

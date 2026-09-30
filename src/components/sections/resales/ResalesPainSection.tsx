@@ -3,6 +3,7 @@
 import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
 import { rc } from "./palette";
+import { Reveal } from "./Reveal";
 import { ShoppingBag, LockKeyhole, Link, UserMinus } from "lucide-react";
 
 const PAINS = [
@@ -36,6 +37,7 @@ const PAINS = [
 export function ResalesPainSection() {
   return (
     <Section bg="white" padding="none" className="py-10 md:py-14">
+      <Reveal>
       <div className="text-xs font-extrabold tracking-[0.16em]" style={{ color: colors.primary.DEFAULT }}>
         BẠN KHAO KHÁT ĐIỀU GÌ?
       </div>
@@ -64,7 +66,8 @@ export function ResalesPainSection() {
             </p>
           </div>
         ))}
-      </div>
+      </div>      </Reveal>
+
     </Section>
   );
 }

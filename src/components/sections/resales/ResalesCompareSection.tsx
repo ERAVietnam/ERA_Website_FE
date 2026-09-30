@@ -3,6 +3,7 @@
 import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
 import { rc } from "./palette";
+import { Reveal } from "./Reveal";
 
 const ROWS: { tinhHuong: string; motMinh: string; cungEra: string }[] = [
   {
@@ -64,6 +65,7 @@ const tdStyle: React.CSSProperties = {
 export function ResalesCompareSection() {
   return (
     <Section bg="white" padding="none" className="py-10 md:py-14">
+      <Reveal>
       <div className="text-xs font-extrabold tracking-[0.16em]" style={{ color: colors.primary.DEFAULT }}>
         ĐÂY CÓ PHẢI MONG MUỐN CỦA BẠN?
       </div>
@@ -125,7 +127,8 @@ export function ResalesCompareSection() {
             </tbody>
           </table>
         </div>
-      </div>
+      </div>      </Reveal>
+
     </Section>
   );
 }
