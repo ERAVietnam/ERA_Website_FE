@@ -236,6 +236,7 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/chinh-sach-bao-mat` | `app/chinh-sach-bao-mat/page.tsx` | `LegalPage` |
 | `/duan-canho-forest-onsen` | `app/(landing)/duan-canho-forest-onsen/page.tsx` | `ForestOnsenLanding` |
 | `/phan-khu-rung-phuong-duan-eco-retreat` | `app/(landing)/phan-khu-rung-phuong-duan-eco-retreat/page.tsx` | `EcoRetreatLanding` |
+| `/pk-nagomi-du-an-waterpoint` | `app/(landing)/pk-nagomi-du-an-waterpoint/page.tsx` | `RiveraNagomiLanding` |
 
 ---
 
