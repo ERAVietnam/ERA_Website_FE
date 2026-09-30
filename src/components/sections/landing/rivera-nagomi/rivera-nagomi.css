@@ -382,3 +382,7 @@
   /* nhường chỗ cho thanh gọi nhanh .bar */
   .rn .pop-fab { bottom: calc(82px + env(safe-area-inset-bottom)); }
 }
+
+/* Header ẩn khi cuộn xuống, hiện khi cuộn lên (class hdr-hide do Navbar.tsx toggle) */
+.rn .hdr { transition: transform 0.3s ease; }
+.rn .hdr.hdr-hide { transform: translateY(-100%); }

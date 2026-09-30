@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState } f
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { IMG, HOTLINE, HOTLINE_TEL, theme } from "../theme";
-import { submitLead } from "../../lib/submit-lead";
+import { submitLeadBeacon } from "../../lib/submit-lead";
 import { rnLightboxOpen } from "./Lightbox";
 
 interface PopupState {
@@ -54,23 +54,19 @@ export function PopupProvider({ children }: { children: React.ReactNode }) {
   );
   const close = useCallback(() => setPop(null), []);
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (status === "loading") return;
-    setStatus("loading");
-    try {
-      await submitLead({
-        formId: "RN_POPUP",
-        hoten: name,
-        sdt: phone,
-        sanpham: "-Rivera Nagomi",
-        sheet: "WATERPOINT",
-      });
-      setStatus("success");
-      window.location.href = "/thank-you-waterpoint";
-    } catch {
-      setStatus("error");
-    }
+    // Gửi ngầm không chờ kết quả — thành công/lỗi đều báo thành công và chuyển trang ngay
+    submitLeadBeacon({
+      formId: "RN_POPUP",
+      hoten: name,
+      sdt: phone,
+      sanpham: "-Rivera Nagomi",
+      sheet: "WATERPOINT",
+    });
+    setStatus("success");
+    window.location.href = "/thank-you-waterpoint";
   };
 
   /* Tự mở 1 lần/phiên khi khách cuộn qua 45% trang (giống The Aqua) — theo mẫu rivera.js:

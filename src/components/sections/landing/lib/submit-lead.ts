@@ -121,3 +121,65 @@ export async function submitLead(params: {
 
   return true;
 }
+
+/**
+ * Gửi lead bằng navigator.sendBeacon — dùng khi cần chuyển trang NGAY sau khi submit
+ * (fire-and-forget bằng fetch thường bị browser hủy request khi rồi trang).
+ * Browser đảm bảo gửi xong payload dù trang đã unload; nếu không có sendBeacon
+ * (trình duyệt cũ) thì fallback fetch keepalive.
+ * Khác submitLead: không lấy IP (bất đồng bộ) — cột IP để trống.
+ */
+export function submitLeadBeacon(params: {
+  formId: string;
+  hoten: string;
+  sdt: string;
+  email?: string;
+  message?: string;
+  sanpham?: string;
+  /** Tên tab trong Google Sheet (vd: "WATERPOINT") */
+  sheet: string;
+}): boolean {
+  const { formId, hoten, sdt, email, message, sanpham, sheet } = params;
+
+  const utms = getUTMParams();
+  const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
+  const url =
+    typeof window !== "undefined"
+      ? `${window.location.origin}${window.location.pathname}${window.location.search}`
+      : "";
+
+  const payload: LeadPayload = {
+    formId,
+    hoten: hoten.trim(),
+    sdt: sdt.trim(),
+    ...(email ? { email: email.trim() } : {}),
+    ...(message ? { message: message.trim() } : {}),
+    ...(sanpham ? { sanpham: sanpham.trim() } : {}),
+    sheet,
+    url,
+    ip: "",
+    userAgent,
+    ...utms,
+  };
+
+  const body = JSON.stringify(payload);
+
+  if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
+    try {
+      // Blob kèm type để server đọc được bằng req.json()
+      const blob = new Blob([body], { type: "application/json" });
+      return navigator.sendBeacon("/api/submit-lead", blob);
+    } catch {
+      // payload quá lớn / lỗi khác -> thử fallback
+    }
+  }
+
+  // Fallback: fetch keepalive cho phép request sống sót sau khi chuyển trang
+  void fetch("/api/submit-lead", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body,
+    keepalive: true,
+  }).catch(() => {});
+  return true;
+}
