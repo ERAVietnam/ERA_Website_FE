@@ -138,8 +138,16 @@ export function submitLeadBeacon(params: {
   sanpham?: string;
   /** Tên tab trong Google Sheet (vd: "WATERPOINT") */
   sheet: string;
+  /**
+   * API endpoint nội bộ nhận lead (mặc định /api/submit-lead của các landing).
+   * Trang /tuyen-dung-thu-cap/ dùng "/api/submit-lead-thu-cap" (sheet riêng).
+   */
+  endpoint?: string;
+  /** Các trường bổ sung gửi kèm — mỗi trường ghi 1 cột riêng trong sheet */
+  extra?: Record<string, string>;
 }): boolean {
-  const { formId, hoten, sdt, email, message, sanpham, sheet } = params;
+  const { formId, hoten, sdt, email, message, sanpham, sheet, extra } = params;
+  const endpoint = params.endpoint || "/api/submit-lead";
 
   const utms = getUTMParams();
   const userAgent = typeof navigator !== "undefined" ? navigator.userAgent : "";
@@ -160,6 +168,7 @@ export function submitLeadBeacon(params: {
     ip: "",
     userAgent,
     ...utms,
+    ...(extra || {}),
   };
 
   const body = JSON.stringify(payload);
@@ -168,14 +177,14 @@ export function submitLeadBeacon(params: {
     try {
       // Blob kèm type để server đọc được bằng req.json()
       const blob = new Blob([body], { type: "application/json" });
-      return navigator.sendBeacon("/api/submit-lead", blob);
+      return navigator.sendBeacon(endpoint, blob);
     } catch {
       // payload quá lớn / lỗi khác -> thử fallback
     }
   }
 
   // Fallback: fetch keepalive cho phép request sống sót sau khi chuyển trang
-  void fetch("/api/submit-lead", {
+  void fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body,

@@ -1,0 +1,11 @@
+export { ResalesPage } from "./ResalesPage";
+export { ResalesHeader } from "./ResalesHeader";
+export { ResalesHeroSection } from "./ResalesHeroSection";
+export { ResalesChoiceSection } from "./ResalesChoiceSection";
+export { ResalesPainSection } from "./ResalesPainSection";
+export { ResalesCompareSection } from "./ResalesCompareSection";
+export { ResalesGallerySection } from "./ResalesGallerySection";
+export { ResalesStatsSection } from "./ResalesStatsSection";
+export { ResalesFaqSection } from "./ResalesFaqSection";
+export { ResalesCtaSection } from "./ResalesCtaSection";
+export { ResalesQuoteSection } from "./ResalesQuoteSection";
