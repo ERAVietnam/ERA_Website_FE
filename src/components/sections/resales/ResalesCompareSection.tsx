@@ -82,7 +82,7 @@ export function ResalesCompareSection() {
 
       {/* Wrapper vừa scroll ngang vừa bo góc — table là con trực tiếp nên tràn ra đây được (overflow-x:auto clip theo padding box) */}
       <div className="mt-10 overflow-x-auto rounded-xl" style={{ border: borderGray }}>
-        <table className="w-full min-w-[720px] border-separate border-spacing-0">
+        <table className="rc-cmp w-full min-w-[720px] border-separate border-spacing-0">
             <thead>
               <tr style={{ backgroundColor: rc.navy }}>
                 <th style={{ ...thStyle, borderRight: "none" }}>TÌNH HUỐNG</th>
@@ -126,6 +126,19 @@ export function ResalesCompareSection() {
             </tbody>
           </table>
       </div>
+
+      {/* Mobile (≤640px): bỏ scroll — co padding + font để hiển thị trọn bảng */}
+      <style>{`
+        @media (max-width: 640px) {
+          .rc-cmp { min-width: 0 !important; }
+          .rc-cmp th, .rc-cmp td {
+            padding: 9px 6px !important;
+            font-size: 11.5px !important;
+            line-height: 1.45 !important;
+          }
+          .rc-cmp th { letter-spacing: 0.02em !important; }
+        }
+      `}</style>
       </Reveal>
 
     </Section>
