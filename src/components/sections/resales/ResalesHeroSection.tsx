@@ -100,6 +100,7 @@ export function ResalesHeroSection() {
       formId: "RS_WS_2410",
       hoten: (f.hoten as HTMLInputElement).value,
       sdt: (f.sdt as HTMLInputElement).value,
+      email: (f.email as HTMLInputElement).value,
       sheet: "DS đăng ký tham dự WS 24/10",
       endpoint: "/api/submit-lead-thu-cap",
       // Mỗi trường 1 cột riêng trong sheet
@@ -279,6 +280,15 @@ export function ResalesHeroSection() {
                   placeholder="0912 345 678"
                   style={inputStyle}
                 />
+              </div>
+              <div>
+                <label
+                  className="mb-1.5 block text-xs font-bold tracking-wider"
+                  style={{ color: rc.navy }}
+                >
+                  EMAIL
+                </label>
+                <input type="email" name="email" placeholder="Nguyenvana@gmail.com" style={inputStyle} />
               </div>
               <div>
                 <label
