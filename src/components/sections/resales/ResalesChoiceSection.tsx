@@ -45,33 +45,50 @@ export function ResalesChoiceSection() {
         LUẬT ĐÃ CHỌN THAY ANH/CHỊ MỘT NỬA. NỬA CÒN LẠI LÀ CHỌN NƠI LÀM NGHỀ
       </h2>
 
-      <div className="mt-10 grid gap-8 md:grid-cols-3">
+      <div className="rc-choices mt-10 grid gap-8 md:grid-cols-3">
         {CHOICES.map((c) => (
           <div
             key={c.no}
-            className="rounded-2xl p-6"
-            style={{
-              backgroundColor: c.highlight ? colors.primary.DEFAULT : colors.gray[100],
-              color: c.highlight ? colors.neutral.white : rc.navy,
-              boxShadow: c.highlight ? "0 16px 40px rgba(200,16,46,.25)" : undefined,
-            }}
+            className={`rc-choice rounded-2xl p-6${c.highlight ? " hl" : ""}`}
           >
-            <div
-              className="text-xs font-extrabold tracking-[0.14em]"
-              style={{ color: c.highlight ? colors.neutral.white : colors.muted.DEFAULT, opacity: c.highlight ? 0.85 : 1 }}
-            >
-              {c.no}
-            </div>
+            <div className="no text-xs font-extrabold tracking-[0.14em]">{c.no}</div>
             <h3 className="mt-2 text-xl font-extrabold leading-snug">{c.title}</h3>
-            <p
-              className="mt-3 text-[15px] leading-relaxed"
-              style={{ opacity: c.highlight ? 0.95 : 0.85 }}
-            >
-              {c.desc}
-            </p>
+            <p className="mt-3 text-[15px] leading-relaxed opacity-90">{c.desc}</p>
           </div>
         ))}
-      </div>      </Reveal>
+      </div>
+
+      {/* Hover: card được chỉ -> đỏ + nâng lên; card 3 mặc định đỏ, tự về xám khi card khác được chỉ */}
+      <style>{`
+        .rc-choice {
+          background: ${colors.gray[100]};
+          color: ${rc.navy};
+          transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, color .25s ease;
+        }
+        .rc-choice .no { color: ${colors.muted.DEFAULT}; }
+        .rc-choice.hl {
+          background: ${colors.primary.DEFAULT};
+          color: ${colors.neutral.white};
+          box-shadow: 0 16px 40px rgba(200,16,46,.22);
+        }
+        .rc-choice.hl .no { color: rgba(255,255,255,.85); }
+        .rc-choice:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 18px 44px rgba(200,16,46,.28);
+        }
+        .rc-choice:not(.hl):hover {
+          background: ${colors.primary.DEFAULT};
+          color: ${colors.neutral.white};
+        }
+        .rc-choice:not(.hl):hover .no { color: rgba(255,255,255,.85); }
+        .rc-choices:has(.rc-choice:not(.hl):hover) .rc-choice.hl {
+          background: ${colors.gray[100]};
+          color: ${rc.navy};
+          box-shadow: none;
+        }
+        .rc-choices:has(.rc-choice:not(.hl):hover) .rc-choice.hl .no { color: ${colors.muted.DEFAULT}; }
+      `}</style>
+      </Reveal>
 
     </Section>
   );

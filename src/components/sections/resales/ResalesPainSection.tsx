@@ -56,7 +56,7 @@ export function ResalesPainSection() {
         {PAINS.map((p) => (
           <div
             key={p.title}
-            className="rounded-2xl p-6 text-white"
+            className="rc-pain rounded-2xl p-6 text-white"
             style={{ backgroundColor: p.bg, minHeight: 210 }}
           >
             <p.icon size={34} strokeWidth={1.8} />
@@ -66,7 +66,18 @@ export function ResalesPainSection() {
             </p>
           </div>
         ))}
-      </div>      </Reveal>
+      </div>
+
+      {/* Hover: card nâng lên + đổ bóng */}
+      <style>{`
+        .rc-pain {
+          transition: transform .25s ease, box-shadow .25s ease;
+        }
+        .rc-pain:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 18px 40px rgba(0,0,0,.22);
+        }
+      `}</style>      </Reveal>
 
     </Section>
   );
