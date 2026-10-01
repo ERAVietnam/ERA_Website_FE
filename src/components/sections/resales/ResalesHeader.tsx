@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { colors } from "@/lib/theme";
 
@@ -53,10 +54,12 @@ export function ResalesHeader() {
         </div>
         <a
           href="tel:0909163139"
-          className="shrink-0 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold text-white transition-all hover:shadow-lg"
+          aria-label="Hotline: 090 9163139"
+          className="flex shrink-0 items-center justify-center rounded-full px-3 py-2.5 text-sm font-bold text-white transition-all hover:shadow-lg sm:px-5"
           style={{ backgroundColor: colors.primary.DEFAULT }}
         >
-          Hotline: 090 9163139
+          <Phone size={18} strokeWidth={2.2} className="sm:hidden" />
+          <span className="hidden whitespace-nowrap sm:inline">Hotline: 090 9163139</span>
         </a>
       </Container>
     </header>

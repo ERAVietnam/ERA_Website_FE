@@ -80,10 +80,9 @@ export function ResalesCompareSection() {
         LÀM MỘT MÌNH VÀ LÀM CÙNG ERA KHÁC NHAU THẾ NÀO?
       </h2>
 
-      <div className="mt-10 overflow-x-auto">
-        {/* Wrapper bo góc + viền ngoài; border-separate để bo góc không bị cắt */}
-        <div className="overflow-hidden rounded-xl" style={{ border: borderGray }}>
-          <table className="w-full min-w-[720px] border-separate border-spacing-0">
+      {/* Wrapper vừa scroll ngang vừa bo góc — table là con trực tiếp nên tràn ra đây được (overflow-x:auto clip theo padding box) */}
+      <div className="mt-10 overflow-x-auto rounded-xl" style={{ border: borderGray }}>
+        <table className="w-full min-w-[720px] border-separate border-spacing-0">
             <thead>
               <tr style={{ backgroundColor: rc.navy }}>
                 <th style={{ ...thStyle, borderRight: "none" }}>TÌNH HUỐNG</th>
@@ -126,8 +125,8 @@ export function ResalesCompareSection() {
               ))}
             </tbody>
           </table>
-        </div>
-      </div>      </Reveal>
+      </div>
+      </Reveal>
 
     </Section>
   );
