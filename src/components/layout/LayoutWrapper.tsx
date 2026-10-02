@@ -38,6 +38,8 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/du-an-waterpoint": { header: false, footer: true, toTop: false },
   "/pk-nagomi-du-an-waterpoint": { header: false, footer: true, toTop: false },
   "/tuyen-dung-thu-cap": { header: false },
+  "/nam-mekong-grand-plaza": { header: false, footer: true, toTop: false },
+  "/park-village": { header: false, footer: true, toTop: false },
 };
 
 function normalizePathname(pathname: string): string {

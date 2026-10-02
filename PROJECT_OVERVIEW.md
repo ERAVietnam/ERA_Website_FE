@@ -238,6 +238,8 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/phan-khu-rung-phuong-duan-eco-retreat` | `app/(landing)/phan-khu-rung-phuong-duan-eco-retreat/page.tsx` | `EcoRetreatLanding` |
 | `/pk-nagomi-du-an-waterpoint` | `app/(landing)/pk-nagomi-du-an-waterpoint/page.tsx` | `RiveraNagomiLanding` |
 | `/tuyen-dung-thu-cap` | `app/tuyen-dung-thu-cap/page.tsx` | `ResalesPage` |
+| `/nam-mekong-grand-plaza` | `app/(landing)/nam-mekong-grand-plaza/page.tsx` | `NamMekongLanding` |
+| `/park-village` | `app/(landing)/park-village/page.tsx` | `ParkVillageLanding` |
 
 ---
 
