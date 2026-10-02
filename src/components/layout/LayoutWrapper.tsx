@@ -40,6 +40,10 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/tuyen-dung-thu-cap": { header: false },
   "/nam-mekong-grand-plaza": { header: false, footer: true, toTop: false },
   "/park-village": { header: false, footer: true, toTop: false },
+  "/palm-river": { header: false, footer: true, toTop: false },
+  "/thank-you-palm-river": { header: false, footer: false, toTop: false },
+  "/the-aqua": { header: false, footer: true, toTop: false },
+  "/skysolis": { header: false, footer: true, toTop: false },
 };
 
 function normalizePathname(pathname: string): string {

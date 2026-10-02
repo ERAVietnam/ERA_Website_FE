@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { HOTLINE, HOTLINE_TEL, IMG } from "../theme";
 
@@ -15,6 +15,20 @@ const NAV = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [hide, setHide] = useState(false);
+  const lastY = useRef(0);
+
+  /* Ẩn header khi cuộn xuống, hiện lại khi cuộn lên (menu mobile đang mở thì luôn hiện) */
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y > lastY.current && y > 80) setHide(true);
+      else setHide(false);
+      lastY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const scrollTo = (e: React.MouseEvent, hash: string) => {
     e.preventDefault();
@@ -25,7 +39,7 @@ export function Navbar() {
   };
 
   return (
-    <header className={`hdr${open ? " open" : ""}`}>
+    <header className={`hdr${open ? " open" : ""}${hide && !open ? " hdr-hide" : ""}`}>
       <div className="hdr-in">
         <a className="brand" href="#top" aria-label="Park Village – về đầu trang" onClick={(e) => scrollTo(e, "#top")}>
           <Image

@@ -395,3 +395,8 @@
 .nmg .mosaic figure, .nmg .ti-top figure, .nmg .nk-card .ph,
 .nmg .ov-fig, .nmg .map-fig, .nmg .route-fig, .nmg .mb-fig,
 .nmg .ud-card figure, .nmg .can-card figure, .nmg .pt-anh .cuon { cursor: zoom-in; }
+
+
+/* Header ẩn khi cuộn xuống, hiện khi cuộn lên (class hdr-hide do Navbar.tsx toggle) */
+.nmg .hdr { transition: transform 0.3s ease; }
+.nmg .hdr.hdr-hide { transform: translateY(-100%); }
