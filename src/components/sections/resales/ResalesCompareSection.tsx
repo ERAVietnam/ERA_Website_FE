@@ -27,8 +27,8 @@ const ROWS: { tinhHuong: string; motMinh: string; cungEra: string }[] = [
     cungEra: "Có pháp nhân ERA Vietnam và hỗ trợ giao dịch phía sau",
   },
   {
-    tinhHuong: "Cần ngườI cùng ra hàng",
-    motMinh: "Chỉ liên kết trong vòng ngườI quen",
+    tinhHuong: "Cần người cùng ra hàng",
+    motMinh: "Chỉ liên kết trong vòng người quen",
     cungEra: "Mạng lưới hơn 2.700+ agent ERA cùng bạn tối ưu hiệu quả liên kết sale",
   },
   {

@@ -2,31 +2,25 @@
 
 import { useState, useRef } from "react";
 import { c } from "../theme";
-import { submitLead } from "../../lib/submit-lead";
+import { submitLeadBeacon } from "../../lib/submit-lead";
 import { useInView } from "@/hooks/useInView";
 
 export function StickyWidget() {
   const [collapsed, setCollapsed] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const finalRef = useRef<HTMLDivElement>(null);
   const hidden = useInView(finalRef, { threshold: 0.12 });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // Gửi ngầm bằng sendBeacon — bấm nút là chuyển trang thank-you ngay, không chờ API
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    try {
-      const form = e.currentTarget;
-      await submitLead({
-        hoten: (form.hoten as HTMLInputElement).value,
-        sdt: (form.sdt as HTMLInputElement).value,
-        formId: "FORM1",
-        sheet: "ECO RETREAT - FOREST ONSEN",
-      });
-      window.location.href = "/thank-you-eco-retreat";
-    } catch {
-      alert("Gửi thất bại, vui lòng thử lại.");
-      setIsLoading(false);
-    }
+    const form = e.currentTarget;
+    submitLeadBeacon({
+      hoten: (form.hoten as HTMLInputElement).value,
+      sdt: (form.sdt as HTMLInputElement).value,
+      formId: "FORM1",
+      sheet: "ECO RETREAT - FOREST ONSEN",
+    });
+    window.location.href = "/thank-you-eco-retreat";
   };
 
   return (
@@ -91,22 +85,14 @@ export function StickyWidget() {
         />
         <button
           type="submit"
-          disabled={isLoading}
-          className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+          className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-medium text-white transition-all duration-500 bg-[#365b46] hover:bg-[#274434] active:scale-[0.98]"
         >
-          {isLoading ? (
-            <>
-              <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              Đang gửi...
-            </>
-          ) : (
-            <>
+          <>
               Đăng ký ngay{" "}
               <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px]">
                 →
               </span>
-            </>
-          )}
+          </>
         </button>
       </form>
     </>

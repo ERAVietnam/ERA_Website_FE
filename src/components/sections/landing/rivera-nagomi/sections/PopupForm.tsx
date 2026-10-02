@@ -56,7 +56,6 @@ export function PopupProvider({ children }: { children: React.ReactNode }) {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (status === "loading") return;
     // Gửi ngầm không chờ kết quả — thành công/lỗi đều báo thành công và chuyển trang ngay
     submitLeadBeacon({
       formId: "RN_POPUP",
@@ -185,10 +184,9 @@ export function PopupProvider({ children }: { children: React.ReactNode }) {
                   <button
                     className="btn-sq cursor-pointer disabled:opacity-70"
                     type="submit"
-                    disabled={status === "loading"}
                     style={{ padding: 16 }}
                   >
-                    {status === "loading" ? "ĐANG GỬI..." : "GỬI THÔNG TIN"}
+                    GỬI THÔNG TIN
                   </button>
                 </form>
               )}

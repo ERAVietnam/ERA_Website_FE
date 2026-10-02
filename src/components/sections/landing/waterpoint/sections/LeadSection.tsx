@@ -28,7 +28,6 @@ export function LeadSection() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (status === "loading") return;
     // Gửi ngầm không chờ kết quả — thành công/lỗi đều báo thành công và chuyển trang ngay
     submitLeadBeacon({
       formId: "WP_LEAD",
@@ -197,8 +196,7 @@ export function LeadSection() {
               </select>
               <button
                 type="submit"
-                disabled={status === "loading"}
-                className="aq-nut-gold cursor-pointer border-none py-[17px] font-extrabold tracking-[0.06em] disabled:opacity-70"
+                                className="aq-nut-gold cursor-pointer border-none py-[17px] font-extrabold tracking-[0.06em] disabled:opacity-70"
                 style={{
                   borderRadius: 11,
                   fontSize: 15,
@@ -206,7 +204,7 @@ export function LeadSection() {
                   color: "#10333B",
                 }}
               >
-                {status === "loading" ? "ĐANG GỬI..." : "NHẬN BẢNG GIÁ & LỊCH XEM NHÀ →"}
+                "NHẬN BẢNG GIÁ & LỊCH XEM NHÀ →"
               </button>
             </form>
           )}

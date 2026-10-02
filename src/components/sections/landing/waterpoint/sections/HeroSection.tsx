@@ -13,7 +13,6 @@ export function HeroSection() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (status === "loading") return;
     // Gửi ngầm không chờ kết quả — thành công/lỗi đều báo thành công và chuyển trang ngay
     submitLeadBeacon({ formId: "WP_HERO", hoten: name, sdt: phone, sheet: "WATERPOINT" });
     setStatus("success");
@@ -214,8 +213,7 @@ export function HeroSection() {
                 />
                 <button
                   type="submit"
-                  disabled={status === "loading"}
-                  className="aq-heroform-btn cursor-pointer rounded-[10px] px-5 py-3.5 text-sm font-extrabold tracking-[0.06em] whitespace-nowrap text-white disabled:opacity-70"
+                                    className="aq-heroform-btn cursor-pointer rounded-[10px] px-5 py-3.5 text-sm font-extrabold tracking-[0.06em] whitespace-nowrap text-white disabled:opacity-70"
                   style={{
                     background: "#8B1A2B",
                     boxShadow: "0 10px 24px rgba(139,26,43,.35)",
@@ -223,7 +221,7 @@ export function HeroSection() {
                     transition: "background 0.2s ease",
                   }}
                 >
-                  {status === "loading" ? "ĐANG GỬI..." : "ĐĂNG KÝ NHẬN BẢNG GIÁ"}
+                  "ĐĂNG KÝ NHẬN BẢNG GIÁ"
                 </button>
                 <p
                   className="aq-heroform-note m-0 mt-0.5 text-center"

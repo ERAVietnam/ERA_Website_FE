@@ -3,31 +3,24 @@
 import { useState } from "react";
 import { c, fonts } from "../theme";
 import { projectInfo, stats } from "../data";
-import { submitLead } from "../../lib/submit-lead";
+import { submitLeadBeacon } from "../../lib/submit-lead";
 
 const SHEET = "ECO RETREAT - RỪNG PHƯỢNG";
 
 export function LeadBandSection() {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // Gửi ngầm bằng sendBeacon — bấm nút là chuyển trang thank-you ngay, không chờ API
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    try {
-      const fd = new FormData(e.currentTarget);
-      const product = String(fd.get("product") || "");
-      await submitLead({
-        hoten: String(fd.get("name") || ""),
-        sdt: String(fd.get("phone") || ""),
-        ...(product !== "Dòng sản phẩm quan tâm" ? { sanpham: product } : {}),
-        formId: "RP_FORM1",
-        sheet: SHEET,
-      });
-      window.location.href = "/thank-you-eco-retreat";
-    } catch {
-      alert("Gửi thất bại, vui lòng thử lại.");
-      setIsLoading(false);
-    }
+    const fd = new FormData(e.currentTarget);
+    const product = String(fd.get("product") || "");
+    submitLeadBeacon({
+      hoten: String(fd.get("name") || ""),
+      sdt: String(fd.get("phone") || ""),
+      ...(product !== "Dòng sản phẩm quan tâm" ? { sanpham: product } : {}),
+      formId: "RP_FORM1",
+      sheet: SHEET,
+    });
+    window.location.href = "/thank-you-eco-retreat";
   };
 
   return (
@@ -162,11 +155,10 @@ export function LeadBandSection() {
                 </select>
                 <button
                   type="submit"
-                  disabled={isLoading}
-                  className="w-full text-white font-extrabold text-base py-4 rounded-[11px] transition-opacity hover:opacity-90 disabled:opacity-60"
+                  className="w-full text-white font-extrabold text-base py-4 rounded-[11px] transition-opacity hover:opacity-90"
                   style={{ background: c.red, boxShadow: "0 10px 26px rgba(229,57,28,0.32)" }}
                 >
-                  {isLoading ? "Đang gửi..." : "Nhận bảng giá"}
+                  Nhận bảng giá
                 </button>
                 <div className="text-[11.5px] text-center leading-tight" style={{ color: "#999" }}>
                   Thông tin chỉ dùng để tư vấn dự án, không chia sẻ cho bên thứ ba.

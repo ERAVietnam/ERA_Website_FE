@@ -40,21 +40,17 @@ const fieldStyle: React.CSSProperties = {
    (sendBeacon + chuyển trang thank-you ngay). Cột "Sản phẩm" gắn hậu tố "-Park Village". */
 export function PopupProvider({ children }: { children: React.ReactNode }) {
   const [pop, setPop] = useState<PopupState | null>(null);
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const daMoTuDong = useRef(false);
 
   const open = useCallback((title = DEFAULT_TITLE, note = DEFAULT_NOTE) => {
     daMoTuDong.current = true;
-    setStatus("idle");
     setPop({ title, note });
   }, []);
   const close = useCallback(() => setPop(null), []);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (status === "loading") return;
     const f = e.currentTarget;
-    setStatus("loading");
     submitLeadBeacon({
       formId: "PV_POPUP",
       hoten: (f.hoten as HTMLInputElement).value,
@@ -172,10 +168,9 @@ export function PopupProvider({ children }: { children: React.ReactNode }) {
                 <button
                   className="btn-sq cursor-pointer disabled:opacity-70"
                   type="submit"
-                  disabled={status === "loading"}
                   style={{ padding: 16 }}
                 >
-                  {status === "loading" ? "ĐANG GỬI..." : "GỬI THÔNG TIN"}
+                  GỬI THÔNG TIN
                 </button>
               </form>
 

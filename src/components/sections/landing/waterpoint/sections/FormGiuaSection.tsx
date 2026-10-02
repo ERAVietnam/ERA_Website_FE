@@ -13,7 +13,6 @@ export function FormGiuaSection() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (status === "loading") return;
     // Gửi ngầm không chờ kết quả — thành công/lỗi đều báo thành công và chuyển trang ngay
     submitLeadBeacon({ formId: "WP_FORM_GIUA", hoten: name, sdt: phone, sheet: "WATERPOINT" });
     setStatus("success");
@@ -82,11 +81,10 @@ export function FormGiuaSection() {
             />
             <button
               type="submit"
-              disabled={status === "loading"}
-              className="aq-nut-gold cursor-pointer rounded-[11px] px-[26px] py-[15px] text-sm font-extrabold tracking-[0.05em] whitespace-nowrap disabled:opacity-70"
+                            className="aq-nut-gold cursor-pointer rounded-[11px] px-[26px] py-[15px] text-sm font-extrabold tracking-[0.05em] whitespace-nowrap disabled:opacity-70"
               style={{ background: "#E9A94B", color: "#10333B" }}
             >
-              {status === "loading" ? "ĐANG GỬI..." : "NHẬN GIỎ HÀNG"}
+              "NHẬN GIỎ HÀNG"
             </button>
           </form>
         )}

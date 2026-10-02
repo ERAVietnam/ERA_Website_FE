@@ -3,30 +3,24 @@
 import { useState } from "react";
 import { c, fonts } from "../theme";
 import { projectInfo } from "../data";
-import { submitLead } from "../../lib/submit-lead";
+import { submitLeadBeacon } from "../../lib/submit-lead";
 
 const SHEET = "ECO RETREAT - RỪNG PHƯỢNG";
 
 export function FloatingButtons() {
   const [formOpen, setFormOpen] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // Gửi ngầm bằng sendBeacon — bấm nút là chuyển trang thank-you ngay, không chờ API
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-    try {
-      const form = e.currentTarget;
-      await submitLead({
-        hoten: (form.hoten as HTMLInputElement).value,
-        sdt: (form.sdt as HTMLInputElement).value,
-        formId: "RP_FORM2",
-        sheet: SHEET,
-      });
-      window.location.href = "/thank-you-eco-retreat";
-    } catch {
-      alert("Gửi thất bại, vui lòng thử lại.");
-      setIsLoading(false);
-    }
+    const form = e.currentTarget;
+    submitLeadBeacon({
+      hoten: (form.hoten as HTMLInputElement).value,
+      sdt: (form.sdt as HTMLInputElement).value,
+      formId: "RP_FORM2",
+      sheet: SHEET,
+    });
+    window.location.href = "/thank-you-eco-retreat";
   };
 
   return (
@@ -124,13 +118,12 @@ export function FloatingButtons() {
                 />
                 <button
                   type="submit"
-                  disabled={isLoading}
-                  className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-bold text-white transition-all duration-300 active:scale-[0.98] disabled:opacity-60"
+                  className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-bold text-white transition-all duration-300 active:scale-[0.98]"
                   style={{ background: c.red }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = c.redHover)}
                   onMouseLeave={(e) => (e.currentTarget.style.background = c.red)}
                 >
-                  {isLoading ? "Đang gửi..." : "Đăng ký ngay"}{" "}
+                  Đăng ký ngay{" "}
                   <span className="inline-flex w-6 h-6 rounded-full bg-white/20 items-center justify-center text-[13px]">
                     →
                   </span>
