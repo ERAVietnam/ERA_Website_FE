@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "The Aqua: compound biệt thự biệt lập thuộc phân khu Aquaria, trải dài bên Vịnh Cảng nước ngọt 8,6 ha và công viên ven sông 3,5 ha trong khu đô thị Waterpoint. 4 dòng Harborfront, Riverfront, Canal, Garden Grand Villa. Xem mặt bằng, nhà mẫu, đăng ký tham quan.",
   alternates: {
-    canonical: "https://era.com.vn/the-aqua/",
+    canonical: "https://era.com.vn/pk-the-aqua-du-an-waterpoint/",
   },
   keywords: [
     "The Aqua",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description:
       "Compound biệt thự biệt lập bên Vịnh Cảng nước ngọt 8,6 ha, phân khu Aquaria, khu đô thị Waterpoint. 4 dòng Grand Villa theo vị thế.",
     type: "website",
-    url: "https://era.com.vn/the-aqua/",
+    url: "https://era.com.vn/pk-the-aqua-du-an-waterpoint/",
     images: [
       {
         url: "/landing/the-aqua/the-aqua-hero-biet-thu-ben-vinh-cang.webp",
@@ -51,7 +51,7 @@ const breadcrumbItems = [
   { name: "Trang chủ", url: "https://era.com.vn/" },
   { name: "Dự án", url: "https://era.com.vn/du-an/" },
   { name: "Waterpoint", url: "https://era.com.vn/du-an-waterpoint/" },
-  { name: "The Aqua", url: "https://era.com.vn/the-aqua/" },
+  { name: "The Aqua", url: "https://era.com.vn/pk-the-aqua-du-an-waterpoint/" },
 ];
 
 export default function TheAquaPage() {

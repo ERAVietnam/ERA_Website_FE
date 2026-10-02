@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Nam Mekong Grand Plaza: 2 tháp 30 tầng, 1.622 căn hộ Studio – Penthouse ngay vòng xoay WTC, Thành phố mới Bình Dương. Chủ đầu tư Mekong Group (VC3), 50+ tiện ích, mô hình TOD. Xem mặt bằng, chính sách thanh toán, đăng ký tham quan nhà mẫu.",
   alternates: {
-    canonical: "https://era.com.vn/nam-mekong-grand-plaza/",
+    canonical: "https://era.com.vn/du-an-nam-mekong-grand-plaza/",
   },
   keywords: [
     "Nam Mekong Grand Plaza",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description:
       "2 tháp 30 tầng · 1.622 căn hộ · 50+ tiện ích ngay vòng xoay WTC, Thành phố mới Bình Dương. Nhà mẫu 2PN & 3PN đã sẵn sàng đón khách.",
     type: "website",
-    url: "https://era.com.vn/nam-mekong-grand-plaza/",
+    url: "https://era.com.vn/du-an-nam-mekong-grand-plaza/",
     images: [
       {
         url: "/landing/nam-mekong/nam-mekong-grand-plaza-hero-vong-xoay-wtc.webp",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 const breadcrumbItems = [
   { name: "Trang chủ", url: "https://era.com.vn/" },
   { name: "Dự án", url: "https://era.com.vn/du-an/" },
-  { name: "Nam Mekong Grand Plaza", url: "https://era.com.vn/nam-mekong-grand-plaza/" },
+  { name: "Nam Mekong Grand Plaza", url: "https://era.com.vn/du-an-nam-mekong-grand-plaza/" },
 ];
 
 export default function NamMekongPage() {

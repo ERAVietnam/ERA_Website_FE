@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Palm River: 4 tòa tháp 36 tầng, 620 căn hộ Studio – 3PN, Duplex, Penthouse ven sông Giồng Ông Tố, khu đô thị Nam Rạch Chiếc, mặt tiền Song Hành cao tốc TP.HCM – Long Thành – Dầu Giây. Xem mặt bằng, layout căn hộ, nhận rổ hàng độc quyền.",
   alternates: {
-    canonical: "https://era.com.vn/palm-river/",
+    canonical: "https://era.com.vn/du-an-palm-river/",
   },
   keywords: [
     "Palm River",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description:
       "4 tháp 36 tầng · 620 căn hộ · 3 mặt giáp sông Giồng Ông Tố tại khu đô thị Nam Rạch Chiếc. Nhận rổ hàng & bảng tính dòng tiền từ ERA Vietnam.",
     type: "website",
-    url: "https://era.com.vn/palm-river/",
+    url: "https://era.com.vn/du-an-palm-river/",
     images: [
       {
         url: "/landing/palm-river/og-palm-river-1200x630.jpg",

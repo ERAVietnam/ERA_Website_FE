@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "SkySOLIS: dự án căn hộ cao tầng đầu tiên tại Việt Nam của SkyWorld Development (Malaysia) tại 88/10 Đại lộ Bình Dương (QL13), phường Lái Thiêu, TP.HCM. 3 tháp 40 tầng, 1.101 sản phẩm, tiêu chuẩn QLASSIC, ưu đãi đến 10%. Xem layout, chính sách thanh toán.",
   alternates: {
-    canonical: "https://era.com.vn/skysolis/",
+    canonical: "https://era.com.vn/du-an-skysolis/",
   },
   keywords: [
     "SkySOLIS",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description:
       "Dự án căn hộ đầu tiên tại Việt Nam của SkyWorld Development: 3 tháp 40 tầng, 1.101 sản phẩm, tiêu chuẩn QLASSIC, ưu đãi đến 10% — mặt tiền Đại lộ Bình Dương, Lái Thiêu.",
     type: "website",
-    url: "https://era.com.vn/skysolis/",
+    url: "https://era.com.vn/du-an-skysolis/",
     images: [
       {
         url: "/landing/skysolis/og-skysolis-1200x630.jpg",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 const breadcrumbItems = [
   { name: "Trang chủ", url: "https://era.com.vn/" },
   { name: "Dự án", url: "https://era.com.vn/du-an/" },
-  { name: "SkySOLIS", url: "https://era.com.vn/skysolis/" },
+  { name: "SkySOLIS", url: "https://era.com.vn/du-an-skysolis/" },
 ];
 
 export default function SkysolisPage() {
