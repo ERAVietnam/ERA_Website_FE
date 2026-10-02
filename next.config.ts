@@ -23,6 +23,12 @@ const nextConfig: NextConfig = {
         destination: "/tin-tuc/:articleSlug",
         permanent: true,
       },
+      // Đổi URL landing (09/10/2026) — redirect 308 về slug mới
+      { source: "/the-aqua/:path*", destination: "/pk-the-aqua-du-an-waterpoint/:path*", permanent: true },
+      { source: "/park-village/:path*", destination: "/pk-park-village-du-an-waterpoint/:path*", permanent: true },
+      { source: "/skysolis/:path*", destination: "/du-an-skysolis/:path*", permanent: true },
+      { source: "/nam-mekong-grand-plaza/:path*", destination: "/du-an-nam-mekong-grand-plaza/:path*", permanent: true },
+      { source: "/palm-river/:path*", destination: "/du-an-palm-river/:path*", permanent: true },
     ];
   },
   async headers() {

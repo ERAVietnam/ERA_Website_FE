@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Park Village: compound 96 biệt thự Grand Villa ba mặt giáp kênh đào ngay trung tâm khu đô thị Waterpoint, Bến Lức. Garden · Park · Canal Grand Villa, diện tích đất từ 300 m². Xem mặt bằng, nhà mẫu, đăng ký tham quan.",
   alternates: {
-    canonical: "https://era.com.vn/park-village/",
+    canonical: "https://era.com.vn/pk-park-village-du-an-waterpoint/",
   },
   keywords: [
     "Park Village",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description:
       "Compound 96 biệt thự Grand Villa ba mặt giáp kênh đào 3,2 km ngay trung tâm khu đô thị Waterpoint. Nhà mẫu đã sẵn sàng đón khách.",
     type: "website",
-    url: "https://era.com.vn/park-village/",
+    url: "https://era.com.vn/pk-park-village-du-an-waterpoint/",
     images: [
       {
         url: "/landing/park-village/park-village-hero-compound-ba-mat-kenh-dao.webp",
@@ -51,7 +51,7 @@ const breadcrumbItems = [
   { name: "Trang chủ", url: "https://era.com.vn/" },
   { name: "Dự án", url: "https://era.com.vn/du-an/" },
   { name: "Waterpoint", url: "https://era.com.vn/du-an-waterpoint/" },
-  { name: "Park Village", url: "https://era.com.vn/park-village/" },
+  { name: "Park Village", url: "https://era.com.vn/pk-park-village-du-an-waterpoint/" },
 ];
 
 export default function ParkVillagePage() {

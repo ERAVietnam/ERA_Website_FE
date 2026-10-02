@@ -238,12 +238,12 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/phan-khu-rung-phuong-duan-eco-retreat` | `app/(landing)/phan-khu-rung-phuong-duan-eco-retreat/page.tsx` | `EcoRetreatLanding` |
 | `/pk-nagomi-du-an-waterpoint` | `app/(landing)/pk-nagomi-du-an-waterpoint/page.tsx` | `RiveraNagomiLanding` |
 | `/tuyen-dung-thu-cap` | `app/tuyen-dung-thu-cap/page.tsx` | `ResalesPage` |
-| `/nam-mekong-grand-plaza` | `app/(landing)/nam-mekong-grand-plaza/page.tsx` | `NamMekongLanding` |
-| `/park-village` | `app/(landing)/park-village/page.tsx` | `ParkVillageLanding` |
-| `/palm-river` | `app/(landing)/palm-river/page.tsx` | `PalmRiverLanding` |
+| `/du-an-nam-mekong-grand-plaza` | `app/(landing)/du-an-nam-mekong-grand-plaza/page.tsx` | `NamMekongLanding` |
+| `/pk-park-village-du-an-waterpoint` | `app/(landing)/pk-park-village-du-an-waterpoint/page.tsx` | `ParkVillageLanding` |
+| `/du-an-palm-river` | `app/(landing)/du-an-palm-river/page.tsx` | `PalmRiverLanding` |
 | `/thank-you-palm-river` | `app/(landing)/thank-you-palm-river/page.tsx` | `ThankYouPalmRiverPage` |
-| `/the-aqua` | `app/(landing)/the-aqua/page.tsx` | `TheAquaLanding` |
-| `/skysolis` | `app/(landing)/skysolis/page.tsx` | `SkysolisLanding` |
+| `/pk-the-aqua-du-an-waterpoint` | `app/(landing)/pk-the-aqua-du-an-waterpoint/page.tsx` | `TheAquaLanding` |
+| `/du-an-skysolis` | `app/(landing)/du-an-skysolis/page.tsx` | `SkysolisLanding` |
 
 ---
 
