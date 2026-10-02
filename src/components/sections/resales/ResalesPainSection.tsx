@@ -16,7 +16,7 @@ const PAINS = [
   {
     icon: LockKeyhole,
     title: "Quy định siết chặt",
-    desc: "Thuế phí phải minh bạch, hợp đồng lớn cần công ký đứng sau và đóng mộc.",
+    desc: "Thuế phí phải minh bạch, hợp đồng lớn cần công ty đứng sau và đóng mộc.",
     bg: colors.tertiary.purple.DEFAULT,
   },
   {
