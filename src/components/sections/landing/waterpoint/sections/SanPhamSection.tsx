@@ -343,7 +343,6 @@ function MauGiaModal({ mau, onClose }: { mau: MauNha; onClose: () => void }) {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (status === "loading") return;
     // Gửi ngầm không chờ kết quả — thành công/lỗi đều báo thành công và chuyển trang ngay
     submitLeadBeacon({
       formId: "WP_SANPHAM",
@@ -448,11 +447,10 @@ function MauGiaModal({ mau, onClose }: { mau: MauNha; onClose: () => void }) {
           />
           <button
             type="submit"
-            disabled={status === "loading"}
-            className="aq-nut-gold cursor-pointer border-none py-4 text-[14.5px] font-extrabold tracking-[0.08em] disabled:opacity-70"
+                        className="aq-nut-gold cursor-pointer border-none py-4 text-[14.5px] font-extrabold tracking-[0.08em] disabled:opacity-70"
             style={{ background: "#E9A94B", color: "#10333B", borderRadius: 10 }}
           >
-            {status === "loading" ? "ĐANG GỬI..." : "NHẬN GIÁ MẪU NÀY"}
+            "NHẬN GIÁ MẪU NÀY"
           </button>
         </form>
         {status === "error" && (

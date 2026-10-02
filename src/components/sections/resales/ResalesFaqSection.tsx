@@ -10,11 +10,11 @@ import { Reveal } from "./Reveal";
 const FAQS = [
   {
     q: "“Tôi quen làm tự do, về công ty có bị gò bó?”",
-    a: "Cộng tác viên ERA không bị ràng buộc thờI gian hay chỉ tiêu. Anh/chị vẫn chủ động, chỉ có thêm hệ thống phía sau.",
+    a: "Cộng tác viên ERA không bị ràng buộc thời gian hay chỉ tiêu. Anh/chị vẫn chủ động, chỉ có thêm hệ thống phía sau.",
   },
   {
     q: "“Nghe nói ERA chỉ mạnh sơ cấp?”",
-    a: "Với thế mạnh sơ cấp, ERA Vietnam có thể tận dụng giúp anh/chị phát triển thứ cấp nhờ rỗ hàng lớn và mạng lưới kết nối agent 2.700+.",
+    a: "Với thế mạnh sơ cấp, ERA Vietnam có thể tận dụng giúp anh/chị phát triển thứ cấp nhờ rổ hàng lớn và mạng lưới kết nối agent 2.700+.",
   },
   {
     q: "“Tham gia có mất phí gì không?”",
@@ -26,7 +26,7 @@ const FAQS = [
   },
   {
     q: "“Chưa có kinh nghiệm có đi được không?”",
-    a: "Được, ERA Vietnam có lộ trình đào tạo cho ngườI mới bắt đầu và ngườI có kinh nghiệm.",
+    a: "Được, ERA Vietnam có lộ trình đào tạo cho người mới bắt đầu và người có kinh nghiệm.",
   },
   {
     q: "“Hoa hồng chia thế nào?”",

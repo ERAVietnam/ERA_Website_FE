@@ -11,7 +11,6 @@ export function FloatingButtons() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (status === "loading") return;
     const form = e.currentTarget;
     // Gửi ngầm không chờ kết quả — thành công/lỗi đều báo thành công và chuyển trang ngay
     submitLeadBeacon({
@@ -115,8 +114,7 @@ export function FloatingButtons() {
                   />
                   <button
                     type="submit"
-                    disabled={status === "loading"}
-                    className="aq-nut-gold cursor-pointer border-none rounded-full font-extrabold disabled:opacity-70"
+                                        className="aq-nut-gold cursor-pointer border-none rounded-full font-extrabold disabled:opacity-70"
                     style={{
                       padding: 13,
                       background: "#E9A94B",
@@ -130,7 +128,7 @@ export function FloatingButtons() {
                       transition: "transform .18s ease, box-shadow .18s ease, background .18s ease",
                     }}
                   >
-                    {status === "loading" ? "Đang gửi..." : "ĐĂNG KÝ NGAY"}
+                    "ĐĂNG KÝ NGAY"
                   </button>
                 </form>
               </>

@@ -22,7 +22,7 @@ const PAINS = [
   {
     icon: Link,
     title: "Liên kết sale hạn hẹp",
-    desc: "Chỉ ra hàng trong vòng ngườI quen, khó cạnh tranh với các đội lớn.",
+    desc: "Chỉ ra hàng trong vòng người quen, khó cạnh tranh với các đội lớn.",
     bg: colors.secondary.DEFAULT,
   },
   {

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { submitLead } from "../../lib/submit-lead";
+import { submitLeadBeacon } from "../../lib/submit-lead";
 
 export function ContactSection() {
   const [form, setForm] = useState({
@@ -12,7 +12,6 @@ export function ContactSection() {
     email: "",
     message: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -20,25 +19,19 @@ export function ContactSection() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Gửi ngầm bằng sendBeacon — bấm nút là hiện thành công ngay, không chờ API
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    try {
-      await submitLead({
-        hoten: form.name,
-        sdt: form.phone,
-        email: form.email,
-        message: form.message,
-        formId: "PGBL_CONTACT",
-        sheet: "PHÚ GIA BẢO LỘC",
-      });
-      setSubmitted(true);
-      setForm({ name: "", phone: "", email: "", message: "" });
-    } catch {
-      alert("Gửi thất bại, vui lòng thử lại.");
-    } finally {
-      setIsLoading(false);
-    }
+    submitLeadBeacon({
+      hoten: form.name,
+      sdt: form.phone,
+      email: form.email,
+      message: form.message,
+      formId: "PGBL_CONTACT",
+      sheet: "PHÚ GIA BẢO LỘC",
+    });
+    setSubmitted(true);
+    setForm({ name: "", phone: "", email: "", message: "" });
   };
 
   return (
@@ -169,10 +162,9 @@ export function ContactSection() {
 
               <button
                 type="submit"
-                disabled={isLoading}
-                className="mt-6 w-full rounded-2xl bg-[#327400] py-4 text-sm font-semibold text-white transition-colors hover:bg-[#174C25] disabled:opacity-60 sm:text-base"
+                className="mt-6 w-full rounded-2xl bg-[#327400] py-4 text-sm font-semibold text-white transition-colors hover:bg-[#174C25] sm:text-base"
               >
-                {isLoading ? "Đang gửi..." : "Gửi yêu cầu tư vấn"}
+                Gửi yêu cầu tư vấn
               </button>
               <p className="mt-4 text-center text-xs italic leading-relaxed text-[#555555]/70">
                 Lưu ý: Tôi đồng ý để Công ty Cổ phần BDS ERA Vietnam liên hệ qua điện thoại nhằm tư vấn và cung cấp thông

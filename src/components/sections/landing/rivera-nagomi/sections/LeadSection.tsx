@@ -38,7 +38,6 @@ export function LeadSection() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (status === "loading") return;
     // Gửi ngầm không chờ kết quả — thành công/lỗi đều báo thành công và chuyển trang ngay
     submitLeadBeacon({
       formId: "RN_LEAD",
@@ -155,10 +154,9 @@ export function LeadSection() {
               <button
                 className="btn-sq cursor-pointer disabled:opacity-70"
                 type="submit"
-                disabled={status === "loading"}
-                style={{ padding: 17, fontSize: 15 }}
+                                style={{ padding: 17, fontSize: 15 }}
               >
-                {status === "loading" ? "ĐANG GỬI..." : "GỬI ĐĂNG KÝ"}
+                "GỬI ĐĂNG KÝ"
               </button>
             </form>
           )}
