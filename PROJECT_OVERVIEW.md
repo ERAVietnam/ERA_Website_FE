@@ -243,6 +243,8 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/du-an-palm-river` | `app/(landing)/du-an-palm-river/page.tsx` | `PalmRiverLanding` |
 | `/du-an-celesta-gold` | `app/(landing)/du-an-celesta-gold/page.tsx` | `CelestaGoldLanding` |
 | `/du-an-the-westique-residences` | `app/(landing)/du-an-the-westique-residences/page.tsx` | `TheWestiqueLanding` |
+| `/du-an-thanh-phu-centre-point` | `app/(landing)/du-an-thanh-phu-centre-point/page.tsx` | `ThanhPhuLanding` |
+| `/thank-you-thanh-phu` | `app/(landing)/thank-you-thanh-phu/page.tsx` | `ThankYouThanhPhuPage` |
 | `/thank-you-palm-river` | `app/(landing)/thank-you-palm-river/page.tsx` | `ThankYouPalmRiverPage` |
 | `/pk-the-aqua-du-an-waterpoint` | `app/(landing)/pk-the-aqua-du-an-waterpoint/page.tsx` | `TheAquaLanding` |
 | `/du-an-skysolis` | `app/(landing)/du-an-skysolis/page.tsx` | `SkysolisLanding` |
