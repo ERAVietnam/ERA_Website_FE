@@ -9,14 +9,15 @@ import { colors } from "@/lib/theme";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ProjectsSidebar } from "./ProjectsSidebar";
 import { ProjectCard } from "./ProjectCard";
-import { FeaturedProjectCard } from "./FeaturedProjectCard";
+import { LandingCard } from "./LandingCard";
 import { projectsApi } from "@/api/domains/projects";
-import type { Project, PaginationMeta } from "@/types/api";
+import type { Landing, Project, PaginationMeta } from "@/types/api";
 
 interface ProjectsListSectionProps {
   initialProjects: Project[];
   initialMeta: PaginationMeta;
   searchQuery?: string;
+  landings?: Landing[];
 }
 
 const LIMIT = 12;
@@ -25,6 +26,7 @@ export function ProjectsListSection({
   initialProjects,
   initialMeta,
   searchQuery = "",
+  landings = [],
 }: ProjectsListSectionProps) {
   const [activeTab, setActiveTab] = useState("");
   const [currentPage, setCurrentPage] = useState(initialMeta.page || 1);
@@ -70,6 +72,14 @@ export function ProjectsListSection({
 
   const totalPages = meta.totalPages || 1;
 
+  /* Landing lọc theo từ khóa search ở client (landing hiển thị TRƯỚC các dự án) */
+  const q = searchQuery.trim().toLowerCase();
+  const filteredLandings = q
+    ? landings.filter((l) =>
+        [l.title, l.location, ...l.tags].some((t) => t.toLowerCase().includes(q))
+      )
+    : landings;
+
   const visiblePages = (() => {
     const pages: (number | string)[] = [];
     if (totalPages <= 7) {
@@ -97,12 +107,23 @@ export function ProjectsListSection({
                 <p className="text-base font-medium">Đang tải dự án...</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <FeaturedProjectCard />
-                {projects.map((project) => (
-                  <ProjectCard key={project.id} project={project} />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {filteredLandings.map((landing) => (
+                    <LandingCard key={landing.id} landing={landing} />
+                  ))}
+                  {projects.map((project) => (
+                    <ProjectCard key={project.id} project={project} />
+                  ))}
+                </div>
+                {filteredLandings.length === 0 && projects.length === 0 && (
+                  <div className="text-center py-16 text-gray-500">
+                    <p className="text-base font-medium">
+                      Không tìm thấy dự án nào phù hợp với từ khóa của bạn.
+                    </p>
+                  </div>
+                )}
+              </>
             )}
 
             {/* Pagination */}

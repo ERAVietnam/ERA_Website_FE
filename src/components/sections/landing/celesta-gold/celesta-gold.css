@@ -231,7 +231,7 @@
 }
 .cg .lb {position:fixed;inset:0;z-index:600;background:rgba(10,16,11,.95);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
 .cg .lb.open {display:flex}
-.cg .lb img {max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;background:#fff}
+.cg .lb img {max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
 .cg .lb button {position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
 .cg .lb p {position:absolute;top:18px;left:18px;right:70px;margin:0;color:#E2E6DC;font-size:13px}
 @media (prefers-reduced-motion:reduce) {

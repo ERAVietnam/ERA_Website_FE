@@ -739,3 +739,29 @@ export interface ProjectFilters {
   page?: number;
   limit?: number;
 }
+
+// ==================== LANDINGS ====================
+
+export interface Landing {
+  id: string;
+  title: string;
+  location: string;
+  tags: string[];
+  url: string;
+  imageMediaId?: string | null;
+  imageMedia?: Media | null;
+  createdById: string;
+  createdBy: { id: string; name: string; email: string } | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateLandingInput {
+  title: string;
+  location: string;
+  tags?: string[];
+  url: string;
+  imageMediaId?: string | null;
+}
+
+export type UpdateLandingInput = Partial<CreateLandingInput>;

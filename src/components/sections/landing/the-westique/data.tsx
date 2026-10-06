@@ -255,7 +255,7 @@ export const INTERIOR_GALLERY = [
     src800: `${IMG}/the-westique-residences-noi-that-phong-ngu-800.webp`,
     w: 868, h: 579,
     alt: "Phòng ngủ master căn 2 phòng ngủ The Westique Residences với đầu giường ốp vải, đèn hắt trần và rèm che sáng",
-    cap: "Phòng ngủ master",
+    cap: "Phòng khách",
   },
 ];
 

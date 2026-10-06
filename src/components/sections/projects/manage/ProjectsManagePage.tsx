@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { ProjectsManageList } from "./ProjectsManageList";
+import { LandingsManage } from "./landings/LandingsManage";
 import { ProjectsManageForm, type ProjectFormData } from "./ProjectsManageForm";
 import { ProjectPreviewDialog } from "./ProjectPreviewDialog";
 import { ProjectHistoryDialog } from "./ProjectHistoryDialog";
@@ -63,6 +64,7 @@ export function ProjectsManagePage() {
   const [editing, setEditing] = useState<ProjectFormData | null>(null);
   const { popup, showSuccess, showError, closePopup } = usePopupNotification();
   const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
+  const [activeTab, setActiveTab] = useState<"projects" | "landings">("projects");
   const [showForm, setShowForm] = useState(false);
   const {
     items: projects,
@@ -370,7 +372,27 @@ export function ProjectsManagePage() {
           )}
         </ConfirmDialog>
 
-        {showForm ? (
+        {/* Chuyển tab: Dự án | Landing */}
+        <div className="flex items-center gap-1 rounded-xl bg-white p-1 shadow-sm w-fit">
+          {(["projects", "landings"] as const).map((tab) => (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => setActiveTab(tab)}
+              className={`rounded-lg px-5 py-2 text-sm font-bold transition-colors ${
+                activeTab === tab
+                  ? "bg-[#C8102E] text-white"
+                  : "text-gray-500 hover:bg-gray-100"
+              }`}
+            >
+              {tab === "projects" ? "Dự án" : "Landing"}
+            </button>
+          ))}
+        </div>
+
+        {activeTab === "landings" ? (
+          <LandingsManage />
+        ) : showForm ? (
           <ProjectsManageForm
             initialData={editing ?? undefined}
             onSave={handleSave}
@@ -423,6 +445,9 @@ export function ProjectsManagePage() {
               onSubmitForReview={handleListSubmitForReview}
               onReject={handleListReject}
               onViewHistory={handleListViewHistory}
+              onCreateLanding={() => {
+                setActiveTab("landings");
+              }}
             />
 
             <ProjectPreviewDialog

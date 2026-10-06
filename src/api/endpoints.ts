@@ -76,6 +76,13 @@ export const ENDPOINTS = {
     REVOKE: (id: string) => `/projects/${id}/revoke`,
     LOGS: (id: string) => `/projects/${id}/logs`,
   },
+  LANDINGS: {
+    LIST: '/landings',
+    DETAIL: (id: string) => `/landings/${id}`,
+    CREATE: '/landings',
+    UPDATE: (id: string) => `/landings/${id}`,
+    DELETE: (id: string) => `/landings/${id}`,
+  },
   AGENTS: {
     LIST: '/agents',
     DETAIL: (id: string) => `/agents/${id}`,
