@@ -29,7 +29,7 @@ export function AmenitiesSection() {
       <div className="wrap">
         <Reveal>
           <div className="head">
-            <span className="vach" aria-hidden="true"></span>
+            <img className="ky" src={`${IMG}/the-westique-residences-chu-ky-o.svg`} width={59} height={78} alt="" aria-hidden="true" loading="lazy" decoding="async" />
             <h2>
               2 tầng tiện ích cho 11 tầng căn hộ{" "}
               <span className="dong2">Không gian retreat riêng của cộng đồng 99 sản phẩm</span>

@@ -14,7 +14,7 @@ export function OverviewSection() {
       <div className="wrap">
         <Reveal>
           <div className="head">
-            <span className="vach" aria-hidden="true"></span>
+            <img className="ky" src={`${IMG}/the-westique-residences-chu-ky-chat.svg`} width={159} height={68} alt="" aria-hidden="true" loading="lazy" decoding="async" />
             <h2>
               Tổng quan dự án <span className="nw">The Westique Residences</span>{" "}
               <span className="dong2">Tinh tuyển bởi sự giới hạn</span>
@@ -40,18 +40,18 @@ export function OverviewSection() {
         <div className="ov">
           {/* figure phải là grid item trực tiếp của .ov để sticky ăn — không bọc Reveal */}
           <figure
-            className="ov-fig"
+            className="ov-fig ov-tach"
             onClick={() =>
               openLightbox(
-                `${IMG}/the-westique-residences-phoi-canh-thap-15-tang-ban-ngay.webp`,
+                `${IMG}/the-westique-residences-phoi-canh-thap-15-tang-ban-ngay-phong-to.webp`,
                 "Phối cảnh ban ngày The Westique Residences: tháp 15 tầng trên mặt tiền Kinh Dương Vương"
               )
             }
           >
             <Image
-              src={`${IMG}/the-westique-residences-phoi-canh-thap-15-tang-ban-ngay-800.webp`}
-              width={1200}
-              height={750}
+              src={`${IMG}/the-westique-residences-thap-15-tang-ban-ngay-kinh-duong-vuong.webp`}
+              width={810}
+              height={1520}
               loading="lazy"
               decoding="async"
               alt="Phối cảnh ban ngày The Westique Residences: tháp 15 tầng mặt kính, khối đế shophouse và hàng cây dọc Kinh Dương Vương"

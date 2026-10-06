@@ -6,11 +6,11 @@ import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
 
 const slides = [
-  { id: 1, image: "/academy/7ea82947a4bdd06d4bbde0f684dd2269c1d263a7.webp", alt: "ERA Academy banner 1" },
-  { id: 2, image: "/academy/7ea82947a4bdd06d4bbde0f684dd2269c1d263a7.webp", alt: "ERA Academy banner 2" },
-  { id: 3, image: "/academy/7ea82947a4bdd06d4bbde0f684dd2269c1d263a7.webp", alt: "ERA Academy banner 3" },
-  { id: 4, image: "/academy/7ea82947a4bdd06d4bbde0f684dd2269c1d263a7.webp", alt: "ERA Academy banner 4" },
-  { id: 5, image: "/academy/7ea82947a4bdd06d4bbde0f684dd2269c1d263a7.webp", alt: "ERA Academy banner 5" },
+  { id: 1, image: "/academy/ERA Academy-Banner Website.png", alt: "ERA Academy banner 1" },
+  { id: 2, image: "/academy/ERA Academy-Banner Website.png", alt: "ERA Academy banner 2" },
+  { id: 3, image: "/academy/ERA Academy-Banner Website.png", alt: "ERA Academy banner 3" },
+  { id: 4, image: "/academy/ERA Academy-Banner Website.png", alt: "ERA Academy banner 4" },
+  { id: 5, image: "/academy/ERA Academy-Banner Website.png", alt: "ERA Academy banner 5" },
 ];
 
 const stats = [
@@ -92,7 +92,7 @@ export function AcademyHeroSection() {
         </section>
 
         <section
-          className="relative hidden h-[80vh] cursor-grab overflow-hidden bg-[#071331] active:cursor-grabbing md:block"
+          className="relative hidden h-[70vh] cursor-grab overflow-hidden bg-[#071331] active:cursor-grabbing md:block"
           onTouchStart={(e) => handleStart(e.touches[0].clientX)}
           onTouchMove={(e) => handleMove(e.touches[0].clientX)}
           onTouchEnd={handleEnd}
