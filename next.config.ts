@@ -29,6 +29,7 @@ const nextConfig: NextConfig = {
       { source: "/skysolis/:path*", destination: "/du-an-skysolis/:path*", permanent: true },
       { source: "/nam-mekong-grand-plaza/:path*", destination: "/du-an-nam-mekong-grand-plaza/:path*", permanent: true },
       { source: "/palm-river/:path*", destination: "/du-an-palm-river/:path*", permanent: true },
+      { source: "/du-an-beachtro-tower/:path*", destination: "/pk-beachtro-tower-du-an-blanca-city/:path*", permanent: true },
     ];
   },
   async headers() {

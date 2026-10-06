@@ -372,26 +372,8 @@ export function ProjectsManagePage() {
           )}
         </ConfirmDialog>
 
-        {/* Chuyển tab: Dự án | Landing */}
-        <div className="flex items-center gap-1 rounded-xl bg-white p-1 shadow-sm w-fit">
-          {(["projects", "landings"] as const).map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              onClick={() => setActiveTab(tab)}
-              className={`rounded-lg px-5 py-2 text-sm font-bold transition-colors ${
-                activeTab === tab
-                  ? "bg-[#C8102E] text-white"
-                  : "text-gray-500 hover:bg-gray-100"
-              }`}
-            >
-              {tab === "projects" ? "Dự án" : "Landing"}
-            </button>
-          ))}
-        </div>
-
         {activeTab === "landings" ? (
-          <LandingsManage />
+          <LandingsManage onBack={() => setActiveTab("projects")} />
         ) : showForm ? (
           <ProjectsManageForm
             initialData={editing ?? undefined}
