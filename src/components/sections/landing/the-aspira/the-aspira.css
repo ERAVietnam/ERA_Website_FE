@@ -1,0 +1,512 @@
+/* CSS goc cua mau the-aspira (co-form/web/index.html) — tu dong scope duoi .asp */
+/* Moi selector con lai nguyen ten class nhu mau, chi them to tien .asp */
+.asp {
+  --cam:#FE6A1A; --cam-2:#FF8A3D; --cam-nhat:#FFB27F; --cam-dam:#B8460C; --cam-dam-2:#963A0B;
+  --nau:#2B1F13; --nau-2:#3B2A1A; --nau-3:#4A3522; --nau-text:#F6ECE3;
+  --ink:#24190F; --text:#4E4238; --muted:#6B5E53;
+  --cream:#FCF7F2; --sand:#F6EDE4; --line:#EFE3D8; --line-2:#E3D1C2;
+  --hdr:68px; --r:16px;
+  --sans:'Montserrat','Mont Fallback', system-ui, sans-serif;
+}
+.asp {margin:0;font-family:var(--sans);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6}
+.asp img {max-width:100%;display:block}
+.asp a {color:var(--cam-dam);text-decoration:none}
+.asp a:hover {color:var(--cam-dam-2)}
+.asp .wrap {max-width:1180px;margin:0 auto}
+.asp .sec {padding:clamp(58px,6vw,96px) 22px}
+.asp .bg-cream {background:var(--cream)}
+.asp .bg-sand {background:var(--sand)}
+.asp .head {max-width:900px;margin:0 auto 34px;text-align:center}
+.asp .amark {display:block;width:34px;height:26px;margin:0 auto 14px;color:var(--cam)}
+.asp h2 {font-family:var(--sans);color:var(--nau);font-size:clamp(25px,3vw,38px);line-height:1.22;font-weight:700;margin:0;text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
+.asp h2 .dong2 {display:block;font-weight:500;text-transform:none;letter-spacing:0;color:var(--cam-dam);font-size:max(15px,.48em);line-height:1.5;margin-top:.65em}
+.asp h3 {margin:0}
+.asp .fact {max-width:880px;margin:-8px auto clamp(24px,2.6vw,34px);text-align:center;color:var(--text);font-size:16px;line-height:1.75;text-wrap:pretty}
+.asp .body {color:var(--text);font-size:16px;line-height:1.75;text-wrap:pretty}
+.asp .note {font-size:13px;color:var(--muted);line-height:1.65}
+.asp .nw {white-space:nowrap}
+.asp .sr {position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.asp .nut {display:inline-flex;align-items:center;gap:10px;background:var(--cam-dam);color:#fff;font-weight:700;font-size:15px;border-radius:999px;padding:13px 26px;min-height:48px;border:0;cursor:pointer;font-family:inherit}
+.asp .nut:hover {background:var(--cam-dam-2);color:#fff}
+.asp .nut svg {width:18px;height:18px}
+.asp .nut.vien {background:transparent;color:var(--cam-dam);box-shadow:inset 0 0 0 2px var(--cam-dam)}
+.asp .nut.vien:hover {background:var(--cam-dam);color:#fff}
+.asp .hdr {position:sticky;top:0;z-index:200;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.asp .hdr-in {max-width:1180px;margin:0 auto;height:var(--hdr);padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.asp .brand {display:flex;align-items:center}
+.asp .brand img {height:50px;width:auto}
+.asp .nav {display:flex;align-items:center;gap:22px}
+.asp .nav a {color:var(--ink);font-weight:600;font-size:15px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.asp .nav a:hover, .asp .nav a.on {color:var(--cam-dam)}
+.asp .burger {display:none;width:44px;height:44px;border:0;background:none;padding:10px;cursor:pointer}
+.asp .burger span {display:block;height:2px;background:var(--nau);margin:5px 0;border-radius:4px;transition:transform .25s,opacity .25s}
+@media (max-width:1120px) {
+  .asp {--hdr:60px}
+  .asp .nav {display:none}
+  .asp .burger {display:block}
+  .asp .brand img {height:42px}
+  .asp .hdr.open {z-index:400;backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+  .asp .hdr.open .nav {display:flex;position:fixed;top:var(--hdr);left:0;right:0;bottom:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;padding:12px 22px 30px;overflow:auto}
+  .asp .hdr.open .nav a {display:block;padding:16px 4px;border-bottom:1px solid var(--line);font-size:16px}
+  .asp .hdr.open .burger span:nth-child(1) {transform:translateY(7px) rotate(45deg)}
+  .asp .hdr.open .burger span:nth-child(2) {opacity:0}
+  .asp .hdr.open .burger span:nth-child(3) {transform:translateY(-7px) rotate(-45deg)}
+}
+.asp .hero {position:relative;height:clamp(560px,calc(100svh - var(--hdr)),900px);overflow:hidden;background:var(--nau)}
+.asp .hero picture, .asp .hero picture img {position:absolute;inset:0;width:100%;height:100%}
+.asp .hero picture img {object-fit:cover;object-position:62% 50%}
+.asp .hero-scrim {position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(to top,rgba(43,31,19,.88) 0%,rgba(43,31,19,.45) 28%,rgba(43,31,19,0) 52%),
+  linear-gradient(90deg,rgba(43,31,19,.8) 0%,rgba(43,31,19,.45) 34%,rgba(43,31,19,0) 58%)}
+.asp .hero-in {position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(24px,3.6vw,56px) 22px}
+.asp .hero-top, .asp .hero-bot {max-width:1180px;width:100%;margin:0 auto}
+.asp .hero-top>* {max-width:600px}
+.asp .hero .kick {font-size:13px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--cam-nhat);margin:0 0 14px}
+.asp .hero h1 {font-weight:700;color:#fff;margin:0;line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.asp .hero h1 .a {display:block;font-size:clamp(46px,6.2vw,88px);letter-spacing:.04em;text-transform:uppercase}
+.asp .hero h1 em {display:block;font-style:normal;font-weight:600;color:#fff;font-size:clamp(20px,2.1vw,28px);line-height:1.3;margin-top:.7em;text-wrap:balance}
+.asp .hero h1 em b {color:var(--cam-2)}
+.asp .hero-sub {color:#fff;font-size:clamp(15px,1.2vw,17px);line-height:1.65;font-weight:500;margin:14px 0 0;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.asp .hero .nut {margin-top:20px;background:var(--cam);color:var(--nau)}
+.asp .hero .nut:hover {background:#fff;color:var(--nau)}
+.asp .hero-facts {list-style:none;margin:clamp(18px,2vw,28px) 0 0;padding:0;display:flex;flex-wrap:wrap;border-top:1px solid rgba(255,178,127,.5);width:fit-content}
+.asp .hero-facts li {display:flex;flex-direction:column;padding:14px 24px 0 0;margin-right:24px;color:#fff;border-right:1px solid rgba(255,178,127,.32)}
+.asp .hero-facts li:last-child {border-right:0;margin-right:0;padding-right:0}
+.asp .hero-facts b {font-size:clamp(24px,2.3vw,34px);font-weight:700;line-height:1.1;color:var(--cam-2)}
+.asp .hero-facts b small {font-size:15px;font-weight:600}
+.asp .hero-facts span {font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:5px;font-weight:600;color:var(--nau-text)}
+@media (max-width:760px) {
+  .asp .hero-in {justify-content:space-between;padding:26px 20px 22px}
+  .asp .hero-scrim {background:
+    linear-gradient(to bottom,rgba(43,31,19,.82) 0%,rgba(43,31,19,.45) 34%,rgba(43,31,19,0) 52%),
+    linear-gradient(to top,rgba(43,31,19,.92) 0%,rgba(43,31,19,.55) 22%,rgba(43,31,19,0) 38%)}
+  .asp .hero picture img {object-position:50% 50%}
+  .asp .hero .kick {font-size:12px;letter-spacing:.2em;margin-bottom:10px}
+  .asp .hero-sub {font-size:15px;margin-top:10px}
+  .asp .hero .nut {margin-top:14px;padding:11px 20px;min-height:44px;font-size:15px}
+  .asp .hero-facts {display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;margin-top:0;width:auto}
+  .asp .hero-facts li {padding:10px 0 0;margin:0;border:0}
+  .asp .hero-facts b {font-size:21px}
+  .asp .hero-facts span {font-size:12px;letter-spacing:.02em;text-transform:none}
+}
+@media (max-width:380px) {
+  .asp .hero-sub {display:none}
+}
+@media (max-height:680px) and (min-width:761px) {
+  .asp .hero-sub {display:none}
+}
+.asp .gt-in {display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(22px,3vw,48px);align-items:center;margin-bottom:clamp(34px,3.6vw,52px)}
+.asp .gt-fig {margin:0;border-radius:18px;overflow:hidden;background:var(--nau);cursor:zoom-in}
+.asp .gt-fig img {width:100%;height:auto}
+.asp .gt-txt .kick-s {font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--cam-dam);margin:0 0 10px}
+.asp .gt-txt .gt-h {font-size:clamp(22px,2.3vw,30px);font-weight:700;color:var(--nau);line-height:1.3;text-transform:uppercase}
+.asp .gt-txt .gt-h b {color:var(--cam-dam)}
+.asp .gt-txt .body {margin:14px 0 0}
+.asp .gt-txt .body+.body {margin-top:12px}
+@media (max-width:900px) {
+  .asp .gt-in {grid-template-columns:1fr}
+  .asp .gt-fig {max-width:560px}
+}
+.asp .stats {display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 18px 44px rgba(43,31,19,.07);margin:0 0 clamp(22px,2.6vw,34px)}
+.asp .stats div {padding:clamp(20px,2.4vw,30px) 18px;text-align:center;border-right:1px solid var(--line)}
+.asp .stats div:last-child {border-right:0}
+.asp .stats b {display:block;font-weight:700;color:var(--nau);font-size:clamp(30px,3.6vw,46px);line-height:1.1}
+.asp .stats b small {font-size:20px;font-weight:600}
+.asp .stats span {display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--cam-dam);margin-top:10px;line-height:1.45}
+@media (max-width:760px) {
+  .asp .stats {grid-template-columns:1fr 1fr}
+  .asp .stats div:nth-child(2) {border-right:0}
+  .asp .stats div:nth-child(-n+2) {border-bottom:1px solid var(--line)}
+}
+.asp .ov {display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.6vw,38px);align-items:start}
+.asp .ov-fig {margin:0;border-radius:16px;overflow:hidden;cursor:zoom-in;background:#fff;position:sticky;top:calc(var(--hdr) + 18px)}
+.asp .ov-fig img {width:100%;height:auto}
+.asp .fcap {margin:0;padding:11px 14px;text-align:center;font-size:13px;color:var(--muted);letter-spacing:.02em;background:#fff;line-height:1.5}
+.asp table.spec {width:100%;border-collapse:collapse;font-size:15px}
+.asp table.spec th {color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:13px 16px 13px 0;width:34%;vertical-align:top;border-bottom:1px solid var(--line-2)}
+.asp table.spec td {color:var(--ink);padding:13px 0;line-height:1.5;border-bottom:1px solid var(--line-2)}
+.asp table.spec td b.hl {color:var(--cam-dam)}
+.asp table.spec td small {display:block;color:var(--muted);font-size:13px;margin-top:2px}
+@media (max-width:900px) {
+  .asp .ov {grid-template-columns:1fr}
+  .asp .ov-fig {position:static}
+}
+.asp .vt {display:grid;grid-template-columns:1.25fr .75fr;gap:18px;align-items:start}
+.asp .map-fig {margin:0;border-radius:16px;overflow:hidden;cursor:zoom-in;background:#fff;border:1px solid var(--line);box-shadow:0 18px 44px rgba(43,31,19,.07)}
+.asp .map-fig img {width:100%;height:auto}
+.asp .card {background:#fff;border-radius:16px;padding:clamp(20px,2.2vw,26px);border:1px solid var(--line)}
+.asp .card h3 {font-size:13px;letter-spacing:.13em;color:var(--cam-dam);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.asp .card .note {margin:0 0 6px}
+.asp .lk {display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.asp .lk:last-child {border-bottom:0;padding-bottom:0}
+.asp .lk b {background:var(--nau);color:#fff;font-size:16px;font-weight:700;padding:7px 4px;border-radius:12px;min-width:76px;text-align:center;flex:none;line-height:1.15}
+.asp .lk b small {display:block;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--cam-nhat)}
+.asp .lk span {font-size:15px;color:var(--ink);line-height:1.55}
+@media (max-width:900px) {
+  .asp .vt {grid-template-columns:1fr}
+}
+.asp .vt-2 {display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center;margin-top:clamp(26px,3vw,40px)}
+.asp .vt-2 figure {margin:0;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);cursor:zoom-in}
+.asp .vt-2 figure img {width:100%;height:auto}
+.asp .sub-k {font-size:13px;letter-spacing:.13em;color:var(--cam-dam);font-weight:700;text-transform:uppercase;margin:0 0 12px}
+.asp .ht {list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.asp .ht li {display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+.asp .ht svg {flex:none;width:30px;height:30px;color:var(--cam-dam)}
+.asp .ht b {display:block;font-size:15px;color:var(--nau);line-height:1.35}
+.asp .ht span {display:block;font-size:15px;color:var(--text);line-height:1.5;margin-top:3px}
+.asp .vt-2 .nut {margin-top:16px}
+@media (max-width:900px) {
+  .asp .vt-2 {grid-template-columns:1fr}
+}
+.asp .ti {background:var(--nau)}
+.asp .ti h2 {color:#fff}
+.asp .ti h2 .dong2 {color:var(--cam-nhat)}
+.asp .ti .fact {color:var(--nau-text)}
+.asp .tabs {display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 22px}
+.asp .tabs button {font:inherit;font-size:15px;font-weight:600;color:var(--nau);background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:10px 22px;cursor:pointer;min-height:44px}
+.asp .tabs button[aria-selected="true"] {background:var(--cam-dam);border-color:var(--cam-dam);color:#fff}
+.asp .ti .tabs button {background:transparent;color:#fff;border-color:rgba(255,178,127,.45)}
+.asp .ti .tabs button[aria-selected="true"] {background:var(--cam);border-color:var(--cam);color:var(--nau)}
+.asp [role="tabpanel"][hidden] {display:none}
+.asp .ti-lead {max-width:760px;margin:0 auto 22px;text-align:center;color:var(--nau-text);font-size:16px;line-height:1.7}
+.asp .mbti-cuon {margin:0 0 18px;border-radius:16px;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+.asp .mbti {position:relative;margin:0;border-radius:16px;overflow:hidden;background:#47704C}
+.asp .vuot {display:none;text-align:center;color:var(--nau-text);font-size:13px;margin:-8px 0 14px}
+.asp .mbti img {width:100%;height:auto}
+.asp .pin {position:absolute;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;background:var(--c);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff,0 3px 8px rgba(0,0,0,.35);cursor:default;font-style:normal;z-index:1}
+.asp .pin.sang {color:var(--nau)}
+.asp .pin::after {content:attr(data-ten);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--nau);color:#fff;font-size:13px;font-weight:600;padding:5px 10px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s}
+.asp .pin:hover, .asp .pin:focus-visible {z-index:3;outline:none}
+.asp .pin:hover::after, .asp .pin:focus-visible::after {opacity:1}
+@media (max-width:760px) {
+  .asp .mbti {width:760px}
+  .asp .pin {width:24px;height:24px;font-size:12px}
+  .asp .pin::after {font-size:12px}
+  .asp .vuot {display:block}
+}
+.asp .cum {display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:0 0 clamp(26px,3vw,40px)}
+.asp .cum.c5 {grid-template-columns:repeat(5,1fr)}
+.asp .cum .nhom {background:rgba(255,255,255,.05);border:1px solid rgba(255,178,127,.2);border-radius:14px;padding:16px 16px 12px;box-shadow:inset 0 4px 0 var(--c)}
+.asp .cum h3 {font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#fff;margin:0 0 8px}
+.asp .cum ol {list-style:none;margin:0;padding:0}
+.asp .cum li {display:flex;gap:10px;align-items:center;color:var(--nau-text);font-size:15px;line-height:1.4;padding:6px 0;border-top:1px solid rgba(255,178,127,.12)}
+.asp .cum li i {flex:none;font-style:normal;width:24px;height:24px;border-radius:50%;background:var(--c);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.asp .cum li i.sang {color:var(--nau)}
+@media (max-width:1000px) {
+  .asp .cum, .asp .cum.c5 {grid-template-columns:1fr 1fr}
+}
+@media (max-width:520px) {
+  .asp .cum, .asp .cum.c5 {grid-template-columns:1fr}
+}
+.asp .anh-ti {display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.asp .anh-ti figure {position:relative;margin:0;border-radius:14px;overflow:hidden;background:var(--nau-2);cursor:zoom-in;grid-column:span 2;aspect-ratio:16/10}
+.asp .anh-ti figure:nth-child(1), .asp .anh-ti figure:nth-child(2) {grid-column:span 3}
+.asp .anh-ti figure img {width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.asp .anh-ti figure:hover img {transform:scale(1.04)}
+.asp .anh-ti figcaption {position:absolute;inset:auto 0 0 0;padding:28px 14px 11px;color:#fff;font-size:15px;font-weight:600;line-height:1.35;background:linear-gradient(to top,rgba(43,31,19,.9),rgba(43,31,19,0))}
+@media (max-width:760px) {
+  .asp .anh-ti {grid-template-columns:1fr 1fr}
+  .asp .anh-ti figure, .asp .anh-ti figure:nth-child(1), .asp .anh-ti figure:nth-child(2) {grid-column:span 1}
+  .asp .anh-ti figure:nth-child(1) {grid-column:span 2}
+  .asp .anh-ti figcaption {font-size:13px;padding:22px 10px 9px}
+}
+.asp .co-cau {list-style:none;margin:0 0 clamp(26px,3vw,40px);padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.asp .co-cau li {background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;position:relative;overflow:hidden}
+.asp .co-cau li::after {content:"";position:absolute;left:0;bottom:0;height:4px;width:var(--p);background:var(--cam)}
+.asp .co-cau em {display:block;font-style:normal;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--cam-dam)}
+.asp .co-cau b {display:block;font-size:30px;font-weight:700;color:var(--nau);line-height:1.15;margin-top:4px}
+.asp .co-cau span {display:block;font-size:13px;color:var(--muted);margin-top:2px}
+@media (max-width:900px) {
+  .asp .co-cau {grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:520px) {
+  .asp .co-cau {grid-template-columns:1fr 1fr}
+}
+.asp .can {display:grid;grid-template-columns:.95fr 1.05fr;gap:14px;align-items:stretch}
+.asp .can-anh {display:grid;grid-template-rows:auto auto;gap:14px}
+.asp .can figure {margin:0;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);cursor:zoom-in;position:relative}
+.asp .can figure img {width:100%;height:auto}
+.asp .can figure figcaption {position:absolute;left:12px;top:12px;font-size:13px;font-weight:600;color:#fff;background:rgba(43,31,19,.82);border-radius:999px;padding:5px 12px}
+.asp .spec-box {background:#fff;border:1px solid var(--line);border-radius:16px;padding:clamp(20px,2.2vw,28px);display:flex;flex-direction:column}
+.asp .spec-box em {display:block;font-style:normal;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--cam-dam)}
+.asp .spec-box h3 {font-size:clamp(22px,2.2vw,28px);font-weight:700;color:var(--nau);line-height:1.25;margin-top:6px;text-transform:uppercase}
+.asp .dt {display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 4px}
+.asp .dt div {background:var(--cream);border-radius:12px;padding:12px 14px}
+.asp .dt i {display:block;font-style:normal;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.asp .dt b {display:block;font-size:clamp(19px,1.8vw,23px);font-weight:700;color:var(--nau);line-height:1.25;margin-top:3px}
+.asp .chk {list-style:none;margin:12px 0 0;padding:0}
+.asp .chk li {position:relative;padding:9px 0 9px 28px;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink);line-height:1.5}
+.asp .chk li:last-child {border-bottom:0}
+.asp .chk li::before {content:"";position:absolute;left:4px;top:15px;width:12px;height:7px;border-left:2px solid var(--cam-dam);border-bottom:2px solid var(--cam-dam);transform:rotate(-45deg)}
+.asp .spec-foot {margin-top:auto;padding-top:14px;border-top:1px solid var(--line-2);font-size:13px;color:var(--muted);line-height:1.55}
+@media (max-width:900px) {
+  .asp .can {grid-template-columns:1fr}
+  .asp .spec-foot {margin-top:14px}
+}
+.asp .cong {list-style:none;margin:clamp(22px,2.6vw,32px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.asp .cong li {display:flex;gap:12px;align-items:center;background:var(--nau);color:var(--nau-text);border-radius:14px;padding:14px 16px;font-size:15px;line-height:1.4}
+.asp .cong svg {flex:none;width:28px;height:28px;color:var(--cam-2)}
+.asp .cong b {color:#fff}
+@media (max-width:900px) {
+  .asp .cong {grid-template-columns:1fr 1fr}
+}
+@media (max-width:480px) {
+  .asp .cong {grid-template-columns:1fr}
+}
+.asp .mb-h {margin:clamp(40px,4.4vw,64px) 0 16px;text-align:center}
+.asp .mb-h h3 {font-size:clamp(20px,2vw,26px);font-weight:700;color:var(--nau);text-transform:uppercase}
+.asp .mb-h p {margin:6px 0 0;color:var(--text);font-size:15px}
+.asp .mb-tang {margin:0;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);cursor:zoom-in}
+.asp .mb-tang img {width:100%;height:auto}
+.asp .thap {list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.asp .thap li {background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:6px 14px;font-size:15px;font-weight:600;color:var(--nau)}
+.asp .thap li.t {border:0;background:none;color:var(--muted);font-weight:500;padding-left:0}
+.asp .tv-anh {display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.asp .tv-anh figure {margin:0;border-radius:14px;overflow:hidden;background:var(--sand);cursor:zoom-in;aspect-ratio:4/3}
+.asp .tv-anh figure:first-child {grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.asp .tv-anh img {width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.asp .tv-anh figure:hover img {transform:scale(1.04)}
+@media (max-width:760px) {
+  .asp .tv-anh {grid-template-columns:1fr 1fr}
+  .asp .tv-anh figure:first-child {grid-row:auto;aspect-ratio:16/10}
+}
+.asp .vid {position:relative;max-width:1000px;margin:0 auto;border-radius:18px;overflow:hidden;background:var(--nau);aspect-ratio:16/9;box-shadow:0 22px 50px rgba(43,31,19,.16)}
+.asp .vid img, .asp .vid video {position:absolute;inset:0;width:100%;height:100%;border:0}
+.asp .vid img {object-fit:cover}
+.asp .vid button {position:absolute;inset:0;width:100%;border:0;padding:0;background:linear-gradient(to top,rgba(43,31,19,.5),rgba(43,31,19,0) 50%);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.asp .vid .play {width:84px;height:84px;border-radius:50%;background:var(--cam);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(254,106,26,.25),0 10px 30px rgba(0,0,0,.3);transition:transform .25s}
+.asp .vid .play svg {width:30px;height:30px;color:#fff;margin-left:5px}
+.asp .vid button:hover .play, .asp .vid button:focus-visible .play {transform:scale(1.08)}
+.asp .vid .lbl {position:absolute;left:22px;bottom:18px;color:#fff;font-size:15px;font-weight:600;letter-spacing:.04em;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.asp .vid-note {text-align:center;margin:14px 0 0}
+@media (max-width:560px) {
+  .asp .vid .lbl {display:none}
+  .asp .vid .play {width:68px;height:68px}
+}
+.asp .tl {display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.asp .tl li {list-style:none;background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.asp .tl ul {margin:0;padding:0;display:contents}
+.asp .tl svg {width:34px;height:34px;color:var(--cam-dam)}
+.asp .tl b {font-size:16px;color:var(--nau);line-height:1.35}
+.asp .tl span {font-size:15px;color:var(--text);line-height:1.55}
+.asp .tl .lay {margin-top:auto;font-size:13px;font-weight:700;color:var(--cam-dam);letter-spacing:.04em}
+@media (max-width:860px) {
+  .asp .tl {grid-template-columns:1fr}
+}
+.asp .tour {margin:clamp(22px,2.6vw,32px) auto 0;max-width:1000px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:var(--nau);border-radius:18px;padding:22px clamp(20px,2.4vw,30px);color:var(--nau-text)}
+.asp .tour b {display:block;color:#fff;font-size:18px;text-transform:uppercase;letter-spacing:.03em}
+.asp .tour span {font-size:15px;line-height:1.5}
+.asp .tour .nut {background:var(--cam);color:var(--nau)}
+.asp .tour .nut:hover {background:#fff;color:var(--nau)}
+.asp .td {display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(20px,3vw,44px);align-items:start}
+.asp .moc {list-style:none;margin:0;padding:0;position:relative}
+.asp .moc::before {content:"";position:absolute;left:11px;top:10px;bottom:10px;width:2px;background:var(--line-2)}
+.asp .moc li {position:relative;padding:0 0 22px 42px}
+.asp .moc li:last-child {padding-bottom:0}
+.asp .moc li::before {content:"";position:absolute;left:3px;top:5px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 4px var(--cam-dam)}
+.asp .moc li.xong::before {background:var(--cam-dam)}
+.asp .moc li.toi::before {box-shadow:inset 0 0 0 3px var(--muted)}
+.asp .moc b {display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--cam-dam);font-weight:700}
+.asp .moc li.toi b {color:var(--muted)}
+.asp .moc span {display:block;font-size:16px;color:var(--ink);line-height:1.5;margin-top:3px}
+.asp .td-anh {display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.asp .td-anh figure {margin:0;border-radius:14px;overflow:hidden;background:var(--sand);cursor:zoom-in;position:relative}
+.asp .td-anh figure img {width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.asp .td-anh figcaption {padding:9px 12px;font-size:13px;color:var(--muted);background:#fff;line-height:1.45}
+.asp .td-anh figcaption b {color:var(--nau)}
+@media (max-width:900px) {
+  .asp .td {grid-template-columns:1fr}
+}
+.asp .nm {display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:14px;align-items:stretch}
+.asp .nm-khung {position:relative;border-radius:16px;overflow:hidden;background:var(--sand);align-self:start}
+.asp .nm-lon {margin:0;cursor:zoom-in;aspect-ratio:16/9}
+.asp .nm-lon img {width:100%;height:100%;object-fit:cover}
+.asp .nm-khung>button {position:absolute;top:50%;width:44px;height:44px;margin-top:-22px;border:0;border-radius:50%;background:rgba(43,31,19,.66);color:#fff;cursor:pointer;display:grid;place-items:center;padding:0}
+.asp .nm-khung>button:hover {background:var(--cam-dam)}
+.asp .nm-khung>button svg {width:22px;height:22px}
+.asp .nm-truoc {left:12px}
+.asp .nm-sau {right:12px}
+.asp .nm-dem {position:absolute;right:12px;bottom:12px;font-size:13px;font-weight:600;color:#fff;background:rgba(43,31,19,.82);border-radius:999px;padding:5px 12px;pointer-events:none}
+.asp .nm .chk {margin-bottom:16px}
+.asp .nm-nho {list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.asp .nm-nho button {display:block;width:100%;padding:0;border:2px solid transparent;border-radius:12px;overflow:hidden;background:var(--sand);cursor:pointer;aspect-ratio:5/4}
+.asp .nm-nho button[aria-pressed="true"] {border-color:var(--cam-dam)}
+.asp .nm-nho button:hover img {opacity:.85}
+.asp .nm-nho img {width:100%;height:100%;object-fit:cover}
+.asp .nm-xem {display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-weight:700;font-size:15px;min-height:44px}
+.asp .nm-xem svg {width:18px;height:18px}
+@media (max-width:900px) {
+  .asp .nm {grid-template-columns:1fr}
+  .asp .nm-nho {grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:30%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
+  .asp .nm-nho li {scroll-snap-align:start}
+}
+@media (max-width:520px) {
+  .asp .nm-khung>button {width:40px;height:40px;margin-top:-20px}
+  .asp .nm-nho {grid-auto-columns:38%}
+}
+.asp .cs {background:var(--nau)}
+.asp .cs h2 {color:#fff}
+.asp .cs h2 .dong2 {color:var(--cam-nhat)}
+.asp .gia-box {max-width:880px;margin:0 auto clamp(22px,2.6vw,32px);display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;text-align:center;background:linear-gradient(120deg,var(--cam) 0%,var(--cam-2) 100%);border-radius:18px;padding:22px 26px;color:var(--nau)}
+.asp .gia-box i {font-style:normal;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.asp .gia-box b {font-size:clamp(30px,3.4vw,44px);font-weight:700;line-height:1.1}
+.asp .gia-box b small {font-size:18px;font-weight:600}
+.asp .gia-box span {font-size:15px;font-weight:600;max-width:260px;line-height:1.45;text-align:left}
+.asp .cs-h {color:#fff;text-align:center;font-size:clamp(18px,1.8vw,22px);font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin:0 0 6px}
+.asp .cs-p {color:var(--nau-text);text-align:center;font-size:15px;margin:0 0 18px}
+.asp .the-cs {list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.asp .the-cs li {background:rgba(255,255,255,.05);border:1px solid rgba(255,178,127,.28);border-radius:16px;padding:clamp(18px,2vw,24px)}
+.asp .the-cs b {display:block;font-size:clamp(28px,2.8vw,36px);font-weight:700;color:var(--cam-2);line-height:1.1}
+.asp .the-cs b small {font-size:16px;font-weight:600;color:#fff}
+.asp .the-cs span {display:block;font-size:15px;color:var(--nau-text);line-height:1.55;margin-top:8px}
+@media (max-width:860px) {
+  .asp .the-cs {grid-template-columns:1fr 1fr}
+}
+@media (max-width:520px) {
+  .asp .the-cs {grid-template-columns:1fr}
+}
+.asp .cs-note {max-width:880px;margin:20px auto 0;text-align:center;color:#D9C8B8;font-size:13px;line-height:1.7}
+.asp .cs .ct {text-align:center}
+.asp .cs .nut {margin-top:20px;background:var(--cam);color:var(--nau)}
+.asp .cs .nut:hover {background:#fff;color:var(--nau)}
+.asp .ben {display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 clamp(26px,3vw,40px)}
+.asp .ben article {background:#fff;border:1px solid var(--line);border-radius:16px;padding:clamp(20px,2.2vw,26px)}
+.asp .ben i {display:block;font-style:normal;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--cam-dam)}
+.asp .ben h3 {font-size:clamp(18px,1.7vw,21px);font-weight:700;color:var(--nau);line-height:1.35;margin-top:6px}
+.asp .ben p {margin:10px 0 0;color:var(--text);font-size:15px;line-height:1.7}
+@media (max-width:860px) {
+  .asp .ben {grid-template-columns:1fr}
+}
+.asp .dt-logo {list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.asp .dt-logo li {background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 14px 14px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.asp .dt-logo .lg {height:72px;width:100%;display:flex;align-items:center;justify-content:center}
+.asp .dt-logo img {max-height:64px;max-width:min(150px,100%);width:auto;height:auto;object-fit:contain}
+.asp .dt-logo i {font-style:normal;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--cam-dam);margin-top:12px;line-height:1.4}
+.asp .dt-logo b {font-size:15px;color:var(--nau);margin-top:3px}
+.asp .dt-logo li.chu .lg {font-size:22px;font-weight:700;color:var(--nau);letter-spacing:.04em}
+@media (max-width:980px) {
+  .asp .dt-logo {grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:520px) {
+  .asp .dt-logo {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+.asp .faq {max-width:880px;margin:0 auto}
+.asp .faq details {background:#fff;border-radius:14px;margin-bottom:10px;border:1px solid var(--line)}
+.asp .faq summary {list-style:none;cursor:pointer;padding:19px 56px 19px 22px;font-weight:700;color:var(--nau);font-size:16px;position:relative;line-height:1.45}
+.asp .faq summary::-webkit-details-marker {display:none}
+.asp .faq summary::marker {content:""}
+.asp .faq summary::after {content:"";position:absolute;right:22px;top:50%;width:10px;height:10px;border-right:2px solid var(--cam-dam);border-bottom:2px solid var(--cam-dam);transform:translateY(-70%) rotate(45deg);transition:transform .25s}
+.asp .faq details[open] summary::after {transform:translateY(-30%) rotate(-135deg)}
+.asp .faq details p {margin:0;padding:0 22px 20px;color:var(--text);font-size:16px;line-height:1.7}
+.asp .cta {position:relative;background:var(--nau);padding:clamp(64px,7vw,110px) 22px;overflow:hidden}
+.asp .cta>img {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%}
+.asp .cta-shade {position:absolute;inset:0;background:linear-gradient(90deg,rgba(43,31,19,.96) 0%,rgba(43,31,19,.82) 46%,rgba(43,31,19,.2) 100%)}
+.asp .cta-in {position:relative;max-width:1180px;margin:0 auto}
+.asp .cta-box {max-width:640px}
+.asp .cta h2 {color:#fff}
+.asp .cta .lead {color:#fff;font-size:clamp(17px,1.6vw,19px);line-height:1.6;margin:16px 0 0;font-weight:500}
+.asp .cta ul {list-style:none;padding:0;margin:clamp(18px,2.2vw,28px) 0 0}
+.asp .cta ul li {color:#fff;font-size:clamp(15px,1.5vw,16.5px);line-height:1.6;padding:7px 0 7px 30px;position:relative}
+.asp .cta ul li::before {content:"";position:absolute;left:2px;top:14px;width:14px;height:8px;border-left:2px solid var(--cam-2);border-bottom:2px solid var(--cam-2);transform:rotate(-45deg)}
+.asp .cta .loai {display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}
+.asp .cta .loai li {padding:6px 14px;border:1px solid rgba(255,178,127,.55);border-radius:999px;font-size:15px;font-weight:600}
+.asp .cta .loai li::before {display:none}
+.asp .cta .ket {color:#fff;font-size:15px;margin:20px 0 0;padding-top:18px;border-top:1px solid rgba(255,178,127,.3)}
+.asp footer {background:#1E150C;padding:clamp(44px,4.4vw,64px) 22px;color:#D9C8B8}
+.asp .ft {max-width:1180px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:clamp(22px,3vw,44px);align-items:center}
+.asp .ft .era {width:98px;height:auto}
+.asp .ft .asp-logo {width:120px;height:auto}
+.asp .ft .fb>span {display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--cam-2);font-weight:700}
+.asp .ft .fb strong {display:block;font-size:clamp(20px,2.2vw,27px);color:#fff;font-weight:700;margin-top:6px;line-height:1.3}
+.asp .ft p {font-size:15px;line-height:1.75;margin:12px 0 0;color:#E3D5C8;max-width:700px}
+.asp .ft-legal {max-width:1180px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);font-size:13px;line-height:1.75;color:#CDBBAA}
+@media (max-width:860px) {
+  .asp .ft {grid-template-columns:auto 1fr}
+  .asp .ft .asp-logo {grid-column:span 2}
+}
+@media (max-width:560px) {
+  .asp .ft {grid-template-columns:1fr}
+  .asp .ft .asp-logo {grid-column:auto}
+}
+.asp .lb {position:fixed;inset:0;z-index:600;background:rgba(24,17,10,.95);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
+.asp .lb.open {display:flex}
+.asp .lb img {max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
+.asp .lb button {position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.asp .lb p {position:absolute;top:18px;left:18px;right:70px;margin:0;color:#EADCCF;font-size:13px}
+@media (prefers-reduced-motion:reduce) {
+  .asp .anh-ti figure img, .asp .tv-anh img {transition:none}
+}
+.asp .nav .nav-tel {font-weight:700;color:var(--cam-dam)}
+.asp .nav .nav-cta {background:var(--cam-dam);color:#fff;border-radius:999px;padding:10px 20px;font-weight:700}
+.asp .nav .nav-cta:hover, .asp .nav .nav-cta.on {background:var(--cam-dam-2);color:#fff}
+.asp .brand {flex-shrink:0}
+@media (min-width:1121px) and (max-width:1580px) {
+  .asp .nav {gap:18px}
+  .asp .nav .opt {display:none}
+}
+@media (max-width:1120px) {
+  .asp .hdr.open .nav a.nav-cta {margin-top:18px;text-align:center;border-bottom:0;padding:15px}
+}
+.asp .spec-box .nut {align-self:flex-start;margin-top:16px;background:var(--cam-dam);color:#fff}
+.asp .spec-box .nut:hover {background:var(--cam-dam-2);color:#fff}
+.asp .cta-in.co-form {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:clamp(26px,3.4vw,56px);align-items:center}
+.asp .form-card {background:#fff;border-radius:18px;padding:clamp(24px,2.8vw,36px);box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.asp .form-card .t {font-family:var(--sans);font-size:24px;font-weight:700;color:var(--nau);line-height:1.3;text-transform:uppercase}
+.asp .form-card .s {font-size:14px;color:var(--muted);margin-top:6px;line-height:1.5}
+.asp .form-card form {display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.asp .field {border:1.5px solid var(--line-2);border-radius:12px;padding:14px;font-size:16px;font-family:inherit;outline:none;min-width:0;width:100%;background:#fff;color:var(--ink)}
+.asp .field:focus {border-color:var(--cam)}
+.asp select.field {appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23B8460C' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 16px center;padding-right:40px}
+.asp .form-card .nut {margin-top:4px;width:100%;justify-content:center;border:0;cursor:pointer;font-family:inherit;background:var(--cam-dam);color:#fff;padding:16px}
+.asp .form-card .nut:hover {background:var(--cam-dam-2);color:#fff}
+.asp .form-card .nut:disabled {opacity:.7;cursor:default}
+.asp .form-card .hot {margin:16px 0 0;text-align:center;font-size:14px;color:var(--muted)}
+.asp .form-card .hot a {font-weight:700;color:var(--cam-dam);font-size:17px}
+.asp .msg {border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.5}
+.asp .msg.ok {background:var(--sand);color:var(--cam-dam)}
+.asp .msg.err {background:var(--cream);color:var(--cam-dam);border:1.5px solid var(--cam)}
+.asp .ft-dc {max-width:1180px;margin:18px auto 0;text-align:center;font-size:14px;color:#E3D5C8}
+.asp footer .links {display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:1180px;margin:22px auto 0}
+.asp footer .links a {color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:10px 20px;font-size:14px;font-weight:700}
+.asp footer .links a:hover {background:rgba(255,255,255,.1);color:#fff}
+.asp .bar {position:fixed;left:0;right:0;bottom:0;z-index:300;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;gap:10px;box-shadow:0 -6px 20px rgba(0,0,0,.12);transform:translateY(110%);transition:transform .3s}
+.asp .bar.show {transform:none}
+.asp .bar a {flex:1;display:flex;align-items:center;justify-content:center;white-space:nowrap;padding:12px 6px;border-radius:999px;font-weight:700;font-size:14px;border:1.5px solid var(--cam-dam);color:var(--cam-dam)}
+.asp .bar a.chinh {background:var(--cam-dam);color:#fff;flex:1.4}
+@media (max-width:900px) {
+  .asp .cta-in.co-form {grid-template-columns:1fr}
+}
+@media (max-width:760px) {
+  .asp .bar {display:flex}
+  .asp footer {padding-bottom:110px}
+}
+@media (max-width:560px) {
+  .asp .spec-box .nut {align-self:stretch;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce) {
+  .asp .bar {transition:none}
+}
+
+/* Override: dung font self-host (prefix ASP-) thay vi ten font goc trong mau */
+.asp { --sans:'ASP Montserrat', system-ui, sans-serif; }
+
+
+/* ===== Popup form (them tay theo style landing — mau goc khong co popup) ===== */
+.asp .modal { position:fixed; inset:0; z-index:700; background:rgba(36,25,15,.72); display:flex; align-items:center; justify-content:center; padding:20px; }
+.asp .pop { position:relative; width:100%; max-width:430px; max-height:calc(100svh - 40px); overflow-y:auto; background:#fff; border-radius:18px; padding-bottom:24px; box-shadow:0 30px 80px rgba(0,0,0,.35); }
+.asp .pop .ph { height:150px; }
+.asp .pop .ph img { width:100%; height:100%; object-fit:cover; }
+.asp .pop .x { position:absolute; top:10px; right:10px; width:36px; height:36px; border:0; border-radius:50%; background:rgba(43,31,19,.6); color:#fff; font-size:18px; line-height:1; cursor:pointer; z-index:2; }
+.asp .pop .x:hover { background:rgba(43,31,19,.85); }
+.asp .pop .pt { margin:20px 24px 0; font-size:19px; font-weight:700; color:var(--cam-dam); line-height:1.3; }
+.asp .pop .pn { margin:8px 24px 0; font-size:14px; color:var(--muted); line-height:1.55; }
+.asp .pop form { display:flex; flex-direction:column; gap:12px; margin:16px 24px 0; }
+.asp .pop .hot { margin:16px 24px 0; text-align:center; font-size:13px; color:var(--muted); }
+.asp .pop .hot a { font-weight:700; color:var(--cam-dam); font-size:15px; }
+
+/* Header an khi cuon xuong, hien khi cuon len (class hdr-hide do Navbar.tsx toggle) */
+.asp .hdr { transition: transform 0.3s ease; }
+.asp .hdr.hdr-hide { transform: translateY(-100%); }
+
+/* Nhan tren thanh lien he nhanh mobile (StickyBar dung <button> thay <a.chinh>) */
+.asp .bar button { flex:1.4; cursor:pointer; background:var(--cam); color:#fff; border:1.5px solid var(--cam); border-radius:999px; padding:12px 6px; font-weight:700; font-size:14px; white-space:nowrap; }

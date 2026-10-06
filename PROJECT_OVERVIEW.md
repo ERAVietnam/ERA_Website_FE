@@ -245,6 +245,10 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/du-an-the-westique-residences` | `app/(landing)/du-an-the-westique-residences/page.tsx` | `TheWestiqueLanding` |
 | `/thank-you-westique` | `app/(landing)/thank-you-westique/page.tsx` | `ThankYouWestiquePage` |
 | `/du-an-thanh-phu-centre-point` | `app/(landing)/du-an-thanh-phu-centre-point/page.tsx` | `ThanhPhuLanding` |
+| `/du-an-the-aspira` | `app/(landing)/du-an-the-aspira/page.tsx` | `TheAspiraLanding` |
+| `/pk-beachtro-tower-du-an-blanca-city` | `app/(landing)/pk-beachtro-tower-du-an-blanca-city/page.tsx` | `BeachtroTowerLanding` |
+| `/thank-you-beachtro-tower` | `app/(landing)/thank-you-beachtro-tower/page.tsx` | `ThankYouBeachtroTowerPage` |
+| `/thank-you-the-aspira` | `app/(landing)/thank-you-the-aspira/page.tsx` | `ThankYouTheAspiraPage` |
 | `/thank-you-thanh-phu` | `app/(landing)/thank-you-thanh-phu/page.tsx` | `ThankYouThanhPhuPage` |
 | `/thank-you-palm-river` | `app/(landing)/thank-you-palm-river/page.tsx` | `ThankYouPalmRiverPage` |
 | `/pk-the-aqua-du-an-waterpoint` | `app/(landing)/pk-the-aqua-du-an-waterpoint/page.tsx` | `TheAquaLanding` |

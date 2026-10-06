@@ -23,8 +23,12 @@ export function apiLandingToFormData(landing: Landing): LandingFormData {
   };
 }
 
+interface LandingsManageProps {
+  onBack: () => void;
+}
+
 /** Quản lý landing — 1 key quyền duy nhất: projects.all.landing */
-export function LandingsManage() {
+export function LandingsManage({ onBack }: LandingsManageProps) {
   const [landings, setLandings] = useState<Landing[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -118,6 +122,7 @@ export function LandingsManage() {
           onAdd={handleAdd}
           onEdit={handleEdit}
           onDelete={(id) => setDeletingId(id)}
+          onBack={onBack}
         />
       )}
 

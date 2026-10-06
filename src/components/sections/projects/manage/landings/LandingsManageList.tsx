@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { AdminListHeader } from "@/components/ui/admin/AdminListHeader";
 import { AdminLoading } from "@/components/ui/admin/AdminLoading";
 import { AdminEmptyState } from "@/components/ui/admin/AdminEmptyState";
-import { Plus, ExternalLink, Pencil, Trash2, MapPin } from "lucide-react";
+import { Plus, ExternalLink, Pencil, Trash2, MapPin, ChevronLeft } from "lucide-react";
 import type { Landing } from "@/types/api";
 
 interface Props {
@@ -15,9 +15,10 @@ interface Props {
   onAdd: () => void;
   onEdit: (landing: Landing) => void;
   onDelete: (id: string) => void;
+  onBack: () => void;
 }
 
-export function LandingsManageList({ landings, loading, onAdd, onEdit, onDelete }: Props) {
+export function LandingsManageList({ landings, loading, onAdd, onEdit, onDelete, onBack }: Props) {
   const { hasPermission } = useAuth();
   const canManage = hasPermission("projects.all.landing");
 
@@ -28,6 +29,10 @@ export function LandingsManageList({ landings, loading, onAdd, onEdit, onDelete 
         subtitle="Landing hiển thị card đầu trang /du-an, bấm vào dẫn đến landing page"
       >
         <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={onBack} className="gap-1 text-gray-500">
+            <ChevronLeft size={16} />
+            Quay lại dự án
+          </Button>
           {canManage && (
             <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">
               <Plus size={16} />
