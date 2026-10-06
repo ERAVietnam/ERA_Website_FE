@@ -18,7 +18,7 @@ import { FooterSection } from "./sections/FooterSection";
 
 export function TheWestiqueLanding() {
   return (
-    <main id="top" className="wq relative min-h-screen" style={{ background: "#fff" }}>
+    <main id="top" className="wq relative min-h-screen" style={{ background: "#F7F5EE" }}>
       <LightboxProvider>
         <Navbar />
         <HeroSection />

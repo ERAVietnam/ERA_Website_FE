@@ -14,7 +14,7 @@ export function LocationSection() {
       <div className="wrap">
         <Reveal>
           <div className="head">
-            <span className="vach" aria-hidden="true"></span>
+            <img className="ky" src={`${IMG}/the-westique-residences-chu-ky-song.svg`} width={124} height={88} alt="" aria-hidden="true" loading="lazy" decoding="async" />
             <h2>
               Vị trí <span className="nw">The Westique Residences</span>{" "}
               <span className="dong2">Mặt tiền Kinh Dương Vương, cửa ngõ phía Tây TP.HCM</span>

@@ -9,8 +9,10 @@ import {
   PRODUCT_ROWS,
   UNIT_LAYOUTS,
 } from "../data";
+import { IMG } from "../theme";
 import { Reveal } from "../Reveal";
 import { useLightbox } from "./Lightbox";
+import { wqFormProduct } from "./form-product";
 
 export function ProductsSection() {
   const [floor, setFloor] = useState(FLOOR_PLANS[0].key);
@@ -18,6 +20,14 @@ export function ProductsSection() {
   const openLightbox = useLightbox();
   const curFloor = FLOOR_PLANS.find((f) => f.key === floor)!;
   const curLayout = UNIT_LAYOUTS.find((l) => l.key === layout)!;
+
+  /* Nút "Nhận bảng giá" — ghi loại căn rồi cuộn xuống form đăng ký */
+  const nhanBaoGia = (loai: string) => {
+    wqFormProduct.current = loai;
+    document.querySelector("#dang-ky")?.scrollIntoView({ behavior: "smooth" });
+    const select = document.querySelector<HTMLSelectElement>("#dang-ky select[name='product']");
+    if (select) select.value = loai;
+  };
 
   return (
     <section className="sec bg-cream" id="san-pham">
@@ -59,6 +69,23 @@ export function ProductsSection() {
               Diện tích theo tài liệu chủ đầu tư tháng 08/2026, mang tính tham khảo; số liệu chính
               xác theo hợp đồng mua bán.
             </p>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="bg-nut">
+            <span>Nhận bảng giá từng căn</span>
+            {[
+              { loai: "Studio", label: "Studio" },
+              { loai: "1 phòng ngủ", label: "1PN" },
+              { loai: "2 phòng ngủ", label: "2PN" },
+              { loai: "3 phòng ngủ", label: "3PN" },
+              { loai: "Shophouse", label: "Shophouse" },
+            ].map((b) => (
+              <button key={b.loai} type="button" className="nut cursor-pointer" onClick={() => nhanBaoGia(b.loai)}>
+                {b.label}
+              </button>
+            ))}
           </div>
         </Reveal>
 
@@ -123,6 +150,7 @@ export function ProductsSection() {
         </Reveal>
 
         <Reveal>
+          <img className="ky ky-sub" src={`${IMG}/the-westique-residences-chu-ky-gu.svg`} width={92} height={64} alt="" aria-hidden="true" loading="lazy" decoding="async" />
           <h3 className="sub-h">Nội thất &amp; tiêu chuẩn bàn giao</h3>
           <p className="sub-p">“In urban rhythm” – tinh gọn, cân bằng, linh hoạt</p>
           <div className="nt">

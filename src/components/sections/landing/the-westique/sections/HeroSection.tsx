@@ -5,6 +5,11 @@ import { HERO_FACTS } from "../data";
 import { IMG } from "../theme";
 
 export function HeroSection() {
+  const toForm = (e: React.MouseEvent) => {
+    e.preventDefault();
+    document.querySelector("#dang-ky")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section className="hero" aria-label="Giới thiệu The Westique Residences">
       <picture>
@@ -24,7 +29,6 @@ export function HeroSection() {
       <div className="hero-scrim" aria-hidden="true"></div>
       <div className="hero-in">
         <div className="hero-top">
-          <p className="kick">Less is controlled</p>
           <h1>
             <span className="a">The Westique</span>
             <span className="b">Residences</span>
@@ -34,6 +38,12 @@ export function HeroSection() {
             99 sản phẩm tinh tuyển của VCRE tại 289 Kinh Dương Vương, phường An Lạc – kế bên 2 ga
             tương lai của tuyến Metro số 3A.
           </p>
+          <a className="nut hero-nut" href="#dang-ky" onClick={toForm}>
+            Nhận bảng giá &amp; mặt bằng{" "}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
         </div>
         <div className="hero-bot">
           <ul className="hero-facts">

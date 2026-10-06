@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { IMG } from "../theme";
+import { HOTLINE, HOTLINE_TEL, IMG, ZALO_LINK } from "../theme";
 
 export function FooterSection() {
   return (
@@ -42,6 +42,13 @@ export function FooterSection() {
         và quyết định của chủ đầu tư. Giá bán, chính sách bán hàng và thờI điểm bàn giao căn cứ
         theo công bố chính thức của chủ đầu tư và hợp đồng mua bán.
       </p>
+      <p className="ft-dc">ERA Vietnam · Số 22 - 24, Đường số 5, KĐT Sala, Phường An Khánh, TP. Hồ Chí Minh.</p>
+      <div className="links">
+        <a href={`tel:${HOTLINE_TEL}`}>Hotline: {HOTLINE}</a>
+        <a href={ZALO_LINK} target="_blank" rel="noopener">
+          Zalo tư vấn
+        </a>
+      </div>
     </footer>
   );
 }

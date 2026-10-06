@@ -5,8 +5,9 @@ import { CTA_BULLETS } from "../data";
 import { HOTLINE, HOTLINE_TEL, IMG } from "../theme";
 import { Reveal } from "../Reveal";
 import { submitLeadBeacon } from "../../lib/submit-lead";
+import { wqFormProduct } from "./form-product";
 
-const PRODUCT_TYPES = ["Studio", "1 phòng ngủ", "2 phòng ngủ", "3 phòng ngủ"];
+const PRODUCT_TYPES = ["Studio", "1 phòng ngủ", "2 phòng ngủ", "3 phòng ngủ", "Shophouse"];
 
 /* Khối CTA cuối trang — bổ sung form đăng ký (cấu trúc theo form Thanh Phú,
    đổi màu theo palette The Westique). Gửi về tab "WESTIQUE" của sheet WATERPOINT
@@ -15,12 +16,12 @@ export function CtaSection() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = e.currentTarget;
-    const loai = (f.product as HTMLSelectElement).value;
+    const loai = wqFormProduct.current || (f.product as HTMLSelectElement).value;
     submitLeadBeacon({
       formId: "WS_LEAD",
       hoten: (f.hoten as HTMLInputElement).value,
       sdt: (f.sdt as HTMLInputElement).value,
-      // Có chọn loại sản phẩm: "{loại}-Westique"; không chọn: "-Westique"
+      // Có chọn loại căn: "{loại}-Westique"; không chọn: "-Westique"
       sanpham: (loai ? `${loai}-Westique` : "-Westique"),
       sheet: "WESTIQUE",
     });
@@ -54,15 +55,15 @@ export function CtaSection() {
               ))}
             </ul>
             <p className="ket">
-              Chuyên viên ERA gọi lại trong ngày để gửi tài liệu và hẹn lịch tham quan nhà mẫu.
+              Chuyên viên ERA gọi lại gửi tài liệu và hẹn lịch tham quan nhà mẫu cùng anh/chị.
             </p>
           </div>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="form-card">
-            <div className="t">Đăng ký nhận tài liệu dự án</div>
-            <div className="s">Bảng giá từng căn, chính sách bán hàng và lịch thanh toán mới nhất · Bảo mật thông tin</div>
+            <div className="t">Đăng ký nhận tài liệu</div>
+            <div className="s">Bảng giá từng căn, mặt bằng, chính sách mới nhất và lịch tham quan nhà mẫu · Bảo mật thông tin</div>
             <form onSubmit={onSubmit}>
               <input
                 className="field"
@@ -91,7 +92,7 @@ export function CtaSection() {
                 ))}
               </select>
               <button className="nut cursor-pointer" type="submit">
-                NHẬN TÀI LIỆU DỰ ÁN
+                NHẬN TÀI LIỆU
               </button>
             </form>
             <p className="hot">
