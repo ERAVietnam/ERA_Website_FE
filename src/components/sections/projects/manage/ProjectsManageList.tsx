@@ -43,6 +43,8 @@ interface Props {
   onEdit: (project: Project) => void;
   onDelete: (id: string) => void;
   onAdd: () => void;
+  /** Chuyển sang tab Landing (nút "Tạo landing" bên trái nút Tạo dự án) */
+  onCreateLanding?: () => void;
   onPreview?: (project: Project) => void;
   onPublish?: (id: string) => void;
   onRevoke?: (id: string) => void;
@@ -75,6 +77,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
   onSubmitForReview,
   onReject,
   onViewHistory,
+  onCreateLanding,
 }: Props) {
   const { hasPermission } = useAuth();
 
@@ -89,6 +92,7 @@ export const ProjectsManageList = memo(function ProjectsManageList({
   const total = projects.length;
 
   const canCreate = hasPermission("projects.all.create");
+  const canManageLanding = hasPermission("projects.all.landing");
   const showActionsColumn =
     hasPermission("projects.all.view") ||
     hasPermission("projects.all.update") ||
@@ -102,6 +106,18 @@ export const ProjectsManageList = memo(function ProjectsManageList({
         subtitle={total > 0 ? `Trang ${page} / ${totalPages}` : "Không có dự án nào"}
       >
         <div className="flex items-center gap-2">
+          {canManageLanding && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onCreateLanding}
+              className="gap-2"
+              style={{ backgroundColor: "#fff" }}
+            >
+              <Plus size={16} />
+              Tạo landing
+            </Button>
+          )}
           {canCreate && (
             <Button variant="primary" size="sm" onClick={onAdd} className="gap-2">
               <Plus size={16} />

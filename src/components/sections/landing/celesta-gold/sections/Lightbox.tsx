@@ -56,7 +56,7 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
                 fill
                 sizes="100vw"
                 className="object-contain"
-                style={{ borderRadius: 4, background: "#fff" }}
+                style={{ borderRadius: 4 }}
               />
             </div>
           </motion.div>

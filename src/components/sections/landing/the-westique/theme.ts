@@ -18,4 +18,8 @@ export const theme = {
   line2: "#D9CDB8",
 };
 
+export const HOTLINE = "094.1125.000";
+export const HOTLINE_TEL = "0941125000";
+export const ZALO_LINK = "https://zalo.me/0941125000";
+
 export const IMG = "/landing/the-westique";

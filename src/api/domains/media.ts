@@ -15,7 +15,7 @@ export interface UploadMediaOptions {
 export const mediaApi = {
   uploadImage: (
     file: File,
-    folder?: 'news' | 'magazine' | 'recruitment' | 'projects' | 'agents' | 'authors' | 'monthly-honors' | 'academy' | 'general',
+    folder?: 'news' | 'magazine' | 'recruitment' | 'projects' | 'landings' | 'agents' | 'authors' | 'monthly-honors' | 'academy' | 'general',
     options?: UploadMediaOptions,
   ) => {
     const formData = new FormData();

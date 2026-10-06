@@ -352,7 +352,7 @@
 }
 .wq .lb {position:fixed;inset:0;z-index:600;background:rgba(8,16,30,.95);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
 .wq .lb.open {display:flex}
-.wq .lb img {max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;background:#fff}
+.wq .lb img {max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
 .wq .lb button {position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
 .wq .lb p {position:absolute;top:18px;left:18px;right:70px;margin:0;color:#DCE2EA;font-size:13px}
 @media (prefers-reduced-motion:reduce) {
@@ -362,6 +362,20 @@
 /* Override: dung font self-host (prefix WQ-) thay vi ten font goc trong mau */
 .wq { --display:'WQ Noto Serif Display', Georgia, serif; --sans:'WQ Montserrat', system-ui, sans-serif; }
 
+
+/* ===== Form dang ky (them tay — mau goc la ban khong form) ===== */
+.wq .cta-in.co-form { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,440px); gap:clamp(26px,3.4vw,56px); align-items:center; }
+.wq .form-card { background:#fff; border-radius:18px; padding:clamp(24px,2.8vw,36px); box-shadow:0 24px 60px rgba(0,0,0,.28); }
+.wq .form-card .t { font-family:var(--display); font-size:24px; font-weight:600; color:var(--navy); line-height:1.3; }
+.wq .form-card .s { font-size:14px; color:var(--muted); margin-top:6px; line-height:1.5; }
+.wq .form-card form { display:flex; flex-direction:column; gap:12px; margin-top:20px; }
+.wq .field { border:1.5px solid var(--line-2); border-radius:12px; padding:14px; font-size:16px; font-family:inherit; outline:none; min-width:0; width:100%; background:#fff; color:var(--ink); }
+.wq .field:focus { border-color:var(--dong); }
+.wq select.field { appearance:none; -webkit-appearance:none; background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23102440' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 16px center; padding-right:40px; }
+.wq .form-card .nut { display:inline-flex; align-items:center; justify-content:center; gap:10px; margin-top:4px; width:100%; border:0; border-radius:999px; padding:16px; min-height:48px; background:var(--navy); color:#fff; font-family:inherit; font-weight:700; font-size:15px; cursor:pointer; }
+.wq .form-card .nut:hover { background:var(--navy-2); color:#fff; }
+.wq .form-card .hot { margin:16px 0 0; text-align:center; font-size:14px; color:var(--muted); }
+.wq .form-card .hot a { font-weight:700; color:var(--navy); font-size:17px; }
 
 /* Header an khi cuon xuong, hien khi cuon len (class hdr-hide do Navbar.tsx toggle) */
 .wq .hdr { transition: transform 0.3s ease; }

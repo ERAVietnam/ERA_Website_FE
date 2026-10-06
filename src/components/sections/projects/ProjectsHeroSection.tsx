@@ -6,7 +6,7 @@ import { getProjectCardImage } from "@/lib/projects";
 import { Button } from "@/components/ui/Button";
 import { colors } from "@/lib/theme";
 import { Search, ChevronDown, ArrowRight, MapPin } from "lucide-react";
-import type { Project } from "@/types/api";
+import type { Landing, Project } from "@/types/api";
 
 interface ProjectsHeroSectionProps {
   value?: string;
@@ -16,6 +16,8 @@ interface ProjectsHeroSectionProps {
   showSuggestions?: boolean;
   setShowSuggestions?: (show: boolean) => void;
   onSelectSuggestion?: (project: Project) => void;
+  landingSuggestions?: Landing[];
+  onSelectLandingSuggestion?: (landing: Landing) => void;
 }
 
 export function ProjectsHeroSection({
@@ -26,6 +28,8 @@ export function ProjectsHeroSection({
   showSuggestions = false,
   setShowSuggestions,
   onSelectSuggestion,
+  landingSuggestions = [],
+  onSelectLandingSuggestion,
 }: ProjectsHeroSectionProps) {
   return (
     <section className="relative w-full">
@@ -88,8 +92,53 @@ export function ProjectsHeroSection({
               placeholder="Khám phá giỏ hàng 100+ dự án của ERA"
               className="hidden md:block flex-1 min-w-0 bg-transparent text-sm outline-none text-gray-700 placeholder:text-gray-400"
             />
-            {showSuggestions && suggestions.length > 0 && (
+            {showSuggestions && (suggestions.length > 0 || landingSuggestions.length > 0) && (
               <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-100 overflow-y-auto max-h-[340px] z-20">
+                {landingSuggestions.map((landing) => {
+                  const thumbnailUrl = landing.imageMedia?.url;
+                  return (
+                    <button
+                      key={landing.id}
+                      type="button"
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        onSelectLandingSuggestion?.(landing);
+                      }}
+                      className="w-full text-left px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 transition-colors"
+                    >
+                      <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-gray-100 shrink-0">
+                        {thumbnailUrl ? (
+                          <Image
+                            src={thumbnailUrl}
+                            alt={landing.title}
+                            fill
+                            className="object-cover"
+                            sizes="48px"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-400">
+                            <span className="text-xs">No img</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-sm font-semibold text-gray-900 truncate">
+                          {landing.title}
+                        </span>
+                        <span className="text-xs text-gray-500 truncate flex items-center gap-1">
+                          <MapPin size={10} className="shrink-0" />
+                          {landing.location || "—"}
+                        </span>
+                      </div>
+                      <span
+                        className="ml-auto shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white"
+                        style={{ backgroundColor: colors.primary.DEFAULT }}
+                      >
+                        Landing
+                      </span>
+                    </button>
+                  );
+                })}
                 {suggestions.map((project) => {
                   const thumbnailUrl = getProjectCardImage(project);
                   return (

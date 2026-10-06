@@ -243,6 +243,7 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/du-an-palm-river` | `app/(landing)/du-an-palm-river/page.tsx` | `PalmRiverLanding` |
 | `/du-an-celesta-gold` | `app/(landing)/du-an-celesta-gold/page.tsx` | `CelestaGoldLanding` |
 | `/du-an-the-westique-residences` | `app/(landing)/du-an-the-westique-residences/page.tsx` | `TheWestiqueLanding` |
+| `/thank-you-westique` | `app/(landing)/thank-you-westique/page.tsx` | `ThankYouWestiquePage` |
 | `/du-an-thanh-phu-centre-point` | `app/(landing)/du-an-thanh-phu-centre-point/page.tsx` | `ThanhPhuLanding` |
 | `/thank-you-thanh-phu` | `app/(landing)/thank-you-thanh-phu/page.tsx` | `ThankYouThanhPhuPage` |
 | `/thank-you-palm-river` | `app/(landing)/thank-you-palm-river/page.tsx` | `ThankYouPalmRiverPage` |
@@ -369,13 +370,17 @@ const nextConfig = {
 
 ### Public pages
 - `/du-an` tải danh sách dự án đã publish từ API và hỗ trợ tìm kiếm.
-- Search dùng query `?search=...`; trang danh sách đọc query này khi render server-side.
+- **Landing**: card landing (API riêng `GET /landings`, bảng `landings` tách hoàn toàn khỏi `projects`) luôn hiển thị **trước** các card dự án; bấm vào card dẫn đến `url` do admin cấu hình (thường là route landing page). Mock cứng Phú Gia Bảo Lộc trước đây đã được thay bằng dữ liệu landing.
+- Search dùng query `?search=...`; trang danh sách đọc query này khi render server-side. Từ khóa search lọc **đồng thờI** cả landing (client-side theo title/vị trí/tags) lẫn dự án (API), và dropdown gợi ý hiển thị cả hai loại (landing có badge đỏ "Landing").
 - Chọn một item trong dropdown gợi ý đi thẳng tới `/du-an/[slug]`.
 - Nhấn Enter hoặc nút `TÌM` điều hướng về `/du-an/?search=...`.
 - `/du-an/[slug]` dùng ISR (`revalidate = 300`), metadata động và chỉ lấy project đã publish.
 
 ### Admin pages
 - `/du-an/quan-ly/` quản lý dự án với bộ lọc tìm kiếm theo tên, trạng thái xuất bản, tỉnh/thành phố và **tags đa lựa chọn** (`TagFilter`).
+- Trang quản lý có **tab Dự án | Landing**. Tab Landing quản lý CRUD landing (title, vị trí, tags nhập tự do từng dòng có nút + / −, URL dẫn đến, ảnh bìa upload folder `landings`). Nút "Tạo landing" (viền đỏ, bg trắng, chữ đỏ) nằm bên trái nút "Tạo dự án" trong header list dự án.
+- **Quyền**: chỉ 1 key duy nhất `projects.all.landing` (nhóm quyền "Dự án") — có key này được xem/thêm/sửa/xóa landing; BE áp key này cho cả 4 endpoint admin `/landings`.
+- API landing riêng: `GET /landings` (public, chỉ trả bản có ảnh bìa), `GET/POST/PATCH/DELETE /landings[/:id]` (admin, guard `projects.all.landing`). Domain FE `src/api/domains/landings.ts`.
 - Tags filter gửi query `tags=tag1,tag2` về API; BE dùng `hasEvery` để lọc dự án chứa tất cả tag đã chọn.
 - Tỉnh/thành phố filter dùng dropdown từ `VIETNAM_PROVINCES`, gửi query `province` về API; BE lọc bằng `location contains province`.
 

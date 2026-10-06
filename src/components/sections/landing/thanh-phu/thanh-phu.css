@@ -344,11 +344,11 @@
 }
 @media (max-width:560px) {
   .tp .ft {grid-template-columns:1fr}
-  .tp .ft .tp {grid-column:auto}
+  .tp .ft .tp-logo {grid-column:auto}
 }
 .tp .lb {position:fixed;inset:0;z-index:600;background:rgba(20,0,32,.95);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
 .tp .lb.open {display:flex}
-.tp .lb img {max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;background:#fff}
+.tp .lb img {max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
 .tp .lb button {position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
 .tp .lb p {position:absolute;top:18px;left:18px;right:70px;margin:0;color:#E6DCEC;font-size:13px}
 @media (prefers-reduced-motion:reduce) {
@@ -391,7 +391,6 @@
 .tp .bar {position:fixed;left:0;right:0;bottom:0;z-index:300;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;gap:10px;box-shadow:0 -6px 20px rgba(0,0,0,.12);transform:translateY(110%);transition:transform .3s}
 .tp .bar.show {transform:none}
 .tp .bar a {flex:1;display:flex;align-items:center;justify-content:center;white-space:nowrap;padding:12px 6px;border-radius:999px;font-weight:700;font-size:14px;border:1.5px solid var(--tim);color:var(--tim)}
-.tp .bar button {flex:1.4;cursor:pointer;background:var(--tim);color:#fff;border:1.5px solid var(--tim);border-radius:999px;padding:12px 6px;font-weight:700;font-size:14px;white-space:nowrap}
 .tp .bar a.chinh {background:var(--tim);color:#fff;flex:1.4}
 @media (max-width:900px) {
   .tp .cta-in.co-form {grid-template-columns:1fr}
@@ -427,3 +426,6 @@
 /* Header an khi cuon xuong, hien khi cuon len (class hdr-hide do Navbar.tsx toggle) */
 .tp .hdr { transition: transform 0.3s ease; }
 .tp .hdr.hdr-hide { transform: translateY(-100%); }
+
+/* Nhan tren thanh lien he nhanh mobile (StickyBar dung <button> thay <a.chinh>) */
+.tp .bar button { flex:1.4; cursor:pointer; background:var(--tim); color:#fff; border:1.5px solid var(--tim); border-radius:999px; padding:12px 6px; font-weight:700; font-size:14px; white-space:nowrap; }

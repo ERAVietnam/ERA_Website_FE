@@ -43,6 +43,7 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/du-an-palm-river": { header: false, footer: true, toTop: false },
   "/du-an-celesta-gold": { header: false, footer: true, toTop: false },
   "/du-an-the-westique-residences": { header: false, footer: true, toTop: false },
+  "/thank-you-westique": { header: false, footer: false, toTop: false },
   "/du-an-thanh-phu-centre-point": { header: false, footer: true, toTop: false },
   "/thank-you-thanh-phu": { header: false, footer: false, toTop: false },
   "/thank-you-palm-river": { header: false, footer: false, toTop: false },

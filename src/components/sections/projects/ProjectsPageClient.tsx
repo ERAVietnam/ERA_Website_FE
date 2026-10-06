@@ -1,22 +1,24 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { ProjectsHeroSection } from "./ProjectsHeroSection";
 import { ProjectsListSection } from "./ProjectsListSection";
 import { projectsApi } from "@/api/domains/projects";
-import type { Project, PaginationMeta } from "@/types/api";
+import type { Landing, Project, PaginationMeta } from "@/types/api";
 
 interface ProjectsPageClientProps {
   initialProjects: Project[];
   initialMeta: PaginationMeta;
   initialSearch?: string;
+  initialLandings?: Landing[];
 }
 
 export function ProjectsPageClient({
   initialProjects,
   initialMeta,
   initialSearch = "",
+  initialLandings = [],
 }: ProjectsPageClientProps) {
   const router = useRouter();
   const [inputValue, setInputValue] = useState(initialSearch);
@@ -58,6 +60,23 @@ export function ProjectsPageClient({
     router.push(`/du-an/${project.slug}/`);
   };
 
+  /* Gợi ý landing khớp từ khóa — search cả title, vị trí và tags của landing */
+  const landingSuggestions = useMemo(() => {
+    const q = inputValue.trim().toLowerCase();
+    if (!q) return [];
+    return initialLandings
+      .filter((l) =>
+        [l.title, l.location, ...l.tags].some((t) => t.toLowerCase().includes(q))
+      )
+      .slice(0, 4);
+  }, [inputValue, initialLandings]);
+
+  const handleSelectLandingSuggestion = (landing: Landing) => {
+    setInputValue(landing.title);
+    setShowSuggestions(false);
+    router.push(landing.url);
+  };
+
   return (
     <main>
       <ProjectsHeroSection
@@ -71,11 +90,14 @@ export function ProjectsPageClient({
         showSuggestions={showSuggestions}
         setShowSuggestions={setShowSuggestions}
         onSelectSuggestion={handleSelectSuggestion}
+        landingSuggestions={landingSuggestions}
+        onSelectLandingSuggestion={handleSelectLandingSuggestion}
       />
       <ProjectsListSection
         initialProjects={initialProjects}
         initialMeta={initialMeta}
         searchQuery={searchQuery}
+        landings={initialLandings}
       />
     </main>
   );
