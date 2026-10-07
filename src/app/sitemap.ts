@@ -39,6 +39,8 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/du-an-green-skyline/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-diamond-sky/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-the-legend-da-nang/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/du-an-nobu-da-nang/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/du-an-imperia-sensa-park/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-nam-mekong-grand-plaza/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-palm-river/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-celesta-gold/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },

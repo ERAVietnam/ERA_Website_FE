@@ -60,6 +60,10 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/thank-you-diamond-sky": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-the-legend-da-nang": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-the-legend-da-nang": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-nobu-da-nang": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-nobu-da-nang": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-imperia-sensa-park": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-imperia-sensa-park": { header: false, footer: false, toTop: false, contentPadding: false },
 };
 
 function normalizePathname(pathname: string): string {

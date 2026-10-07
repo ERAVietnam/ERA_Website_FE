@@ -1,0 +1,18 @@
+/* Font theo booklet CĐT 09/2026 (đo bằng PyMuPDF 06/10/2026):
+   - Tiêu đề: SVN-BonVoyage (Bon Voyage – MadeType, Việt hoá STYLEno.1) — đúng font CĐT
+   - Chữ thường: Inter (OFL) — thay SVN-Selecta của CĐT (gần dáng nhất, đủ độ đậm)
+   Cả 2 file đã cắt còn Latin + tiếng Việt. */
+@font-face {
+  font-family: 'SVN-BonVoyage';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("svn-bonvoyage.woff2") format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("inter-vi.woff2") format('woff2');
+}
