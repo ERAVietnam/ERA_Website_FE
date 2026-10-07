@@ -5,7 +5,7 @@ import { Reveal } from "../Reveal";
 
 export function FaqSection() {
   return (
-    <section className="sec bg-paper" id="hoi-dap">
+    <section className="sec" id="hoi-dap">
       <div className="wrap">
         <Reveal>
           <div className="head c">

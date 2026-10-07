@@ -56,6 +56,10 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/du-an-skysolis": { header: false, footer: true, toTop: false },
   "/du-an-green-skyline": { header: false, footer: true, toTop: false },
   "/thank-you-green-skyline": { header: false, footer: false, toTop: false },
+  "/du-an-diamond-sky": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-diamond-sky": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-the-legend-da-nang": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-the-legend-da-nang": { header: false, footer: false, toTop: false, contentPadding: false },
 };
 
 function normalizePathname(pathname: string): string {
