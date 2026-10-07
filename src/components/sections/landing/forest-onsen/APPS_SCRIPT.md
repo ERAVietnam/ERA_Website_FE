@@ -7,7 +7,7 @@ Frontend (browser) → **POST `/api/submit-lead`** (Next.js API Route, cùng ori
 Sheet **"DATA WEB ERA"** gồm 3 tab:
 - `ECO RETREAT - FOREST ONSEN` — 16 cột A–P, form FORM1–FORM4
 - `ECO RETREAT - RỪNG PHƯỢNG` — 16 cột A–P, form RP_FORM1 (LeadBand), RP_FORM2 (popup)
-- `PHÚ GIA BẢO LỘC` — 18 cột A–R (thêm `Email` và `Lờ i nhắn` ở cuối), form PGBL_CONTACT
+- `PHÚ GIA BẢO LỘC` và `DIAMOND SKY` — 18 cột A–R (thêm `Email` và `Lờ i nhắn` ở cuối)
 
 Ngoài `doPost`, script còn có `checkAndSendEmailNewCustomers()` (trigger theo thờ i gian) gửi email thông báo khi có lead mới ở cả 3 tab.
 
@@ -41,8 +41,8 @@ function doPost(e) {
     Logger.log("Matched sheet: " + (matchedSheet ? matchedSheet.getName() : "NOT FOUND"));
     Logger.log("Payload: " + JSON.stringify(data));
 
-    // Chỉ tab PHÚ GIA BẢO LỘC mới có thêm 2 cột Email & Lờ i nhắn
-    const isPGBL = targetName.toLowerCase() === "phú gia bảo lộc";
+    // Hai tab có thêm 2 cột Email & Lời nhắn
+    const hasOptionalContact = ["phú gia bảo lộc", "diamond sky"].includes(targetName.toLowerCase());
 
     const baseHeaders = [
       "Timestamp", "Họ tên", "SĐT", "URL gốc",
@@ -51,7 +51,7 @@ function doPost(e) {
       "IP", "Form ID", "User Agent", "Sản phẩm"
     ];
 
-    const expectedHeaders = isPGBL
+    const expectedHeaders = hasOptionalContact
       ? [...baseHeaders, "Email", "Lờ i nhắn"]
       : baseHeaders;
 
@@ -79,7 +79,7 @@ function doPost(e) {
       data.sanpham || "",                          // P: Sản phẩm
     ];
 
-    if (isPGBL) {
+    if (hasOptionalContact) {
       sheet.appendRow([
         ...baseRow,
         data.email || "",    // Q: Email

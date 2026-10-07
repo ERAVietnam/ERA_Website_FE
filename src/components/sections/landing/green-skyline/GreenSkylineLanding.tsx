@@ -40,7 +40,7 @@ export function GreenSkylineLanding() {
           <UnitsSection />
           <HandoverSection />
           <InvestorSection />
-          <PolicySection />
+          {/* <PolicySection /> */}
           <FaqSection />
           <LeadSection />
           <FooterSection />

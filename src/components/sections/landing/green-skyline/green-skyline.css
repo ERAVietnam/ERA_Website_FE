@@ -120,7 +120,7 @@
 .gs .gtri .nd {padding:clamp(20px,2vw,28px)}
 .gs .gtri .so {display:block;font-family:var(--display);font-size:44px;line-height:1;color:var(--gold);font-weight:400}
 .gs .gtri h3 {font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(22px,2vw,26px);color:var(--green);line-height:1.2;margin-top:10px}
-.gs .gtri p {margin:10px 0 0;font-size:15px;line-height:1.7}
+.gs .gtri .value-copy {margin:10px 0 0;font-size:15px;line-height:1.7}
 .gs .gtri ul {margin:10px 0 0;padding:0;list-style:none}
 .gs .gtri ul li {border:0;border-radius:0;display:block;position:relative;padding:5px 0 5px 18px;font-size:14.5px;line-height:1.55;background:none}
 .gs .gtri ul li::before {content:"";position:absolute;left:2px;top:13px;width:6px;height:6px;background:var(--gold)}

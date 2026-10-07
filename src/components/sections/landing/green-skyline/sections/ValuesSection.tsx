@@ -38,7 +38,7 @@ export function ValuesSection() {
                 <div className="nd">
                   <span className="so">{v.so}</span>
                   <h3>{v.h3}</h3>
-                  <p>{v.p}</p>
+                  <div className="value-copy">{v.p}</div>
                 </div>
               </li>
             ))}

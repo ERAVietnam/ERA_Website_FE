@@ -20,7 +20,7 @@ export function FooterSection() {
           <div className="fb">
             <span>ERA Vietnam</span>
             <strong>
-              Đại lý phân phối dự án <span className="nw">Green Skyline</span>
+              Đại lý chính thức phân phối dự án <span className="nw">Green Skyline</span>
             </strong>
           </div>
           <p>
