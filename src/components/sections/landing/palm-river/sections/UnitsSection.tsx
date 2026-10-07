@@ -95,7 +95,7 @@ export function UnitsSection() {
           </div>
         </Reveal>
 
-        <Reveal>
+        {/* <Reveal>
           <table className="cmp">
             <caption>Diện tích tham khảo các loại căn (theo mặt bằng chủ đầu tư)</caption>
             <thead>
@@ -121,7 +121,7 @@ export function UnitsSection() {
               ))}
             </tbody>
           </table>
-        </Reveal>
+        </Reveal> */}
       </div>
     </section>
   );

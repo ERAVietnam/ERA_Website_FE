@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { IMG } from "../theme";
-import { Reveal } from "../Reveal";
 
 const FACTS = [
   { b: "1.622", span: "Căn hộ" },
@@ -27,23 +26,22 @@ export function HeroSection() {
         />
       </picture>
       <div className="hero-scrim" aria-hidden="true"></div>
-      <div className="hero-in" style={{ paddingLeft: "clamp(68px, 11vw, 192px)" }}>
-        <Reveal>
-          <div className="hero-box">
-            <h1>
-              Nam Mekong Grand Plaza{" "}
-              <em>Tiên phong đánh thức dòng chảy tiềm năng ẩn sâu trong lòng đô thị</em>
-            </h1>
-            <ul className="hero-facts">
-              {FACTS.map((f) => (
-                <li key={f.b}>
-                  <b>{f.b}</b>
-                  <span>{f.span}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
+      <div className="hero-in">
+        {/* hero-box phải là flex item trực tiếp của .hero-in để margin:auto căn giữa theo wrap — không bọc Reveal */}
+        <div className="hero-box">
+          <h1>
+            Nam Mekong Grand Plaza{" "}
+            <em>Tiên phong đánh thức dòng chảy tiềm năng ẩn sâu trong lòng đô thị</em>
+          </h1>
+          <ul className="hero-facts">
+            {FACTS.map((f) => (
+              <li key={f.b}>
+                <b>{f.b}</b>
+                <span>{f.span}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
