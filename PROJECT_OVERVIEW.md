@@ -239,6 +239,7 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/pk-nagomi-du-an-waterpoint` | `app/(landing)/pk-nagomi-du-an-waterpoint/page.tsx` | `RiveraNagomiLanding` |
 | `/tuyen-dung-thu-cap` | `app/tuyen-dung-thu-cap/page.tsx` | `ResalesPage` |
 | `/du-an-nam-mekong-grand-plaza` | `app/(landing)/du-an-nam-mekong-grand-plaza/page.tsx` | `NamMekongLanding` |
+| `/thank-you-nam-mekong` | `app/(landing)/thank-you-nam-mekong/page.tsx` | `ThankYouNamMekongPage` |
 | `/pk-park-village-du-an-waterpoint` | `app/(landing)/pk-park-village-du-an-waterpoint/page.tsx` | `ParkVillageLanding` |
 | `/du-an-palm-river` | `app/(landing)/du-an-palm-river/page.tsx` | `PalmRiverLanding` |
 | `/du-an-celesta-gold` | `app/(landing)/du-an-celesta-gold/page.tsx` | `CelestaGoldLanding` |

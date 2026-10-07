@@ -34,7 +34,7 @@ export function PolicySection() {
 
         <Reveal>
           <p className="cs-h">Tài chính linh hoạt</p>
-          <p className="cs-p">Theo thông tin báo chí tháng 4/2026</p>
+          <p className="cs-p">Thông tin cập nhập 09/2026</p>
         </Reveal>
 
         <Reveal>
@@ -50,7 +50,7 @@ export function PolicySection() {
 
         <Reveal>
           <p className="cs-note">
-            Chính sách tổng hợp theo thông tin báo chí tháng 4/2026, áp dụng theo công bố chính
+            Chính sách tổng hợp theo Thông tin cập nhập 09/2026, áp dụng theo công bố chính
             thức của chủ đầu tư từng thờI điểm. Lãi suất, hạn mức vay theo thẩm định của ngân hàng.
           </p>
           <p className="ct">

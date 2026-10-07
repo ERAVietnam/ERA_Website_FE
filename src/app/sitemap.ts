@@ -36,6 +36,7 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/pk-the-aqua-du-an-waterpoint/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/pk-park-village-du-an-waterpoint/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-skysolis/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/du-an-green-skyline/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-nam-mekong-grand-plaza/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-palm-river/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-celesta-gold/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },

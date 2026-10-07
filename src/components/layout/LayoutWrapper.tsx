@@ -39,6 +39,7 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/pk-nagomi-du-an-waterpoint": { header: false, footer: true, toTop: false },
   "/tuyen-dung-thu-cap": { header: false },
   "/du-an-nam-mekong-grand-plaza": { header: false, footer: true, toTop: false },
+  "/thank-you-nam-mekong": { header: false, footer: false, toTop: false },
   "/pk-park-village-du-an-waterpoint": { header: false, footer: true, toTop: false },
   "/du-an-palm-river": { header: false, footer: true, toTop: false },
   "/du-an-celesta-gold": { header: false, footer: true, toTop: false },
@@ -53,6 +54,8 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/thank-you-palm-river": { header: false, footer: false, toTop: false },
   "/pk-the-aqua-du-an-waterpoint": { header: false, footer: true, toTop: false },
   "/du-an-skysolis": { header: false, footer: true, toTop: false },
+  "/du-an-green-skyline": { header: false, footer: true, toTop: false },
+  "/thank-you-green-skyline": { header: false, footer: false, toTop: false },
 };
 
 function normalizePathname(pathname: string): string {

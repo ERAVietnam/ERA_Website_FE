@@ -469,10 +469,10 @@ export const SHOWROOMS: Showroom[] = [
 
 /* ===== Chính sách ===== */
 export const POLICY_CARDS = [
-  { b: (<>20<small>%</small></>), span: "Khách hàng thanh toán 20%, ngân hàng cho vay tới 80%" },
-  { b: (<>24<small> tháng</small></>), span: "Hỗ trợ lãi suất 24 tháng, ân hạn nợ gốc tới 6 năm" },
-  { b: (<>6,8<small> triệu/tháng</small></>), span: "Trả góp chỉ từ 6,8 triệu đồng mỗi tháng" },
-  { b: (<>8<small>%</small></>), span: "Thanh toán nhanh: chiết khấu đến 8%" },
+  { b: (<>30<small>%</small></>), span: "Thanh toán 30% cho đến khi nhận nhà" },
+  { b: (<>36<small> tháng</small></>), span: "Hỗ trợ lãi suất 36 tháng, ân hạn nợ gốc tới 6 năm" },
+  { b: (<>80<small>%</small></>), span: "Ngân hàng hỗ trợ đến 80%" },
+  { b: (<>14<small>%</small></>), span: "Thanh toán nhanh: chiết khấu đến 14%" },
   { b: (<>80<small> triệu</small></>), span: "Tặng gói Smart Home trị giá 80 triệu đồng" },
   { b: (<>12<small> tháng</small></>), span: "Tặng 12 tháng phí quản lý" },
 ];
@@ -512,7 +512,7 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Giá căn hộ The Aspira bao nhiêu?",
-    a: "Giá tham khảo The Aspira từ khoảng 37,9 triệu đồng/m². Theo thông tin báo chí tháng 4/2026, khách hàng thanh toán 20%, ngân hàng cho vay tới 80%, hỗ trợ lãi suất 24 tháng và ân hạn nợ gốc tới 6 năm. Bảng giá từng căn theo công bố của chủ đầu tư tại thờI điểm giao dịch.",
+    a: "Giá tham khảo The Aspira từ khoảng 37,9 triệu đồng/m². Thông tin cập nhập 09/2026: khách hàng thanh toán 30% cho đến khi nhận nhà, ngân hàng hỗ trợ đến 80%, hỗ trợ lãi suất 36 tháng và ân hạn nợ gốc tới 6 năm. Bảng giá từng căn theo công bố của chủ đầu tư tại thờI điểm giao dịch.",
   },
   {
     q: "Khi nào The Aspira bàn giao?",
