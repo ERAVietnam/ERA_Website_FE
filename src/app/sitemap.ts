@@ -48,6 +48,8 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/du-an-thanh-phu-centre-point/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-the-aspira/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-hoiana-residences/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/du-an-gem-park/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/du-an-ga-thu-thiem/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/pk-beachtro-tower-du-an-blanca-city/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/chinh-sach-bao-mat/`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
   { url: `${baseUrl}/dieu-khoan-su-dung/`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
