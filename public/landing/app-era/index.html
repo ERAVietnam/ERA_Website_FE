@@ -405,7 +405,7 @@
 <header>
   <div class="container">
     <a class="logo" href="https://era.com.vn/" aria-label="ERA Vietnam - trang chủ"><img src="assets/img/logo-era-real-estate.png" alt="Logo ERA Real Estate" width="40" height="48"></a>
-    <a class="btn btn-primary btn-sm js-app" href="https://app.era.com.vn/register?introducing=ZZ00000">Đăng ký app miễn phí</a>
+    <a class="btn btn-primary btn-sm js-app" target="_top" href="https://app.era.com.vn/register?introducing=ZZ00000">Đăng ký app miễn phí</a>
   </div>
 </header>
 
@@ -416,7 +416,7 @@
       <h1>Làm Agent ERA.<br><span>Giỏ hàng, bảng giá mở sẵn trên điện thoại.</span></h1>
       <p class="sub">My ERA là tất cả những gì bạn cần: thông tin dự án, giỏ hàng, giá từng căn...</p>
       <div class="hero-cta">
-        <a class="btn btn-primary btn-google js-app" href="https://app.era.com.vn/register?introducing=ZZ00000"><span class="g">G</span>Đăng ký My ERA bằng Google</a>
+        <a class="btn btn-primary btn-google js-app" target="_top" href="https://app.era.com.vn/register?introducing=ZZ00000"><span class="g">G</span>Đăng ký My ERA bằng Google</a>
         <a class="btn btn-outline" href="#trong-app">Xem app có gì</a>
       </div>
       <div class="hero-note">Miễn phí, đăng nhập bằng tài khoản Google.</div>
@@ -645,7 +645,7 @@
         <div class="eyebrow">Đăng ký My ERA</div>
         <h2>Đăng ký app, xem thật rồi mới quyết</h2>
         <p class="lead">Đăng nhập bằng Google, điền vài thông tin là dùng được.</p>
-        <a class="btn btn-primary btn-google btn-lg js-app" href="https://app.era.com.vn/register?introducing=ZZ00000"><span class="g">G</span>Đăng ký My ERA bằng Google</a>
+        <a class="btn btn-primary btn-google btn-lg js-app" target="_top" href="https://app.era.com.vn/register?introducing=ZZ00000"><span class="g">G</span>Đăng ký My ERA bằng Google</a>
         <div class="final-note">Đăng ký miễn phí, không ràng buộc phải làm Agent.</div>
       </div>
       <div class="final-shot">
@@ -663,7 +663,7 @@
   </div>
 </footer>
 
-<div class="sticky-cta"><a class="btn btn-primary btn-google js-app" href="https://app.era.com.vn/register?introducing=ZZ00000"><span class="g">G</span>Đăng ký My ERA miễn phí</a></div>
+<div class="sticky-cta"><a class="btn btn-primary btn-google js-app" target="_top" href="https://app.era.com.vn/register?introducing=ZZ00000"><span class="g">G</span>Đăng ký My ERA miễn phí</a></div>
 
 <script>
   /* Mọi nút đăng ký dẫn vào app, giữ nguyên UTM của quảng cáo.
@@ -673,6 +673,7 @@
   var qs = location.search.replace(/^\?/, '');
   var params = /utm_/.test(qs) ? qs : DEFAULT_UTM;
   document.querySelectorAll('.js-app').forEach(function (a) {
+    a.target = '_top';
     a.href = APP_URL + '&' + params;
     a.addEventListener('click', function () {
       if (window.fbq) fbq('track', 'Lead', { content_name: 'click-dang-ky-app' });
