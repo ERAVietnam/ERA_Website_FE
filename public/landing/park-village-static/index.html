@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Park Village Waterpoint – 96 biệt thự Grand Villa | ERA Vietnam</title>
+<meta name="description" content="Park Village: compound 96 biệt thự Grand Villa phong cách châu Âu, 6,6 ha, ba mặt giáp kênh đào, trung tâm khu đô thị Waterpoint, Bến Lức. Đăng ký tham quan.">
+<meta name="keywords" content="Park Village, Park Village Waterpoint, biệt thự Park Village, Garden Grand Villa, Park Grand Villa, Canal Grand Villa, Waterpoint Nam Long, Waterpoint Bến Lức">
+<!-- ⚠️ BẢN XEM THỬ — đang chặn Google vì form chưa nối nơi nhận lead (LEAD_ENDPOINT trong assets/js/park-village.js).
+     Có tên miền + đã nối form thì chạy: python _kiemtra/len-song.py https://<ten-mien> --mo-index -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1D5866">
+<meta name="author" content="ERA Vietnam">
+
+<!-- ⚠️ TÊN MIỀN TẠM (vercel). len-song.py tự đổi mọi chỗ + sitemap + robots -->
+<link rel="canonical" href="https://park-village-waterpoint.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="ERA Vietnam">
+<meta property="og:url" content="https://park-village-waterpoint.vercel.app/">
+<meta property="og:title" content="Park Village – họa phẩm châu Âu của riêng bạn">
+<meta property="og:description" content="Compound 96 biệt thự Grand Villa ba mặt giáp kênh đào, trung tâm khu đô thị Waterpoint. Đăng ký tham quan và nhận thông tin mẫu nhà.">
+<meta property="og:image" content="https://park-village-waterpoint.vercel.app/assets/img/og-park-village-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Park Village Waterpoint – compound 96 biệt thự Grand Villa phong cách châu Âu">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:alt" content="Park Village Waterpoint – compound 96 biệt thự Grand Villa phong cách châu Âu">
+<meta name="twitter:title" content="Park Village – họa phẩm châu Âu của riêng bạn">
+<meta name="twitter:description" content="Compound 96 biệt thự Grand Villa ba mặt giáp kênh đào, trung tâm khu đô thị Waterpoint.">
+<meta name="twitter:image" content="https://park-village-waterpoint.vercel.app/assets/img/og-park-village-1200x630.jpg">
+
+<!-- GEO: toạ độ gần đúng khu Waterpoint, Bến Lức. VN-37 = Tây Ninh (sau sáp nhập 1/7/2025) -->
+<meta name="geo.region" content="VN-37">
+<meta name="geo.placename" content="Bến Lức, Tây Ninh">
+<meta name="geo.position" content="10.655;106.475">
+<meta name="ICBM" content="10.655, 106.475">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231D5866'/%3E%3Cpath d='M32 13c8 10 13 16.5 13 23a13 13 0 0 1-26 0c0-6.5 5-13 13-23z' fill='%23F5D5A0'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/fonts-13.woff2" as="font" type="font/woff2" crossorigin>
+<!-- 2 file Cormorant nghiêng (Việt + Latin) cho dòng chữ vàng ở hero — thiếu thì chữ nhảy khi font về (CLS) -->
+<link rel="preload" href="assets/fonts/fonts-03.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/fonts-05.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/park-village-hero-compound-mobile.webp" media="(max-width:760px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/park-village-hero-compound-ba-mat-kenh-dao.webp" media="(min-width:761px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+
+<style>
+/* Font dự phòng cùng số đo Montserrat (Arial chỉnh cỡ) — chữ không nhảy khi Montserrat tải xong (CLS 0,076 -> ~0) */
+@font-face{font-family:'Montserrat Fallback';src:local('Arial');size-adjust:112.83%;ascent-override:85.79%;descent-override:22.25%;line-gap-override:0%}
+:root{
+  --teal:#1D5866; --teal-2:#2E7C8C; --ink:#10333B; --text:#2A4F57; --muted:#48696F; --soft:#4F6F76;
+  --cream:#FDF3EA; --mist:#F4F9FA; --pale:#D8EAEC; --line:#E3EDEF; --gold:#F5D5A0; --gold-2:#8A6A35;
+  --hdr:66px; --r:16px;
+  --serif:'Cormorant Garamond', Georgia, serif; --sans:'Montserrat','Montserrat Fallback', system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + 8px)}
+html,body{overflow-x:hidden}
+@supports (overflow:clip){ html,body{overflow-x:clip} }
+body{margin:0;font-family:var(--sans);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6}
+img{max-width:100%;display:block}
+a{color:var(--teal);text-decoration:none}
+a:hover{color:var(--teal-2)}
+button,input,select{font-family:var(--sans)}
+.wrap{max-width:1180px;margin:0 auto}
+.sec{padding:clamp(58px,6vw,96px) 22px}
+.bg-mist{background:var(--mist)} .bg-cream{background:var(--cream)} .bg-pale{background:var(--pale)}
+.head{max-width:880px;margin:0 auto 34px;text-align:center}
+h2{color:var(--teal);font-size:clamp(22px,3.1vw,40px);line-height:1.15;font-weight:800;margin:12px 0 0;text-wrap:balance}
+h2 .dong2{display:block;font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold-2);font-size:.72em;line-height:1.25;margin-top:.2em}
+h3{margin:0}
+.fact{max-width:860px;margin:-12px auto clamp(24px,2.6vw,34px);text-align:center;color:var(--text);font-size:17px;line-height:1.75;text-wrap:pretty}
+.serif-lead{font-family:var(--serif);font-style:italic;color:var(--teal);font-size:clamp(18px,2vw,24px);line-height:1.4;margin:12px 0 0;text-wrap:pretty}
+.body{color:var(--text);font-size:17px;line-height:1.75;text-wrap:pretty}
+.note{font-size:13px;color:#4F6F76;line-height:1.65}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--teal);color:#fff;border:0;border-radius:999px;padding:17px 32px;font-size:14px;font-weight:800;letter-spacing:.08em;cursor:pointer;box-shadow:0 14px 34px rgba(0,0,0,.16);transition:background .2s,transform .2s}
+.btn:hover{background:var(--teal-2);color:#fff;transform:translateY(-1px)}
+.btn-line{background:transparent;color:var(--teal);border:1.5px solid var(--teal-2);box-shadow:none}
+.btn-line:hover{background:var(--teal);color:#fff}
+
+/* ---------- HEADER ---------- */
+.hdr{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(0);transition:transform .28s ease}
+.hdr.nav-hide{transform:translate3d(0,-110%,0)!important;visibility:hidden;pointer-events:none}
+.hdr-in{max-width:1180px;margin:0 auto;height:var(--hdr);padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;color:var(--ink);line-height:1.15}
+.brand img{height:38px;width:auto}
+.brand b{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.14em;color:var(--teal);border-left:1px solid var(--line);padding-left:12px}
+.nav{display:flex;align-items:center;gap:20px}
+.nav a{color:var(--ink);font-weight:500;font-size:15px;white-space:nowrap}
+.nav a:hover,.nav a.on{color:var(--teal-2)}
+.nav .nav-tel{color:var(--teal);font-weight:700}
+.nav .nav-cta{background:var(--teal);color:#fff;font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px}
+.nav .nav-cta:hover{background:var(--teal-2);color:#fff}
+.burger{display:none;width:44px;height:44px;border:0;background:none;padding:10px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--teal);margin:5px 0;border-radius:4px;transition:transform .25s,opacity .25s}
+@media (max-width:1100px){ .nav a.opt{display:none} }
+@media (max-width:860px){
+  :root{--hdr:58px}
+  .nav{display:none}
+  .burger{display:block}
+  .brand img{height:32px}
+  .brand b{font-size:18px}
+  .hdr.open .nav{display:flex;position:fixed;top:var(--hdr);left:0;right:0;bottom:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;padding:12px 22px 30px;overflow:auto}
+  .hdr.open .nav a,.hdr.open .nav a.opt{display:block;padding:16px 4px;border-bottom:1px solid var(--line);font-size:17px}
+  .hdr.open .nav .nav-cta{margin-top:18px;text-align:center;border:0;padding:16px}
+  .hdr.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hdr.open .burger span:nth-child(2){opacity:0}
+  .hdr.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;height:clamp(520px,calc(100svh - var(--hdr)),900px);overflow:hidden;background:#0E2E34}
+.hero picture,.hero picture img{position:absolute;inset:0;width:100%;height:100%}
+.hero picture img{object-fit:cover;object-position:50% 50%}
+.hero-scrim{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(to top,rgba(9,42,48,.86) 0%,rgba(9,42,48,.55) 30%,rgba(9,42,48,.06) 60%,rgba(9,42,48,0) 76%),
+  linear-gradient(100deg,rgba(29,88,102,.36) 0%,rgba(29,88,102,0) 50%)}
+.hero-in{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(24px,3.4vw,52px) 22px}
+.hero-box{max-width:1180px;width:100%;margin:0 auto}
+.hero h1{font-weight:800;color:#fff;font-size:clamp(32px,5.4vw,72px);line-height:1.05;letter-spacing:.02em;margin:0;text-shadow:0 2px 10px rgba(0,0,0,.45)}
+.hero h1 em{display:block;font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold);letter-spacing:0;font-size:.6em;line-height:1.2;margin-top:.14em}
+.hero-sub{color:#F4EEE3;font-size:clamp(15px,1.35vw,18px);line-height:1.55;font-weight:500;margin:12px 0 0;max-width:620px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hero-facts{list-style:none;margin:clamp(16px,1.8vw,22px) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 30px}
+.hero-facts li{color:#fff;display:flex;flex-direction:column;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hero-facts b{font-size:clamp(20px,2.2vw,28px);font-weight:800;line-height:1.1}
+.hero-facts span{font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.9;margin-top:3px}
+@media (max-width:760px){
+  .hero-facts{gap:8px 22px}
+  .hero-scrim{background:linear-gradient(to top,rgba(9,42,48,.92) 0%,rgba(9,42,48,.72) 42%,rgba(9,42,48,.2) 68%,rgba(9,42,48,0) 84%)}
+  .hero h1 em{font-size:.66em}
+}
+@media (max-height:560px) and (min-width:600px){ .hero-sub,.hero-facts{display:none} }
+.field{border:1.5px solid #DCE9EB;border-radius:10px;padding:14px;font-size:15px;outline:none;min-width:0;width:100%;background:#fff;color:var(--ink)}
+.field:focus{border-color:var(--teal-2)}
+.btn-sq{background:var(--teal);color:#fff;border:0;border-radius:10px;padding:14px 20px;font-size:14px;font-weight:800;letter-spacing:.06em;cursor:pointer}
+.btn-sq:hover{background:var(--teal-2)}
+.btn-sq:disabled{opacity:.7;cursor:wait}
+
+/* ---------- 1 · CẢM HỨNG ---------- */
+.ch{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(26px,4vw,64px);align-items:center}
+.ch h2{font-size:clamp(26px,3.6vw,46px);letter-spacing:.06em}
+.tho{margin:18px 0 0;padding:0 0 0 22px;border-left:1px solid rgba(29,88,102,.35)}
+.tho p{font-family:var(--serif);font-style:italic;color:var(--teal);font-size:clamp(19px,1.9vw,24px);line-height:1.45;margin:0 0 14px;text-wrap:pretty}
+.tho p:last-child{margin-bottom:0}
+.ch .body{margin:22px 0 0;font-size:16px}
+.mosaic{display:grid;grid-template-columns:1fr 1fr .62fr;grid-template-rows:auto clamp(150px,15vw,210px);gap:10px}
+.mosaic figure{position:relative;margin:0;border-radius:4px;overflow:hidden;background:#0E2E34;cursor:zoom-in}
+.mosaic figure img{width:100%;height:100%;object-fit:cover}
+.mosaic .m1{grid-column:1/-1;aspect-ratio:16/9}
+@media (max-width:900px){ .ch{grid-template-columns:1fr} }
+@media (max-width:520px){ .mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto 150px 190px} .mosaic .m4{grid-column:1/-1} .mosaic .m4 img{object-position:50% 30%} }
+
+/* ---------- 2 · TỔNG QUAN ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 18px 44px rgba(0,0,0,.08);margin:0 0 clamp(22px,2.6vw,34px)}
+.stats div{padding:clamp(20px,2.4vw,30px) 18px;text-align:center;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-family:var(--serif);font-weight:600;color:var(--teal);font-size:clamp(32px,4vw,58px);line-height:1.1}
+.stats span{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#3D5C63;margin-top:10px;line-height:1.45}
+@media (max-width:760px){ .stats{grid-template-columns:1fr 1fr} .stats div:nth-child(2){border-right:0} .stats div:nth-child(-n+2){border-bottom:1px solid var(--line)} }
+.ov{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(18px,2.4vw,30px);align-items:start}
+.ov-fig{margin:0;border-radius:14px;overflow:hidden;cursor:zoom-in;background:#fff}
+.ov-fig img{width:100%;height:auto}
+.fcap{margin:0;padding:11px 14px;text-align:center;font-size:13px;color:#4F6F76;letter-spacing:.02em;background:#fff;line-height:1.5}
+table.spec{width:100%;border-collapse:separate;border-spacing:0 3px;font-size:15px}
+table.spec th{background:var(--teal);color:#fff;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:13px 16px;width:36%;vertical-align:top;border-radius:10px 0 0 10px}
+table.spec td{background:#fff;color:var(--text);padding:13px 16px;line-height:1.5;border-radius:0 10px 10px 0}
+table.spec td b{color:var(--teal)}
+@media (max-width:900px){ .ov{grid-template-columns:1fr} }
+
+/* ---------- 3 · VIDEO ---------- */
+.vid-band{background:linear-gradient(to bottom,var(--cream) 0,var(--cream) 50%,#fff 50%,#fff 100%);padding:0 22px}
+.vid{position:relative;max-width:900px;margin:0 auto;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0E2E34;box-shadow:0 20px 52px rgba(0,0,0,.16);cursor:pointer}
+.vid img,.vid iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
+.vid .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,42,48,.66) 0%,rgba(9,42,48,.1) 50%)}
+.vid .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(62px,7vw,84px);height:clamp(62px,7vw,84px);border-radius:50%;background:rgba(255,255,255,.93);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(0,0,0,.16);transition:transform .25s}
+.vid:hover .play{transform:translate(-50%,-50%) scale(1.06)}
+.vid .play i{display:block;width:0;height:0;margin-left:6px;border-style:solid;border-width:12px 0 12px 20px;border-color:transparent transparent transparent var(--teal)}
+.vid .cap{position:absolute;inset:auto 0 0 0;padding:clamp(15px,1.8vw,24px);color:#fff}
+.vid .cap b{display:block;font-size:clamp(16px,1.8vw,22px);font-weight:700}
+.vid .cap span{display:block;font-size:12px;font-weight:600;letter-spacing:.11em;margin-top:6px;opacity:.9}
+
+/* ---------- 4 · VỊ TRÍ ---------- */
+.vt{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;align-items:start}
+.map-fig{margin:0;border-radius:14px;overflow:hidden;cursor:zoom-in;background:#fff}
+.map-fig img{width:100%;height:auto}
+.quanh{background:#fff;border-radius:14px;padding:clamp(20px,2.2vw,26px)}
+.quanh h3,.route-card h3{font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:800;text-transform:uppercase}
+.quanh ul{list-style:none;margin:12px 0 0;padding:0;columns:1}
+.quanh li{font-size:15px;color:var(--text);padding:7px 0 7px 18px;border-bottom:1px solid var(--line);position:relative;line-height:1.4}
+.quanh li:last-child{border-bottom:0}
+.quanh li::before{content:"";position:absolute;left:2px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--teal-2)}
+.quanh li.pv{font-weight:800;color:var(--teal)}
+.quanh li.pv::before{background:var(--gold-2)}
+@media (max-width:900px){ .vt{grid-template-columns:1fr} .quanh ul{columns:2;column-gap:24px} }
+@media (max-width:520px){ .quanh ul{columns:1} }
+.tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+.tab{background:#fff;border:1.5px solid #CFE0E3;color:var(--teal);font-weight:700;font-size:14px;letter-spacing:.04em;padding:11px 20px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+@media (max-width:640px){
+  .tabs{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-left:-22px;margin-right:-22px;padding:0 22px 4px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;white-space:nowrap}
+}
+.pane[hidden]{display:none}
+.route{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;align-items:stretch}
+.route-fig{margin:0;border-radius:14px;overflow:hidden;cursor:zoom-in;background:#0E2E34}
+.route-fig img{width:100%;height:100%;object-fit:cover}
+.route-card{background:#fff;border-radius:14px;padding:clamp(20px,2.4vw,30px)}
+.rt{display:flex;gap:14px;align-items:center;margin-top:13px}
+.rt b{background:var(--teal);color:#fff;font-size:14px;font-weight:800;padding:10px 8px;border-radius:10px;min-width:66px;text-align:center;flex:none}
+.rt b.alt{background:var(--teal-2);font-size:12px;letter-spacing:.08em}
+.rt span{font-size:15px;color:var(--text);line-height:1.45}
+.route-card .sub{font-size:12px;letter-spacing:.12em;color:#4F6F76;font-weight:700;text-transform:uppercase;margin-top:22px}
+@media (max-width:860px){ .route{grid-template-columns:1fr} }
+
+/* ---------- 5 · TIỆN ÍCH NỘI KHU (accordion như The Aqua) ---------- */
+.acc{display:flex;gap:clamp(7px,.8vw,12px);height:clamp(330px,40vw,480px)}
+.acc figure{position:relative;background:#0E2E34;flex:.8 1 0;min-width:0;margin:0;overflow:hidden;border-radius:18px;cursor:pointer;transition:flex-grow .55s cubic-bezier(.4,0,.2,1)}
+.acc figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.acc figcaption{position:absolute;inset:auto 0 0 0;padding:clamp(14px,1.6vw,22px);color:#fff;background:linear-gradient(to top,rgba(9,42,48,.88) 0%,rgba(9,42,48,.38) 55%,rgba(9,42,48,0) 100%)}
+.acc .ten{display:block;font-size:clamp(14px,1.2vw,17px);font-weight:700;line-height:1.25}
+.acc .mo{display:block;font-size:13px;line-height:1.5;color:rgba(255,255,255,.88);margin-top:6px;max-height:0;opacity:0;overflow:hidden;transition:max-height .45s,opacity .35s}
+.acc figure.on{flex-grow:2.6}
+.acc figure.on .mo{max-height:80px;opacity:1}
+.acc figure.on img{transform:scale(1.03)}
+@media (max-width:760px){
+  .acc{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:clamp(150px,36vw,210px);height:auto}
+  .acc figure:first-child{grid-column:span 2;grid-row:span 2}
+  .acc .mo{max-height:80px;opacity:1}
+}
+.ti2{display:grid;grid-template-columns:1.4fr .6fr;gap:14px;margin-top:22px}
+.ti-box{background:#fff;border-radius:14px;padding:clamp(20px,2.2vw,28px)}
+.ti-box h3{font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:800;text-transform:uppercase}
+.ti-box ul{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 22px}
+.ti-box.trong ul{grid-template-columns:1fr}
+.ti-box li{font-size:15px;color:var(--text);padding:8px 0 8px 22px;border-bottom:1px solid var(--line);position:relative;line-height:1.4}
+.ti-box li::before{content:"";position:absolute;left:2px;top:13px;width:11px;height:6px;border-left:2px solid var(--teal-2);border-bottom:2px solid var(--teal-2);transform:rotate(-45deg)}
+.ti-box .cl{font-family:var(--serif);font-size:26px;color:var(--gold-2);font-weight:600;margin-top:10px;line-height:1.1}
+@media (max-width:960px){ .ti2{grid-template-columns:1fr} .ti-box ul{grid-template-columns:1fr 1fr} .ti-box.trong ul{grid-template-columns:1fr 1fr} }
+@media (max-width:520px){ .ti-box ul,.ti-box.trong ul{grid-template-columns:1fr} }
+
+/* ---------- 6 · NGOẠI KHU ---------- */
+.nk{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.nk-card{position:relative;background:#0E2E34;border-radius:18px;overflow:hidden;min-height:clamp(240px,26vw,340px);margin:0}
+.nk-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.nk-card figcaption{position:absolute;inset:auto 0 0 0;padding:clamp(18px,2vw,26px);color:#fff;background:linear-gradient(to top,rgba(9,42,48,.86),rgba(9,42,48,0))}
+.nk-card b{display:block;font-size:clamp(17px,1.7vw,22px);font-weight:800}
+.nk-card span{display:block;font-size:14px;opacity:.9;margin-top:4px}
+.nk-note{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:18px;background:var(--cream);border-radius:14px;padding:16px 20px;font-size:15px;color:var(--text)}
+.nk-note b{color:var(--teal)}
+@media (max-width:760px){ .nk{grid-template-columns:1fr} }
+
+/* ---------- 7 · MẶT BẰNG ---------- */
+.mb{display:grid;grid-template-columns:1.5fr .5fr;gap:clamp(18px,2.4vw,32px);align-items:start}
+.mb-fig{margin:0;border-radius:14px;overflow:hidden;cursor:zoom-in;box-shadow:0 20px 50px rgba(0,0,0,.14);background:#fff}
+.mb-fig img{width:100%;height:auto}
+.legend{background:#fff;border-radius:14px;padding:22px}
+.legend h3{font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:800;text-transform:uppercase}
+.legend ul{list-style:none;margin:12px 0 0;padding:0}
+.legend li{display:grid;grid-template-columns:30px 1fr;gap:4px 10px;align-items:start;padding:10px 0;border-bottom:1px solid var(--line)}
+.legend li:last-child{border-bottom:0}
+.legend li i{width:30px;height:16px;border-radius:4px;border:1px solid rgba(0,0,0,.1);margin-top:3px}
+.legend li b{font-size:15px;color:var(--ink)}
+.legend li span{grid-column:2;font-size:14px;color:var(--muted);line-height:1.45}
+.legend .note{margin:14px 0 0}
+@media (max-width:900px){ .mb{grid-template-columns:1fr} }
+
+/* ---------- 9 · NHÀ MẪU ---------- */
+.mau-card{display:grid;grid-template-columns:1.35fr .65fr;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.1)}
+.mau-card .hinh{display:flex;flex-direction:column;background:#EFEBE3}
+.mau-card figure{margin:0;cursor:zoom-in}
+.mau-card figure img{width:100%;height:auto}
+.mau-card .tang{display:flex;align-items:center;gap:14px;padding:12px;border:0;background:#fff;cursor:zoom-in;border-top:1px solid var(--line);text-align:left;font:inherit;color:var(--teal);font-weight:700;font-size:14px;letter-spacing:.03em}
+.mau-card .tang img{width:132px;height:80px;object-fit:cover;object-position:50% 40%;border-radius:10px;border:1px solid var(--line);background:#fff;flex:none}
+.mau-card .tang:hover{background:var(--mist)}
+.mau-info{padding:clamp(22px,2.6vw,34px);display:flex;flex-direction:column}
+.mau-info .code{font-family:var(--serif);font-size:clamp(40px,4.4vw,58px);color:var(--gold-2);line-height:1.1;font-weight:500}
+.mau-info .code small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.14em;color:#4F6F76;font-weight:700;margin-top:8px}
+.mau-info h3{color:var(--teal);font-size:19px;font-weight:800;margin-top:14px}
+.mau-info .ds{font-size:15px;color:var(--text);line-height:1.6;margin:8px 0 0}
+.mau-info dl{margin:14px 0 0;display:grid;grid-template-columns:1fr auto;gap:0;font-size:15px}
+.mau-info dt,.mau-info dd{padding:10px 0;border-bottom:1px solid var(--line);margin:0}
+.mau-info dt{color:var(--muted)}
+.mau-info dd{color:var(--ink);font-weight:700;text-align:right}
+.mau-info .btn{margin-top:auto;align-self:stretch;padding:15px;font-size:13px}
+.mau-info .fine{font-size:12px;color:#4F6F76;line-height:1.5;margin:14px 0 16px}
+@media (max-width:900px){ .mau-card{grid-template-columns:1fr} }
+.cmp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:clamp(26px,3vw,40px);border-radius:14px}
+table.cmp{width:100%;min-width:620px;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;font-size:15px}
+table.cmp caption{text-align:left;font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:800;text-transform:uppercase;padding:0 0 12px}
+table.cmp th,table.cmp td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:center}
+table.cmp thead th{background:var(--teal);color:#fff;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+table.cmp tbody th{text-align:left;color:var(--teal);font-weight:800}
+table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:0}
+/* mobile: mỗi mẫu thành 1 thẻ, thông số xếp 2 cột — khỏi cuộn ngang */
+@media (max-width:640px){
+  .cmp-scroll{overflow:visible}
+  table.cmp{min-width:0;background:none;border-radius:0}
+  table.cmp thead{display:none}
+  table.cmp tbody{display:flex;flex-direction:column;gap:10px}
+  table.cmp tbody tr{display:grid;grid-template-columns:1fr 1fr;background:#fff;border-radius:14px;overflow:hidden}
+  table.cmp tbody th{grid-column:1/-1;background:var(--teal);color:#fff;padding:11px 14px;border:0}
+  table.cmp td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)}
+  table.cmp td:last-child{grid-column:1/-1;border-bottom:0}
+  table.cmp td::before{content:attr(data-l);display:block;font-size:12px;letter-spacing:.06em;color:#4F6F76;font-weight:700;text-transform:uppercase;margin-bottom:3px}
+}
+
+/* ---------- 8 · CHÍNH SÁCH ---------- */
+.cs{background:var(--cream);border-radius:18px;padding:clamp(24px,3.4vw,48px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3vw,44px);align-items:center}
+.cs .body{margin:0}
+.cs ol{list-style:none;margin:0;padding:0;counter-reset:cs}
+.cs li{counter-increment:cs;display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:14px;padding:16px 18px;margin-bottom:10px;font-size:15px;color:var(--text);line-height:1.5}
+.cs li::before{content:counter(cs);flex:none;width:30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+.cs li b{display:block;color:var(--teal);font-size:16px}
+.cs .btn{margin-top:22px}
+@media (max-width:860px){ .cs{grid-template-columns:1fr} }
+
+/* ---------- FAQ ---------- */
+.faq{max-width:880px;margin:0 auto}
+.faq details{background:#fff;border-radius:14px;margin-bottom:10px;border:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:19px 56px 19px 22px;font-weight:700;color:var(--teal);font-size:16px;position:relative;line-height:1.45}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::marker{content:""}
+.faq summary::after{content:"";position:absolute;right:22px;top:50%;width:10px;height:10px;border-right:2px solid var(--teal-2);border-bottom:2px solid var(--teal-2);transform:translateY(-70%) rotate(45deg);transition:transform .25s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{margin:0;padding:0 22px 20px;color:var(--text);font-size:16px;line-height:1.7}
+
+/* ---------- 10 · CTA ---------- */
+.cta{position:relative;background:var(--ink);padding:clamp(58px,6vw,100px) 22px;overflow:hidden}
+.cta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cta-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,51,59,.9),rgba(16,51,59,.55))}
+.cta-in{position:relative;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,3.4vw,52px);align-items:center}
+.cta h2{color:#fff}
+.cta .serif-lead{color:#BFDCDF}
+.cta ul{list-style:none;padding:0;margin:clamp(18px,2.2vw,28px) 0 0}
+.cta ul li{color:#fff;font-size:clamp(15px,1.5vw,16.5px);line-height:1.6;padding:6px 0 6px 28px;position:relative}
+.cta ul li::before{content:"";position:absolute;left:2px;top:13px;width:14px;height:8px;border-left:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(-45deg)}
+.form-card{background:#fff;border-radius:18px;padding:clamp(24px,2.8vw,36px);box-shadow:0 24px 60px rgba(0,0,0,.16)}
+.form-card .t{font-size:19px;font-weight:800;color:var(--teal)}
+.form-card .s{font-size:14px;color:#3D5C63;margin-top:5px}
+.form-card form{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.form-card select.field{color:var(--muted)}
+@media (max-width:860px){ .cta-in{grid-template-columns:1fr} }
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--ink);padding:clamp(40px,4vw,60px) 22px clamp(96px,9vw,110px);text-align:center;color:#9CC4CC}
+footer .fb{font-family:var(--serif);font-size:26px;letter-spacing:.16em;color:#fff;font-weight:600}
+footer .fb small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.2em;color:#9CC4CC;margin-top:6px;font-weight:700}
+footer .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+footer .links a{color:#BFDCDF;font-size:15px;font-weight:700}
+footer p{font-size:13px;line-height:1.75;margin:18px auto 0;max-width:760px;color:#7FA8AF}
+
+/* ---------- STICKY BAR (mobile) + POPUP + LIGHTBOX ---------- */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:300;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px;box-shadow:0 -6px 20px rgba(0,0,0,.12);transform:translateY(110%);transition:transform .3s}
+.bar.show{transform:none}
+.bar a{flex:none;border:1.5px solid var(--teal);color:var(--teal);font-weight:700;font-size:14px;padding:13px 16px;border-radius:14px}
+.bar a.z{border-color:var(--teal-2);color:var(--teal-2)}
+.bar button{flex:1;background:var(--teal);color:#fff;border:0;font-weight:800;font-size:14px;padding:14px;border-radius:14px;cursor:pointer;letter-spacing:.04em}
+@media (min-width:861px){ .bar{display:none} footer{padding-bottom:clamp(40px,4vw,60px)} }
+.modal{position:fixed;inset:0;z-index:500;background:rgba(16,51,59,.62);display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.modal.open{display:flex}
+.pop{position:relative;background:#fff;border-radius:18px;width:100%;max-width:420px;padding:22px;margin:auto;animation:fadeUp .22s ease-out}
+.pop .x{position:absolute;top:10px;right:10px;width:40px;height:40px;border:0;background:rgba(255,255,255,.9);border-radius:50%;font-size:20px;color:#3D5C63;cursor:pointer;z-index:2}
+.pop .ph{height:200px;border-radius:14px;overflow:hidden}
+.pop .ph img{width:100%;height:100%;object-fit:cover}
+.pop .pt{font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.4;color:var(--ink);text-align:center;margin:16px 0 0}
+.pop .pn{font-size:14px;line-height:1.6;color:#4F6F76;text-align:center;margin:8px 0 0}
+.pop form{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.pop .hot{border-top:1px solid var(--line);margin-top:16px;padding-top:14px;text-align:center}
+.pop .hot a{font-size:20px;font-weight:900;color:var(--teal)}
+.lb{position:fixed;inset:0;z-index:600;background:rgba(9,42,48,.94);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
+.lb button{position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.lb p{position:absolute;top:18px;left:18px;right:70px;margin:0;color:#BFDCDF;font-size:13px}
+.msg{margin-top:4px;padding:11px 13px;border-radius:10px;font-size:14px;line-height:1.45;font-weight:600}
+.msg.ok{background:#E6F4EA;color:var(--teal)} .msg.err{background:#FDECEC;color:#9B2C2C}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* reveal: chỉ bật khi JS chạy -> không JS vẫn thấy đủ nội dung */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .js .rv{opacity:1;transform:none;transition:none} .acc figure,.acc figure img{transition:none} }
+</style>
+<script>document.documentElement.className+=' js'</script>
+
+<!--JSONLD-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://era.com.vn/#organization",
+      "name": "ERA Vietnam - Công ty Cổ phần Bất động sản ERA Việt Nam",
+      "url": "https://era.com.vn/",
+      "telephone": "+84941125000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Số 22 - 24, Đường số 5, KĐT Sala",
+        "addressLocality": "Phường An Khánh",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "areaServed": [
+        "TP. Hồ Chí Minh",
+        "Tây Ninh",
+        "Long An"
+      ],
+      "image": "https://park-village-waterpoint.vercel.app/assets/img/og-park-village-1200x630.jpg"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://park-village-waterpoint.vercel.app/#website",
+      "url": "https://park-village-waterpoint.vercel.app/",
+      "name": "Park Village · Waterpoint",
+      "inLanguage": "vi-VN",
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://park-village-waterpoint.vercel.app/#webpage",
+      "url": "https://park-village-waterpoint.vercel.app/",
+      "name": "Park Village Waterpoint – 96 biệt thự Grand Villa | ERA Vietnam",
+      "inLanguage": "vi-VN",
+      "isPartOf": {
+        "@id": "https://park-village-waterpoint.vercel.app/#website"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://park-village-waterpoint.vercel.app/#anh-hero"
+      },
+      "about": {
+        "@id": "https://park-village-waterpoint.vercel.app/#du-an"
+      },
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://park-village-waterpoint.vercel.app/#breadcrumb"
+      }
+    },
+    {
+      "@type": [
+        "Product",
+        "Residence"
+      ],
+      "@id": "https://park-village-waterpoint.vercel.app/#du-an",
+      "name": "Park Village",
+      "description": "Park Village là compound 96 biệt thự đơn lập dòng Grand Villa phong cách tân cổ điển châu Âu, rộng 6,6 ha, ba mặt giáp kênh đào, mặt còn lại hướng ra công viên trung tâm 25 ha, nằm ở trung tâm khu đô thị Waterpoint, mặt tiền đường ĐT.830, xã Bến Lức, tỉnh Tây Ninh. Chủ đầu tư Nam Long Group hợp tác Nishi Nippon Railroad (Nhật Bản).",
+      "brand": {
+        "@type": "Brand",
+        "name": "Waterpoint"
+      },
+      "image": [
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://park-village-waterpoint.vercel.app/assets/img/park-village-hero-compound-ba-mat-kenh-dao.webp",
+          "url": "https://park-village-waterpoint.vercel.app/assets/img/park-village-hero-compound-ba-mat-kenh-dao.webp",
+          "caption": "Phối cảnh Park Village từ trên cao: compound 96 biệt thự Grand Villa ba mặt giáp kênh đào trong khu đô thị Waterpoint",
+          "name": "Phối cảnh Park Village từ trên cao: compound 96 biệt thự Grand Villa ba mặt giáp kênh đào trong khu đô thị Waterpoint",
+          "width": 1600,
+          "height": 698,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint",
+          "@id": "https://park-village-waterpoint.vercel.app/#anh-hero"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://park-village-waterpoint.vercel.app/assets/img/park-village-vuon-au-dai-phun-nuoc.webp",
+          "url": "https://park-village-waterpoint.vercel.app/assets/img/park-village-vuon-au-dai-phun-nuoc.webp",
+          "caption": "Vườn cảnh quan châu Âu trong Park Village với đài phun nước, hàng cây cắt tỉa và clubhouse phía sau",
+          "name": "Vườn cảnh quan châu Âu trong Park Village với đài phun nước, hàng cây cắt tỉa và clubhouse phía sau",
+          "width": 1400,
+          "height": 933,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://park-village-waterpoint.vercel.app/assets/img/park-village-biet-thu-ven-kenh-dao.webp",
+          "url": "https://park-village-waterpoint.vercel.app/assets/img/park-village-biet-thu-ven-kenh-dao.webp",
+          "caption": "Dãy biệt thự Grand Villa tân cổ điển bên kênh đào dài 3,2 km tại Park Village, Waterpoint",
+          "name": "Dãy biệt thự Grand Villa tân cổ điển bên kênh đào dài 3,2 km tại Park Village, Waterpoint",
+          "width": 1400,
+          "height": 803,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://park-village-waterpoint.vercel.app/assets/img/park-village-vi-tri-trung-tam-waterpoint.webp",
+          "url": "https://park-village-waterpoint.vercel.app/assets/img/park-village-vi-tri-trung-tam-waterpoint.webp",
+          "caption": "Vị trí Park Village ở trung tâm khu đô thị Waterpoint 355 ha, ba mặt giáp kênh đào, cạnh Central Park",
+          "name": "Vị trí Park Village ở trung tâm khu đô thị Waterpoint 355 ha, ba mặt giáp kênh đào, cạnh Central Park",
+          "width": 1200,
+          "height": 728,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://park-village-waterpoint.vercel.app/assets/img/park-village-ban-do-tien-ich-waterpoint.webp",
+          "url": "https://park-village-waterpoint.vercel.app/assets/img/park-village-ban-do-tien-ich-waterpoint.webp",
+          "caption": "Phối cảnh Waterpoint đánh dấu Park Village cạnh Central Park, trường học, CLB ven sông, Harbour và bệnh viện",
+          "name": "Phối cảnh Waterpoint đánh dấu Park Village cạnh Central Park, trường học, CLB ven sông, Harbour và bệnh viện",
+          "width": 1400,
+          "height": 914,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://park-village-waterpoint.vercel.app/assets/img/park-village-clubhouse-nam-au-vuon-hinh-hoc.webp",
+          "url": "https://park-village-waterpoint.vercel.app/assets/img/park-village-clubhouse-nam-au-vuon-hinh-hoc.webp",
+          "caption": "Clubhouse phong cách Nam Âu của Park Village với hồ bơi, vườn hình học và đài phun nước phía trước",
+          "name": "Clubhouse phong cách Nam Âu của Park Village với hồ bơi, vườn hình học và đài phun nước phía trước",
+          "width": 1400,
+          "height": 788,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://park-village-waterpoint.vercel.app/assets/img/park-village-ho-boi-clubhouse-noi-khu.webp",
+          "url": "https://park-village-waterpoint.vercel.app/assets/img/park-village-ho-boi-clubhouse-noi-khu.webp",
+          "caption": "Hồ bơi người lớn cạnh clubhouse nội khu Park Village với ghế tắm nắng, dù che và hàng cọ",
+          "name": "Hồ bơi người lớn cạnh clubhouse nội khu Park Village với ghế tắm nắng, dù che và hàng cọ",
+          "width": 1400,
+          "height": 788,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://park-village-waterpoint.vercel.app/assets/img/park-village-mat-bang-tong-the.webp",
+          "url": "https://park-village-waterpoint.vercel.app/assets/img/park-village-mat-bang-tong-the.webp",
+          "caption": "Mặt bằng tổng thể Park Village: 96 lô biệt thự Garden, Park và Canal Grand Villa bao quanh bởi kênh đào",
+          "name": "Mặt bằng tổng thể Park Village: 96 lô biệt thự Garden, Park và Canal Grand Villa bao quanh bởi kênh đào",
+          "width": 1400,
+          "height": 788,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://park-village-waterpoint.vercel.app/assets/img/park-village-garden-grand-villa-vb1-1.webp",
+          "url": "https://park-village-waterpoint.vercel.app/assets/img/park-village-garden-grand-villa-vb1-1.webp",
+          "caption": "Mẫu Garden Grand Villa VB1.1 Park Village: đất ~300 m², sàn ~268 m², 4 phòng ngủ, 2 tầng tân cổ điển",
+          "name": "Mẫu Garden Grand Villa VB1.1 Park Village: đất ~300 m², sàn ~268 m², 4 phòng ngủ, 2 tầng tân cổ điển",
+          "width": 887,
+          "height": 407,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://park-village-waterpoint.vercel.app/assets/img/park-village-park-grand-villa-vb2-1.webp",
+          "url": "https://park-village-waterpoint.vercel.app/assets/img/park-village-park-grand-villa-vb2-1.webp",
+          "caption": "Mẫu Park Grand Villa VB2.1 Park Village: đất ~300 m², sàn ~296 m², 4 phòng ngủ, 5 WC",
+          "name": "Mẫu Park Grand Villa VB2.1 Park Village: đất ~300 m², sàn ~296 m², 4 phòng ngủ, 5 WC",
+          "width": 889,
+          "height": 407,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://park-village-waterpoint.vercel.app/assets/img/park-village-canal-grand-villa-vb3-1.webp",
+          "url": "https://park-village-waterpoint.vercel.app/assets/img/park-village-canal-grand-villa-vb3-1.webp",
+          "caption": "Mẫu Canal Grand Villa VB3.1 Park Village: đất ~468 m², sàn ~458 m², 4 phòng ngủ, 6 WC, hồ bơi riêng",
+          "name": "Mẫu Canal Grand Villa VB3.1 Park Village: đất ~468 m², sàn ~458 m², 4 phòng ngủ, 6 WC, hồ bơi riêng",
+          "width": 819,
+          "height": 375,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Mặt tiền ĐT.830, khu đô thị Waterpoint",
+        "addressLocality": "Xã Bến Lức",
+        "addressRegion": "Tây Ninh",
+        "addressCountry": "VN"
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Tổng diện tích",
+          "value": "6,6 ha"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Số lượng sản phẩm",
+          "value": "96 căn"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Loại hình",
+          "value": "Biệt thự đơn lập Grand Villa"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Dòng sản phẩm",
+          "value": "Garden Grand Villa, Park Grand Villa, Canal Grand Villa"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Diện tích đất",
+          "value": "Từ 300 m² trở lên"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Khu đô thị",
+          "value": "Waterpoint"
+        }
+      ],
+      "url": "https://park-village-waterpoint.vercel.app/",
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "Nam Long Group"
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Tây Ninh, Việt Nam"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://park-village-waterpoint.vercel.app/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ERA Vietnam",
+          "item": "https://era.com.vn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Waterpoint"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Park Village",
+          "item": "https://park-village-waterpoint.vercel.app/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://park-village-waterpoint.vercel.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Park Village nằm ở đâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Park Village nằm ở trung tâm khu đô thị Waterpoint, mặt tiền đường ĐT.830, xã Bến Lức, tỉnh Tây Ninh. Trước ngày 1/7/2025, khu vực này thuộc xã An Thạnh, huyện Bến Lức, tỉnh Long An. Phân khu có ba mặt giáp kênh đào, mặt còn lại hướng ra công viên trung tâm 25 ha."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Chủ đầu tư Park Village là ai?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Park Village do Nam Long Group phát triển cùng đối tác Nhật Bản Nishi Nippon Railroad. Kiến trúc do TwoG Architecture thiết kế, cảnh quan do Lascal thực hiện, hạ tầng do Royal HaskoningDHV và Aurecon tư vấn."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Park Village có bao nhiêu căn và những loại hình nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Park Village có 96 căn biệt thự đơn lập dòng Grand Villa trên diện tích 6,6 ha, chia thành ba dòng: Garden Grand Villa, Park Grand Villa và Canal Grand Villa. Diện tích đất mỗi căn từ 300 m² trở lên."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Các mẫu nhà Park Village rộng bao nhiêu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mẫu Garden Grand Villa VB1.1 có đất khoảng 300 m², sàn khoảng 268 m², 4 phòng ngủ, 4 WC. Mẫu Park Grand Villa VB2.1 có đất khoảng 300 m², sàn khoảng 296 m², 4 phòng ngủ, 5 WC. Mẫu Canal Grand Villa VB3.1 có đất khoảng 468 m², sàn khoảng 458 m², 4 phòng ngủ, 6 WC và hồ bơi riêng."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Giá Park Village bao nhiêu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chủ đầu tư chưa công bố bảng giá và chính sách bán hàng Park Village trên kênh chính thức. Giá từng căn phụ thuộc dòng sản phẩm, diện tích và vị trí lô. Liên hệ hotline 094.1125.000 để nhận bảng giá chính thức khi công bố."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Park Village có những tiện ích nội khu gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tiện ích nội khu Park Village gồm clubhouse phong cách Nam Âu với siêu thị mini, phòng chơi trẻ em, cafe và lounge, cafe ngoài trời, phòng gym, phòng sauna; ngoài trời có hồ bơi người lớn, hồ bơi trẻ em, jacuzzi, sân bóng rổ, khu thể thao ngoài trời, khu BBQ, khu vui chơi trẻ em, vườn cảnh quan châu Âu, lối dạo bộ, gazebo và đài phun nước trung tâm."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Từ Park Village đi TP.HCM mất bao lâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo tài liệu của chủ đầu tư, từ Waterpoint đi đường bộ khoảng 40 phút đến Phú Mỹ Hưng, khoảng 55 phút đến trung tâm TP.HCM và khoảng 35 phút đến Tiền Giang, qua cao tốc TP.HCM – Trung Lương và Quốc lộ 1."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quanh Park Village có tiện ích ngoại khu nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cư dân Park Village dùng chung tiện ích của khu đô thị Waterpoint 355 ha, gồm River Club và bến du thuyền, công viên bờ sông, công viên bờ kênh, trường mầm non nội khu và Trường quốc tế song ngữ EMASI Plus."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!--/JSONLD-->
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="#top" aria-label="Park Village – về đầu trang">
+      <img src="assets/img/waterpoint-logo.png" alt="Logo khu đô thị Waterpoint của Nam Long" width="200" height="134">
+      <b>PARK VILLAGE</b>
+    </a>
+    <nav class="nav" id="nav" aria-label="Điều hướng trang">
+      <a href="#tong-quan">Tổng quan</a>
+      <a href="#vi-tri">Vị trí</a>
+      <a href="#tien-ich">Tiện ích</a>
+      <a class="opt" href="#mat-bang">Mặt bằng</a>
+      <a href="#nha-mau">Nhà mẫu</a>
+      <a class="opt" href="#chinh-sach">Chính sách</a>
+      <a class="nav-tel" href="tel:0941125000">094.1125.000</a>
+      <a class="nav-cta" href="#dang-ky">Đăng ký tham quan</a>
+    </nav>
+    <button class="burger" id="burger" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ======================= 1 · HERO (sheet D3: HỌA PHẨM CHÂU ÂU / CỦA RIÊNG BẠN) ======================= -->
+<section class="hero" aria-label="Giới thiệu Park Village">
+  <picture>
+    <source media="(max-width:760px)" srcset="assets/img/park-village-hero-compound-mobile.webp" width="720" height="748">
+    <img src="assets/img/park-village-hero-compound-ba-mat-kenh-dao.webp" width="1600" height="698" fetchpriority="high" decoding="async"
+         alt="Phối cảnh Park Village từ trên cao: compound 96 biệt thự Grand Villa ba mặt giáp kênh đào trong khu đô thị Waterpoint">
+  </picture>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="hero-in">
+    <div class="hero-box">
+      <h1>Park Village <em>Họa phẩm châu Âu của riêng bạn</em></h1>
+      <p class="hero-sub">Park Village là compound biệt thự Grand Villa ba mặt giáp kênh đào, ngay trung tâm khu đô thị Waterpoint, Bến Lức.</p>
+      <ul class="hero-facts">
+        <li><b>96 căn</b><span>Tuyệt tác Grand Villa</span></li>
+        <li><b>6,6 ha</b><span>Diện tích phân khu</span></li>
+        <li><b>3,2 km</b><span>Kênh đào bao quanh</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1 · CẢM HỨNG (sheet D4 — nguyên văn) ======================= -->
+<section class="sec bg-mist" id="gioi-thieu">
+  <div class="wrap">
+    <div class="ch">
+      <div class="rv">
+        <h2>Cảm hứng</h2>
+        <div class="tho">
+          <p>Có một Châu Âu luôn là nguồn cảm hứng bất tận trên hành trình kiến tạo.</p>
+          <p>Bên dòng kênh đào dài 3,2 km, giữa tâm điểm xanh của Thành phố bên sông Waterpoint.</p>
+          <p>Một Họa phẩm Châu Âu được chắp bút bởi những thương hiệu quốc tế hàng đầu thế giới.</p>
+          <p>Là miền Âu đáng sống dành riêng cho những chủ nhân danh giá mang tên Park Village.</p>
+        </div>
+        <p class="body">Park Village là compound 96 biệt thự Grand Villa trong khu đô thị Waterpoint, mặt tiền ĐT.830, xã Bến Lức, tỉnh Tây Ninh, do Nam Long phát triển cùng đối tác Nhật Bản Nishi Nippon Railroad. Kiến trúc tân cổ điển châu Âu do TwoG Architecture thiết kế, cảnh quan do Lascal thực hiện.</p>
+      </div>
+      <div class="mosaic rv">
+        <figure class="m1" data-zoom="assets/img/park-village-biet-thu-ven-kenh-dao.webp">
+          <img src="assets/img/park-village-biet-thu-ven-kenh-dao.webp" srcset="assets/img/park-village-biet-thu-ven-kenh-dao-800.webp 800w, assets/img/park-village-biet-thu-ven-kenh-dao.webp 1400w" sizes="(max-width:900px) 100vw, 620px" width="1400" height="803" loading="lazy" fetchpriority="low" decoding="async"
+               alt="Dãy biệt thự Grand Villa tân cổ điển bên kênh đào dài 3,2 km tại Park Village, Waterpoint">
+        </figure>
+        <figure class="m2" data-zoom="assets/img/park-village-vuon-au-dai-phun-nuoc.webp">
+          <img src="assets/img/park-village-vuon-au-dai-phun-nuoc-800.webp" width="800" height="533" loading="lazy" fetchpriority="low" decoding="async"
+               alt="Vườn cảnh quan châu Âu trong Park Village với đài phun nước, hàng cây cắt tỉa và clubhouse phía sau">
+        </figure>
+        <figure class="m3" data-zoom="assets/img/park-village-phong-cach-song-chau-au.webp">
+          <img src="assets/img/park-village-phong-cach-song-chau-au-800.webp" width="800" height="635" loading="lazy" fetchpriority="low" decoding="async"
+               alt="Cư dân đọc báo buổi sáng bên bàn trà trong sân vườn biệt thự Park Village phong cách châu Âu">
+        </figure>
+        <figure class="m4" data-zoom="assets/img/park-village-tuong-dieu-khac-vuon-au.webp">
+          <img src="assets/img/park-village-tuong-dieu-khac-vuon-au.webp" width="398" height="625" loading="lazy" fetchpriority="low" decoding="async"
+               alt="Tượng điêu khắc và bàn trà ngoài trời trong vườn nội khu Park Village">
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2 · TỔNG QUAN (sheet D5-D6) ======================= -->
+<section class="sec bg-cream" id="tong-quan">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Khu phức hợp nhà ở và thương mại cao cấp <span class="dong2">Park Village</span></h2>
+    </div>
+    <div class="stats rv">
+      <div><b>6,6 ha</b><span>Diện tích</span></div>
+      <div><b>96 căn</b><span>Tuyệt tác Grand Villa</span></div>
+      <div><b>5,05 ha</b><span>Diện tích mảng xanh &amp; kênh đào</span></div>
+      <div><b>6,23 ha</b><span>Diện tích mặt nước</span></div>
+    </div>
+    <div class="ov">
+      <figure class="ov-fig rv" data-zoom="assets/img/park-village-vi-tri-trung-tam-waterpoint.webp">
+        <img src="assets/img/park-village-vi-tri-trung-tam-waterpoint.webp" srcset="assets/img/park-village-vi-tri-trung-tam-waterpoint-800.webp 800w, assets/img/park-village-vi-tri-trung-tam-waterpoint.webp 1200w" sizes="(max-width:900px) 100vw, 660px" width="1200" height="728" loading="lazy" decoding="async"
+             alt="Vị trí Park Village ở trung tâm khu đô thị Waterpoint 355 ha, ba mặt giáp kênh đào, cạnh Central Park">
+        <figcaption class="fcap">Park Village (khoanh sáng, nhãn “Central Park Village”) giữa khu đô thị Waterpoint · bấm để phóng to</figcaption>
+      </figure>
+      <table class="spec rv">
+        <caption class="sr">Thông số tổng quan phân khu Park Village</caption>
+        <tbody>
+          <tr><th scope="row">Tên phân khu</th><td><b>Park Village</b></td></tr>
+          <tr><th scope="row">Khu đô thị</th><td>Waterpoint 355 ha</td></tr>
+          <tr><th scope="row">Chủ đầu tư</th><td>Nam Long Group hợp tác Nishi Nippon Railroad (Nhật Bản)</td></tr>
+          <tr><th scope="row">Vị trí</th><td>Mặt tiền ĐT.830, xã Bến Lức, tỉnh Tây Ninh</td></tr>
+          <tr><th scope="row">Loại hình</th><td>Biệt thự đơn lập Grand Villa trong compound khép kín</td></tr>
+          <tr><th scope="row">Dòng sản phẩm</th><td>Garden Grand Villa, Park Grand Villa, Canal Grand Villa</td></tr>
+          <tr><th scope="row">Diện tích đất</th><td>Từ 300 m² trở lên mỗi căn</td></tr>
+          <tr><th scope="row">Thiết kế</th><td>Kiến trúc TwoG Architecture · cảnh quan Lascal · hạ tầng Royal HaskoningDHV, Aurecon</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="text-align:center;margin:18px 0 0">Nguồn: tài liệu giới thiệu Park Village và trang waterpoint.com.vn của chủ đầu tư.</p>
+  </div>
+</section>
+
+<!-- ======================= 3 · VIDEO =======================
+     Bấm mới tải YouTube. VIDEO_ID trong assets/js/park-village.js — đang để trống (chờ Anh Tony gửi link),
+     khi trống: bấm vào mở form "Nhận video qua Zalo". Ảnh bìa = khung giây 79 của PHIM 3D PARK VILLAGE.mp4 -->
+<div class="vid-band">
+  <div class="vid rv" id="vid" role="button" tabindex="0" aria-label="Phát video giới thiệu Park Village">
+    <img src="assets/img/park-village-phim-3d-toan-canh-hoang-hon.webp" srcset="assets/img/park-village-phim-3d-toan-canh-hoang-hon-800.webp 800w, assets/img/park-village-phim-3d-toan-canh-hoang-hon.webp 1400w" sizes="(max-width:944px) 100vw, 900px" width="1400" height="788" loading="lazy" decoding="async"
+         alt="Toàn cảnh làng biệt thự Park Village bên kênh đào lúc hoàng hôn, khung hình từ phim 3D giới thiệu">
+    <div class="shade" aria-hidden="true"></div>
+    <div class="play" aria-hidden="true"><i></i></div>
+    <div class="cap"><b>Phim 3D giới thiệu Park Village</b><span>LÀNG ÂU GIỮA KHU ĐÔ THỊ WATERPOINT</span></div>
+  </div>
+</div>
+
+<!-- ======================= 4 · VỊ TRÍ VÀ KẾT NỐI (sheet D8-D9 — nguyên văn) ======================= -->
+<section class="sec" id="vi-tri">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Vị trí <span class="dong2">Trung tâm khu đô thị</span></h2>
+    </div>
+    <p class="body rv" style="max-width:900px;margin:0 auto clamp(24px,2.6vw,34px);text-align:center">Ở vị trí trung tâm thành phố bên sông Waterpoint, Park Village được ví như trái tim sinh thái biểu tượng cho nhịp sống hiện đại, vừa kết nối chuỗi tiện ích đẳng cấp tầm đô thị vừa hội tụ không khí trong lành, lan tỏa nguồn năng lượng xanh dạt dào. Với ba mặt được bao bọc bởi kênh đào, mặt còn lại trải dọc bởi hành lang cảnh quan sinh thái và công viên trung tâm lên đến 25ha, Park Village là mảnh ghép đầy chất thơ, nhẹ nhàng và êm đềm để gác lại bao tấp nập, bộn bề, tìm về vẻ đẹp thanh bình, yên ả.</p>
+
+    <div class="vt">
+      <figure class="map-fig rv" data-zoom="assets/img/park-village-ban-do-tien-ich-waterpoint.webp">
+        <img src="assets/img/park-village-ban-do-tien-ich-waterpoint.webp" srcset="assets/img/park-village-ban-do-tien-ich-waterpoint-800.webp 800w, assets/img/park-village-ban-do-tien-ich-waterpoint.webp 1400w" sizes="(max-width:900px) 100vw, 760px" width="1400" height="914" loading="lazy" decoding="async"
+             alt="Phối cảnh Waterpoint đánh dấu Park Village cạnh Central Park, trường học, CLB ven sông, Harbour và bệnh viện">
+        <figcaption class="fcap">Vị trí Park Village trên phối cảnh khu đô thị Waterpoint · bấm để phóng to</figcaption>
+      </figure>
+      <aside class="quanh rv" aria-label="Tiện ích quanh Park Village">
+        <h3>Quanh Park Village</h3>
+        <ul>
+          <li class="pv">Central Park – công viên trung tâm 25 ha</li>
+          <li>Trường mầm non, tiểu học, THCS &amp; THPT</li>
+          <li>Trường quốc tế, trường đại học</li>
+          <li>Tổ hợp CLB thể thao &amp; sự kiện</li>
+          <li>CLB ven sông, CLB cộng đồng</li>
+          <li>Harbour – vịnh cảng nước ngọt</li>
+          <li>Trung tâm thương mại, trung tâm mua sắm giải trí</li>
+          <li>Trạm xe buýt &amp; thương mại</li>
+          <li>Bệnh viện</li>
+          <li>Nhà triển lãm văn hoá</li>
+        </ul>
+        <p class="note" style="margin:12px 0 0">Theo phối cảnh quy hoạch của chủ đầu tư.</p>
+      </aside>
+    </div>
+
+    <div style="margin-top:clamp(30px,3.4vw,46px)">
+      <div class="tabs rv" role="tablist" aria-label="Chọn hình thức kết nối">
+        <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="p-bo" id="t-bo">Kết nối đường bộ</button>
+        <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="p-thuy" id="t-thuy">Kết nối đường thủy</button>
+      </div>
+
+      <div class="pane route" id="p-bo" role="tabpanel" aria-labelledby="t-bo">
+        <figure class="route-fig" data-zoom="assets/img/waterpoint-ket-noi-duong-bo.webp">
+          <img src="assets/img/waterpoint-ket-noi-duong-bo.webp" srcset="assets/img/waterpoint-ket-noi-duong-bo-800.webp 800w, assets/img/waterpoint-ket-noi-duong-bo.webp 1400w" sizes="(max-width:860px) 100vw, 700px" width="1400" height="788" loading="lazy" decoding="async"
+               alt="Sơ đồ kết nối đường bộ từ Waterpoint: 35 phút đến Tiền Giang, 40 phút đến Phú Mỹ Hưng, 55 phút đến trung tâm TP.HCM">
+        </figure>
+        <div class="route-card">
+          <h3>Kết nối đường bộ</h3>
+          <p class="body" style="font-size:15px;margin:10px 0 0">Mặt tiền ĐT.830, tiếp cận cao tốc TP.HCM – Trung Lương và Quốc lộ 1, hai trục chính nối TP.HCM với miền Tây.</p>
+          <div class="rt"><b>~40′</b><span>đến Phú Mỹ Hưng</span></div>
+          <div class="rt"><b>~55′</b><span>đến trung tâm TP.HCM</span></div>
+          <div class="rt"><b>~35′</b><span>về Tiền Giang, hướng ĐB sông Cửu Long</span></div>
+          <div class="sub">Xe buýt Waterpoint (giai đoạn 1)</div>
+          <div class="rt"><b class="alt">BUS</b><span>~40′ Phú Mỹ Hưng · ~50′ Bến xe Miền Tây</span></div>
+          <div class="sub">Dự kiến</div>
+          <div class="rt"><b class="alt">METRO</b><span>~10′ đến Ga 3A · ~35′ đến Bến Bạch Đằng</span></div>
+        </div>
+      </div>
+
+      <div class="pane route" id="p-thuy" role="tabpanel" aria-labelledby="t-thuy" hidden>
+        <figure class="route-fig" data-zoom="assets/img/waterpoint-ket-noi-duong-thuy.webp">
+          <img src="assets/img/waterpoint-ket-noi-duong-thuy.webp" srcset="assets/img/waterpoint-ket-noi-duong-thuy-800.webp 800w, assets/img/waterpoint-ket-noi-duong-thuy.webp 1400w" sizes="(max-width:860px) 100vw, 700px" width="1400" height="788" loading="lazy" decoding="async"
+               alt="Sơ đồ kết nối đường thuỷ từ Waterpoint: 15 phút đến Tiền Giang, 40 phút đến cảng Hiệp Phước, 60 phút đến Bến Bạch Đằng">
+        </figure>
+        <div class="route-card">
+          <h3>Kết nối đường thủy</h3>
+          <p class="body" style="font-size:15px;margin:10px 0 0">Waterpoint nằm ở khu vực ngã ba sông Vàm Cỏ Đông, phần mặt nước được đưa vào quy hoạch cảnh quan của khu đô thị.</p>
+          <div class="rt"><b>~15′</b><span>đến Tiền Giang</span></div>
+          <div class="rt"><b>~40′</b><span>đến cảng Hiệp Phước</span></div>
+          <div class="rt"><b>~60′</b><span>đến Bến Bạch Đằng, trung tâm TP.HCM</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="text-align:center;margin-top:16px">Thời gian di chuyển theo tài liệu của chủ đầu tư, mang tính tham khảo và phụ thuộc điều kiện giao thông thực tế. Tuyến metro đang ở dạng dự kiến.</p>
+  </div>
+</section>
+
+<!-- ======================= 5 · TIỆN ÍCH NỘI KHU (sheet D10-D11 — nguyên văn danh mục) ======================= -->
+<section class="sec bg-pale" id="tien-ich">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Tiện ích nội khu</h2>
+      <p class="serif-lead">Khởi tạo cảm hứng từ chuỗi trải nghiệm ngay trước thềm nhà</p>
+    </div>
+    <div class="acc rv" id="acc">
+      <figure class="on">
+        <img src="assets/img/park-village-clubhouse-nam-au-vuon-hinh-hoc.webp" srcset="assets/img/park-village-clubhouse-nam-au-vuon-hinh-hoc-800.webp 800w, assets/img/park-village-clubhouse-nam-au-vuon-hinh-hoc.webp 1400w" sizes="(max-width:760px) 100vw, 700px" width="1400" height="788" loading="lazy" decoding="async" alt="Clubhouse phong cách Nam Âu của Park Village với hồ bơi, vườn hình học và đài phun nước phía trước">
+        <figcaption><span class="ten">Clubhouse &amp; đài phun nước trung tâm</span><span class="mo">Clubhouse phong cách Nam Âu nhìn ra vườn hình học và đài phun nước.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/park-village-ho-boi-clubhouse-noi-khu.webp" srcset="assets/img/park-village-ho-boi-clubhouse-noi-khu-800.webp 800w, assets/img/park-village-ho-boi-clubhouse-noi-khu.webp 1400w" sizes="(max-width:760px) 50vw, 700px" width="1400" height="788" loading="lazy" decoding="async" alt="Hồ bơi người lớn cạnh clubhouse nội khu Park Village với ghế tắm nắng, dù che và hàng cọ">
+        <figcaption><span class="ten">Hồ bơi người lớn &amp; trẻ em</span><span class="mo">Hồ bơi, jacuzzi và ghế tắm nắng dưới hàng cọ.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/park-village-vuon-au-dai-phun-nuoc.webp" srcset="assets/img/park-village-vuon-au-dai-phun-nuoc-800.webp 800w, assets/img/park-village-vuon-au-dai-phun-nuoc.webp 1400w" sizes="(max-width:760px) 50vw, 700px" width="1400" height="933" loading="lazy" decoding="async" alt="Vườn cảnh quan châu Âu trong Park Village với đài phun nước, hàng cây cắt tỉa và clubhouse phía sau">
+        <figcaption><span class="ten">Vườn cảnh quan châu Âu</span><span class="mo">Lối dạo bộ, gazebo và hàng cây cắt tỉa đối xứng.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/park-village-san-bong-ro-clubhouse.webp" srcset="assets/img/park-village-san-bong-ro-clubhouse-800.webp 800w, assets/img/park-village-san-bong-ro-clubhouse.webp 1500w" sizes="(max-width:760px) 50vw, 700px" width="1500" height="849" loading="lazy" decoding="async" alt="Sân bóng rổ nội khu Park Village trước clubhouse phong cách Nam Âu">
+        <figcaption><span class="ten">Sân bóng rổ</span><span class="mo">Sân bóng rổ ngay trước clubhouse.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/park-village-khu-the-thao-ngoai-troi.webp" srcset="assets/img/park-village-khu-the-thao-ngoai-troi-800.webp 800w, assets/img/park-village-khu-the-thao-ngoai-troi.webp 1200w" sizes="(max-width:760px) 50vw, 700px" width="1200" height="691" loading="lazy" decoding="async" alt="Khu thể thao ngoài trời Park Village nhìn từ trên cao với các sân thể thao giữa hàng cây xanh">
+        <figcaption><span class="ten">Khu thể thao ngoài trời</span><span class="mo">Các sân thể thao giữa hàng cây xanh.</span></figcaption>
+      </figure>
+    </div>
+    <div class="ti2 rv">
+      <div class="ti-box">
+        <h3>Từ ngoài trời</h3>
+        <ul>
+          <li>Sân bóng rổ</li>
+          <li>Khu thể thao ngoài trời</li>
+          <li>Khu vực BBQ</li>
+          <li>Hồ bơi người lớn</li>
+          <li>Hồ bơi trẻ em</li>
+          <li>Jacuzzi (bồn sục)</li>
+          <li>Khu vui chơi trẻ em</li>
+          <li>Vườn cảnh quan Châu Âu</li>
+          <li>Lối dạo bộ</li>
+          <li>Gazebo (chòi nghỉ)</li>
+          <li>Đài phun nước trung tâm</li>
+        </ul>
+      </div>
+      <div class="ti-box trong">
+        <h3>Đến trong nhà</h3>
+        <div class="cl">Clubhouse</div>
+        <ul>
+          <li>Siêu thị mini</li>
+          <li>Phòng chơi trẻ em</li>
+          <li>Cafe &amp; lounge</li>
+          <li>Cafe ngoài trời</li>
+          <li>Phòng Gym</li>
+          <li>Phòng Sauna</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 6 · TIỆN ÍCH NGOẠI KHU (sheet D12-D13) =======================
+     Ảnh bến thuyền + công viên bờ kênh dùng chung từ landing The Aqua (cùng khu đô thị Waterpoint). -->
+<section class="sec" id="ngoai-khu">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Tiện ích ngoại khu</h2>
+      <p class="serif-lead">Dùng chung hệ tiện ích của khu đô thị Waterpoint 355 ha.</p>
+    </div>
+    <p class="fact rv">Cư dân Park Village dùng chung tiện ích của khu đô thị Waterpoint: River Club và bến du thuyền, công viên bờ sông, công viên bờ kênh, trường mầm non nội khu và Trường quốc tế song ngữ EMASI Plus.</p>
+    <div class="nk rv">
+      <figure class="nk-card">
+        <img src="assets/img/waterpoint-ben-thuyen-ven-song.webp" srcset="assets/img/waterpoint-ben-thuyen-ven-song-800.webp 800w, assets/img/waterpoint-ben-thuyen-ven-song.webp 1200w" sizes="(max-width:760px) 100vw, 580px" width="1200" height="990" loading="lazy" decoding="async" alt="Bến thuyền ven sông Vàm Cỏ Đông trong khu đô thị Waterpoint, cạnh dãy biệt thự đã hoàn thiện">
+        <figcaption><b>River Club và bến du thuyền</b><span>Bên sông Vàm Cỏ Đông</span></figcaption>
+      </figure>
+      <figure class="nk-card">
+        <img src="assets/img/waterpoint-cong-vien-bo-song.webp" srcset="assets/img/waterpoint-cong-vien-bo-song-800.webp 800w, assets/img/waterpoint-cong-vien-bo-song.webp 1000w" sizes="(max-width:760px) 100vw, 580px" width="1000" height="669" loading="lazy" decoding="async" alt="Công viên bờ sông trong khu đô thị Waterpoint với bãi cỏ rộng, hàng cây và lối dạo">
+        <figcaption><b>Công viên bờ sông</b><span>Bãi cỏ rộng cho cả nhà dạo chơi, thả diều</span></figcaption>
+      </figure>
+      <figure class="nk-card">
+        <img src="assets/img/waterpoint-cong-vien-bo-kenh-loi-dao.webp" srcset="assets/img/waterpoint-cong-vien-bo-kenh-loi-dao-800.webp 800w, assets/img/waterpoint-cong-vien-bo-kenh-loi-dao.webp 1000w" sizes="(max-width:760px) 100vw, 580px" width="1000" height="667" loading="lazy" decoding="async" alt="Lối dạo lát gạch dọc công viên bờ kênh trong khu đô thị Waterpoint">
+        <figcaption><b>Công viên bờ kênh</b><span>Lối dạo buổi sáng dọc mặt nước</span></figcaption>
+      </figure>
+      <figure class="nk-card">
+        <img src="assets/img/waterpoint-truong-quoc-te-emasi-plus.webp" srcset="assets/img/waterpoint-truong-quoc-te-emasi-plus-800.webp 800w, assets/img/waterpoint-truong-quoc-te-emasi-plus.webp 1000w" sizes="(max-width:760px) 100vw, 580px" width="1000" height="750" loading="lazy" decoding="async" alt="Trường quốc tế song ngữ EMASI Plus trong khu đô thị Waterpoint với tháp đồng hồ và khối nhà gạch đỏ">
+        <figcaption><b>Trường quốc tế song ngữ EMASI Plus</b><span>Ngay trong khu đô thị Waterpoint</span></figcaption>
+      </figure>
+    </div>
+    <p class="nk-note rv"><b>Trường mầm non nội khu</b> cho các bé, gần nhà trong khu đô thị Waterpoint.</p>
+  </div>
+</section>
+
+<!-- ======================= 7 · MẶT BẰNG (sheet D14) ======================= -->
+<section class="sec bg-mist" id="mat-bang">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Mặt bằng tổng thể</h2>
+    </div>
+    <p class="fact rv">Mặt bằng Park Village gồm 96 lô biệt thự thuộc ba dòng Garden Grand Villa, Park Grand Villa và Canal Grand Villa, bao quanh bởi kênh đào, clubhouse và hồ bơi nằm giữa compound.</p>
+    <div class="mb">
+      <figure class="mb-fig rv" data-zoom="assets/img/park-village-mat-bang-tong-the-3000.webp">
+        <img src="assets/img/park-village-mat-bang-tong-the.webp" srcset="assets/img/park-village-mat-bang-tong-the-800.webp 800w, assets/img/park-village-mat-bang-tong-the.webp 1400w" sizes="(max-width:900px) 100vw, 860px" width="1400" height="788" loading="lazy" decoding="async"
+             alt="Mặt bằng tổng thể Park Village: 96 lô biệt thự Garden, Park và Canal Grand Villa bao quanh bởi kênh đào">
+        <figcaption class="fcap">Mặt bằng tổng thể · bấm để phóng to, xem mã từng lô</figcaption>
+      </figure>
+      <aside class="legend rv" aria-label="Chú thích mặt bằng">
+        <h3>Ba dòng Grand Villa</h3>
+        <ul>
+          <li><i style="background:#ADADAD"></i><b>Garden Grand Villa</b><span>Bao quanh bởi vườn cây</span></li>
+          <li><i style="background:#E5D4C2"></i><b>Park Grand Villa</b><span>Hướng công viên trung tâm Central Park</span></li>
+          <li><i style="background:#B69573"></i><b>Canal Grand Villa</b><span>Hướng kênh đào</span></li>
+        </ul>
+        <p class="note">Màu theo chú thích trên mặt bằng của chủ đầu tư. Vị trí và phân loại từng lô căn cứ theo hợp đồng mua bán.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 9 · NHÀ MẪU (sheet D18 — đưa lên trước Chính sách: khách thấy sản phẩm rồi mới hỏi tiền) =======================
+     Thông số đọc từ trang brochure 8. Sản phẩm/*.jpg (chép ra HTML theo sổ ảnh, cột chu_trong_anh). -->
+<section class="sec" id="nha-mau">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Các sản phẩm nhà mẫu</h2>
+      <p class="serif-lead">Garden Grand Villa · Park Grand Villa · Canal Grand Villa</p>
+    </div>
+    <p class="fact rv">Park Village có ba mẫu Grand Villa tiêu biểu: Garden Grand Villa VB1.1 (đất ~300 m², sàn ~268 m²), Park Grand Villa VB2.1 (đất ~300 m², sàn ~296 m²) và Canal Grand Villa VB3.1 (đất ~468 m², sàn ~458 m², có hồ bơi riêng), đều 4 phòng ngủ.</p>
+    <div class="tabs rv" role="tablist" aria-label="Chọn mẫu nhà">
+      <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="m-garden" id="tm-garden">Garden Grand Villa</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="m-park" id="tm-park">Park Grand Villa</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="m-canal" id="tm-canal">Canal Grand Villa</button>
+    </div>
+
+    <div class="pane mau-card" id="m-garden" role="tabpanel" aria-labelledby="tm-garden">
+      <div class="hinh">
+        <figure data-zoom="assets/img/park-village-garden-grand-villa-vb1-1.webp"><img src="assets/img/park-village-garden-grand-villa-vb1-1.webp" width="887" height="407" loading="lazy" decoding="async" alt="Mẫu Garden Grand Villa VB1.1 Park Village: đất ~300 m², sàn ~268 m², 4 phòng ngủ, 2 tầng tân cổ điển"></figure>
+        <button class="tang" type="button" data-zoom="assets/img/park-village-garden-grand-villa-vb1-1-mat-bang-tang.webp"><img src="assets/img/park-village-garden-grand-villa-vb1-1-mat-bang-tang.webp" width="850" height="530" loading="lazy" decoding="async" alt="Mặt bằng tầng 1 và tầng 2 mẫu Garden Grand Villa VB1.1 Park Village, mặt tiền 10,4 m">Xem mặt bằng tầng 1 · tầng 2</button>
+      </div>
+      <div class="mau-info">
+        <div class="code">VB1.1<small>MẶT TIỀN 10,4 M · 2 TẦNG</small></div>
+        <h3>Garden Grand Villa</h3>
+        <p class="ds">Biệt thự bao quanh bởi vườn cây.</p>
+        <dl><dt>Diện tích đất</dt><dd>~300 m²</dd><dt>Diện tích sàn sử dụng</dt><dd>~268 m²</dd><dt>Phòng ngủ</dt><dd>4</dd><dt>WC</dt><dd>4</dd></dl>
+        <p class="fine">Mẫu tiêu biểu, vị trí căn điển hình minh hoạ. Thông tin chính thức căn cứ theo hợp đồng mua bán.</p>
+        <button class="btn" type="button" data-pop="mau" data-mau="Garden Grand Villa VB1.1">NHẬN THÔNG TIN MẪU VB1.1</button>
+      </div>
+    </div>
+    <div class="pane mau-card" id="m-park" role="tabpanel" aria-labelledby="tm-park" hidden>
+      <div class="hinh">
+        <figure data-zoom="assets/img/park-village-park-grand-villa-vb2-1.webp"><img src="assets/img/park-village-park-grand-villa-vb2-1.webp" width="889" height="407" loading="lazy" decoding="async" alt="Mẫu Park Grand Villa VB2.1 Park Village: đất ~300 m², sàn ~296 m², 4 phòng ngủ, 5 WC"></figure>
+        <button class="tang" type="button" data-zoom="assets/img/park-village-park-grand-villa-vb2-1-mat-bang-tang.webp"><img src="assets/img/park-village-park-grand-villa-vb2-1-mat-bang-tang.webp" width="793" height="504" loading="lazy" decoding="async" alt="Mặt bằng tầng 1 và tầng 2 mẫu Park Grand Villa VB2.1 Park Village, mặt tiền 13,85 m">Xem mặt bằng tầng 1 · tầng 2</button>
+      </div>
+      <div class="mau-info">
+        <div class="code">VB2.1<small>MẶT TIỀN 13,85 M · 2 TẦNG</small></div>
+        <h3>Park Grand Villa</h3>
+        <p class="ds">Biệt thự hướng công viên trung tâm Central Park.</p>
+        <dl><dt>Diện tích đất</dt><dd>~300 m²</dd><dt>Diện tích sàn sử dụng</dt><dd>~296 m²</dd><dt>Phòng ngủ</dt><dd>4</dd><dt>WC</dt><dd>5</dd></dl>
+        <p class="fine">Mẫu tiêu biểu, vị trí căn điển hình minh hoạ. Thông tin chính thức căn cứ theo hợp đồng mua bán.</p>
+        <button class="btn" type="button" data-pop="mau" data-mau="Park Grand Villa VB2.1">NHẬN THÔNG TIN MẪU VB2.1</button>
+      </div>
+    </div>
+    <div class="pane mau-card" id="m-canal" role="tabpanel" aria-labelledby="tm-canal" hidden>
+      <div class="hinh">
+        <figure data-zoom="assets/img/park-village-canal-grand-villa-vb3-1.webp"><img src="assets/img/park-village-canal-grand-villa-vb3-1.webp" width="819" height="375" loading="lazy" decoding="async" alt="Mẫu Canal Grand Villa VB3.1 Park Village: đất ~468 m², sàn ~458 m², 4 phòng ngủ, 6 WC, hồ bơi riêng"></figure>
+        <button class="tang" type="button" data-zoom="assets/img/park-village-canal-grand-villa-vb3-1-mat-bang-tang.webp"><img src="assets/img/park-village-canal-grand-villa-vb3-1-mat-bang-tang.webp" width="870" height="476" loading="lazy" decoding="async" alt="Mặt bằng tầng 1 và tầng 2 mẫu Canal Grand Villa VB3.1 Park Village có hồ bơi riêng, mặt tiền 16 m">Xem mặt bằng tầng 1 · tầng 2</button>
+      </div>
+      <div class="mau-info">
+        <div class="code">VB3.1<small>MẶT TIỀN 16 M · 2 TẦNG · HỒ BƠI RIÊNG</small></div>
+        <h3>Canal Grand Villa</h3>
+        <p class="ds">Biệt thự hướng kênh đào.</p>
+        <dl><dt>Diện tích đất</dt><dd>~468 m²</dd><dt>Diện tích sàn sử dụng</dt><dd>~458 m²</dd><dt>Phòng ngủ</dt><dd>4</dd><dt>WC</dt><dd>6</dd></dl>
+        <p class="fine">Mẫu tiêu biểu, vị trí căn điển hình minh hoạ. Thông tin chính thức căn cứ theo hợp đồng mua bán.</p>
+        <button class="btn" type="button" data-pop="mau" data-mau="Canal Grand Villa VB3.1">NHẬN THÔNG TIN MẪU VB3.1</button>
+      </div>
+    </div>
+
+    <div class="cmp-scroll rv">
+      <table class="cmp">
+        <caption>So sánh ba mẫu Grand Villa</caption>
+        <thead><tr><th scope="col" style="text-align:left">Mẫu</th><th scope="col">Diện tích đất</th><th scope="col">Sàn sử dụng</th><th scope="col">Phòng ngủ</th><th scope="col">WC</th><th scope="col">Điểm riêng</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Garden Grand Villa VB1.1</th><td data-l="Diện tích đất">~300 m²</td><td data-l="Sàn sử dụng">~268 m²</td><td data-l="Phòng ngủ">4</td><td data-l="WC">4</td><td data-l="Điểm riêng">Bao quanh bởi vườn cây</td></tr>
+          <tr><th scope="row">Park Grand Villa VB2.1</th><td data-l="Diện tích đất">~300 m²</td><td data-l="Sàn sử dụng">~296 m²</td><td data-l="Phòng ngủ">4</td><td data-l="WC">5</td><td data-l="Điểm riêng">Hướng Central Park</td></tr>
+          <tr><th scope="row">Canal Grand Villa VB3.1</th><td data-l="Diện tích đất">~468 m²</td><td data-l="Sàn sử dụng">~458 m²</td><td data-l="Phòng ngủ">4</td><td data-l="WC">6</td><td data-l="Điểm riêng">Hướng kênh đào, hồ bơi riêng</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 8 · CHÍNH SÁCH BÁN HÀNG (sheet: "Hiện chưa có") =======================
+     KHÔNG đưa giá/CSBH nguồn thứ 3. Khi có CSBH chính thức: thay khối này bằng bảng như Rivera Nagomi. -->
+<section class="sec bg-cream" id="chinh-sach">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Chính sách bán hàng, ưu đãi và lịch thanh toán</h2>
+    </div>
+    <div class="cs rv">
+      <div>
+        <p class="body">Chính sách bán hàng, ưu đãi và lịch thanh toán Park Village đang chờ chủ đầu tư công bố chính thức. Để lại số điện thoại, ERA gửi ngay khi có thông báo — trước khi đăng lên các kênh công khai.</p>
+        <button class="btn" type="button" data-pop="csbh">NHẬN CHÍNH SÁCH KHI CÔNG BỐ</button>
+      </div>
+      <ol>
+        <li><span><b>Bảng giá chính thức</b>Theo từng dòng Garden, Park và Canal Grand Villa.</span></li>
+        <li><span><b>Ưu đãi đợt hiện hành</b>Chiết khấu, quà tặng theo thông báo của chủ đầu tư.</span></li>
+        <li><span><b>Lịch thanh toán &amp; hỗ trợ vay</b>Tiến độ thanh toán và ngân hàng liên kết.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ (khớp từng chữ với FAQPage JSON-LD — sinh tự động bởi _dungcu/sinh-seo.py) ======================= -->
+<section class="sec" id="hoi-dap">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Câu hỏi thường gặp về Park Village</h2>
+    </div>
+    <div class="faq rv">
+      <details open><summary>Park Village nằm ở đâu?</summary><p>Park Village nằm ở trung tâm khu đô thị Waterpoint, mặt tiền đường ĐT.830, xã Bến Lức, tỉnh Tây Ninh. Trước ngày 1/7/2025, khu vực này thuộc xã An Thạnh, huyện Bến Lức, tỉnh Long An. Phân khu có ba mặt giáp kênh đào, mặt còn lại hướng ra công viên trung tâm 25 ha.</p></details>
+      <details><summary>Chủ đầu tư Park Village là ai?</summary><p>Park Village do Nam Long Group phát triển cùng đối tác Nhật Bản Nishi Nippon Railroad. Kiến trúc do TwoG Architecture thiết kế, cảnh quan do Lascal thực hiện, hạ tầng do Royal HaskoningDHV và Aurecon tư vấn.</p></details>
+      <details><summary>Park Village có bao nhiêu căn và những loại hình nào?</summary><p>Park Village có 96 căn biệt thự đơn lập dòng Grand Villa trên diện tích 6,6 ha, chia thành ba dòng: Garden Grand Villa, Park Grand Villa và Canal Grand Villa. Diện tích đất mỗi căn từ 300 m² trở lên.</p></details>
+      <details><summary>Các mẫu nhà Park Village rộng bao nhiêu?</summary><p>Mẫu Garden Grand Villa VB1.1 có đất khoảng 300 m², sàn khoảng 268 m², 4 phòng ngủ, 4 WC. Mẫu Park Grand Villa VB2.1 có đất khoảng 300 m², sàn khoảng 296 m², 4 phòng ngủ, 5 WC. Mẫu Canal Grand Villa VB3.1 có đất khoảng 468 m², sàn khoảng 458 m², 4 phòng ngủ, 6 WC và hồ bơi riêng.</p></details>
+      <details><summary>Giá Park Village bao nhiêu?</summary><p>Chủ đầu tư chưa công bố bảng giá và chính sách bán hàng Park Village trên kênh chính thức. Giá từng căn phụ thuộc dòng sản phẩm, diện tích và vị trí lô. Liên hệ hotline 094.1125.000 để nhận bảng giá chính thức khi công bố.</p></details>
+      <details><summary>Park Village có những tiện ích nội khu gì?</summary><p>Tiện ích nội khu Park Village gồm clubhouse phong cách Nam Âu với siêu thị mini, phòng chơi trẻ em, cafe và lounge, cafe ngoài trời, phòng gym, phòng sauna; ngoài trời có hồ bơi người lớn, hồ bơi trẻ em, jacuzzi, sân bóng rổ, khu thể thao ngoài trời, khu BBQ, khu vui chơi trẻ em, vườn cảnh quan châu Âu, lối dạo bộ, gazebo và đài phun nước trung tâm.</p></details>
+      <details><summary>Từ Park Village đi TP.HCM mất bao lâu?</summary><p>Theo tài liệu của chủ đầu tư, từ Waterpoint đi đường bộ khoảng 40 phút đến Phú Mỹ Hưng, khoảng 55 phút đến trung tâm TP.HCM và khoảng 35 phút đến Tiền Giang, qua cao tốc TP.HCM – Trung Lương và Quốc lộ 1.</p></details>
+      <details><summary>Quanh Park Village có tiện ích ngoại khu nào?</summary><p>Cư dân Park Village dùng chung tiện ích của khu đô thị Waterpoint 355 ha, gồm River Club và bến du thuyền, công viên bờ sông, công viên bờ kênh, trường mầm non nội khu và Trường quốc tế song ngữ EMASI Plus.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 10 · ĐĂNG KÝ THAM QUAN (sheet D20-D21) ======================= -->
+<section class="cta" id="dang-ky">
+  <img src="assets/img/park-village-biet-thu-ven-kenh-dao.webp" srcset="assets/img/park-village-biet-thu-ven-kenh-dao-800.webp 800w, assets/img/park-village-biet-thu-ven-kenh-dao.webp 1400w" sizes="100vw" width="1400" height="803" loading="lazy" decoding="async" alt="" aria-hidden="true">
+  <div class="cta-shade" aria-hidden="true"></div>
+  <div class="cta-in">
+    <div class="rv">
+      <h2>Đăng ký tham quan Park Village</h2>
+      <p class="serif-lead">Trực tiếp trải nghiệm không gian sống Châu Âu, hệ tiện ích và giá trị khác biệt tại Park Village – Waterpoint.</p>
+      <ul>
+        <li>Xem clubhouse, vườn Âu và mẫu biệt thự Grand Villa</li>
+        <li>Nhận bảng giá và chính sách ngay khi chủ đầu tư công bố</li>
+        <li>Đi một vòng Waterpoint: River Club, bến du thuyền, EMASI Plus</li>
+      </ul>
+    </div>
+    <div class="form-card rv">
+      <div class="t">Đăng ký tham quan Park Village</div>
+      <div class="s">Tư vấn viên gọi lại trong ngày · Bảo mật thông tin</div>
+      <form data-lead data-source="form-dang-ky" novalidate>
+        <input class="field" name="name" autocomplete="name" placeholder="Họ và tên" aria-label="Họ và tên">
+        <input class="field" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Số điện thoại" aria-label="Số điện thoại">
+        <select class="field" name="product" aria-label="Dòng sản phẩm quan tâm">
+          <option value="">Dòng sản phẩm quan tâm</option>
+          <option>Garden Grand Villa</option>
+          <option>Park Grand Villa</option>
+          <option>Canal Grand Villa</option>
+          <option>Chưa xác định</option>
+        </select>
+        <select class="field" name="visit" aria-label="Thời điểm muốn tham quan">
+          <option value="">Thời điểm muốn tham quan</option>
+          <option>Cuối tuần này</option>
+          <option>Tuần tới</option>
+          <option>Chưa xác định</option>
+        </select>
+        <button class="btn-sq" type="submit" style="padding:17px;font-size:15px">GỬI ĐĂNG KÝ</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="fb">PARK VILLAGE<small>COMPOUND BIỆT THỰ · KHU ĐÔ THỊ WATERPOINT</small></div>
+  <div class="links">
+    <a href="tel:0941125000">Hotline: 094.1125.000</a>
+    <a href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo tư vấn</a>
+  </div>
+  <p>Tư vấn &amp; phân phối: ERA Vietnam · Số 22 - 24, Đường số 5, KĐT Sala, Phường An Khánh, TP. Hồ Chí Minh.<br>
+  Hình ảnh phối cảnh &amp; bố trí công trình mang tính chất minh họa, có thể điều chỉnh. Thông tin chính thức được căn cứ trên hợp đồng mua bán.</p>
+</footer>
+
+<!-- thanh gọi nhanh -->
+<div class="bar" id="bar" aria-label="Liên hệ nhanh">
+  <a href="tel:0941125000">Gọi ngay</a>
+  <a class="z" href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo</a>
+  <button type="button" data-pop="gia">NHẬN THÔNG TIN</button>
+</div>
+
+<!-- popup form -->
+<div class="modal" id="pop" role="dialog" aria-modal="true" aria-labelledby="pop-t">
+  <div class="pop">
+    <button class="x" type="button" data-close aria-label="Đóng">✕</button>
+    <div class="ph"><img src="assets/img/park-village-clubhouse-nam-au-vuon-hinh-hoc-800.webp" width="800" height="450" loading="lazy" decoding="async" alt="Clubhouse Nam Âu và vườn hình học trong compound Park Village"></div>
+    <p class="pt" id="pop-t">Nhận thông tin Park Village</p>
+    <p class="pn" id="pop-n">Em gửi mặt bằng, mẫu nhà và bảng giá chính thức qua Zalo ngay khi chủ đầu tư công bố.</p>
+    <form data-lead data-source="popup" novalidate>
+      <input type="hidden" name="product">
+      <input class="field" name="name" autocomplete="name" placeholder="Họ tên (*)" aria-label="Họ tên">
+      <input class="field" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Số điện thoại (*)" aria-label="Số điện thoại">
+      <button class="btn-sq" type="submit" style="padding:16px">GỬI THÔNG TIN</button>
+    </form>
+    <div class="hot"><a href="tel:0941125000">HOTLINE: 094.1125.000</a></div>
+  </div>
+</div>
+
+<!-- phóng to ảnh -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn">
+  <p id="lb-cap"></p>
+  <button type="button" data-close aria-label="Đóng ảnh">✕</button>
+  <img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
+</div>
+
+<script src="assets/js/park-village.js?v=20261008-era" defer></script>
+</body>
+</html>

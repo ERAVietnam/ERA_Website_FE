@@ -1,0 +1,12 @@
+# BẢN XEM THỬ — chặn toàn bộ công cụ tìm kiếm.
+# Lý do: form chưa nối nơi nhận lead (LEAD_ENDPOINT trong assets/js/park-village.js còn rỗng)
+#        và tên miền đang là tên tạm park-village-waterpoint.vercel.app.
+#
+# KHI CHẠY THẬT, đổi toàn bộ file này thành:
+#   User-agent: *
+#   Allow: /
+#   Sitemap: https://<ten-mien-that>/sitemap.xml
+# và sửa thẻ robots trong index.html thành "index, follow, max-image-preview:large".
+
+User-agent: *
+Disallow: /

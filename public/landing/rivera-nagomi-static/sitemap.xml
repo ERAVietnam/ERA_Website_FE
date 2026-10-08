@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Đổi https://rivera-nagomi.vercel.app thành tên miền thật khi chạy chính thức. Google chỉ đọc image:loc (title/caption đã bị bỏ từ 2022). -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://rivera-nagomi.vercel.app/</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-hero-toan-canh-ven-song.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-toan-canh-tu-tren-cao.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-vi-tri-trong-waterpoint.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-phoi-canh-phan-khu-ben-song.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/waterpoint-ban-do-vi-tri-vanh-dai.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/waterpoint-ket-noi-duong-bo.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/waterpoint-ket-noi-duong-thuy.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-ho-boi-noi-khu.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-cong-vien-kenh-dao.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-duong-noi-khu-hem-xanh.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/waterpoint-cong-vien-bo-song.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/waterpoint-truong-quoc-te-emasi-plus.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-mat-bang-tong-the.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-nha-pho-vuon-np1.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-shophouse-tm6a.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-biet-thu-song-lap-sl4.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-biet-thu-don-lap-va3.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-chinh-sach-ban-hang-zone-1-4.webp</image:loc></image:image>
+    <image:image><image:loc>https://rivera-nagomi.vercel.app/assets/img/rivera-nagomi-chinh-sach-ban-hang-zone-5-9.webp</image:loc></image:image>
+  </url>
+</urlset>

@@ -1,0 +1,8 @@
+# BẢN XEM THỬ — chặn toàn bộ công cụ tìm kiếm.
+# Lý do: tên miền đang là tên tạm palm-river-era.vercel.app, form chưa nối nơi nhận lead.
+#
+# KHI CHẠY THẬT (Anh Tony chốt tên miền), chạy: python _kiemtra/len-song.py https://<ten-mien>/ --mo-index
+# (script tự đổi file này thành Allow + Sitemap và sửa thẻ robots trong index.html).
+
+User-agent: *
+Disallow: /

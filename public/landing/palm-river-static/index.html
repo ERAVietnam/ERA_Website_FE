@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Palm River – Căn hộ ven sông Nam Rạch Chiếc, Bình Trưng</title>
+<meta name="description" content="Palm River: 4 tháp 36 tầng, 620 căn hộ, 2,7 km mặt tiền sông tại khu đô thị Nam Rạch Chiếc, phường Bình Trưng. Ngay ga Bình Trưng, 68 tiện ích nghỉ dưỡng.">
+<meta name="keywords" content="Palm River, Palm River Bình Trưng, căn hộ Palm River, Palm City, Nam Rạch Chiếc, căn hộ ven sông Thủ Đức, Hướng Việt Properties">
+<!-- ⚠️ BẢN XEM THỬ — chặn Google. Chỉ mở index khi Anh Tony chốt tên miền thật
+     (python _kiemtra/len-song.py https://<ten-mien> --mo-index). -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1F484F">
+<meta name="author" content="ERA Vietnam">
+
+<!-- ⚠️ TÊN MIỀN TẠM (vercel). len-song.py tự đổi mọi chỗ + sitemap + robots -->
+<link rel="canonical" href="https://palm-river-era.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="ERA Vietnam">
+<meta property="og:url" content="https://palm-river-era.vercel.app/">
+<meta property="og:title" content="Palm River – nơi đô thị, thiên nhiên và nghỉ dưỡng hội tụ">
+<meta property="og:description" content="4 tòa tháp 36 tầng, 620 căn hộ, 2,7 km mặt tiền sông tại Nam Rạch Chiếc, ngay ga Bình Trưng. Hồ bơi 70 m, Sky Onsen, hồ bơi vô cực.">
+<meta property="og:image" content="https://palm-river-era.vercel.app/assets/img/og-palm-river-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Palm River – 4 tòa tháp căn hộ ven sông tại Nam Rạch Chiếc, TP.HCM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:alt" content="Palm River – 4 tòa tháp căn hộ ven sông tại Nam Rạch Chiếc, TP.HCM">
+<meta name="twitter:title" content="Palm River – nơi đô thị, thiên nhiên và nghỉ dưỡng hội tụ">
+<meta name="twitter:description" content="4 tòa tháp 36 tầng, 620 căn hộ, 2,7 km mặt tiền sông tại Nam Rạch Chiếc, ngay ga Bình Trưng. Hồ bơi 70 m, Sky Onsen, hồ bơi vô cực.">
+<meta name="twitter:image" content="https://palm-river-era.vercel.app/assets/img/og-palm-river-1200x630.jpg">
+
+<!-- GEO: toạ độ gần đúng khu Nam Rạch Chiếc (Palm City), phường Bình Trưng. VN-SG = TP.HCM (sau sáp nhập 1/7/2025) -->
+<meta name="geo.region" content="VN-SG">
+<meta name="geo.placename" content="Phường Bình Trưng, TP. Hồ Chí Minh">
+<meta name="geo.position" content="10.791;106.762">
+<meta name="ICBM" content="10.791, 106.762">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231F484F'/%3E%3Cpath d='M12 22c10-6 18 6 40-2M12 32c10-6 18 6 40-2M12 42c10-6 18 6 40-2' fill='none' stroke='%23fff' stroke-width='4.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/mont-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/mont-vietnamese.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/palm-river-hero-mobile.webp" media="(max-width:760px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/palm-river-hero-4-thap-ven-song.webp" media="(min-width:761px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+
+<style>
+/* Font dự phòng cùng số đo (chữ không nhảy khi font thật tải xong) */
+@font-face{font-family:'Montserrat Fallback';src:local('Arial');size-adjust:113.95%;ascent-override:84.95%;descent-override:22.03%;line-gap-override:0%}
+:root{
+  /* màu lấy từ logo + brochure Palm River của CĐT */
+  --teal:#1F484F; --teal-2:#2C6670; --ink:#15302F; --text:#38494A; --muted:#566664;
+  --sky:#A9D8E8; --sky-2:#D7EEF5; --pale:#EEF6F8; --sand:#F7F2EA; --line:#DCE8EA;
+  --org:#BF5329; --org-ink:#A4441D; --night:#132A2D;
+  --hdr:76px;
+  /* V3 — Montserrat (tiêu đề 700, chữ thường 400) + chữ ký SVN-Rosellinda Alyamore đặt trên tiêu đề, màu vàng (theo mẫu Anh Tony 02/10/2026) */
+  --serif:'Montserrat','Montserrat Fallback', system-ui, sans-serif; --sans:'Montserrat','Montserrat Fallback', system-ui, sans-serif;
+  --ky:'SVN-Rosellinda Alyamore', cursive; --gold:#7A5A17;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + 8px)}
+html,body{overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
+body{margin:0;font-variant-numeric:lining-nums;font-synthesis:none;font-family:var(--sans);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--teal-2);text-decoration:none}
+a:hover{color:var(--teal)}
+button,input{font-family:var(--sans)}
+.wrap{max-width:1180px;margin:0 auto}
+.sec{padding:clamp(60px,6.4vw,104px) 22px}
+.bg-pale{background:var(--pale)} .bg-sand{background:var(--sand)}
+.head{max-width:860px;margin:0 auto 34px;text-align:center}
+h2{font-family:var(--serif);color:var(--teal);font-size:clamp(28px,3.4vw,46px);line-height:1.15;font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.ky{font-family:var(--ky);font-weight:400;color:var(--gold);font-size:clamp(30px,3.2vw,44px);line-height:1.2;margin:0 0 .1em;letter-spacing:0}
+h3{margin:0}
+.lead{font-family:var(--sans);font-weight:500;color:var(--teal);font-size:clamp(18px,1.6vw,20px);line-height:1.6;margin:16px 0 0;text-wrap:pretty}
+.body{color:var(--text);font-size:17px;line-height:1.75;text-wrap:pretty;margin:0 0 14px}
+.body:last-child{margin-bottom:0}
+.note{font-size:13px;color:var(--muted);line-height:1.65}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.fcap{margin:0;padding:11px 14px;text-align:center;font-size:13px;color:var(--muted);background:#fff;line-height:1.5}
+.zoomable{cursor:zoom-in}
+.card-h{font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:700;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--teal);color:#fff;border:0;border-radius:999px;padding:16px 30px;font-size:14px;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:background .2s}
+.btn:hover{background:var(--teal-2);color:#fff}
+/* sóng lấy từ logo — đường kẻ chia mục */
+.song{display:block;width:120px;height:22px;margin:18px auto 0;color:var(--sky)}
+.song.trai{margin-left:0}
+
+/* ---------- HEADER ---------- */
+.hdr{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(0);transition:transform .28s ease}
+.hdr.nav-hide{transform:translateY(-100%)}
+.hdr-in{max-width:1180px;margin:0 auto;height:var(--hdr);padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center}
+.brand img{height:48px;width:auto}
+.nav{display:flex;align-items:center;gap:22px}
+.nav a{color:var(--ink);font-weight:500;font-size:15px;white-space:nowrap}
+.nav a:hover,.nav a.on{color:var(--teal-2)}
+.nav .nav-tel{color:var(--teal);font-weight:700}
+.nav .nav-cta{background:var(--teal);color:#fff;font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px}
+.nav .nav-cta:hover{background:var(--teal-2);color:#fff}
+.burger{display:none;width:44px;height:44px;border:0;background:none;padding:10px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--teal);margin:5px 0;border-radius:4px;transition:transform .25s,opacity .25s}
+@media (max-width:1180px){ .nav a.opt{display:none} }
+@media (max-width:900px){
+  :root{--hdr:62px}
+  .nav{display:none}
+  .burger{display:block}
+  .brand img{height:40px}
+  .hdr.open{z-index:400;backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+  .hdr.open .nav{display:flex;position:fixed;top:var(--hdr);left:0;right:0;bottom:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;padding:12px 22px 30px;overflow:auto}
+  .hdr.open .nav a,.hdr.open .nav a.opt{display:block;padding:16px 4px;border-bottom:1px solid var(--line);font-size:17px}
+  .hdr.open .nav .nav-cta{margin-top:18px;text-align:center;border:0;padding:16px}
+  .hdr.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hdr.open .burger span:nth-child(2){opacity:0}
+  .hdr.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+
+/* ---------- 1 · HERO ---------- */
+.hero{position:relative;height:clamp(560px,calc(100svh - var(--hdr)),920px);overflow:hidden;background:var(--night)}
+.hero picture,.hero picture img{position:absolute;inset:0;width:100%;height:100%}
+.hero picture img{object-fit:cover;object-position:56% 42%}
+.hero-scrim{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(to top,rgba(19,42,45,.9) 0%,rgba(19,42,45,.58) 30%,rgba(19,42,45,.06) 60%,rgba(19,42,45,0) 76%),
+  linear-gradient(100deg,rgba(19,42,45,.42) 0%,rgba(19,42,45,0) 50%)}
+.hero-in{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(28px,3.8vw,60px) 22px}
+.hero-box{max-width:1180px;width:100%;margin:0 auto}
+.hero h1{font-family:var(--serif);font-weight:700;color:#fff;font-size:clamp(40px,7vw,96px);line-height:1;letter-spacing:.02em;margin:0;text-shadow:0 2px 14px rgba(0,0,0,.4);text-transform:uppercase}
+.hero h1 em{display:block;font-style:normal;font-weight:400;color:#E6F4F8;text-transform:none;letter-spacing:0;font-size:.34em;line-height:1.3;margin-top:.45em;max-width:720px}
+.hero-facts{list-style:none;margin:clamp(20px,2.2vw,30px) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:12px 0}
+.hero-facts li{color:#fff;display:flex;flex-direction:column;padding:0 26px;border-left:1px solid rgba(255,255,255,.35);text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hero-facts li:first-child{padding-left:0;border-left:0}
+.hero-facts b{font-size:clamp(20px,2.3vw,30px);font-weight:700;line-height:1.1}
+.hero-facts span{font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.92;margin-top:4px}
+@media (max-width:760px){
+  .hero picture img{object-position:50% 40%}
+  .hero-facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:start}
+  .hero-facts li{padding:0 16px}
+  .hero-scrim{background:linear-gradient(to top,rgba(19,42,45,.94) 0%,rgba(19,42,45,.72) 40%,rgba(19,42,45,.15) 68%,rgba(19,42,45,0) 84%)}
+}
+@media (max-height:560px) and (min-width:600px){ .hero-facts{display:none} }
+
+/* ---------- GIỚI THIỆU ---------- */
+.gt{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(26px,4vw,64px);align-items:center}
+.mosaic{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mosaic figure{margin:0;border-radius:6px;overflow:hidden;background:var(--night)}
+.mosaic figure img{width:100%;height:100%;object-fit:cover}
+.mosaic .m1{grid-column:1/-1;aspect-ratio:16/9}
+.mosaic .m2,.mosaic .m3{aspect-ratio:4/3}
+@media (max-width:900px){ .gt{grid-template-columns:1fr} }
+
+/* ---------- 2 · TỔNG QUAN ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 18px 44px rgba(21,48,47,.08);margin:0 0 clamp(22px,2.6vw,34px)}
+.stats div{padding:clamp(20px,2.4vw,30px) 16px;text-align:center;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-family:var(--serif);font-weight:700;color:var(--teal);font-size:clamp(28px,3.4vw,48px);line-height:1.15}
+.stats span{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted);margin-top:10px;line-height:1.45}
+@media (max-width:760px){ .stats{grid-template-columns:1fr 1fr} .stats div:nth-child(2){border-right:0} .stats div:nth-child(-n+2){border-bottom:1px solid var(--line)} }
+.ov{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,30px);align-items:start}
+.ov-fig{margin:0;border-radius:14px;overflow:hidden;background:#fff;position:sticky;top:calc(var(--hdr) + 16px)}
+table.spec{width:100%;border-collapse:separate;border-spacing:0 3px;font-size:15px}
+table.spec th{background:var(--teal);color:#fff;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:13px 16px;width:35%;vertical-align:top;border-radius:10px 0 0 10px;line-height:1.45}
+table.spec td{background:#fff;color:var(--text);padding:13px 16px;line-height:1.55;border-radius:0 10px 10px 0}
+table.spec td b{color:var(--teal)}
+@media (max-width:900px){ .ov{grid-template-columns:1fr} .ov-fig{position:static} }
+@media (max-width:560px){
+  table.spec,table.spec tbody,table.spec tr,table.spec th,table.spec td{display:block;width:auto}
+  table.spec tr{margin-bottom:8px;border-radius:10px;overflow:hidden}
+  table.spec th{border-radius:0;padding:10px 14px 8px}
+  table.spec td{border-radius:0;padding:10px 14px 12px}
+}
+
+/* ---------- 3 · 06 GIÁ TRỊ (bố cục theo leaflet CĐT tr.23: nền xanh trời, ảnh viền sóng, so le) ---------- */
+.gt-sec{background:linear-gradient(180deg,var(--sky-2) 0%,var(--pale) 100%)}
+.gt-06{font-size:1.35em;line-height:.8;color:var(--teal-2);margin-right:.08em}
+.gt-hang{display:grid;grid-template-columns:1fr 1.08fr;gap:clamp(28px,4.4vw,72px);align-items:center;margin-top:clamp(30px,4vw,56px)}
+.gt-hang.dao .gt-ds{order:2}
+.gt-ds{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(26px,3vw,40px)}
+.gt-ds li{position:relative;padding-left:clamp(58px,5.4vw,74px)}
+.gt-ds .so{position:absolute;left:0;top:-.04em;font-family:var(--serif);font-weight:700;font-size:clamp(34px,3vw,44px);line-height:1;color:var(--teal-2)}
+.gt-ds h3{font-family:var(--serif);font-weight:700;text-transform:uppercase;color:var(--teal);font-size:clamp(19px,1.7vw,22px);line-height:1.3;letter-spacing:.02em;text-wrap:balance}
+.gt-ds p{margin:10px 0 0;font-size:16px;color:var(--text);line-height:1.7;max-width:46ch;text-wrap:pretty}
+.gt-anh{margin:0;aspect-ratio:16/10;background:var(--sky);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 7C18 1 33 0 50 5S82 12 100 3V93C82 99 67 100 50 95S18 88 0 97Z'/%3E%3C/svg%3E") center/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 7C18 1 33 0 50 5S82 12 100 3V93C82 99 67 100 50 95S18 88 0 97Z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.gt-anh img{width:100%;height:100%;object-fit:cover}
+.gt-note{text-align:right;margin:22px 0 0}
+@media (max-width:860px){
+  .gt-hang{grid-template-columns:1fr}
+  .gt-hang.dao .gt-ds{order:0}
+  .gt-note{text-align:center}
+}
+
+/* ---------- 4 · VỊ TRÍ ---------- */
+.vt{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;align-items:start}
+.map-fig{margin:0;border-radius:14px;overflow:hidden;background:var(--night)}
+.map-fig .fcap{background:#fff}
+.phut{background:#fff;border-radius:14px;padding:clamp(20px,2.2vw,26px);border:1px solid var(--line)}
+.phut h3{font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:700;text-transform:uppercase;margin-top:22px}
+.phut h3:first-child{margin-top:0}
+.rt{display:flex;gap:14px;align-items:center;margin-top:11px}
+.rt b{background:var(--teal);color:#fff;font-size:13px;font-weight:700;padding:9px 6px;border-radius:10px;min-width:74px;text-align:center;flex:none;line-height:1.2}
+.rt span{font-size:15px;color:var(--text);line-height:1.45}
+@media (max-width:900px){ .vt{grid-template-columns:1fr} }
+
+/* ---------- 5 · TIỆN ÍCH ---------- */
+.ti-top{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(22px,3.4vw,48px);align-items:center;margin-bottom:clamp(30px,3.4vw,46px)}
+.ti-top figure{margin:0;border-radius:14px;overflow:hidden;background:#fff}
+@media (max-width:900px){ .ti-top{grid-template-columns:1fr} }
+.ti-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:clamp(30px,3.4vw,46px);align-items:start}
+.ti-box{background:#fff;border-radius:16px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column}
+.ti-box ul{list-style:none;margin:14px 0 0;padding:0}
+.ti-box li{padding:8px 0 8px 26px;position:relative;font-size:16px;color:var(--text);line-height:1.5;border-bottom:1px solid var(--line)}
+.ti-box li:last-child{border-bottom:0}
+.ti-box li::before{content:"";position:absolute;left:2px;top:15px;width:12px;height:7px;border-left:2px solid var(--org);border-bottom:2px solid var(--org);transform:rotate(-45deg)}
+.ti-box figure{margin:16px 0 0;border-radius:12px;overflow:hidden}
+@media (max-width:860px){ .ti-2{grid-template-columns:1fr} }
+.slider{position:relative}
+.track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 clamp(270px,36vw,440px);scroll-snap-align:start;margin:0;position:relative;border-radius:16px;overflow:hidden;background:var(--night);aspect-ratio:4/3}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide figcaption{position:absolute;inset:auto 0 0 0;padding:clamp(16px,1.8vw,22px);color:#fff;background:linear-gradient(to top,rgba(19,42,45,.9) 0%,rgba(19,42,45,.45) 55%,rgba(19,42,45,0) 100%)}
+.slide .ten{display:block;font-size:clamp(16px,1.4vw,19px);font-weight:700;line-height:1.25}
+.slide .mo{display:block;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.9);margin-top:6px}
+.sl-nav{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:16px}
+.sl-nav span{font-size:14px;color:var(--muted);margin-right:auto;font-weight:600}
+.sl-btn{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--teal);background:#fff;color:var(--teal);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.sl-btn:hover{background:var(--teal);color:#fff}
+.sl-btn:disabled{opacity:.35;cursor:default;background:#fff;color:var(--teal)}
+.sl-btn svg{width:20px;height:20px}
+@media (max-width:640px){ .slide{flex-basis:80%;aspect-ratio:4/5} .tv .slide{aspect-ratio:4/3} }
+.tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+.tab{background:#fff;border:1.5px solid var(--line);color:var(--teal);font-weight:700;font-size:14px;letter-spacing:.02em;padding:11px 20px;border-radius:999px;cursor:pointer}
+.tab:hover{border-color:var(--teal-2)}
+.tab[aria-selected="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+@media (max-width:640px){
+  .tabs{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-left:-22px;margin-right:-22px;padding:0 22px 4px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;white-space:nowrap}
+}
+.pane[hidden]{display:none}
+.tang-wrap{display:grid;grid-template-columns:230px 1fr;gap:18px;margin-top:clamp(34px,3.6vw,50px);align-items:start}
+.tang-nut{display:flex;flex-direction:column-reverse;gap:6px;margin:0}
+.tang-nut .tab{border-radius:10px;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:13px 16px;gap:10px}
+.tang-nut .tab small{font-weight:600;font-size:12px;opacity:.85}
+.tang-list{background:#fff;border-radius:14px;padding:clamp(20px,2.4vw,30px);min-height:100%}
+.tang-list h3{font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:700;text-transform:uppercase}
+.tang-list ol{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 22px}
+.tang-list li{font-size:15px;color:var(--text);padding:8px 0;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:baseline;line-height:1.4}
+.tang-list li i{font-style:normal;flex:none;width:24px;height:24px;border-radius:50%;background:var(--org);color:#fff;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;transform:translateY(-1px)}
+@media (max-width:960px){ .tang-list ol{grid-template-columns:1fr 1fr} }
+@media (max-width:760px){ .tang-wrap{grid-template-columns:1fr} .tang-nut{flex-direction:row;overflow-x:auto;scrollbar-width:none;margin:0 -22px;padding:0 22px 4px} .tang-nut::-webkit-scrollbar{display:none} .tang-nut .tab{flex:none;white-space:nowrap} }
+@media (max-width:520px){ .tang-list ol{grid-template-columns:1fr} }
+
+/* ---------- 6 · MẶT BẰNG ---------- */
+.mb-fig{margin:0;border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(21,48,47,.12);background:#fff}
+.loai-can{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 0;padding:0;list-style:none}
+.loai-can li{background:#fff;border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;gap:12px;font-size:14.5px;color:var(--text);line-height:1.45;border-left:4px solid var(--sky)}
+.loai-can li b{color:var(--teal);font-weight:700}
+.loai-can li span{white-space:nowrap;text-align:right}
+@media (max-width:860px){ .loai-can{grid-template-columns:1fr 1fr} }
+@media (max-width:560px){ .loai-can{grid-template-columns:1fr} }
+
+/* ---------- 7 · THƯ VIỆN ---------- */
+.tv .slide{aspect-ratio:3/2;flex-basis:clamp(280px,46vw,600px)}
+.tv .slide figcaption{padding:14px 18px}
+
+/* ---------- 8 · LAYOUT CĂN HỘ ---------- */
+.can-card{display:grid;grid-template-columns:1.15fr .85fr;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(21,48,47,.1)}
+.can-card figure{margin:0;background:#fff;display:flex;align-items:center;justify-content:center;padding:clamp(8px,1.6vw,20px);border-right:1px solid var(--line)}
+.can-card figure img{width:100%;max-width:620px;height:auto}
+.can-info{padding:clamp(22px,2.6vw,36px);display:flex;flex-direction:column}
+.can-info .code{font-family:var(--serif);font-size:clamp(34px,3.8vw,50px);color:var(--teal);line-height:1.1;font-weight:700}
+.can-info .code small{display:block;font-family:var(--sans);font-size:14px;letter-spacing:0;color:var(--muted);font-weight:600;margin-top:10px;line-height:1.5}
+.can-info .ds{font-size:15.5px;color:var(--text);line-height:1.65;margin:16px 0 0}
+.can-info dl{margin:18px 0 0;display:grid;grid-template-columns:1fr auto;font-size:15px}
+.can-info dt,.can-info dd{padding:11px 0;border-bottom:1px solid var(--line);margin:0}
+.can-info dt{color:var(--muted)}
+.can-info dd{color:var(--ink);font-weight:700;text-align:right}
+.can-info .fine{font-size:12.5px;color:var(--muted);line-height:1.55;margin:auto 0 0;padding-top:18px}
+.can-info .btn{margin-top:20px;align-self:flex-start}
+.can-trong{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--pale);padding:40px 24px;border-right:1px solid var(--line);min-height:360px}
+.can-trong p{margin:14px 0 0;max-width:340px;font-size:15px;color:var(--text);line-height:1.6}
+@media (max-width:900px){ .can-card{grid-template-columns:1fr} .can-card figure,.can-trong{border-right:0;border-bottom:1px solid var(--line)} }
+table.cmp{width:100%;max-width:860px;margin:clamp(28px,3vw,42px) auto 0;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;font-size:15px}
+table.cmp caption{text-align:left;font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:700;text-transform:uppercase;padding:0 0 12px}
+table.cmp th,table.cmp td{padding:13px 16px;border-bottom:1px solid var(--line);text-align:left}
+table.cmp thead th{background:var(--teal);color:#fff;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+table.cmp tbody th{color:var(--teal);font-weight:700}
+table.cmp td{white-space:nowrap}
+table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:0}
+@media (max-width:600px){
+  table.cmp thead{display:none}
+  table.cmp caption{display:block;width:auto;padding:0 0 12px}
+  table.cmp,table.cmp tbody,table.cmp tr,table.cmp th,table.cmp td{display:block;width:auto}
+  table.cmp tr{border-bottom:1px solid var(--line);padding:10px 0}
+  table.cmp th,table.cmp td{border:0;padding:4px 16px;white-space:normal}
+  table.cmp td::before{content:attr(data-l) ": ";color:var(--muted);font-weight:600}
+}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:900px;margin:0 auto}
+.faq details{background:#fff;border-radius:14px;margin-bottom:10px;border:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:19px 56px 19px 22px;font-weight:700;color:var(--teal);font-size:16px;position:relative;line-height:1.45}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::marker{content:""}
+.faq summary::after{content:"";position:absolute;right:22px;top:50%;width:10px;height:10px;border-right:2px solid var(--teal-2);border-bottom:2px solid var(--teal-2);transform:translateY(-70%) rotate(45deg);transition:transform .25s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{margin:0;padding:0 22px 20px;color:var(--text);font-size:16px;line-height:1.7}
+
+/* ---------- 9 · ĐĂNG KÝ ---------- */
+.cta{position:relative;background:var(--night);padding:clamp(64px,7vw,116px) 22px;overflow:hidden}
+.cta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cta-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(19,42,45,.93) 0%,rgba(19,42,45,.78) 50%,rgba(19,42,45,.45) 100%)}
+.cta-in{position:relative;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,3.4vw,56px);align-items:center}
+.cta h2{color:#fff}
+.cta .ky{color:#E8CB8E}
+.cta .lead{color:#D7EEF5}
+.cta ul{list-style:none;padding:0;margin:clamp(18px,2.2vw,28px) 0 0}
+.cta ul li{color:#fff;font-size:clamp(15px,1.5vw,16.5px);line-height:1.6;padding:7px 0 7px 30px;position:relative}
+.cta ul li::before{content:"";position:absolute;left:2px;top:14px;width:14px;height:8px;border-left:2px solid #F2C9A8;border-bottom:2px solid #F2C9A8;transform:rotate(-45deg)}
+.form-card{background:#fff;border-radius:18px;padding:clamp(24px,2.8vw,36px);box-shadow:0 24px 60px rgba(0,0,0,.18)}
+.form-card .t{font-size:19px;font-weight:700;color:var(--teal);line-height:1.35}
+.form-card .s{font-size:14px;color:var(--muted);margin-top:6px}
+.form-card form{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.field{border:1.5px solid var(--line);border-radius:10px;padding:14px;font-size:15px;outline:none;min-width:0;width:100%;background:#fff;color:var(--ink)}
+.field:focus{border-color:var(--teal-2)}
+.form-card .btn{padding:17px;font-size:15px}
+.form-card .hot{margin:16px 0 0;text-align:center;font-size:14px;color:var(--muted)}
+.form-card .hot a{font-weight:700;color:var(--teal);font-size:17px}
+.msg{border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.5}
+.msg.ok{background:#E6F3EF;color:var(--teal)} .msg.err{background:#FBEAE4;color:#8A3517}
+@media (max-width:860px){ .cta-in{grid-template-columns:1fr} }
+
+/* ---------- 10 · FOOTER ---------- */
+footer{background:var(--night);padding:clamp(48px,5vw,72px) 22px clamp(40px,4vw,60px);color:#C7D8DA}
+.ft{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:clamp(22px,3vw,44px);align-items:center}
+.ft img{width:clamp(96px,10vw,128px);height:auto}
+.ft .fb{font-size:clamp(20px,2vw,26px);letter-spacing:.12em;color:#fff;font-weight:700;line-height:1.3}
+.ft .fb small{display:block;font-size:13px;letter-spacing:.16em;color:#A9D8E8;margin-top:6px;font-weight:700}
+.ft p{font-size:15px;line-height:1.75;margin:14px 0 0;color:#C7D8DA}
+.ft .links{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.ft .links a{color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:9px 18px;font-size:14px;font-weight:700}
+.ft .links a:hover{background:rgba(255,255,255,.1)}
+.legal{max-width:1000px;margin:clamp(28px,3vw,40px) auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;line-height:1.75;color:#A7BDC0;text-align:center}
+@media (max-width:640px){ .ft{grid-template-columns:1fr;text-align:center} .ft img{margin:0 auto} .ft .links{justify-content:center} }
+
+/* ---------- thanh liên hệ nhanh (điện thoại) ---------- */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:300;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;gap:10px;box-shadow:0 -6px 20px rgba(0,0,0,.12);transform:translateY(110%);transition:transform .3s}
+.bar.show{transform:none}
+.bar a{flex:1;text-align:center;padding:12px 6px;border-radius:999px;font-weight:700;font-size:14px;border:1.5px solid var(--teal);color:var(--teal)}
+.bar a.chinh{background:var(--teal);color:#fff;flex:1.4}
+@media (max-width:760px){ .bar{display:flex} footer{padding-bottom:110px} }
+
+/* ---------- LIGHTBOX ---------- */
+.lb{position:fixed;inset:0;z-index:600;background:rgba(19,42,45,.96);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
+.lb button{position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.lb p{position:absolute;top:18px;left:18px;right:70px;margin:0;color:#D7EEF5;font-size:13px}
+
+/* reveal: chỉ bật khi JS chạy -> không JS vẫn thấy đủ nội dung */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .js .rv{opacity:1;transform:none;transition:none} .bar{transition:none} }
+</style>
+<script>document.documentElement.className+=' js'</script>
+
+<!--JSONLD-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://era.com.vn/#organization",
+      "name": "ERA Vietnam - Công ty Cổ phần Bất động sản ERA Việt Nam",
+      "url": "https://era.com.vn/",
+      "telephone": "+84941125000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Số 22 - 24, Đường số 5, KĐT Sala",
+        "addressLocality": "Phường An Khánh",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "areaServed": [
+        "TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://palm-river-era.vercel.app/#website",
+      "url": "https://palm-river-era.vercel.app/",
+      "name": "Palm River",
+      "inLanguage": "vi-VN",
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://palm-river-era.vercel.app/#webpage",
+      "url": "https://palm-river-era.vercel.app/",
+      "name": "Palm River – Căn hộ ven sông Nam Rạch Chiếc, Bình Trưng",
+      "inLanguage": "vi-VN",
+      "isPartOf": {
+        "@id": "https://palm-river-era.vercel.app/#website"
+      },
+      "about": {
+        "@id": "https://palm-river-era.vercel.app/#du-an"
+      },
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://palm-river-era.vercel.app/#breadcrumb"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://palm-river-era.vercel.app/#anh-hero"
+      }
+    },
+    {
+      "@type": [
+        "Product",
+        "Residence",
+        "ApartmentComplex"
+      ],
+      "@id": "https://palm-river-era.vercel.app/#du-an",
+      "name": "Palm River",
+      "description": "Palm River là dự án căn hộ cao tầng kết hợp thương mại – dịch vụ tại khu đô thị Nam Rạch Chiếc (Palm City), mặt tiền đường Song Hành cao tốc TP.HCM – Long Thành – Dầu Giây, phường Bình Trưng, TP. Hồ Chí Minh. Dự án gồm 4 tòa tháp 36 tầng nổi, 2 tầng hầm, 620 căn hộ trên khu đất khoảng 1,89 ha với 2,7 km mặt tiền sông. Chủ đầu tư: Công ty TNHH Nam Rạch Chiếc; đơn vị phát triển: Hướng Việt Properties.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Palm River"
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "Công ty TNHH Nam Rạch Chiếc"
+      },
+      "numberOfAccommodationUnits": 620,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Khu phố 19, đường Song Hành cao tốc TP.HCM – Long Thành – Dầu Giây, khu đô thị Nam Rạch Chiếc",
+        "addressLocality": "Phường Bình Trưng",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 10.791,
+        "longitude": 106.762
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Diện tích khu đất",
+          "value": "Khoảng 1,89 ha"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Quy mô",
+          "value": "4 tòa tháp 36 tầng nổi, 2 tầng hầm"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Số căn hộ",
+          "value": "620 căn hộ; 13 Shophouse khối đế; 71 Officetel"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Loại căn",
+          "value": "Studio, 1PN, 2PN, 3PN, Duplex, Penthouse; 13 Shophouse + 71 Officetel"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Tiến độ",
+          "value": "Khởi công 16/6/2026, dự kiến bàn giao Quý 1/2029"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Hình thức sở hữu",
+          "value": "Sở hữu lâu dài (khách hàng quốc tịch Việt Nam)"
+        }
+      ],
+      "url": "https://palm-river-era.vercel.app/",
+      "image": [
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-hero-4-thap-ven-song.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-hero-4-thap-ven-song.webp",
+          "caption": "Phối cảnh Palm River: 4 tòa tháp 36 tầng bên sông Giồng Ông Tố, khu đô thị Nam Rạch Chiếc, phường Bình Trưng",
+          "name": "Phối cảnh Palm River: 4 tòa tháp 36 tầng bên sông Giồng Ông Tố, khu đô thị Nam Rạch Chiếc, phường Bình Trưng",
+          "width": 1600,
+          "height": 900,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án",
+          "@id": "https://palm-river-era.vercel.app/#anh-hero"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-chan-thap-ben-song-giong-ong-to.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-chan-thap-ben-song-giong-ong-to.webp",
+          "caption": "Chân tháp Palm River bên sông Giồng Ông Tố với công viên ven sông, lối dạo và bến thuyền",
+          "name": "Chân tháp Palm River bên sông Giồng Ông Tố với công viên ven sông, lối dạo và bến thuyền",
+          "width": 1000,
+          "height": 563,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-thap-can-ho-nhin-tu-song.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-thap-can-ho-nhin-tu-song.webp",
+          "caption": "Các tháp căn hộ Palm River nhìn từ phía sông, dòng sông uốn quanh khu đô thị Nam Rạch Chiếc",
+          "name": "Các tháp căn hộ Palm River nhìn từ phía sông, dòng sông uốn quanh khu đô thị Nam Rạch Chiếc",
+          "width": 1000,
+          "height": 663,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-ban-cong-can-ho-hoang-hon.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-ban-cong-can-ho-hoang-hon.webp",
+          "caption": "Ban công kính căn hộ Palm River lúc hoàng hôn, phòng khách mở ra tầm nhìn thành phố",
+          "name": "Ban công kính căn hộ Palm River lúc hoàng hôn, phòng khách mở ra tầm nhìn thành phố",
+          "width": 1000,
+          "height": 489,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-tong-the-palm-city.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-tong-the-palm-city.webp",
+          "caption": "Tổng thể Palm City nhìn từ trên cao với các tháp Palm River ven sông, phía xa là Thủ Thiêm",
+          "name": "Tổng thể Palm City nhìn từ trên cao với các tháp Palm River ven sông, phía xa là Thủ Thiêm",
+          "width": 1400,
+          "height": 878,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-6-gia-tri-tam-diem-ket-noi.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-6-gia-tri-tam-diem-ket-noi.webp",
+          "caption": "Phối cảnh Palm City lúc hoàng hôn: các tháp Palm River bên sông, ga metro và cao tốc phía trước, xa xa là trung tâm TP.HCM",
+          "name": "Phối cảnh Palm City lúc hoàng hôn: các tháp Palm River bên sông, ga metro và cao tốc phía trước, xa xa là trung tâm TP.HCM",
+          "width": 1200,
+          "height": 750,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-6-gia-tri-metro.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-6-gia-tri-metro.webp",
+          "caption": "Tàu metro chạy trên cao cạnh cầu dây văng và các tòa nhà trung tâm TP.HCM, hình minh họa hạ tầng kết nối",
+          "name": "Tàu metro chạy trên cao cạnh cầu dây văng và các tòa nhà trung tâm TP.HCM, hình minh họa hạ tầng kết nối",
+          "width": 800,
+          "height": 499,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-ban-do-vi-tri-ket-noi.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-ban-do-vi-tri-ket-noi.webp",
+          "caption": "Bản đồ vị trí Palm River cạnh nút giao An Phú, ga Bình Trưng, cao tốc TP.HCM – Long Thành – Dầu Giây và sông Giồng Ông Tố",
+          "name": "Bản đồ vị trí Palm River cạnh nút giao An Phú, ga Bình Trưng, cao tốc TP.HCM – Long Thành – Dầu Giây và sông Giồng Ông Tố",
+          "width": 1400,
+          "height": 993,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-toan-canh-tu-tren-cao.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-toan-canh-tu-tren-cao.webp",
+          "caption": "Toàn cảnh Palm River từ trên cao: khu đất 2,7 km mặt tiền sông, công viên ven sông và cao tốc phía trước",
+          "name": "Toàn cảnh Palm River từ trên cao: khu đất 2,7 km mặt tiền sông, công viên ven sông và cao tốc phía trước",
+          "width": 1400,
+          "height": 750,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-cong-vien-ven-song.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-cong-vien-ven-song.webp",
+          "caption": "Công viên ven sông Giồng Ông Tố với đường chạy bộ, cây xanh và thuyền trên sông",
+          "name": "Công viên ven sông Giồng Ông Tố với đường chạy bộ, cây xanh và thuyền trên sông",
+          "width": 764,
+          "height": 426,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-ho-boi-70m.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-ho-boi-70m.webp",
+          "caption": "Hồ bơi dài 70 m giữa vườn nhiệt đới tại tầng 1 Palm River, nhìn thẳng ra mặt nước",
+          "name": "Hồ bơi dài 70 m giữa vườn nhiệt đới tại tầng 1 Palm River, nhìn thẳng ra mặt nước",
+          "width": 1000,
+          "height": 432,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-ho-boi-tre-em-may-truot.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-ho-boi-tre-em-may-truot.webp",
+          "caption": "Hồ bơi trẻ em có máng trượt giữa cây xanh tại Palm River",
+          "name": "Hồ bơi trẻ em có máng trượt giữa cây xanh tại Palm River",
+          "width": 1000,
+          "height": 500,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-sky-onsen-tang-20.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-sky-onsen-tang-20.webp",
+          "caption": "Sky Onsen tầng 20 Palm River: bể khoáng nóng bên vách kính nhìn hoàng hôn thành phố",
+          "name": "Sky Onsen tầng 20 Palm River: bể khoáng nóng bên vách kính nhìn hoàng hôn thành phố",
+          "width": 1000,
+          "height": 562,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-golf-mo-phong.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-golf-mo-phong.webp",
+          "caption": "Phòng golf mô phỏng Palm River với màn hình lớn và khu ghế chờ",
+          "name": "Phòng golf mô phỏng Palm River với màn hình lớn và khu ghế chờ",
+          "width": 1000,
+          "height": 562,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-san-nuong-bbq-tren-cao.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-san-nuong-bbq-tren-cao.webp",
+          "caption": "Sân nướng BBQ trên cao Palm River, bàn ăn gia đình nhìn ra sông lúc chiều",
+          "name": "Sân nướng BBQ trên cao Palm River, bàn ăn gia đình nhìn ra sông lúc chiều",
+          "width": 1000,
+          "height": 562,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-ghe-treo-vuon-tren-cao.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-ghe-treo-vuon-tren-cao.webp",
+          "caption": "Khu ghế treo giữa vườn nhiệt đới trên cao tại Palm River, nhìn ra thành phố",
+          "name": "Khu ghế treo giữa vườn nhiệt đới trên cao tại Palm River, nhìn ra thành phố",
+          "width": 1000,
+          "height": 561,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-kids-club-trong-nha.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-kids-club-trong-nha.webp",
+          "caption": "Kids Club trong nhà Palm River với vòm cầu vồng, bóng và kệ đồ chơi",
+          "name": "Kids Club trong nhà Palm River với vòm cầu vồng, bóng và kệ đồ chơi",
+          "width": 1000,
+          "height": 562,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-chieu-phim-cu-dan.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-chieu-phim-cu-dan.webp",
+          "caption": "Phòng chiếu phim cư dân Palm River với trần sao và ghế ngả bọc nỉ",
+          "name": "Phòng chiếu phim cư dân Palm River với trần sao và ghế ngả bọc nỉ",
+          "width": 1000,
+          "height": 776,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-massage-tri-lieu.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-massage-tri-lieu.webp",
+          "caption": "Phòng massage trị liệu Palm River với hai giường đơn và ánh sáng ấm",
+          "name": "Phòng massage trị liệu Palm River với hai giường đơn và ánh sáng ấm",
+          "width": 1000,
+          "height": 739,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t3.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t3.webp",
+          "caption": "Mặt bằng tầng điển hình tháp T3 Palm River, tầng 4–19 và 21–26: 6 căn 2 và 3 phòng ngủ mỗi sàn",
+          "name": "Mặt bằng tầng điển hình tháp T3 Palm River, tầng 4–19 và 21–26: 6 căn 2 và 3 phòng ngủ mỗi sàn",
+          "width": 1400,
+          "height": 1076,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t4.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t4.webp",
+          "caption": "Mặt bằng tầng điển hình tháp T4 Palm River, tầng 5–19: 6 căn gồm 2PN, 2PN đặc biệt, 3PN và 3PN đặc biệt",
+          "name": "Mặt bằng tầng điển hình tháp T4 Palm River, tầng 5–19: 6 căn gồm 2PN, 2PN đặc biệt, 3PN và 3PN đặc biệt",
+          "width": 1400,
+          "height": 1076,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-toan-canh-bon-thap-ven-song.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-toan-canh-bon-thap-ven-song.webp",
+          "caption": "Toàn cảnh bốn tháp Palm River nhìn từ phía cao tốc, phía trước là sông và công viên",
+          "name": "Toàn cảnh bốn tháp Palm River nhìn từ phía cao tốc, phía trước là sông và công viên",
+          "width": 1200,
+          "height": 675,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-mat-dung-thap-va-hang-co.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-mat-dung-thap-va-hang-co.webp",
+          "caption": "Mặt đứng các tháp Palm River với cầu nối trên cao và hàng cọ dọc bờ sông",
+          "name": "Mặt đứng các tháp Palm River với cầu nối trên cao và hàng cọ dọc bờ sông",
+          "width": 1200,
+          "height": 796,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-palm-city-hai-dong-song.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-palm-city-hai-dong-song.webp",
+          "caption": "Palm River giữa khu đô thị Palm City, được hai dòng sông bao quanh",
+          "name": "Palm River giữa khu đô thị Palm City, được hai dòng sông bao quanh",
+          "width": 1200,
+          "height": 600,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-sanh-don-xe-khoi-de.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-sanh-don-xe-khoi-de.webp",
+          "caption": "Sảnh đón xe khối đế Palm River với vườn cây, đài nước và dãy cửa hàng",
+          "name": "Sảnh đón xe khối đế Palm River với vườn cây, đài nước và dãy cửa hàng",
+          "width": 1200,
+          "height": 675,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-loi-dao-duoi-tan-cay.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-loi-dao-duoi-tan-cay.webp",
+          "caption": "Lối dạo lát gỗ dưới tán cây cổ thụ cạnh khối đế Palm River",
+          "name": "Lối dạo lát gỗ dưới tán cây cổ thụ cạnh khối đế Palm River",
+          "width": 1200,
+          "height": 817,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-san-vuon-dai-nuoc-khoi-de.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-san-vuon-dai-nuoc-khoi-de.webp",
+          "caption": "Sân vườn khối đế Palm River với đài nước, cọ xanh và mái vòm uốn lượn",
+          "name": "Sân vườn khối đế Palm River với đài nước, cọ xanh và mái vòm uốn lượn",
+          "width": 1200,
+          "height": 648,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-lounge-cu-dan.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-lounge-cu-dan.webp",
+          "caption": "Lounge cư dân Palm River với sofa cong và vách trang trí kim loại",
+          "name": "Lounge cư dân Palm River với sofa cong và vách trang trí kim loại",
+          "width": 1200,
+          "height": 600,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-khach-can-2-phong-ngu.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-khach-can-2-phong-ngu.webp",
+          "caption": "Phòng khách căn 2 phòng ngủ Palm River, tông gỗ sáng với điểm nhấn xanh rêu và cam đất",
+          "name": "Phòng khách căn 2 phòng ngủ Palm River, tông gỗ sáng với điểm nhấn xanh rêu và cam đất",
+          "width": 1200,
+          "height": 941,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-ban-an-can-ho.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-ban-an-can-ho.webp",
+          "caption": "Bàn ăn căn hộ Palm River với ghế băng bọc nỉ và cửa kính lấy sáng",
+          "name": "Bàn ăn căn hộ Palm River với ghế băng bọc nỉ và cửa kính lấy sáng",
+          "width": 1200,
+          "height": 1201,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-ngu-can-ho.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-ngu-can-ho.webp",
+          "caption": "Phòng ngủ căn hộ Palm River với đầu giường ốp vải và cửa sổ nhìn cây xanh",
+          "name": "Phòng ngủ căn hộ Palm River với đầu giường ốp vải và cửa sổ nhìn cây xanh",
+          "width": 1200,
+          "height": 600,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-thay-do-can-3-phong-ngu.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-thay-do-can-3-phong-ngu.webp",
+          "caption": "Phòng thay đồ căn 3 phòng ngủ Palm River với tủ kính và gương bầu dục",
+          "name": "Phòng thay đồ căn 3 phòng ngủ Palm River với tủ kính và gương bầu dục",
+          "width": 1200,
+          "height": 1203,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-khach-can-3-phong-ngu.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-phong-khach-can-3-phong-ngu.webp",
+          "caption": "Phòng khách căn 3 phòng ngủ Palm River với sofa cong và ghế bành xanh",
+          "name": "Phòng khách căn 3 phòng ngủ Palm River với sofa cong và ghế bành xanh",
+          "width": 1200,
+          "height": 791,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-studio.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-studio.webp",
+          "caption": "Layout căn Studio Palm River, GSA 41,3 m² · NSA 37,3 m²",
+          "name": "Layout căn Studio Palm River, GSA 41,3 m² · NSA 37,3 m²",
+          "width": 1200,
+          "height": 1200,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-1pn.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-1pn.webp",
+          "caption": "Layout căn 1 phòng ngủ Palm River, GSA 65,9 m² · NSA 60,2 m²",
+          "name": "Layout căn 1 phòng ngủ Palm River, GSA 65,9 m² · NSA 60,2 m²",
+          "width": 1200,
+          "height": 1200,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-2pn.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-2pn.webp",
+          "caption": "Layout căn 2 phòng ngủ Palm River, GSA 76,6 m² · NSA 77,3 m²",
+          "name": "Layout căn 2 phòng ngủ Palm River, GSA 76,6 m² · NSA 77,3 m²",
+          "width": 1200,
+          "height": 1200,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-2pn-lon.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-2pn-lon.webp",
+          "caption": "Layout căn 2 phòng ngủ đặc biệt Palm River, GSA 120,2 – 121,9 m² · NSA 116,6 – 111,3 m²",
+          "name": "Layout căn 2 phòng ngủ đặc biệt Palm River, GSA 120,2 – 121,9 m² · NSA 116,6 – 111,3 m²",
+          "width": 1200,
+          "height": 1200,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-3pn.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-3pn.webp",
+          "caption": "Layout căn 3 phòng ngủ Palm River, GSA 126,1 m² · NSA 115,5 – 116,2 m²",
+          "name": "Layout căn 3 phòng ngủ Palm River, GSA 126,1 m² · NSA 115,5 – 116,2 m²",
+          "width": 1200,
+          "height": 1200,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-3pn-lon.webp",
+          "url": "https://palm-river-era.vercel.app/assets/img/palm-river-layout-can-3pn-lon.webp",
+          "caption": "Layout căn 3 phòng ngủ đặc biệt Palm River, GSA 157 m² · NSA 143,7 – 144,8 m²",
+          "name": "Layout căn 3 phòng ngủ đặc biệt Palm River, GSA 157 m² · NSA 143,7 – 144,8 m²",
+          "width": 1200,
+          "height": 1200,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://palm-river-era.vercel.app/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ERA Vietnam",
+          "item": "https://era.com.vn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Palm River",
+          "item": "https://palm-river-era.vercel.app/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://palm-river-era.vercel.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Palm River nằm ở đâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Palm River nằm tại khu phố 19, phường Bình Trưng, TP. Hồ Chí Minh (trước ngày 1/7/2025 thuộc phường An Phú, TP. Thủ Đức), mặt tiền đường Song Hành cao tốc TP.HCM – Long Thành – Dầu Giây, trong khu đô thị Nam Rạch Chiếc (Palm City 30,6 ha). Dự án ngay ga Bình Trưng của tuyến đường sắt Thủ Thiêm – Long Thành và cách nút giao An Phú khoảng 3 phút."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Chủ đầu tư Palm River là ai?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chủ đầu tư là Công ty TNHH Nam Rạch Chiếc, đơn vị phát triển là Hướng Việt Properties (thuộc Hướng Việt Holdings). Tên pháp lý của dự án là Khu nhà ở chung cư cao tầng kết hợp thương mại – dịch vụ 3 (ký hiệu CC3) thuộc Dự án Khu Trung tâm Nam Rạch Chiếc; tên thương mại là phân khu Palm River."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Palm River có quy mô bao nhiêu căn?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dự án rộng khoảng 1,89 ha, gồm 4 tòa tháp T1 – T4 cao 36 tầng nổi (149,45 m) và 2 tầng hầm, tổng cộng 620 căn hộ cùng 13 Shophouse khối đế và 71 Officetel. Mỗi sàn chỉ 4 – 6 căn: tháp T1 4 căn/sàn, tháp T2, T3, T4 6 căn/sàn. Mật độ xây dựng 39,5%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Khi nào Palm River bàn giao?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Palm River khởi công ngày 16/6/2026 và dự kiến bàn giao Quý 1/2029. Hình thức sở hữu lâu dài áp dụng đối với khách hàng quốc tịch Việt Nam."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Palm River có những tiện ích gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dự án có 68 tiện ích bố trí tại tầng 1, tầng 2 và tầng 20, mọi cư dân đều được sử dụng: hồ bơi dài 70 m, hồ bơi trẻ em, hồ bơi vô cực và Sky Onsen tầng 20, hồ ngâm lạnh phục hồi, Sky Gym, phòng golf mô phỏng, sân nướng BBQ, Kids Club, phòng chiếu phim, sân pickleball cùng nhà trẻ 1.404,52 m². Bên ngoài là công viên ven sông Giồng Ông Tố dài gần 3 km."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Palm River có chỗ đậu ô tô cho mỗi căn không?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Có. Mỗi căn hộ đi kèm 1 chỗ đậu ô tô. Theo bảng Hỏi – Đáp của chủ đầu tư, 2 tầng hầm (khoảng 18.990 m² mỗi tầng) có 633 chỗ đậu ô tô và 1.240 chỗ xe máy, hai lối ra vào hầm bố trí tại tháp T1 và T4."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Từ Palm River đi Thủ Thiêm, Quận 1 và sân bay mất bao lâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Từ dự án mất khoảng 3 phút tới nút giao An Phú và cao tốc TP.HCM – Long Thành – Dầu Giây, khoảng 5 phút tới ga Metro Thủ Thiêm, khoảng 10 phút tới Thủ Thiêm, khoảng 12 phút tới trung tâm Quận 1 (cũ) và cầu Cát Lái, khoảng 30 phút tới sân bay Long Thành."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!--/JSONLD-->
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="song" viewBox="0 0 120 22"><path d="M2 6c18-6 30 6 58 0s40-6 58 0M2 16c18-6 30 6 58 0s40-6 58 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+</svg>
+
+<!-- ======================= HEADER ======================= -->
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="#top" aria-label="Palm River – về đầu trang">
+      <img src="assets/img/palm-river-logo.webp" alt="Logo Palm River" width="300" height="134">
+    </a>
+    <nav class="nav" id="nav" aria-label="Điều hướng trang">
+      <a href="#tong-quan">Tổng quan</a>
+      <a class="opt" href="#diem-nhan">Giá trị</a>
+      <a href="#vi-tri">Vị trí</a>
+      <a href="#tien-ich">Tiện ích</a>
+      <a href="#mat-bang">Mặt bằng</a>
+      <a class="opt" href="#hinh-anh">Hình ảnh</a>
+      <a href="#can-ho">Căn hộ</a>
+      <a class="nav-tel opt" href="tel:0941125000">094.1125.000</a>
+      <a class="nav-cta" href="#dang-ky">Nhận rổ hàng</a>
+    </nav>
+    <button class="burger" id="burger" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ======================= 1 · HERO (sheet D4 — nguyên văn) ======================= -->
+<section class="hero" aria-label="Giới thiệu Palm River">
+  <picture>
+    <source media="(max-width:760px)" srcset="assets/img/palm-river-hero-mobile.webp" width="720" height="750">
+    <img src="assets/img/palm-river-hero-4-thap-ven-song.webp" width="1600" height="900" fetchpriority="high" decoding="async"
+         alt="Phối cảnh Palm River: 4 tòa tháp 36 tầng bên sông Giồng Ông Tố, khu đô thị Nam Rạch Chiếc, phường Bình Trưng">
+  </picture>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="hero-in">
+    <div class="hero-box">
+      <h1>Palm River <em>Nơi kết nối đô thị, thiên nhiên và hệ sinh thái nghỉ dưỡng hội tụ trong một chuẩn sống mới</em></h1>
+      <ul class="hero-facts">
+        <li><b>4 tháp</b><span>36 tầng nổi</span></li>
+        <li><b>620</b><span>Căn hộ</span></li>
+        <li><b>3 mặt</b><span>Giáp sông</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1 · GIỚI THIỆU (sheet D5 — nguyên văn) ======================= -->
+<section class="sec bg-pale" id="gioi-thieu">
+  <div class="wrap gt">
+    <div class="rv">
+      <p class="ky">Đô thị nghỉ dưỡng giữa lòng thành phố</p>
+      <h2>Giới thiệu Palm River</h2>
+      <svg class="song trai" aria-hidden="true"><use href="#song"/></svg>
+      <p class="body" style="margin-top:18px">Palm River là dự án căn hộ cao tầng kết hợp thương mại – dịch vụ tại khu đô thị Nam Rạch Chiếc, mặt tiền đường Song Hành cao tốc TP.HCM – Long Thành – Dầu Giây, phường Bình Trưng, TP.HCM (trước ngày 1/7/2025 thuộc phường An Phú, TP. Thủ Đức). Dự án do Công ty TNHH Nam Rạch Chiếc làm chủ đầu tư, Hướng Việt Properties phát triển.</p>
+      <p class="body">Tọa lạc tại khu vực phát triển trọng điểm phía Đông TP.HCM, Palm River tiếp cận thuận tiện các trung tâm tài chính, giao thông, giáo dục và thương mại quan trọng.</p>
+      <p class="body">Dự án gồm 4 tòa tháp 36 tầng nổi, 2 tầng hầm trên khu đất khoảng 1,89 ha, 2,7 km mặt tiền sông, với các dòng sản phẩm Studio, 1PN, 2PN, 3PN, Duplex, Penthouse cùng 13 Shophouse và 71 Officetel.</p>
+    </div>
+    <div class="mosaic rv">
+      <figure class="m1 zoomable" data-zoom="assets/img/palm-river-chan-thap-ben-song-giong-ong-to.webp">
+        <img src="assets/img/palm-river-chan-thap-ben-song-giong-ong-to.webp" srcset="assets/img/palm-river-chan-thap-ben-song-giong-ong-to-800.webp 800w, assets/img/palm-river-chan-thap-ben-song-giong-ong-to.webp 1000w" sizes="(max-width:900px) 100vw, 620px" width="1000" height="563" loading="lazy" decoding="async"
+             alt="Chân tháp Palm River bên sông Giồng Ông Tố với công viên ven sông, lối dạo và bến thuyền">
+      </figure>
+      <figure class="m2 zoomable" data-zoom="assets/img/palm-river-thap-can-ho-nhin-tu-song.webp">
+        <img src="assets/img/palm-river-thap-can-ho-nhin-tu-song-800.webp" width="800" height="530" loading="lazy" decoding="async"
+             alt="Các tháp căn hộ Palm River nhìn từ phía sông, dòng sông uốn quanh khu đô thị Nam Rạch Chiếc">
+      </figure>
+      <figure class="m3 zoomable" data-zoom="assets/img/palm-river-ban-cong-can-ho-hoang-hon.webp">
+        <img src="assets/img/palm-river-ban-cong-can-ho-hoang-hon-800.webp" width="800" height="391" loading="lazy" decoding="async"
+             alt="Ban công kính căn hộ Palm River lúc hoàng hôn, phòng khách mở ra tầm nhìn thành phố">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2 · THÔNG TIN TỔNG QUAN (sheet D7 — nguyên văn; thêm 4 dòng từ Q&A + factsheet CĐT) ======================= -->
+<section class="sec" id="tong-quan">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Thông tin tổng quan Palm River</h2>
+      <svg class="song" aria-hidden="true"><use href="#song"/></svg>
+    </div>
+    <div class="stats rv">
+      <div><b>1,89 ha</b><span>Diện tích khu đất</span></div>
+      <div><b>4 tháp</b><span>36 tầng nổi · 2 tầng hầm</span></div>
+      <div><b>620</b><span>Căn hộ</span></div>
+      <div><b>Q.1/2029</b><span>Dự kiến bàn giao</span></div>
+    </div>
+    <div class="ov">
+      <figure class="ov-fig rv zoomable" data-zoom="assets/img/palm-river-tong-the-palm-city-2600.webp">
+        <img src="assets/img/palm-river-tong-the-palm-city.webp" srcset="assets/img/palm-river-tong-the-palm-city-800.webp 800w, assets/img/palm-river-tong-the-palm-city.webp 1400w" sizes="(max-width:900px) 100vw, 575px" width="1400" height="878" loading="lazy" decoding="async"
+             alt="Tổng thể Palm City nhìn từ trên cao với các tháp Palm River ven sông, phía xa là Thủ Thiêm">
+        <figcaption class="fcap">Palm River trong tổng thể khu đô thị Palm City 30,6 ha · bấm để phóng to</figcaption>
+      </figure>
+      <table class="spec rv">
+        <caption class="sr">Bảng thông tin tổng quan dự án Palm River</caption>
+        <tbody>
+          <tr><th scope="row">Chủ đầu tư</th><td>Công ty TNHH Nam Rạch Chiếc</td></tr>
+          <tr><th scope="row">Đơn vị phát triển</th><td>Hướng Việt Properties</td></tr>
+          <tr><th scope="row">Vị trí</th><td>Phường Bình Trưng, TP.HCM (mặt tiền đường Song Hành cao tốc TP.HCM – Long Thành – Dầu Giây, khu đô thị Nam Rạch Chiếc)</td></tr>
+          <tr><th scope="row">Loại hình dự án</th><td>Nhà ở chung cư cao tầng kết hợp thương mại – dịch vụ</td></tr>
+          <tr><th scope="row">Loại hình căn hộ</th><td>Studio, 1PN, 2PN, 3PN, Duplex, Penthouse · 13 Shophouse + 71 Officetel</td></tr>
+          <tr><th scope="row">Quy mô dự án</th><td>04 tòa tháp, 36 tầng nổi, 02 tầng hầm</td></tr>
+          <tr><th scope="row">Diện tích khu đất</th><td>Khoảng 1,89 ha</td></tr>
+          <tr><th scope="row">Số lượng căn hộ</th><td><b>620 căn</b> — kèm 13 Shophouse khối đế và 71 Officetel</td></tr>
+          <tr><th scope="row">Hình thức sở hữu</th><td>Sở hữu lâu dài (áp dụng đối với khách hàng quốc tịch Việt Nam)</td></tr>
+          <tr><th scope="row">Tiến độ</th><td>Khởi công 16/6/2026 – Dự kiến bàn giao Quý 1/2029</td></tr>
+          <tr><th scope="row">Chiều cao · mật độ</th><td>149,45 m · Mật độ xây dựng 39,5% · 4 – 6 căn/sàn</td></tr>
+          <tr><th scope="row">Tư vấn thiết kế</th><td>Kiến trúc DPA (Singapore) · Cảnh quan LJ-Group · Nội thất Dark-Horse · Thiết kế theo tiêu chuẩn xanh EDGE</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="text-align:center;margin:18px 0 0">Các thông số theo landing ERA hiện tại và tài liệu dự án, cập nhật tháng 9/2026. Thông tin chính thức căn cứ trên hợp đồng mua bán.</p>
+  </div>
+</section>
+
+<!-- ======================= 3 · 06 GIÁ TRỊ (leaflet CĐT "Leaflet Palm River Digital" tr.23 — chữ nguyên văn; thay 6 điểm nhấn sheet theo Anh Tony 02/10) ======================= -->
+<section class="sec gt-sec" id="diem-nhan">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="ky">Kiến tạo chuẩn sống Palm River</p>
+      <h2><span class="gt-06">06</span> Giá trị</h2>
+      <svg class="song" aria-hidden="true"><use href="#song"/></svg>
+    </div>
+
+    <div class="gt-hang">
+      <ol class="gt-ds rv">
+        <li><span class="so" aria-hidden="true">01</span><h3>Tâm điểm kết nối</h3><p>Cửa ngõ kết nối khu Đông TP.HCM, thuận tiện tiếp cận các trung tâm kinh tế, giáo dục, thương mại và giải trí.</p></li>
+        <li><span class="so" aria-hidden="true">02</span><h3>Tiềm năng tăng trưởng bền vững</h3><p>Đón đầu động lực phát triển từ hạ tầng đồng bộ và lợi thế ven sông hiếm có.</p></li>
+      </ol>
+      <figure class="gt-anh rv zoomable" data-zoom="assets/img/palm-river-6-gia-tri-tam-diem-ket-noi.webp">
+        <img src="assets/img/palm-river-6-gia-tri-tam-diem-ket-noi-800.webp" srcset="assets/img/palm-river-6-gia-tri-tam-diem-ket-noi-800.webp 800w, assets/img/palm-river-6-gia-tri-tam-diem-ket-noi.webp 1200w" sizes="(max-width:860px) 100vw, 600px" width="1200" height="750" loading="lazy" decoding="async"
+             alt="Phối cảnh Palm City lúc hoàng hôn: các tháp Palm River bên sông, ga metro và cao tốc phía trước, xa xa là trung tâm TP.HCM">
+      </figure>
+    </div>
+
+    <div class="gt-hang dao">
+      <ol class="gt-ds rv" start="3">
+        <li><span class="so" aria-hidden="true">03</span><h3>Đại đô thị đa chức năng</h3><p>Hệ sinh thái “all-in-one” quy tụ giáo dục, y tế, thương mại, giải trí và giao thông hiện đại trong cùng một điểm đến.</p></li>
+        <li><span class="so" aria-hidden="true">04</span><h3>Chuẩn sống wellness</h3><p>Kiến trúc đề cao ánh sáng, thiên nhiên và sự cân bằng, mang đến trải nghiệm nghỉ dưỡng mỗi ngày.</p></li>
+      </ol>
+      <figure class="gt-anh rv zoomable" data-zoom="assets/img/palm-river-6-gia-tri-metro.webp">
+        <img src="assets/img/palm-river-6-gia-tri-metro.webp" width="800" height="499" loading="lazy" decoding="async"
+             alt="Tàu metro chạy trên cao cạnh cầu dây văng và các tòa nhà trung tâm TP.HCM, hình minh họa hạ tầng kết nối">
+      </figure>
+    </div>
+
+    <div class="gt-hang">
+      <ol class="gt-ds rv" start="5">
+        <li><span class="so" aria-hidden="true">05</span><h3>Riêng tư đắt giá</h3><p>Không gian sống thoáng mở với mật độ xây dựng hợp lý, nâng tầm sự riêng tư và giá trị sống.</p></li>
+        <li><span class="so" aria-hidden="true">06</span><h3>Tiện ích “sống khỏe” toàn diện</h3><p>Hơn 100 tiện ích nội – ngoại khu được quy hoạch đồng bộ, đáp ứng trọn vẹn nhu cầu sống, vận động và chăm sóc sức khỏe.</p></li>
+      </ol>
+      <figure class="gt-anh rv zoomable" data-zoom="assets/img/palm-river-ho-boi-tre-em-may-truot.webp">
+        <img src="assets/img/palm-river-ho-boi-tre-em-may-truot-800.webp" srcset="assets/img/palm-river-ho-boi-tre-em-may-truot-800.webp 800w, assets/img/palm-river-ho-boi-tre-em-may-truot.webp 1000w" sizes="(max-width:860px) 100vw, 600px" width="1000" height="500" loading="lazy" decoding="async"
+             alt="Hồ bơi trẻ em có máng trượt giữa cây xanh tại Palm River">
+      </figure>
+    </div>
+    <p class="note gt-note">Hình ảnh chỉ mang tính chất minh họa.</p>
+  </div>
+</section>
+
+<!-- ======================= 4 · VỊ TRÍ VÀ KẾT NỐI (sheet D10-D11 — nguyên văn)
+     Ảnh "Vị trí" trong sheet là GIF bản đồ không có chữ -> dùng bản đồ có chú thích trong brochure CĐT tr.5 ======================= -->
+<section class="sec bg-pale" id="vi-tri">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Vị trí Palm River</h2>
+      <svg class="song" aria-hidden="true"><use href="#song"/></svg>
+    </div>
+    <div class="rv" style="max-width:900px;margin:0 auto clamp(26px,3vw,38px)">
+      <p class="body">Tọa lạc tại khu vực phát triển trọng điểm phía Đông TP.HCM, Palm River tiếp cận thuận tiện các trung tâm tài chính, giao thông, giáo dục và thương mại quan trọng.</p>
+      <p class="body">Dự án nằm trong khu đô thị Nam Rạch Chiếc, mặt tiền đường Song Hành cao tốc TP.HCM – Long Thành – Dầu Giây, liền kề trục An Phú – Thủ Thiêm.</p>
+    </div>
+    <div class="vt">
+      <figure class="map-fig rv zoomable" data-zoom="assets/img/palm-river-ban-do-vi-tri-ket-noi-3000.webp">
+        <img src="assets/img/palm-river-ban-do-vi-tri-ket-noi.webp" srcset="assets/img/palm-river-ban-do-vi-tri-ket-noi-800.webp 800w, assets/img/palm-river-ban-do-vi-tri-ket-noi.webp 1400w" sizes="(max-width:900px) 100vw, 720px" width="1400" height="993" loading="lazy" decoding="async"
+             alt="Bản đồ vị trí Palm River cạnh nút giao An Phú, ga Bình Trưng, cao tốc TP.HCM – Long Thành – Dầu Giây và sông Giồng Ông Tố">
+        <figcaption class="fcap">Bản đồ kết nối theo tài liệu chủ đầu tư · bấm để phóng to</figcaption>
+      </figure>
+      <aside class="phut rv" aria-label="Thời gian di chuyển từ Palm River">
+        <h3>Kết nối đường sắt &amp; metro</h3>
+        <div class="rt"><b>Ngay</b><span>Ga Bình Trưng (tuyến Thủ Thiêm – Long Thành) trước dự án</span></div>
+        <div class="rt"><b>~5′</b><span>Ga Metro Thủ Thiêm</span></div>
+        <h3>Kết nối đường bộ</h3>
+        <div class="rt"><b>~3′</b><span>Nút giao An Phú, cao tốc TP.HCM – Long Thành – Dầu Giây</span></div>
+        <div class="rt"><b>~10′</b><span>Thủ Thiêm</span></div>
+        <div class="rt"><b>~12′</b><span>Trung tâm Quận 1 (cũ) · cầu Cát Lái</span></div>
+        <div class="rt"><b>~30′</b><span>Sân bay Long Thành</span></div>
+        <h3>Giáo dục quốc tế</h3>
+        <div class="rt"><b>~3′</b><span>Trường Quốc tế Mỹ TAS</span></div>
+        <div class="rt"><b>7–10′</b><span>AIS, VAS</span></div>
+      </aside>
+    </div>
+    <p class="note" style="text-align:center;margin:16px 0 0">Thời gian di chuyển mang tính tham khảo. Tuyến đường sắt Thủ Thiêm – Long Thành theo tài liệu chủ đầu tư dự kiến hoàn thành năm 2030.</p>
+  </div>
+</section>
+
+<!-- ======================= 5 · TIỆN ÍCH (sheet D12-D13 — nguyên văn; danh mục 68 tiện ích theo tầng: brochure CĐT tr.29-37) ======================= -->
+<section class="sec bg-sand" id="tien-ich">
+  <div class="wrap">
+    <div class="ti-top">
+      <div class="rv">
+        <p class="ky">68 tiện ích nghỉ dưỡng giữa lòng thành phố</p>
+        <h2>Tiện ích</h2>
+        <svg class="song trai" aria-hidden="true"><use href="#song"/></svg>
+        <p class="body" style="margin-top:18px">Hệ tiện ích Palm River trải trên tầng 1, tầng 2 và tầng 20, mọi cư dân của 4 tòa tháp đều được sử dụng — từ hồ bơi 70 m giữa vườn nhiệt đới đến Sky Onsen và hồ bơi vô cực trên cao.</p>
+      </div>
+      <figure class="rv zoomable" data-zoom="assets/img/palm-river-toan-canh-tu-tren-cao.webp">
+        <img src="assets/img/palm-river-toan-canh-tu-tren-cao.webp" srcset="assets/img/palm-river-toan-canh-tu-tren-cao-800.webp 800w, assets/img/palm-river-toan-canh-tu-tren-cao.webp 1400w" sizes="(max-width:900px) 100vw, 640px" width="1400" height="750" loading="lazy" decoding="async"
+             alt="Toàn cảnh Palm River từ trên cao: khu đất 2,7 km mặt tiền sông, công viên ven sông và cao tốc phía trước">
+      </figure>
+    </div>
+
+    <div class="ti-2">
+      <div class="ti-box rv">
+        <h3 class="card-h">Tiện ích nội khu – nghỉ dưỡng trên cao</h3>
+        <ul>
+          <li>Hồ bơi dài 70m, hồ bơi vô cực</li>
+          <li>Sky Onsen (tắm khoáng kiểu Nhật), hồ trị liệu nóng – lạnh</li>
+          <li>Private Spa, Sky Yoga Deck, Sky Gym &amp; Pilates</li>
+          <li>Khu golf mô phỏng, clubhouse, đài ngắm cảnh</li>
+          <li>Khu vườn BBQ, khu vui chơi trẻ em</li>
+        </ul>
+      </div>
+      <div class="ti-box rv">
+        <h3 class="card-h">Tiện ích ven sông &amp; ngoại khu</h3>
+        <ul>
+          <li>Công viên ven sông gần 3 km</li>
+          <li>Khu thể thao Rạch Chiếc (~5 phút)</li>
+          <li>Trường quốc tế TAS, AIS, VAS</li>
+        </ul>
+        <figure class="zoomable" data-zoom="assets/img/palm-river-cong-vien-ven-song.webp">
+          <img src="assets/img/palm-river-cong-vien-ven-song.webp" width="764" height="426" loading="lazy" decoding="async"
+               alt="Công viên ven sông Giồng Ông Tố với đường chạy bộ, cây xanh và thuyền trên sông">
+        </figure>
+      </div>
+    </div>
+
+    <div class="slider rv" id="slider" aria-roledescription="carousel" aria-label="Tiện ích tiêu biểu">
+      <div class="track" id="track" tabindex="0">
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-ho-boi-70m.webp"><img src="assets/img/palm-river-ho-boi-70m-800.webp" width="800" height="346" loading="lazy" decoding="async" alt="Hồ bơi dài 70 m giữa vườn nhiệt đới tại tầng 1 Palm River, nhìn thẳng ra mặt nước"><figcaption><span class="ten">Hồ bơi 70 m</span><span class="mo">Tầng 1, giữa vườn nhiệt đới, nhìn thẳng ra mặt nước.</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-sky-onsen-tang-20.webp"><img src="assets/img/palm-river-sky-onsen-tang-20-800.webp" width="800" height="450" loading="lazy" decoding="async" alt="Sky Onsen tầng 20 Palm River: bể khoáng nóng bên vách kính nhìn hoàng hôn thành phố"><figcaption><span class="ten">Sky Onsen</span><span class="mo">Khoáng nóng trên không tầng 20, tầm nhìn toàn cảnh.</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-ho-boi-tre-em-may-truot.webp"><img src="assets/img/palm-river-ho-boi-tre-em-may-truot-800.webp" width="800" height="400" loading="lazy" decoding="async" alt="Hồ bơi trẻ em có máng trượt giữa cây xanh tại Palm River"><figcaption><span class="ten">Hồ bơi trẻ em</span><span class="mo">Máng trượt và hồ nông an toàn cho bé.</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-phong-golf-mo-phong.webp"><img src="assets/img/palm-river-phong-golf-mo-phong-800.webp" width="800" height="450" loading="lazy" decoding="async" alt="Phòng golf mô phỏng Palm River với màn hình lớn và khu ghế chờ"><figcaption><span class="ten">Phòng golf mô phỏng</span><span class="mo">Tầng 20, cạnh Sky Gym.</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-san-nuong-bbq-tren-cao.webp"><img src="assets/img/palm-river-san-nuong-bbq-tren-cao-800.webp" width="800" height="450" loading="lazy" decoding="async" alt="Sân nướng BBQ trên cao Palm River, bàn ăn gia đình nhìn ra sông lúc chiều"><figcaption><span class="ten">Sân nướng BBQ trên cao</span><span class="mo">Bữa tối gia đình nhìn ra sông.</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-ghe-treo-vuon-tren-cao.webp"><img src="assets/img/palm-river-ghe-treo-vuon-tren-cao-800.webp" width="800" height="449" loading="lazy" decoding="async" alt="Khu ghế treo giữa vườn nhiệt đới trên cao tại Palm River, nhìn ra thành phố"><figcaption><span class="ten">Lounge ghế treo</span><span class="mo">Vườn nhiệt đới trên cao, đón gió và nắng chiều.</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-kids-club-trong-nha.webp"><img src="assets/img/palm-river-kids-club-trong-nha-800.webp" width="800" height="450" loading="lazy" decoding="async" alt="Kids Club trong nhà Palm River với vòm cầu vồng, bóng và kệ đồ chơi"><figcaption><span class="ten">Kids Club</span><span class="mo">Không gian chơi trong nhà cho trẻ nhỏ.</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-phong-chieu-phim-cu-dan.webp"><img src="assets/img/palm-river-phong-chieu-phim-cu-dan-800.webp" width="800" height="621" loading="lazy" decoding="async" alt="Phòng chiếu phim cư dân Palm River với trần sao và ghế ngả bọc nỉ"><figcaption><span class="ten">Phòng chiếu phim</span><span class="mo">Tầng 1, ghế ngả và trần sao.</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-phong-massage-tri-lieu.webp"><img src="assets/img/palm-river-phong-massage-tri-lieu-800.webp" width="800" height="591" loading="lazy" decoding="async" alt="Phòng massage trị liệu Palm River với hai giường đơn và ánh sáng ấm"><figcaption><span class="ten">Phòng massage trị liệu</span><span class="mo">Thư giãn ngay trong khối đế.</span></figcaption></figure>
+      </div>
+      <div class="sl-nav">
+        <span class="sl-dem" id="sl-dem" aria-live="polite">1 / 9</span>
+        <button class="sl-btn sl-truoc" id="sl-truoc" type="button" aria-label="Tiện ích trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="sl-btn sl-sau" id="sl-sau" type="button" aria-label="Tiện ích tiếp theo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
+    <!-- 68 tiện ích theo tầng — số thứ tự đúng sơ đồ brochure CĐT; tầng xếp từ dưới lên như mặt cắt tòa nhà -->
+    <div class="tang-wrap rv">
+      <div class="tang-nut" role="tablist" aria-label="Chọn tầng tiện ích">
+        <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="tg-1" id="tt-1">Tầng 1 · ngoài trời <small>20</small></button>
+        <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="tg-1t" id="tt-1t">Tầng 1 · trong nhà <small>9</small></button>
+        <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="tg-2" id="tt-2">Tầng 2 <small>7</small></button>
+        <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="tg-20" id="tt-20">Tầng 20 <small>32</small></button>
+      </div>
+      <div>
+        <div class="pane tang-list" id="tg-1" role="tabpanel" aria-labelledby="tt-1">
+          <h3>Tiện ích ngoài trời tầng 1</h3>
+          <ol>
+            <li><i>1</i>Sảnh đón xe</li><li><i>2</i>Sàn tập yoga</li><li><i>3</i>Lounge vườn thác nước</li><li><i>4</i>Lounge sân trũng</li><li><i>5</i>Chòi nướng BBQ</li><li><i>6</i>Lounge mặt nước</li><li><i>7</i>Sân chơi trẻ em</li><li><i>8</i>Sân pickleball</li><li><i>9</i>Hồ bơi 70 m</li><li><i>10</i>Hồ bơi trẻ em</li><li><i>11</i>Sàn hồ bơi</li><li><i>12</i>Bể sục Jacuzzi</li><li><i>13</i>Khu ghế ngồi thương mại</li><li><i>14</i>Khu ghế nghỉ</li><li><i>15</i>Tiểu cảnh nước biểu tượng</li><li><i>16</i>Khán đài</li><li><i>17</i>Phố thương mại</li><li><i>18</i>Đường dạo ven sông</li><li><i>19</i>Sân chơi thú cưng</li><li><i>20</i>Bungalow thư giãn ngoài trời</li>
+          </ol>
+        </div>
+        <div class="pane tang-list" id="tg-1t" role="tabpanel" aria-labelledby="tt-1t" hidden>
+          <h3>Tiện ích trong nhà tầng 1</h3>
+          <ol>
+            <li><i>21</i>Sảnh thang máy riêng</li><li><i>22</i>Phòng nhận thư &amp; bưu kiện</li><li><i>23</i>Phòng tập thể hình</li><li><i>24</i>Phòng massage trị liệu</li><li><i>25</i>Phòng chiếu phim</li><li><i>26</i>Phòng karaoke riêng</li><li><i>27</i>Trung tâm chăm sóc sức khỏe gia đình</li><li><i>28</i>Lounge cư dân</li><li><i>29</i>Sảnh đón chính</li>
+          </ol>
+        </div>
+        <div class="pane tang-list" id="tg-2" role="tabpanel" aria-labelledby="tt-2" hidden>
+          <h3>Tiện ích tầng 2</h3>
+          <ol>
+            <li><i>30</i>Lounge ngắm sông</li><li><i>31</i>Cà phê sân hiên</li><li><i>32</i>Khu ghế ngồi thương mại</li><li><i>33</i>Ẩm thực ngoài trời</li><li><i>34</i>Lounge ngắm thành phố</li><li><i>35</i>Bãi cỏ dưới tán cây</li><li><i>36</i>Tiểu cảnh nước biểu tượng</li>
+          </ol>
+        </div>
+        <div class="pane tang-list" id="tg-20" role="tabpanel" aria-labelledby="tt-20" hidden>
+          <h3>Tiện ích tầng 20</h3>
+          <ol>
+            <li><i>37</i>Phòng xông khô</li><li><i>38</i>Hồ ngâm lạnh phục hồi</li><li><i>39</i>Cabana bên hồ bơi</li><li><i>40</i>Sky Gym</li><li><i>41</i>Phòng golf mô phỏng</li><li><i>42</i>Phòng thay đồ</li><li><i>43</i>Lounge phục hồi</li><li><i>44</i>Xích đu ngắm thành phố</li><li><i>45</i>Bi-a ngoài trời</li><li><i>46</i>Bàn bóng bàn</li><li><i>47</i>Phòng xông ướt</li><li><i>48</i>Sảnh sự kiện riêng</li><li><i>49</i>Chòi thư giãn</li><li><i>50</i>Chòi thư giãn trên cao</li><li><i>51</i>Góc thể dục ngoài trời</li><li><i>52</i>Vườn sinh thái</li><li><i>53</i>Sky Onsen</li><li><i>54</i>Sàn ngắm toàn cảnh</li><li><i>55</i>Sân nướng BBQ</li><li><i>56</i>Đài quan sát</li><li><i>57</i>Vườn đá trị liệu</li><li><i>58</i>Vườn trên cao</li><li><i>59</i>Lối dạo xanh lộng gió</li><li><i>60</i>Thang máy riêng</li><li><i>61</i>Lounge ghế treo</li><li><i>62</i>Lounge bãi biển</li><li><i>63</i>Hồ bơi vô cực</li><li><i>64</i>Góc thể dục</li><li><i>65</i>Sàn tập yoga</li><li><i>66</i>Khu trò chơi</li><li><i>67</i>Không gian làm việc chung</li><li><i>68</i>Lounge thư giãn</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="text-align:center;margin-top:16px">Danh mục và hình ảnh tiện ích theo brochure chủ đầu tư, mang tính chất minh họa. Dự án có nhà trẻ 1.404,52 m².</p>
+  </div>
+</section>
+
+<!-- ======================= 6 · MẶT BẰNG ĐIỂN HÌNH (sheet D14-D15: dạng tab THÁP T3 / THÁP T4) ======================= -->
+<section class="sec" id="mat-bang">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Mặt bằng điển hình</h2>
+      <svg class="song" aria-hidden="true"><use href="#song"/></svg>
+    </div>
+    <div class="tabs rv" role="tablist" aria-label="Chọn tháp">
+      <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="p-t3" id="t-t3">THÁP T3</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="p-t4" id="t-t4">THÁP T4</button>
+    </div>
+    <div class="pane rv" id="p-t3" role="tabpanel" aria-labelledby="t-t3">
+      <figure class="mb-fig zoomable" data-zoom="assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t3-2000.webp">
+        <img src="assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t3.webp" srcset="assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t3-800.webp 800w, assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t3.webp 2560w" sizes="(max-width:1224px) 100vw, 1180px" width="2560" height="1810" loading="lazy" decoding="async"
+             alt="Mặt bằng tầng điển hình tháp T3 Palm River, tầng 4–19 và 21–26: 6 căn 2 và 3 phòng ngủ mỗi sàn">
+        <figcaption class="fcap">Tháp T3 · tầng 4 – 19, 21 – 26 · bấm để phóng to</figcaption>
+      </figure>
+      <ul class="loai-can" aria-label="Diện tích căn tháp T3">
+        <li><b>2PN góc</b><span>84,9 / 76,3 m²</span></li>
+        <li><b>2PN thường</b><span>76,6 / 77,3 m²</span></li>
+        <li><b>2PN đặc biệt</b><span>120,2 – 121,9 / 116,6 – 111,3 m²</span></li>
+        <li><b>3PN góc</b><span>125,3 / 115,3 – 116 m²</span></li>
+        <li><b>3PN thường</b><span>126,1 / 115,5 – 116,2 m²</span></li>
+      </ul>
+    </div>
+    <div class="pane" id="p-t4" role="tabpanel" aria-labelledby="t-t4" hidden>
+      <figure class="mb-fig zoomable" data-zoom="assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t4-2000.webp">
+        <img src="assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t4.webp" srcset="assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t4-800.webp 800w, assets/img/palm-river-mat-bang-tang-dien-hinh-thap-t4.webp 2560w" sizes="(max-width:1224px) 100vw, 1180px" width="2560" height="1810" loading="lazy" decoding="async"
+             alt="Mặt bằng tầng điển hình tháp T4 Palm River, tầng 5–19: 6 căn gồm 2PN, 2PN đặc biệt, 3PN và 3PN đặc biệt">
+        <figcaption class="fcap">Tháp T4 · tầng 5 – 19 · bấm để phóng to</figcaption>
+      </figure>
+      <ul class="loai-can" aria-label="Diện tích căn tháp T4">
+        <li><b>2PN góc</b><span>84,9 / 76,3 m²</span></li>
+        <li><b>2PN thường</b><span>76,6 / 77,3 m²</span></li>
+        <li><b>2PN đặc biệt</b><span>120,2 – 121,9 / 116,6 – 111,3 m²</span></li>
+        <li><b>3PN thường</b><span>126,1 / 115,5 – 116,2 m²</span></li>
+        <li><b>3PN đặc biệt</b><span>157 / 143,7 – 144,8 m²</span></li>
+      </ul>
+    </div>
+    <p class="note" style="text-align:center;margin-top:16px">Diện tích ghi theo dạng tim tường (GSA) / thông thủy (NSA), theo mặt bằng chủ đầu tư công bố.</p>
+  </div>
+</section>
+
+<!-- ======================= 7 · THƯ VIỆN HÌNH ẢNH (sheet D17: slider tổng thể, tiện ích, cảnh quan ven sông, nội thất) ======================= -->
+<section class="sec bg-pale tv" id="hinh-anh">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Thư viện hình ảnh</h2>
+      <svg class="song" aria-hidden="true"><use href="#song"/></svg>
+    </div>
+    <div class="tabs rv" role="tablist" aria-label="Chọn nhóm hình">
+      <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="tv-1" id="ttv-1">Tổng thể</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="tv-2" id="ttv-2">Tiện ích &amp; cảnh quan</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="tv-3" id="ttv-3">Nội thất căn hộ mẫu</button>
+    </div>
+    <div class="pane slider" id="tv-1" role="tabpanel" aria-labelledby="ttv-1">
+      <div class="track" tabindex="0">
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-toan-canh-bon-thap-ven-song.webp"><img src="assets/img/palm-river-toan-canh-bon-thap-ven-song-800.webp" width="800" height="450" loading="lazy" decoding="async" alt="Toàn cảnh bốn tháp Palm River nhìn từ phía cao tốc, phía trước là sông và công viên"><figcaption><span class="ten">Toàn cảnh 4 tòa tháp</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-mat-dung-thap-va-hang-co.webp"><img src="assets/img/palm-river-mat-dung-thap-va-hang-co-800.webp" width="800" height="531" loading="lazy" decoding="async" alt="Mặt đứng các tháp Palm River với cầu nối trên cao và hàng cọ dọc bờ sông"><figcaption><span class="ten">Mặt đứng uốn theo dòng chảy</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-palm-city-hai-dong-song.webp"><img src="assets/img/palm-river-palm-city-hai-dong-song-800.webp" width="800" height="400" loading="lazy" decoding="async" alt="Palm River giữa khu đô thị Palm City, được hai dòng sông bao quanh"><figcaption><span class="ten">Giữa lòng Palm City</span></figcaption></figure>
+      </div>
+      <div class="sl-nav"><span class="sl-dem" aria-live="polite">1 / 3</span>
+        <button class="sl-btn sl-truoc" type="button" aria-label="Ảnh trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="sl-btn sl-sau" type="button" aria-label="Ảnh tiếp theo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="pane slider" id="tv-2" role="tabpanel" aria-labelledby="ttv-2" hidden>
+      <div class="track" tabindex="0">
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-sanh-don-xe-khoi-de.webp"><img src="assets/img/palm-river-sanh-don-xe-khoi-de-800.webp" width="800" height="450" loading="lazy" decoding="async" alt="Sảnh đón xe khối đế Palm River với vườn cây, đài nước và dãy cửa hàng"><figcaption><span class="ten">Sảnh đón xe khối đế</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-san-vuon-dai-nuoc-khoi-de.webp"><img src="assets/img/palm-river-san-vuon-dai-nuoc-khoi-de-800.webp" width="800" height="432" loading="lazy" decoding="async" alt="Sân vườn khối đế Palm River với đài nước, cọ xanh và mái vòm uốn lượn"><figcaption><span class="ten">Sân vườn &amp; đài nước</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-loi-dao-duoi-tan-cay.webp"><img src="assets/img/palm-river-loi-dao-duoi-tan-cay-800.webp" width="800" height="545" loading="lazy" decoding="async" alt="Lối dạo lát gỗ dưới tán cây cổ thụ cạnh khối đế Palm River"><figcaption><span class="ten">Lối dạo dưới tán cây</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-lounge-cu-dan.webp"><img src="assets/img/palm-river-lounge-cu-dan-800.webp" width="800" height="400" loading="lazy" decoding="async" alt="Lounge cư dân Palm River với sofa cong và vách trang trí kim loại"><figcaption><span class="ten">Lounge cư dân</span></figcaption></figure>
+      </div>
+      <div class="sl-nav"><span class="sl-dem" aria-live="polite">1 / 4</span>
+        <button class="sl-btn sl-truoc" type="button" aria-label="Ảnh trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="sl-btn sl-sau" type="button" aria-label="Ảnh tiếp theo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <div class="pane slider" id="tv-3" role="tabpanel" aria-labelledby="ttv-3" hidden>
+      <div class="track" tabindex="0">
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-phong-khach-can-2-phong-ngu.webp"><img src="assets/img/palm-river-phong-khach-can-2-phong-ngu-800.webp" width="800" height="627" loading="lazy" decoding="async" alt="Phòng khách căn 2 phòng ngủ Palm River, tông gỗ sáng với điểm nhấn xanh rêu và cam đất"><figcaption><span class="ten">Phòng khách căn 2PN</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-ban-an-can-ho.webp"><img src="assets/img/palm-river-ban-an-can-ho-800.webp" width="800" height="801" loading="lazy" decoding="async" alt="Bàn ăn căn hộ Palm River với ghế băng bọc nỉ và cửa kính lấy sáng"><figcaption><span class="ten">Bàn ăn</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-phong-ngu-can-ho.webp"><img src="assets/img/palm-river-phong-ngu-can-ho-800.webp" width="800" height="400" loading="lazy" decoding="async" alt="Phòng ngủ căn hộ Palm River với đầu giường ốp vải và cửa sổ nhìn cây xanh"><figcaption><span class="ten">Phòng ngủ</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-phong-khach-can-3-phong-ngu.webp"><img src="assets/img/palm-river-phong-khach-can-3-phong-ngu-800.webp" width="800" height="527" loading="lazy" decoding="async" alt="Phòng khách căn 3 phòng ngủ Palm River với sofa cong và ghế bành xanh"><figcaption><span class="ten">Phòng khách căn 3PN</span></figcaption></figure>
+        <figure class="slide zoomable" data-zoom="assets/img/palm-river-phong-thay-do-can-3-phong-ngu.webp"><img src="assets/img/palm-river-phong-thay-do-can-3-phong-ngu-800.webp" width="800" height="802" loading="lazy" decoding="async" alt="Phòng thay đồ căn 3 phòng ngủ Palm River với tủ kính và gương bầu dục"><figcaption><span class="ten">Phòng thay đồ căn 3PN</span></figcaption></figure>
+      </div>
+      <div class="sl-nav"><span class="sl-dem" aria-live="polite">1 / 5</span>
+        <button class="sl-btn sl-truoc" type="button" aria-label="Ảnh trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="sl-btn sl-sau" type="button" aria-label="Ảnh tiếp theo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <p class="note" style="text-align:center;margin-top:16px">Phối cảnh và nội thất căn hộ mẫu theo brochure chủ đầu tư, mang tính chất minh họa.</p>
+  </div>
+</section>
+
+<!-- ======================= 8 · LAYOUT CĂN HỘ (sheet D19 — diện tích tham khảo)
+     Sheet ghi "thông thủy" nhưng 41,3 / 65,9 m² là TIM TƯỜNG theo layout CĐT -> hiện cả GSA và NSA ======================= -->
+<section class="sec" id="can-ho">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Layout căn hộ</h2>
+      <svg class="song" aria-hidden="true"><use href="#song"/></svg>
+    </div>
+    <div class="tabs rv" role="tablist" aria-label="Chọn loại căn">
+      <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="c-studio" id="tc-studio">Studio</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-1pn" id="tc-1pn">1PN</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-2pn" id="tc-2pn">2PN</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-2pn-db" id="tc-2pn-db">2PN đặc biệt</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-3pn" id="tc-3pn">3PN</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-3pn-db" id="tc-3pn-db">3PN đặc biệt</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-dp" id="tc-dp">Duplex / Penthouse</button>
+    </div>
+
+    <div class="pane can-card" id="c-studio" role="tabpanel" aria-labelledby="tc-studio">
+      <figure class="zoomable" data-zoom="assets/img/palm-river-layout-can-studio.webp"><img src="assets/img/palm-river-layout-can-studio-800.webp" width="800" height="800" loading="lazy" decoding="async" alt="Layout căn Studio Palm River, GSA 41,3 m² · NSA 37,3 m²"></figure>
+      <div class="can-info">
+        <div class="code">Studio<small>Từ 34,86 m²</small></div>
+        <p class="ds">Không gian liền mạch giường ngủ – sofa – bếp, mặt kính trải dài lấy sáng; hợp người trẻ độc thân và nhà đầu tư cho thuê.</p>
+        <dl><dt>Diện tích</dt><dd>Từ 34,86 m²</dd><dt>Căn điển hình (GSA / NSA)</dt><dd>41,3 / 37,3 m²</dd><dt>Phòng ngủ</dt><dd>Không gian mở</dd></dl>
+        <a class="btn" href="#dang-ky" data-can="Studio">Nhận rổ hàng Studio</a>
+        <p class="fine">Layout điển hình theo tài liệu CĐT, nội thất mang tính minh họa. Thông tin chính thức căn cứ hợp đồng mua bán.</p>
+      </div>
+    </div>
+    <div class="pane can-card" id="c-1pn" role="tabpanel" aria-labelledby="tc-1pn" hidden>
+      <figure class="zoomable" data-zoom="assets/img/palm-river-layout-can-1pn.webp"><img src="assets/img/palm-river-layout-can-1pn-800.webp" width="800" height="800" loading="lazy" decoding="async" alt="Layout căn 1 phòng ngủ Palm River, GSA 65,9 m² · NSA 60,2 m²"></figure>
+      <div class="can-info">
+        <div class="code">1PN<small>Tham khảo ~65,9 m²</small></div>
+        <p class="ds">Căn góc bo tròn, phòng khách rộng kèm bàn ăn 4 chỗ và phòng ngủ tách riêng.</p>
+        <dl><dt>Tim tường (GSA)</dt><dd>65,9 m²</dd><dt>Thông thủy (NSA)</dt><dd>60,2 m²</dd><dt>Phòng ngủ</dt><dd>1</dd></dl>
+        <a class="btn" href="#dang-ky" data-can="1PN">Nhận rổ hàng 1PN</a>
+        <p class="fine">Layout điển hình theo tài liệu CĐT, nội thất mang tính minh họa. Thông tin chính thức căn cứ hợp đồng mua bán.</p>
+      </div>
+    </div>
+    <div class="pane can-card" id="c-2pn" role="tabpanel" aria-labelledby="tc-2pn" hidden>
+      <figure class="zoomable" data-zoom="assets/img/palm-river-layout-can-2pn.webp"><img src="assets/img/palm-river-layout-can-2pn-800.webp" width="800" height="800" loading="lazy" decoding="async" alt="Layout căn 2 phòng ngủ Palm River, GSA 76,6 m² · NSA 77,3 m²"></figure>
+      <div class="can-info">
+        <div class="code">2PN<small>Thông thủy 76,3 m² · tim tường 84,9 m²</small></div>
+        <p class="ds">Dòng căn chủ lực của tháp T3 và T4: 2 phòng ngủ, 2 phòng tắm, bếp và bàn ăn liền phòng khách.</p>
+        <dl><dt>2PN góc (GSA / NSA)</dt><dd>84,9 / 76,3 m²</dd><dt>2PN thường (GSA / NSA)</dt><dd>76,6 / 77,3 m²</dd><dt>Phòng ngủ</dt><dd>2</dd></dl>
+        <a class="btn" href="#dang-ky" data-can="2PN">Nhận rổ hàng 2PN</a>
+        <p class="fine">Layout điển hình (căn 2PN góc) theo tài liệu CĐT, nội thất mang tính minh họa. Thông tin chính thức căn cứ hợp đồng mua bán.</p>
+      </div>
+    </div>
+    <div class="pane can-card" id="c-2pn-db" role="tabpanel" aria-labelledby="tc-2pn-db" hidden>
+      <figure class="zoomable" data-zoom="assets/img/palm-river-layout-can-2pn-lon.webp"><img src="assets/img/palm-river-layout-can-2pn-lon-800.webp" width="800" height="800" loading="lazy" decoding="async" alt="Layout căn 2 phòng ngủ đặc biệt Palm River, GSA 120,2 – 121,9 m² · NSA 116,6 – 111,3 m²"></figure>
+      <div class="can-info">
+        <div class="code">2PN đặc biệt<small>Thông thủy 116,6 – 111,3 m² · tim tường 120,2 – 121,9 m²</small></div>
+        <p class="ds">Căn 2 phòng ngủ diện tích lớn, phòng khách và bàn ăn rộng, phòng ngủ chính có phòng tắm riêng với bồn tắm.</p>
+        <dl><dt>Tim tường (GSA)</dt><dd>120,2 – 121,9 m²</dd><dt>Thông thủy (NSA)</dt><dd>116,6 – 111,3 m²</dd><dt>Phòng ngủ</dt><dd>2</dd></dl>
+        <a class="btn" href="#dang-ky" data-can="2PN đặc biệt">Nhận rổ hàng 2PN đặc biệt</a>
+        <p class="fine">Layout điển hình theo tài liệu CĐT, nội thất mang tính minh họa. Thông tin chính thức căn cứ hợp đồng mua bán.</p>
+      </div>
+    </div>
+    <div class="pane can-card" id="c-3pn" role="tabpanel" aria-labelledby="tc-3pn" hidden>
+      <figure class="zoomable" data-zoom="assets/img/palm-river-layout-can-3pn.webp"><img src="assets/img/palm-river-layout-can-3pn-800.webp" width="800" height="800" loading="lazy" decoding="async" alt="Layout căn 3 phòng ngủ Palm River, GSA 126,1 m² · NSA 115,5 – 116,2 m²"></figure>
+      <div class="can-info">
+        <div class="code">3PN<small>Thông thủy 115,2 – 116,2 m² · tim tường 125,3 – 126,1 m²</small></div>
+        <p class="ds">Bố cục khung lớn đón ánh sáng tự nhiên và tầm nhìn sông, cây xanh; 3 phòng ngủ tách khu yên tĩnh.</p>
+        <dl><dt>3PN thường (GSA / NSA)</dt><dd>126,1 / 115,5 – 116,2 m²</dd><dt>3PN góc (GSA / NSA)</dt><dd>125,3 / 115,3 – 116 m²</dd><dt>Phòng ngủ</dt><dd>3</dd></dl>
+        <a class="btn" href="#dang-ky" data-can="3PN">Nhận rổ hàng 3PN</a>
+        <p class="fine">Layout điển hình theo tài liệu CĐT, nội thất mang tính minh họa. Thông tin chính thức căn cứ hợp đồng mua bán.</p>
+      </div>
+    </div>
+    <div class="pane can-card" id="c-3pn-db" role="tabpanel" aria-labelledby="tc-3pn-db" hidden>
+      <figure class="zoomable" data-zoom="assets/img/palm-river-layout-can-3pn-lon.webp"><img src="assets/img/palm-river-layout-can-3pn-lon-800.webp" width="800" height="800" loading="lazy" decoding="async" alt="Layout căn 3 phòng ngủ đặc biệt Palm River, GSA 157 m² · NSA 143,7 – 144,8 m²"></figure>
+      <div class="can-info">
+        <div class="code">3PN đặc biệt<small>Thông thủy 143,7 – 144,8 m² · tim tường 157 m²</small></div>
+        <p class="ds">Căn góc lớn nhất của tầng điển hình tháp T4, phòng khách hai mặt kính và phòng ngủ chính kèm phòng tắm, bồn tắm riêng.</p>
+        <dl><dt>Tim tường (GSA)</dt><dd>157 m²</dd><dt>Thông thủy (NSA)</dt><dd>143,7 – 144,8 m²</dd><dt>Phòng ngủ</dt><dd>3</dd></dl>
+        <a class="btn" href="#dang-ky" data-can="3PN đặc biệt">Nhận rổ hàng 3PN đặc biệt</a>
+        <p class="fine">Layout điển hình theo tài liệu CĐT, nội thất mang tính minh họa. Thông tin chính thức căn cứ hợp đồng mua bán.</p>
+      </div>
+    </div>
+    <div class="pane can-card" id="c-dp" role="tabpanel" aria-labelledby="tc-dp" hidden>
+      <div class="can-trong">
+        <svg class="song" aria-hidden="true" style="margin:0;width:160px;height:30px"><use href="#song"/></svg>
+        <p>Layout Duplex và Penthouse được gửi riêng cùng rổ hàng — số lượng giới hạn ở các tầng cao.</p>
+      </div>
+      <div class="can-info">
+        <div class="code">Duplex · Penthouse<small>Đến hơn 300 m²</small></div>
+        <p class="ds">Dòng căn thông tầng và căn đỉnh tháp, không gian sống nhiều tầng nhìn trọn sông Giồng Ông Tố và thành phố.</p>
+        <dl><dt>Diện tích</dt><dd>Đến hơn 300 m²</dd><dt>Duplex</dt><dd>42 căn</dd><dt>Penthouse</dt><dd>8 căn</dd></dl>
+        <a class="btn" href="#dang-ky" data-can="Duplex / Penthouse">Nhận layout Duplex / Penthouse</a>
+        <p class="fine">Số căn theo bảng Hỏi – Đáp của CĐT; diện tích mang tính tham khảo.</p>
+      </div>
+    </div>
+
+    <div hidden aria-hidden="true">
+      <caption>Diện tích tham khảo các loại căn (theo mặt bằng chủ đầu tư)</caption>
+      <thead><tr><th scope="col">Loại căn</th><th scope="col">Tim tường (GSA)</th><th scope="col">Thông thủy (NSA)</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Studio <small>(từ 34,86 m²)</small></th><td data-l="Tim tường">41,3 m²</td><td data-l="Thông thủy">37,3 m²</td></tr>
+        <tr><th scope="row">1PN</th><td data-l="Tim tường">65,9 m²</td><td data-l="Thông thủy">60,2 m²</td></tr>
+        <tr><th scope="row">2PN góc</th><td data-l="Tim tường">84,9 m²</td><td data-l="Thông thủy">76,3 m²</td></tr>
+        <tr><th scope="row">2PN thường</th><td data-l="Tim tường">76,6 m²</td><td data-l="Thông thủy">77,3 m²</td></tr>
+        <tr><th scope="row">2PN đặc biệt</th><td data-l="Tim tường">120,2 – 121,9 m²</td><td data-l="Thông thủy">116,6 – 111,3 m²</td></tr>
+        <tr><th scope="row">3PN thường</th><td data-l="Tim tường">126,1 m²</td><td data-l="Thông thủy">115,5 – 116,2 m²</td></tr>
+        <tr><th scope="row">3PN góc</th><td data-l="Tim tường">125,3 m²</td><td data-l="Thông thủy">115,3 – 116 m²</td></tr>
+        <tr><th scope="row">3PN đặc biệt</th><td data-l="Tim tường">157 m²</td><td data-l="Thông thủy">143,7 – 144,8 m²</td></tr>
+        <tr><th scope="row">Duplex / Penthouse</th><td data-l="Diện tích" colspan="2">Đến hơn 300 m² (tham khảo)</td></tr>
+      </tbody>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ (số liệu: Q&A 02/2026 + factsheet 08/2026 của CĐT + sheet) ======================= -->
+<section class="sec bg-pale" id="hoi-dap">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Hỏi đáp về Palm River</h2>
+      <svg class="song" aria-hidden="true"><use href="#song"/></svg>
+    </div>
+    <div class="faq rv">
+      <details><summary>Palm River nằm ở đâu?</summary><p>Palm River nằm tại khu phố 19, phường Bình Trưng, TP. Hồ Chí Minh (trước ngày 1/7/2025 thuộc phường An Phú, TP. Thủ Đức), mặt tiền đường Song Hành cao tốc TP.HCM – Long Thành – Dầu Giây, trong khu đô thị Nam Rạch Chiếc (Palm City 30,6 ha). Dự án ngay ga Bình Trưng của tuyến đường sắt Thủ Thiêm – Long Thành và cách nút giao An Phú khoảng 3 phút.</p></details>
+      <details><summary>Chủ đầu tư Palm River là ai?</summary><p>Chủ đầu tư là Công ty TNHH Nam Rạch Chiếc, đơn vị phát triển là Hướng Việt Properties (thuộc Hướng Việt Holdings). Tên pháp lý của dự án là Khu nhà ở chung cư cao tầng kết hợp thương mại – dịch vụ 3 (ký hiệu CC3) thuộc Dự án Khu Trung tâm Nam Rạch Chiếc; tên thương mại là phân khu Palm River.</p></details>
+      <details><summary>Palm River có quy mô bao nhiêu căn?</summary><p>Dự án rộng khoảng 1,89 ha, gồm 4 tòa tháp T1 – T4 cao 36 tầng nổi (149,45 m) và 2 tầng hầm, tổng cộng 620 căn hộ cùng 13 Shophouse khối đế và 71 Officetel. Mỗi sàn chỉ 4 – 6 căn: tháp T1 4 căn/sàn, tháp T2, T3, T4 6 căn/sàn. Mật độ xây dựng 39,5%.</p></details>
+      <details><summary>Khi nào Palm River bàn giao?</summary><p>Palm River khởi công ngày 16/6/2026 và dự kiến bàn giao Quý 1/2029. Hình thức sở hữu lâu dài áp dụng đối với khách hàng quốc tịch Việt Nam.</p></details>
+      <details><summary>Palm River có những tiện ích gì?</summary><p>Dự án có 68 tiện ích bố trí tại tầng 1, tầng 2 và tầng 20, mọi cư dân đều được sử dụng: hồ bơi dài 70 m, hồ bơi trẻ em, hồ bơi vô cực và Sky Onsen tầng 20, hồ ngâm lạnh phục hồi, Sky Gym, phòng golf mô phỏng, sân nướng BBQ, Kids Club, phòng chiếu phim, sân pickleball cùng nhà trẻ 1.404,52 m². Bên ngoài là công viên ven sông Giồng Ông Tố dài gần 3 km.</p></details>
+      <details><summary>Palm River có chỗ đậu ô tô cho mỗi căn không?</summary><p>Có. Mỗi căn hộ đi kèm 1 chỗ đậu ô tô. Theo bảng Hỏi – Đáp của chủ đầu tư, 2 tầng hầm (khoảng 18.990 m² mỗi tầng) có 633 chỗ đậu ô tô và 1.240 chỗ xe máy, hai lối ra vào hầm bố trí tại tháp T1 và T4.</p></details>
+      <details><summary>Từ Palm River đi Thủ Thiêm, Quận 1 và sân bay mất bao lâu?</summary><p>Từ dự án mất khoảng 3 phút tới nút giao An Phú và cao tốc TP.HCM – Long Thành – Dầu Giây, khoảng 5 phút tới ga Metro Thủ Thiêm, khoảng 10 phút tới Thủ Thiêm, khoảng 12 phút tới trung tâm Quận 1 (cũ) và cầu Cát Lái, khoảng 30 phút tới sân bay Long Thành.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 9 · ĐĂNG KÝ (sheet D20 — nguyên văn; form: Họ tên | Số điện thoại | Email) ======================= -->
+<section class="cta" id="dang-ky">
+  <img src="assets/img/palm-river-ven-song-nen-dang-ky.webp" srcset="assets/img/palm-river-ven-song-nen-dang-ky-800.webp 800w, assets/img/palm-river-ven-song-nen-dang-ky.webp 1400w" sizes="100vw" width="1400" height="583" loading="lazy" decoding="async" alt="" aria-hidden="true">
+  <div class="cta-shade" aria-hidden="true"></div>
+  <div class="cta-in">
+    <div class="rv">
+      <p class="ky">Palm River cùng ERA Vietnam</p>
+      <h2>Đăng ký nhận thông tin</h2>
+      <p class="lead">Đăng ký nhận Bảng tính dòng tiền &amp; Rổ hàng độc quyền từ ERA Vietnam.</p>
+      <ul>
+        <li>Rổ hàng căn tháp T3, T4 theo loại căn anh/chị quan tâm</li>
+        <li>Bảng tính dòng tiền theo từng phương thức thanh toán</li>
+        <li>Layout chi tiết, kể cả Duplex và Penthouse</li>
+      </ul>
+    </div>
+    <div class="form-card rv">
+      <div class="t">Nhận Bảng tính dòng tiền &amp; Rổ hàng Palm River</div>
+      <div class="s">Chuyên viên ERA gửi qua Zalo trong ngày · Bảo mật thông tin</div>
+      <form data-lead data-source="form-dang-ky" novalidate>
+        <input type="hidden" name="product">
+        <input class="field" name="name" autocomplete="name" placeholder="Họ tên (*)" aria-label="Họ tên">
+        <input class="field" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Số điện thoại (*)" aria-label="Số điện thoại">
+        <input class="field" name="email" type="email" inputmode="email" autocomplete="email" placeholder="Email" aria-label="Email">
+        <button class="btn" type="submit">GỬI ĐĂNG KÝ</button>
+      </form>
+      <p class="hot">Hoặc gọi ngay <a href="tel:0941125000">094.1125.000</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= 10 · FOOTER – ĐẠI LÝ PHÂN PHỐI (sheet D21-D22 — nguyên văn) ======================= -->
+<footer>
+  <div class="ft">
+    <img src="assets/img/era-vietnam-logo-trang.webp" width="196" height="240" loading="lazy" decoding="async" alt="Logo ERA Vietnam">
+    <div>
+      <div class="fb">ERA VIETNAM<small>ĐẠI LÝ PHÂN PHỐI CHÍNH THỨC DỰ ÁN PALM RIVER</small></div>
+      <p>ERA Vietnam vô cùng tự hào khi được đồng hành cùng siêu phẩm Palm River trong vai trò Đại lý Phân phối Chính thức. Sự kiện này đánh dấu bước tiến mới, mang đến cho Quý khách hàng một lựa chọn an cư và đầu tư sáng giá bậc nhất tại Khu Đông.</p>
+      <div class="links">
+        <a href="tel:0941125000">Hotline: 094.1125.000</a>
+        <a href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo tư vấn</a>
+      </div>
+    </div>
+  </div>
+  <p class="legal">ERA Vietnam · Số 22 - 24, Đường số 5, KĐT Sala, Phường An Khánh, TP. Hồ Chí Minh.<br>
+  Chủ đầu tư: Công ty TNHH Nam Rạch Chiếc · Đơn vị phát triển: Hướng Việt Properties. Hình ảnh phối cảnh, nội thất và bố trí công trình mang tính chất minh họa, có thể điều chỉnh. Thông tin chính thức được căn cứ trên hợp đồng mua bán.</p>
+</footer>
+
+<!-- thanh liên hệ nhanh (điện thoại) -->
+<div class="bar" id="bar" aria-label="Liên hệ nhanh">
+  <a href="tel:0941125000">Gọi ngay</a>
+  <a href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo</a>
+  <a class="chinh" href="#dang-ky">Nhận rổ hàng</a>
+</div>
+
+<!-- phóng to ảnh -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn">
+  <p id="lb-cap"></p>
+  <button type="button" data-close aria-label="Đóng ảnh">✕</button>
+  <img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
+</div>
+
+<script src="assets/js/palm-river.js?v=20261008-era" defer></script>
+</body>
+</html>

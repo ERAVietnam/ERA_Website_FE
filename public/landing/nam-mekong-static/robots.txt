@@ -1,0 +1,11 @@
+# LANDING CHO SALE + BẢN XEM THỬ — chặn toàn bộ công cụ tìm kiếm.
+# Lý do: trang dùng để sale gửi khách, tên miền đang là tên tạm nam-mekong-grand-plaza-era.vercel.app.
+#
+# KHI CHẠY THẬT (Anh Tony chốt tên miền), đổi toàn bộ file này thành:
+#   User-agent: *
+#   Allow: /
+#   Sitemap: https://<ten-mien-that>/sitemap.xml
+# và sửa thẻ robots trong index.html thành "index, follow, max-image-preview:large".
+
+User-agent: *
+Disallow: /

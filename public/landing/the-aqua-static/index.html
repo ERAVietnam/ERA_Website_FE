@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>The Aqua Waterpoint – Biệt thự bên Vịnh Cảng 8,6 ha | ERA Vietnam</title>
+<meta name="description" content="The Aqua: compound biệt thự biệt lập thuộc phân khu Aquaria, bên Vịnh Cảng nước ngọt 8,6 ha và công viên ven sông 3,5 ha, khu đô thị Waterpoint Bến Lức.">
+<meta name="keywords" content="The Aqua, The Aqua Waterpoint, biệt thự The Aqua, Harborfront Grand Villa, Riverfront Grand Villa, Waterpoint Nam Long, Waterpoint Bến Lức">
+<!-- ⚠️ BẢN XEM THỬ — đang chặn Google vì tên miền còn là tên tạm (landing SALE: không form, không hotline).
+     Có tên miền thật thì chạy: python _kiemtra/len-song.py https://<ten-mien> --mo-index -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1D5866">
+<meta name="author" content="ERA Vietnam">
+
+<!-- ⚠️ TÊN MIỀN TẠM (vercel). len-song.py tự đổi mọi chỗ + sitemap + robots -->
+<link rel="canonical" href="https://the-aqua-waterpoint.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="ERA Vietnam">
+<meta property="og:url" content="https://the-aqua-waterpoint.vercel.app/">
+<meta property="og:title" content="The Aqua – chất riêng bên Vịnh Cảng">
+<meta property="og:description" content="Compound biệt thự biệt lập bên Vịnh Cảng nước ngọt 8,6 ha và công viên ven sông 3,5 ha, khu đô thị Waterpoint. Xem tiện ích, mặt bằng và bốn mẫu Grand Villa.">
+<meta property="og:image" content="https://the-aqua-waterpoint.vercel.app/assets/img/og-the-aqua-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Aqua Waterpoint – compound biệt thự bên Vịnh Cảng nước ngọt 8,6 ha">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:alt" content="The Aqua Waterpoint – compound biệt thự bên Vịnh Cảng nước ngọt 8,6 ha">
+<meta name="twitter:title" content="The Aqua – chất riêng bên Vịnh Cảng">
+<meta name="twitter:description" content="Compound biệt thự biệt lập bên Vịnh Cảng nước ngọt 8,6 ha, khu đô thị Waterpoint.">
+<meta name="twitter:image" content="https://the-aqua-waterpoint.vercel.app/assets/img/og-the-aqua-1200x630.jpg">
+
+<!-- GEO: toạ độ gần đúng khu Waterpoint, Bến Lức. VN-37 = Tây Ninh (sau sáp nhập 1/7/2025) -->
+<meta name="geo.region" content="VN-37">
+<meta name="geo.placename" content="Bến Lức, Tây Ninh">
+<meta name="geo.position" content="10.655;106.475">
+<meta name="ICBM" content="10.655, 106.475">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231D5866'/%3E%3Cpath d='M32 13c8 10 13 16.5 13 23a13 13 0 0 1-26 0c0-6.5 5-13 13-23z' fill='%23F5D5A0'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/fonts-13.woff2" as="font" type="font/woff2" crossorigin>
+<!-- 2 file Cormorant nghiêng (Việt + Latin) cho dòng chữ vàng ở hero — thiếu thì chữ nhảy khi font về (CLS) -->
+<link rel="preload" href="assets/fonts/fonts-03.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/fonts-05.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/the-aqua-hero-mobile.webp" media="(max-width:760px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/the-aqua-hero-biet-thu-ben-vinh-cang.webp" media="(min-width:761px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+
+<style>
+/* Font dự phòng cùng số đo Montserrat (Arial chỉnh cỡ) — chữ không nhảy khi Montserrat tải xong */
+@font-face{font-family:'Montserrat Fallback';src:local('Arial');size-adjust:112.83%;ascent-override:85.79%;descent-override:22.25%;line-gap-override:0%}
+:root{
+  --teal:#1D5866; --teal-2:#2E7C8C; --ink:#10333B; --text:#2A4F57; --muted:#48696F; --soft:#4F6F76;
+  --cream:#FDF3EA; --mist:#F4F9FA; --pale:#D8EAEC; --line:#E3EDEF; --gold:#F5D5A0; --gold-2:#8A6A35;
+  --hdr:66px; --r:16px;
+  --serif:'Cormorant Garamond', Georgia, serif; --sans:'Montserrat','Montserrat Fallback', system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + 8px)}
+html,body{overflow-x:hidden}
+@supports (overflow:clip){ html,body{overflow-x:clip} }
+body{margin:0;font-family:var(--sans);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6}
+img{max-width:100%;display:block}
+a{color:var(--teal);text-decoration:none}
+a:hover{color:var(--teal-2)}
+button,input,select{font-family:var(--sans)}
+.wrap{max-width:1180px;margin:0 auto}
+.sec{padding:clamp(58px,6vw,96px) 22px}
+.bg-mist{background:var(--mist)} .bg-cream{background:var(--cream)} .bg-pale{background:var(--pale)}
+.head{max-width:880px;margin:0 auto 34px;text-align:center}
+h2{color:var(--teal);font-size:clamp(22px,3.1vw,40px);line-height:1.15;font-weight:800;margin:12px 0 0;text-wrap:balance}
+h2 .dong2{display:block;font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold-2);font-size:.72em;line-height:1.25;margin-top:.2em}
+h3{margin:0}
+.fact{max-width:860px;margin:-12px auto clamp(24px,2.6vw,34px);text-align:center;color:var(--text);font-size:17px;line-height:1.75;text-wrap:pretty}
+.serif-lead{font-family:var(--serif);font-style:italic;color:var(--teal);font-size:clamp(18px,2vw,24px);line-height:1.4;margin:12px 0 0;text-wrap:pretty}
+.body{color:var(--text);font-size:17px;line-height:1.75;text-wrap:pretty}
+.note{font-size:13px;color:#4F6F76;line-height:1.65}
+.bg-pale .note{color:var(--text)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- HEADER ---------- */
+.hdr{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(0);transition:transform .28s ease}
+.hdr.nav-hide{transform:translate3d(0,-110%,0);visibility:hidden;pointer-events:none}
+.hdr-in{max-width:1180px;margin:0 auto;height:var(--hdr);padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;color:var(--ink);line-height:1.15}
+.brand img{height:38px;width:auto}
+.brand b{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.14em;color:var(--teal);border-left:1px solid var(--line);padding-left:12px}
+.nav{display:flex;align-items:center;gap:20px}
+.nav a{color:var(--ink);font-weight:500;font-size:15px;white-space:nowrap}
+.nav a:hover,.nav a.on{color:var(--teal-2)}
+.nav .nav-cta{background:var(--teal);color:#fff;font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px}
+.nav .nav-cta:hover{background:var(--teal-2);color:#fff}
+.burger{display:none;width:44px;height:44px;border:0;background:none;padding:10px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--teal);margin:5px 0;border-radius:4px;transition:transform .25s,opacity .25s}
+@media (max-width:1100px){ .nav a.opt{display:none} }
+@media (max-width:860px){
+  :root{--hdr:58px}
+  .nav{display:none}
+  .burger{display:block}
+  .brand img{height:32px}
+  .brand b{font-size:18px}
+  .hdr.open .nav{display:flex;position:fixed;top:var(--hdr);left:0;right:0;bottom:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;padding:12px 22px 30px;overflow:auto}
+  .hdr.open .nav a,.hdr.open .nav a.opt{display:block;padding:16px 4px;border-bottom:1px solid var(--line);font-size:17px}
+  .hdr.open .nav .nav-cta{margin-top:18px;text-align:center;border:0;padding:16px}
+  .hdr.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hdr.open .burger span:nth-child(2){opacity:0}
+  .hdr.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;height:clamp(520px,calc(100svh - var(--hdr)),900px);overflow:hidden;background:#0E2E34}
+.hero picture,.hero picture img{position:absolute;inset:0;width:100%;height:100%}
+.hero picture img{object-fit:cover;object-position:50% 60%}
+.hero-scrim{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(to top,rgba(9,42,48,.86) 0%,rgba(9,42,48,.55) 30%,rgba(9,42,48,.06) 60%,rgba(9,42,48,0) 76%),
+  linear-gradient(100deg,rgba(29,88,102,.36) 0%,rgba(29,88,102,0) 50%)}
+.hero-in{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(24px,3.4vw,52px) 22px}
+.hero-box{max-width:1180px;width:100%;margin:0 auto}
+.hero h1{font-weight:800;color:#fff;font-size:clamp(32px,5.4vw,72px);line-height:1.05;letter-spacing:.02em;margin:0;text-shadow:0 2px 10px rgba(0,0,0,.45)}
+.hero h1 em{display:block;font-family:var(--serif);font-style:italic;font-weight:500;color:var(--gold);letter-spacing:0;font-size:.6em;line-height:1.2;margin-top:.14em}
+.hero-sub{color:#F4EEE3;font-size:clamp(15px,1.35vw,18px);line-height:1.55;font-weight:500;margin:12px 0 0;max-width:640px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hero-facts{list-style:none;margin:clamp(16px,1.8vw,22px) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 30px}
+.hero-facts li{color:#fff;display:flex;flex-direction:column;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hero-facts b{font-size:clamp(20px,2.2vw,28px);font-weight:800;line-height:1.1}
+.hero-facts span{font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.9;margin-top:3px}
+@media (max-width:760px){
+  .hero-facts{gap:8px 22px}
+  .hero-scrim{background:linear-gradient(to top,rgba(9,42,48,.92) 0%,rgba(9,42,48,.72) 42%,rgba(9,42,48,.2) 68%,rgba(9,42,48,0) 84%)}
+  .hero h1 em{font-size:.66em}
+  .hero picture img{object-position:50% 50%}
+}
+@media (max-height:560px) and (min-width:600px){ .hero-sub,.hero-facts{display:none} }
+
+/* ---------- 2 · TỔNG QUAN ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 18px 44px rgba(0,0,0,.08);margin:0 0 clamp(22px,2.6vw,34px)}
+.stats div{padding:clamp(20px,2.4vw,30px) 18px;text-align:center;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-family:var(--serif);font-weight:600;color:var(--teal);font-size:clamp(32px,4vw,58px);line-height:1.1}
+.stats span{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#3D5C63;margin-top:10px;line-height:1.45}
+@media (max-width:760px){ .stats{grid-template-columns:1fr 1fr} .stats div:nth-child(2){border-right:0} .stats div:nth-child(-n+2){border-bottom:1px solid var(--line)} }
+.ov{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(18px,2.4vw,30px);align-items:start}
+.ov-fig{margin:0;border-radius:14px;overflow:hidden;cursor:zoom-in;background:#fff}
+.ov-fig img{width:100%;height:auto}
+.fcap{margin:0;padding:11px 14px;text-align:center;font-size:13px;color:#4F6F76;letter-spacing:.02em;background:#fff;line-height:1.5}
+table.spec{width:100%;border-collapse:separate;border-spacing:0 3px;font-size:15px}
+table.spec th{background:var(--teal);color:#fff;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:13px 16px;width:36%;vertical-align:top;border-radius:10px 0 0 10px}
+table.spec td{background:#fff;color:var(--text);padding:13px 16px;line-height:1.5;border-radius:0 10px 10px 0}
+table.spec td b{color:var(--teal)}
+@media (max-width:900px){ .ov{grid-template-columns:1fr} }
+
+/* ---------- 3 · VIDEO ---------- */
+.vid-band{background:linear-gradient(to bottom,var(--cream) 0,var(--cream) 50%,#fff 50%,#fff 100%);padding:0 22px}
+.vid{position:relative;max-width:900px;margin:0 auto;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0E2E34;box-shadow:0 20px 52px rgba(0,0,0,.16);cursor:pointer}
+.vid img,.vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
+.vid video{object-fit:contain;background:#0E2E34}
+.vid .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(9,42,48,.66) 0%,rgba(9,42,48,.1) 50%)}
+.vid .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(62px,7vw,84px);height:clamp(62px,7vw,84px);border-radius:50%;background:rgba(255,255,255,.93);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(0,0,0,.16);transition:transform .25s}
+.vid:hover .play{transform:translate(-50%,-50%) scale(1.06)}
+.vid .play i{display:block;width:0;height:0;margin-left:6px;border-style:solid;border-width:12px 0 12px 20px;border-color:transparent transparent transparent var(--teal)}
+.vid .cap{position:absolute;inset:auto 0 0 0;padding:clamp(15px,1.8vw,24px);color:#fff}
+.vid .cap b{display:block;font-size:clamp(16px,1.8vw,22px);font-weight:700}
+.vid .cap span{display:block;font-size:12px;font-weight:600;letter-spacing:.11em;margin-top:6px;opacity:.9}
+
+/* ---------- 4 · VỊ TRÍ ---------- */
+.vt{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;align-items:start}
+.map-fig{margin:0;border-radius:14px;overflow:hidden;cursor:zoom-in;background:#fff}
+.map-fig img{width:100%;height:auto}
+.quanh{background:#fff;border-radius:14px;padding:clamp(20px,2.2vw,26px)}
+.quanh h3,.route-card h3{font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:800;text-transform:uppercase}
+.quanh ul{list-style:none;margin:12px 0 0;padding:0;columns:1}
+.quanh li{font-size:15px;color:var(--text);padding:7px 0 7px 18px;border-bottom:1px solid var(--line);position:relative;line-height:1.4}
+.quanh li:last-child{border-bottom:0}
+.quanh li::before{content:"";position:absolute;left:2px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--teal-2)}
+.quanh li.pv{font-weight:800;color:var(--teal)}
+.quanh li.pv::before{background:var(--gold-2)}
+@media (max-width:900px){ .vt{grid-template-columns:1fr} .quanh ul{columns:2;column-gap:24px} }
+@media (max-width:520px){ .quanh ul{columns:1} }
+.tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+.tab{background:#fff;border:1.5px solid #CFE0E3;color:var(--teal);font-weight:700;font-size:14px;letter-spacing:.04em;padding:11px 20px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+@media (max-width:640px){
+  .tabs{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-left:-22px;margin-right:-22px;padding:0 22px 4px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;white-space:nowrap}
+}
+.pane[hidden]{display:none}
+.route{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;align-items:stretch}
+.route-fig{margin:0;border-radius:14px;overflow:hidden;cursor:zoom-in;background:#0E2E34}
+.route-fig img{width:100%;height:100%;object-fit:cover}
+.route-card{background:#fff;border-radius:14px;padding:clamp(20px,2.4vw,30px)}
+.rt{display:flex;gap:14px;align-items:center;margin-top:13px}
+.rt b{background:var(--teal);color:#fff;font-size:14px;font-weight:800;padding:10px 8px;border-radius:10px;min-width:66px;text-align:center;flex:none}
+.rt b.alt{background:var(--teal-2);font-size:12px;letter-spacing:.08em}
+.rt span{font-size:15px;color:var(--text);line-height:1.45}
+.route-card .sub{font-size:12px;letter-spacing:.12em;color:#4F6F76;font-weight:700;text-transform:uppercase;margin-top:22px}
+@media (max-width:860px){ .route{grid-template-columns:1fr} }
+
+/* ---------- 5 · TIỆN ÍCH NỘI KHU (accordion) ---------- */
+.acc{display:flex;gap:clamp(7px,.8vw,12px);height:clamp(330px,40vw,480px)}
+.acc figure{position:relative;background:#0E2E34;flex:.8 1 0;min-width:0;margin:0;overflow:hidden;border-radius:18px;cursor:pointer;transition:flex-grow .55s cubic-bezier(.4,0,.2,1)}
+.acc figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.acc figcaption{position:absolute;inset:auto 0 0 0;padding:clamp(14px,1.6vw,22px);color:#fff;background:linear-gradient(to top,rgba(9,42,48,.88) 0%,rgba(9,42,48,.38) 55%,rgba(9,42,48,0) 100%)}
+.acc .ten{display:block;font-size:clamp(14px,1.2vw,17px);font-weight:700;line-height:1.25}
+.acc .mo{display:block;font-size:13px;line-height:1.5;color:rgba(255,255,255,.88);margin-top:6px;max-height:0;opacity:0;overflow:hidden;transition:max-height .45s,opacity .35s}
+.acc .nhan{position:absolute;top:12px;left:12px;background:rgba(9,42,48,.72);color:#fff;font-size:12px;font-weight:600;letter-spacing:.02em;padding:5px 10px;border-radius:999px;opacity:0;transition:opacity .35s}
+.acc figure.on{flex-grow:2.6}
+.acc figure.on .mo{max-height:80px;opacity:1}
+.acc figure.on .nhan{opacity:1}
+.acc figure.on img{transform:scale(1.03)}
+@media (max-width:760px){
+  .acc{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:clamp(150px,36vw,210px);height:auto}
+  .acc figure:first-child{grid-column:span 2;grid-row:span 2}
+  .acc .mo{max-height:80px;opacity:1}
+  .acc .nhan{opacity:1}
+  .acc figure:not(:first-child) .mo{display:none}
+  .acc figure:not(:first-child) .nhan{top:8px;left:8px;padding:4px 8px}
+}
+.ti2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.ti-box{background:#fff;border-radius:14px;padding:clamp(20px,2.2vw,28px)}
+.ti-box h3{font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:800;text-transform:uppercase}
+.ti-box ul{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:1fr;gap:0 22px}
+.ti-box li{font-size:15px;color:var(--text);padding:8px 0 8px 22px;border-bottom:1px solid var(--line);position:relative;line-height:1.4}
+.ti-box li::before{content:"";position:absolute;left:2px;top:13px;width:11px;height:6px;border-left:2px solid var(--teal-2);border-bottom:2px solid var(--teal-2);transform:rotate(-45deg)}
+@media (max-width:960px){ .ti2{grid-template-columns:1fr} }
+
+/* ---------- 6 · NGOẠI KHU ---------- */
+.nk{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.nk-card{position:relative;background:#0E2E34;border-radius:18px;overflow:hidden;min-height:clamp(240px,26vw,340px);margin:0}
+.nk-card.rong{grid-column:1/-1;min-height:clamp(260px,30vw,400px)}
+.nk-card.rong img{object-position:50% 78%}
+.nk-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.nk-card figcaption{position:absolute;inset:auto 0 0 0;padding:clamp(18px,2vw,26px);color:#fff;background:linear-gradient(to top,rgba(9,42,48,.86),rgba(9,42,48,0))}
+.nk-card b{display:block;font-size:clamp(17px,1.7vw,22px);font-weight:800}
+.nk-card span{display:block;font-size:14px;opacity:.9;margin-top:4px}
+@media (max-width:760px){ .nk{grid-template-columns:1fr} }
+
+/* ---------- 7 · MẶT BẰNG ---------- */
+.mb{display:grid;grid-template-columns:1.5fr .5fr;gap:clamp(18px,2.4vw,32px);align-items:start}
+.mb-fig{margin:0;border-radius:14px;overflow:hidden;cursor:zoom-in;box-shadow:0 20px 50px rgba(0,0,0,.14);background:#fff}
+.mb-fig img{width:100%;height:auto}
+.legend{background:#fff;border-radius:14px;padding:22px}
+.legend h3{font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:800;text-transform:uppercase}
+.legend ul{list-style:none;margin:12px 0 0;padding:0}
+.legend li{display:grid;grid-template-columns:30px 1fr;gap:4px 10px;align-items:start;padding:9px 0;border-bottom:1px solid var(--line)}
+.legend li:last-child{border-bottom:0}
+.legend li i{width:30px;height:16px;border-radius:4px;border:1px solid rgba(0,0,0,.1);margin-top:3px}
+.legend li b{font-size:15px;color:var(--ink)}
+.legend li span{grid-column:2;font-size:14px;color:var(--muted);line-height:1.45}
+.legend .note{margin:14px 0 0}
+@media (max-width:900px){ .mb{grid-template-columns:1fr} .legend ul{display:grid;grid-template-columns:1fr 1fr;gap:0 22px} }
+@media (max-width:520px){ .legend ul{gap:0 14px} .legend li{grid-template-columns:22px 1fr;gap:4px 8px} .legend li i{width:22px} }
+
+/* ---------- 9 · NHÀ MẪU ---------- */
+.mau-card{display:grid;grid-template-columns:1.35fr .65fr;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.1)}
+.mau-card .hinh{display:flex;flex-direction:column;justify-content:center;background:#fff;border-right:1px solid var(--line)}
+.mau-card figure{margin:0;cursor:zoom-in}
+.mau-card figure img{width:100%;height:auto}
+.mau-card .goi-y{margin:0;padding:10px 14px;border-top:1px solid var(--line);font-size:13px;color:#4F6F76;text-align:center}
+.mau-info{padding:clamp(22px,2.6vw,34px);display:flex;flex-direction:column}
+.mau-info .code{font-family:var(--serif);font-size:clamp(40px,4.4vw,58px);color:var(--gold-2);line-height:1.1;font-weight:500}
+.mau-info .code small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.14em;color:#4F6F76;font-weight:700;margin-top:8px}
+.mau-info h3{color:var(--teal);font-size:19px;font-weight:800;margin-top:14px}
+.mau-info .ds{font-size:15px;color:var(--text);line-height:1.6;margin:8px 0 0}
+.mau-info dl{margin:14px 0 0;display:grid;grid-template-columns:1fr auto;gap:0;font-size:15px}
+.mau-info dt,.mau-info dd{padding:10px 0;border-bottom:1px solid var(--line);margin:0}
+.mau-info dt{color:var(--muted)}
+.mau-info dd{color:var(--ink);font-weight:700;text-align:right}
+.mau-info .fine{font-size:12px;color:#4F6F76;line-height:1.5;margin:auto 0 0;padding-top:16px}
+@media (max-width:900px){ .mau-card{grid-template-columns:1fr} .mau-card .hinh{border-right:0;border-bottom:1px solid var(--line)} }
+.cmp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:clamp(26px,3vw,40px);border-radius:14px}
+table.cmp{width:100%;min-width:620px;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;font-size:15px}
+table.cmp caption{text-align:left;font-size:13px;letter-spacing:.13em;color:var(--teal);font-weight:800;text-transform:uppercase;padding:0 0 12px}
+table.cmp th,table.cmp td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:center}
+table.cmp thead th{background:var(--teal);color:#fff;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+table.cmp tbody th{text-align:left;color:var(--teal);font-weight:800}
+table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:0}
+/* mobile: mỗi mẫu thành 1 thẻ, thông số xếp 2 cột — khỏi cuộn ngang */
+@media (max-width:640px){
+  .cmp-scroll{overflow:visible}
+  table.cmp{min-width:0;background:none;border-radius:0}
+  table.cmp thead{display:none}
+  table.cmp tbody{display:flex;flex-direction:column;gap:10px}
+  table.cmp tbody tr{display:grid;grid-template-columns:1fr 1fr;background:#fff;border-radius:14px;overflow:hidden}
+  table.cmp tbody th{grid-column:1/-1;background:var(--teal);color:#fff;padding:11px 14px;border:0}
+  table.cmp td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)}
+  table.cmp td:last-child{grid-column:1/-1;border-bottom:0}
+  table.cmp td::before{content:attr(data-l);display:block;font-size:12px;letter-spacing:.06em;color:#4F6F76;font-weight:700;text-transform:uppercase;margin-bottom:3px}
+}
+
+/* ---------- 8 · CHÍNH SÁCH ---------- */
+.cs{background:var(--cream);border-radius:18px;padding:clamp(24px,3.4vw,48px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3vw,44px);align-items:center}
+.cs .body{margin:0}
+.cs ol{list-style:none;margin:0;padding:0;counter-reset:cs}
+.cs li{counter-increment:cs;display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:14px;padding:16px 18px;margin-bottom:10px;font-size:15px;color:var(--text);line-height:1.5}
+.cs li::before{content:counter(cs);flex:none;width:30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+.cs li b{display:block;color:var(--teal);font-size:16px}
+@media (max-width:860px){ .cs{grid-template-columns:1fr} }
+
+/* ---------- FAQ ---------- */
+.faq{max-width:880px;margin:0 auto}
+.faq details{background:#fff;border-radius:14px;margin-bottom:10px;border:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:19px 56px 19px 22px;font-weight:700;color:var(--teal);font-size:16px;position:relative;line-height:1.45}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::marker{content:""}
+.faq summary::after{content:"";position:absolute;right:22px;top:50%;width:10px;height:10px;border-right:2px solid var(--teal-2);border-bottom:2px solid var(--teal-2);transform:translateY(-70%) rotate(45deg);transition:transform .25s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{margin:0;padding:0 22px 20px;color:var(--text);font-size:16px;line-height:1.7}
+
+/* ---------- 10 · CTA ---------- */
+.cta{position:relative;background:var(--ink);padding:clamp(58px,6vw,100px) 22px;overflow:hidden}
+.cta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cta-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,51,59,.9),rgba(16,51,59,.55))}
+.cta-in{position:relative;max-width:1180px;margin:0 auto}
+.cta-box{max-width:620px}
+.cta h2{color:#fff}
+.cta .serif-lead{color:#BFDCDF}
+.cta ul{list-style:none;padding:0;margin:clamp(18px,2.2vw,28px) 0 0}
+.cta ul li{color:#fff;font-size:clamp(15px,1.5vw,16.5px);line-height:1.6;padding:8px 0 8px 28px;position:relative;border-bottom:1px solid rgba(255,255,255,.14)}
+.cta ul li:last-child{border-bottom:0}
+.cta ul li::before{content:"";position:absolute;left:2px;top:15px;width:14px;height:8px;border-left:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(-45deg)}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--ink);padding:clamp(40px,4vw,60px) 22px;text-align:center;color:#9CC4CC}
+footer .fb{font-family:var(--serif);font-size:26px;letter-spacing:.16em;color:#fff;font-weight:600}
+footer .fb small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.2em;color:#9CC4CC;margin-top:6px;font-weight:700}
+footer p{font-size:13px;line-height:1.75;margin:18px auto 0;max-width:760px;color:#7FA8AF}
+
+/* ---------- LIGHTBOX ---------- */
+.lb{position:fixed;inset:0;z-index:600;background:rgba(9,42,48,.94);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
+.lb button{position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.lb p{position:absolute;top:18px;left:18px;right:70px;margin:0;color:#BFDCDF;font-size:13px}
+
+/* reveal: chỉ bật khi JS chạy -> không JS vẫn thấy đủ nội dung */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .js .rv{opacity:1;transform:none;transition:none} .acc figure,.acc figure img{transition:none} }
+</style>
+<script>document.documentElement.className+=' js'</script>
+
+<!--JSONLD-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://era.com.vn/#organization",
+      "name": "ERA Vietnam - Công ty Cổ phần Bất động sản ERA Việt Nam",
+      "url": "https://era.com.vn/",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Số 22 - 24, Đường số 5, KĐT Sala",
+        "addressLocality": "Phường An Khánh",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "areaServed": [
+        "TP. Hồ Chí Minh",
+        "Tây Ninh",
+        "Long An"
+      ],
+      "image": "https://the-aqua-waterpoint.vercel.app/assets/img/og-the-aqua-1200x630.jpg"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://the-aqua-waterpoint.vercel.app/#website",
+      "url": "https://the-aqua-waterpoint.vercel.app/",
+      "name": "The Aqua · Waterpoint",
+      "inLanguage": "vi-VN",
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://the-aqua-waterpoint.vercel.app/#webpage",
+      "url": "https://the-aqua-waterpoint.vercel.app/",
+      "name": "The Aqua Waterpoint – Biệt thự bên Vịnh Cảng 8,6 ha | ERA Vietnam",
+      "inLanguage": "vi-VN",
+      "isPartOf": {
+        "@id": "https://the-aqua-waterpoint.vercel.app/#website"
+      },
+      "about": {
+        "@id": "https://the-aqua-waterpoint.vercel.app/#du-an"
+      },
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://the-aqua-waterpoint.vercel.app/#breadcrumb"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://the-aqua-waterpoint.vercel.app/#anh-hero"
+      }
+    },
+    {
+      "@type": [
+        "Product",
+        "Residence"
+      ],
+      "@id": "https://the-aqua-waterpoint.vercel.app/#du-an",
+      "name": "The Aqua",
+      "description": "The Aqua là compound biệt thự biệt lập thuộc phân khu Aquaria, trải dài bên Vịnh Cảng nước ngọt 8,6 ha và công viên ven sông 3,5 ha trong khu đô thị Waterpoint 355 ha, mặt tiền đường ĐT.830, xã Bến Lức, tỉnh Tây Ninh. Bốn dòng Harborfront, Riverfront, Canal và Garden Grand Villa, kiến trúc Nhật đương đại. Chủ đầu tư Nam Long Group hợp tác Nishi-Nippon Railroad (Nhật Bản).",
+      "brand": {
+        "@type": "Brand",
+        "name": "Waterpoint"
+      },
+      "image": [
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-hero-biet-thu-ben-vinh-cang.webp",
+          "url": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-hero-biet-thu-ben-vinh-cang.webp",
+          "caption": "Phối cảnh The Aqua từ trên cao: dãy biệt thự, công viên ven sông và bến thuyền bên Vịnh Cảng nước ngọt, Waterpoint",
+          "name": "Phối cảnh The Aqua từ trên cao: dãy biệt thự, công viên ven sông và bến thuyền bên Vịnh Cảng nước ngọt, Waterpoint",
+          "width": 1600,
+          "height": 900,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint",
+          "@id": "https://the-aqua-waterpoint.vercel.app/#anh-hero"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-tong-quan-biet-thu-ven-song.webp",
+          "url": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-tong-quan-biet-thu-ven-song.webp",
+          "caption": "Toàn cảnh compound The Aqua dọc sông Vàm Cỏ Đông với lối dạo ven sông, hồ bơi riêng và du thuyền, Waterpoint",
+          "name": "Toàn cảnh compound The Aqua dọc sông Vàm Cỏ Đông với lối dạo ven sông, hồ bơi riêng và du thuyền, Waterpoint",
+          "width": 1400,
+          "height": 788,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-vi-tri-phan-khu-aquaria-waterpoint.webp",
+          "url": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-vi-tri-phan-khu-aquaria-waterpoint.webp",
+          "caption": "Vị trí phân khu Aquaria (chứa The Aqua) bên Vịnh Cảng, giữa khúc sông Vàm Cỏ Đông ôm quanh khu đô thị Waterpoint",
+          "name": "Vị trí phân khu Aquaria (chứa The Aqua) bên Vịnh Cảng, giữa khúc sông Vàm Cỏ Đông ôm quanh khu đô thị Waterpoint",
+          "width": 1400,
+          "height": 803,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-ho-boi-san-vuon-biet-thu.webp",
+          "url": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-ho-boi-san-vuon-biet-thu.webp",
+          "caption": "Phối cảnh hồ bơi tràn bờ trong sân vườn biệt thự The Aqua, hàng cọ và mặt nước phía sau",
+          "name": "Phối cảnh hồ bơi tràn bờ trong sân vườn biệt thự The Aqua, hàng cọ và mặt nước phía sau",
+          "width": 1400,
+          "height": 788,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-cafe-ngoai-troi-ven-song.webp",
+          "url": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-cafe-ngoai-troi-ven-song.webp",
+          "caption": "Phối cảnh cafe ngoài trời, bàn BBQ và lối dạo ven sông của The Aqua lúc hoàng hôn",
+          "name": "Phối cảnh cafe ngoài trời, bàn BBQ và lối dạo ven sông của The Aqua lúc hoàng hôn",
+          "width": 1400,
+          "height": 788,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-mat-bang-tong-the.webp",
+          "url": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-mat-bang-tong-the.webp",
+          "caption": "Mặt bằng tổng thể The Aqua: các dãy Riverfront, Harborfront, Canal và Garden Grand Villa dọc sông và Vịnh Cảng",
+          "name": "Mặt bằng tổng thể The Aqua: các dãy Riverfront, Harborfront, Canal và Garden Grand Villa dọc sông và Vịnh Cảng",
+          "width": 1400,
+          "height": 752,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-harborfront-grand-villa-vc3-1.webp",
+          "url": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-harborfront-grand-villa-vc3-1.webp",
+          "caption": "Mẫu Harborfront Grand Villa VC3.1 The Aqua: đất ~20 x 30 m, sàn ~568 m², 3+1 phòng ngủ, 3 tầng mái bằng",
+          "name": "Mẫu Harborfront Grand Villa VC3.1 The Aqua: đất ~20 x 30 m, sàn ~568 m², 3+1 phòng ngủ, 3 tầng mái bằng",
+          "width": 960,
+          "height": 520,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-riverfront-grand-villa-vc1-1.webp",
+          "url": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-riverfront-grand-villa-vc1-1.webp",
+          "caption": "Mẫu Riverfront Grand Villa VC1.1 The Aqua: đất ~20 x 30 m, sàn ~427 m², 5 phòng ngủ, 2 tầng mái dốc",
+          "name": "Mẫu Riverfront Grand Villa VC1.1 The Aqua: đất ~20 x 30 m, sàn ~427 m², 5 phòng ngủ, 2 tầng mái dốc",
+          "width": 960,
+          "height": 520,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-canal-grand-villa-vc1-2.webp",
+          "url": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-canal-grand-villa-vc1-2.webp",
+          "caption": "Mẫu Canal Grand Villa VC1.2 The Aqua: đất ~20 x 30 m, sàn ~425 m², 4 phòng ngủ, 2 tầng mái bằng, hồ bơi sân vườn",
+          "name": "Mẫu Canal Grand Villa VC1.2 The Aqua: đất ~20 x 30 m, sàn ~425 m², 4 phòng ngủ, 2 tầng mái bằng, hồ bơi sân vườn",
+          "width": 960,
+          "height": 519,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-garden-grand-villa-vb1-1.webp",
+          "url": "https://the-aqua-waterpoint.vercel.app/assets/img/the-aqua-garden-grand-villa-vb1-1.webp",
+          "caption": "Mẫu Garden Grand Villa VB1.1 The Aqua: đất ~15 x 20 m, sàn ~299 m², 4 phòng ngủ, 3 tầng mái bằng",
+          "name": "Mẫu Garden Grand Villa VB1.1 The Aqua: đất ~15 x 20 m, sàn ~299 m², 4 phòng ngủ, 3 tầng mái bằng",
+          "width": 960,
+          "height": 522,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Waterpoint"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Mặt tiền ĐT.830, khu đô thị Waterpoint",
+        "addressLocality": "Xã Bến Lức",
+        "addressRegion": "Tây Ninh",
+        "addressCountry": "VN"
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Phân khu",
+          "value": "Aquaria"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Vịnh Cảng nước ngọt",
+          "value": "8,6 ha"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Công viên ven sông",
+          "value": "3,5 ha"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Loại hình",
+          "value": "Biệt thự compound biệt lập"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Dòng sản phẩm",
+          "value": "Harborfront Grand Villa, Riverfront Grand Villa, Canal Grand Villa, Garden Grand Villa"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Phong cách kiến trúc",
+          "value": "Nhật đương đại"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Khu đô thị",
+          "value": "Waterpoint 355 ha"
+        }
+      ],
+      "url": "https://the-aqua-waterpoint.vercel.app/",
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "Nam Long Group"
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Tây Ninh, Việt Nam"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://the-aqua-waterpoint.vercel.app/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ERA Vietnam",
+          "item": "https://era.com.vn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Waterpoint"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "The Aqua",
+          "item": "https://the-aqua-waterpoint.vercel.app/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://the-aqua-waterpoint.vercel.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "The Aqua nằm ở đâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Aqua là compound biệt thự thuộc phân khu Aquaria trong khu đô thị Waterpoint, mặt tiền đường ĐT.830, xã Bến Lức, tỉnh Tây Ninh. Trước ngày 1/7/2025, khu vực này thuộc xã An Thạnh, huyện Bến Lức, tỉnh Long An. The Aqua trải dài bên Vịnh Cảng nước ngọt 8,6 ha và công viên ven sông 3,5 ha."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Chủ đầu tư The Aqua là ai?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Aqua do Nam Long Group phát triển cùng đối tác Nhật Bản Nishi-Nippon Railroad. Thiết kế công trình do TWOG và ARDOR thực hiện, cảnh quan do Lascal, hạ tầng do Royal HaskoningDHV và Aurecon tư vấn."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "The Aqua có những dòng sản phẩm nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Aqua chia biệt thự theo vị thế: Harborfront Grand Villa hướng Vịnh Cảng, Riverfront Grand Villa hướng sông Vàm Cỏ Đông, Canal Grand Villa ven kênh đào và Garden Grand Villa hướng vườn nội khu; mặt bằng còn có Canal Villa và Garden Villa. Kiến trúc mang phong cách Nhật đương đại."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Các mẫu nhà The Aqua rộng bao nhiêu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mẫu Harborfront Grand Villa VC3.1 có đất khoảng 20 x 30 m, sàn khoảng 568 m², 3+1 phòng ngủ. Mẫu Riverfront Grand Villa VC1.1 có đất khoảng 20 x 30 m, sàn khoảng 427 m², 5 phòng ngủ. Mẫu Canal Grand Villa VC1.2 có đất khoảng 20 x 30 m, sàn khoảng 425 m², 4 phòng ngủ. Mẫu Garden Grand Villa VB1.1 có đất khoảng 15 x 20 m, sàn khoảng 299 m², 4 phòng ngủ."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Giá The Aqua bao nhiêu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chủ đầu tư chưa công bố bảng giá và chính sách bán hàng mới của The Aqua trên kênh chính thức. Giá từng căn phụ thuộc dòng sản phẩm, diện tích và vị trí lô; bảng giá chính thức theo thông báo của chủ đầu tư."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "The Aqua có những tiện ích nội khu gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tiện ích nội khu The Aqua gồm hồ bơi người lớn và trẻ em, clubhouse, khu thể thao ngoài trời, cafe ngoài trời, khu vui chơi trẻ em, đường dạo bộ và sân thể thao đa năng. Sơ đồ tiện ích của chủ đầu tư còn có vườn Nhật, chòi nghỉ sân vườn kiểu Nhật, khu BBQ, sân tập yoga, nhà hàng cafe bên sông và bến thuyền."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Từ The Aqua đi TP.HCM mất bao lâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo tài liệu của chủ đầu tư, từ Waterpoint đi đường bộ khoảng 40 phút đến Phú Mỹ Hưng, khoảng 55 phút đến trung tâm TP.HCM và khoảng 35 phút đến Tiền Giang, qua cao tốc TP.HCM – Trung Lương và Quốc lộ 1. Đường thuỷ khoảng 60 phút đến Bến Bạch Đằng."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quanh The Aqua có tiện ích ngoại khu nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cư dân The Aqua dùng chung tiện ích của khu đô thị Waterpoint 355 ha, gồm công viên bờ sông, công viên bờ kênh, trường mầm non nội khu, Trường quốc tế song ngữ EMASI Plus cùng clubhouse và bến thuyền ven sông Vàm Cỏ Đông."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!--/JSONLD-->
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="#top" aria-label="The Aqua – về đầu trang">
+      <img src="assets/img/waterpoint-logo.png" alt="Logo khu đô thị Waterpoint của Nam Long" width="200" height="134">
+      <b>THE AQUA</b>
+    </a>
+    <nav class="nav" id="nav" aria-label="Điều hướng trang">
+      <a href="#tong-quan">Tổng quan</a>
+      <a href="#vi-tri">Vị trí</a>
+      <a href="#tien-ich">Tiện ích</a>
+      <a class="opt" href="#mat-bang">Mặt bằng</a>
+      <a class="opt" href="#chinh-sach">Chính sách</a>
+      <a class="opt" href="#hoi-dap">Hỏi đáp</a>
+      <a class="nav-cta" href="#nha-mau">Nhà mẫu</a>
+    </nav>
+    <button class="burger" id="burger" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ======================= 1 · HERO (sheet D4: Chất riêng bên Vịnh Cảng — ô MÔ TẢ trống) ======================= -->
+<section class="hero" aria-label="Giới thiệu The Aqua">
+  <picture>
+    <source media="(max-width:760px)" srcset="assets/img/the-aqua-hero-mobile.webp" width="720" height="746">
+    <img src="assets/img/the-aqua-hero-biet-thu-ben-vinh-cang.webp" width="1600" height="900" fetchpriority="high" decoding="async"
+         alt="Phối cảnh The Aqua từ trên cao: dãy biệt thự, công viên ven sông và bến thuyền bên Vịnh Cảng nước ngọt, Waterpoint">
+  </picture>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="hero-in">
+    <div class="hero-box">
+      <h1>The Aqua <em>Chất riêng bên Vịnh Cảng</em></h1>
+      <p class="hero-sub">The Aqua là compound biệt thự biệt lập thuộc phân khu Aquaria, trải dài bên Vịnh Cảng nước ngọt trong khu đô thị Waterpoint, Bến Lức.</p>
+      <ul class="hero-facts">
+        <li><b>8,6 ha</b><span>Vịnh Cảng nước ngọt</span></li>
+        <li><b>3,5 ha</b><span>Công viên ven sông</span></li>
+        <li><b>4 dòng</b><span>Grand Villa</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2 · TỔNG QUAN (sheet D6-D7 — đoạn mô tả nguyên văn) ======================= -->
+<section class="sec bg-cream" id="tong-quan">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Tổng quan <span class="dong2">The Aqua · compound thuộc phân khu Aquaria</span></h2>
+    </div>
+    <p class="fact rv">Sở hữu vị trí đẹp nhất phân khu Aquaria khi trải dài bên Vịnh Cảng nước ngọt 8,6ha và Công viên ven sông 3,5ha, các compound biệt lập The Aqua mở ra không gian sống như nghỉ dưỡng, mỗi ngày đều là kỳ nghỉ đầy hạnh phúc bất tận dành riêng cho Cộng đồng Gia đình Thượng lưu trong “Modern Township” Waterpoint – Khu đô thị tích hợp hàng đầu phía Tây TP.HCM.</p>
+    <div class="stats rv">
+      <div><b>355 ha</b><span>Khu đô thị Waterpoint</span></div>
+      <div><b>8,6 ha</b><span>Vịnh Cảng nước ngọt</span></div>
+      <div><b>3,5 ha</b><span>Công viên ven sông</span></div>
+      <div><b>8 km</b><span>Kênh đào cảnh quan</span></div>
+    </div>
+    <div class="ov">
+      <figure class="ov-fig rv" data-zoom="assets/img/the-aqua-tong-quan-biet-thu-ven-song.webp">
+        <img src="assets/img/the-aqua-tong-quan-biet-thu-ven-song.webp" srcset="assets/img/the-aqua-tong-quan-biet-thu-ven-song-800.webp 800w, assets/img/the-aqua-tong-quan-biet-thu-ven-song.webp 1400w" sizes="(max-width:900px) 100vw, 660px" width="1400" height="788" loading="lazy" decoding="async"
+             alt="Toàn cảnh compound The Aqua dọc sông Vàm Cỏ Đông với lối dạo ven sông, hồ bơi riêng và du thuyền, Waterpoint">
+        <figcaption class="fcap">Dãy biệt thự The Aqua dọc sông Vàm Cỏ Đông · bấm để phóng to</figcaption>
+      </figure>
+      <table class="spec rv">
+        <caption class="sr">Thông số tổng quan The Aqua</caption>
+        <tbody>
+          <tr><th scope="row">Tên sản phẩm</th><td><b>The Aqua</b> – compound biệt lập thuộc phân khu Aquaria</td></tr>
+          <tr><th scope="row">Khu đô thị</th><td>Waterpoint 355 ha</td></tr>
+          <tr><th scope="row">Chủ đầu tư</th><td>Nam Long Group hợp tác Nishi-Nippon Railroad (Nhật Bản)</td></tr>
+          <tr><th scope="row">Vị trí</th><td>Mặt tiền ĐT.830, xã Bến Lức, tỉnh Tây Ninh (trước 1/7/2025 thuộc huyện Bến Lức, tỉnh Long An)</td></tr>
+          <tr><th scope="row">Loại hình</th><td>Biệt thự trong compound biệt lập, cổng và tiện ích riêng</td></tr>
+          <tr><th scope="row">Dòng sản phẩm</th><td>Harborfront, Riverfront, Canal và Garden Grand Villa</td></tr>
+          <tr><th scope="row">Kiến trúc</th><td>Nhật đương đại · thiết kế công trình TWOG, ARDOR</td></tr>
+          <tr><th scope="row">Cảnh quan &amp; hạ tầng</th><td>Lascal · Royal HaskoningDHV, Aurecon</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="text-align:center;margin:18px 0 0">Nguồn: trang The Aqua và khu đô thị trên waterpoint.com.vn của chủ đầu tư.</p>
+  </div>
+</section>
+
+<!-- ======================= 3 · VIDEO (sheet: Video The Aqua.mp4) =======================
+     Bấm mới tải. Mặc định phát MP4 tự host (assets/video/, nén 720p 11 MB). Có link YouTube thì điền VIDEO_ID trong assets/js/the-aqua.js.
+     Ảnh bìa = khung giây 7,0 của phim (chưa hiện chữ). -->
+<div class="vid-band">
+  <div class="vid rv" id="vid" role="button" tabindex="0" aria-label="Phát phim giới thiệu The Aqua">
+    <img src="assets/img/the-aqua-phim-gioi-thieu-hoang-hon-ben-thuyen.webp" srcset="assets/img/the-aqua-phim-gioi-thieu-hoang-hon-ben-thuyen-800.webp 800w, assets/img/the-aqua-phim-gioi-thieu-hoang-hon-ben-thuyen.webp 1400w" sizes="(max-width:944px) 100vw, 900px" width="1400" height="788" loading="lazy" decoding="async"
+         alt="Bến thuyền và khu thư giãn ven sông của The Aqua lúc hoàng hôn, khung hình từ phim giới thiệu">
+    <div class="shade" aria-hidden="true"></div>
+    <div class="play" aria-hidden="true"><i></i></div>
+    <div class="cap"><b>Phim giới thiệu The Aqua</b><span>MỞ RA 4 MÙA NGHỈ DƯỠNG ĐẬM CHẤT NHẬT</span></div>
+  </div>
+</div>
+
+<!-- ======================= 4 · VỊ TRÍ VÀ KẾT NỐI (sheet D9-D10 — nguyên văn) ======================= -->
+<section class="sec" id="vi-tri">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Vị trí <span class="dong2">Bên Vịnh Cảng nước ngọt 8,6 ha</span></h2>
+    </div>
+    <p class="body rv" style="max-width:900px;margin:0 auto clamp(24px,2.6vw,34px);text-align:center">Được ôm ấp bởi thiên nhiên khoáng đạt và “phong thuỷ thịnh vượng” hiếm có khi trải dài bên Vịnh Cảng nước ngọt 8,6ha và Công viên ven sông 3,5ha, các compound biệt lập The Aqua mở ra không gian sống như nghỉ dưỡng. Mỗi ngày đều là kỳ nghỉ đầy hạnh phúc bất tận dành riêng cho Gia đình Thượng lưu trong khu đô thị tích hợp hàng đầu phía Tây TP.HCM.</p>
+
+    <div class="vt">
+      <figure class="map-fig rv" data-zoom="assets/img/the-aqua-vi-tri-phan-khu-aquaria-waterpoint.webp">
+        <img src="assets/img/the-aqua-vi-tri-phan-khu-aquaria-waterpoint.webp" srcset="assets/img/the-aqua-vi-tri-phan-khu-aquaria-waterpoint-800.webp 800w, assets/img/the-aqua-vi-tri-phan-khu-aquaria-waterpoint.webp 1400w" sizes="(max-width:900px) 100vw, 760px" width="1400" height="803" loading="lazy" decoding="async"
+             alt="Vị trí phân khu Aquaria (chứa The Aqua) bên Vịnh Cảng, giữa khúc sông Vàm Cỏ Đông ôm quanh khu đô thị Waterpoint">
+        <figcaption class="fcap">Phân khu Aquaria (khung sáng) – nơi có The Aqua – trên phối cảnh Waterpoint · bấm để phóng to</figcaption>
+      </figure>
+      <aside class="quanh rv" aria-label="Điểm nhấn vị trí The Aqua">
+        <h3>Điểm nhấn vị trí</h3>
+        <ul>
+          <li class="pv">Vị trí đẹp nhất phân khu Aquaria</li>
+          <li>Bên Vịnh Cảng nước ngọt 8,6 ha</li>
+          <li>Công viên ven sông 3,5 ha</li>
+          <li>Sông Vàm Cỏ Đông 5,8 km bao quanh khu đô thị</li>
+          <li>Hệ thống kênh đào 8 km</li>
+          <li>Mặt tiền đường ĐT.830</li>
+          <li>Xe buýt nội khu, trạm cách nhau 400 m</li>
+        </ul>
+        <p class="note" style="margin:12px 0 0">Theo trang chủ đầu tư waterpoint.com.vn.</p>
+      </aside>
+    </div>
+
+    <div style="margin-top:clamp(30px,3.4vw,46px)">
+      <div class="tabs rv" role="tablist" aria-label="Chọn hình thức kết nối">
+        <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="p-bo" id="t-bo">Kết nối đường bộ</button>
+        <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="p-thuy" id="t-thuy">Kết nối đường thủy</button>
+      </div>
+
+      <div class="pane route" id="p-bo" role="tabpanel" aria-labelledby="t-bo">
+        <figure class="route-fig" data-zoom="assets/img/waterpoint-ket-noi-duong-bo.webp">
+          <img src="assets/img/waterpoint-ket-noi-duong-bo.webp" srcset="assets/img/waterpoint-ket-noi-duong-bo-800.webp 800w, assets/img/waterpoint-ket-noi-duong-bo.webp 1400w" sizes="(max-width:860px) 100vw, 700px" width="1400" height="788" loading="lazy" decoding="async"
+               alt="Sơ đồ kết nối đường bộ từ Waterpoint: 35 phút đến Tiền Giang, 40 phút đến Phú Mỹ Hưng, 55 phút đến trung tâm TP.HCM">
+        </figure>
+        <div class="route-card">
+          <h3>Kết nối đường bộ</h3>
+          <p class="body" style="font-size:15px;margin:10px 0 0">Mặt tiền ĐT.830, tiếp cận cao tốc TP.HCM – Trung Lương và Quốc lộ 1, hai trục chính nối TP.HCM với miền Tây.</p>
+          <div class="rt"><b>~40′</b><span>đến Phú Mỹ Hưng</span></div>
+          <div class="rt"><b>~55′</b><span>đến trung tâm TP.HCM</span></div>
+          <div class="rt"><b>~35′</b><span>về Tiền Giang, hướng ĐB sông Cửu Long</span></div>
+          <div class="sub">Xe buýt Waterpoint (giai đoạn 1)</div>
+          <div class="rt"><b class="alt">BUS</b><span>~40′ Phú Mỹ Hưng · ~50′ Bến xe Miền Tây</span></div>
+          <div class="sub">Dự kiến</div>
+          <div class="rt"><b class="alt">METRO</b><span>~10′ đến Ga 3A · ~35′ đến Bến Bạch Đằng</span></div>
+        </div>
+      </div>
+
+      <div class="pane route" id="p-thuy" role="tabpanel" aria-labelledby="t-thuy" hidden>
+        <figure class="route-fig" data-zoom="assets/img/waterpoint-ket-noi-duong-thuy.webp">
+          <img src="assets/img/waterpoint-ket-noi-duong-thuy.webp" srcset="assets/img/waterpoint-ket-noi-duong-thuy-800.webp 800w, assets/img/waterpoint-ket-noi-duong-thuy.webp 1400w" sizes="(max-width:860px) 100vw, 700px" width="1400" height="788" loading="lazy" decoding="async"
+               alt="Sơ đồ kết nối đường thuỷ từ Waterpoint: 15 phút đến Tiền Giang, 40 phút đến cảng Hiệp Phước, 60 phút đến Bến Bạch Đằng">
+        </figure>
+        <div class="route-card">
+          <h3>Kết nối đường thủy</h3>
+          <p class="body" style="font-size:15px;margin:10px 0 0">Waterpoint nằm ở khu vực ngã ba sông Vàm Cỏ Đông, phần mặt nước được đưa vào quy hoạch cảnh quan của khu đô thị.</p>
+          <div class="rt"><b>~15′</b><span>đến Tiền Giang</span></div>
+          <div class="rt"><b>~40′</b><span>đến cảng Hiệp Phước</span></div>
+          <div class="rt"><b>~60′</b><span>đến Bến Bạch Đằng, trung tâm TP.HCM</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="text-align:center;margin-top:16px">Thời gian di chuyển theo tài liệu của chủ đầu tư, mang tính tham khảo và phụ thuộc điều kiện giao thông thực tế. Tuyến metro đang ở dạng dự kiến.</p>
+  </div>
+</section>
+
+<!-- ======================= 5 · TIỆN ÍCH NỘI KHU (sheet D11-D12 — danh mục nguyên văn) =======================
+     Ảnh theo thư mục sheet. Nhãn góc trên: phối cảnh CĐT hay ảnh thật chụp tại Waterpoint.
+     Ảnh "CountryClub" của thư mục này có logo The Pearl (phân khu khác) -> chuyển xuống ngoại khu. -->
+<section class="sec bg-pale" id="tien-ich">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Tiện ích nội khu</h2>
+      <p class="serif-lead">Mỗi ngày đều là kỳ nghỉ, ngay trong compound biệt lập</p>
+    </div>
+    <div class="acc rv" id="acc">
+      <figure class="on">
+        <img src="assets/img/the-aqua-ho-boi-san-vuon-biet-thu.webp" srcset="assets/img/the-aqua-ho-boi-san-vuon-biet-thu-800.webp 800w, assets/img/the-aqua-ho-boi-san-vuon-biet-thu.webp 1400w" sizes="(max-width:760px) 100vw, 700px" width="1400" height="788" loading="lazy" decoding="async" alt="Phối cảnh hồ bơi tràn bờ trong sân vườn biệt thự The Aqua, hàng cọ và mặt nước phía sau">
+        <span class="nhan">Phối cảnh minh hoạ</span>
+        <figcaption><span class="ten">Hồ bơi người lớn, trẻ em</span><span class="mo">Làn nước trong xanh giữa hàng cọ, nhìn ra mặt nước.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/the-aqua-cafe-ngoai-troi-ven-song.webp" srcset="assets/img/the-aqua-cafe-ngoai-troi-ven-song-800.webp 800w, assets/img/the-aqua-cafe-ngoai-troi-ven-song.webp 1400w" sizes="(max-width:760px) 50vw, 700px" width="1400" height="788" loading="lazy" decoding="async" alt="Phối cảnh cafe ngoài trời, bàn BBQ và lối dạo ven sông của The Aqua lúc hoàng hôn">
+        <span class="nhan">Phối cảnh minh hoạ</span>
+        <figcaption><span class="ten">Cafe ngoài trời</span><span class="mo">Bàn cafe, BBQ bên lối dạo ven sông lúc hoàng hôn.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/waterpoint-khu-vui-choi-tre-em.webp" srcset="assets/img/waterpoint-khu-vui-choi-tre-em-800.webp 800w, assets/img/waterpoint-khu-vui-choi-tre-em.webp 1200w" sizes="(max-width:760px) 50vw, 700px" width="1200" height="712" loading="lazy" decoding="async" alt="Khu vui chơi trẻ em giữa tán cây xanh đang vận hành trong khu đô thị Waterpoint">
+        <span class="nhan">Ảnh thực tế Waterpoint</span>
+        <figcaption><span class="ten">Khu vui chơi trẻ em</span><span class="mo">Sân chơi sắc màu dưới tán cây xanh.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/waterpoint-san-the-thao-da-nang.webp" srcset="assets/img/waterpoint-san-the-thao-da-nang-800.webp 800w, assets/img/waterpoint-san-the-thao-da-nang.webp 1400w" sizes="(max-width:760px) 50vw, 700px" width="1400" height="806" loading="lazy" decoding="async" alt="Sân thể thao đa năng Waterpoint: sân tennis, pickleball và bóng rổ giữa hàng cây xanh">
+        <span class="nhan">Ảnh thực tế Waterpoint</span>
+        <figcaption><span class="ten">Sân thể thao đa năng</span><span class="mo">Tennis, pickleball, bóng rổ giữa hàng cây.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/waterpoint-duong-dap-xe-dao-bo.webp" srcset="assets/img/waterpoint-duong-dap-xe-dao-bo-800.webp 800w, assets/img/waterpoint-duong-dap-xe-dao-bo.webp 1400w" sizes="(max-width:760px) 50vw, 700px" width="1400" height="849" loading="lazy" decoding="async" alt="Cư dân đạp xe trên đường dành riêng cho xe đạp cạnh bãi cỏ trong khu đô thị Waterpoint">
+        <span class="nhan">Ảnh thực tế Waterpoint</span>
+        <figcaption><span class="ten">Đường dạo bộ</span><span class="mo">Lối dạo và làn xe đạp riêng cạnh bãi cỏ.</span></figcaption>
+      </figure>
+    </div>
+    <div class="ti2 rv">
+      <div class="ti-box">
+        <h3>Tiện ích nội khu The Aqua</h3>
+        <ul>
+          <li>Hồ bơi người lớn, trẻ em</li>
+          <li>Clubhouse</li>
+          <li>Khu thể thao ngoài trời</li>
+          <li>Cafe ngoài trời</li>
+          <li>Khu vui chơi trẻ em</li>
+          <li>Đường dạo bộ</li>
+          <li>Sân thể thao đa năng</li>
+        </ul>
+      </div>
+      <div class="ti-box phu">
+        <h3>Theo sơ đồ tiện ích chủ đầu tư</h3>
+        <ul>
+          <li>Vườn Nhật</li>
+          <li>Chòi nghỉ sân vườn kiểu Nhật</li>
+          <li>Khu vực BBQ</li>
+          <li>Sân tập yoga</li>
+          <li>Nhà hàng, cafe bên sông</li>
+          <li>Bến thuyền</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note" style="text-align:center;margin-top:16px">Ảnh thực tế chụp tại các tiện ích đang vận hành trong khu đô thị Waterpoint; phối cảnh mang tính chất minh hoạ.</p>
+  </div>
+</section>
+
+<!-- ======================= 6 · TIỆN ÍCH NGOẠI KHU (sheet D13-D14) ======================= -->
+<section class="sec" id="ngoai-khu">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Tiện ích ngoại khu</h2>
+      <p class="serif-lead">Dùng chung hệ tiện ích của khu đô thị Waterpoint 355 ha</p>
+    </div>
+    <p class="fact rv">Cư dân The Aqua dùng chung tiện ích của khu đô thị Waterpoint: công viên bờ sông, công viên bờ kênh, trường mầm non nội khu, Trường quốc tế song ngữ EMASI Plus cùng clubhouse và bến thuyền ven sông.</p>
+    <div class="nk rv">
+      <figure class="nk-card">
+        <img src="assets/img/waterpoint-cong-vien-bo-song-tha-dieu.webp" srcset="assets/img/waterpoint-cong-vien-bo-song-tha-dieu-800.webp 800w, assets/img/waterpoint-cong-vien-bo-song-tha-dieu.webp 1114w" sizes="(max-width:760px) 100vw, 580px" width="1114" height="745" loading="lazy" decoding="async" alt="Công viên Waterpoint ngày hội thả diều: bãi cỏ lớn, sân chơi sắc màu và lối dạo dưới tán cây">
+        <figcaption><b>Công viên bờ sông</b><span>Bãi cỏ rộng cho cả nhà dạo chơi, thả diều</span></figcaption>
+      </figure>
+      <figure class="nk-card">
+        <img src="assets/img/waterpoint-cong-vien-bo-kenh.webp" srcset="assets/img/waterpoint-cong-vien-bo-kenh-800.webp 800w, assets/img/waterpoint-cong-vien-bo-kenh.webp 1200w" sizes="(max-width:760px) 100vw, 580px" width="1200" height="899" loading="lazy" decoding="async" alt="Công viên bờ kênh Waterpoint nhìn từ trên cao: bãi cỏ rộng, hàng cọ và lối dạo uốn theo dòng kênh">
+        <figcaption><b>Công viên bờ kênh</b><span>Lối dạo uốn theo dòng kênh, hàng cọ thẳng tắp</span></figcaption>
+      </figure>
+      <figure class="nk-card">
+        <img src="assets/img/waterpoint-truong-mam-non-khu-biet-thu.webp" srcset="assets/img/waterpoint-truong-mam-non-khu-biet-thu-800.webp 800w, assets/img/waterpoint-truong-mam-non-khu-biet-thu.webp 1200w" sizes="(max-width:760px) 100vw, 580px" width="1200" height="675" loading="lazy" decoding="async" alt="Lớp mầm non trong khu biệt thự đã có cư dân sinh sống tại Waterpoint">
+        <figcaption><b>Trường mầm non nội khu</b><span>Gần nhà, ngay trong khu đô thị</span></figcaption>
+      </figure>
+      <figure class="nk-card">
+        <img src="assets/img/waterpoint-truong-quoc-te-emasi-plus-thap-dong-ho.webp" srcset="assets/img/waterpoint-truong-quoc-te-emasi-plus-thap-dong-ho-800.webp 800w, assets/img/waterpoint-truong-quoc-te-emasi-plus-thap-dong-ho.webp 1200w" sizes="(max-width:760px) 100vw, 580px" width="1200" height="900" loading="lazy" decoding="async" alt="Trường quốc tế song ngữ EMASI Plus trong khu đô thị Waterpoint với tháp đồng hồ và khối nhà gạch đỏ">
+        <figcaption><b>Trường quốc tế song ngữ EMASI Plus</b><span>Ngay trong khu đô thị Waterpoint</span></figcaption>
+      </figure>
+      <figure class="nk-card rong">
+        <img src="assets/img/waterpoint-clubhouse-ben-thuyen-ven-song.webp" srcset="assets/img/waterpoint-clubhouse-ben-thuyen-ven-song-800.webp 800w, assets/img/waterpoint-clubhouse-ben-thuyen-ven-song.webp 1400w" sizes="(max-width:760px) 100vw, 1180px" width="1400" height="735" loading="lazy" decoding="async" alt="Clubhouse, hồ bơi và bến thuyền ven sông Vàm Cỏ Đông trong khu đô thị Waterpoint">
+        <figcaption><b>Clubhouse &amp; bến thuyền ven sông</b><span>Bên sông Vàm Cỏ Đông, khu đô thị Waterpoint</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 7 · MẶT BẰNG (sheet D15 — ô MÔ TẢ trống; chú thích màu chép từ ảnh CĐT) ======================= -->
+<section class="sec bg-mist" id="mat-bang">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Mặt bằng tổng thể</h2>
+    </div>
+    <p class="fact rv">Mặt bằng The Aqua chia sản phẩm theo vị thế: Riverfront Grand Villa hướng sông Vàm Cỏ Đông, Harborfront Grand Villa hướng Vịnh Cảng, Canal Villa và Canal Grand Villa ven kênh đào, Garden Villa và Garden Grand Villa hướng vườn nội khu.</p>
+    <div class="mb">
+      <figure class="mb-fig rv" data-zoom="assets/img/the-aqua-mat-bang-tong-the-3000.webp">
+        <img src="assets/img/the-aqua-mat-bang-tong-the.webp" srcset="assets/img/the-aqua-mat-bang-tong-the-800.webp 800w, assets/img/the-aqua-mat-bang-tong-the.webp 1400w" sizes="(max-width:900px) 100vw, 860px" width="1400" height="752" loading="lazy" decoding="async"
+             alt="Mặt bằng tổng thể The Aqua: các dãy Riverfront, Harborfront, Canal và Garden Grand Villa dọc sông và Vịnh Cảng">
+        <figcaption class="fcap">Mặt bằng tổng thể · bấm để phóng to, xem mã từng lô</figcaption>
+      </figure>
+      <aside class="legend rv" aria-label="Chú thích mặt bằng">
+        <h3>Chú thích</h3>
+        <ul>
+          <li><i style="background:#F1E8B1"></i><b>Riverfront Grand Villa</b><span>Mặt sông Vàm Cỏ Đông</span></li>
+          <li><i style="background:#FFCB85"></i><b>Harborfront Grand Villa</b><span>Mặt Vịnh Cảng nước ngọt</span></li>
+          <li><i style="background:#91A8C8"></i><b>Canal Grand Villa</b><span>Mặt kênh đào</span></li>
+          <li><i style="background:#DAB4D9"></i><b>Canal Villa</b><span>Mặt kênh đào</span></li>
+          <li><i style="background:#C5A187"></i><b>Garden Grand Villa</b><span>Mặt vườn nội khu</span></li>
+          <li><i style="background:#A5C9C7"></i><b>Garden Villa</b><span>Mặt vườn nội khu</span></li>
+        </ul>
+        <p class="note">Màu theo chú thích trên mặt bằng của chủ đầu tư. Vị trí và phân loại từng lô căn cứ theo hợp đồng mua bán.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 9 · NHÀ MẪU (sheet D19 — đưa lên trước Chính sách: khách thấy sản phẩm rồi mới hỏi tiền) =======================
+     Thông số đọc từ 4 trang brochure trong sheet; số WC lấy từ trang sản phẩm chính chủ (brochure không ghi). -->
+<section class="sec" id="nha-mau">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Các sản phẩm nhà mẫu</h2>
+      <p class="serif-lead">Đa dạng mẫu thiết kế thể hiện chất riêng của Gia Chủ</p>
+    </div>
+    <p class="fact rv">The Aqua có bốn dòng Grand Villa theo vị thế. Mẫu tiêu biểu: Harborfront VC3.1 (đất ~20 x 30 m, sàn ~568 m²), Riverfront VC1.1 (đất ~20 x 30 m, sàn ~427 m²), Canal VC1.2 (đất ~20 x 30 m, sàn ~425 m²) và Garden VB1.1 (đất ~15 x 20 m, sàn ~299 m²).</p>
+    <div class="tabs rv" role="tablist" aria-label="Chọn dòng sản phẩm">
+      <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="m-harbor" id="tm-harbor">Harborfront Grand Villa</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="m-river" id="tm-river">Riverfront Grand Villa</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="m-canal" id="tm-canal">Canal Grand Villa</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="m-garden" id="tm-garden">Garden Grand Villa</button>
+    </div>
+
+    <div class="pane mau-card" id="m-harbor" role="tabpanel" aria-labelledby="tm-harbor">
+      <div class="hinh">
+        <figure data-zoom="assets/img/the-aqua-harborfront-grand-villa-vc3-1.webp"><img src="assets/img/the-aqua-harborfront-grand-villa-vc3-1.webp" width="960" height="520" loading="lazy" decoding="async" alt="Mẫu Harborfront Grand Villa VC3.1 The Aqua: đất ~20 x 30 m, sàn ~568 m², 3+1 phòng ngủ, 3 tầng mái bằng"></figure>
+        <p class="goi-y">Phối cảnh, vị trí lô và mặt bằng từng tầng · bấm để phóng to</p>
+      </div>
+      <div class="mau-info">
+        <div class="code">VC3.1<small>MÁI BẰNG · 3 TẦNG</small></div>
+        <h3>Harborfront Grand Villa</h3>
+        <p class="ds">Vị trí độc tôn bên Vịnh Cảng nước ngọt 8,6 ha.</p>
+        <dl><dt>Diện tích đất</dt><dd>~20 x 30 m</dd><dt>Diện tích sàn sử dụng</dt><dd>~568 m²</dd><dt>Phòng ngủ</dt><dd>3+1</dd><dt>WC</dt><dd>5</dd></dl>
+        <p class="fine">Mẫu tiêu biểu; diện tích thay đổi tuỳ vị trí lô đất. Thông tin chính thức căn cứ theo hợp đồng mua bán.</p>
+      </div>
+    </div>
+    <div class="pane mau-card" id="m-river" role="tabpanel" aria-labelledby="tm-river" hidden>
+      <div class="hinh">
+        <figure data-zoom="assets/img/the-aqua-riverfront-grand-villa-vc1-1.webp"><img src="assets/img/the-aqua-riverfront-grand-villa-vc1-1.webp" width="960" height="520" loading="lazy" decoding="async" alt="Mẫu Riverfront Grand Villa VC1.1 The Aqua: đất ~20 x 30 m, sàn ~427 m², 5 phòng ngủ, 2 tầng mái dốc"></figure>
+        <p class="goi-y">Phối cảnh, vị trí lô và mặt bằng từng tầng · bấm để phóng to</p>
+      </div>
+      <div class="mau-info">
+        <div class="code">VC1.1<small>MÁI DỐC · 2 TẦNG</small></div>
+        <h3>Riverfront Grand Villa</h3>
+        <p class="ds">Tầm nhìn sông Vàm Cỏ Đông và dải công viên ven sông.</p>
+        <dl><dt>Diện tích đất</dt><dd>~20 x 30 m</dd><dt>Diện tích sàn sử dụng</dt><dd>~427 m²</dd><dt>Phòng ngủ</dt><dd>5</dd><dt>WC</dt><dd>6</dd></dl>
+        <p class="fine">Mẫu tiêu biểu; diện tích thay đổi tuỳ vị trí lô đất. Thông tin chính thức căn cứ theo hợp đồng mua bán.</p>
+      </div>
+    </div>
+    <div class="pane mau-card" id="m-canal" role="tabpanel" aria-labelledby="tm-canal" hidden>
+      <div class="hinh">
+        <figure data-zoom="assets/img/the-aqua-canal-grand-villa-vc1-2.webp"><img src="assets/img/the-aqua-canal-grand-villa-vc1-2.webp" width="960" height="519" loading="lazy" decoding="async" alt="Mẫu Canal Grand Villa VC1.2 The Aqua: đất ~20 x 30 m, sàn ~425 m², 4 phòng ngủ, 2 tầng mái bằng, hồ bơi sân vườn"></figure>
+        <p class="goi-y">Phối cảnh, vị trí lô và mặt bằng từng tầng · bấm để phóng to</p>
+      </div>
+      <div class="mau-info">
+        <div class="code">VC1.2<small>MÁI BẰNG · 2 TẦNG</small></div>
+        <h3>Canal Grand Villa</h3>
+        <p class="ds">Bên dòng kênh đào cảnh quan len lỏi quanh khu phố biệt lập.</p>
+        <dl><dt>Diện tích đất</dt><dd>~20 x 30 m</dd><dt>Diện tích sàn sử dụng</dt><dd>~425 m²</dd><dt>Phòng ngủ</dt><dd>4</dd><dt>WC</dt><dd>5</dd></dl>
+        <p class="fine">Mẫu tiêu biểu; diện tích thay đổi tuỳ vị trí lô đất. Thông tin chính thức căn cứ theo hợp đồng mua bán.</p>
+      </div>
+    </div>
+    <div class="pane mau-card" id="m-garden" role="tabpanel" aria-labelledby="tm-garden" hidden>
+      <div class="hinh">
+        <figure data-zoom="assets/img/the-aqua-garden-grand-villa-vb1-1.webp"><img src="assets/img/the-aqua-garden-grand-villa-vb1-1.webp" width="960" height="522" loading="lazy" decoding="async" alt="Mẫu Garden Grand Villa VB1.1 The Aqua: đất ~15 x 20 m, sàn ~299 m², 4 phòng ngủ, 3 tầng mái bằng"></figure>
+        <p class="goi-y">Phối cảnh, vị trí lô và mặt bằng từng tầng · bấm để phóng to</p>
+      </div>
+      <div class="mau-info">
+        <div class="code">VB1.1<small>MÁI BẰNG · 3 TẦNG</small></div>
+        <h3>Garden Grand Villa</h3>
+        <p class="ds">Mặt vườn nội khu, sắc xanh tràn vào từng không gian sống.</p>
+        <dl><dt>Diện tích đất</dt><dd>~15 x 20 m</dd><dt>Diện tích sàn sử dụng</dt><dd>~299 m²</dd><dt>Phòng ngủ</dt><dd>4</dd><dt>WC</dt><dd>4</dd></dl>
+        <p class="fine">Mẫu tiêu biểu; diện tích thay đổi tuỳ vị trí lô đất. Thông tin chính thức căn cứ theo hợp đồng mua bán.</p>
+      </div>
+    </div>
+
+    <div class="cmp-scroll rv">
+      <table class="cmp">
+        <caption>So sánh bốn mẫu Grand Villa</caption>
+        <thead><tr><th scope="col" style="text-align:left">Mẫu</th><th scope="col">Diện tích đất</th><th scope="col">Sàn sử dụng</th><th scope="col">Phòng ngủ</th><th scope="col">WC</th><th scope="col">Tầng · mái</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Harborfront VC3.1</th><td data-l="Diện tích đất">~20 x 30 m</td><td data-l="Sàn sử dụng">~568 m²</td><td data-l="Phòng ngủ">3+1</td><td data-l="WC">5</td><td data-l="Tầng · mái">3 tầng · mái bằng</td></tr>
+          <tr><th scope="row">Riverfront VC1.1</th><td data-l="Diện tích đất">~20 x 30 m</td><td data-l="Sàn sử dụng">~427 m²</td><td data-l="Phòng ngủ">5</td><td data-l="WC">6</td><td data-l="Tầng · mái">2 tầng · mái dốc</td></tr>
+          <tr><th scope="row">Canal VC1.2</th><td data-l="Diện tích đất">~20 x 30 m</td><td data-l="Sàn sử dụng">~425 m²</td><td data-l="Phòng ngủ">4</td><td data-l="WC">5</td><td data-l="Tầng · mái">2 tầng · mái bằng</td></tr>
+          <tr><th scope="row">Garden VB1.1</th><td data-l="Diện tích đất">~15 x 20 m</td><td data-l="Sàn sử dụng">~299 m²</td><td data-l="Phòng ngủ">4</td><td data-l="WC">4</td><td data-l="Tầng · mái">3 tầng · mái bằng</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 8 · CHÍNH SÁCH BÁN HÀNG (sheet: "Hiện chưa có") =======================
+     KHÔNG đưa giá/CSBH nguồn thứ 3 hay chính sách cũ 2025. Khi có CSBH chính thức: thay khối này bằng bảng như Rivera Nagomi. -->
+<section class="sec bg-cream" id="chinh-sach">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Chính sách bán hàng, ưu đãi và lịch thanh toán</h2>
+    </div>
+    <div class="cs rv">
+      <div>
+        <p class="body">Chính sách bán hàng, ưu đãi và lịch thanh toán The Aqua đang chờ chủ đầu tư công bố chính thức. Chuyên viên ERA sẽ cập nhật cho anh/chị ngay khi có thông báo, gồm ba nội dung bên cạnh.</p>
+      </div>
+      <ol>
+        <li><span><b>Bảng giá chính thức</b>Theo từng dòng Harborfront, Riverfront, Canal và Garden Grand Villa.</span></li>
+        <li><span><b>Ưu đãi đợt hiện hành</b>Chiết khấu, quà tặng theo thông báo của chủ đầu tư.</span></li>
+        <li><span><b>Lịch thanh toán &amp; hỗ trợ vay</b>Tiến độ thanh toán và ngân hàng liên kết.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ (khớp từng chữ với FAQPage JSON-LD — dong-bo-seo.py chép từ đây) ======================= -->
+<section class="sec" id="hoi-dap">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Câu hỏi thường gặp về The Aqua</h2>
+    </div>
+    <div class="faq rv">
+      <details open><summary>The Aqua nằm ở đâu?</summary><p>The Aqua là compound biệt thự thuộc phân khu Aquaria trong khu đô thị Waterpoint, mặt tiền đường ĐT.830, xã Bến Lức, tỉnh Tây Ninh. Trước ngày 1/7/2025, khu vực này thuộc xã An Thạnh, huyện Bến Lức, tỉnh Long An. The Aqua trải dài bên Vịnh Cảng nước ngọt 8,6 ha và công viên ven sông 3,5 ha.</p></details>
+      <details><summary>Chủ đầu tư The Aqua là ai?</summary><p>The Aqua do Nam Long Group phát triển cùng đối tác Nhật Bản Nishi-Nippon Railroad. Thiết kế công trình do TWOG và ARDOR thực hiện, cảnh quan do Lascal, hạ tầng do Royal HaskoningDHV và Aurecon tư vấn.</p></details>
+      <details><summary>The Aqua có những dòng sản phẩm nào?</summary><p>The Aqua chia biệt thự theo vị thế: Harborfront Grand Villa hướng Vịnh Cảng, Riverfront Grand Villa hướng sông Vàm Cỏ Đông, Canal Grand Villa ven kênh đào và Garden Grand Villa hướng vườn nội khu; mặt bằng còn có Canal Villa và Garden Villa. Kiến trúc mang phong cách Nhật đương đại.</p></details>
+      <details><summary>Các mẫu nhà The Aqua rộng bao nhiêu?</summary><p>Mẫu Harborfront Grand Villa VC3.1 có đất khoảng 20 x 30 m, sàn khoảng 568 m², 3+1 phòng ngủ. Mẫu Riverfront Grand Villa VC1.1 có đất khoảng 20 x 30 m, sàn khoảng 427 m², 5 phòng ngủ. Mẫu Canal Grand Villa VC1.2 có đất khoảng 20 x 30 m, sàn khoảng 425 m², 4 phòng ngủ. Mẫu Garden Grand Villa VB1.1 có đất khoảng 15 x 20 m, sàn khoảng 299 m², 4 phòng ngủ.</p></details>
+      <details><summary>Giá The Aqua bao nhiêu?</summary><p>Chủ đầu tư chưa công bố bảng giá và chính sách bán hàng mới của The Aqua trên kênh chính thức. Giá từng căn phụ thuộc dòng sản phẩm, diện tích và vị trí lô; bảng giá chính thức theo thông báo của chủ đầu tư.</p></details>
+      <details><summary>The Aqua có những tiện ích nội khu gì?</summary><p>Tiện ích nội khu The Aqua gồm hồ bơi người lớn và trẻ em, clubhouse, khu thể thao ngoài trời, cafe ngoài trời, khu vui chơi trẻ em, đường dạo bộ và sân thể thao đa năng. Sơ đồ tiện ích của chủ đầu tư còn có vườn Nhật, chòi nghỉ sân vườn kiểu Nhật, khu BBQ, sân tập yoga, nhà hàng cafe bên sông và bến thuyền.</p></details>
+      <details><summary>Từ The Aqua đi TP.HCM mất bao lâu?</summary><p>Theo tài liệu của chủ đầu tư, từ Waterpoint đi đường bộ khoảng 40 phút đến Phú Mỹ Hưng, khoảng 55 phút đến trung tâm TP.HCM và khoảng 35 phút đến Tiền Giang, qua cao tốc TP.HCM – Trung Lương và Quốc lộ 1. Đường thuỷ khoảng 60 phút đến Bến Bạch Đằng.</p></details>
+      <details><summary>Quanh The Aqua có tiện ích ngoại khu nào?</summary><p>Cư dân The Aqua dùng chung tiện ích của khu đô thị Waterpoint 355 ha, gồm công viên bờ sông, công viên bờ kênh, trường mầm non nội khu, Trường quốc tế song ngữ EMASI Plus cùng clubhouse và bến thuyền ven sông Vàm Cỏ Đông.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 10 · ĐĂNG KÝ THAM QUAN / FINAL CTA (sheet D21-D22 — nguyên văn; landing SALE: không form, không hotline) =======================
+     Ảnh sheet cho CTA ("Hình phân khu") trùng hệt ảnh hero -> dùng ảnh hồ bơi sân vườn. -->
+<section class="cta" id="tham-quan">
+  <img src="assets/img/the-aqua-ho-boi-san-vuon-biet-thu.webp" srcset="assets/img/the-aqua-ho-boi-san-vuon-biet-thu-800.webp 800w, assets/img/the-aqua-ho-boi-san-vuon-biet-thu.webp 1400w" sizes="100vw" width="1400" height="788" loading="lazy" decoding="async" alt="" aria-hidden="true">
+  <div class="cta-shade" aria-hidden="true"></div>
+  <div class="cta-in">
+    <div class="cta-box rv">
+      <h2>Đăng ký tham quan The Aqua</h2>
+      <p class="serif-lead">Trực tiếp trải nghiệm Chất riêng bên Vịnh Cảng tại The Aqua – Waterpoint.</p>
+      <ul>
+        <li>Xem các dòng Harborfront, Riverfront, Canal và Garden Grand Villa</li>
+        <li>Đi một vòng Waterpoint: Vịnh Cảng, công viên ven sông, EMASI Plus</li>
+        <li>Hẹn lịch tham quan cùng chuyên viên ERA đã gửi bạn trang này</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="fb">THE AQUA<small>COMPOUND BIỆT THỰ · PHÂN KHU AQUARIA · WATERPOINT</small></div>
+  <p>Chủ đầu tư: Nam Long Group hợp tác Nishi-Nippon Railroad (Nhật Bản). Tư vấn &amp; phân phối: ERA Vietnam.<br>
+  Hình ảnh phối cảnh &amp; bố trí công trình mang tính chất minh họa, có thể điều chỉnh. Thông tin chính thức được căn cứ trên hợp đồng mua bán.</p>
+</footer>
+
+<!-- phóng to ảnh -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn">
+  <p id="lb-cap"></p>
+  <button type="button" data-close aria-label="Đóng ảnh">✕</button>
+  <img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
+</div>
+
+<script src="assets/js/the-aqua.js?v=20261008-era" defer></script>
+</body>
+</html>

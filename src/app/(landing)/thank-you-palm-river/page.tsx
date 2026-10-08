@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "@/components/sections/landing/palm-river/palm-river-fonts.css";
 
 export default function ThankYouPalmRiverPage() {
   const [seconds, setSeconds] = useState(10);

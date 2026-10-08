@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "@/components/sections/landing/green-skyline/green-skyline-fonts.css";
 
 export default function ThankYouGreenSkylinePage() {
   const [seconds, setSeconds] = useState(10);

@@ -92,7 +92,7 @@ export function ResalesHeroSection() {
 
   const h = HEADLINES[headline];
 
-  /* Gửi lead về tab "DS đăng ký tham dự WS 24/10" (sendBeacon — gửi ngầm, ở lại trang) */
+  /* Gửi lead về tab "Landing I WS" (sendBeacon — gửi ngầm, ở lại trang) */
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = e.currentTarget;
@@ -101,7 +101,7 @@ export function ResalesHeroSection() {
       hoten: (f.hoten as HTMLInputElement).value,
       sdt: (f.sdt as HTMLInputElement).value,
       email: (f.email as HTMLInputElement).value,
-      sheet: "DS đăng ký tham dự WS 24/10",
+      sheet: "Landing I WS",
       endpoint: "/api/submit-lead-thu-cap",
       // Mỗi trường 1 cột riêng trong sheet
       extra: {

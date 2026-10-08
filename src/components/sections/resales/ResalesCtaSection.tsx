@@ -44,7 +44,7 @@ export function ResalesCtaSection() {
   const [exp, setExp] = useState("");
   const [sent, setSent] = useState(false);
 
-  /* Gửi lead về tab "DS đăng ký tuyển dụng thứ cấp" (sendBeacon — gửi ngầm, ở lại trang) */
+  /* Gửi lead về tab "Landing I Tuyển dụng" (sendBeacon — gửi ngầm, ở lại trang) */
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = e.currentTarget;
@@ -53,7 +53,7 @@ export function ResalesCtaSection() {
       hoten: (f.hoten as HTMLInputElement).value,
       sdt: (f.sdt as HTMLInputElement).value,
       email: (f.email as HTMLInputElement).value,
-      sheet: "DS đăng ký tuyển dụng thứ cấp",
+      sheet: "Landing I Tuyển dụng",
       endpoint: "/api/submit-lead-thu-cap",
       // Mỗi trường 1 cột riêng trong sheet
       extra: {
