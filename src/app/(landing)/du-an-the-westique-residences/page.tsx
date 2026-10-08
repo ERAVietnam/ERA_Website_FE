@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { TheWestiqueLanding } from "@/components/sections/landing/the-westique";
 
 export const metadata: Metadata = {
   title: "The Westique Residences An Lạc – Căn hộ boutique | ERA Vietnam",
@@ -26,7 +25,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/du-an-the-westique-residences/",
     images: [
       {
-        url: "/landing/the-westique/og-the-westique-residences-1200x630.jpg",
+        url: "/landing/the-westique-static/assets/img/og-the-westique-residences-1200x630.jpg",
         width: 1200,
         height: 630,
         alt: "The Westique Residences – căn hộ boutique 99 sản phẩm của VCRE trên mặt tiền Kinh Dương Vương, phường An Lạc, TP.HCM",
@@ -38,7 +37,7 @@ export const metadata: Metadata = {
     title: "The Westique Residences – Chất boutique nơi tâm điểm khu Tây",
     description:
       "1 tháp 15 tầng, 95 căn hộ và 4 shophouse tại 289 Kinh Dương Vương, phường An Lạc, TP.HCM.",
-    images: ["/landing/the-westique/og-the-westique-residences-1200x630.jpg"],
+    images: ["/landing/the-westique-static/assets/img/og-the-westique-residences-1200x630.jpg"],
   },
   robots: {
     index: true,
@@ -47,5 +46,11 @@ export const metadata: Metadata = {
 };
 
 export default function TheWestiquePage() {
-  return <TheWestiqueLanding />;
+  return (
+    <iframe
+      title="The Westique Residences – Căn hộ boutique tại An Lạc"
+      src="/landing/the-westique-static/index.html"
+      style={{ display: "block", width: "100%", minHeight: "100vh", border: 0 }}
+    />
+  );
 }

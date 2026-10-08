@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>The Westique Residences An Lạc – Căn hộ boutique | ERA Vietnam</title>
+<meta name="description" content="The Westique Residences của VCRE: 1 tháp 15 tầng, 95 căn hộ và 4 shophouse tại 289 Kinh Dương Vương, phường An Lạc, kế bên 2 ga Metro số 3A tương lai.">
+<meta name="keywords" content="The Westique Residences, The Westique, căn hộ The Westique, The Westique Kinh Dương Vương, The Westique An Lạc, VCRE">
+<!-- ⚠️ BẢN XEM THỬ — đang chặn Google vì còn tên miền tạm. BẢN CÓ FORM: form đăng ký + hotline ERA.
+     Có tên miền thật thì chạy: python _kiemtra/len-song.py https://<ten-mien> --mo-index -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#A25237">
+<meta name="author" content="ERA Vietnam">
+
+<!-- BẢN CÓ FORM — sinh tự động bởi _dungcu/tao-ban-co-form.py từ landing/ (bản không form). KHÔNG sửa tay file này.
+     ⚠️ TÊN MIỀN TẠM (vercel). len-song-co-form.py tự đổi mọi chỗ + sitemap + robots -->
+<link rel="canonical" href="https://the-westique-dang-ky-era.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="ERA Vietnam">
+<meta property="og:url" content="https://the-westique-dang-ky-era.vercel.app/">
+<meta property="og:title" content="The Westique Residences – Chất boutique nơi tâm điểm khu Tây">
+<meta property="og:description" content="99 sản phẩm tinh tuyển của VCRE trên mặt tiền Kinh Dương Vương, phường An Lạc: 1 tháp 15 tầng, 2 tầng tiện ích, kế bên 2 ga Metro số 3A tương lai.">
+<meta property="og:image" content="https://the-westique-dang-ky-era.vercel.app/assets/img/og-the-westique-residences-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Westique Residences – căn hộ boutique 99 sản phẩm của VCRE trên mặt tiền Kinh Dương Vương, phường An Lạc, TP.HCM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:alt" content="The Westique Residences – căn hộ boutique 99 sản phẩm của VCRE trên mặt tiền Kinh Dương Vương, phường An Lạc, TP.HCM">
+<meta name="twitter:title" content="The Westique Residences – Chất boutique nơi tâm điểm khu Tây">
+<meta name="twitter:description" content="1 tháp 15 tầng, 95 căn hộ và 4 shophouse tại 289 Kinh Dương Vương, phường An Lạc, TP.HCM.">
+<meta name="twitter:image" content="https://the-westique-dang-ky-era.vercel.app/assets/img/og-the-westique-residences-1200x630.jpg">
+
+<!-- GEO: toạ độ gần đúng số 289 Kinh Dương Vương, đoạn giữa vòng xoay Phú Lâm và Bến xe Miền Tây (theo bản đồ vị trí CĐT). VN-SG = TP. Hồ Chí Minh -->
+<meta name="geo.region" content="VN-SG">
+<meta name="geo.placename" content="Phường An Lạc, TP. Hồ Chí Minh">
+<meta name="geo.position" content="10.744;106.626">
+<meta name="ICBM" content="10.744, 106.626">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23102440'/%3E%3Cpath d='M14 16h8l7 32h-8ZM26 16h8l7 32h-8ZM38 16h12l-6 22Z' fill='%23C19564'/%3E%3C/svg%3E">
+<!-- Font chữ ở màn đầu (Beautique Display tiêu đề + Lato thường, theo leaflet CĐT) — thiếu thì chữ nhảy khi font về (CLS) -->
+<link rel="preload" href="assets/fonts/bq-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/lato-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/lato-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/the-westique-residences-hero-mobile.webp" media="(max-width:760px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/the-westique-residences-hero-thap-can-ho-boutique-kinh-duong-vuong.webp" media="(min-width:761px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/fonts/fonts.css?v=20261006">
+
+<style>
+/* Font dự phòng cùng số đo font thật (Arial / Georgia chỉnh cỡ) — chữ không nhảy khi font tải xong */
+@font-face{font-family:'Lato Fallback';src:local('Arial');size-adjust:98.9%;ascent-override:99.8%;descent-override:21.5%;line-gap-override:0%}
+@font-face{font-family:'BQ Fallback';src:local('Georgia');size-adjust:128.5%;ascent-override:77.8%;descent-override:15.6%;line-gap-override:0%}
+/* Màu nhận diện mới (06/10/2026, theo banner "Sống có chất – Ở có gu" Anh Tony gửi): đỏ đất #A25237 (màu chính),
+   kem #E6D2B9 (chữ W), cam đào #E2B48C (điểm nhấn). Bản navy cũ: 01_raw/_xem/index-mau-navy-2026-10-05.html.
+   Nền mặc định sáng; đỏ đất ở dải số liệu, khối tiện ích, bảng; nâu sẫm #4A2214 ở lớp phủ ảnh và footer. */
+:root{
+  --nau:#A25237; --nau-2:#B5633F; --nau-3:#4A2214; --nau-text:#FFF6EC; --dong-chu:#FAE8D3;
+  --dat:#8E4529; --dat-dam:#6E321D; --dong:#E2B48C; --kem:#E6D2B9; --kem-sang:#F3E6D4;
+  --ink:#0D1A30; --text:#2A3448; --muted:#5A6070;
+  --cream:#EEEBDE; --sand:#E9E4D6; --line:#E0DACB; --line-2:#D3CBB8; --nen:#F7F5EE;
+  --hdr:68px; --r:16px;
+  --display:'Beautique Display','BQ Fallback', Georgia, serif; --sans:'Lato','Lato Fallback', system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + 8px)}
+html,body{overflow-x:hidden}
+/* overflow-x:hidden làm header sticky trôi mất khi cuộn -> trình duyệt có clip thì dùng clip */
+@supports (overflow:clip){ html,body{overflow-x:clip} }
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--nen);-webkit-font-smoothing:antialiased;line-height:1.6}
+img{max-width:100%;display:block}
+a{color:var(--dat);text-decoration:none}
+a:hover{color:var(--dat-dam)}
+.wrap{max-width:1180px;margin:0 auto}
+.sec{padding:clamp(58px,6vw,96px) 22px}
+.bg-cream{background:var(--cream)} .bg-sand{background:var(--sand)}
+.head{max-width:880px;margin:0 auto 34px;text-align:center}
+.kicker{display:block;font-size:12px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;color:var(--dat);margin-bottom:14px}
+h2{font-family:var(--display);color:var(--ink);font-size:clamp(28px,3.4vw,44px);line-height:1.18;font-weight:600;margin:0;text-wrap:balance;font-variant-numeric:lining-nums}
+h2 .dong2{display:block;font-family:var(--display);font-style:italic;font-weight:500;color:var(--text);font-size:max(18px,.5em);line-height:1.4;letter-spacing:.01em;margin-top:.55em}
+h3{margin:0}
+.vach{display:block;width:56px;height:2px;background:var(--dong);margin:0 auto 18px}
+/* Chữ ký Sống / Chất / Ở / Gu — nét vẽ tách từ leaflet CĐT (font Alishanty Signature), đặt trên tiêu đề như leaflet */
+.ky{display:block;height:clamp(54px,5.6vw,80px);width:auto;margin:0 auto 2px}
+.ky-sub{height:clamp(46px,4.4vw,62px);margin-bottom:0}
+.fact{max-width:860px;margin:-10px auto clamp(24px,2.6vw,34px);text-align:center;color:var(--text);font-size:17px;line-height:1.75;text-wrap:pretty}
+.body{color:var(--text);font-size:16px;line-height:1.75;text-wrap:pretty}
+.note{font-size:13px;color:var(--muted);line-height:1.65}
+.nw{white-space:nowrap}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- HEADER ---------- */
+.hdr{position:sticky;top:0;z-index:200;background:rgba(247,245,238,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(0);transition:transform .28s ease}
+.hdr.nav-hide{transform:translate3d(0,-110%,0);visibility:hidden;pointer-events:none}
+.hdr-in{max-width:1180px;margin:0 auto;height:var(--hdr);padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center}
+.brand img{height:42px;width:auto}
+.nav{display:flex;align-items:center;gap:24px}
+.nav a{color:var(--ink);font-weight:500;font-size:15px;white-space:nowrap}
+.nav a:hover,.nav a.on{color:var(--dat)}
+.burger{display:none;width:44px;height:44px;border:0;background:none;padding:10px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--nau);margin:5px 0;border-radius:4px;transition:transform .25s,opacity .25s}
+@media (max-width:1060px){
+  :root{--hdr:60px}
+  .nav{display:none}
+  .burger{display:block}
+  .brand img{height:36px}
+  /* backdrop-filter biến .hdr thành khung chứa của menu fixed -> menu chỉ cao vài chục px. Mở menu thì tắt. */
+  .hdr.open{z-index:400;backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+  .hdr.open .nav{display:flex;position:fixed;top:var(--hdr);left:0;right:0;bottom:0;flex-direction:column;align-items:stretch;gap:0;background:var(--nen);padding:12px 22px 30px;overflow:auto}
+  .hdr.open .nav a{display:block;padding:16px 4px;border-bottom:1px solid var(--line);font-size:17px}
+  .hdr.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hdr.open .burger span:nth-child(2){opacity:0}
+  .hdr.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+
+/* ---------- 1 · HERO ---------- */
+.hero{position:relative;height:clamp(560px,calc(100svh - var(--hdr)),900px);overflow:hidden;background:var(--nau-3)}
+.hero picture,.hero picture img{position:absolute;inset:0;width:100%;height:100%}
+.hero picture img{object-fit:cover;object-position:30% 50%}
+/* máy tính: tháp nằm bên trái ảnh -> chữ đặt bên phải, trên khoảng trời hoàng hôn */
+.hero-scrim{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(to top,rgba(58,24,12,.88) 0%,rgba(58,24,12,.5) 28%,rgba(58,24,12,0) 55%),
+  linear-gradient(270deg,rgba(58,24,12,.78) 0%,rgba(58,24,12,.45) 36%,rgba(58,24,12,0) 60%)}
+.hero-in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(24px,3.6vw,56px) 22px}
+.hero-top,.hero-bot{max-width:1180px;width:100%;margin:0 auto;display:flex;flex-direction:column;align-items:flex-end}
+.hero-top>*,.hero-bot>*{width:min(560px,100%)}
+.hero .kick{font-size:13px;letter-spacing:.32em;text-transform:uppercase;font-weight:600;color:var(--kem);margin:0 0 16px}
+.hero h1{font-family:var(--display);font-weight:600;color:#fff;margin:0;line-height:1;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.hero h1 .a{display:block;font-size:clamp(46px,6vw,84px);letter-spacing:.02em}
+.hero h1 .b{display:block;font-family:var(--sans);font-weight:500;font-size:clamp(14px,1.4vw,19px);letter-spacing:.5em;text-transform:uppercase;color:var(--kem);margin-top:14px}
+.hero h1 em{display:block;font-family:var(--display);font-style:normal;font-weight:500;color:var(--kem-sang);font-size:clamp(20px,2.1vw,28px);line-height:1.3;margin-top:.9em;text-wrap:balance}
+.hero-sub{color:#FAF1E7;font-size:clamp(15px,1.2vw,17px);line-height:1.65;font-weight:500;margin:14px 0 0;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hero-facts{list-style:none;margin:clamp(18px,2vw,28px) 0 0;padding:0;display:flex;flex-wrap:wrap;border-top:1px solid rgba(230,210,185,.5)}
+.hero-facts li{display:flex;flex-direction:column;padding:14px 22px 0 0;margin-right:22px;color:#fff;border-right:1px solid rgba(230,210,185,.32)}
+.hero-facts li:last-child{border-right:0;margin-right:0;padding-right:0}
+.hero-facts b{font-family:var(--display);font-size:clamp(26px,2.4vw,34px);font-weight:600;line-height:1.1;font-variant-numeric:lining-nums;color:var(--kem)}
+.hero-facts span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-top:5px;font-weight:600;color:#F6EADD}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;margin-top:16px;color:#fff;font-size:14px;font-weight:600;background:rgba(122,52,30,.78);border:1px solid rgba(226,180,140,.6);border-radius:999px;padding:8px 16px 8px 10px}
+.hero-badge svg{width:22px;height:22px;color:var(--dong);flex:none}
+@media (max-width:760px){
+  /* điện thoại: ảnh đêm dọc, chữ trên khoảng trời tối phía trên, số liệu dưới chân tháp */
+  .hero-in{justify-content:space-between;padding:26px 20px 22px}
+  .hero-top,.hero-bot{align-items:stretch}
+  .hero-scrim{background:
+    linear-gradient(to bottom,rgba(58,24,12,.8) 0%,rgba(58,24,12,.45) 34%,rgba(58,24,12,0) 50%),
+    linear-gradient(to top,rgba(58,24,12,.92) 0%,rgba(58,24,12,.55) 20%,rgba(58,24,12,0) 36%)}
+  .hero picture img{object-position:50% 50%}
+  .hero .kick{font-size:12px;letter-spacing:.26em;margin-bottom:12px}
+  .hero h1 .b{letter-spacing:.42em;margin-top:10px}
+  .hero h1 em{margin-top:.7em}
+  .hero-sub{font-size:15px;margin-top:10px}
+  .hero-facts{display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;margin-top:0}
+  .hero-facts li{padding:10px 0 0;margin:0;border:0}
+  .hero-facts b{font-size:22px}
+  .hero-facts span{font-size:12px;letter-spacing:.02em;text-transform:none}
+  .hero-badge-wrap{display:none}
+}
+@media (max-width:380px){ .hero-sub{display:none} }
+@media (max-height:680px) and (min-width:761px){ .hero-sub{display:none} }
+
+/* ---------- 2 · TỔNG QUAN ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 18px 44px rgba(0,0,0,.06);margin:0 0 clamp(22px,2.6vw,34px)}
+.stats div{padding:clamp(20px,2.4vw,30px) 18px;text-align:center;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-family:var(--display);font-weight:600;color:var(--nau);font-size:clamp(34px,4vw,54px);line-height:1.1;font-variant-numeric:lining-nums}
+.stats b small{font-size:22px;font-weight:500}
+.stats span{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--dat);margin-top:10px;line-height:1.45}
+@media (max-width:760px){ .stats{grid-template-columns:1fr 1fr} .stats div:nth-child(2){border-right:0} .stats div:nth-child(-n+2){border-bottom:1px solid var(--line)} }
+.ov{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.6vw,38px);align-items:start}
+.ov-fig{margin:0;border-radius:16px;overflow:hidden;cursor:zoom-in;background:#fff;position:sticky;top:calc(var(--hdr) + 18px)}
+.ov-fig img{width:100%;height:auto}
+/* 06/10: ảnh tháp cắt dọc sát tháp (bỏ lá cây phía trên) + tách trời (OpenCV + grabCut, 01_raw/tach-nen/) — trời trong suốt, 2 mép + đáy tan vào nền ngà; bỏ khung trắng */
+.ov-tach,.ov-tach .fcap{background:transparent}
+.ov-tach{border-radius:0;overflow:visible}
+.ov-tach img{max-width:460px;margin:0 auto}
+@media (max-width:900px){ .ov-tach img{max-width:min(340px,82vw)} }
+.ov-tach .fcap{padding-top:4px}
+.fcap{margin:0;padding:11px 14px;text-align:center;font-size:13px;color:var(--muted);letter-spacing:.02em;background:#fff;line-height:1.5}
+table.spec{width:100%;border-collapse:collapse;font-size:15px}
+table.spec th{color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:14px 16px 14px 0;width:34%;vertical-align:top;border-bottom:1px solid var(--line-2)}
+table.spec td{color:var(--ink);padding:14px 0;line-height:1.5;border-bottom:1px solid var(--line-2)}
+table.spec td b.hl{color:var(--nau)}
+table.spec td small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+@media (max-width:900px){ .ov{grid-template-columns:1fr} .ov-fig{position:static} }
+.song{list-style:none;margin:clamp(26px,3vw,40px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);background:var(--nau);border-radius:18px;overflow:hidden}
+.song li{padding:clamp(22px,2.4vw,30px) clamp(16px,1.8vw,24px);border-right:1px solid rgba(230,210,185,.16);color:var(--nau-text)}
+.song li:last-child{border-right:0}
+.song i{display:block;font-style:normal;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--dong-chu)}
+.song b{display:block;font-family:var(--display);font-weight:600;color:#fff;font-size:clamp(34px,3.6vw,48px);line-height:1.1;margin-top:10px;font-variant-numeric:lining-nums}
+.song b small{font-size:20px;font-weight:500;color:var(--dong-chu)}
+.song span{display:block;font-size:14px;line-height:1.55;margin-top:6px}
+@media (max-width:860px){ .song{grid-template-columns:1fr 1fr} .song li:nth-child(2){border-right:0} .song li:nth-child(-n+2){border-bottom:1px solid rgba(230,210,185,.16)} }
+
+/* ---------- 3 · VỊ TRÍ ---------- */
+.vt{display:grid;grid-template-columns:1.12fr .88fr;gap:18px;align-items:start}
+.map-fig{margin:0;border-radius:16px;overflow:hidden;cursor:zoom-in;background:#fff;box-shadow:0 18px 44px rgba(0,0,0,.08)}
+.map-fig img{width:100%;height:auto}
+.card{background:#fff;border-radius:16px;padding:clamp(20px,2.2vw,26px);border:1px solid var(--line)}
+.card h3{font-size:13px;letter-spacing:.13em;color:var(--dat);font-weight:800;text-transform:uppercase}
+.rt{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.rt:last-child{border-bottom:0;padding-bottom:0}
+.rt b{background:var(--nau);color:#fff;font-size:13px;font-weight:700;padding:8px 6px;border-radius:10px;min-width:92px;text-align:center;flex:none;line-height:1.35}
+.rt span{font-size:15px;color:var(--text);line-height:1.5;padding-top:5px}
+.vt-side{display:flex;flex-direction:column;gap:14px}
+@media (max-width:900px){ .vt{grid-template-columns:1fr} }
+.ht{list-style:none;margin:clamp(18px,2vw,24px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ht li{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.ht svg{flex:none;width:30px;height:30px;color:var(--dat)}
+.ht b{display:block;font-size:15px;color:var(--ink);line-height:1.35}
+.ht span{display:block;font-size:14px;color:var(--text);line-height:1.5;margin-top:3px}
+@media (max-width:900px){ .ht{grid-template-columns:1fr 1fr} }
+@media (max-width:540px){ .ht{grid-template-columns:1fr;gap:10px} }
+.aerial{margin:clamp(22px,2.6vw,34px) 0 0;border-radius:18px;overflow:hidden;cursor:zoom-in;position:relative;background:var(--nau-3)}
+.aerial img{width:100%;height:auto}
+.aerial .tag{position:absolute;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#fff;background:rgba(122,52,30,.82);border:1px solid rgba(226,180,140,.6);border-radius:999px;padding:6px 12px;white-space:nowrap;transform:translate(-50%,-50%)}
+.aerial .tag i{width:8px;height:8px;border-radius:50%;background:var(--dong);flex:none}
+@media (max-width:640px){ .aerial .tag{font-size:12px;padding:5px 10px} .aerial .tag.an{display:none} }
+
+/* ---------- 4 · TIỆN ÍCH (nền đỏ đất) ---------- */
+.ti{background:var(--nau)}
+.ti h2{color:#fff}
+.ti h2 .dong2{color:var(--dong-chu)}
+.ti .vach{background:var(--dong)}
+.ti .fact{color:var(--nau-text)}
+.acc{display:flex;gap:clamp(7px,.8vw,12px);height:clamp(330px,40vw,480px);margin-bottom:clamp(30px,3.4vw,46px)}
+.acc figure{position:relative;background:var(--nau-3);flex:.8 1 0;min-width:0;margin:0;overflow:hidden;border-radius:18px;cursor:pointer;transition:flex-grow .55s cubic-bezier(.4,0,.2,1)}
+.acc figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.acc figcaption{position:absolute;inset:auto 0 0 0;padding:clamp(14px,1.6vw,22px);color:#fff;background:linear-gradient(to top,rgba(58,24,12,.92) 0%,rgba(58,24,12,.45) 55%,rgba(58,24,12,0) 100%)}
+.acc .ten{display:block;font-size:clamp(14px,1.2vw,17px);font-weight:700;line-height:1.3}
+.acc .mo{display:block;font-size:13px;line-height:1.5;color:rgba(255,255,255,.92);margin-top:6px;max-height:0;opacity:0;overflow:hidden;transform:translateY(6px);transition:opacity .35s .15s,transform .35s .15s}
+@media (min-width:761px){
+  .acc figure:not(.on) figcaption{inset:0;display:flex;align-items:flex-end;justify-content:center;padding:18px 0}
+  .acc figure:not(.on) .ten{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;font-size:15px;letter-spacing:.04em}
+}
+.acc figure.on{flex-grow:3.2}
+.acc figure.on .mo{max-height:80px;opacity:1;transform:none}
+.acc figure.on img{transform:scale(1.03)}
+@media (max-width:760px){
+  .acc{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:clamp(150px,36vw,210px);height:auto}
+  .acc figure:first-child{grid-column:span 2;grid-row:span 2}
+  .acc .mo{max-height:80px;opacity:1;transform:none}
+  .acc figure:not(:first-child) .mo{display:none}
+  .acc figure:last-child:nth-child(even){grid-column:span 2}
+}
+.tang{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(18px,2.6vw,36px);align-items:center}
+.stack{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.stack li{display:grid;grid-template-columns:112px 1fr;gap:16px;align-items:start;background:rgba(74,34,20,.12);border:1px solid rgba(230,210,185,.2);border-radius:14px;padding:15px 18px}
+.stack li.hl{background:rgba(74,34,20,.22);border-color:rgba(226,180,140,.55)}
+.stack i{font-style:normal;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--dong-chu);padding-top:3px;line-height:1.4}
+.stack b{display:block;color:#fff;font-size:16px;line-height:1.35}
+.stack span{display:block;color:var(--nau-text);font-size:14px;line-height:1.6;margin-top:3px}
+.tang-fig{margin:0;border-radius:16px;overflow:hidden;background:#fff;cursor:zoom-in}
+.tang-fig img{width:100%;height:auto}
+.tang-fig .fcap{background:#fff}
+@media (max-width:900px){ .tang{grid-template-columns:1fr} }
+@media (max-width:460px){ .stack li{grid-template-columns:1fr;gap:4px} }
+.dv{list-style:none;margin:clamp(22px,2.6vw,32px) 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.dv li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;color:#fff;font-size:14px;font-weight:600;line-height:1.4;padding:16px 10px;border-top:1px solid rgba(230,210,185,.25)}
+.dv svg{width:28px;height:28px;color:var(--dong)}
+@media (max-width:760px){ .dv{grid-template-columns:1fr 1fr} .dv li:last-child{grid-column:span 2} }
+
+/* ---------- 5 · SẢN PHẨM ---------- */
+.tbl-wrap{background:#fff;border-radius:18px;border:1px solid var(--line);overflow:hidden;margin-bottom:clamp(26px,3vw,40px)}
+table.dt{width:100%;border-collapse:collapse;font-size:15px;font-variant-numeric:lining-nums tabular-nums}
+table.dt th{background:var(--nau);color:#fff;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;text-align:left;padding:14px 18px;line-height:1.4}
+table.dt th small{display:block;font-size:12px;letter-spacing:.04em;text-transform:none;font-weight:500;color:var(--dong-chu)}
+table.dt td{padding:14px 18px;border-bottom:1px solid var(--line);color:var(--ink)}
+table.dt td:first-child{font-weight:700;color:var(--ink)}
+table.dt tr:last-child td{border-bottom:0;background:var(--sand);font-weight:700}
+table.dt .so{text-align:right;white-space:nowrap}
+table.dt th.so{text-align:right}
+.tbl-note{margin:0;padding:12px 18px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);background:#fff;line-height:1.6}
+@media (max-width:620px){ table.dt{font-size:13px} table.dt th,table.dt td{padding:11px 8px} table.dt th{font-size:12px;letter-spacing:.03em} table.dt .so{white-space:normal} table.dt td:first-child{width:28%} }
+.tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 18px}
+.tabs button{font:inherit;font-size:15px;font-weight:600;color:var(--nau);background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:10px 20px;cursor:pointer;min-height:44px}
+.tabs button[aria-selected="true"]{background:var(--nau);border-color:var(--nau);color:#fff}
+.panel{margin:0;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);cursor:zoom-in}
+.panel img{width:100%;height:auto}
+.panel[hidden]{display:none}
+.mb-wrap{max-width:980px;margin:0 auto clamp(34px,3.6vw,52px)}
+.sub-h{font-family:var(--display);font-size:clamp(22px,2.2vw,28px);font-weight:500;color:var(--ink);text-align:center;margin:0 0 6px;line-height:1.3}
+.sub-p{text-align:center;color:var(--text);font-size:15px;margin:0 0 18px}
+.nt{display:grid;grid-template-columns:.85fr 1.15fr 1fr;grid-template-rows:auto auto;gap:12px}
+.nt figure{margin:0;border-radius:16px;overflow:hidden;background:#fff;cursor:zoom-in;position:relative}
+.nt figure img{width:100%;height:100%;object-fit:cover}
+.nt figure:first-child{grid-row:span 2}
+.nt figcaption{position:absolute;left:12px;bottom:12px;font-size:13px;font-weight:600;color:#fff;background:rgba(122,52,30,.78);border-radius:999px;padding:5px 12px}
+.bg-box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:clamp(20px,2.2vw,26px)}
+.bg-box h3{font-family:var(--display);font-size:22px;font-weight:500;color:var(--ink);line-height:1.3}
+.bg-box p{margin:6px 0 12px;font-size:14px;color:var(--muted)}
+.chk{list-style:none;margin:0;padding:0}
+.chk li{position:relative;padding:9px 0 9px 30px;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink);line-height:1.5}
+.chk li:last-child{border-bottom:0}
+.chk li::before{content:"";position:absolute;left:4px;top:15px;width:13px;height:7px;border-left:2px solid var(--dat);border-bottom:2px solid var(--dat);transform:rotate(-45deg)}
+@media (max-width:900px){ .nt{grid-template-columns:1fr 1fr} .nt figure:first-child{grid-row:span 2} .nt .bg-box{grid-column:span 2} }
+@media (max-width:540px){ .nt{grid-template-columns:1fr} .nt figure:first-child{grid-row:auto} .nt .bg-box{grid-column:auto} }
+
+/* ---------- 6 · CHỦ ĐẦU TƯ ---------- */
+.cdt{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(18px,2.6vw,38px);align-items:start}
+.cdt-logo{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.cdt-logo img{width:150px;height:auto}
+.cdt h3{font-family:var(--display);font-size:clamp(22px,2.2vw,28px);font-weight:500;color:var(--ink);line-height:1.3}
+.cdt .body{margin:12px 0 18px}
+.chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.chips li{background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:7px 14px;font-size:14px;color:var(--ink);line-height:1.4}
+.chips li small{color:var(--muted);font-size:12px}
+.chips li.hl{background:var(--nau);border-color:var(--nau);color:#fff;font-weight:700}
+.chips li.hl small{color:var(--dong-chu)}
+.nhom-cdt{margin-top:18px;padding-top:16px;border-top:1px solid var(--line-2)}
+.nhom-cdt p{margin:0 0 10px;font-size:12px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--dat)}
+.giai{display:grid;grid-template-columns:.62fr 1fr;gap:12px}
+.giai figure{margin:0;border-radius:16px;overflow:hidden;background:#fff;cursor:zoom-in;border:1px solid var(--line)}
+.giai figure img{width:100%;height:auto}
+.giai figcaption{padding:12px 14px;font-size:13px;color:var(--text);line-height:1.5}
+.giai figcaption b{display:block;color:var(--nau);font-size:14px}
+@media (max-width:900px){ .cdt{grid-template-columns:1fr} }
+@media (max-width:540px){ .giai{grid-template-columns:1fr} }
+.tv{list-style:none;margin:clamp(26px,3vw,40px) 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.tv li{padding:18px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.tv li:nth-child(3n){border-right:0}
+.tv li:nth-last-child(-n+3){border-bottom:0}
+.tv b{display:block;font-size:16px;color:var(--ink);line-height:1.35}
+.tv span{display:block;font-size:13px;color:var(--muted);margin-top:3px;line-height:1.45}
+@media (max-width:760px){ .tv{grid-template-columns:1fr 1fr} .tv li:nth-child(3n){border-right:1px solid var(--line)} .tv li:nth-child(2n){border-right:0} .tv li:nth-last-child(-n+3){border-bottom:1px solid var(--line)} .tv li:last-child{border-bottom:0;grid-column:span 2} }
+
+/* ---------- 7 · PHÁP LÝ & TIẾN ĐỘ ---------- */
+.tl{list-style:none;margin:0 0 clamp(28px,3vw,42px);padding:0;display:grid;grid-template-columns:repeat(7,1fr);position:relative}
+.tl::before{content:"";position:absolute;left:3%;right:3%;top:21px;height:2px;background:var(--line-2)}
+.tl li{position:relative;text-align:center;padding:0 6px}
+.tl li::before{content:"";display:block;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--dat);margin:14px auto 14px;position:relative}
+.tl li.sap::before{border-color:var(--dong);background:var(--kem)}
+.tl b{display:block;font-family:var(--display);font-size:clamp(20px,1.9vw,26px);font-weight:500;color:var(--dat);font-variant-numeric:lining-nums;line-height:1.2}
+.tl span{display:block;font-size:14px;color:var(--text);line-height:1.5;margin-top:6px}
+@media (max-width:900px){
+  .tl{grid-template-columns:1fr;gap:0;max-width:520px;margin-left:auto;margin-right:auto}
+  .tl::before{left:21px;right:auto;top:10px;bottom:10px;width:2px;height:auto}
+  .tl li{display:grid;grid-template-columns:44px 96px 1fr;align-items:center;text-align:left;padding:8px 0}
+  .tl li::before{margin:0 auto}
+  .tl span{margin-top:0}
+}
+.ev{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ev figure{margin:0;border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);cursor:zoom-in}
+.ev figure img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+.ev figcaption{padding:12px 16px;font-size:14px;color:var(--text);line-height:1.5}
+.ev figcaption b{color:var(--nau)}
+@media (max-width:640px){ .ev{grid-template-columns:1fr} }
+
+/* ---------- FAQ ---------- */
+.faq{max-width:880px;margin:0 auto}
+.faq details{background:#fff;border-radius:14px;margin-bottom:10px;border:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:19px 56px 19px 22px;font-weight:700;color:var(--ink);font-size:16px;position:relative;line-height:1.45}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::marker{content:""}
+.faq summary::after{content:"";position:absolute;right:22px;top:50%;width:10px;height:10px;border-right:2px solid var(--dat);border-bottom:2px solid var(--dat);transform:translateY(-70%) rotate(45deg);transition:transform .25s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{margin:0;padding:0 22px 20px;color:var(--text);font-size:16px;line-height:1.7}
+
+/* ---------- 8 · CTA ---------- */
+.cta{position:relative;background:var(--nau-3);padding:clamp(64px,7vw,110px) 22px;overflow:hidden}
+.cta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% 50%}
+.cta-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(58,24,12,.95) 0%,rgba(58,24,12,.8) 45%,rgba(58,24,12,.3) 100%)}
+.cta-in{position:relative;max-width:1180px;margin:0 auto}
+.cta-box{max-width:640px}
+.cta h2{color:#fff}
+.cta .lead{color:var(--kem);font-size:clamp(17px,1.6vw,19px);line-height:1.6;margin:16px 0 0;font-weight:500}
+.cta ul{list-style:none;padding:0;margin:clamp(18px,2.2vw,28px) 0 0}
+.cta ul li{color:#fff;font-size:clamp(15px,1.5vw,16.5px);line-height:1.6;padding:7px 0 7px 30px;position:relative}
+.cta ul li::before{content:"";position:absolute;left:2px;top:14px;width:14px;height:8px;border-left:2px solid var(--dong);border-bottom:2px solid var(--dong);transform:rotate(-45deg)}
+.cta .ket{color:var(--nau-text);font-size:15px;margin:20px 0 0;padding-top:18px;border-top:1px solid rgba(230,210,185,.3)}
+
+/* ---------- FOOTER ---------- */
+footer{background:#4A2214;padding:clamp(44px,4.4vw,64px) 22px;color:#EFDCCB}
+.ft{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:clamp(22px,3vw,44px);align-items:center}
+.ft .era{width:98px;height:auto}
+.ft .wq{width:200px;height:auto}
+.ft .fb span{display:block;font-size:13px;letter-spacing:.2em;color:var(--dong);font-weight:800}
+.ft .fb strong{display:block;font-family:var(--display);font-size:clamp(22px,2.4vw,30px);letter-spacing:.01em;color:#fff;font-weight:600;margin-top:6px;line-height:1.3}
+.ft p{font-size:15px;line-height:1.75;margin:12px 0 0;color:#F3E4D6;max-width:700px}
+.ft-legal{max-width:1180px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);font-size:13px;line-height:1.75;color:#E2C8B2}
+@media (max-width:860px){ .ft{grid-template-columns:auto 1fr} .ft .wq{grid-column:span 2;width:180px} }
+@media (max-width:560px){ .ft{grid-template-columns:1fr} .ft .wq{grid-column:auto} }
+
+/* ---------- LIGHTBOX ---------- */
+.lb{position:fixed;inset:0;z-index:600;background:rgba(34,14,7,.95);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;background:#fff}
+.lb button{position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.lb p{position:absolute;top:18px;left:18px;right:70px;margin:0;color:#F3E4D6;font-size:13px}
+
+/* reveal: chỉ bật khi JS chạy -> không JS vẫn thấy đủ nội dung */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .js .rv{opacity:1;transform:none;transition:none} .acc figure,.acc figure img{transition:none} }
+
+/* ---------- HOẠ TIẾT NỀN (06/10/2026) — chữ W gấp giấy như leaflet CĐT tr.4 (mặt vát chuyển sắc đào trên nền ngà #EEEBDE, tràn mép)
+   + bản mặt TỐI trên nền đỏ đất (chữ sáng càng rõ). Vẽ bằng SVG trong CSS, không tải file. ---------- */
+.ti,.song,.bg-cream,.bg-sand,footer{position:relative;isolation:isolate}
+.ti::before,.song::before,.bg-cream::before,.bg-sand::before,footer::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
+.bg-cream,.bg-sand{overflow:clip}
+.ti::before{background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-2 -2 604 424'%3E%3Cpolygon points='0,0 118,0 222,420 196,420' fill='%234A2214' fill-opacity='0.3'/%3E%3Cpolygon points='196,420 222,420 330,72 283,72' fill='%234A2214' fill-opacity='0.16'/%3E%3Cpolygon points='283,72 330,72 436,420 410,420' fill='%234A2214' fill-opacity='0.3'/%3E%3Cpolygon points='410,420 436,420 600,0 494,0' fill='%234A2214' fill-opacity='0.16'/%3E%3Cpolyline points='0,0 118,0 222,420 196,420' fill='none' stroke='%23F3E6D4' stroke-opacity='0.1' stroke-width='1.2'/%3E%3Cpolyline points='196,420 222,420 330,72 283,72' fill='none' stroke='%23F3E6D4' stroke-opacity='0.1' stroke-width='1.2'/%3E%3Cpolyline points='283,72 330,72 436,420 410,420' fill='none' stroke='%23F3E6D4' stroke-opacity='0.1' stroke-width='1.2'/%3E%3Cpolyline points='410,420 436,420 600,0 494,0' fill='none' stroke='%23F3E6D4' stroke-opacity='0.1' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat right -70px top -30px/min(640px,78vw) auto,
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-2 -2 604 424'%3E%3Cpolygon points='0,0 118,0 222,420 196,420' fill='%234A2214' fill-opacity='0.22'/%3E%3Cpolygon points='196,420 222,420 330,72 283,72' fill='%234A2214' fill-opacity='0.12'/%3E%3Cpolygon points='283,72 330,72 436,420 410,420' fill='%234A2214' fill-opacity='0.22'/%3E%3Cpolygon points='410,420 436,420 600,0 494,0' fill='%234A2214' fill-opacity='0.12'/%3E%3Cpolyline points='0,0 118,0 222,420 196,420' fill='none' stroke='%23F3E6D4' stroke-opacity='0.07' stroke-width='1.2'/%3E%3Cpolyline points='196,420 222,420 330,72 283,72' fill='none' stroke='%23F3E6D4' stroke-opacity='0.07' stroke-width='1.2'/%3E%3Cpolyline points='283,72 330,72 436,420 410,420' fill='none' stroke='%23F3E6D4' stroke-opacity='0.07' stroke-width='1.2'/%3E%3Cpolyline points='410,420 436,420 600,0 494,0' fill='none' stroke='%23F3E6D4' stroke-opacity='0.07' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat left -150px bottom -50px/min(480px,62vw) auto,
+  radial-gradient(ellipse 70% 50% at 50% 0%,rgba(74,34,20,0) 0%,rgba(74,34,20,.22) 100%),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E") repeat 0 0/180px}
+.song::before{background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-2 -2 604 424'%3E%3Cpolygon points='0,0 118,0 222,420 196,420' fill='%234A2214' fill-opacity='0.22'/%3E%3Cpolygon points='196,420 222,420 330,72 283,72' fill='%234A2214' fill-opacity='0.12'/%3E%3Cpolygon points='283,72 330,72 436,420 410,420' fill='%234A2214' fill-opacity='0.22'/%3E%3Cpolygon points='410,420 436,420 600,0 494,0' fill='%234A2214' fill-opacity='0.12'/%3E%3Cpolyline points='0,0 118,0 222,420 196,420' fill='none' stroke='%23F3E6D4' stroke-opacity='0.07' stroke-width='1.2'/%3E%3Cpolyline points='196,420 222,420 330,72 283,72' fill='none' stroke='%23F3E6D4' stroke-opacity='0.07' stroke-width='1.2'/%3E%3Cpolyline points='283,72 330,72 436,420 410,420' fill='none' stroke='%23F3E6D4' stroke-opacity='0.07' stroke-width='1.2'/%3E%3Cpolyline points='410,420 436,420 600,0 494,0' fill='none' stroke='%23F3E6D4' stroke-opacity='0.07' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat right -40px center/auto 150%,
+  linear-gradient(105deg,rgba(74,34,20,0) 35%,rgba(74,34,20,.22) 100%),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E") repeat 0 0/180px}
+.bg-cream::before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 420'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23E2C2A4' stop-opacity='.10'/%3E%3Cstop offset='.55' stop-color='%23E2C2A4' stop-opacity='.30'/%3E%3Cstop offset='1' stop-color='%23D2A483' stop-opacity='.42'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0' stop-color='%23D2A483' stop-opacity='.50'/%3E%3Cstop offset='1' stop-color='%23E2C2A4' stop-opacity='.16'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='0,0 118,0 222,420 196,420' fill='url(%23a)'/%3E%3Cpolygon points='196,420 222,420 330,72 283,72' fill='url(%23b)'/%3E%3Cpolygon points='283,72 330,72 436,420 410,420' fill='url(%23a)'/%3E%3Cpolygon points='410,420 436,420 600,0 494,0' fill='url(%23b)'/%3E%3C/svg%3E") no-repeat right -14% top -70px/min(880px,110vw) auto}
+.bg-sand::before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 420'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23E2C2A4' stop-opacity='.10'/%3E%3Cstop offset='.55' stop-color='%23E2C2A4' stop-opacity='.30'/%3E%3Cstop offset='1' stop-color='%23D2A483' stop-opacity='.42'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0' stop-color='%23D2A483' stop-opacity='.50'/%3E%3Cstop offset='1' stop-color='%23E2C2A4' stop-opacity='.16'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpolygon points='0,0 118,0 222,420 196,420' fill='url(%23a)'/%3E%3Cpolygon points='196,420 222,420 330,72 283,72' fill='url(%23b)'/%3E%3Cpolygon points='283,72 330,72 436,420 410,420' fill='url(%23a)'/%3E%3Cpolygon points='410,420 436,420 600,0 494,0' fill='url(%23b)'/%3E%3C/svg%3E") no-repeat left -16% top -70px/min(820px,110vw) auto}
+footer::before{background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-2 -2 604 424'%3E%3Cpolygon points='0,0 118,0 222,420 196,420' fill='%234A2214' fill-opacity='0.3'/%3E%3Cpolygon points='196,420 222,420 330,72 283,72' fill='%234A2214' fill-opacity='0.16'/%3E%3Cpolygon points='283,72 330,72 436,420 410,420' fill='%234A2214' fill-opacity='0.3'/%3E%3Cpolygon points='410,420 436,420 600,0 494,0' fill='%234A2214' fill-opacity='0.16'/%3E%3Cpolyline points='0,0 118,0 222,420 196,420' fill='none' stroke='%23F3E6D4' stroke-opacity='0.1' stroke-width='1.2'/%3E%3Cpolyline points='196,420 222,420 330,72 283,72' fill='none' stroke='%23F3E6D4' stroke-opacity='0.1' stroke-width='1.2'/%3E%3Cpolyline points='283,72 330,72 436,420 410,420' fill='none' stroke='%23F3E6D4' stroke-opacity='0.1' stroke-width='1.2'/%3E%3Cpolyline points='410,420 436,420 600,0 494,0' fill='none' stroke='%23F3E6D4' stroke-opacity='0.1' stroke-width='1.2'/%3E%3C/svg%3E") no-repeat right -60px center/auto 130%,
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.6 -.55'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E") repeat 0 0/180px}
+
+/* ---------- BẢN CÓ FORM: form, hotline, thanh liên hệ (sinh bởi _dungcu/tao-ban-co-form.py) ---------- */
+.nav .nav-tel{font-weight:700;color:var(--dat)}
+.nav .nav-cta{background:var(--nau);color:#fff;border-radius:999px;padding:10px 20px;font-weight:700}
+.nav .nav-cta:hover,.nav .nav-cta.on{background:var(--dat-dam);color:#fff}
+.nut{display:inline-flex;align-items:center;gap:10px;background:var(--nau);color:#fff;border-radius:999px;padding:14px 26px;font-weight:700;font-size:15px;line-height:1.3}
+.nut:hover{background:var(--dat-dam);color:#fff}
+.nut svg{width:18px;height:18px;flex:none}
+.brand{flex-shrink:0}
+@media (min-width:1061px) and (max-width:1580px){ .nav{gap:18px} .nav .opt{display:none} }
+@media (max-width:1060px){ .hdr.open .nav a.nav-cta{margin-top:18px;text-align:center;border-bottom:0;padding:15px} }
+.hero-nut{margin-top:22px}
+.bg-nut{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;margin:-8px 0 clamp(26px,3vw,40px)}
+.bg-nut span{width:100%;text-align:center;font-family:var(--display);font-style:italic;font-size:19px;color:var(--text);margin-bottom:4px}
+.bg-nut .nut{padding:11px 20px;font-size:14px;background:#fff;color:var(--nau);border:1.5px solid var(--nau)}
+.bg-nut .nut:hover{background:var(--nau);color:#fff}
+.cta-in.co-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:clamp(26px,3.4vw,56px);align-items:center}
+.form-card{background:#fff;border-radius:18px;padding:clamp(24px,2.8vw,36px);box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.form-card .t{font-family:var(--display);font-size:26px;font-weight:500;color:var(--ink);line-height:1.3}
+.form-card .s{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.5}
+.form-card form{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.field{border:1.5px solid var(--line-2);border-radius:16px;padding:14px;font-size:16px;font-family:inherit;outline:none;min-width:0;width:100%;background:#fff;color:var(--ink)}
+.field:focus{border-color:var(--nau)}
+select.field{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23A25237' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 16px center;padding-right:40px}
+.form-card .nut{margin-top:4px;width:100%;justify-content:center;border:0;cursor:pointer;font-family:inherit;background:var(--nau);color:#fff;padding:16px}
+.form-card .nut:hover{background:var(--dat-dam);color:#fff}
+.form-card .nut:disabled{opacity:.7;cursor:default}
+.form-card .hot{margin:16px 0 0;text-align:center;font-size:14px;color:var(--muted)}
+.form-card .hot a{font-weight:700;color:var(--dat);font-size:17px}
+.msg{border-radius:16px;padding:12px 14px;font-size:14px;line-height:1.5}
+.msg.ok{background:var(--sand);color:var(--ink)} .msg.err{background:var(--cream);color:var(--ink);border:1.5px solid var(--nau)}
+.ft-dc{max-width:1180px;margin:18px auto 0;text-align:center;font-size:14px;color:#F3E4D6}
+footer .links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:1180px;margin:22px auto 0}
+footer .links a{color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:10px 20px;font-size:14px;font-weight:700}
+footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:300;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;gap:10px;box-shadow:0 -6px 20px rgba(0,0,0,.12);transform:translateY(110%);transition:transform .3s}
+.bar.show{transform:none}
+.bar a{flex:1;display:flex;align-items:center;justify-content:center;white-space:nowrap;padding:12px 6px;border-radius:999px;font-weight:700;font-size:14px;border:1.5px solid var(--nau);color:var(--nau)}
+.bar a.chinh{background:var(--nau);color:#fff;flex:1.4}
+@media (max-width:900px){ .cta-in.co-form{grid-template-columns:1fr} }
+@media (max-width:760px){ .bar{display:flex} footer{padding-bottom:110px} }
+@media (prefers-reduced-motion:reduce){ .bar{transition:none} }
+</style>
+<script>document.documentElement.className+=' js'</script>
+
+<!--JSONLD-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://era.com.vn/#organization",
+      "name": "ERA Vietnam - Công ty Cổ phần Bất động sản ERA Việt Nam",
+      "url": "https://era.com.vn/",
+      "telephone": "+84941125000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Số 22 - 24, Đường số 5, KĐT Sala",
+        "addressLocality": "Phường An Khánh",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "areaServed": [
+        "TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://the-westique-dang-ky-era.vercel.app/#website",
+      "url": "https://the-westique-dang-ky-era.vercel.app/",
+      "name": "The Westique Residences",
+      "inLanguage": "vi-VN",
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://the-westique-dang-ky-era.vercel.app/#webpage",
+      "url": "https://the-westique-dang-ky-era.vercel.app/",
+      "name": "The Westique Residences An Lạc – Căn hộ boutique | ERA Vietnam",
+      "inLanguage": "vi-VN",
+      "isPartOf": {
+        "@id": "https://the-westique-dang-ky-era.vercel.app/#website"
+      },
+      "about": {
+        "@id": "https://the-westique-dang-ky-era.vercel.app/#du-an"
+      },
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://the-westique-dang-ky-era.vercel.app/#breadcrumb"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://the-westique-dang-ky-era.vercel.app/#anh-hero"
+      }
+    },
+    {
+      "@type": [
+        "Product",
+        "Residence"
+      ],
+      "@id": "https://the-westique-dang-ky-era.vercel.app/#du-an",
+      "name": "The Westique Residences",
+      "description": "The Westique Residences là dự án căn hộ boutique của Công ty Cổ phần Bất động sản Bản Việt (VCRE) tại 289 Kinh Dương Vương, phường An Lạc, TP.HCM, kế bên 2 ga tương lai của tuyến Metro số 3A. Dự án gồm 1 tháp 15 tầng trên khu đất khoảng 2.126 m², mật độ xây dựng 40%, với 95 căn hộ Studio đến 3 phòng ngủ và 4 shophouse, mỗi sàn 8–10 căn, cùng 2 tầng tiện ích.",
+      "brand": {
+        "@type": "Brand",
+        "name": "VCRE – Viet Capital Real Estate"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "289 Kinh Dương Vương",
+        "addressLocality": "Phường An Lạc",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 10.744,
+        "longitude": 106.626
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Chủ đầu tư",
+          "value": "Công ty Cổ phần Bất động sản Bản Việt (VCRE – Viet Capital Real Estate)"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Diện tích đất",
+          "value": "Khoảng 2.126 m²"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Quy mô",
+          "value": "1 tháp, 15 tầng"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Số sản phẩm",
+          "value": "99 sản phẩm: 95 căn hộ và 4 shophouse"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Mật độ xây dựng",
+          "value": "40%"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Số căn mỗi sàn",
+          "value": "8–10 căn, 3 thang máy"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Loại căn",
+          "value": "Studio, 1 phòng ngủ, 2 phòng ngủ, 3 phòng ngủ, shophouse"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Cao độ trần hoàn thiện",
+          "value": "2,85 m"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Tổng thầu",
+          "value": "Wealthcons"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Giải thưởng",
+          "value": "Asia Pacific Property Awards 2026–2027: Residential High-rise Architecture Vietnam, Residential High-rise Development Vietnam"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Động thổ",
+          "value": "29/07/2026"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Mở bán dự kiến",
+          "value": "Tháng 10/2026"
+        }
+      ],
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Hồ bơi tầng 4",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Hồ bơi trẻ em",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Bể Jacuzzi",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Phòng gym & yoga",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Kids' club",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Community Lounge",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Sky Park tầng thượng",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Khu BBQ",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Trạm sạc xe điện",
+          "value": true
+        }
+      ],
+      "image": [
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-hero-thap-can-ho-boutique-kinh-duong-vuong.webp",
+          "url": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-hero-thap-can-ho-boutique-kinh-duong-vuong.webp",
+          "caption": "Phối cảnh The Westique Residences lúc hoàng hôn: tháp căn hộ boutique 15 tầng trên Kinh Dương Vương, phường An Lạc",
+          "name": "Phối cảnh The Westique Residences lúc hoàng hôn: tháp căn hộ boutique 15 tầng trên Kinh Dương Vương, phường An Lạc",
+          "width": 1600,
+          "height": 900,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án The Westique Residences – VCRE",
+          "@id": "https://the-westique-dang-ky-era.vercel.app/#anh-hero"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-thap-15-tang-ban-ngay-kinh-duong-vuong.webp",
+          "url": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-thap-15-tang-ban-ngay-kinh-duong-vuong.webp",
+          "caption": "Phối cảnh ban ngày The Westique Residences: tháp 15 tầng mặt kính, khối đế shophouse và hàng cây dọc mặt tiền Kinh Dương Vương",
+          "name": "Phối cảnh ban ngày The Westique Residences: tháp 15 tầng mặt kính, khối đế shophouse và hàng cây dọc mặt tiền Kinh Dương Vương",
+          "width": 810,
+          "height": 1520,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án The Westique Residences – VCRE"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-ban-do-vi-tri-kinh-duong-vuong-an-lac.webp",
+          "url": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-ban-do-vi-tri-kinh-duong-vuong-an-lac.webp",
+          "caption": "Bản đồ vị trí The Westique Residences trên Kinh Dương Vương: tuyến Metro số 3A, đại lộ Võ Văn Kiệt, Quốc lộ 1A, Bến xe Miền Tây và hướng về trung tâm TP.HCM",
+          "name": "Bản đồ vị trí The Westique Residences trên Kinh Dương Vương: tuyến Metro số 3A, đại lộ Võ Văn Kiệt, Quốc lộ 1A, Bến xe Miền Tây và hướng về trung tâm TP.HCM",
+          "width": 1600,
+          "height": 900,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án The Westique Residences – VCRE"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-phoi-canh-vi-tri-metro-3a-kinh-duong-vuong.webp",
+          "url": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-phoi-canh-vi-tri-metro-3a-kinh-duong-vuong.webp",
+          "caption": "Phối cảnh trên cao The Westique Residences cạnh tuyến Metro số 3A dọc Kinh Dương Vương, gần ga Công viên Phú Lâm và ga Bến xe Miền Tây",
+          "name": "Phối cảnh trên cao The Westique Residences cạnh tuyến Metro số 3A dọc Kinh Dương Vương, gần ga Công viên Phú Lâm và ga Bến xe Miền Tây",
+          "width": 1600,
+          "height": 900,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án The Westique Residences – VCRE"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-ho-boi-tang-4.webp",
+          "url": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-ho-boi-tang-4.webp",
+          "caption": "Hồ bơi tầng 4 The Westique Residences: lòng hồ dài dưới mái dốc, vách kính nhìn ra thành phố lúc hoàng hôn",
+          "name": "Hồ bơi tầng 4 The Westique Residences: lòng hồ dài dưới mái dốc, vách kính nhìn ra thành phố lúc hoàng hôn",
+          "width": 1200,
+          "height": 740,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án The Westique Residences – VCRE"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-sky-park-tang-thuong.webp",
+          "url": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-sky-park-tang-thuong.webp",
+          "caption": "Sky Park tầng thượng The Westique Residences: sân chơi trẻ em ngoài trời, khu thư giãn và giàn cây xanh nhìn ra thành phố",
+          "name": "Sky Park tầng thượng The Westique Residences: sân chơi trẻ em ngoài trời, khu thư giãn và giàn cây xanh nhìn ra thành phố",
+          "width": 1200,
+          "height": 711,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án The Westique Residences – VCRE"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-mat-bang-tang-5-6.webp",
+          "url": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-mat-bang-tang-5-6.webp",
+          "caption": "Mặt bằng căn hộ tầng 5–6 The Westique Residences: 10 căn gồm Studio, 1 phòng ngủ và 2 phòng ngủ quanh lõi thang",
+          "name": "Mặt bằng căn hộ tầng 5–6 The Westique Residences: 10 căn gồm Studio, 1 phòng ngủ và 2 phòng ngủ quanh lõi thang",
+          "width": 1400,
+          "height": 1067,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án The Westique Residences – VCRE"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-giai-asia-pacific-property-awards-2026.webp",
+          "url": "https://the-westique-dang-ky-era.vercel.app/assets/img/the-westique-residences-giai-asia-pacific-property-awards-2026.webp",
+          "caption": "The Westique Residences đạt 2 giải Asia Pacific Property Awards 2026–2027: kiến trúc nhà ở cao tầng và dự án nhà ở cao tầng tại Việt Nam",
+          "name": "The Westique Residences đạt 2 giải Asia Pacific Property Awards 2026–2027: kiến trúc nhà ở cao tầng và dự án nhà ở cao tầng tại Việt Nam",
+          "width": 1400,
+          "height": 788,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án The Westique Residences – VCRE"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://the-westique-dang-ky-era.vercel.app/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ERA Vietnam",
+          "item": "https://era.com.vn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "The Westique Residences",
+          "item": "https://the-westique-dang-ky-era.vercel.app/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://the-westique-dang-ky-era.vercel.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "The Westique Residences nằm ở đâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Westique Residences nằm tại 289 Kinh Dương Vương, phường An Lạc, TP.HCM (trước ngày 1/7/2025 thuộc quận Bình Tân), cửa ngõ phía Tây thành phố. Dự án kế bên 2 ga tương lai của tuyến Metro số 3A là ga Công viên Phú Lâm và ga Bến xe Miền Tây, gần Bến xe Miền Tây và đại lộ Võ Văn Kiệt."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Chủ đầu tư The Westique Residences là ai?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chủ đầu tư là Công ty Cổ phần Bất động sản Bản Việt (VCRE – Viet Capital Real Estate), đơn vị theo đuổi định hướng Boutique Developer với các dự án Nobu Danang, Nobu Saigon, The Vertex, Hyatt Regency Phu Quoc. VCRE được vinh danh Best Luxury Boutique Developer tại Vietnam Real Estate Awards 2026 của Dot Property."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Vì sao The Westique Residences chỉ có 99 sản phẩm?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Westique Residences phát triển theo mô hình boutique: quy mô hữu hạn để kiểm soát chất lượng thiết kế, mật độ và trải nghiệm sống. Dự án chỉ có 1 tháp 15 tầng với 95 căn hộ và 4 shophouse, mỗi sàn 8–10 căn, mật độ xây dựng 40%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "The Westique Residences có những loại căn hộ nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dự án có 10 căn Studio (thông thủy 30,3 m²), 13 căn 1 phòng ngủ (48,6–53,5 m²), 54 căn 2 phòng ngủ (62,8–75,1 m²), 18 căn 3 phòng ngủ (90,9–99,6 m²) và 4 shophouse (43,3–69,9 m²), tổng cộng 12 loại layout. Diện tích theo tài liệu chủ đầu tư, số liệu chính xác theo hợp đồng mua bán."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Tiện ích nội khu The Westique Residences gồm những gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dự án có 2 tầng tiện ích. Tầng 4 gồm hồ bơi, hồ bơi trẻ em, bể Jacuzzi, phòng gym và yoga, kids' club, Community Lounge. Tầng thượng là Sky Park với khu vui chơi trẻ em ngoài trời, khu BBQ và khu thư giãn ngắm cảnh. Tầng 1 đến tầng 3 có sảnh cư dân, khu đỗ xe và 10 trạm sạc xe điện."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Pháp lý The Westique Residences đến đâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo tài liệu chủ đầu tư, dự án có giấy chứng nhận quyền sử dụng đất (11/2016), giấy chứng nhận đầu tư (08/2025), quy hoạch 1/500 được phê duyệt (11/2025), báo cáo nghiên cứu khả thi được phê duyệt (03/2026), thẩm duyệt phòng cháy chữa cháy (04/2026) và thông báo khởi công (05/2026). Lễ động thổ diễn ra ngày 29/07/2026."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ai thiết kế, thi công và vận hành The Westique Residences?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ý tưởng kiến trúc do Planetworks, tư vấn kiến trúc DB, nội thất Ong&Ong, cảnh quan TA Landscape Architecture, kết cấu Acons, cơ điện Space Engineering; tổng thầu Wealthcons, giám sát SCQC. Tư vấn quản lý vận hành là Savills hoặc đơn vị có tiêu chuẩn tương đương."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Khi nào The Westique Residences mở bán và giá bao nhiêu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo tài liệu dự án, The Westique Residences dự kiến mở bán tháng 10/2026. Bảng giá từng căn, chính sách bán hàng và lịch thanh toán được chuyên viên ERA cập nhật theo công bố chính thức của chủ đầu tư."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!--/JSONLD-->
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="#top" aria-label="The Westique Residences – về đầu trang">
+      <img src="assets/img/the-westique-residences-logo.webp?v=20261006" width="628" height="200" alt="Logo The Westique Residences">
+    </a>
+    <nav class="nav" id="nav" aria-label="Điều hướng trang">
+      <a href="#tong-quan">Tổng quan</a>
+      <a href="#vi-tri">Vị trí</a>
+      <a href="#tien-ich">Tiện ích</a>
+      <a href="#san-pham">Sản phẩm</a>
+      <a class="opt" href="#chu-dau-tu">Chủ đầu tư</a>
+      <a class="opt" href="#phap-ly">Pháp lý</a>
+      <a class="opt" href="#hoi-dap">Hỏi đáp</a>
+      <a class="nav-tel" href="tel:0941125000">094.1125.000</a>
+      <a class="nav-cta" href="#dang-ky">Đăng ký tham quan</a>
+    </nav>
+    <button class="burger" id="burger" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ======================= 1 · HERO =======================
+     Tab "The Westique Residences" trong sheet chung là BẢN SAO tab của dự án khác (chưa điền) -> nội dung lấy từ
+     Sales Training CĐT 08/08/2026, Factsheet 08/2026 và sheet KHMKT của ERA. Slogan "Less is controlled" + "Chất boutique nơi tâm điểm khu Tây" = chữ CĐT. -->
+<section class="hero" aria-label="Giới thiệu The Westique Residences">
+  <picture>
+    <source media="(max-width:760px)" srcset="assets/img/the-westique-residences-hero-mobile.webp" width="583" height="971">
+    <img src="assets/img/the-westique-residences-hero-thap-can-ho-boutique-kinh-duong-vuong.webp" width="1600" height="900" fetchpriority="high" decoding="async"
+         alt="Phối cảnh The Westique Residences lúc hoàng hôn: tháp căn hộ boutique 15 tầng trên Kinh Dương Vương, phường An Lạc">
+  </picture>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="hero-in">
+    <div class="hero-top">
+      <p class="kick">Less is controlled</p>
+      <h1><span class="a">The Westique</span><span class="b">Residences</span><em>Chất boutique nơi tâm điểm khu Tây</em></h1>
+      <p class="hero-sub">99 sản phẩm tinh tuyển của VCRE tại 289 Kinh Dương Vương, phường An Lạc – kế bên 2 ga tương lai của tuyến Metro số 3A.</p>
+      <a class="nut hero-nut" href="#dang-ky">Nhận bảng giá &amp; mặt bằng <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="hero-bot">
+      <ul class="hero-facts">
+        <li><b>99</b><span>Sản phẩm</span></li>
+        <li><b>15</b><span>Tầng</span></li>
+        <li><b>8–10</b><span>Căn/sàn</span></li>
+        <li><b>40%</b><span>Mật độ XD</span></li>
+      </ul>
+      <div class="hero-badge-wrap"><span class="hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m8.5 13.8-1.5 7.2 5-2.6 5 2.6-1.5-7.2"/></svg>2 giải Asia Pacific Property Awards 2026–2027</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2 · TỔNG QUAN =======================
+     Diện tích đất: Sales Training CĐT + web đại lý ghi 2.126 m²; Factsheet ERA 08/2026 ghi "tổng quy mô 2.145,7 m²" -> dùng số CĐT, chờ MKT xác nhận. -->
+<section class="sec bg-cream" id="tong-quan">
+  <div class="wrap">
+    <div class="head rv">
+      <img class="ky" src="assets/img/the-westique-residences-chu-ky-chat.svg" width="159" height="68" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <h2>Tổng quan dự án <span class="nw">The Westique Residences</span> <span class="dong2">Tinh tuyển bởi sự giới hạn</span></h2>
+    </div>
+    <p class="fact rv">The Westique Residences là dự án căn hộ boutique của VCRE tại 289 Kinh Dương Vương, phường An Lạc, TP.HCM (trước ngày 1/7/2025 thuộc quận Bình Tân). Chỉ 1 tháp 15 tầng với 95 căn hộ và 4 shophouse, mỗi sàn 8–10 căn – cộng đồng cư dân tinh gọn, riêng tư ngay cửa ngõ phía Tây thành phố.</p>
+    <div class="stats rv">
+      <div><b>2.126<small> m²</small></b><span>Diện tích đất</span></div>
+      <div><b>15</b><span>Tầng · 1 tháp</span></div>
+      <div><b>95<small> + 4</small></b><span>Căn hộ + shophouse</span></div>
+      <div><b>40%</b><span>Mật độ xây dựng</span></div>
+    </div>
+    <div class="ov">
+      <figure class="ov-fig ov-tach rv" data-zoom="assets/img/the-westique-residences-phoi-canh-thap-15-tang-ban-ngay-phong-to.webp?v=20261006">
+        <img src="assets/img/the-westique-residences-thap-15-tang-ban-ngay-kinh-duong-vuong.webp" srcset="assets/img/the-westique-residences-thap-15-tang-ban-ngay-kinh-duong-vuong-400.webp 405w, assets/img/the-westique-residences-thap-15-tang-ban-ngay-kinh-duong-vuong.webp 810w" sizes="(max-width:900px) 80vw, 460px" width="810" height="1520" loading="lazy" decoding="async"
+             alt="Phối cảnh ban ngày The Westique Residences: tháp 15 tầng mặt kính, khối đế shophouse và hàng cây dọc Kinh Dương Vương">
+        <figcaption class="fcap">Tháp 15 tầng trên mặt tiền Kinh Dương Vương · bấm để phóng to</figcaption>
+      </figure>
+      <table class="spec rv">
+        <caption class="sr">Thông số tổng quan The Westique Residences</caption>
+        <tbody>
+          <tr><th scope="row">Tên dự án</th><td><b class="hl">The Westique Residences</b></td></tr>
+          <tr><th scope="row">Chủ đầu tư</th><td>Công ty Cổ phần Bất động sản Bản Việt<small>VCRE – Viet Capital Real Estate</small></td></tr>
+          <tr><th scope="row">Vị trí</th><td>289 Kinh Dương Vương, phường An Lạc, TP.HCM</td></tr>
+          <tr><th scope="row">Diện tích đất</th><td>Khoảng 2.126 m²</td></tr>
+          <tr><th scope="row">Quy mô</th><td>1 tháp, 15 tầng<small>Tầng 1 sảnh &amp; shophouse · tầng 2–3 đỗ xe · tầng 4 tiện ích · tầng 5–15 căn hộ · tầng thượng Sky Park</small></td></tr>
+          <tr><th scope="row">Sản phẩm</th><td><b class="hl">99 sản phẩm</b>: 95 căn hộ và 4 shophouse</td></tr>
+          <tr><th scope="row">Loại căn</th><td>Studio, 1 phòng ngủ, 2 phòng ngủ, 3 phòng ngủ · 12 loại layout</td></tr>
+          <tr><th scope="row">Mật độ xây dựng</th><td>40%</td></tr>
+          <tr><th scope="row">Mỗi sàn</th><td>8–10 căn · 3 thang máy</td></tr>
+          <tr><th scope="row">Cao độ trần</th><td>2,85 m (trần hoàn thiện)</td></tr>
+          <tr><th scope="row">Tổng thầu</th><td>Wealthcons</td></tr>
+          <tr><th scope="row">Quản lý vận hành</th><td>Tư vấn quản lý vận hành: Savills<small>hoặc đơn vị có tiêu chuẩn tương đương</small></td></tr>
+          <tr><th scope="row">Động thổ</th><td>29/07/2026</td></tr>
+          <tr><th scope="row">Mở bán dự kiến</th><td>Tháng 10/2026</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="song rv">
+      <li><i>Sống tinh tuyển</i><b>99</b><span>sản phẩm cho một cộng đồng chọn lọc</span></li>
+      <li><i>Sống cân bằng</i><b>12</b><span>loại layout cho nhu cầu sống đa dạng</span></li>
+      <li><i>Sống tận hưởng</i><b>15<small> m²</small></b><span>tiện ích cho mỗi căn hộ, 2 tầng tiện ích cho 11 tầng căn hộ</span></li>
+      <li><i>Sống trọn vẹn</i><b>2,85<small> m</small></b><span>cao độ trần hoàn thiện, 10 trạm sạc xe điện</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 3 · VỊ TRÍ (Sales Training tr.5–7, 24–25 + Factsheet tr.2) =======================
+     Không ghi số phút cụ thể: web đại lý ghi 3'/5'/8'/15' nhưng tài liệu CĐT không có -> chỉ dùng "5–20 phút" của Factsheet. -->
+<section class="sec" id="vi-tri">
+  <div class="wrap">
+    <div class="head rv">
+      <img class="ky" src="assets/img/the-westique-residences-chu-ky-song.svg" width="124" height="88" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <h2>Vị trí <span class="nw">The Westique Residences</span> <span class="dong2">Mặt tiền Kinh Dương Vương, cửa ngõ phía Tây TP.HCM</span></h2>
+    </div>
+    <p class="fact rv">Dự án nằm kế bên 2 ga tương lai của tuyến Metro số 3A (Bến Thành – Tân Kiên): ga Công viên Phú Lâm và ga Bến xe Miền Tây. Từ đây thuận tiện kết nối Bến xe Miền Tây, đại lộ Võ Văn Kiệt và hệ tiện ích thương mại, giáo dục, y tế trong bán kính 5–20 phút.</p>
+    <div class="vt">
+      <figure class="map-fig rv" data-zoom="assets/img/the-westique-residences-ban-do-vi-tri-kinh-duong-vuong-an-lac.webp">
+        <img src="assets/img/the-westique-residences-ban-do-vi-tri-kinh-duong-vuong-an-lac.webp" srcset="assets/img/the-westique-residences-ban-do-vi-tri-kinh-duong-vuong-an-lac-800.webp 800w, assets/img/the-westique-residences-ban-do-vi-tri-kinh-duong-vuong-an-lac.webp 1600w" sizes="(max-width:900px) 100vw, 650px" width="1600" height="900" loading="lazy" decoding="async"
+             alt="Bản đồ vị trí The Westique Residences trên Kinh Dương Vương: Metro số 3A, đại lộ Võ Văn Kiệt, Quốc lộ 1A, Bến xe Miền Tây">
+        <figcaption class="fcap">Bản đồ vị trí The Westique Residences · bấm để phóng to, xem tên đường</figcaption>
+      </figure>
+      <div class="vt-side">
+        <div class="card rv">
+          <h3>Tiện ích quanh dự án</h3>
+          <div class="rt"><b>Giao thông</b><span>2 ga Metro số 3A tương lai, Bến xe Miền Tây, đại lộ Võ Văn Kiệt, Quốc lộ 1A</span></div>
+          <div class="rt"><b>Mua sắm</b><span>AEON Mall Bình Tân, GO! An Lạc, Co.opmart Bình Tân, MM Mega Market Bình Phú, Lotte Mart, chợ An Lạc, chợ Bình Tây</span></div>
+          <div class="rt"><b>Y tế</b><span>BV Triều An, BV Quốc tế City, BV Nhi Đồng Thành phố, BV Gia An 115, BV Đại học Y Dược</span></div>
+          <div class="rt"><b>Giáo dục</b><span>Trường Liên cấp Ngô Thời Nhiệm, Trường Quốc tế Nam Úc Scotch AGS, Trường Quốc tế Mỹ Việt, Mầm non quốc tế Maple Bear</span></div>
+          <div class="rt"><b>Công viên</b><span>Công viên Phú Lâm, Công viên Bình Phú, Công viên nước Beryland</span></div>
+        </div>
+      </div>
+    </div>
+    <figure class="aerial rv" data-zoom="assets/img/the-westique-residences-phoi-canh-vi-tri-metro-3a-kinh-duong-vuong.webp">
+      <img src="assets/img/the-westique-residences-phoi-canh-vi-tri-metro-3a-kinh-duong-vuong.webp" srcset="assets/img/the-westique-residences-phoi-canh-vi-tri-metro-3a-kinh-duong-vuong-800.webp 800w, assets/img/the-westique-residences-phoi-canh-vi-tri-metro-3a-kinh-duong-vuong.webp 1600w" sizes="(max-width:1224px) 100vw, 1180px" width="1600" height="900" loading="lazy" decoding="async"
+           alt="Phối cảnh trên cao The Westique Residences cạnh tuyến Metro số 3A dọc Kinh Dương Vương, gần ga Bến xe Miền Tây">
+      <span class="tag" style="left:40%;top:30%"><i></i>The Westique Residences</span>
+      <span class="tag an" style="left:22%;top:58%"><i></i>Đại lộ Kinh Dương Vương</span>
+      <span class="tag an" style="left:74%;top:72%"><i></i>Hướng Bến xe Miền Tây</span>
+    </figure>
+    <ul class="ht rv" aria-label="Hạ tầng sắp tới quanh dự án">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l-2-4M15 21l2-4M9 14h.01M15 14h.01"/></svg><div><b>Metro số 3A</b><span>Bến Thành – Kinh Dương Vương – Tân Kiên</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20 9 4M20 20 15 4M12 6v2M12 11v2M12 16v2"/></svg><div><b>Mở rộng Quốc lộ 1</b><span>Lên 10–12 làn xe</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v7M12 15v7M2 12h7M15 12h7"/></svg><div><b>Tái tổ chức nút giao</b><span>Nút giao Kinh Dương Vương</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17h18M5 17l3-8h8l3 8M9 13h6"/></svg><div><b>Kéo dài đại lộ Võ Văn Kiệt</b><span>Trục Đông – Tây về trung tâm</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></svg><div><b>Vành đai 3</b><span>Hoàn thiện kết nối liên vùng</span></div></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 16h20M4 16v4M20 16v4M2 16c4-6 16-6 20 0M8 12.6V16M12 11.5V16M16 12.6V16"/></svg><div><b>Cao tốc Bến Lức – Long Thành</b><span>Hoàn thiện tuyến cao tốc</span></div></li>
+    </ul>
+    <p class="note rv" style="text-align:center;margin-top:16px">Thời gian di chuyển mang tính tham khảo, phụ thuộc điều kiện giao thông thực tế. Hạ tầng theo quy hoạch, tiến độ do cơ quan nhà nước công bố.</p>
+  </div>
+</section>
+
+<!-- ======================= 4 · TIỆN ÍCH NỘI KHU (Sales Training tr.29, 33, 61–74) ======================= -->
+<section class="sec ti" id="tien-ich">
+  <div class="wrap">
+    <div class="head rv">
+      <img class="ky" src="assets/img/the-westique-residences-chu-ky-o.svg" width="59" height="78" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <h2>2 tầng tiện ích cho 11 tầng căn hộ <span class="dong2">Không gian retreat riêng của cộng đồng 99 sản phẩm</span></h2>
+    </div>
+    <p class="fact rv">Theo tính toán của chủ đầu tư, mỗi căn hộ có khoảng 15 m² tiện ích, tương đương 6 m² cho mỗi cư dân. Tầng 4 dành cho hồ bơi và sức khỏe, tầng thượng là Sky Park ngắm thành phố.</p>
+    <div class="acc rv" id="acc">
+      <figure class="on">
+        <img src="assets/img/the-westique-residences-ho-boi-tang-4.webp" srcset="assets/img/the-westique-residences-ho-boi-tang-4-800.webp 800w, assets/img/the-westique-residences-ho-boi-tang-4.webp 1200w" sizes="(max-width:760px) 100vw, 640px" width="1200" height="740" loading="lazy" decoding="async" alt="Hồ bơi tầng 4 The Westique Residences: lòng hồ dài dưới mái dốc, vách kính nhìn ra thành phố lúc hoàng hôn">
+        <figcaption><span class="ten">Hồ bơi tầng 4</span><span class="mo">Lòng hồ dài dưới mái dốc, vách kính nhìn ra thành phố.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/the-westique-residences-be-jacuzzi-view-thanh-pho.webp" srcset="assets/img/the-westique-residences-be-jacuzzi-view-thanh-pho-800.webp 800w, assets/img/the-westique-residences-be-jacuzzi-view-thanh-pho.webp 1200w" sizes="(max-width:760px) 50vw, 640px" width="1200" height="702" loading="lazy" decoding="async" alt="Bể Jacuzzi tầng 4 The Westique Residences mở ra tầm nhìn thành phố khu Tây lúc hoàng hôn">
+        <figcaption><span class="ten">Bể Jacuzzi</span><span class="mo">Bể sục với tầm nhìn rộng mở ra khu Tây.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/the-westique-residences-ho-boi-tre-em.webp" srcset="assets/img/the-westique-residences-ho-boi-tre-em-800.webp 800w, assets/img/the-westique-residences-ho-boi-tre-em.webp 1200w" sizes="(max-width:760px) 50vw, 640px" width="1200" height="702" loading="lazy" decoding="async" alt="Hồ bơi trẻ em tầng 4 The Westique Residences, khu nước nông riêng cho bé cạnh sàn thư giãn">
+        <figcaption><span class="ten">Hồ bơi trẻ em</span><span class="mo">Không gian riêng, an toàn cho trẻ.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/the-westique-residences-phong-gym-yoga.webp" srcset="assets/img/the-westique-residences-phong-gym-yoga-800.webp 800w, assets/img/the-westique-residences-phong-gym-yoga.webp 1108w" sizes="(max-width:760px) 50vw, 640px" width="1108" height="764" loading="lazy" decoding="async" alt="Phòng gym và yoga The Westique Residences với máy chạy bộ, khu tạ và vách kính cao từ sàn tới trần">
+        <figcaption><span class="ten">Gym &amp; yoga</span><span class="mo">Phòng tập hiện đại, vách kính từ sàn tới trần.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/the-westique-residences-kids-club.webp" width="752" height="563" loading="lazy" decoding="async" alt="Kids' club The Westique Residences: phòng chơi sáng tạo với vòm gỗ uốn cong, đèn treo và cửa kính nhìn ra thành phố">
+        <figcaption><span class="ten">Kids' club</span><span class="mo">Không gian vui chơi sáng tạo cho trẻ.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/the-westique-residences-community-lounge.webp" srcset="assets/img/the-westique-residences-community-lounge-800.webp 800w, assets/img/the-westique-residences-community-lounge.webp 852w" sizes="(max-width:760px) 50vw, 640px" width="852" height="645" loading="lazy" decoding="async" alt="Community Lounge The Westique Residences: sofa, bàn ăn chung và đèn chùm trong không gian sinh hoạt cộng đồng">
+        <figcaption><span class="ten">Community Lounge</span><span class="mo">Nơi kết nối những tâm hồn đồng điệu.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/the-westique-residences-sky-park-tang-thuong.webp" srcset="assets/img/the-westique-residences-sky-park-tang-thuong-800.webp 800w, assets/img/the-westique-residences-sky-park-tang-thuong.webp 1200w" sizes="(max-width:760px) 50vw, 640px" width="1200" height="711" loading="lazy" decoding="async" alt="Sky Park tầng thượng The Westique Residences: sân chơi trẻ em ngoài trời, khu thư giãn và giàn cây xanh nhìn ra thành phố">
+        <figcaption><span class="ten">Sky Park</span><span class="mo">Sân chơi trẻ em và khu thư giãn giữa tầng mây.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/the-westique-residences-khu-bbq-san-thuong.webp" srcset="assets/img/the-westique-residences-khu-bbq-san-thuong-800.webp 800w, assets/img/the-westique-residences-khu-bbq-san-thuong.webp 1200w" sizes="(max-width:760px) 50vw, 640px" width="1200" height="675" loading="lazy" decoding="async" alt="Khu BBQ trên tầng thượng The Westique Residences dưới giàn cây, bàn ăn ngoài trời nhìn về trung tâm thành phố">
+        <figcaption><span class="ten">Khu BBQ</span><span class="mo">Bàn tiệc ngoài trời trên tầng thượng.</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="tang">
+      <ol class="stack rv" aria-label="Cấu trúc tầng The Westique Residences, từ trên xuống">
+        <li class="hl"><i>Tầng thượng</i><div><b>Sky Park</b><span>Khu vui chơi trẻ em ngoài trời, khu BBQ, khu thư giãn &amp; ngắm cảnh</span></div></li>
+        <li><i>Tầng 5–15</i><div><b>11 tầng căn hộ</b><span>95 căn Studio – 3 phòng ngủ, 8–10 căn mỗi sàn, 3 thang máy</span></div></li>
+        <li class="hl"><i>Tầng 4</i><div><b>Tiện ích sức khỏe</b><span>Hồ bơi, hồ bơi trẻ em, bể Jacuzzi, phòng gym &amp; yoga, kids' club, Community Lounge</span></div></li>
+        <li><i>Tầng 2–3</i><div><b>Đỗ xe cư dân</b><span>Khu đỗ xe riêng cho cư dân, trạm sạc xe điện</span></div></li>
+        <li><i>Tầng 1</i><div><b>Sảnh &amp; shophouse</b><span>Sảnh đón cư dân, bãi đỗ xe khách, trạm sạc xe điện, 4 shophouse</span></div></li>
+      </ol>
+      <figure class="tang-fig rv" data-zoom="assets/img/the-westique-residences-so-do-3-tang-tien-ich.webp">
+        <img src="assets/img/the-westique-residences-so-do-3-tang-tien-ich.webp" srcset="assets/img/the-westique-residences-so-do-3-tang-tien-ich-800.webp 800w, assets/img/the-westique-residences-so-do-3-tang-tien-ich.webp 1400w" sizes="(max-width:900px) 100vw, 620px" width="1400" height="702" loading="lazy" decoding="async"
+             alt="Sơ đồ 3 tầng tiện ích The Westique Residences: tầng 1 cổng biểu tượng, tầng 4 hồ bơi, tầng thượng Sky Park">
+        <figcaption class="fcap">Tầng 1 “Ánh sáng” · Tầng 4 “Suối nước” · Tầng thượng “Hang động” · bấm để phóng to</figcaption>
+      </figure>
+    </div>
+
+    <ul class="dv rv" aria-label="Dịch vụ vận hành">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg>An ninh 6 lớp</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Bảo vệ 24/7</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18h16M6 18a6 6 0 0 1 12 0M12 9V7M10 7h4"/></svg>Lễ tân hỗ trợ từng căn hộ</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8 12 3l9 5v8l-9 5-9-5Z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>Khu giao nhận hàng</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 5 14h6l-1 8 8-12h-6Z"/></svg>10 trạm sạc xe điện</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 5 · SẢN PHẨM (Sales Training tr.45–59 + bảng NSA web đại lý, khớp số trên layout CĐT) =======================
+     Diện tích: tim tường (GFA) theo bảng CĐT tr.51; thông thủy (NSA) khớp từng căn trên layout tr.55–59. Factsheet ERA làm tròn 30/48–53/62–75/90–99. -->
+<section class="sec bg-cream" id="san-pham">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="vach" aria-hidden="true"></span>
+      <h2>Cơ cấu sản phẩm <span class="nw">The Westique</span> <span class="dong2">95 căn hộ Studio – 3 phòng ngủ và 4 shophouse</span></h2>
+    </div>
+    <div class="tbl-wrap rv">
+      <table class="dt">
+        <caption class="sr">Diện tích và số lượng từng loại sản phẩm The Westique Residences</caption>
+        <thead>
+          <tr><th scope="col">Loại sản phẩm</th><th scope="col" class="so">Số lượng</th><th scope="col" class="so">Tim tường<small>GFA, m²</small></th><th scope="col" class="so">Thông thủy<small>NSA, m²</small></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Studio</td><td class="so">10</td><td class="so">34,6 – 35,3</td><td class="so">30,3</td></tr>
+          <tr><td>1 phòng ngủ</td><td class="so">13</td><td class="so">55,2 – 59,7</td><td class="so">48,6 – 53,5</td></tr>
+          <tr><td>2 phòng ngủ</td><td class="so">54</td><td class="so">70,2 – 83,0</td><td class="so">62,8 – 75,1</td></tr>
+          <tr><td>3 phòng ngủ</td><td class="so">18</td><td class="so">101,0 – 108,1</td><td class="so">90,9 – 99,6</td></tr>
+          <tr><td>Shophouse</td><td class="so">4</td><td class="so">46,9 – 77,2</td><td class="so">43,3 – 69,9</td></tr>
+          <tr><td>Tổng cộng</td><td class="so">99</td><td class="so"></td><td class="so"></td></tr>
+        </tbody>
+      </table>
+      <p class="tbl-note">Diện tích theo tài liệu chủ đầu tư tháng 08/2026, mang tính tham khảo; số liệu chính xác theo hợp đồng mua bán.</p>
+    </div>
+    <div class="bg-nut rv"><span>Nhận bảng giá từng căn</span><a class="nut" href="#dang-ky" data-loai="Studio">Studio</a><a class="nut" href="#dang-ky" data-loai="1 phòng ngủ">1PN</a><a class="nut" href="#dang-ky" data-loai="2 phòng ngủ">2PN</a><a class="nut" href="#dang-ky" data-loai="3 phòng ngủ">3PN</a><a class="nut" href="#dang-ky" data-loai="Shophouse">Shophouse</a></div>
+
+    <div class="mb-wrap rv">
+      <h3 class="sub-h">Mặt bằng căn hộ điển hình</h3>
+      <p class="sub-p">8–10 căn mỗi sàn quanh lõi 3 thang máy</p>
+      <div class="tabs" role="tablist" aria-label="Chọn tầng">
+        <button type="button" role="tab" id="t-mb1" aria-selected="true" aria-controls="p-mb1">Tầng 5–6</button>
+        <button type="button" role="tab" id="t-mb2" aria-selected="false" aria-controls="p-mb2">Tầng 7–9</button>
+        <button type="button" role="tab" id="t-mb3" aria-selected="false" aria-controls="p-mb3">Tầng 10–15</button>
+      </div>
+      <figure class="panel" role="tabpanel" id="p-mb1" aria-labelledby="t-mb1" data-zoom="assets/img/the-westique-residences-mat-bang-tang-5-6.webp">
+        <img src="assets/img/the-westique-residences-mat-bang-tang-5-6.webp" srcset="assets/img/the-westique-residences-mat-bang-tang-5-6-800.webp 800w, assets/img/the-westique-residences-mat-bang-tang-5-6.webp 1400w" sizes="(max-width:1024px) 100vw, 980px" width="1400" height="1067" loading="lazy" decoding="async" alt="Mặt bằng căn hộ tầng 5–6 The Westique Residences: 10 căn gồm Studio, 1 phòng ngủ và 2 phòng ngủ quanh lõi thang">
+      </figure>
+      <figure class="panel" role="tabpanel" id="p-mb2" aria-labelledby="t-mb2" hidden data-zoom="assets/img/the-westique-residences-mat-bang-tang-7-9.webp">
+        <img src="assets/img/the-westique-residences-mat-bang-tang-7-9.webp" srcset="assets/img/the-westique-residences-mat-bang-tang-7-9-800.webp 800w, assets/img/the-westique-residences-mat-bang-tang-7-9.webp 1400w" sizes="(max-width:1024px) 100vw, 980px" width="1400" height="1349" loading="lazy" decoding="async" alt="Mặt bằng căn hộ tầng 7–9 The Westique Residences: Studio, 1 phòng ngủ, 2 phòng ngủ và căn góc 3 phòng ngủ">
+      </figure>
+      <figure class="panel" role="tabpanel" id="p-mb3" aria-labelledby="t-mb3" hidden data-zoom="assets/img/the-westique-residences-mat-bang-tang-10-15.webp">
+        <img src="assets/img/the-westique-residences-mat-bang-tang-10-15.webp" srcset="assets/img/the-westique-residences-mat-bang-tang-10-15-800.webp 800w, assets/img/the-westique-residences-mat-bang-tang-10-15.webp 1400w" sizes="(max-width:1024px) 100vw, 980px" width="1400" height="1100" loading="lazy" decoding="async" alt="Mặt bằng căn hộ tầng 10–15 The Westique Residences: 8 căn mỗi sàn gồm 1 phòng ngủ, 2 phòng ngủ và 3 phòng ngủ">
+      </figure>
+    </div>
+
+    <div class="mb-wrap rv">
+      <h3 class="sub-h">Layout từng loại căn</h3>
+      <p class="sub-p">12 loại layout · mỗi căn ghi rõ diện tích tim tường và thông thủy</p>
+      <div class="tabs" role="tablist" aria-label="Chọn loại căn">
+        <button type="button" role="tab" id="t-lo1" aria-selected="true" aria-controls="p-lo1">Studio</button>
+        <button type="button" role="tab" id="t-lo2" aria-selected="false" aria-controls="p-lo2">1 phòng ngủ</button>
+        <button type="button" role="tab" id="t-lo3" aria-selected="false" aria-controls="p-lo3">2PN · B1–B3</button>
+        <button type="button" role="tab" id="t-lo4" aria-selected="false" aria-controls="p-lo4">2PN · còn lại</button>
+        <button type="button" role="tab" id="t-lo5" aria-selected="false" aria-controls="p-lo5">3 phòng ngủ</button>
+      </div>
+      <figure class="panel" role="tabpanel" id="p-lo1" aria-labelledby="t-lo1" data-zoom="assets/img/the-westique-residences-layout-can-studio.webp">
+        <img src="assets/img/the-westique-residences-layout-can-studio.webp" srcset="assets/img/the-westique-residences-layout-can-studio-800.webp 800w, assets/img/the-westique-residences-layout-can-studio.webp 1600w" sizes="(max-width:1024px) 100vw, 980px" width="1600" height="607" loading="lazy" decoding="async" alt="Layout căn Studio The Westique Residences: căn ST1 và ST2 diện tích tim tường 34,6–35,3 m², thông thủy 30,3 m²">
+      </figure>
+      <figure class="panel" role="tabpanel" id="p-lo2" aria-labelledby="t-lo2" hidden data-zoom="assets/img/the-westique-residences-layout-can-1-phong-ngu.webp">
+        <img src="assets/img/the-westique-residences-layout-can-1-phong-ngu.webp" srcset="assets/img/the-westique-residences-layout-can-1-phong-ngu-800.webp 800w, assets/img/the-westique-residences-layout-can-1-phong-ngu.webp 1600w" sizes="(max-width:1024px) 100vw, 980px" width="1600" height="516" loading="lazy" decoding="async" alt="Layout căn 1 phòng ngủ The Westique Residences: căn A1 và A2 diện tích tim tường 55,2–59,7 m²">
+      </figure>
+      <figure class="panel" role="tabpanel" id="p-lo3" aria-labelledby="t-lo3" hidden data-zoom="assets/img/the-westique-residences-layout-can-2-phong-ngu-b1-b2-b3.webp">
+        <img src="assets/img/the-westique-residences-layout-can-2-phong-ngu-b1-b2-b3.webp" srcset="assets/img/the-westique-residences-layout-can-2-phong-ngu-b1-b2-b3-800.webp 800w, assets/img/the-westique-residences-layout-can-2-phong-ngu-b1-b2-b3.webp 1600w" sizes="(max-width:1024px) 100vw, 980px" width="1600" height="745" loading="lazy" decoding="async" alt="Layout căn 2 phòng ngủ The Westique Residences: căn B1-A, B1-B, B2 và B3 diện tích tim tường 70,2–80,2 m²">
+      </figure>
+      <figure class="panel" role="tabpanel" id="p-lo4" aria-labelledby="t-lo4" hidden data-zoom="assets/img/the-westique-residences-layout-can-2-phong-ngu-b4-b5-b6.webp">
+        <img src="assets/img/the-westique-residences-layout-can-2-phong-ngu-b4-b5-b6.webp" srcset="assets/img/the-westique-residences-layout-can-2-phong-ngu-b4-b5-b6-800.webp 800w, assets/img/the-westique-residences-layout-can-2-phong-ngu-b4-b5-b6.webp 1600w" sizes="(max-width:1024px) 100vw, 980px" width="1600" height="749" loading="lazy" decoding="async" alt="Layout căn 2 phòng ngủ The Westique Residences: các căn 2 phòng ngủ còn lại, diện tích tim tường đến 83,0 m²">
+      </figure>
+      <figure class="panel" role="tabpanel" id="p-lo5" aria-labelledby="t-lo5" hidden data-zoom="assets/img/the-westique-residences-layout-can-3-phong-ngu.webp">
+        <img src="assets/img/the-westique-residences-layout-can-3-phong-ngu.webp" srcset="assets/img/the-westique-residences-layout-can-3-phong-ngu-800.webp 800w, assets/img/the-westique-residences-layout-can-3-phong-ngu.webp 1600w" sizes="(max-width:1024px) 100vw, 980px" width="1600" height="612" loading="lazy" decoding="async" alt="Layout căn 3 phòng ngủ The Westique Residences: căn C1 tim tường 108,1 m² và căn C2 tim tường 101,0 m²">
+      </figure>
+    </div>
+
+    <img class="ky ky-sub" src="assets/img/the-westique-residences-chu-ky-gu.svg" width="92" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <h3 class="sub-h rv">Nội thất &amp; tiêu chuẩn bàn giao</h3>
+    <p class="sub-p rv">“In urban rhythm” – tinh gọn, cân bằng, linh hoạt</p>
+    <div class="nt rv">
+      <figure data-zoom="assets/img/the-westique-residences-noi-that-phong-khach.webp">
+        <img src="assets/img/the-westique-residences-noi-that-phong-khach.webp" srcset="assets/img/the-westique-residences-noi-that-phong-khach-800.webp 800w, assets/img/the-westique-residences-noi-that-phong-khach.webp 900w" sizes="(max-width:540px) 100vw, (max-width:900px) 50vw, 340px" width="900" height="1028" loading="lazy" decoding="async" alt="Phòng khách căn hộ mẫu The Westique Residences: sofa kem, bàn tròn đá và cửa kính lớn đón sáng tự nhiên">
+        <figcaption>Phòng khách</figcaption>
+      </figure>
+      <figure data-zoom="assets/img/the-westique-residences-noi-that-bep-phong-an.webp">
+        <img src="assets/img/the-westique-residences-noi-that-bep-phong-an.webp" srcset="assets/img/the-westique-residences-noi-that-bep-phong-an-800.webp 800w, assets/img/the-westique-residences-noi-that-bep-phong-an.webp 1200w" sizes="(max-width:540px) 100vw, (max-width:900px) 50vw, 460px" width="1200" height="772" loading="lazy" decoding="async" alt="Bếp và phòng ăn căn hộ mẫu The Westique Residences: bàn ăn đá, tủ bếp liền tường và khu tiếp khách">
+        <figcaption>Bếp &amp; phòng ăn</figcaption>
+      </figure>
+      <div class="bg-box" style="grid-row:span 2">
+        <h3>Tiêu chuẩn bàn giao</h3>
+        <p>Theo tài liệu chủ đầu tư</p>
+        <ul class="chk">
+          <li>Hoàn thiện liền tường</li>
+          <li>Thiết bị thương hiệu cao cấp</li>
+          <li>Hệ máy lạnh multi</li>
+          <li>Hệ tủ &amp; thiết bị, phụ kiện bếp</li>
+          <li>Trọn bộ thiết bị nhà vệ sinh</li>
+          <li>Tủ giày Laminate</li>
+        </ul>
+      </div>
+      <figure data-zoom="assets/img/the-westique-residences-noi-that-phong-ngu.webp">
+        <img src="assets/img/the-westique-residences-noi-that-phong-ngu.webp" srcset="assets/img/the-westique-residences-noi-that-phong-ngu-800.webp 800w, assets/img/the-westique-residences-noi-that-phong-ngu.webp 868w" sizes="(max-width:540px) 100vw, (max-width:900px) 50vw, 460px" width="868" height="579" loading="lazy" decoding="async" alt="Phòng ngủ master căn 2 phòng ngủ The Westique Residences với đầu giường ốp vải, đèn hắt trần và rèm che sáng">
+        <figcaption>Phòng ngủ master</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 6 · CHỦ ĐẦU TƯ (Sales Training tr.13–20, 43, 76) ======================= -->
+<section class="sec" id="chu-dau-tu">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="vach" aria-hidden="true"></span>
+      <h2>VCRE – nhà phát triển boutique <span class="dong2">Công ty Cổ phần Bất động sản Bản Việt (Viet Capital Real Estate)</span></h2>
+    </div>
+    <div class="cdt">
+      <div class="rv">
+        <div class="cdt-logo"><img src="assets/img/vcre-logo.webp" width="300" height="98" loading="lazy" decoding="async" alt="Logo VCRE – Viet Capital Real Estate, chủ đầu tư The Westique Residences"></div>
+        <h3>Boutique là định hướng phát triển được theo đuổi lâu dài</h3>
+        <p class="body">VCRE theo đuổi định hướng Boutique Developer: quy mô hữu hạn, kiến trúc điểm nhấn, không gian tinh tuyển. Theo tài liệu chủ đầu tư, VCRE thuộc hệ sinh thái Phoenix Holdings – trải trên các lĩnh vực tài chính (Vietcap, BVBank, VCAM, VietCredit), F&amp;B (McDonald's, 7-Eleven), thể thao (Saigon Heat) và truyền thông (Beacon Media).</p>
+        <div class="nhom-cdt">
+          <p>Danh mục dự án VCRE</p>
+          <ul class="chips">
+            <li>Nobu Danang <small>· khách sạn</small></li>
+            <li class="hl">The Westique <small>· nhà ở</small></li>
+            <li>Nobu Saigon <small>· khách sạn</small></li>
+            <li>The Vertex <small>· thương mại</small></li>
+            <li>Hyatt Regency Phu Quoc <small>· khách sạn</small></li>
+            <li>Phu An <small>· nhà ở</small></li>
+            <li>Thanh Da <small>· nhà ở</small></li>
+          </ul>
+        </div>
+      </div>
+      <div class="giai rv">
+        <figure data-zoom="assets/img/vcre-best-luxury-boutique-developer-2026.webp">
+          <img src="assets/img/vcre-best-luxury-boutique-developer-2026.webp" width="800" height="800" loading="lazy" decoding="async" alt="VCRE được vinh danh Best Luxury Boutique Developer tại Vietnam Real Estate Awards 2026 của Dot Property">
+          <figcaption><b>Best Luxury Boutique Developer</b>VCRE · Vietnam Real Estate Awards 2026 (Dot Property)</figcaption>
+        </figure>
+        <figure data-zoom="assets/img/the-westique-residences-giai-asia-pacific-property-awards-2026.webp">
+          <img src="assets/img/the-westique-residences-giai-asia-pacific-property-awards-2026.webp" srcset="assets/img/the-westique-residences-giai-asia-pacific-property-awards-2026-800.webp 800w, assets/img/the-westique-residences-giai-asia-pacific-property-awards-2026.webp 1400w" sizes="(max-width:540px) 100vw, 400px" width="1400" height="788" loading="lazy" decoding="async" alt="The Westique Residences đạt 2 giải Asia Pacific Property Awards 2026–2027 về kiến trúc và dự án nhà ở cao tầng">
+          <figcaption><b>Asia Pacific Property Awards 2026–2027</b>The Westique Residences: Kiến trúc nhà ở cao tầng tiêu biểu · Dự án nhà ở cao tầng tốt nhất (Việt Nam)</figcaption>
+        </figure>
+      </div>
+    </div>
+    <ul class="tv rv" aria-label="Đội ngũ tư vấn">
+      <li><b>Planetworks</b><span>Ý tưởng kiến trúc</span></li>
+      <li><b>DB – Beyond design &amp; build</b><span>Tư vấn kiến trúc</span></li>
+      <li><b>Ong&amp;Ong</b><span>Tư vấn thiết kế nội thất</span></li>
+      <li><b>TA Landscape Architecture</b><span>Tư vấn cảnh quan</span></li>
+      <li><b>Space Engineering</b><span>Tư vấn cơ điện (MEP)</span></li>
+      <li><b>Acons</b><span>Tư vấn kết cấu</span></li>
+      <li><b>DJ Coalition</b><span>Tư vấn chiếu sáng mặt dựng</span></li>
+      <li><b>SCQC</b><span>Giám sát xây dựng</span></li>
+      <li><b>Wealthcons</b><span>Tổng thầu xây dựng</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================= 7 · PHÁP LÝ & TIẾN ĐỘ (Sales Training tr.77–78, ngày 08/08/2026) =======================
+     Mốc 09/2026 "Giấy phép đủ điều kiện bán hàng" là mốc CĐT ghi trong tài liệu 08/2026 -> chờ MKT xác nhận đã có văn bản. -->
+<section class="sec bg-sand" id="phap-ly">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="vach" aria-hidden="true"></span>
+      <h2>Pháp lý &amp; tiến độ <span class="dong2">Pháp lý vững vàng, sẵn sàng ký kết</span></h2>
+    </div>
+    <ol class="tl rv">
+      <li><b>11/2016</b><span>Giấy chứng nhận quyền sử dụng đất</span></li>
+      <li><b>08/2025</b><span>Giấy chứng nhận đầu tư</span></li>
+      <li><b>11/2025</b><span>Phê duyệt quy hoạch 1/500</span></li>
+      <li><b>03/2026</b><span>Phê duyệt báo cáo nghiên cứu khả thi</span></li>
+      <li><b>04/2026</b><span>Thẩm duyệt phòng cháy chữa cháy</span></li>
+      <li><b>05/2026</b><span>Thông báo khởi công</span></li>
+      <li class="sap"><b>09/2026</b><span>Văn bản đủ điều kiện bán hàng</span></li>
+    </ol>
+    <div class="ev">
+      <figure data-zoom="assets/img/the-westique-residences-le-dong-tho-29-07-2026.webp">
+        <img src="assets/img/the-westique-residences-le-dong-tho-29-07-2026.webp" srcset="assets/img/the-westique-residences-le-dong-tho-29-07-2026-800.webp 800w, assets/img/the-westique-residences-le-dong-tho-29-07-2026.webp 1000w" sizes="(max-width:640px) 100vw, 580px" width="1000" height="632" loading="lazy" decoding="async" alt="Lễ động thổ The Westique Residences ngày 29/07/2026 với đại diện VCRE và các đối tác trên sân khấu">
+        <figcaption><b>29/07/2026</b> · Lễ động thổ chính thức</figcaption>
+      </figure>
+      <figure data-zoom="assets/img/the-westique-residences-khai-truong-nha-mau-01-08-2026.webp">
+        <img src="assets/img/the-westique-residences-khai-truong-nha-mau-01-08-2026.webp" srcset="assets/img/the-westique-residences-khai-truong-nha-mau-01-08-2026-800.webp 800w, assets/img/the-westique-residences-khai-truong-nha-mau-01-08-2026.webp 1000w" sizes="(max-width:640px) 100vw, 580px" width="1000" height="625" loading="lazy" decoding="async" alt="Khai trương nhà mẫu bán hàng The Westique Residences ngày 01/08/2026, múa lân trước Experience Gallery">
+        <figcaption><b>01/08/2026</b> · Khai trương nhà mẫu bán hàng</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ (khớp từng chữ với FAQPage JSON-LD — dong-bo-seo.py chép từ đây) ======================= -->
+<section class="sec" id="hoi-dap">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="vach" aria-hidden="true"></span>
+      <h2>Câu hỏi thường gặp về <span class="nw">The Westique Residences</span></h2>
+    </div>
+    <div class="faq rv">
+      <details open><summary>The Westique Residences nằm ở đâu?</summary><p>The Westique Residences nằm tại 289 Kinh Dương Vương, phường An Lạc, TP.HCM (trước ngày 1/7/2025 thuộc quận Bình Tân), cửa ngõ phía Tây thành phố. Dự án kế bên 2 ga tương lai của tuyến Metro số 3A là ga Công viên Phú Lâm và ga Bến xe Miền Tây, gần Bến xe Miền Tây và đại lộ Võ Văn Kiệt.</p></details>
+      <details><summary>Chủ đầu tư The Westique Residences là ai?</summary><p>Chủ đầu tư là Công ty Cổ phần Bất động sản Bản Việt (VCRE – Viet Capital Real Estate), đơn vị theo đuổi định hướng Boutique Developer với các dự án Nobu Danang, Nobu Saigon, The Vertex, Hyatt Regency Phu Quoc. VCRE được vinh danh Best Luxury Boutique Developer tại Vietnam Real Estate Awards 2026 của Dot Property.</p></details>
+      <details><summary>Vì sao The Westique Residences chỉ có 99 sản phẩm?</summary><p>The Westique Residences phát triển theo mô hình boutique: quy mô hữu hạn để kiểm soát chất lượng thiết kế, mật độ và trải nghiệm sống. Dự án chỉ có 1 tháp 15 tầng với 95 căn hộ và 4 shophouse, mỗi sàn 8–10 căn, mật độ xây dựng 40%.</p></details>
+      <details><summary>The Westique Residences có những loại căn hộ nào?</summary><p>Dự án có 10 căn Studio (thông thủy 30,3 m²), 13 căn 1 phòng ngủ (48,6–53,5 m²), 54 căn 2 phòng ngủ (62,8–75,1 m²), 18 căn 3 phòng ngủ (90,9–99,6 m²) và 4 shophouse (43,3–69,9 m²), tổng cộng 12 loại layout. Diện tích theo tài liệu chủ đầu tư, số liệu chính xác theo hợp đồng mua bán.</p></details>
+      <details><summary>Tiện ích nội khu The Westique Residences gồm những gì?</summary><p>Dự án có 2 tầng tiện ích. Tầng 4 gồm hồ bơi, hồ bơi trẻ em, bể Jacuzzi, phòng gym và yoga, kids' club, Community Lounge. Tầng thượng là Sky Park với khu vui chơi trẻ em ngoài trời, khu BBQ và khu thư giãn ngắm cảnh. Tầng 1 đến tầng 3 có sảnh cư dân, khu đỗ xe và 10 trạm sạc xe điện.</p></details>
+      <details><summary>Pháp lý The Westique Residences đến đâu?</summary><p>Theo tài liệu chủ đầu tư, dự án có giấy chứng nhận quyền sử dụng đất (11/2016), giấy chứng nhận đầu tư (08/2025), quy hoạch 1/500 được phê duyệt (11/2025), báo cáo nghiên cứu khả thi được phê duyệt (03/2026), thẩm duyệt phòng cháy chữa cháy (04/2026) và thông báo khởi công (05/2026). Lễ động thổ diễn ra ngày 29/07/2026.</p></details>
+      <details><summary>Ai thiết kế, thi công và vận hành The Westique Residences?</summary><p>Ý tưởng kiến trúc do Planetworks, tư vấn kiến trúc DB, nội thất Ong&amp;Ong, cảnh quan TA Landscape Architecture, kết cấu Acons, cơ điện Space Engineering; tổng thầu Wealthcons, giám sát SCQC. Tư vấn quản lý vận hành là Savills hoặc đơn vị có tiêu chuẩn tương đương.</p></details>
+      <details><summary>Khi nào The Westique Residences mở bán và giá bao nhiêu?</summary><p>Theo tài liệu dự án, The Westique Residences dự kiến mở bán tháng 10/2026. Bảng giá từng căn, chính sách bán hàng và lịch thanh toán được chuyên viên ERA cập nhật theo công bố chính thức của chủ đầu tư.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 8 · ĐĂNG KÝ / FINAL CTA =======================
+     BẢN CÓ FORM: Họ tên | SĐT | Loại căn -> LEAD_ENDPOINT.
+     Chính sách bán hàng trên web đại lý (booking 100 triệu, quà nội thất, chiết khấu...) đã HẾT HẠN 30/09/2026 -> không đưa số. -->
+<section class="cta" id="dang-ky">
+  <img src="assets/img/the-westique-residences-phoi-canh-ve-dem.webp" srcset="assets/img/the-westique-residences-phoi-canh-ve-dem-800.webp 800w, assets/img/the-westique-residences-phoi-canh-ve-dem.webp 1600w" sizes="100vw" width="1600" height="960" loading="lazy" decoding="async" alt="" aria-hidden="true">
+  <div class="cta-shade" aria-hidden="true"></div>
+  <div class="cta-in co-form">
+    <div class="cta-box rv">
+      <h2>Nhận trọn bộ tài liệu <span class="nw">The Westique Residences</span></h2>
+      <p class="lead">Sống có chất, ở có gu – chọn căn đẹp trong 99 sản phẩm giới hạn cùng chuyên viên ERA Vietnam.</p>
+      <ul>
+        <li>Bảng giá từng căn và chính sách bán hàng mới nhất</li>
+        <li>Lịch thanh toán, phương án vay theo từng loại căn</li>
+        <li>Mặt bằng, layout chi tiết và hẹn lịch tham quan nhà mẫu</li>
+      </ul>
+      <p class="ket">Chuyên viên ERA gọi lại gửi tài liệu và hẹn lịch tham quan nhà mẫu cùng anh/chị.</p>
+    </div>
+    <div class="form-card rv">
+      <div class="t">Đăng ký nhận tài liệu</div>
+      <div class="s">Bảng giá từng căn, mặt bằng, chính sách mới nhất và lịch tham quan nhà mẫu · Bảo mật thông tin</div>
+      <form data-lead data-source="form-dang-ky-tham-quan" novalidate>
+        <input class="field" name="name" autocomplete="name" placeholder="Họ tên (*)" aria-label="Họ tên">
+        <input class="field" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Số điện thoại (*)" aria-label="Số điện thoại">
+        <select class="field" name="product" aria-label="Loại căn quan tâm">
+          <option value="">Loại căn quan tâm</option>
+          <option>Studio</option>
+          <option>1 phòng ngủ</option>
+          <option>2 phòng ngủ</option>
+          <option>3 phòng ngủ</option>
+          <option>Shophouse</option>
+        </select>
+        <button class="nut" type="submit">NHẬN TÀI LIỆU</button>
+      </form>
+      <p class="hot">Hoặc gọi ngay <a href="tel:0941125000">094.1125.000</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= FOOTER (Factsheet ERA 08/2026: "ERA Vietnam – Đại lý phân phối chính thức dự án The Westique Residences") ======================= -->
+<footer>
+  <div class="ft">
+    <img class="era" src="assets/img/era-vietnam-logo-trang.webp" width="196" height="240" loading="lazy" decoding="async" alt="Logo ERA Vietnam">
+    <div>
+      <div class="fb"><span>ERA VIETNAM</span><strong>Đại lý phân phối chính thức dự án The Westique Residences</strong></div>
+      <p>Trang thông tin dự án The Westique Residences do ERA Vietnam tổng hợp từ tài liệu chủ đầu tư, giúp Quý khách hàng tìm hiểu dự án cùng chuyên viên tư vấn.</p>
+    </div>
+    <img class="wq" src="assets/img/the-westique-residences-logo-sang.webp" width="628" height="200" loading="lazy" decoding="async" alt="Logo The Westique Residences">
+  </div>
+  <p class="ft-legal">Chủ đầu tư: Công ty Cổ phần Bất động sản Bản Việt (VCRE). Hình ảnh, tiện ích và thông số trong trang mang tính chất minh họa, có thể được điều chỉnh theo quy hoạch được phê duyệt và quyết định của chủ đầu tư. Giá bán, chính sách bán hàng và thời điểm bàn giao căn cứ theo công bố chính thức của chủ đầu tư và hợp đồng mua bán.</p>
+  <p class="ft-dc">ERA Vietnam · Số 22 - 24, Đường số 5, KĐT Sala, Phường An Khánh, TP. Hồ Chí Minh.</p>
+  <div class="links"><a href="tel:0941125000">Hotline: 094.1125.000</a><a href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo tư vấn</a></div>
+</footer>
+
+<!-- thanh liên hệ nhanh (điện thoại) -->
+<div class="bar" id="bar" aria-label="Liên hệ nhanh">
+  <a href="tel:0941125000">Gọi ngay</a>
+  <a href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo</a>
+  <a class="chinh" href="#dang-ky">Đăng ký</a>
+</div>
+
+<!-- phóng to ảnh -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn">
+  <p id="lb-cap"></p>
+  <button type="button" data-close aria-label="Đóng ảnh">✕</button>
+  <img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
+</div>
+
+<script src="assets/js/the-westique.js?v=20261008-era" defer></script>
+</body>
+</html>

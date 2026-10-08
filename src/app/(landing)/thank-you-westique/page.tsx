@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "@/components/sections/landing/the-westique/the-westique-fonts.css";
 
 export default function ThankYouWestiquePage() {
   const [seconds, setSeconds] = useState(10);
@@ -41,7 +40,7 @@ export default function ThankYouWestiquePage() {
     <main
       className="relative flex min-h-screen w-full items-center justify-center text-white"
       style={{
-        backgroundImage: "url('/landing/the-westique/the-westique-residences-phoi-canh-ve-dem.webp')",
+        backgroundImage: "url('/landing/the-westique-static/assets/img/the-westique-residences-phoi-canh-ve-dem.webp')",
         backgroundSize: "cover",
         backgroundPosition: "50% 60%",
       }}

@@ -1,1 +1,0 @@
-export { TheWestiqueLanding } from "./TheWestiqueLanding";
