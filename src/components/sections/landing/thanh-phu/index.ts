@@ -1,1 +1,0 @@
-export { ThanhPhuLanding } from "./ThanhPhuLanding";

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { ThanhPhuLanding } from "@/components/sections/landing/thanh-phu";
 
 export const metadata: Metadata = {
   title: "Thanh Phú Centre Point Bến Lức – Khu đô thị sinh thái thương mại | ERA Vietnam",
@@ -25,7 +24,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/du-an-thanh-phu-centre-point/",
     images: [
       {
-        url: "/landing/thanh-phu/og-thanh-phu-centre-point-1200x630.jpg",
+        url: "/landing/thanh-phu-static/assets/img/og-thanh-phu-centre-point-1200x630.jpg",
         width: 1200,
         height: 630,
         alt: "Phối cảnh tổng thể Thanh Phú Centre Point: khu đô thị thấp tầng, hồ trung tâm và Mega Mall bên đường Nguyễn Hữu Trí, Bến Lức",
@@ -37,7 +36,7 @@ export const metadata: Metadata = {
     title: "Thanh Phú Centre Point – Tâm điểm giao thương cửa ngõ Tây TP.HCM",
     description:
       "GĐ1 Miền Thương Phú 85,2 ha · 1.251 sản phẩm · 32 tiện ích · sát nút giao Mỹ Yên 2 cao tốc.",
-    images: ["/landing/thanh-phu/og-thanh-phu-centre-point-1200x630.jpg"],
+    images: ["/landing/thanh-phu-static/assets/img/og-thanh-phu-centre-point-1200x630.jpg"],
   },
   robots: {
     index: true,
@@ -46,5 +45,11 @@ export const metadata: Metadata = {
 };
 
 export default function ThanhPhuPage() {
-  return <ThanhPhuLanding />;
+  return (
+    <iframe
+      title="Thanh Phú Centre Point – Khu đô thị sinh thái thương mại"
+      src="/landing/thanh-phu-static/index.html"
+      style={{ display: "block", width: "100%", minHeight: "100vh", border: 0 }}
+    />
+  );
 }

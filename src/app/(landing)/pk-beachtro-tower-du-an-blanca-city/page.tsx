@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { BeachtroTowerLanding } from "@/components/sections/landing/beachtro-tower";
 
 export const metadata: Metadata = {
   title: "Beachtro Tower Blanca City – Căn hộ biển sở hữu lâu dài cuối cùng | ERA Vietnam",
@@ -25,7 +24,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/pk-beachtro-tower-du-an-blanca-city/",
     images: [
       {
-        url: "/landing/beachtro-tower/og-beachtro-tower-blanca-city-1200x630.jpg",
+        url: "/landing/beachtro-tower-static/assets/img/og-beachtro-tower-blanca-city-1200x630.jpg",
         width: 1200,
         height: 630,
         alt: "Phối cảnh Beachtro Tower – Blanca City: tổ hợp tháp căn hộ bên công viên và dãy biệt thự, hướng biển Bãi Sau Vũng Tàu",
@@ -37,7 +36,7 @@ export const metadata: Metadata = {
     title: "Beachtro Tower – Căn hộ biển sở hữu lâu dài cuối cùng tại Blanca City",
     description:
       "1.785 căn hộ · 4 tháp 36–40 tầng · 1 mặt biển – 1 mặt đại lộ – 4 mặt công viên · Vũng Tàu.",
-    images: ["/landing/beachtro-tower/og-beachtro-tower-blanca-city-1200x630.jpg"],
+    images: ["/landing/beachtro-tower-static/assets/img/og-beachtro-tower-blanca-city-1200x630.jpg"],
   },
   robots: {
     index: true,
@@ -46,5 +45,14 @@ export const metadata: Metadata = {
 };
 
 export default function BeachtroTowerPage() {
-  return <BeachtroTowerLanding />;
+  return (
+    <main className="min-h-screen w-full bg-white">
+      <iframe
+        title="Beachtro Tower Blanca City"
+        src="/landing/beachtro-tower-static/index.html"
+        className="block min-h-screen w-full border-0"
+        style={{ height: "100vh" }}
+      />
+    </main>
+  );
 }

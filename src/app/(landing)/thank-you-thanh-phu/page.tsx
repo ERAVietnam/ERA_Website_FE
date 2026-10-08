@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "@/components/sections/landing/thanh-phu/thanh-phu-fonts.css";
 
 export default function ThankYouThanhPhuPage() {
   const [seconds, setSeconds] = useState(10);
@@ -41,7 +40,7 @@ export default function ThankYouThanhPhuPage() {
     <main
       className="relative flex min-h-screen w-full items-center justify-center text-white"
       style={{
-        backgroundImage: "url('/landing/thanh-phu/thanh-phu-centre-point-ho-trung-tam-ve-dem.webp')",
+        backgroundImage: "url('/landing/thanh-phu-static/assets/img/thanh-phu-centre-point-ho-trung-tam-ve-dem.webp')",
         backgroundSize: "cover",
         backgroundPosition: "50% 60%",
       }}

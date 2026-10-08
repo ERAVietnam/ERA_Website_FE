@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/shared/JsonLd";
-import { ParkVillageLanding } from "@/components/sections/landing/park-village";
 import { breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
@@ -27,7 +26,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/pk-park-village-du-an-waterpoint/",
     images: [
       {
-        url: "/landing/park-village/park-village-hero-compound-ba-mat-kenh-dao.webp",
+        url: "/landing/park-village-static/assets/img/park-village-hero-compound-ba-mat-kenh-dao.webp",
         width: 1600,
         height: 698,
         alt: "Phối cảnh Park Village từ trên cao: compound 96 biệt thự Grand Villa ba mặt giáp kênh đào trong khu đô thị Waterpoint",
@@ -39,7 +38,7 @@ export const metadata: Metadata = {
     title: "Park Village – Compound 96 biệt thự Grand Villa tại Waterpoint",
     description:
       "96 căn Grand Villa · 6,6 ha · 3,2 km kênh đào bao quanh ngay trung tâm Waterpoint. Đăng ký tham quan nhà mẫu.",
-    images: ["/landing/park-village/park-village-hero-compound-ba-mat-kenh-dao.webp"],
+    images: ["/landing/park-village-static/assets/img/park-village-hero-compound-ba-mat-kenh-dao.webp"],
   },
   robots: {
     index: true,
@@ -56,9 +55,13 @@ const breadcrumbItems = [
 
 export default function ParkVillagePage() {
   return (
-    <div>
+    <>
       <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
-      <ParkVillageLanding />
-    </div>
+      <iframe
+        title="Park Village – Compound 96 biệt thự Grand Villa tại Waterpoint"
+        src="/landing/park-village-static/index.html"
+        style={{ display: "block", width: "100%", minHeight: "100vh", border: 0 }}
+      />
+    </>
   );
 }

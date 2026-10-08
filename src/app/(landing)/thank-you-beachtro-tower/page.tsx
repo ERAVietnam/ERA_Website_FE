@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "@/components/sections/landing/beachtro-tower/beachtro-tower-fonts.css";
 
 export default function ThankYouBeachtroTowerPage() {
   const [seconds, setSeconds] = useState(10);

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "@/components/sections/landing/the-aspira/the-aspira-fonts.css";
 
 export default function ThankYouTheAspiraPage() {
   const [seconds, setSeconds] = useState(10);
@@ -41,7 +40,7 @@ export default function ThankYouTheAspiraPage() {
     <main
       className="relative flex min-h-screen w-full items-center justify-center text-white"
       style={{
-        backgroundImage: "url('/landing/the-aspira/the-aspira-phoi-canh-2-thap-ve-dem-800.webp')",
+        backgroundImage: "url('/landing/the-aspira-static/assets/img/the-aspira-phoi-canh-2-thap-ve-dem-800.webp')",
         backgroundSize: "cover",
         backgroundPosition: "50% 60%",
       }}

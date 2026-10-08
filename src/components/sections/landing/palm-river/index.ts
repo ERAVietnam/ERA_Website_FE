@@ -1,1 +1,0 @@
-export { PalmRiverLanding } from "./PalmRiverLanding";

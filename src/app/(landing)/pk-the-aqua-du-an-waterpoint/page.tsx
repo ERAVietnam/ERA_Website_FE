@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/shared/JsonLd";
-import { TheAquaLanding } from "@/components/sections/landing/the-aqua";
 import { breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
@@ -27,7 +26,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/pk-the-aqua-du-an-waterpoint/",
     images: [
       {
-        url: "/landing/the-aqua/the-aqua-hero-biet-thu-ben-vinh-cang.webp",
+        url: "/landing/the-aqua-static/assets/img/og-the-aqua-1200x630.jpg",
         width: 1600,
         height: 900,
         alt: "Phối cảnh The Aqua từ trên cao: dãy biệt thự, công viên ven sông và bến thuyền bên Vịnh Cảng nước ngọt, Waterpoint",
@@ -39,7 +38,7 @@ export const metadata: Metadata = {
     title: "The Aqua – Compound biệt thự bên Vịnh Cảng Waterpoint",
     description:
       "Vịnh Cảng nước ngọt 8,6 ha · công viên ven sông 3,5 ha · 4 dòng Grand Villa. Đăng ký tham quan The Aqua.",
-    images: ["/landing/the-aqua/the-aqua-hero-biet-thu-ben-vinh-cang.webp"],
+    images: ["/landing/the-aqua-static/assets/img/og-the-aqua-1200x630.jpg"],
   },
   robots: {
     index: true,
@@ -56,9 +55,13 @@ const breadcrumbItems = [
 
 export default function TheAquaPage() {
   return (
-    <div>
+    <>
       <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
-      <TheAquaLanding />
-    </div>
+      <iframe
+        title="The Aqua – Compound biệt thự bên Vịnh Cảng Waterpoint"
+        src="/landing/the-aqua-static/index.html"
+        style={{ display: "block", width: "100%", minHeight: "100vh", border: 0 }}
+      />
+    </>
   );
 }

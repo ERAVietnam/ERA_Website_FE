@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>SkySOLIS Lái Thiêu – Căn hộ Healthy Home trên Quốc lộ 13 | ERA</title>
+<meta name="description" content="SkySOLIS của SkyWorld (Malaysia): 3 tháp 40 tầng, 1.101 sản phẩm tại 88/10 Đại lộ Bình Dương, phường Lái Thiêu, TP.HCM. Căn hộ Healthy Home, chuẩn QLASSIC.">
+<meta name="keywords" content="SkySOLIS, Sky Solis, căn hộ SkySOLIS, SkyWorld, căn hộ Lái Thiêu, căn hộ Quốc lộ 13, căn hộ Đại lộ Bình Dương, căn hộ Thuận An, Healthy Home">
+<!-- ⚠️ BẢN XEM THỬ — đang chặn Google vì còn tên miền tạm. Landing cho SALE: không form, không hotline.
+     Có tên miền thật thì chạy: python _kiemtra/len-song.py https://<ten-mien> --mo-index -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#A9441C">
+<meta name="author" content="ERA Vietnam">
+
+<!-- ⚠️ TÊN MIỀN TẠM (vercel). len-song.py tự đổi mọi chỗ + sitemap + robots -->
+<link rel="canonical" href="https://skysolis-era.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="ERA Vietnam">
+<meta property="og:url" content="https://skysolis-era.vercel.app/">
+<meta property="og:title" content="SkySOLIS – Khai mở tiềm năng vùng đất di sản">
+<meta property="og:description" content="Dự án căn hộ đầu tiên tại Việt Nam của SkyWorld (Malaysia) trên Đại lộ Bình Dương, Lái Thiêu. Tiện ích 4 tầng, layout căn hộ, chính sách bán hàng.">
+<meta property="og:image" content="https://skysolis-era.vercel.app/assets/img/og-skysolis-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SkySOLIS – tháp căn hộ 40 tầng của SkyWorld trên Đại lộ Bình Dương, phường Lái Thiêu, TP.HCM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:alt" content="SkySOLIS – tháp căn hộ 40 tầng của SkyWorld trên Đại lộ Bình Dương, phường Lái Thiêu, TP.HCM">
+<meta name="twitter:title" content="SkySOLIS – Khai mở tiềm năng vùng đất di sản">
+<meta name="twitter:description" content="Căn hộ Healthy Home của SkyWorld (Malaysia) trên Đại lộ Bình Dương, phường Lái Thiêu, TP.HCM.">
+<meta name="twitter:image" content="https://skysolis-era.vercel.app/assets/img/og-skysolis-1200x630.jpg">
+
+<!-- GEO: toạ độ gần đúng khu đất 88/10 Đại lộ Bình Dương, cạnh Lotte Mart Bình Dương. VN-SG = TP. Hồ Chí Minh -->
+<meta name="geo.region" content="VN-SG">
+<meta name="geo.placename" content="Phường Lái Thiêu, TP. Hồ Chí Minh">
+<meta name="geo.position" content="10.908;106.704">
+<meta name="ICBM" content="10.908, 106.704">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23A9441C'/%3E%3Ccircle cx='32' cy='32' r='9' fill='none' stroke='%23FBEBDD' stroke-width='5'/%3E%3Cpath d='M32 10v8M32 46v8M10 32h8M46 32h8M16.5 16.5l5.6 5.6M41.9 41.9l5.6 5.6M16.5 47.5l5.6-5.6M41.9 22.1l5.6-5.6' stroke='%23FBEBDD' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<!-- Font chữ ở màn đầu (Josefin Sans tiêu đề + Be Vietnam Pro thường, bản Việt + Latin) — thiếu thì chữ nhảy khi font về (CLS) -->
+<link rel="preload" href="assets/fonts/josefin-vi.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/josefin-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bvp-400-vi.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bvp-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/skysolis-hero-mobile.webp" media="(max-width:760px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/skysolis-hero-thap-can-ho-quoc-lo-13-lai-thieu.webp" media="(min-width:761px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+
+<style>
+/* Font dự phòng cùng số đo font thật (Arial chỉnh cỡ) — chữ không nhảy khi font tải xong */
+@font-face{font-family:'BVP Fallback';src:local('Arial');size-adjust:108.48%;ascent-override:92.18%;descent-override:24.43%;line-gap-override:0%}
+@font-face{font-family:'Josefin Fallback';src:local('Arial');size-adjust:95.67%;ascent-override:78.39%;descent-override:26.13%;line-gap-override:0%}
+/* Màu lấy từ brochure SkySOLIS: cam đất (bìa, logo), xanh đêm (trang Vùng đất di sản, SkyWorld), kem (nền trang layout) */
+:root{
+  --cam:#A9441C; --cam-2:#CA5429; --cam-dam:#8F3814; --ink:#2A1F1A; --text:#4A3B33; --muted:#6A5A50;
+  --cream:#F8F2EA; --sand:#F1E6DA; --peach:#FBEBDD; --line:#E9DDD1; --line-2:#DCCBBB;
+  --dem:#1B1A4A; --dem-2:#2B2A66; --dem-text:#D9D8EE; --vang:#F6C9A6;
+  --hdr:66px; --r:16px;
+  --display:'Josefin Sans','Josefin Fallback', system-ui, sans-serif; --sans:'Be Vietnam Pro','BVP Fallback', system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + 8px)}
+html,body{overflow-x:hidden}
+/* overflow-x:hidden làm header sticky trôi mất khi cuộn -> trình duyệt có clip thì dùng clip */
+@supports (overflow:clip){ html,body{overflow-x:clip} }
+body{margin:0;font-family:var(--sans);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.6}
+img{max-width:100%;display:block}
+a{color:var(--cam);text-decoration:none}
+a:hover{color:var(--cam-dam)}
+button{font-family:var(--sans)}
+.wrap{max-width:1180px;margin:0 auto}
+.sec{padding:clamp(58px,6vw,96px) 22px}
+.bg-cream{background:var(--cream)} .bg-sand{background:var(--sand)}
+.head{max-width:880px;margin:0 auto 34px;text-align:center}
+h2{color:var(--cam);font-size:clamp(22px,3.1vw,40px);line-height:1.15;font-weight:800;margin:12px 0 0;text-wrap:balance}
+h2 .dong2{display:block;font-family:var(--display);font-weight:500;color:var(--ink);font-size:.7em;line-height:1.25;margin-top:.22em}
+h3{margin:0}
+.fact{max-width:860px;margin:-12px auto clamp(24px,2.6vw,34px);text-align:center;color:var(--text);font-size:17px;line-height:1.75;text-wrap:pretty}
+.serif-lead{font-family:var(--display);color:var(--cam-dam);font-size:clamp(18px,2vw,23px);line-height:1.45;margin:12px 0 0;text-wrap:pretty}
+.body{color:var(--text);font-size:17px;line-height:1.75;text-wrap:pretty}
+.note{font-size:13px;color:var(--muted);line-height:1.65}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--cam);color:#fff;font-weight:700;font-size:15px;letter-spacing:.03em;padding:14px 24px;border-radius:999px;transition:background .2s}
+.btn:hover{background:var(--cam-dam);color:#fff}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* ---------- HEADER ---------- */
+.hdr{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line);transform:translateY(0);transition:transform .28s ease}
+.hdr.nav-hide{transform:translate3d(0,-110%,0);visibility:hidden;pointer-events:none}
+.hdr-in{max-width:1180px;margin:0 auto;height:var(--hdr);padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center}
+.brand img{height:30px;width:auto}
+.nav{display:flex;align-items:center;gap:20px}
+.nav a{color:var(--ink);font-weight:500;font-size:15px;white-space:nowrap}
+.nav a:hover,.nav a.on{color:var(--cam)}
+.burger{display:none;width:44px;height:44px;border:0;background:none;padding:10px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--cam);margin:5px 0;border-radius:4px;transition:transform .25s,opacity .25s}
+@media (max-width:1140px){ .nav a.opt{display:none} }
+@media (max-width:900px){
+  :root{--hdr:58px}
+  .nav{display:none}
+  .burger{display:block}
+  .brand img{height:26px}
+  /* backdrop-filter biến .hdr thành khung chứa của menu fixed -> menu chỉ cao vài chục px. Mở menu thì tắt. */
+  .hdr.open{z-index:400;backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+  .hdr.open .nav{display:flex;position:fixed;top:var(--hdr);left:0;right:0;bottom:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;padding:12px 22px 30px;overflow:auto}
+  .hdr.open .nav a,.hdr.open .nav a.opt{display:block;padding:16px 4px;border-bottom:1px solid var(--line);font-size:17px}
+  .hdr.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hdr.open .burger span:nth-child(2){opacity:0}
+  .hdr.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+
+/* ---------- 1 · HERO ---------- */
+.hero{position:relative;height:clamp(540px,calc(100svh - var(--hdr)),900px);overflow:hidden;background:#2A1F1A}
+.hero picture,.hero picture img{position:absolute;inset:0;width:100%;height:100%}
+.hero picture img{object-fit:cover;object-position:56% 40%}
+.hero-scrim{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(to top,rgba(40,20,10,.9) 0%,rgba(40,20,10,.62) 34%,rgba(40,20,10,.1) 62%,rgba(40,20,10,0) 78%),
+  linear-gradient(100deg,rgba(40,20,10,.42) 0%,rgba(40,20,10,0) 55%)}
+.hero-in{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(24px,3.4vw,52px) 22px}
+.hero-box{max-width:1180px;width:100%;margin:0 auto}
+.hero h1{font-family:var(--display);font-weight:600;color:#fff;font-size:clamp(40px,6.4vw,86px);line-height:1;letter-spacing:.02em;margin:0;text-shadow:0 2px 12px rgba(0,0,0,.45)}
+.hero h1 em{display:block;font-style:normal;font-weight:500;color:var(--vang);letter-spacing:0;font-size:.48em;line-height:1.2;margin-top:.24em;text-wrap:balance}
+.hero-sub{color:#FBF1E8;font-size:clamp(15px,1.3vw,17px);line-height:1.6;font-weight:500;margin:14px 0 0;max-width:740px;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hero-facts{list-style:none;margin:clamp(16px,1.8vw,24px) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.hero-facts li{display:flex;flex-direction:column;background:rgba(169,68,28,.9);border:1px solid rgba(246,201,166,.5);border-radius:14px;padding:10px 16px;color:#fff;min-width:150px}
+.hero-facts b{font-family:var(--display);font-size:clamp(20px,2.1vw,27px);font-weight:600;line-height:1.15}
+.hero-facts b small{font-family:var(--sans);font-size:.6em;font-weight:700;white-space:nowrap}
+.hero-facts span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.95;margin-top:3px;font-weight:600}
+@media (max-width:760px){
+  .hero-sub{font-size:14.5px}
+  .hero-facts li{min-width:0;flex:1 1 30%;padding:8px 10px}
+  .hero-facts b{font-size:17px}
+  .hero-facts span{font-size:12px;letter-spacing:.02em;text-transform:none}
+  .hero-scrim{background:linear-gradient(to top,rgba(40,20,10,.95) 0%,rgba(40,20,10,.8) 50%,rgba(40,20,10,.2) 72%,rgba(40,20,10,0) 88%)}
+  .hero picture img{object-position:50% 30%}
+}
+@media (max-height:600px) and (min-width:600px){ .hero-sub{display:none} }
+.hero-note{color:#E9D9CC;font-size:12px;margin:10px 0 0;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+
+/* ---------- 2 · TỔNG QUAN ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 18px 44px rgba(0,0,0,.08);margin:0 0 clamp(22px,2.6vw,34px)}
+.stats div{padding:clamp(20px,2.4vw,30px) 18px;text-align:center;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-family:var(--display);font-weight:600;color:var(--cam);font-size:clamp(32px,4vw,56px);line-height:1.1}
+.stats span{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted);margin-top:10px;line-height:1.45}
+@media (max-width:760px){ .stats{grid-template-columns:1fr 1fr} .stats div:nth-child(2){border-right:0} .stats div:nth-child(-n+2){border-bottom:1px solid var(--line)} }
+.ov{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(18px,2.4vw,34px);align-items:start}
+.ov-fig{margin:0;border-radius:14px;overflow:hidden;cursor:zoom-in;background:#fff;position:sticky;top:calc(var(--hdr) + 18px)}
+.ov-fig img{width:100%;height:auto}
+.fcap{margin:0;padding:11px 14px;text-align:center;font-size:13px;color:var(--muted);letter-spacing:.02em;background:#fff;line-height:1.5}
+table.spec{width:100%;border-collapse:collapse;font-size:15px}
+table.spec th{color:var(--muted);font-size:13px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:14px 16px 14px 0;width:34%;vertical-align:top;border-bottom:1px solid var(--line-2)}
+table.spec td{color:var(--ink);padding:14px 0;line-height:1.5;border-bottom:1px solid var(--line-2)}
+table.spec td b.hl{color:var(--cam)}
+table.spec td small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+@media (max-width:900px){ .ov{grid-template-columns:1fr} .ov-fig{position:static} }
+
+/* ---------- 3 · VR360 ---------- */
+.vr{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(18px,2.6vw,36px);align-items:center}
+.vr-fig{position:relative;margin:0;border-radius:18px;overflow:hidden;background:#2A1F1A;display:block;aspect-ratio:4/3;box-shadow:0 22px 50px rgba(0,0,0,.16)}
+.vr-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.vr-fig:hover img{transform:scale(1.03)}
+.vr-badge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:112px;height:112px;border-radius:50%;background:rgba(27,26,74,.72);border:2px solid rgba(255,255,255,.75);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.vr-badge b{font-family:var(--display);font-size:30px;line-height:1;font-weight:600}
+.vr-badge span{font-size:12px;letter-spacing:.14em;font-weight:700}
+.vr-txt .body{margin:0 0 22px}
+@media (max-width:860px){ .vr{grid-template-columns:1fr} .vr-badge{width:92px;height:92px} .vr-badge b{font-size:25px} }
+
+/* ---------- TAB ---------- */
+.tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+.tab{background:#fff;border:1.5px solid var(--line-2);color:var(--cam-dam);font-weight:700;font-size:14px;letter-spacing:.03em;padding:11px 20px;border-radius:999px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--cam);border-color:var(--cam);color:#fff}
+@media (max-width:640px){
+  .tabs{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-left:-22px;margin-right:-22px;padding:0 22px 4px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;white-space:nowrap}
+}
+.pane[hidden]{display:none}
+
+/* ---------- 4 · TIỆN ÍCH (accordion ảnh + tab tầng) ---------- */
+.acc{display:flex;gap:clamp(7px,.8vw,12px);height:clamp(330px,40vw,480px);margin-bottom:clamp(30px,3.4vw,46px)}
+.acc figure{position:relative;background:#2A1F1A;flex:.8 1 0;min-width:0;margin:0;overflow:hidden;border-radius:18px;cursor:pointer;transition:flex-grow .55s cubic-bezier(.4,0,.2,1)}
+.acc figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.acc figcaption{position:absolute;inset:auto 0 0 0;padding:clamp(14px,1.6vw,22px);color:#fff;background:linear-gradient(to top,rgba(40,20,10,.9) 0%,rgba(40,20,10,.4) 55%,rgba(40,20,10,0) 100%)}
+.acc .ten{display:block;font-size:clamp(14px,1.2vw,17px);font-weight:700;line-height:1.25}
+.acc .mo{display:block;font-size:13px;line-height:1.5;color:rgba(255,255,255,.92);margin-top:6px;max-height:0;opacity:0;overflow:hidden;transition:max-height .45s,opacity .35s}
+.acc figure.on{flex-grow:2.6}
+.acc figure.on .mo{max-height:80px;opacity:1}
+.acc figure.on img{transform:scale(1.03)}
+@media (max-width:760px){
+  .acc{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:clamp(150px,36vw,210px);height:auto}
+  .acc figure:first-child{grid-column:span 2;grid-row:span 2}
+  .acc .mo{max-height:80px;opacity:1}
+  .acc figure:not(:first-child) .mo{display:none}
+}
+.tang{display:grid;grid-template-columns:1.3fr .7fr;gap:18px;align-items:start}
+.map-fig{margin:0;border-radius:14px;overflow:hidden;cursor:zoom-in;background:#fff;box-shadow:0 18px 44px rgba(0,0,0,.1)}
+.map-fig img{width:100%;height:auto}
+.ti-box{background:#fff;border-radius:14px;padding:clamp(18px,2vw,24px)}
+.ti-box h3{font-size:13px;letter-spacing:.12em;color:var(--cam);font-weight:800;text-transform:uppercase;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.ti-box h3 span{font-family:var(--display);font-size:28px;letter-spacing:0;color:var(--cam-dam);font-weight:600;line-height:1}
+.ti-box p{margin:8px 0 0;font-size:14.5px;color:var(--text);line-height:1.55}
+.ti-box ol{margin:12px 0 0;padding:0 0 0 24px;font-size:14.5px;color:var(--text);line-height:1.45}
+.ti-box ol.c2{columns:2;column-gap:24px}
+.ti-box li{padding:4px 0;break-inside:avoid}
+.ti-box li::marker{color:var(--cam);font-weight:700;font-size:12px}
+@media (max-width:960px){ .tang{grid-template-columns:1fr} }
+@media (max-width:420px){ .ti-box ol.c2{columns:1} }
+.phi{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;background:var(--dem);color:#fff;border-radius:14px;padding:18px 22px;margin-top:18px}
+.phi b{font-size:13px;letter-spacing:.13em;text-transform:uppercase;color:var(--vang)}
+.phi span{font-size:15px;line-height:1.45}
+.phi span+span::before{content:"·";margin-right:18px;color:var(--vang)}
+@media (max-width:640px){ .phi{flex-direction:column;align-items:flex-start;gap:6px} .phi span+span::before{content:none} }
+
+/* ---------- 5 · HEALTHY HOME ---------- */
+.hh{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.hh li{background:#fff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 14px 36px rgba(0,0,0,.07)}
+.hh figure{margin:0;aspect-ratio:4/3;overflow:hidden;background:#2A1F1A}
+.hh figure img{width:100%;height:100%;object-fit:cover}
+.hh .in{padding:18px 18px 22px}
+.hh i{display:block;font-style:normal;font-family:var(--display);font-size:30px;color:var(--cam-2);line-height:1;font-weight:600}
+.hh b{display:block;font-size:15px;letter-spacing:.12em;color:var(--cam-dam);margin-top:8px}
+.hh p{margin:8px 0 0;font-size:14.5px;color:var(--text);line-height:1.6}
+@media (max-width:1000px){ .hh{grid-template-columns:1fr 1fr} }
+@media (max-width:520px){ .hh{grid-template-columns:1fr} }
+.kien-truc{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;background:var(--peach);border-radius:16px;padding:clamp(20px,2.4vw,28px);margin-top:18px}
+.kien-truc b{font-family:var(--display);font-size:clamp(20px,2vw,24px);font-weight:600;color:var(--cam-dam);line-height:1.25;max-width:230px}
+.kien-truc p{margin:0;font-size:15.5px;color:var(--text);line-height:1.7}
+@media (max-width:760px){ .kien-truc{grid-template-columns:1fr} .kien-truc b{max-width:none} }
+.gal-h{font-size:13px;letter-spacing:.13em;color:var(--cam);font-weight:800;text-transform:uppercase;margin:clamp(30px,3.4vw,44px) 0 14px;text-align:center}
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gal figure{margin:0;position:relative;border-radius:12px;overflow:hidden;aspect-ratio:3/2;background:#2A1F1A;cursor:zoom-in}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.gal figure:hover img{transform:scale(1.04)}
+.gal figcaption{position:absolute;left:8px;bottom:8px;background:rgba(40,20,10,.78);color:#fff;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px}
+@media (max-width:760px){ .gal{grid-template-columns:1fr 1fr;gap:8px} }
+
+/* ---------- 6 · VỊ TRÍ ---------- */
+.vt{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start}
+.card{background:#fff;border-radius:14px;padding:clamp(20px,2.2vw,26px)}
+.card h3{font-size:13px;letter-spacing:.13em;color:var(--cam);font-weight:800;text-transform:uppercase}
+.rt{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.rt:last-child{border-bottom:0;padding-bottom:0}
+.rt b{background:var(--cam);color:#fff;font-size:14px;font-weight:800;padding:9px 6px;border-radius:10px;min-width:78px;text-align:center;flex:none}
+.rt span{font-size:15px;color:var(--text);line-height:1.5;padding-top:6px}
+.ht{list-style:none;margin:12px 0 0;padding:0}
+.ht li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--text);line-height:1.5}
+.ht li:last-child{border-bottom:0}
+.ht li i{flex:none;font-style:normal;font-size:12px;font-weight:800;letter-spacing:.05em;color:var(--cam-dam);background:var(--peach);border-radius:999px;padding:4px 10px;margin-top:1px}
+.vt-side{display:flex;flex-direction:column;gap:14px}
+@media (max-width:900px){ .vt{grid-template-columns:1fr} }
+
+/* ---------- 7 · APP CƯ DÂN ---------- */
+.app{position:relative;background:var(--dem);border-radius:22px;overflow:hidden;display:grid;grid-template-columns:.85fr 1.15fr;align-items:center}
+.app figure{margin:0;align-self:stretch;background:#0D1B6B}
+.app figure img{width:100%;height:100%;object-fit:cover}
+.app-in{padding:clamp(26px,3.4vw,52px)}
+.app h2{color:#fff}
+.app .lead{color:var(--dem-text);font-size:16px;line-height:1.7;margin:14px 0 0}
+.tinh-nang{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tinh-nang li{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:16px}
+.tinh-nang svg{width:30px;height:30px;color:var(--vang)}
+.tinh-nang b{display:block;color:#fff;font-size:15px;margin-top:8px}
+.tinh-nang span{display:block;color:var(--dem-text);font-size:14px;line-height:1.55;margin-top:4px}
+@media (max-width:900px){ .app{grid-template-columns:1fr} .app figure{aspect-ratio:16/10} }
+@media (max-width:520px){ .tinh-nang{grid-template-columns:1fr} }
+
+/* ---------- 8 · CHỦ ĐẦU TƯ & QLASSIC ---------- */
+.cdt{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3vw,44px);align-items:start}
+.cdt-logo{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.cdt-logo img{width:220px;height:auto}
+.cdt .body{margin:0 0 14px}
+.ql{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center;background:#fff;border-radius:16px;padding:18px;margin:18px 0}
+.ql img{width:120px;height:auto}
+.ql p{margin:0;font-size:15px;color:var(--text);line-height:1.65}
+.so-lieu{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 18px}
+.so-lieu div{background:#fff;border-radius:14px;padding:14px 12px;text-align:center}
+.so-lieu b{display:block;font-family:var(--display);font-size:clamp(24px,2.4vw,32px);color:var(--cam);font-weight:600;line-height:1.1}
+.so-lieu span{display:block;font-size:12px;letter-spacing:.05em;color:var(--muted);font-weight:700;margin-top:6px;line-height:1.4}
+.da-bg{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.da-bg li{background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:7px 14px;font-size:14px;color:var(--ink)}
+.cdt .map-fig{position:sticky;top:calc(var(--hdr) + 18px)}
+@media (max-width:900px){ .cdt{grid-template-columns:1fr} .cdt .map-fig{position:static} }
+@media (max-width:420px){ .ql{grid-template-columns:1fr} }
+
+/* ---------- 9 · LAYOUT CĂN HỘ ---------- */
+.dien-tich{list-style:none;margin:-8px auto 26px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:1000px}
+.dien-tich li{background:#fff;border-radius:999px;padding:9px 16px;font-size:14px;color:var(--text);box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.dien-tich b{color:var(--cam-dam)}
+.lo{display:grid;grid-template-columns:1.3fr .7fr;gap:18px;align-items:center}
+.lo figure{margin:0;background:#fff;border-radius:16px;overflow:hidden;cursor:zoom-in}
+.lo figure img{width:100%;height:auto}
+.lo-card{background:#fff;border-radius:16px;padding:clamp(20px,2.4vw,30px)}
+.lo-card .dt{font-family:var(--display);font-size:clamp(34px,3.6vw,48px);font-weight:600;color:var(--cam);line-height:1}
+.lo-card .dt small{font-family:var(--sans);font-size:13px;color:var(--muted);font-weight:600;margin-left:6px}
+.lo-card h3{font-size:20px;color:var(--ink);font-weight:800;margin-top:10px}
+.lo-card dl{margin:14px 0 0;display:grid;grid-template-columns:auto 1fr;font-size:15px}
+.lo-card dt,.lo-card dd{margin:0;padding:9px 0;border-bottom:1px solid var(--line)}
+.lo-card dt{color:var(--muted);padding-right:14px}
+.lo-card dd{color:var(--ink);font-weight:600;text-align:right}
+.lo-card ul{list-style:none;margin:14px 0 0;padding:0}
+.lo-card ul li{position:relative;padding:6px 0 6px 20px;font-size:14.5px;color:var(--text);line-height:1.5}
+.lo-card ul li::before{content:"";position:absolute;left:2px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--cam-2)}
+.lo2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lo2 figure{margin:0;border-radius:14px;overflow:hidden;cursor:zoom-in;background:#fff}
+.lo2 img{width:100%;height:auto}
+@media (max-width:900px){ .lo{grid-template-columns:1fr} }
+@media (max-width:640px){ .lo2{grid-template-columns:1fr} }
+.mbt-h{text-align:center;margin:clamp(40px,4.4vw,60px) 0 18px}
+.mbt-h h3{font-family:var(--display);font-size:clamp(26px,2.8vw,34px);font-weight:600;color:var(--cam-dam);line-height:1.2}
+.mbt-h p{margin:8px auto 0;max-width:760px;font-size:15px;color:var(--text);line-height:1.6}
+
+/* ---------- 10 · CHÍNH SÁCH BÁN HÀNG ---------- */
+.ud{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ud li{background:#fff;border-radius:16px;padding:clamp(18px,2vw,24px);border-top:4px solid var(--cam-2)}
+.ud b{display:block;font-family:var(--display);font-size:clamp(30px,3vw,40px);color:var(--cam);font-weight:600;line-height:1}
+.ud strong{display:block;font-size:15px;color:var(--ink);margin-top:10px;line-height:1.35}
+.ud span{display:block;font-size:14px;color:var(--text);line-height:1.55;margin-top:6px}
+@media (max-width:900px){ .ud{grid-template-columns:1fr 1fr} }
+@media (max-width:520px){ .ud{grid-template-columns:1fr} }
+.tt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px;background:#fff}
+.tt{width:100%;border-collapse:collapse;font-size:15px;min-width:560px}
+.tt caption{text-align:left;padding:16px 18px 6px;font-size:15px;color:var(--text);line-height:1.55}
+.tt caption b{color:var(--cam-dam)}
+.tt th,.tt td{padding:12px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.45}
+.tt thead th{background:var(--dem);color:#fff;font-size:13px;letter-spacing:.05em;text-transform:uppercase;font-weight:700}
+.tt tbody th{color:var(--cam-dam);font-weight:800;white-space:nowrap}
+.tt td small{display:block;color:var(--muted);font-size:13px}
+.tt tr:last-child th,.tt tr:last-child td{border-bottom:0}
+.nh{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.nh span{background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:7px 14px;font-size:14px;color:var(--ink);font-weight:600}
+.cs-note{background:var(--peach);border-radius:14px;padding:16px 20px;margin-top:16px;font-size:14.5px;color:var(--text);line-height:1.6}
+.cs-note b{color:var(--cam-dam)}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:880px;margin:0 auto}
+.faq details{background:#fff;border-radius:14px;margin-bottom:10px;border:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:19px 56px 19px 22px;font-weight:700;color:var(--cam-dam);font-size:16px;position:relative;line-height:1.45}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::marker{content:""}
+.faq summary::after{content:"";position:absolute;right:22px;top:50%;width:10px;height:10px;border-right:2px solid var(--cam);border-bottom:2px solid var(--cam);transform:translateY(-70%) rotate(45deg);transition:transform .25s}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+.faq details p{margin:0;padding:0 22px 20px;color:var(--text);font-size:16px;line-height:1.7}
+
+/* ---------- 11 · CTA ---------- */
+.cta{position:relative;background:var(--dem);padding:clamp(58px,6vw,100px) 22px;overflow:hidden}
+.cta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cta-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,18,58,.94),rgba(20,18,58,.55))}
+.cta-in{position:relative;max-width:1180px;margin:0 auto}
+.cta-box{max-width:660px}
+.cta h2{color:#fff}
+.cta .serif-lead{color:var(--vang)}
+.cta ul{list-style:none;padding:0;margin:clamp(18px,2.2vw,28px) 0 0}
+.cta ul li{color:#fff;font-size:clamp(15px,1.5vw,16.5px);line-height:1.6;padding:6px 0 6px 28px;position:relative}
+.cta ul li::before{content:"";position:absolute;left:2px;top:13px;width:14px;height:8px;border-left:2px solid var(--vang);border-bottom:2px solid var(--vang);transform:rotate(-45deg)}
+.cta .nha-mau{color:var(--dem-text);font-size:14px;margin:18px 0 0}
+
+/* ---------- FOOTER (sheet: ERA Vietnam – đại lý phân phối chính thức) ---------- */
+footer{background:#14123A;padding:clamp(44px,4.4vw,64px) 22px;color:#C9C8E2}
+.ft{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:clamp(22px,3vw,44px);align-items:center}
+.ft img{width:98px;height:auto}
+.ft .fb{font-size:13px;letter-spacing:.2em;color:var(--vang);font-weight:800}
+.ft .fb strong{display:block;font-family:var(--display);font-size:clamp(24px,2.6vw,32px);letter-spacing:.02em;color:#fff;font-weight:600;margin-top:6px}
+.ft p{font-size:15px;line-height:1.75;margin:12px 0 0;color:#D3D2EA;max-width:780px}
+.ft-legal{max-width:1180px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);font-size:13px;line-height:1.75;color:#B9B8D6}
+@media (max-width:640px){ .ft{grid-template-columns:1fr} }
+
+/* ---------- LIGHTBOX ---------- */
+.lb{position:fixed;inset:0;z-index:600;background:rgba(20,14,10,.95);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;background:#fff}
+.lb button{position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.lb p{position:absolute;top:18px;left:18px;right:70px;margin:0;color:#E9DCD1;font-size:13px}
+
+/* reveal: chỉ bật khi JS chạy -> không JS vẫn thấy đủ nội dung */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .js .rv{opacity:1;transform:none;transition:none} .acc figure,.acc figure img,.gal img,.vr-fig img{transition:none} }
+</style>
+<script>document.documentElement.className+=' js'</script>
+
+<!--JSONLD-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://era.com.vn/#organization",
+      "name": "ERA Vietnam - Công ty Cổ phần Bất động sản ERA Việt Nam",
+      "url": "https://era.com.vn/",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Số 22 - 24, Đường số 5, KĐT Sala",
+        "addressLocality": "Phường An Khánh",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "areaServed": [
+        "TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://skysolis-era.vercel.app/#website",
+      "url": "https://skysolis-era.vercel.app/",
+      "name": "SkySOLIS",
+      "inLanguage": "vi-VN",
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://skysolis-era.vercel.app/#webpage",
+      "url": "https://skysolis-era.vercel.app/",
+      "name": "SkySOLIS Lái Thiêu – Căn hộ Healthy Home trên Quốc lộ 13 | ERA",
+      "inLanguage": "vi-VN",
+      "isPartOf": {
+        "@id": "https://skysolis-era.vercel.app/#website"
+      },
+      "about": {
+        "@id": "https://skysolis-era.vercel.app/#du-an"
+      },
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://skysolis-era.vercel.app/#breadcrumb"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://skysolis-era.vercel.app/#anh-hero"
+      }
+    },
+    {
+      "@type": [
+        "Product",
+        "Residence"
+      ],
+      "@id": "https://skysolis-era.vercel.app/#du-an",
+      "name": "SkySOLIS",
+      "alternateName": "Sky Solis",
+      "description": "SkySOLIS là dự án căn hộ cao tầng đầu tiên tại Việt Nam của SkyWorld Development (Malaysia), tại 88/10 Đại lộ Bình Dương (Quốc lộ 13), phường Lái Thiêu, TP.HCM. Khu đất khoảng 1 ha, 3 tháp Alba, Helio, Lyra cao 40 tầng với 1.101 sản phẩm theo định hướng Healthy Home, thi công theo tiêu chuẩn QLASSIC; dự kiến bàn giao Quý II/2029.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "88/10 Đại lộ Bình Dương (Quốc lộ 13)",
+        "addressLocality": "Phường Lái Thiêu",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 10.908,
+        "longitude": 106.704
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Diện tích đất",
+          "value": "Khoảng 1 ha"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Quy mô",
+          "value": "3 tháp Alba, Helio, Lyra cao 40 tầng; 3 tầng khối đế thương mại; 2 tầng hầm"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Sản phẩm",
+          "value": "1.101 sản phẩm: 859 căn hộ, 222 căn mixed-use, 20 shophouse"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Loại hình",
+          "value": "Studio, 2PN, 3PN, Sky Villa, Mixed Use, Dual Key, Shophouse"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Chủ đầu tư",
+          "value": "Công ty TNHH MTV Vina An Thuận Phát"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Đơn vị phát triển",
+          "value": "SkyWorld Development (Malaysia) – Công ty TNHH SkyWorld Development (Việt Nam)"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Đơn vị thiết kế",
+          "value": "AG INGO Vietnam"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Tiêu chuẩn chất lượng",
+          "value": "QLASSIC – CIDB Malaysia"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Pháp lý",
+          "value": "Căn hộ sở hữu lâu dài"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Bàn giao dự kiến",
+          "value": "Quý II/2029"
+        }
+      ],
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Hồ bơi tràn bờ tầng 6",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Phòng Gym",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Khu Golf 3D trong nhà",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Sảnh tiệc 60 khách",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Rạp chiếu phim trên không tầng 21",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Sky Lounge tầng 21",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Vườn thú cưng",
+          "value": true
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Công viên và sân chơi trẻ em tầng 1",
+          "value": true
+        }
+      ],
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Phường Lái Thiêu, TP. Hồ Chí Minh"
+      },
+      "image": [
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://skysolis-era.vercel.app/assets/img/skysolis-hero-thap-can-ho-quoc-lo-13-lai-thieu.webp",
+          "url": "https://skysolis-era.vercel.app/assets/img/skysolis-hero-thap-can-ho-quoc-lo-13-lai-thieu.webp",
+          "caption": "Phối cảnh SkySOLIS: tháp căn hộ 40 tầng bên Đại lộ Bình Dương (Quốc lộ 13) và tuyến metro trên cao, phường Lái Thiêu",
+          "name": "Phối cảnh SkySOLIS: tháp căn hộ 40 tầng bên Đại lộ Bình Dương (Quốc lộ 13) và tuyến metro trên cao, phường Lái Thiêu",
+          "width": 1600,
+          "height": 896,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu SkyWorld – dự án SkySOLIS",
+          "@id": "https://skysolis-era.vercel.app/#anh-hero"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://skysolis-era.vercel.app/assets/img/skysolis-tong-quan-3-thap-alba-helio-lyra-hoang-hon.webp",
+          "url": "https://skysolis-era.vercel.app/assets/img/skysolis-tong-quan-3-thap-alba-helio-lyra-hoang-hon.webp",
+          "caption": "Phối cảnh SkySOLIS lúc hoàng hôn: 3 tháp Alba, Helio, Lyra cao 40 tầng trên khối đế thương mại, cạnh tuyến metro",
+          "name": "Phối cảnh SkySOLIS lúc hoàng hôn: 3 tháp Alba, Helio, Lyra cao 40 tầng trên khối đế thương mại, cạnh tuyến metro",
+          "width": 1080,
+          "height": 844,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu SkyWorld – dự án SkySOLIS"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://skysolis-era.vercel.app/assets/img/skysolis-mat-bang-tien-ich-tang-1-tang-6.webp",
+          "url": "https://skysolis-era.vercel.app/assets/img/skysolis-mat-bang-tien-ich-tang-1-tang-6.webp",
+          "caption": "Mặt bằng tiện ích SkySOLIS nhìn từ trên cao: công viên tầng 1 và hồ bơi tràn bờ tầng 6, kèm chú thích 29 tiện ích",
+          "name": "Mặt bằng tiện ích SkySOLIS nhìn từ trên cao: công viên tầng 1 và hồ bơi tràn bờ tầng 6, kèm chú thích 29 tiện ích",
+          "width": 1200,
+          "height": 852,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu SkyWorld – dự án SkySOLIS"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://skysolis-era.vercel.app/assets/img/skysolis-mat-bang-tang-6-ho-boi-tran-bo.webp",
+          "url": "https://skysolis-era.vercel.app/assets/img/skysolis-mat-bang-tang-6-ho-boi-tran-bo.webp",
+          "caption": "Mặt bằng tầng 6 SkySOLIS: hồ bơi tràn bờ giữa sân tiện ích, các căn hộ Dual Key, 2PN, 3PN có ban công riêng",
+          "name": "Mặt bằng tầng 6 SkySOLIS: hồ bơi tràn bờ giữa sân tiện ích, các căn hộ Dual Key, 2PN, 3PN có ban công riêng",
+          "width": 1300,
+          "height": 662,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu SkyWorld – dự án SkySOLIS"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://skysolis-era.vercel.app/assets/img/skysolis-ho-boi-tran-bo-tang-6.webp",
+          "url": "https://skysolis-era.vercel.app/assets/img/skysolis-ho-boi-tran-bo-tang-6.webp",
+          "caption": "Hồ bơi tràn bờ tầng 6 SkySOLIS giữa mảng xanh và các tháp căn hộ",
+          "name": "Hồ bơi tràn bờ tầng 6 SkySOLIS giữa mảng xanh và các tháp căn hộ",
+          "width": 1100,
+          "height": 717,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu SkyWorld – dự án SkySOLIS"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://skysolis-era.vercel.app/assets/img/skysolis-ban-do-vi-tri-quoc-lo-13-lai-thieu.webp",
+          "url": "https://skysolis-era.vercel.app/assets/img/skysolis-ban-do-vi-tri-quoc-lo-13-lai-thieu.webp",
+          "caption": "Bản đồ vị trí SkySOLIS trên Quốc lộ 13, phường Lái Thiêu: Lotte Mart, BVQT Becamex, KCN VSIP, tuyến metro, sân bay Tân Sơn Nhất",
+          "name": "Bản đồ vị trí SkySOLIS trên Quốc lộ 13, phường Lái Thiêu: Lotte Mart, BVQT Becamex, KCN VSIP, tuyến metro, sân bay Tân Sơn Nhất",
+          "width": 1300,
+          "height": 1288,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu SkyWorld – dự án SkySOLIS"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://skysolis-era.vercel.app/assets/img/skysolis-skyworld-du-an-da-ban-giao-malaysia-diem-qlassic.webp",
+          "url": "https://skysolis-era.vercel.app/assets/img/skysolis-skyworld-du-an-da-ban-giao-malaysia-diem-qlassic.webp",
+          "caption": "Các dự án SkyWorld đã bàn giao tại Malaysia kèm điểm QLASSIC: The Valley, Curvo, EdgeWood Residence, SkyLuxe, SkyVogue",
+          "name": "Các dự án SkyWorld đã bàn giao tại Malaysia kèm điểm QLASSIC: The Valley, Curvo, EdgeWood Residence, SkyLuxe, SkyVogue",
+          "width": 1000,
+          "height": 1344,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu SkyWorld – dự án SkySOLIS"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://skysolis-era.vercel.app/assets/img/skysolis-mat-bang-tang-dien-hinh-7-20-22-40.webp",
+          "url": "https://skysolis-era.vercel.app/assets/img/skysolis-mat-bang-tang-dien-hinh-7-20-22-40.webp",
+          "caption": "Mặt bằng tầng điển hình 7–20 và 22–40 SkySOLIS: 3 tháp Alba, Helio, Lyra với mã căn và diện tích",
+          "name": "Mặt bằng tầng điển hình 7–20 và 22–40 SkySOLIS: 3 tháp Alba, Helio, Lyra với mã căn và diện tích",
+          "width": 1300,
+          "height": 662,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu SkyWorld – dự án SkySOLIS"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://skysolis-era.vercel.app/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ERA Vietnam",
+          "item": "https://era.com.vn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "SkySOLIS",
+          "item": "https://skysolis-era.vercel.app/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://skysolis-era.vercel.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "SkySOLIS nằm ở đâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SkySOLIS nằm tại số 88/10 Đại lộ Bình Dương (Quốc lộ 13), phường Lái Thiêu, TP.HCM; trước ngày 1/7/2025 khu vực này thuộc TP. Thuận An, tỉnh Bình Dương. Dự án cách trạm metro khoảng 100 m theo quy hoạch, 2 phút đến Lotte Mart và khoảng 35 phút đến sân bay Tân Sơn Nhất."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Chủ đầu tư SkySOLIS là ai?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chủ đầu tư SkySOLIS là Công ty TNHH MTV Vina An Thuận Phát; đơn vị phát triển là SkyWorld Development Berhad (Malaysia) thông qua Công ty TNHH SkyWorld Development (Việt Nam). Đơn vị thiết kế là AG INGO Vietnam. ERA Vietnam là đại lý phân phối chính thức."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "SkySOLIS có quy mô và sản phẩm gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dự án rộng khoảng 1 ha, gồm 3 tháp Alba, Helio, Lyra cao 40 tầng trên 3 tầng khối đế thương mại và 2 tầng hầm, tổng 1.101 sản phẩm: 859 căn hộ (Studio, 2PN, 3PN, Sky Villa), 222 căn mixed-use (Mixed Use, Dual Key) và 20 shophouse."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Căn hộ SkySOLIS rộng bao nhiêu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo chủ đầu tư: Studio 34 – 35 m², 2PN1WC 67 – 79 m², 2PN2WC 69 – 91 m², 3PN2WC 102 – 125 m², Sky Villa khoảng 132 m², Mixed Use 59 – 95 m², Dual Key 78 – 202 m², shophouse 113 – 320 m². Đơn giá trong hợp đồng mua bán tính theo diện tích tim tường."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "SkySOLIS có những tiện ích gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tiện ích trải trên 4 tầng: tầng 1 có công viên, sân chơi trẻ em, quảng trường sự kiện, Music room; tầng 4 có vườn treo; tầng 6 có hồ bơi tràn bờ, Jacuzzi, BBQ, sảnh tiệc 60 khách, Gym, karaoke, Golf 3D trong nhà; tầng 21 có Yoga, rạp chiếu phim trên không, vườn thú cưng và Sky Lounge. Phí quản lý dự kiến 12.000 – 15.000 đ/m² đã gồm tiện ích."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Pháp lý SkySOLIS thế nào, sở hữu bao lâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hồ sơ pháp lý dự án gồm phê duyệt 1/500, quyết định giao đất, quyết định chấp thuận chủ trương đầu tư và giấy phép xây dựng. Căn hộ và shophouse sở hữu lâu dài; người nước ngoài được mua và sở hữu 50 năm theo luật hiện hành."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Khi nào SkySOLIS bàn giao và bàn giao theo tiêu chuẩn nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dự kiến ký hợp đồng mua bán Quý II/2027 và bàn giao Quý II/2029. Căn hộ bàn giao hoàn thiện cơ bản cao cấp với nội thất liền tường, kệ bếp, thiết bị vệ sinh, khóa thông minh, áp dụng tiêu chuẩn kiểm định chất lượng QLASSIC; một số loại hình bàn giao thô theo lựa chọn của khách hàng."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Chính sách thanh toán SkySOLIS ra sao?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo chính sách ngày 14/09/2026, khách chọn 1 trong 3 cách: thanh toán chuẩn chiết khấu 3%, thanh toán nhanh 50% chiết khấu 8%, hoặc vay ngân hàng được hỗ trợ lãi suất 9,9%/năm trong 30 tháng. Booking từ 01/10 đến hết 23/10/2026 được chiết khấu thêm 1%, không nhận bảo lãnh ngân hàng thêm 1%. Giá trung bình tham khảo khoảng 55 triệu/m²; chuyên viên ERA đã gửi bạn trang này sẽ gửi bảng giá từng căn."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!--/JSONLD-->
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="#top" aria-label="SkySOLIS – về đầu trang">
+      <img src="assets/img/skysolis-logo.webp" width="360" height="83" alt="Logo SkySOLIS">
+    </a>
+    <nav class="nav" id="nav" aria-label="Điều hướng trang">
+      <a href="#tong-quan">Tổng quan</a>
+      <a class="opt" href="#vr360">VR360</a>
+      <a href="#tien-ich">Tiện ích</a>
+      <a class="opt" href="#healthy-home">Healthy Home</a>
+      <a href="#vi-tri">Vị trí</a>
+      <a href="#can-ho">Căn hộ</a>
+      <a href="#chinh-sach">Chính sách</a>
+      <a class="opt" href="#chu-dau-tu">SkyWorld</a>
+    </nav>
+    <button class="burger" id="burger" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ======================= 1 · HERO (sheet D4–D5) =======================
+     Badge "Ưu đãi lên đến 11%" của sheet = 2% booking sớm (hết 30/09) + 1% + 8%. Từ 01/10/2026 booking chỉ còn 1% -> ghi 10%. -->
+<section class="hero" aria-label="Giới thiệu SkySOLIS">
+  <picture>
+    <source media="(max-width:760px)" srcset="assets/img/skysolis-hero-mobile.webp" width="660" height="739">
+    <img src="assets/img/skysolis-hero-thap-can-ho-quoc-lo-13-lai-thieu.webp" width="1600" height="896" fetchpriority="high" decoding="async"
+         alt="Phối cảnh SkySOLIS: tháp căn hộ 40 tầng bên Đại lộ Bình Dương (Quốc lộ 13) và tuyến metro trên cao, phường Lái Thiêu">
+  </picture>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="hero-in">
+    <div class="hero-box">
+      <h1>SkySOLIS <em>Khai mở tiềm năng vùng đất di sản</em></h1>
+      <p class="hero-sub">SkySOLIS là dự án căn hộ cao tầng đầu tiên tại Việt Nam của SkyWorld Development, nhà phát triển bất động sản đến từ Malaysia. Dự án nằm tại số 88/10 Đại lộ Bình Dương (Quốc lộ 13), phường Lái Thiêu, TP.HCM (trước ngày 1/7/2025 thuộc TP. Thuận An, tỉnh Bình Dương).</p>
+      <ul class="hero-facts">
+        <li><b>~55 <small>triệu/m²</small></b><span>Giá trung bình</span></li>
+        <li><b>Đến 10%</b><span>Ưu đãi chiết khấu</span></li>
+        <li><b>30 tháng</b><span>Hỗ trợ lãi vay</span></li>
+      </ul>
+      <p class="hero-note">Giá tham khảo; ưu đãi theo Chính sách bán hàng ngày 14/09/2026 của SkyWorld — xem mục Chính sách.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2 · TỔNG QUAN (sheet D6–D7 + Q&A CĐT 13/08/2026) =======================
+     Sheet ghi CĐT = SkyWorld; Q&A của CĐT ghi CĐT pháp lý = Cty TNHH MTV Vina An Thuận Phát, SkyWorld = đơn vị phát triển -> ghi cả 2. -->
+<section class="sec bg-cream" id="tong-quan">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Tổng quan dự án SkySOLIS</h2>
+    </div>
+    <p class="fact rv">Dự án theo định hướng Healthy Home: căn hộ được thiết kế để lấy tối đa ánh sáng, gió tự nhiên và mảng xanh, cùng cộng đồng cư dân gắn kết.</p>
+    <div class="stats rv">
+      <div><b>~1 ha</b><span>Diện tích đất</span></div>
+      <div><b>40</b><span>Tầng · 3 tháp</span></div>
+      <div><b>1.101</b><span>Sản phẩm</span></div>
+      <div><b>19</b><span>Thang máy</span></div>
+    </div>
+    <div class="ov">
+      <figure class="ov-fig rv" data-zoom="assets/img/skysolis-tong-quan-3-thap-alba-helio-lyra-hoang-hon.webp">
+        <img src="assets/img/skysolis-tong-quan-3-thap-alba-helio-lyra-hoang-hon.webp" srcset="assets/img/skysolis-tong-quan-3-thap-alba-helio-lyra-hoang-hon-800.webp 800w, assets/img/skysolis-tong-quan-3-thap-alba-helio-lyra-hoang-hon.webp 1080w" sizes="(max-width:900px) 100vw, 540px" width="1080" height="844" loading="lazy" decoding="async"
+             alt="Phối cảnh SkySOLIS lúc hoàng hôn: 3 tháp Alba, Helio, Lyra cao 40 tầng trên khối đế thương mại, cạnh tuyến metro">
+        <figcaption class="fcap">3 tháp Alba · Helio · Lyra trên khối đế thương mại · bấm để phóng to</figcaption>
+      </figure>
+      <table class="spec rv">
+        <caption class="sr">Thông số tổng quan SkySOLIS</caption>
+        <tbody>
+          <tr><th scope="row">Tên dự án</th><td><b class="hl">SkySOLIS</b></td></tr>
+          <tr><th scope="row">Chủ đầu tư</th><td>Công ty TNHH MTV Vina An Thuận Phát</td></tr>
+          <tr><th scope="row">Đơn vị phát triển</th><td><b class="hl">SkyWorld Development</b> (Malaysia)<small>qua Công ty TNHH SkyWorld Development (Việt Nam)</small></td></tr>
+          <tr><th scope="row">Vị trí</th><td>88/10 Đại lộ Bình Dương (QL13), phường Lái Thiêu, TP.HCM</td></tr>
+          <tr><th scope="row">Diện tích đất</th><td>Khoảng 1 ha</td></tr>
+          <tr><th scope="row">Quy mô</th><td>Tổ hợp cao 40 tầng gồm 3 tháp Alba, Helio, Lyra<small>3 tầng khối đế thương mại · 2 tầng hầm liên thông</small></td></tr>
+          <tr><th scope="row">Tổng sản phẩm</th><td>1.101 sản phẩm: 859 căn hộ, 222 căn mixed-use, 20 shophouse</td></tr>
+          <tr><th scope="row">Loại hình</th><td>Studio, 2PN, 3PN, Sky Villa, Mixed-use, Dual-key, Shophouse</td></tr>
+          <tr><th scope="row">Định hướng</th><td>Healthy Home</td></tr>
+          <tr><th scope="row">Tiêu chuẩn chất lượng</th><td><b class="hl">QLASSIC</b> (Malaysia)</td></tr>
+          <tr><th scope="row">Pháp lý</th><td>Căn hộ sở hữu lâu dài<small>Hồ sơ: phê duyệt 1/500, quyết định giao đất, chấp thuận chủ trương đầu tư, giấy phép xây dựng</small></td></tr>
+          <tr><th scope="row">Bàn giao dự kiến</th><td>Quý II/2029</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 3 · TRẢI NGHIỆM VR360 (sheet D8–D9) ======================= -->
+<section class="sec" id="vr360">
+  <div class="wrap vr">
+    <a class="vr-fig rv" href="https://360.skysolis.my/overview/" target="_blank" rel="noopener" aria-label="Mở tour VR360 SkySOLIS (trang mới)">
+      <img src="assets/img/skysolis-vr360-thap-can-ho-nhin-tu-duong-pho.webp" srcset="assets/img/skysolis-vr360-thap-can-ho-nhin-tu-duong-pho-800.webp 800w, assets/img/skysolis-vr360-thap-can-ho-nhin-tu-duong-pho.webp 1040w" sizes="(max-width:860px) 100vw, 680px" width="1040" height="781" loading="lazy" decoding="async"
+           alt="Tháp căn hộ SkySOLIS nhìn từ đường phố giữa trời xanh – ảnh mở tour VR360 của dự án">
+      <span class="vr-badge" aria-hidden="true"><b>360°</b><span>VR TOUR</span></span>
+    </a>
+    <div class="vr-txt rv">
+      <h2>Trải nghiệm không gian VR360</h2>
+      <p class="serif-lead">Khám phá dự án dạng 360° ngay trên điện thoại.</p>
+      <p class="body" style="margin-top:14px">Xoay, phóng to và đi qua từng không gian của SkySOLIS bằng tour thực tế ảo của chủ đầu tư.</p>
+      <a class="btn" href="https://360.skysolis.my/overview/" target="_blank" rel="noopener">Xem VR360
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 4 · MẶT BẰNG TIỆN ÍCH (sheet D10–D11; tên tiện ích đầy đủ theo brochure tr.16–18 + Q&A câu 23) ======================= -->
+<section class="sec bg-sand" id="tien-ich">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Mặt bằng tiện ích – 4 tầng tiện ích</h2>
+    </div>
+    <div class="acc rv" id="acc">
+      <figure class="on">
+        <img src="assets/img/skysolis-ho-boi-tran-bo-tang-6.webp" srcset="assets/img/skysolis-ho-boi-tran-bo-tang-6-800.webp 800w, assets/img/skysolis-ho-boi-tran-bo-tang-6.webp 1100w" sizes="(max-width:760px) 100vw, 640px" width="1100" height="717" loading="lazy" decoding="async" alt="Hồ bơi tràn bờ tầng 6 SkySOLIS giữa mảng xanh và các tháp căn hộ">
+        <figcaption><span class="ten">Hồ bơi tràn bờ</span><span class="mo">Tầng 6 · hồ bơi tràn bờ, hồ bơi trẻ em, bể sục Jacuzzi và hiên thư giãn.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/skysolis-phong-gym-kinh-lay-sang.webp" srcset="assets/img/skysolis-phong-gym-kinh-lay-sang-800.webp 800w, assets/img/skysolis-phong-gym-kinh-lay-sang.webp 1100w" sizes="(max-width:760px) 50vw, 640px" width="1100" height="825" loading="lazy" decoding="async" alt="Phòng Gym SkySOLIS vách kính lấy sáng tự nhiên, đường chạy và máy tập hiện đại">
+        <figcaption><span class="ten">Phòng Gym</span><span class="mo">Tầng 6 · vách kính lấy sáng, máy tập hiện đại.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/skysolis-khu-golf-3d-trong-nha.webp" srcset="assets/img/skysolis-khu-golf-3d-trong-nha-800.webp 800w, assets/img/skysolis-khu-golf-3d-trong-nha.webp 1100w" sizes="(max-width:760px) 50vw, 640px" width="1100" height="690" loading="lazy" decoding="async" alt="Khu Golf 3D trong nhà tại tầng tiện ích SkySOLIS với màn hình mô phỏng sân golf">
+        <figcaption><span class="ten">Golf 3D</span><span class="mo">Tầng 6 · tập swing với màn hình mô phỏng sân golf.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/skysolis-rap-chieu-phim-tren-khong-tang-21.webp" srcset="assets/img/skysolis-rap-chieu-phim-tren-khong-tang-21-800.webp 800w, assets/img/skysolis-rap-chieu-phim-tren-khong-tang-21.webp 1100w" sizes="(max-width:760px) 50vw, 640px" width="1100" height="653" loading="lazy" decoding="async" alt="Rạp chiếu phim trên không tầng 21 SkySOLIS: màn chiếu lớn, sofa và hiên nhìn ra thành phố">
+        <figcaption><span class="ten">Rạp phim</span><span class="mo">Tầng 21 · rạp chiếu phim trên không, màn chiếu ngoài trời cạnh Sky Lounge.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/skysolis-sanh-tiec-banquet-hall-60-khach.webp" srcset="assets/img/skysolis-sanh-tiec-banquet-hall-60-khach-800.webp 800w, assets/img/skysolis-sanh-tiec-banquet-hall-60-khach.webp 1100w" sizes="(max-width:760px) 50vw, 640px" width="1100" height="658" loading="lazy" decoding="async" alt="Sảnh tiệc Banquet Hall SkySOLIS sức chứa đến 60 khách, trần vòm gỗ và cửa kính lớn">
+        <figcaption><span class="ten">Sảnh tiệc</span><span class="mo">Tầng 6 · sức chứa đến 60 người cho tiệc gia đình.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/skysolis-phong-am-nhac-music-room.webp" srcset="assets/img/skysolis-phong-am-nhac-music-room-800.webp 800w, assets/img/skysolis-phong-am-nhac-music-room.webp 1100w" sizes="(max-width:760px) 50vw, 640px" width="1100" height="754" loading="lazy" decoding="async" alt="Phòng âm nhạc Music Room SkySOLIS với đàn piano, trống, guitar và ghế đôn nhiều màu">
+        <figcaption><span class="ten">Music Room</span><span class="mo">Tầng 1 · không gian ươm mầm năng khiếu cho trẻ.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/skysolis-khu-vui-choi-tre-em-giua-vuon.webp" srcset="assets/img/skysolis-khu-vui-choi-tre-em-giua-vuon-800.webp 800w, assets/img/skysolis-khu-vui-choi-tre-em-giua-vuon.webp 1100w" sizes="(max-width:760px) 50vw, 640px" width="1100" height="678" loading="lazy" decoding="async" alt="Khu vui chơi trẻ em giữa vườn cây tại SkySOLIS với cầu trượt và sân chơi mềm">
+        <figcaption><span class="ten">Sân chơi</span><span class="mo">Khu vui chơi trẻ em giữa vườn cây, sàn mềm an toàn.</span></figcaption>
+      </figure>
+    </div>
+
+    <div class="tabs rv" role="tablist" aria-label="Chọn tầng tiện ích">
+      <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="t-1" id="tt-1">Tầng 1</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="t-4" id="tt-4">Tầng 4</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="t-6" id="tt-6">Tầng 6</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="t-21" id="tt-21">Tầng 21</button>
+    </div>
+
+    <div class="pane tang" id="t-1" role="tabpanel" aria-labelledby="tt-1">
+      <figure class="map-fig" data-zoom="assets/img/skysolis-mat-bang-tien-ich-tang-1-tang-6-2800.webp">
+        <img src="assets/img/skysolis-mat-bang-tien-ich-tang-1-tang-6.webp" srcset="assets/img/skysolis-mat-bang-tien-ich-tang-1-tang-6-800.webp 800w, assets/img/skysolis-mat-bang-tien-ich-tang-1-tang-6.webp 1200w" sizes="(max-width:960px) 100vw, 740px" width="1200" height="852" loading="lazy" decoding="async"
+             alt="Mặt bằng tiện ích SkySOLIS nhìn từ trên cao: công viên tầng 1 và hồ bơi tràn bờ tầng 6, kèm chú thích 29 tiện ích">
+        <figcaption class="fcap">Mặt bằng tiện ích tầng 1 &amp; tầng 6 · bấm để phóng to, dò số thứ tự</figcaption>
+      </figure>
+      <div class="ti-box">
+        <h3>Tầng 1 – Công viên &amp; cộng đồng <span>16</span></h3>
+        <ol class="c2">
+          <li>Cổng chào</li><li>Công viên</li><li>Sân chơi trẻ em</li><li>Đài ngắm cảnh</li><li>Đài phun nước cảnh quan</li><li>Quảng trường sự kiện</li><li>Vườn thảo mộc</li><li>Vườn đọc sách thư giãn</li><li>Khu thể dục ngoài trời</li><li>Lối dạo bộ sân vườn</li><li>Khu ghế ngồi thư giãn</li><li>Mảng xanh vùng đệm</li><li>Phòng sinh hoạt cộng đồng</li><li>Music room</li><li>Mailbox, Parcel Locker</li><li>Sảnh đón</li>
+        </ol>
+      </div>
+    </div>
+    <div class="pane tang" id="t-4" role="tabpanel" aria-labelledby="tt-4" hidden>
+      <figure class="map-fig" data-zoom="assets/img/skysolis-mat-bang-tien-ich-tang-4-vuon-treo-1900.webp">
+        <img src="assets/img/skysolis-mat-bang-tien-ich-tang-4-vuon-treo.webp" srcset="assets/img/skysolis-mat-bang-tien-ich-tang-4-vuon-treo-800.webp 800w, assets/img/skysolis-mat-bang-tien-ich-tang-4-vuon-treo.webp 1200w" sizes="(max-width:960px) 100vw, 740px" width="1200" height="597" loading="lazy" decoding="async"
+             alt="Mặt bằng tầng 4 SkySOLIS: khu vườn treo, vườn cỏ lau trên cao và góc cây xanh thư giãn">
+        <figcaption class="fcap">Mặt bằng tầng 4 · bấm để phóng to</figcaption>
+      </figure>
+      <div class="ti-box">
+        <h3>Tầng 4 – Vườn trên cao <span>3</span></h3>
+        <ol>
+          <li>Khu vườn treo</li><li>Vườn cỏ lau trên cao</li><li>Góc cây xanh thư giãn</li>
+        </ol>
+        <p>Dải vườn chạy dọc hành lang nối các tháp, cho cư dân chỗ thư giãn ngay trong toà nhà.</p>
+      </div>
+    </div>
+    <div class="pane tang" id="t-6" role="tabpanel" aria-labelledby="tt-6" hidden>
+      <figure class="map-fig" data-zoom="assets/img/skysolis-mat-bang-tang-6-ho-boi-tran-bo-3400.webp">
+        <img src="assets/img/skysolis-mat-bang-tang-6-ho-boi-tran-bo.webp" srcset="assets/img/skysolis-mat-bang-tang-6-ho-boi-tran-bo-800.webp 800w, assets/img/skysolis-mat-bang-tang-6-ho-boi-tran-bo.webp 1300w" sizes="(max-width:960px) 100vw, 740px" width="1300" height="662" loading="lazy" decoding="async"
+             alt="Mặt bằng tầng 6 SkySOLIS: hồ bơi tràn bờ giữa sân tiện ích, các căn hộ Dual Key, 2PN, 3PN có ban công riêng">
+        <figcaption class="fcap">Mặt bằng tầng 6 (tầng tiện ích) · bấm để phóng to</figcaption>
+      </figure>
+      <div class="ti-box">
+        <h3>Tầng 6 – Hồ bơi &amp; thể thao <span>13</span></h3>
+        <ol class="c2">
+          <li>Hồ bơi tràn bờ</li><li>Hồ bơi trẻ em</li><li>Bể sục Jacuzzi</li><li>Hiên hồ bơi thư giãn</li><li>Botanical Lounge</li><li>Khu BBQ</li><li>Khu sảnh tiệc</li><li>Phòng tắm tráng</li><li>Pool Locker</li><li>Phòng karaoke</li><li>Phòng GYM</li><li>Khu Golf 3D trong nhà</li><li>Không gian làm việc mở</li>
+        </ol>
+      </div>
+    </div>
+    <div class="pane tang" id="t-21" role="tabpanel" aria-labelledby="tt-21" hidden>
+      <figure class="map-fig" data-zoom="assets/img/skysolis-mat-bang-tien-ich-tang-21-sky-lounge-1990.webp">
+        <img src="assets/img/skysolis-mat-bang-tien-ich-tang-21-sky-lounge.webp" srcset="assets/img/skysolis-mat-bang-tien-ich-tang-21-sky-lounge-800.webp 800w, assets/img/skysolis-mat-bang-tien-ich-tang-21-sky-lounge.webp 1200w" sizes="(max-width:960px) 100vw, 740px" width="1200" height="677" loading="lazy" decoding="async"
+             alt="Mặt bằng tầng 21 SkySOLIS: Yoga, khu vui chơi trẻ em, rạp chiếu phim trên không, vườn thú cưng, Sky Lounge">
+        <figcaption class="fcap">Mặt bằng tầng 21 · bấm để phóng to</figcaption>
+      </figure>
+      <div class="ti-box">
+        <h3>Tầng 21 – Sky Lounge <span>6</span></h3>
+        <ol>
+          <li>Yoga thư thái</li><li>Khu vui chơi trẻ em</li><li>Rạp chiếu phim trên không</li><li>Vườn thú cưng</li><li>Khu vườn sáng tạo</li><li>Sky Lounge tầng cao</li>
+        </ol>
+      </div>
+    </div>
+    <div class="phi rv">
+      <b>Tiện ích dành riêng cư dân</b>
+      <span>Phí quản lý dự kiến 12.000 – 15.000 đ/m², đã gồm tiện ích</span>
+      <span>An ninh đa lớp 24/7, camera nhận diện khuôn mặt tại sảnh</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 5 · HEALTHY HOME – TRIẾT LÝ THIẾT KẾ (sheet D12–D13 nguyên văn; thư viện ảnh căn hộ theo F12) ======================= -->
+<section class="sec" id="healthy-home">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Healthy Home – Nâng tầm phong cách sống</h2>
+    </div>
+    <p class="fact rv">Không gian sống được thiết kế quanh 4 yếu tố nuôi dưỡng sức khỏe:</p>
+    <ol class="hh rv">
+      <li>
+        <figure><img src="assets/img/skysolis-healthy-home-thien-nhien-san-vuon-dai-phun-nuoc.webp" width="760" height="582" loading="lazy" decoding="async" alt="Sân vườn nhiều tầng cây xanh và đài phun nước cảnh quan dưới chân tháp SkySOLIS"></figure>
+        <div class="in"><i>01</i><b>THIÊN NHIÊN</b><p>Mảng xanh trải trên nhiều tầng, cho cư dân chỗ thư giãn ngay trong nhà</p></div>
+      </li>
+      <li>
+        <figure><img src="assets/img/skysolis-healthy-home-nang-tu-nhien-cua-kinh.webp" width="758" height="722" loading="lazy" decoding="async" alt="Cư dân đọc sách bên cửa kính lớn đón nắng chiều trong căn hộ SkySOLIS"></figure>
+        <div class="in"><i>02</i><b>NẮNG</b><p>Bố trí căn hộ và không gian chung để đón tối đa ánh sáng tự nhiên</p></div>
+      </li>
+      <li>
+        <figure><img src="assets/img/skysolis-healthy-home-khong-khi-sanh-thong-thoang.webp" width="900" height="555" loading="lazy" decoding="async" alt="Sảnh đón SkySOLIS trần cao, cửa kính mở ra mảng xanh, thông gió tự nhiên"></figure>
+        <div class="in"><i>03</i><b>KHÔNG KHÍ</b><p>Thông gió tự nhiên, vị trí căn hộ được tính để gió lưu thông khắp nhà</p></div>
+      </li>
+      <li>
+        <figure><img src="assets/img/skysolis-healthy-home-cong-dong-cu-dan-gan-ket.webp" width="900" height="519" loading="lazy" decoding="async" alt="Gia đình và bạn bè nâng ly trong bữa tiệc tại không gian sinh hoạt chung SkySOLIS"></figure>
+        <div class="in"><i>04</i><b>CỘNG ĐỒNG</b><p>Không gian chung cho gia đình và hàng xóm gắn kết</p></div>
+      </li>
+    </ol>
+    <div class="kien-truc rv">
+      <b>Mặt đứng gợn sóng – giải pháp khí hậu</b>
+      <p>Hệ mặt đứng hướng Đông – Tây với những đường cắt không vuông góc giúp hạn chế nắng Tây chiếu thẳng vào căn hộ, giảm hấp thu nhiệt qua tường để căn hộ mát hơn. Hành lang thông gió tự nhiên.</p>
+    </div>
+
+    <h3 class="gal-h rv">Thư viện căn hộ mẫu</h3>
+    <div class="gal rv">
+      <figure data-zoom="assets/img/skysolis-noi-that-phong-khach-anh-sang-am.webp"><img src="assets/img/skysolis-noi-that-phong-khach-anh-sang-am.webp" srcset="assets/img/skysolis-noi-that-phong-khach-anh-sang-am-800.webp 800w, assets/img/skysolis-noi-that-phong-khach-anh-sang-am.webp 1000w" sizes="(max-width:760px) 50vw, 390px" width="1000" height="667" loading="lazy" decoding="async" alt="Phòng khách căn hộ SkySOLIS: sofa, bàn trà và kệ trang trí dưới ánh nắng ấm"><figcaption>Phòng khách</figcaption></figure>
+      <figure data-zoom="assets/img/skysolis-noi-that-can-2pn-phong-khach-ban-an.webp"><img src="assets/img/skysolis-noi-that-can-2pn-phong-khach-ban-an.webp" srcset="assets/img/skysolis-noi-that-can-2pn-phong-khach-ban-an-800.webp 800w, assets/img/skysolis-noi-that-can-2pn-phong-khach-ban-an.webp 1000w" sizes="(max-width:760px) 50vw, 390px" width="1000" height="642" loading="lazy" decoding="async" alt="Phòng khách và bàn ăn mẫu căn 2 phòng ngủ SkySOLIS, cửa kính lớn nhìn ra cây xanh"><figcaption>Căn 2PN</figcaption></figure>
+      <figure data-zoom="assets/img/skysolis-noi-that-sky-villa-phong-khach-bep.webp"><img src="assets/img/skysolis-noi-that-sky-villa-phong-khach-bep.webp" srcset="assets/img/skysolis-noi-that-sky-villa-phong-khach-bep-800.webp 800w, assets/img/skysolis-noi-that-sky-villa-phong-khach-bep.webp 1000w" sizes="(max-width:760px) 50vw, 390px" width="1000" height="575" loading="lazy" decoding="async" alt="Phòng khách liền bếp căn Sky Villa SkySOLIS, không gian rộng và sang trọng"><figcaption>Sky Villa</figcaption></figure>
+      <figure data-zoom="assets/img/skysolis-noi-that-can-3pn-ban-an-bep.webp"><img src="assets/img/skysolis-noi-that-can-3pn-ban-an-bep.webp" srcset="assets/img/skysolis-noi-that-can-3pn-ban-an-bep-800.webp 800w, assets/img/skysolis-noi-that-can-3pn-ban-an-bep.webp 1000w" sizes="(max-width:760px) 50vw, 390px" width="1000" height="602" loading="lazy" decoding="async" alt="Bàn ăn và bếp mẫu căn 3 phòng ngủ SkySOLIS, đèn thả và cửa kính ra ban công"><figcaption>Căn 3PN</figcaption></figure>
+      <figure data-zoom="assets/img/skysolis-noi-that-phong-ngu-master-2pn2wc.webp"><img src="assets/img/skysolis-noi-that-phong-ngu-master-2pn2wc.webp" srcset="assets/img/skysolis-noi-that-phong-ngu-master-2pn2wc-800.webp 800w, assets/img/skysolis-noi-that-phong-ngu-master-2pn2wc.webp 1000w" sizes="(max-width:760px) 50vw, 390px" width="1000" height="639" loading="lazy" decoding="async" alt="Phòng ngủ master mẫu căn 2PN2WC SkySOLIS với tủ áo và phòng tắm riêng"><figcaption>Phòng ngủ master</figcaption></figure>
+      <figure data-zoom="assets/img/skysolis-noi-that-phong-ngu-2pn1wc-ban-cong.webp"><img src="assets/img/skysolis-noi-that-phong-ngu-2pn1wc-ban-cong.webp" srcset="assets/img/skysolis-noi-that-phong-ngu-2pn1wc-ban-cong-800.webp 800w, assets/img/skysolis-noi-that-phong-ngu-2pn1wc-ban-cong.webp 1000w" sizes="(max-width:760px) 50vw, 390px" width="1000" height="636" loading="lazy" decoding="async" alt="Phòng ngủ mẫu căn 2PN1WC SkySOLIS, cửa kính ra ban công nhìn cây xanh"><figcaption>Phòng ngủ</figcaption></figure>
+    </div>
+    <p class="note" style="text-align:center;margin-top:14px">Nội thất định hướng thiết kế trên layout thực tế, mang tính chất minh họa.</p>
+  </div>
+</section>
+
+<!-- ======================= 6 · VỊ TRÍ VÀ KẾT NỐI (sheet D14–D15 nguyên văn) ======================= -->
+<section class="sec bg-cream" id="vi-tri">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Vị trí SkySOLIS – Tâm điểm kết nối</h2>
+    </div>
+    <p class="fact rv">Mặt tiền Đại lộ Bình Dương (QL13), phường Lái Thiêu, cách trạm metro khoảng 100 m theo quy hoạch.</p>
+    <div class="vt">
+      <figure class="map-fig rv" data-zoom="assets/img/skysolis-ban-do-vi-tri-quoc-lo-13-lai-thieu-2300.webp">
+        <img src="assets/img/skysolis-ban-do-vi-tri-quoc-lo-13-lai-thieu.webp" srcset="assets/img/skysolis-ban-do-vi-tri-quoc-lo-13-lai-thieu-800.webp 800w, assets/img/skysolis-ban-do-vi-tri-quoc-lo-13-lai-thieu.webp 1300w" sizes="(max-width:900px) 100vw, 600px" width="1300" height="1288" loading="lazy" decoding="async"
+             alt="Bản đồ vị trí SkySOLIS trên Quốc lộ 13, phường Lái Thiêu: Lotte Mart, BVQT Becamex, KCN VSIP, metro, sân bay">
+        <figcaption class="fcap">Bản đồ vị trí của chủ đầu tư · bấm để phóng to, xem tên đường</figcaption>
+      </figure>
+      <div class="vt-side">
+        <div class="card rv">
+          <h3>Thời gian di chuyển tham khảo</h3>
+          <div class="rt"><b>2 phút</b><span>Lotte Mart, trạm metro</span></div>
+          <div class="rt"><b>3 phút</b><span>Bệnh viện Quốc tế Becamex, KCN Đồng An</span></div>
+          <div class="rt"><b>5 phút</b><span>Chợ Lái Thiêu, BV Đa khoa Thuận An, THPT Nguyễn Trãi, MindX, Sông Bé Golf Resort, KCN VSIP 1</span></div>
+          <div class="rt"><b>5–10 phút</b><span>Thủ Đức (Giga Mall – Phạm Văn Đồng)</span></div>
+          <div class="rt"><b>35 phút</b><span>Sân bay Tân Sơn Nhất, chợ Bến Thành, Bitexco, Landmark 81</span></div>
+        </div>
+        <div class="card rv">
+          <h3>Hạ tầng sắp tới</h3>
+          <ul class="ht">
+            <li><i>QL13</i>Dự án mở rộng Quốc lộ 13</li>
+            <li><i>Metro</i>Tuyến metro nối Bình Dương – TP.HCM, trạm cách dự án khoảng 100 m theo quy hoạch</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="text-align:center;margin-top:16px">Thời gian di chuyển mang tính tham khảo, phụ thuộc điều kiện giao thông thực tế. Hạ tầng theo quy hoạch, tiến độ do cơ quan nhà nước công bố.</p>
+  </div>
+</section>
+
+<!-- ======================= 7 · ỨNG DỤNG CƯ DÂN SKYWORLD CONNECT (sheet D16–D17 nguyên văn) ======================= -->
+<section class="sec" id="ung-dung">
+  <div class="wrap">
+    <div class="app rv">
+      <figure><img src="assets/img/skysolis-ung-dung-cu-dan-skyworld-connect.webp" width="900" height="741" loading="lazy" decoding="async" alt="Ứng dụng cư dân SkyWorld Connect trên điện thoại: đặt tiện ích, đăng ký khách, nhận hàng Parcel Locker"></figure>
+      <div class="app-in">
+        <h2>Một điểm chạm – Vạn kết nối tiện ích</h2>
+        <p class="lead">Ứng dụng SkyWorld Connect cho cư dân:</p>
+        <ul class="tinh-nang">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg><b>Giao tiếp tập trung</b><span>Cư dân, ban quản lý, an ninh trên cùng 1 app</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 18c1-2.5 3-3.5 5-3.5s4 1 5 3.5"/></svg><b>Đăng ký khách từ xa</b><span>Cho khách ra vào nhanh và an toàn</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18M9 16l2 2 4-4"/></svg><b>Đặt tiện ích</b><span>Đặt phòng họp, tiện ích chung trong vài thao tác</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18M12 3v18M15 7.5h2M15 16.5h2M7 7.5h2M7 16.5h2"/></svg><b>Parcel Locker</b><span>Tủ nhận hàng tự động tại sảnh</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 8 · CHỦ ĐẦU TƯ & CAM KẾT QLASSIC (sheet D18–D19; số liệu 110+ giải thưởng, điểm QLASSIC theo brochure tr.76–78) ======================= -->
+<section class="sec bg-sand" id="chu-dau-tu">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Nhà phát triển SkyWorld Development <span class="dong2">Cam kết chất lượng QLASSIC</span></h2>
+    </div>
+    <div class="cdt">
+      <div class="rv">
+        <div class="cdt-logo"><img src="assets/img/skysolis-chu-dau-tu-skyworld-logo.webp" width="480" height="117" loading="lazy" decoding="async" alt="Logo SkyWorld Development – nhà phát triển dự án SkySOLIS"></div>
+        <p class="body">SkyWorld Development: nhà phát triển BĐS Malaysia, hơn 20 năm kinh nghiệm, phát triển đô thị thông minh và thân thiện môi trường. SkySOLIS là dự án đầu tiên tại Việt Nam.</p>
+        <div class="so-lieu">
+          <div><b>20+</b><span>Năm kinh nghiệm</span></div>
+          <div><b>110+</b><span>Giải thưởng đến T1/2026</span></div>
+          <div><b>81–87%</b><span>Điểm QLASSIC các dự án</span></div>
+        </div>
+        <div class="ql">
+          <img src="assets/img/skysolis-skyworld-chung-nhan-qlassic-cidb-malaysia.webp" width="420" height="428" loading="lazy" decoding="async" alt="Logo hệ thống đánh giá chất lượng xây dựng QLASSIC và Cơ quan Phát triển Ngành Xây dựng CIDB Malaysia">
+          <p><b>Cam kết chất lượng QLASSIC:</b> QLASSIC (Quality Assessment System in Construction) là hệ thống chấm điểm chất lượng thi công – hoàn thiện do CIDB (Cơ quan Phát triển Ngành Xây dựng Malaysia) ban hành, giúp đánh giá chất lượng bàn giao một cách độc lập.</p>
+        </div>
+        <p class="note" style="margin:0 0 10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase">Dự án đã bàn giao tại Malaysia</p>
+        <ul class="da-bg">
+          <li>EdgeWood Residences</li><li>The Valley Residences</li><li>SkyLuxe On The Park Residences</li><li>SkyVogue Residences</li><li>Curvo Residences</li>
+        </ul>
+      </div>
+      <figure class="map-fig rv" data-zoom="assets/img/skysolis-skyworld-du-an-da-ban-giao-malaysia-diem-qlassic-1990.webp">
+        <img src="assets/img/skysolis-skyworld-du-an-da-ban-giao-malaysia-diem-qlassic.webp" srcset="assets/img/skysolis-skyworld-du-an-da-ban-giao-malaysia-diem-qlassic-800.webp 800w, assets/img/skysolis-skyworld-du-an-da-ban-giao-malaysia-diem-qlassic.webp 1000w" sizes="(max-width:900px) 100vw, 560px" width="1000" height="1344" loading="lazy" decoding="async"
+             alt="Các dự án SkyWorld đã bàn giao tại Malaysia kèm điểm QLASSIC: The Valley, Curvo, EdgeWood Residence, SkyLuxe, SkyVogue">
+        <figcaption class="fcap">Dự án SkyWorld tại Malaysia và điểm QLASSIC · bấm để phóng to</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 9 · LAYOUT CĂN HỘ (sheet D20–D21; diện tích từng mẫu theo brochure tr.50–68, khoảng diện tích theo Q&A câu 22) ======================= -->
+<section class="sec" id="can-ho">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Layout căn hộ</h2>
+    </div>
+    <ul class="dien-tich rv">
+      <li>Studio – 3PN: <b>34 – 125 m²</b></li>
+      <li>Sky Villa: <b>~132 m²</b></li>
+      <li>Mixed-use: <b>59 – 95 m²</b></li>
+      <li>Dual-key: <b>78 – 202 m²</b></li>
+      <li>Shophouse: <b>20 căn</b></li>
+    </ul>
+    <div class="tabs rv" role="tablist" aria-label="Chọn loại căn">
+      <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="c-2pn1" id="tc-2pn1">2PN1WC</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-2pn2" id="tc-2pn2">2PN2WC</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-3pn" id="tc-3pn">3PN2WC</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-st" id="tc-st">Studio</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-sv" id="tc-sv">Sky Villa</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-mx" id="tc-mx">Mixed Use</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-dk" id="tc-dk">Dual Key</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="c-sh" id="tc-sh">Shophouse</button>
+    </div>
+
+    <div class="pane lo" id="c-2pn1" role="tabpanel" aria-labelledby="tc-2pn1">
+      <figure data-zoom="assets/img/skysolis-layout-can-2pn1wc-b1-1.webp"><img src="assets/img/skysolis-layout-can-2pn1wc-b1-1.webp" width="900" height="600" loading="lazy" decoding="async" alt="Layout 3D căn hộ 2 phòng ngủ 1 vệ sinh SkySOLIS mẫu B1.1, khoảng 70,6 m² tim tường"></figure>
+      <div class="lo-card">
+        <div class="dt">~70,6 m²<small>tim tường</small></div>
+        <h3>Căn hộ 2PN1WC</h3>
+        <dl><dt>Mẫu căn</dt><dd>B1.1</dd><dt>Tháp / Tầng</dt><dd>Lyra / 6–40</dd><dt>Dòng 2PN1WC</dt><dd>67 – 79 m²</dd></dl>
+        <ul><li>Phù hợp với gia đình trẻ</li><li>Không gian thiết kế khoáng đạt và sang trọng</li><li>Tối ưu ánh sáng thiên nhiên và không khí tươi</li></ul>
+      </div>
+    </div>
+    <div class="pane lo" id="c-2pn2" role="tabpanel" aria-labelledby="tc-2pn2" hidden>
+      <figure data-zoom="assets/img/skysolis-layout-can-2pn2wc-c3-1.webp"><img src="assets/img/skysolis-layout-can-2pn2wc-c3-1.webp" width="900" height="675" loading="lazy" decoding="async" alt="Layout 3D căn hộ 2 phòng ngủ 2 vệ sinh SkySOLIS mẫu C3.1, khoảng 81,2 m² tim tường"></figure>
+      <div class="lo-card">
+        <div class="dt">~81,2 m²<small>tim tường</small></div>
+        <h3>Căn hộ 2PN2WC</h3>
+        <dl><dt>Mẫu căn</dt><dd>C3.1 (nhà mẫu)</dd><dt>Tháp / Tầng</dt><dd>Alba – Lyra / 6–40</dd><dt>Dòng 2PN2WC</dt><dd>69 – 91 m²</dd></dl>
+        <ul><li>Phù hợp với gia đình có nhiều thành viên</li><li>Không gian thiết kế khoáng đạt và sang trọng</li><li>Tối ưu ánh sáng thiên nhiên và không khí tươi</li></ul>
+      </div>
+    </div>
+    <div class="pane lo" id="c-3pn" role="tabpanel" aria-labelledby="tc-3pn" hidden>
+      <figure data-zoom="assets/img/skysolis-layout-can-3pn2wc-d1-1a.webp"><img src="assets/img/skysolis-layout-can-3pn2wc-d1-1a.webp" width="900" height="675" loading="lazy" decoding="async" alt="Layout 3D căn hộ 3 phòng ngủ SkySOLIS mẫu D1.1a, khoảng 102,8 m² tim tường"></figure>
+      <div class="lo-card">
+        <div class="dt">~102,8 m²<small>tim tường</small></div>
+        <h3>Căn hộ 3PN2WC</h3>
+        <dl><dt>Mẫu căn</dt><dd>D1.1a (nhà mẫu)</dd><dt>Tháp / Tầng</dt><dd>Alba – Lyra / 7–21, 22–40</dd><dt>Dòng 3PN2WC</dt><dd>102 – 125 m²</dd></dl>
+        <ul><li>Phù hợp với gia đình có nhiều thành viên</li><li>Không gian thiết kế khoáng đạt và sang trọng</li><li>Tối ưu ánh sáng thiên nhiên và không khí tươi</li></ul>
+      </div>
+    </div>
+    <div class="pane lo" id="c-st" role="tabpanel" aria-labelledby="tc-st" hidden>
+      <figure data-zoom="assets/img/skysolis-layout-can-studio-a1-2.webp"><img src="assets/img/skysolis-layout-can-studio-a1-2.webp" width="900" height="608" loading="lazy" decoding="async" alt="Layout 3D căn hộ Studio SkySOLIS mẫu A1.2, khoảng 35,5 m² tim tường"></figure>
+      <div class="lo-card">
+        <div class="dt">~35,5 m²<small>tim tường</small></div>
+        <h3>Căn hộ Studio</h3>
+        <dl><dt>Mẫu căn</dt><dd>A1.2</dd><dt>Tháp / Tầng</dt><dd>Alba – Lyra / 7–40</dd><dt>Dòng Studio</dt><dd>34 – 35 m²</dd></dl>
+        <ul><li>Phù hợp với người trẻ năng động, thành đạt</li><li>Không gian thiết kế tối ưu</li><li>Tối ưu ánh sáng thiên nhiên và không khí tươi</li></ul>
+      </div>
+    </div>
+    <div class="pane lo" id="c-sv" role="tabpanel" aria-labelledby="tc-sv" hidden>
+      <figure data-zoom="assets/img/skysolis-layout-can-sky-villa-e1-1.webp"><img src="assets/img/skysolis-layout-can-sky-villa-e1-1.webp" width="900" height="600" loading="lazy" decoding="async" alt="Layout 3D căn Sky Villa SkySOLIS mẫu E1.1, khoảng 131,9 m², bếp khô và bếp ướt tách biệt"></figure>
+      <div class="lo-card">
+        <div class="dt">~131,9 m²<small>tim tường</small></div>
+        <h3>Căn hộ Sky Villa</h3>
+        <dl><dt>Mẫu căn</dt><dd>E1.1 · 3PN 2WC</dd><dt>Tháp / Tầng</dt><dd>Lyra / 7–20, 22–40</dd></dl>
+        <ul><li>Phù hợp với gia đình có nhiều thế hệ</li><li>Bếp khô và bếp ướt tách biệt, thể hiện đẳng cấp gia chủ</li><li>Tối ưu ánh sáng thiên nhiên và không khí tươi</li></ul>
+      </div>
+    </div>
+    <div class="pane lo" id="c-mx" role="tabpanel" aria-labelledby="tc-mx" hidden>
+      <figure data-zoom="assets/img/skysolis-layout-can-mixed-use-x1-1a.webp"><img src="assets/img/skysolis-layout-can-mixed-use-x1-1a.webp" width="800" height="884" loading="lazy" decoding="async" alt="Layout 3D căn Mixed Use SkySOLIS mẫu X1.1a, khoảng 59,8 m², vừa ở vừa đăng ký kinh doanh"></figure>
+      <div class="lo-card">
+        <div class="dt">~59,8 m²<small>tim tường</small></div>
+        <h3>Căn hộ Mixed Use</h3>
+        <dl><dt>Mẫu căn</dt><dd>X1.1a · 1PN 1WC</dd><dt>Tháp / Tầng</dt><dd>Helio / 4–5, 7–40</dd><dt>Dòng Mixed Use</dt><dd>59 – 95 m²</dd></dl>
+        <ul><li>Vừa có thể ở và có thể đăng ký kinh doanh</li><li>Phù hợp với nhịp sống năng động</li><li>Tối ưu ánh sáng thiên nhiên và không khí tươi</li></ul>
+      </div>
+    </div>
+    <div class="pane lo" id="c-dk" role="tabpanel" aria-labelledby="tc-dk" hidden>
+      <figure data-zoom="assets/img/skysolis-layout-can-dual-key-z10-1.webp"><img src="assets/img/skysolis-layout-can-dual-key-z10-1.webp" width="900" height="600" loading="lazy" decoding="async" alt="Layout 3D căn Dual Key SkySOLIS mẫu Z10.1, khoảng 116 m², 2 lối vào riêng vừa ở vừa cho thuê"></figure>
+      <div class="lo-card">
+        <div class="dt">~116,0 m²<small>tim tường</small></div>
+        <h3>Căn hộ Dual Key</h3>
+        <dl><dt>Mẫu căn</dt><dd>Z10.1 · 3PN 2WC</dd><dt>Tháp / Tầng</dt><dd>Helio / 7–40</dd><dt>Dòng Dual Key</dt><dd>78 – 202 m²</dd></dl>
+        <ul><li>Phù hợp vừa ở vừa kinh doanh</li><li>Không gian thiết kế khoáng đạt và sang trọng</li><li>Tối ưu ánh sáng thiên nhiên và không khí tươi</li></ul>
+      </div>
+    </div>
+    <div class="pane" id="c-sh" role="tabpanel" aria-labelledby="tc-sh" hidden>
+      <div class="lo2">
+        <figure data-zoom="assets/img/skysolis-shophouse-khoi-de-mat-tien-xanh.webp"><img src="assets/img/skysolis-shophouse-khoi-de-mat-tien-xanh.webp" srcset="assets/img/skysolis-shophouse-khoi-de-mat-tien-xanh-800.webp 800w, assets/img/skysolis-shophouse-khoi-de-mat-tien-xanh.webp 1000w" sizes="(max-width:640px) 100vw, 580px" width="1000" height="590" loading="lazy" decoding="async" alt="Chuỗi shophouse khối đế SkySOLIS với mặt tiền kính và mảng xanh lúc chiều tối"></figure>
+        <figure data-zoom="assets/img/skysolis-shophouse-dinh-huong-nha-hang-cafe.webp"><img src="assets/img/skysolis-shophouse-dinh-huong-nha-hang-cafe.webp" srcset="assets/img/skysolis-shophouse-dinh-huong-nha-hang-cafe-800.webp 800w, assets/img/skysolis-shophouse-dinh-huong-nha-hang-cafe.webp 1000w" sizes="(max-width:640px) 100vw, 580px" width="1000" height="556" loading="lazy" decoding="async" alt="Định hướng thiết kế shophouse SkySOLIS làm nhà hàng – cà phê, trần lượn sóng và cửa kính lớn"></figure>
+      </div>
+      <div class="lo-card" style="margin-top:14px">
+        <div class="dt">20<small>căn shophouse</small></div>
+        <h3>Chuỗi shophouse khối đế</h3>
+        <ul><li>Diện tích 113 – 320 m², 1 trệt + 2 lầu, sở hữu lâu dài</li><li>Chuỗi nhà hàng và cửa hàng tiện ích tại khối đế, bao bọc giữa những mảng xanh đầy nắng</li><li>Đón cả cư dân 3 tháp lẫn khách vãng lai trên trục Quốc lộ 13</li></ul>
+      </div>
+    </div>
+
+    <div class="mbt-h rv">
+      <h3>Mặt bằng tầng</h3>
+      <p>NSA: diện tích thông thủy · NFA: diện tích tim tường (đơn giá trong HĐMB tính theo tim tường). 19 thang máy, 5–10 căn/tầng mỗi block.</p>
+    </div>
+    <div class="tabs rv" role="tablist" aria-label="Chọn mặt bằng tầng">
+      <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="m-dh" id="tm-dh">Tầng 7–20 &amp; 22–40</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="m-45" id="tm-45">Tầng 4–5</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="m-6" id="tm-6">Tầng 6</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="m-21" id="tm-21">Tầng 21</button>
+    </div>
+    <div class="pane" id="m-dh" role="tabpanel" aria-labelledby="tm-dh">
+      <figure class="map-fig" data-zoom="assets/img/skysolis-mat-bang-tang-dien-hinh-7-20-22-40-3500.webp">
+        <img src="assets/img/skysolis-mat-bang-tang-dien-hinh-7-20-22-40.webp" srcset="assets/img/skysolis-mat-bang-tang-dien-hinh-7-20-22-40-800.webp 800w, assets/img/skysolis-mat-bang-tang-dien-hinh-7-20-22-40.webp 1300w" sizes="(max-width:1180px) 100vw, 1180px" width="1300" height="662" loading="lazy" decoding="async"
+             alt="Mặt bằng tầng điển hình 7–20 và 22–40 SkySOLIS: 3 tháp Alba, Helio, Lyra với mã căn và diện tích">
+        <figcaption class="fcap">Mặt bằng tầng điển hình · bấm để phóng to, đọc mã căn và diện tích</figcaption>
+      </figure>
+    </div>
+    <div class="pane" id="m-45" role="tabpanel" aria-labelledby="tm-45" hidden>
+      <figure class="map-fig" data-zoom="assets/img/skysolis-mat-bang-tang-4-5-3270.webp">
+        <img src="assets/img/skysolis-mat-bang-tang-4-5.webp" srcset="assets/img/skysolis-mat-bang-tang-4-5-800.webp 800w, assets/img/skysolis-mat-bang-tang-4-5.webp 1300w" sizes="(max-width:1180px) 100vw, 1180px" width="1300" height="626" loading="lazy" decoding="async"
+             alt="Mặt bằng tầng 4–5 SkySOLIS: mã căn, diện tích thông thủy NSA và tim tường NFA từng căn">
+        <figcaption class="fcap">Mặt bằng tầng 4–5 · bấm để phóng to</figcaption>
+      </figure>
+    </div>
+    <div class="pane" id="m-6" role="tabpanel" aria-labelledby="tm-6" hidden>
+      <figure class="map-fig" data-zoom="assets/img/skysolis-mat-bang-tang-6-ho-boi-tran-bo-3400.webp">
+        <img src="assets/img/skysolis-mat-bang-tang-6-ho-boi-tran-bo.webp" srcset="assets/img/skysolis-mat-bang-tang-6-ho-boi-tran-bo-800.webp 800w, assets/img/skysolis-mat-bang-tang-6-ho-boi-tran-bo.webp 1300w" sizes="(max-width:1180px) 100vw, 1180px" width="1300" height="662" loading="lazy" decoding="async"
+             alt="Mặt bằng tầng 6 SkySOLIS: hồ bơi tràn bờ giữa sân tiện ích, các căn hộ Dual Key, 2PN, 3PN có ban công riêng">
+        <figcaption class="fcap">Mặt bằng tầng 6 · căn có ban công riêng (PES) · bấm để phóng to</figcaption>
+      </figure>
+    </div>
+    <div class="pane" id="m-21" role="tabpanel" aria-labelledby="tm-21" hidden>
+      <figure class="map-fig" data-zoom="assets/img/skysolis-mat-bang-tang-21-3500.webp">
+        <img src="assets/img/skysolis-mat-bang-tang-21.webp" srcset="assets/img/skysolis-mat-bang-tang-21-800.webp 800w, assets/img/skysolis-mat-bang-tang-21.webp 1300w" sizes="(max-width:1180px) 100vw, 1180px" width="1300" height="662" loading="lazy" decoding="async"
+             alt="Mặt bằng tầng 21 SkySOLIS: căn hộ xen tầng tiện ích Sky Lounge, mã căn và diện tích từng căn">
+        <figcaption class="fcap">Mặt bằng tầng 21 · bấm để phóng to</figcaption>
+      </figure>
+    </div>
+    <p class="note" style="text-align:center;margin-top:16px">Layout và diện tích theo brochure của chủ đầu tư, mang tính chất minh họa; số liệu chính thức theo hợp đồng mua bán.</p>
+  </div>
+</section>
+
+<!-- ======================= 10 · CHÍNH SÁCH BÁN HÀNG + ƯU ĐÃI + LỊCH THANH TOÁN (sheet D22–D23; số liệu theo CSBH số 03-2026/SW-SS ngày 14/09/2026) ======================= -->
+<section class="sec bg-cream" id="chinh-sach">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Chính sách bán hàng <span class="dong2">Áp dụng từ 14/09/2026 đến khi có thông báo mới</span></h2>
+    </div>
+    <div class="tabs rv" role="tablist" aria-label="Chọn nội dung chính sách">
+      <button class="tab" role="tab" type="button" aria-selected="true" aria-controls="cs-ud" id="tcs-ud">Ưu đãi</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="cs-chuan" id="tcs-chuan">Thanh toán chuẩn</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="cs-nhanh" id="tcs-nhanh">Thanh toán nhanh</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" aria-controls="cs-vay" id="tcs-vay">Vay ngân hàng</button>
+    </div>
+
+    <div class="pane" id="cs-ud" role="tabpanel" aria-labelledby="tcs-ud">
+      <ul class="ud">
+        <li><b>1%</b><strong>Booking từ 01/10 đến hết 23/10/2026</strong><span>Chiết khấu trên giá mua (khách booking trước 01/10/2026 được 2%).</span></li>
+        <li><b>1%</b><strong>Không nhận bảo lãnh ngân hàng</strong><span>Khách tự nguyện không nhận Chứng thư bảo lãnh ngân hàng.</span></li>
+        <li><b>3%</b><strong>Thanh toán chuẩn</strong><span>Chiết khấu trên giá bán căn hộ (chưa VAT, KPBT), thanh toán 11 đợt.</span></li>
+        <li><b>8%</b><strong>Thanh toán nhanh 50%</strong><span>Trừ trực tiếp vào giá bán căn hộ (chưa VAT, KPBT).</span></li>
+        <li><b>9,9%/năm</b><strong>Hỗ trợ lãi suất 30 tháng</strong><span>Khi chọn vay ngân hàng, tính từ ngày giải ngân lần đầu.</span></li>
+        <li><b>7</b><strong>Ngân hàng liên kết</strong><span>Vietcombank, BIDV, VietinBank, Hong Leong Bank, Public Bank, MB Bank, VPBank.</span></li>
+      </ul>
+      <p class="cs-note"><b>Lưu ý:</b> khách chọn 1 trong 3 phương thức thanh toán. Thanh toán nhanh chỉ áp dụng khi thanh toán sớm bằng vốn tự có và không áp dụng đồng thời với hỗ trợ lãi suất. Chiết khấu áp dụng khi hoàn tất thủ tục giữ chỗ, ký thỏa thuận đúng quy định và thanh toán đúng tiến độ.</p>
+    </div>
+
+    <div class="pane" id="cs-chuan" role="tabpanel" aria-labelledby="tcs-chuan" hidden>
+      <div class="tt-wrap">
+        <table class="tt">
+          <caption>Phương thức thanh toán chuẩn — <b>chiết khấu 3%</b> trên giá bán căn hộ (chưa VAT và KPBT)</caption>
+          <thead><tr><th scope="col">Đợt</th><th scope="col">Thời điểm thanh toán</th><th scope="col">% giá mua</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">1</th><td>Ký thỏa thuận ký quỹ<small>Dự kiến tháng 10/2026</small></td><td>5% (chưa VAT)</td></tr>
+            <tr><th scope="row">2</th><td>Tháng 03/2027</td><td>5% (chưa VAT)</td></tr>
+            <tr><th scope="row">3</th><td>Thông báo ký hợp đồng mua bán<small>Dự kiến tháng 06/2027</small></td><td>10% (gồm VAT) + VAT đợt 1, 2</td></tr>
+            <tr><th scope="row">4 – 9</th><td>Mỗi quý từ 09/2027 đến 12/2028</td><td>5% mỗi đợt (gồm VAT)</td></tr>
+            <tr><th scope="row">10</th><td>Thông báo bàn giao căn hộ<small>Dự kiến Quý II/2029</small></td><td>45% (gồm VAT) + 2% KPBT + VAT đợt 11</td></tr>
+            <tr><th scope="row">11</th><td>Nhận Giấy chứng nhận quyền sở hữu</td><td>5% (không VAT)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pane" id="cs-nhanh" role="tabpanel" aria-labelledby="tcs-nhanh" hidden>
+      <div class="tt-wrap">
+        <table class="tt">
+          <caption>Phương thức thanh toán nhanh 50% — <b>chiết khấu 8%</b> trừ trực tiếp vào giá bán căn hộ (chưa VAT và KPBT)</caption>
+          <thead><tr><th scope="col">Đợt</th><th scope="col">Thời điểm thanh toán</th><th scope="col">% giá mua</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">1</th><td>Ký thỏa thuận ký quỹ<small>Dự kiến tháng 10/2026</small></td><td>5% (chưa VAT)</td></tr>
+            <tr><th scope="row">2</th><td>Tháng 03/2027</td><td>5% (chưa VAT)</td></tr>
+            <tr><th scope="row">3</th><td>Thông báo ký hợp đồng mua bán<small>Dự kiến tháng 06/2027</small></td><td>40% (gồm VAT) + VAT đợt 1, 2</td></tr>
+            <tr><th scope="row">4</th><td>Thông báo bàn giao căn hộ<small>Dự kiến Quý II/2029</small></td><td>45% (gồm VAT) + 2% KPBT + VAT đợt 5</td></tr>
+            <tr><th scope="row">5</th><td>Nhận Giấy chứng nhận quyền sở hữu</td><td>5% (không VAT)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="pane" id="cs-vay" role="tabpanel" aria-labelledby="tcs-vay" hidden>
+      <div class="tt-wrap">
+        <table class="tt">
+          <caption>Phương thức vay ngân hàng — <b>hỗ trợ lãi suất 9,9%/năm trong 30 tháng</b> từ ngày ngân hàng giải ngân lần đầu</caption>
+          <thead><tr><th scope="col">Đợt</th><th scope="col">Thời điểm thanh toán</th><th scope="col">Vốn tự có</th><th scope="col">Ngân hàng giải ngân</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">1</th><td>Ký thỏa thuận ký quỹ</td><td>5% (chưa VAT)</td><td>—</td></tr>
+            <tr><th scope="row">2</th><td>Tháng 03/2027</td><td>5% (chưa VAT)</td><td>—</td></tr>
+            <tr><th scope="row">3</th><td>Thông báo ký hợp đồng mua bán<small>Dự kiến tháng 06/2027</small></td><td>10% (gồm VAT) + VAT đợt 1, 2</td><td>30% (gồm VAT)</td></tr>
+            <tr><th scope="row">4</th><td>Thông báo bàn giao căn hộ<small>Dự kiến Quý II/2029</small></td><td>2% KPBT + VAT đợt 5</td><td>45% (gồm VAT)</td></tr>
+            <tr><th scope="row">5</th><td>Nhận Giấy chứng nhận quyền sở hữu</td><td>—</td><td>5% (không VAT)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="nh"><span>Vietcombank</span><span>BIDV</span><span>VietinBank</span><span>Hong Leong Bank</span><span>Public Bank</span><span>MB Bank</span><span>VPBank</span></div>
+      <p class="cs-note">Việc cho vay do ngân hàng khách chọn thẩm định và quyết định theo chính sách tín dụng từng thời điểm; chủ đầu tư không cam kết khoản vay được duyệt.</p>
+    </div>
+    <p class="note" style="text-align:center;margin-top:16px">Tóm tắt theo Thông báo chính sách bán hàng số 03-2026/SW-SS ngày 14/09/2026 của Công ty TNHH SkyWorld Development (Việt Nam). Điều kiện đầy đủ theo văn bản chính thức của chủ đầu tư.</p>
+  </div>
+</section>
+
+<!-- ======================= FAQ (khớp từng chữ với FAQPage JSON-LD — dong-bo-seo.py chép từ đây) ======================= -->
+<section class="sec" id="hoi-dap">
+  <div class="wrap">
+    <div class="head rv">
+      <h2>Câu hỏi thường gặp về SkySOLIS</h2>
+    </div>
+    <div class="faq rv">
+      <details open><summary>SkySOLIS nằm ở đâu?</summary><p>SkySOLIS nằm tại số 88/10 Đại lộ Bình Dương (Quốc lộ 13), phường Lái Thiêu, TP.HCM; trước ngày 1/7/2025 khu vực này thuộc TP. Thuận An, tỉnh Bình Dương. Dự án cách trạm metro khoảng 100 m theo quy hoạch, 2 phút đến Lotte Mart và khoảng 35 phút đến sân bay Tân Sơn Nhất.</p></details>
+      <details><summary>Chủ đầu tư SkySOLIS là ai?</summary><p>Chủ đầu tư SkySOLIS là Công ty TNHH MTV Vina An Thuận Phát; đơn vị phát triển là SkyWorld Development Berhad (Malaysia) thông qua Công ty TNHH SkyWorld Development (Việt Nam). Đơn vị thiết kế là AG INGO Vietnam. ERA Vietnam là đại lý phân phối chính thức.</p></details>
+      <details><summary>SkySOLIS có quy mô và sản phẩm gì?</summary><p>Dự án rộng khoảng 1 ha, gồm 3 tháp Alba, Helio, Lyra cao 40 tầng trên 3 tầng khối đế thương mại và 2 tầng hầm, tổng 1.101 sản phẩm: 859 căn hộ (Studio, 2PN, 3PN, Sky Villa), 222 căn mixed-use (Mixed Use, Dual Key) và 20 shophouse.</p></details>
+      <details><summary>Căn hộ SkySOLIS rộng bao nhiêu?</summary><p>Theo chủ đầu tư: Studio 34 – 35 m², 2PN1WC 67 – 79 m², 2PN2WC 69 – 91 m², 3PN2WC 102 – 125 m², Sky Villa khoảng 132 m², Mixed Use 59 – 95 m², Dual Key 78 – 202 m², shophouse 113 – 320 m². Đơn giá trong hợp đồng mua bán tính theo diện tích tim tường.</p></details>
+      <details><summary>SkySOLIS có những tiện ích gì?</summary><p>Tiện ích trải trên 4 tầng: tầng 1 có công viên, sân chơi trẻ em, quảng trường sự kiện, Music room; tầng 4 có vườn treo; tầng 6 có hồ bơi tràn bờ, Jacuzzi, BBQ, sảnh tiệc 60 khách, Gym, karaoke, Golf 3D trong nhà; tầng 21 có Yoga, rạp chiếu phim trên không, vườn thú cưng và Sky Lounge. Phí quản lý dự kiến 12.000 – 15.000 đ/m² đã gồm tiện ích.</p></details>
+      <details><summary>Pháp lý SkySOLIS thế nào, sở hữu bao lâu?</summary><p>Hồ sơ pháp lý dự án gồm phê duyệt 1/500, quyết định giao đất, quyết định chấp thuận chủ trương đầu tư và giấy phép xây dựng. Căn hộ và shophouse sở hữu lâu dài; người nước ngoài được mua và sở hữu 50 năm theo luật hiện hành.</p></details>
+      <details><summary>Khi nào SkySOLIS bàn giao và bàn giao theo tiêu chuẩn nào?</summary><p>Dự kiến ký hợp đồng mua bán Quý II/2027 và bàn giao Quý II/2029. Căn hộ bàn giao hoàn thiện cơ bản cao cấp với nội thất liền tường, kệ bếp, thiết bị vệ sinh, khóa thông minh, áp dụng tiêu chuẩn kiểm định chất lượng QLASSIC; một số loại hình bàn giao thô theo lựa chọn của khách hàng.</p></details>
+      <details><summary>Chính sách thanh toán SkySOLIS ra sao?</summary><p>Theo chính sách ngày 14/09/2026, khách chọn 1 trong 3 cách: thanh toán chuẩn chiết khấu 3%, thanh toán nhanh 50% chiết khấu 8%, hoặc vay ngân hàng được hỗ trợ lãi suất 9,9%/năm trong 30 tháng. Booking từ 01/10 đến hết 23/10/2026 được chiết khấu thêm 1%, không nhận bảo lãnh ngân hàng thêm 1%. Giá trung bình tham khảo khoảng 55 triệu/m²; chuyên viên ERA đã gửi bạn trang này sẽ gửi bảng giá từng căn.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 11 · FINAL CTA (sheet D24–D25) =======================
+     Landing cho SALE: bỏ form (sheet có form 3 trường) — khách hẹn qua chuyên viên ERA đã gửi trang. Ảnh: toàn cảnh về đêm brochure tr.4. -->
+<section class="cta" id="dang-ky">
+  <img src="assets/img/skysolis-toan-canh-lai-thieu-ve-dem.webp" srcset="assets/img/skysolis-toan-canh-lai-thieu-ve-dem-800.webp 800w, assets/img/skysolis-toan-canh-lai-thieu-ve-dem.webp 1600w" sizes="100vw" width="1600" height="839" loading="lazy" decoding="async" alt="" aria-hidden="true">
+  <div class="cta-shade" aria-hidden="true"></div>
+  <div class="cta-in">
+    <div class="cta-box rv">
+      <h2>Tài chính thảnh thơi – An tâm sống một đời đáng giá</h2>
+      <p class="serif-lead">Nhận trọn bộ hồ sơ dự án: pháp lý, chính sách ưu đãi, brochure – kèm tư vấn 1:1 từ chuyên viên ERA Vietnam.</p>
+      <ul>
+        <li>Hồ sơ pháp lý dự án SkySOLIS</li>
+        <li>Chính sách ưu đãi, bảng giá và lịch thanh toán từng căn</li>
+        <li>Brochure, layout và mặt bằng tầng</li>
+        <li>Hẹn lịch tham quan nhà mẫu cùng chuyên viên ERA đã gửi bạn trang này</li>
+      </ul>
+      <p class="nha-mau">Văn phòng kinh doanh &amp; nhà mẫu SkySOLIS: 179 Lý Chính Thắng, phường Xuân Hòa, TP.HCM</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= FOOTER – ĐẠI LÝ PHÂN PHỐI (sheet D26–D27; sheet còn chép nhầm chữ "Imperia Sensa Park … Khu Đông" -> đổi sang SkySOLIS, khu Bắc Sài Gòn) ======================= -->
+<footer>
+  <div class="ft">
+    <img src="assets/img/era-vietnam-logo-trang.webp" width="196" height="240" loading="lazy" decoding="async" alt="Logo ERA Vietnam">
+    <div>
+      <div class="fb">ERA VIETNAM<strong>Đại lý phân phối chính thức dự án SkySOLIS</strong></div>
+      <p>ERA Vietnam vô cùng tự hào khi được đồng hành cùng siêu phẩm SkySOLIS trong vai trò Đại lý Phân phối Chính thức. Sự kiện này đánh dấu bước tiến mới, mang đến cho Quý khách hàng một lựa chọn an cư và đầu tư sáng giá bậc nhất tại khu Bắc Sài Gòn.</p>
+    </div>
+  </div>
+  <p class="ft-legal">Chủ đầu tư: Công ty TNHH MTV Vina An Thuận Phát. Đơn vị phát triển: SkyWorld Development (Malaysia) thông qua Công ty TNHH SkyWorld Development (Việt Nam). Đại lý phân phối chính thức: ERA Vietnam. Hình ảnh, tiện ích, bản vẽ và thông số trong trang mang tính chất minh họa, có thể được điều chỉnh theo quy hoạch được phê duyệt và quyết định của chủ đầu tư. Thông tin chính thức căn cứ trên hồ sơ pháp lý và hợp đồng mua bán.</p>
+</footer>
+
+<!-- phóng to ảnh -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn">
+  <p id="lb-cap"></p>
+  <button type="button" data-close aria-label="Đóng ảnh">✕</button>
+  <img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
+</div>
+
+<script src="assets/js/skysolis.js?v=20261008-era" defer></script>
+</body>
+</html>

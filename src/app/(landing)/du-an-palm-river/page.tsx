@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PalmRiverLanding } from "@/components/sections/landing/palm-river";
 
 export const metadata: Metadata = {
   title: "Palm River – 4 tháp căn hộ 36 tầng ven sông tại Nam Rạch Chiếc | ERA Vietnam",
@@ -26,7 +25,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/du-an-palm-river/",
     images: [
       {
-        url: "/landing/palm-river/og-palm-river-1200x630.jpg",
+        url: "/landing/palm-river-static/assets/img/og-palm-river-1200x630.jpg",
         width: 1200,
         height: 630,
         alt: "Phối cảnh Palm River: 4 tòa tháp 36 tầng bên sông Giồng Ông Tố, khu đô thị Nam Rạch Chiếc",
@@ -38,7 +37,7 @@ export const metadata: Metadata = {
     title: "Palm River – 4 tháp căn hộ 36 tầng ven sông tại Nam Rạch Chiếc",
     description:
       "620 căn hộ · 3 mặt giáp sông · Sky Onsen tầng 20. Nhận rổ hàng độc quyền từ ERA Vietnam.",
-    images: ["/landing/palm-river/og-palm-river-1200x630.jpg"],
+    images: ["/landing/palm-river-static/assets/img/og-palm-river-1200x630.jpg"],
   },
   robots: {
     index: true,
@@ -47,5 +46,11 @@ export const metadata: Metadata = {
 };
 
 export default function PalmRiverPage() {
-  return <PalmRiverLanding />;
+  return (
+    <iframe
+      title="Palm River – Căn hộ ven sông Nam Rạch Chiếc"
+      src="/landing/palm-river-static/index.html"
+      style={{ display: "block", width: "100%", minHeight: "100vh", border: 0 }}
+    />
+  );
 }

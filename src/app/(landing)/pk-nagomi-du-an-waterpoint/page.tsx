@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/shared/JsonLd";
-import { RiveraNagomiLanding } from "@/components/sections/landing/rivera-nagomi";
 import { breadcrumbJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/pk-nagomi-du-an-waterpoint/",
     images: [
       {
-        url: "/landing/rivera-nagomi/og-rivera-nagomi-1200x630.jpg",
+        url: "/landing/rivera-nagomi-static/assets/img/og-rivera-nagomi-1200x630.jpg",
         width: 1200,
         height: 630,
         alt: "Phối cảnh toàn cảnh phân khu Rivera Nagomi ven sông trong đô thị Waterpoint",
@@ -40,7 +39,7 @@ export const metadata: Metadata = {
     title: "Rivera Nagomi – mảnh ghép mới tại Waterpoint",
     description:
       "Phân khu thấp tầng 158 căn ven sông trong đô thị Waterpoint. Nhận bảng giá và lịch tham quan.",
-    images: ["/landing/rivera-nagomi/og-rivera-nagomi-1200x630.jpg"],
+    images: ["/landing/rivera-nagomi-static/assets/img/og-rivera-nagomi-1200x630.jpg"],
   },
   robots: {
     index: true,
@@ -57,9 +56,13 @@ const breadcrumbItems = [
 
 export default function RiveraNagomiPage() {
   return (
-    <div>
+    <>
       <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
-      <RiveraNagomiLanding />
-    </div>
+      <iframe
+        title="Rivera Nagomi – Nhà phố, biệt thự ven sông Bến Lức"
+        src="/landing/rivera-nagomi-static/index.html"
+        style={{ display: "block", width: "100%", minHeight: "100vh", border: 0 }}
+      />
+    </>
   );
 }
