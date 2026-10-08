@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Khu đô thị phức hợp Ga Thủ Thiêm – Mô hình TOD 5.0 | ERA</title>
+<meta name="description" content="Khu đô thị phức hợp Ga Thủ Thiêm do SonKim Land phát triển theo mô hình TOD 5.0, tại nơi giao Metro số 2, đường sắt đi Long Thành và đường sắt tốc độ cao.">
+<meta name="keywords" content="Ga Thủ Thiêm, Khu đô thị phức hợp Ga Thủ Thiêm, KĐT Ga Thủ Thiêm, Ga Thủ Thiêm Metropolis, SonKim Land Thủ Thiêm, TOD 5.0, nhà ga Thủ Thiêm, Metro số 2 Thủ Thiêm, đường sắt Thủ Thiêm Long Thành">
+<!-- ⚠️ BẢN XEM THỬ — đang chặn Google vì còn tên miền tạm. Landing cho SALE: không form, không hotline.
+     Có tên miền thật thì chạy: python _kiemtra/len-song.py https://<ten-mien> --mo-index -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B1736">
+<meta name="author" content="ERA Vietnam">
+
+<!-- BẢN CÓ FORM — sinh tự động bởi _dungcu/tao-ban-co-form.py từ landing/ (bản không form). KHÔNG sửa tay file này.
+     ⚠️ TÊN MIỀN TẠM (vercel). len-song-co-form.py tự đổi mọi chỗ + sitemap + robots -->
+<link rel="canonical" href="https://ga-thu-thiem-dang-ky-era.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="ERA Vietnam">
+<meta property="og:url" content="https://ga-thu-thiem-dang-ky-era.vercel.app/">
+<meta property="og:title" content="Khu đô thị phức hợp Ga Thủ Thiêm – Tâm điểm kết nối mới của TP.HCM">
+<meta property="og:description" content="Ý tưởng đô thị TOD 5.0 gắn với nhà ga Thủ Thiêm – nơi quy hoạch giao Metro số 2, đường sắt Thủ Thiêm – Long Thành và đường sắt tốc độ cao Bắc – Nam.">
+<meta property="og:image" content="https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/og-ga-thu-thiem-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Khu đô thị phức hợp Ga Thủ Thiêm – cụm tháp và nhà ga, TP.HCM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:alt" content="Khu đô thị phức hợp Ga Thủ Thiêm – cụm tháp và nhà ga, TP.HCM">
+<meta name="twitter:title" content="Khu đô thị phức hợp Ga Thủ Thiêm – Tâm điểm kết nối mới của TP.HCM">
+<meta name="twitter:description" content="Ý tưởng đô thị TOD 5.0 gắn với nhà ga Thủ Thiêm, nơi giao Metro số 2 và các tuyến đường sắt trọng yếu.">
+<meta name="twitter:image" content="https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/og-ga-thu-thiem-1200x630.jpg">
+
+<!-- GEO: toạ độ GẦN ĐÚNG khu vực nhà ga Thủ Thiêm theo quy hoạch, gần nút giao An Phú (sơ đồ tuyến trang 11 tài liệu CĐT).
+     Tài liệu CĐT chưa ghi địa chỉ hành chính → chỉ ghi "khu vực nhà ga Thủ Thiêm, TP. Hồ Chí Minh". -->
+<meta name="geo.region" content="VN-SG">
+<meta name="geo.placename" content="Khu vực nhà ga Thủ Thiêm, TP. Hồ Chí Minh">
+<meta name="geo.position" content="10.7905;106.7560">
+<meta name="ICBM" content="10.7905, 106.7560">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B1736'/%3E%3Cg fill='none' stroke-linecap='round' stroke-width='4'%3E%3Cpath d='M12 24h40' stroke='%23CDBE91'/%3E%3Cpath d='M12 33h30' stroke='%237E9BE0'/%3E%3Cpath d='M12 42h20' stroke='%237E9BE0' opacity='.6'/%3E%3C/g%3E%3C/svg%3E">
+<!-- Font theo tài liệu Training CĐT: Montserrat (tiêu đề in hoa, số liệu) + Be Vietnam Pro (chữ thường) — Google Fonts OFL, tự host -->
+<!-- không preload font: nhường băng thông cho ảnh hero (LCP); font dự phòng cùng số đo nên chữ không nhảy -->
+<link rel="preload" as="image" href="assets/img/ga-thu-thiem-hero-mobile.webp" media="(max-width:760px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/ga-thu-thiem-khu-do-thi-phuc-hop-ben-song-sai-gon.webp" media="(min-width:761px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/fonts/fonts.css?v=d64a5a39">
+
+<style>
+/* Font dự phòng cùng số đo font thật — chữ không nhảy khi font tải xong */
+@font-face{font-family:'BVP Fallback';src:local('Arial');size-adjust:104%;ascent-override:96%;descent-override:24%;line-gap-override:0%}
+@font-face{font-family:'Mont Fallback';src:local('Arial');size-adjust:112%;ascent-override:87%;descent-override:22%;line-gap-override:0%}
+/* Màu theo tài liệu Training CĐT "KĐT Ga Thủ Thiêm" (đo bằng PyMuPDF):
+   navy đêm #09122D (nền slide) · navy chữ #010F38 · vạch tốc độ xanh lam #7E9BE0 · nhãn "Thu Thiem Station" vàng be #CDBE91.
+   Nền trang trắng / xám trắng lạnh có ánh sáng (gradient đa điểm); navy chỉ ở menu, hero, khối Tư vấn, đăng ký, chân trang.
+   Tên biến giữ như khung cũ (--xanh, --vang, --kem…) để _dungcu/tao-ban-co-form.py dùng tiếp: --xanh = navy. */
+:root{
+  --xanh:#14275E; --xanh-2:#2A4489; --xanh-dam:#0E1C47; --xanh-dem:#0B1736; --xanh-text:#FFFFFF;
+  --lam:#7E9BE0; --lam-2:#4A68B8;
+  --vang:#CDBE91; --vang-2:#B6A473; --vang-text:#6E5E2E; --dat:#43506E;
+  --ink:#0F1A36; --text:#3A4358; --muted:#5A6276;
+  --kem:#F3F5F9; --kem-2:#E6EAF2; --line:#E1E5EE; --line-2:#C9D0DE;
+  --hdr:70px; --r:6px;
+  --display:'Montserrat','Mont Fallback', Arial, sans-serif; --sans:'Be Vietnam Pro','BVP Fallback', system-ui, sans-serif;
+  --vach:linear-gradient(90deg,rgba(126,155,224,0) 0%,#7E9BE0 45%,#CDBE91 100%);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + 8px)}
+html,body{overflow-x:hidden}
+/* overflow-x:hidden làm header sticky trôi mất khi cuộn -> trình duyệt có clip thì dùng clip */
+@supports (overflow:clip){ html,body{overflow-x:clip} }
+body{margin:0;font-family:var(--sans);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.65;font-variant-numeric:lining-nums;font-synthesis:none}
+img{max-width:100%;display:block}
+a{color:var(--xanh);text-decoration:none}
+a:hover{color:var(--xanh-dam)}
+.wrap{max-width:1200px;margin:0 auto;position:relative}
+.sec{position:relative;padding:clamp(72px,8vw,124px) 22px;overflow:hidden;background:#fff}
+/* nền "trắng có ánh sáng" (projects/template/NEN-GRADIENT.md công thức 01, đổi sang họ xanh lạnh của CĐT) */
+.bg-sang{background-color:#F6F8FB;background-image:
+  radial-gradient(60% 55% at 18% 12%,rgba(255,255,255,1) 0%,rgba(255,255,255,0) 70%),
+  radial-gradient(48% 50% at 92% 88%,rgba(214,224,244,.75) 0%,rgba(214,224,244,0) 70%),
+  radial-gradient(38% 40% at 78% 8%,rgba(236,231,214,.55) 0%,rgba(236,231,214,0) 70%)}
+.bg-kem{background-color:var(--kem);background-image:
+  radial-gradient(55% 60% at 82% 14%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),
+  radial-gradient(45% 50% at 8% 92%,rgba(208,219,242,.7) 0%,rgba(208,219,242,0) 70%)}
+/* đầu mục: số mục + tiêu đề bên trái, đoạn dẫn bên phải */
+.head{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(22px,4.4vw,80px);align-items:end;margin:0 0 clamp(40px,4.6vw,64px)}
+.head.mot{display:block;max-width:920px}
+.eb{display:flex;align-items:center;gap:14px;margin:0 0 18px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--dat)}
+.eb b{font-family:var(--display);font-size:22px;letter-spacing:0;font-weight:700;color:var(--lam-2)}
+.eb i{width:44px;height:2px;background:var(--vach)}
+h2{font-family:var(--display);color:var(--xanh);font-size:clamp(27px,3.1vw,42px);line-height:1.22;font-weight:700;margin:0;text-transform:uppercase;letter-spacing:.005em;text-wrap:balance}
+h2 .dong2{display:block;font-family:var(--sans);font-weight:400;color:var(--text);text-transform:none;font-size:clamp(17px,1.35vw,20px);line-height:1.55;margin-top:.9em;letter-spacing:0;text-wrap:pretty}
+h3{margin:0;font-weight:600}
+.fact{margin:0;color:var(--text);font-size:17px;line-height:1.8;text-wrap:pretty}
+.body{color:var(--text);font-size:16px;line-height:1.8;text-wrap:pretty}
+.body p{margin:0 0 14px}
+.body p:last-child{margin-bottom:0}
+.note{font-size:14px;color:var(--muted);line-height:1.7}
+.nw{white-space:nowrap}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* hoạ tiết = vạch tốc độ của bìa tài liệu CĐT: chùm vạch ngang dài ngắn, to nhỏ, tràn mép — mỗi khối một chỗ, không lát đều */
+.vach{position:absolute;pointer-events:none;width:clamp(280px,36vw,560px);height:auto;opacity:.5}
+.vach.tr{top:clamp(28px,4vw,56px);right:-80px}
+.vach.bl{bottom:clamp(24px,3vw,48px);left:-120px;transform:scaleX(-1);opacity:.4}
+.vach.nho{width:clamp(200px,22vw,320px)}
+.ket{position:relative;font-family:var(--display);font-weight:600;font-size:clamp(19px,1.9vw,25px);color:var(--xanh);text-align:center;line-height:1.5;max-width:900px;margin:clamp(52px,5.4vw,84px) auto 0;padding-top:clamp(28px,3vw,40px);text-wrap:balance}
+.ket::before{content:"";position:absolute;top:0;left:50%;width:96px;height:2px;margin-left:-48px;background:var(--vach)}
+.fcap{margin:0;padding:10px 2px 0;font-size:13px;color:var(--muted);letter-spacing:.02em;line-height:1.5}
+.nut{display:inline-flex;align-items:center;gap:10px;margin-top:24px;background:var(--xanh);color:#fff;font-weight:600;font-size:15px;letter-spacing:.04em;border-radius:999px;padding:14px 28px;min-height:48px}
+.nut:hover{background:var(--xanh-dam);color:#fff}
+.nut svg{width:18px;height:18px}
+.chu-thich{font-size:13.5px;color:var(--muted);line-height:1.65;margin:16px 0 0;max-width:900px}
+@media (max-width:900px){ .head{grid-template-columns:1fr;gap:18px;align-items:start} .eb{margin-bottom:14px} }
+@media (max-width:560px){ .ket{font-size:18px} }
+
+/* ---------- XEM THÊM: chữ vẫn nằm đủ trong HTML (SEO · GEO · AIO), JS chỉ thu gọn phần hiển thị ---------- */
+.gon.dong{max-height:var(--gon);overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 3em),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 3em),transparent)}
+.xem-them{display:inline-flex;align-items:center;gap:8px;margin:6px 0 0;padding:10px 0;min-height:44px;border:0;background:none;font-family:inherit;font-size:15px;font-weight:600;color:var(--xanh);cursor:pointer;text-decoration:underline;text-decoration-color:var(--vang-2);text-underline-offset:6px;text-decoration-thickness:1px}
+.xem-them:hover{color:var(--xanh-dam)}
+.xem-them svg{width:16px;height:16px;flex:none;transition:transform .25s}
+.xem-them[aria-expanded="true"] svg{transform:rotate(180deg)}
+
+/* ---------- HEADER ---------- */
+.hdr{position:sticky;top:0;z-index:200;background:var(--xanh-dem);border-bottom:1px solid rgba(126,155,224,.25);transform:translateY(0);transition:transform .28s ease,box-shadow .28s ease}
+.hdr.nav-hide{transform:translateY(-110%);box-shadow:none}
+.hdr-in{max-width:1240px;margin:0 auto;height:var(--hdr);padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+/* dự án chưa có logo -> chữ ký tên bằng Montserrat như bìa tài liệu CĐT */
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0;color:#fff}
+.brand:hover{color:#fff}
+.brand svg{width:34px;height:20px;flex:none}
+.brand span{display:flex;flex-direction:column;line-height:1.1}
+.brand small{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--vang);font-weight:500}
+.brand b{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+.nav{display:flex;align-items:center;gap:22px}
+.nav a{color:#EEF2F8;font-weight:500;font-size:15px;letter-spacing:.02em;white-space:nowrap}
+.nav a:hover,.nav a.on{color:var(--vang)}
+.burger{display:none;width:44px;height:44px;border:0;background:none;padding:10px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--vang);margin:5px 0;border-radius:4px;transition:transform .25s,opacity .25s}
+@media (max-width:1180px){
+  :root{--hdr:62px}
+  .nav{display:none}
+  .burger{display:block}
+  .brand b{font-size:17px}
+  .hdr.open{z-index:400}
+  .hdr.open .nav{display:flex;position:fixed;top:var(--hdr);left:0;right:0;bottom:0;flex-direction:column;align-items:stretch;gap:0;background:var(--xanh-dam);padding:12px 22px 30px;overflow:auto}
+  .hdr.open .nav a{display:block;padding:16px 4px;border-bottom:1px solid rgba(126,155,224,.2);font-size:17px}
+  .hdr.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hdr.open .burger span:nth-child(2){opacity:0}
+  .hdr.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+
+/* ---------- 1 · HERO ---------- */
+.hero{position:relative;height:clamp(560px,calc(100svh - var(--hdr)),920px);overflow:hidden;background:var(--xanh-dem)}
+.hero picture,.hero picture img{position:absolute;inset:0;width:100%;height:100%}
+.hero picture img{object-fit:cover;object-position:62% 60%}
+/* máy tính: trời và sông bên trái-trên trống -> chữ trái, lớp phủ navy từ trái + đáy */
+.hero-scrim{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,rgba(9,18,45,.9) 0%,rgba(9,18,45,.66) 32%,rgba(9,18,45,.16) 58%,rgba(9,18,45,0) 72%),
+  linear-gradient(to top,rgba(9,18,45,.86) 0%,rgba(9,18,45,0) 38%)}
+/* vạch tốc độ trôi chậm ở đáy hero — gợi đoàn tàu, lấy từ bìa tài liệu CĐT */
+.hero-vach{position:absolute;left:0;right:0;bottom:clamp(120px,17vh,190px);height:60px;pointer-events:none;overflow:hidden;opacity:.75}
+.hero-vach i{position:absolute;left:-40%;height:1.5px;border-radius:2px;background:var(--vach);animation:chay 9s linear 12}
+.hero-vach i:nth-child(1){top:6px;width:46%;animation-duration:8s}
+.hero-vach i:nth-child(2){top:20px;width:30%;animation-duration:11s;animation-delay:-4s;opacity:.7}
+.hero-vach i:nth-child(3){top:34px;width:58%;animation-duration:13s;animation-delay:-7s;opacity:.55}
+.hero-vach i:nth-child(4){top:50px;width:22%;animation-duration:7s;animation-delay:-2s;opacity:.45}
+@keyframes chay{from{transform:translateX(0)}to{transform:translateX(260%)}}
+.hero-in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(24px,3.8vw,60px) 22px}
+.hero-top,.hero-bot{max-width:1200px;width:100%;margin:0 auto}
+.hero-top>*{max-width:640px}
+.hero-bot{margin-top:clamp(28px,4vw,56px)}
+.hero .kick{display:flex;align-items:center;gap:14px;font-size:13px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--vang);margin:0 0 20px}
+.hero .kick::after{content:"";width:56px;height:2px;background:var(--vach)}
+.hero h1{font-family:var(--display);font-weight:700;color:#fff;margin:0;line-height:1.08;text-transform:uppercase}
+.hero h1 .k{display:block;font-size:clamp(16px,1.6vw,22px);font-weight:600;letter-spacing:.18em;margin-bottom:.55em;color:#fff}
+.hero h1 .a{display:block;font-size:clamp(46px,6.2vw,92px);letter-spacing:.01em;line-height:1}
+.hero h1 em{display:block;font-family:var(--sans);font-style:normal;font-weight:500;text-transform:none;color:var(--vang);font-size:clamp(20px,2vw,28px);line-height:1.35;margin-top:.7em;letter-spacing:0;text-wrap:balance}
+.hero-sub{color:#fff;font-size:clamp(16px,1.2vw,18px);line-height:1.7;font-weight:400;margin:18px 0 0}
+.hero-facts{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;border-top:1px solid rgba(205,190,145,.5);width:fit-content}
+.hero-facts li{display:flex;flex-direction:column;padding:16px 28px 0 0;margin-right:28px;color:#fff;border-right:1px solid rgba(205,190,145,.3)}
+.hero-facts li:last-child{border-right:0;margin-right:0;padding-right:0}
+.hero-facts b{font-family:var(--display);font-size:clamp(28px,2.6vw,38px);font-weight:700;line-height:1.05;color:#fff}
+.hero-facts b small{font-size:.5em;font-family:var(--sans);font-weight:500;margin-left:3px;color:var(--vang)}
+.hero-facts span{font-size:13px;letter-spacing:.04em;margin-top:6px;font-weight:500;color:#E3E9F5}
+@media (max-width:760px){
+  /* điện thoại: ảnh dọc cụm tháp, chữ trên vùng trời phía trên, số liệu dưới */
+  .hero-in{justify-content:space-between;padding:26px 20px 22px}
+  .hero-scrim{background:
+    linear-gradient(to bottom,rgba(9,18,45,.92) 0%,rgba(9,18,45,.62) 40%,rgba(9,18,45,0) 60%),
+    linear-gradient(to top,rgba(9,18,45,.95) 0%,rgba(9,18,45,.5) 24%,rgba(9,18,45,0) 38%)}
+  .hero picture img{object-position:50% 50%}
+  .hero .kick{font-size:12px;letter-spacing:.16em;margin-bottom:12px}
+  .hero h1 .k{font-size:14px;letter-spacing:.12em}
+  .hero h1 .a{font-size:min(11.6vw,50px)}
+  .hero h1 em{font-size:19px}
+  .hero-sub{display:none}
+  .hero-vach{bottom:150px}
+  .hero-bot{margin-top:0}
+  .hero-facts{display:grid;grid-template-columns:repeat(2,auto);justify-content:space-between;width:100%;column-gap:16px}
+  .hero-facts li{padding:10px 0 0;margin:0;border:0}
+  .hero-facts b{font-size:25px}
+  .hero-facts span{font-size:12px;letter-spacing:.02em}
+}
+@media (max-height:700px) and (min-width:761px){ .hero-sub{display:none} }
+
+/* ---------- 1b · GIỚI THIỆU ---------- */
+.gt{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,72px);align-items:center}
+.gt figure{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:var(--kem-2)}
+.gt figure img{width:100%;height:auto}
+.gt .chot{display:flex;flex-wrap:wrap;gap:6px 18px;margin:22px 0 0;padding:16px 0 0;border-top:1px solid var(--line);font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--vang-text)}
+.gt .chot i{font-style:normal;color:var(--muted)}
+table.spec{width:100%;border-collapse:collapse;font-size:15px;border-top:1px solid var(--line-2);margin-top:clamp(44px,4.6vw,68px)}
+table.spec caption{text-align:left;font-family:var(--display);font-weight:700;font-size:clamp(17px,1.5vw,20px);color:var(--xanh);text-transform:uppercase;letter-spacing:.04em;padding:0 0 16px}
+table.spec th{color:var(--dat);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:16px 16px 16px 0;width:28%;vertical-align:top;border-bottom:1px solid var(--line)}
+table.spec td{color:var(--ink);padding:15px 0;line-height:1.55;border-bottom:1px solid var(--line)}
+table.spec td b{color:var(--xanh);font-weight:600}
+table.spec td small{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+@media (max-width:560px){ table.spec th{width:38%} }
+@media (max-width:900px){ .gt{grid-template-columns:1fr} }
+
+/* ---------- 2 · BỐI CẢNH ---------- */
+.bc-dai{margin:0 0 clamp(36px,4vw,56px);border-radius:var(--r);overflow:hidden;position:relative;cursor:zoom-in;background:var(--xanh-dem)}
+.bc-dai img{width:100%;height:auto;aspect-ratio:1600/620;object-fit:cover;object-position:50% 55%}
+.bc-dai figcaption{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,2.4vw,32px);background:linear-gradient(to top,rgba(9,18,45,.9),rgba(9,18,45,0));color:#fff;font-family:var(--display);font-weight:600;font-size:clamp(18px,1.9vw,26px);line-height:1.35}
+.bc-dai figcaption small{display:block;font-family:var(--sans);font-weight:400;font-size:13px;color:#DCE3F2;margin-top:6px;letter-spacing:.02em}
+.bc3{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-2)}
+.bc3 li{padding:clamp(24px,2.6vw,34px) clamp(18px,2.2vw,30px) clamp(24px,2.6vw,34px) 0;border-bottom:1px solid var(--line-2)}
+.bc3 li+li{padding-left:clamp(18px,2.2vw,30px);border-left:1px solid var(--line)}
+.bc3 .so{font-family:var(--display);font-weight:700;font-size:clamp(30px,2.8vw,40px);line-height:1;color:var(--xanh)}
+.bc3 .so small{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--vang-text);margin-left:6px;letter-spacing:.04em}
+.bc3 p{margin:14px 0 0;color:var(--text);font-size:15.5px;line-height:1.7}
+@media (max-width:860px){ .bc3{grid-template-columns:1fr} .bc3 li+li{padding-left:0;border-left:0} }
+.bc-map{display:grid;grid-template-columns:1.35fr .65fr;gap:clamp(14px,1.8vw,24px);margin-top:clamp(36px,4vw,56px);align-items:stretch}
+.bc-map figure{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:var(--xanh-dem);position:relative}
+.bc-map figure img{width:100%;height:100%;object-fit:cover}
+.bc-map figure:first-child img{height:auto}
+.nhan{position:absolute;left:12px;bottom:12px;font-size:13px;font-weight:500;color:#fff;background:rgba(9,18,45,.82);border-radius:999px;padding:6px 14px;max-width:calc(100% - 24px)}
+@media (max-width:860px){ .bc-map{grid-template-columns:1fr} .bc-map figure:last-child{aspect-ratio:4/3} }
+
+/* ---------- 3 · VỊ TRÍ ---------- */
+.vt{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(18px,2.4vw,32px);align-items:start}
+.map-fig{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:#fff;box-shadow:0 18px 44px rgba(20,39,94,.08)}
+.map-fig img{width:100%;height:auto}
+.phut{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.phut li{display:grid;grid-template-columns:auto 1fr 92px;align-items:center;gap:14px;background:#fff;border-radius:var(--r);padding:10px 10px 10px 18px;box-shadow:0 10px 28px rgba(20,39,94,.06)}
+.phut b{font-family:var(--display);font-weight:700;font-size:clamp(30px,2.6vw,38px);line-height:1;color:var(--xanh);min-width:2.2ch}
+.phut b small{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--vang-text);margin-left:3px}
+.phut span{font-size:15px;color:var(--ink);line-height:1.4;font-weight:500}
+.phut img{width:92px;height:56px;object-fit:cover;border-radius:4px}
+@media (max-width:900px){ .vt{grid-template-columns:1fr} }
+@media (max-width:420px){ .phut li{grid-template-columns:auto 1fr} .phut img{display:none} }
+
+/* ---------- 4 · NHÀ GA ---------- */
+.ng-map{margin:0 0 clamp(30px,3.4vw,48px);border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:#fff;box-shadow:0 18px 44px rgba(20,39,94,.08)}
+.ng-map img{width:100%;height:auto}
+.ng{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(22px,3.4vw,56px);align-items:center}
+.tuyen{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-2)}
+.tuyen li{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--line-2)}
+.tuyen i{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fff}
+.tuyen i svg{width:22px;height:22px}
+/* màu 3 tuyến theo sơ đồ tuyến trang 11 tài liệu CĐT */
+.tuyen i.c-m2{--c:#B49A5E} .tuyen i.c-lt{--c:#3F8A8C} .tuyen i.c-bn{--c:#7A2E45}
+.tuyen b{display:block;font-family:var(--display);font-weight:700;color:var(--xanh);font-size:18px;line-height:1.4}
+.tuyen span{display:block;font-size:15.5px;color:var(--text);line-height:1.65;margin-top:4px}
+.tuyen em{font-style:normal;font-weight:600;color:var(--ink)}
+.ng figure{margin:0;cursor:zoom-in}
+.ng figure img{width:100%;height:auto;border-radius:var(--r)}
+@media (max-width:900px){ .ng{grid-template-columns:1fr} }
+
+/* ---------- 5 · TRUNG TÂM KINH DOANH ---------- */
+.kd{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.4vw,20px)}
+.kd figure{margin:0;position:relative;border-radius:var(--r);overflow:hidden;background:var(--xanh-dem);cursor:zoom-in;aspect-ratio:4/5}
+.kd figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.kd figure:hover img{transform:scale(1.04)}
+.kd figcaption{position:absolute;inset:auto 0 0 0;padding:clamp(18px,2vw,26px);color:#fff;background:linear-gradient(to top,rgba(9,18,45,.95) 0%,rgba(9,18,45,.7) 55%,rgba(9,18,45,0) 100%)}
+.kd .so{display:block;font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.2em;color:var(--vang)}
+.kd b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(18px,1.6vw,22px);margin-top:6px;line-height:1.3}
+.kd span{display:block;font-size:15px;line-height:1.6;margin-top:8px;color:#fff}
+@media (max-width:860px){ .kd{grid-template-columns:1fr} .kd figure{aspect-ratio:4/3.4} }
+
+/* ---------- 6 · TOD 5.0 ---------- */
+.tod{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(8px,1vw,14px)}
+.tod li{display:flex;flex-direction:column;background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.tod .t{padding:16px 16px 14px;flex:1}
+.tod .t b{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:clamp(17px,1.5vw,21px);color:var(--xanh)}
+.tod .t b svg{width:20px;height:20px;color:var(--lam-2);flex:none}
+.tod .t ul{list-style:none;margin:10px 0 0;padding:0}
+.tod .t ul li{display:block;border:0;border-radius:0;font-size:13.5px;color:var(--text);line-height:1.5;padding:2px 0 2px 20px;position:relative;background:none}
+.tod .t ul li::before{content:"";position:absolute;left:2px;top:9px;width:9px;height:5px;border-left:1.5px solid var(--lam-2);border-bottom:1.5px solid var(--lam-2);transform:rotate(-45deg)}
+.tod .t ul li.moi{color:var(--ink);font-weight:600}
+.tod figure{margin:0;position:relative;aspect-ratio:3/4;background:var(--kem-2);flex:none}
+.tod figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tod figure figcaption{position:absolute;left:8px;top:8px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(9,18,45,.8);border-radius:999px;padding:4px 10px}
+.tod li.dinh{background:var(--xanh);border-color:var(--xanh)}
+.tod li.dinh .t b{color:#fff}
+.tod li.dinh .t b svg{color:var(--vang)}
+.tod li.dinh .t ul li{color:#DCE3F2}
+.tod li.dinh .t ul li::before{border-color:var(--vang)}
+.tod li.dinh .t ul li.moi{color:var(--vang)}
+@media (max-width:980px){ .tod{grid-template-columns:repeat(5,minmax(210px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px} .tod>li{scroll-snap-align:start} }
+.tod-y{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(22px,3.4vw,56px);align-items:center;margin-top:clamp(44px,4.6vw,72px)}
+.tod-y figure{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:#fff;box-shadow:0 18px 44px rgba(20,39,94,.08)}
+.tod-y figure img{width:100%;height:auto}
+.tod-y h3{font-family:var(--display);font-weight:700;font-size:clamp(21px,2vw,27px);color:var(--xanh);line-height:1.3;text-transform:uppercase;margin:0 0 14px}
+.kg{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.kg li{background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500;color:var(--xanh)}
+@media (max-width:900px){ .tod-y{grid-template-columns:1fr} }
+.tod-anh{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.5fr;gap:clamp(8px,1vw,14px);margin-top:clamp(28px,3vw,40px)}
+.tod-anh figure{margin:0;position:relative;border-radius:var(--r);overflow:hidden;background:var(--kem-2);cursor:zoom-in;aspect-ratio:3/3.4}
+.tod-anh figure img{width:100%;height:100%;object-fit:cover}
+.tod-anh figcaption{position:absolute;left:10px;bottom:10px;right:10px;width:fit-content;max-width:calc(100% - 20px);font-size:13px;font-weight:500;color:#fff;background:rgba(9,18,45,.8);border-radius:999px;padding:5px 12px}
+@media (max-width:760px){ .tod-anh{grid-template-columns:1fr 1fr} }
+.tg{margin-top:clamp(52px,5.4vw,84px);padding-top:clamp(36px,4vw,52px);border-top:1px solid var(--line-2)}
+.tg-head{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(20px,3.4vw,56px);align-items:end;margin:0 0 clamp(22px,2.6vw,34px)}
+.tg-head h3{font-family:var(--display);font-weight:700;font-size:clamp(21px,2vw,27px);color:var(--xanh);line-height:1.3;text-transform:uppercase}
+.tg-head p{margin:0;color:var(--text);font-size:15.5px;line-height:1.75}
+.tg ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,1vw,14px)}
+.tg li{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;background:var(--xanh-dem)}
+.tg li img{width:100%;height:100%;object-fit:cover}
+.tg li span{position:absolute;inset:auto 0 0 0;padding:28px 14px 14px;color:#fff;font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;line-height:1.35;background:linear-gradient(to top,rgba(9,18,45,.92),rgba(9,18,45,0))}
+.tg li span small{display:block;font-family:var(--sans);font-weight:400;text-transform:none;letter-spacing:.02em;font-size:13px;color:#DCE3F2;margin-top:2px}
+.tg .changi{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.6vw,40px);align-items:center;margin-top:clamp(28px,3vw,40px)}
+.tg .changi figure{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in}
+.tg .changi figure img{width:100%;height:auto}
+.tg .changi h4{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(18px,1.6vw,22px);color:var(--xanh);text-transform:uppercase;line-height:1.35}
+.tg .changi p{margin:12px 0 0;color:var(--text);font-size:15.5px;line-height:1.75}
+@media (max-width:860px){ .tg-head,.tg .changi{grid-template-columns:1fr} .tg ul{grid-template-columns:1fr 1fr} }
+
+/* ---------- 7 · GIÁ TRỊ ---------- */
+.gtri{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,22px)}
+.gtri>li{background:#fff;border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 14px 36px rgba(20,39,94,.07)}
+.gtri figure{margin:0;aspect-ratio:16/9;background:var(--kem-2);overflow:hidden}
+.gtri figure img{width:100%;height:100%;object-fit:cover}
+.gtri .nd{padding:clamp(20px,2.2vw,28px);position:relative}
+.gtri .ic{position:absolute;top:-26px;right:20px;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--xanh);color:var(--vang);box-shadow:0 8px 20px rgba(20,39,94,.25)}
+.gtri .ic svg{width:24px;height:24px}
+.gtri h3{font-family:var(--display);font-weight:700;font-size:clamp(17px,1.5vw,20px);color:var(--xanh);text-transform:uppercase;letter-spacing:.02em;line-height:1.35;padding-right:56px}
+.gtri ul{list-style:none;margin:14px 0 0;padding:0}
+.gtri ul li{position:relative;padding:7px 0 7px 22px;font-size:15.5px;color:var(--text);line-height:1.55;border-top:1px solid var(--line)}
+.gtri ul li:first-child{border-top:0}
+.gtri ul li::before{content:"";position:absolute;left:0;top:17px;width:12px;height:2px;background:var(--vach)}
+@media (max-width:900px){ .gtri{grid-template-columns:1fr} }
+.dai{margin:clamp(40px,4.4vw,64px) 0 0;border-radius:var(--r);overflow:hidden;position:relative;cursor:zoom-in;background:var(--xanh-dem)}
+.dai img{width:100%;height:auto;aspect-ratio:1493/560;object-fit:cover}
+.dai figcaption{position:absolute;left:0;right:0;bottom:0;padding:clamp(18px,2.4vw,32px);background:linear-gradient(to top,rgba(9,18,45,.9),rgba(9,18,45,0));color:#fff;font-family:var(--display);font-weight:600;font-size:clamp(18px,2vw,27px);line-height:1.35}
+.dai figcaption small{display:block;font-family:var(--sans);font-weight:400;font-size:13px;color:#DCE3F2;margin-top:6px;letter-spacing:.02em}
+@media (max-width:760px){ .dai img{aspect-ratio:16/10} }
+
+/* ---------- 8 · NHÀ PHÁT TRIỂN ---------- */
+.nptr{display:grid;grid-template-columns:.75fr 1.25fr;gap:clamp(22px,4vw,72px);align-items:center}
+.nptr figure{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:var(--xanh-dem)}
+.nptr figure img{width:100%;height:auto}
+.nptr .the{background:var(--xanh-dem);border-radius:var(--r);padding:clamp(26px,3vw,40px);color:#fff;margin-top:26px;display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,2.4vw,32px);align-items:center}
+.nptr .the img{width:clamp(120px,12vw,150px);height:auto}
+.nptr .the b{display:block;font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--vang)}
+.nptr .the p{margin:8px 0 0;font-size:16px;line-height:1.7;color:#fff}
+@media (max-width:900px){ .nptr{grid-template-columns:1fr} .nptr figure{max-width:440px} }
+@media (max-width:520px){ .nptr .the{grid-template-columns:1fr} }
+
+/* ---------- 9 · TƯ VẤN (khối navy: logo đơn vị là chữ trắng) ---------- */
+.sec.toi{background-color:var(--xanh-dem);background-image:
+  radial-gradient(55% 60% at 20% 8%,rgba(42,68,137,.55) 0%,rgba(42,68,137,0) 70%),
+  radial-gradient(45% 50% at 95% 95%,rgba(20,39,94,.9) 0%,rgba(20,39,94,0) 70%);color:#fff}
+.toi h2{color:#fff}
+.toi .eb{color:#C9D3EA}
+.toi .eb b{color:var(--vang)}
+.toi .fact{color:#DCE3F2}
+.tv-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 clamp(22px,2.6vw,32px)}
+.tv-tabs button{font:inherit;font-size:14.5px;font-weight:600;color:#E3E9F5;background:transparent;border:1px solid rgba(201,211,234,.35);border-radius:999px;padding:10px 20px;cursor:pointer;min-height:44px}
+.tv-tabs button:hover{border-color:var(--vang);color:#fff}
+.tv-tabs button[aria-selected="true"]{background:var(--vang);border-color:var(--vang);color:var(--xanh-dem)}
+.tv{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(22px,3.4vw,56px);align-items:center}
+.tv[hidden]{display:none}
+.tv .logo-tv{display:flex;align-items:center;height:clamp(64px,7vw,96px)}
+.tv .logo-tv img{max-height:100%;width:auto;max-width:min(100%,320px)}
+.tv .logo-tv img.det{max-height:34px}
+.tv .vai{display:inline-block;margin:22px 0 0;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--vang);border:1px solid rgba(205,190,145,.5);border-radius:999px;padding:6px 14px}
+.tv p{margin:16px 0 0;color:#DCE3F2;font-size:15.5px;line-height:1.75}
+.ct{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ct li{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:560/493;background:var(--xanh-dam);cursor:zoom-in}
+.ct li img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.ct li:hover img{transform:scale(1.04)}
+.ct li span{position:absolute;inset:auto 0 0 0;padding:26px 12px 12px;font-size:13px;font-weight:600;color:#fff;line-height:1.4;background:linear-gradient(to top,rgba(9,18,45,.92),rgba(9,18,45,0))}
+.ct.hai{grid-template-columns:repeat(2,1fr)}
+.ct.mot{grid-template-columns:1fr}
+.ct.mot li{aspect-ratio:1493/700}
+@media (max-width:900px){ .tv{grid-template-columns:1fr} }
+@media (max-width:560px){ .ct{grid-template-columns:1fr 1fr} .ct li:first-child:nth-last-child(3){grid-column:span 2} }
+.tv-note{margin:clamp(28px,3vw,40px) 0 0;padding-top:18px;border-top:1px solid rgba(201,211,234,.2);font-size:13.5px;color:#C9D3EA;line-height:1.7;max-width:900px}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:920px;margin:0;border-top:1px solid var(--line-2)}
+.faq details{border-bottom:1px solid var(--line-2)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 56px 22px 0;font-weight:600;color:var(--xanh);font-size:17px;position:relative;line-height:1.45}
+.faq summary:hover{color:var(--xanh-dam)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::marker{content:""}
+.faq summary::before,.faq summary::after{content:"";position:absolute;right:8px;top:50%;width:16px;height:1.5px;background:var(--lam-2);transition:transform .25s}
+.faq summary::after{transform:rotate(90deg)}
+.faq details[open] summary::after{transform:rotate(0)}
+.faq details p{margin:0;padding:0 56px 24px 0;color:var(--text);font-size:16px;line-height:1.8}
+
+/* ---------- 11 · ĐĂNG KÝ / CTA ---------- */
+.cta{position:relative;background:var(--xanh-dem);padding:clamp(72px,8vw,128px) 22px;overflow:hidden}
+.cta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 50%}
+.cta-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,18,45,.96) 0%,rgba(9,18,45,.86) 45%,rgba(9,18,45,.2) 100%)}
+.cta-in{position:relative;max-width:1200px;margin:0 auto}
+.cta-box{max-width:640px}
+.cta h2{color:#fff}
+.cta .lead{color:#fff;font-size:clamp(17px,1.6vw,19px);line-height:1.65;margin:18px 0 0}
+.cta ul{list-style:none;padding:0;margin:clamp(20px,2.2vw,30px) 0 0}
+.cta ul li{color:#fff;font-size:clamp(15px,1.5vw,16.5px);line-height:1.6;padding:8px 0 8px 30px;position:relative}
+.cta ul li::before{content:"";position:absolute;left:2px;top:15px;width:14px;height:8px;border-left:1.5px solid var(--vang);border-bottom:1.5px solid var(--vang);transform:rotate(-45deg)}
+.cta .loai{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}
+.cta .loai li{padding:6px 16px;border:1px solid rgba(205,190,145,.55);border-radius:999px;font-size:14px;font-weight:500}
+.cta .loai li::before{display:none}
+.cta .ket-cta{color:#fff;font-size:15px;margin:22px 0 0;padding-top:18px;border-top:1px solid rgba(205,190,145,.3)}
+.cta .luu-y{color:#C9D3EA;font-size:13.5px;line-height:1.65;margin:14px 0 0}
+
+/* ---------- FOOTER ---------- */
+footer{position:relative;background:var(--xanh-dem);padding:clamp(48px,4.8vw,72px) 22px;color:#fff;border-top:1px solid rgba(126,155,224,.2)}
+.ft{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:clamp(22px,3vw,48px);align-items:center}
+.ft .era{width:98px;height:auto}
+.ft .lg{width:130px;height:auto}
+.ft .fb>span{display:block;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--vang);font-weight:600}
+.ft .fb strong{display:block;font-family:var(--display);font-size:clamp(20px,2vw,27px);color:#fff;font-weight:700;margin-top:6px;line-height:1.3;text-transform:uppercase}
+.ft p{font-size:15px;line-height:1.75;margin:12px 0 0;color:#fff;max-width:700px}
+.ft-legal{max-width:1200px;margin:30px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.14);font-size:13px;line-height:1.75;color:#fff}
+@media (max-width:860px){ .ft{grid-template-columns:auto 1fr} .ft .lg{grid-column:span 2} }
+@media (max-width:560px){ .ft{grid-template-columns:1fr} .ft .lg{grid-column:auto} }
+
+/* ---------- LIGHTBOX ---------- */
+.lb{position:fixed;inset:0;z-index:600;background:rgba(6,12,30,.95);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;background:#fff}
+.lb button{position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.lb p{position:absolute;top:18px;left:18px;right:70px;margin:0;color:#DCE3EE;font-size:13px}
+
+/* reveal: chỉ bật khi JS chạy -> không JS vẫn thấy đủ nội dung */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .js .rv{opacity:1;transform:none;transition:none} .hero-vach i{animation:none;transform:translateX(90%)} .kd figure img,.ct li img,.xem-them svg{transition:none} }
+
+/* ---------- BẢN CÓ FORM: form, hotline, thanh liên hệ (sinh bởi _dungcu/tao-ban-co-form.py) ---------- */
+.nav .nav-tel{font-weight:700;color:var(--vang)}
+.nav .nav-cta{background:var(--vang);color:var(--xanh-dem);border-radius:999px;padding:10px 20px;font-weight:700}
+.nav .nav-cta:hover,.nav .nav-cta.on{background:#fff;color:var(--xanh)}
+.brand{flex-shrink:0}
+@media (min-width:1181px) and (max-width:1580px){ .nav{gap:18px} .nav .opt{display:none} }
+@media (max-width:1180px){ .hdr.open .nav a.nav-cta{margin-top:18px;text-align:center;border-bottom:0;padding:15px} }
+.hero-nut{margin-top:22px;background:var(--vang);color:var(--xanh-dem)}
+.hero-nut:hover{background:#fff;color:var(--xanh)}
+.spec-box .nut{align-self:flex-start;margin-top:16px;background:var(--xanh);color:#fff}
+.spec-box .nut:hover{background:var(--dat);color:#fff}
+.cta-in.co-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:clamp(26px,3.4vw,56px);align-items:center}
+.form-card{background:#fff;border-radius:18px;padding:clamp(24px,2.8vw,36px);box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.form-card .t{font-family:var(--display);font-size:24px;font-weight:700;color:var(--xanh);line-height:1.3}
+.form-card .s{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.5}
+.form-card form{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.field{border:1.5px solid var(--line-2);border-radius:12px;padding:14px;font-size:16px;font-family:inherit;outline:none;min-width:0;width:100%;background:#fff;color:var(--ink)}
+.field:focus{border-color:var(--xanh-2)}
+select.field{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2314275E' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 16px center;padding-right:40px}
+.form-card .nut{margin-top:4px;width:100%;justify-content:center;border:0;cursor:pointer;font-family:inherit;background:var(--xanh);color:#fff;padding:16px}
+.form-card .nut:hover{background:var(--dat);color:#fff}
+.form-card .nut:disabled{opacity:.7;cursor:default}
+.form-card .hot{margin:16px 0 0;text-align:center;font-size:14px;color:var(--muted)}
+.form-card .hot a{font-weight:700;color:var(--xanh);font-size:17px}
+.msg{border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.5}
+.msg.ok{background:var(--kem);color:var(--xanh)} .msg.err{background:var(--kem);color:var(--dat);border:1.5px solid var(--dat)}
+.ft-dc{max-width:1180px;margin:18px auto 0;text-align:center;font-size:14px;color:#fff}
+footer .links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:1180px;margin:22px auto 0}
+footer .links a{color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:10px 20px;font-size:14px;font-weight:700}
+footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:300;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;gap:10px;box-shadow:0 -6px 20px rgba(0,0,0,.12);transform:translateY(110%);transition:transform .3s}
+.bar.show{transform:none}
+.bar a{flex:1;display:flex;align-items:center;justify-content:center;white-space:nowrap;padding:12px 6px;border-radius:999px;font-weight:700;font-size:14px;border:1.5px solid var(--xanh);color:var(--xanh)}
+.bar a.chinh{background:var(--xanh);color:#fff;flex:1.4}
+@media (max-width:900px){ .cta-in.co-form{grid-template-columns:1fr} }
+@media (max-width:760px){ .bar{display:flex} footer{padding-bottom:110px} }
+@media (max-width:560px){ .spec-box .nut{align-self:stretch;justify-content:center} }
+@media (prefers-reduced-motion:reduce){ .bar{transition:none} }
+</style>
+<script>document.documentElement.className+=' js'</script>
+
+<!--JSONLD-->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://era.com.vn/#organization",
+      "name": "ERA Vietnam - Công ty Cổ phần Bất động sản ERA Việt Nam",
+      "url": "https://era.com.vn/",
+      "telephone": "+84941125000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Số 22 - 24, Đường số 5, KĐT Sala",
+        "addressLocality": "Phường An Khánh",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "areaServed": [
+        "TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ga-thu-thiem-dang-ky-era.vercel.app/#website",
+      "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/",
+      "name": "Khu đô thị phức hợp Ga Thủ Thiêm",
+      "inLanguage": "vi-VN",
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://ga-thu-thiem-dang-ky-era.vercel.app/#webpage",
+      "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/",
+      "name": "Khu đô thị phức hợp Ga Thủ Thiêm – Mô hình TOD 5.0 | ERA",
+      "inLanguage": "vi-VN",
+      "isPartOf": {
+        "@id": "https://ga-thu-thiem-dang-ky-era.vercel.app/#website"
+      },
+      "about": {
+        "@id": "https://ga-thu-thiem-dang-ky-era.vercel.app/#du-an"
+      },
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://ga-thu-thiem-dang-ky-era.vercel.app/#breadcrumb"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://ga-thu-thiem-dang-ky-era.vercel.app/#anh-hero"
+      }
+    },
+    {
+      "@type": [
+        "Product",
+        "Place"
+      ],
+      "@id": "https://ga-thu-thiem-dang-ky-era.vercel.app/#du-an",
+      "name": "Khu đô thị phức hợp Ga Thủ Thiêm",
+      "alternateName": [
+        "KĐT Ga Thủ Thiêm",
+        "Ga Thủ Thiêm Metropolis",
+        "Thu Thiem Station Urban Complex",
+        "Dự án Ga Thủ Thiêm"
+      ],
+      "description": "Ý tưởng khu đô thị phức hợp gắn với nhà ga Thủ Thiêm, TP. Hồ Chí Minh – nơi quy hoạch giao nhau của Metro số 2, đường sắt Thủ Thiêm – Long Thành và đường sắt tốc độ cao Bắc – Nam. Định hướng mô hình TOD 5.0, do SonKim Land phát triển, NIKKEN tư vấn thiết kế quy hoạch và kiến trúc. Dự án đang ở giai đoạn ý tưởng.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Ga Thủ Thiêm"
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "SonKim Land"
+      },
+      "category": "Khu đô thị phức hợp TOD",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Khu vực nhà ga Thủ Thiêm, gần nút giao An Phú",
+        "addressLocality": "Thủ Thiêm",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 10.7905,
+        "longitude": 106.756
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Mô hình",
+          "value": "TOD 5.0 – phát triển đô thị gắn với giao thông công cộng, nhà ga trở thành điểm đến"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Tuyến đường sắt quy hoạch qua ga",
+          "value": "Metro số 2 (Bến Thành – Thủ Thiêm); đường sắt Thủ Thiêm – Sân bay Long Thành; đường sắt tốc độ cao Bắc – Nam"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Nhà phát triển",
+          "value": "SonKim Land"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Tư vấn thiết kế quy hoạch và kiến trúc",
+          "value": "NIKKEN (Nhật Bản)"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Giai đoạn",
+          "value": "Ý tưởng phát triển, có thể điều chỉnh theo phê duyệt của cơ quan nhà nước có thẩm quyền"
+        }
+      ],
+      "image": [
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-khu-do-thi-phuc-hop-ben-song-sai-gon.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-khu-do-thi-phuc-hop-ben-song-sai-gon.webp",
+          "caption": "Phối cảnh Khu đô thị phức hợp Ga Thủ Thiêm bên sông Sài Gòn, nhìn từ trung tâm TP.HCM về phía Thủ Thiêm",
+          "name": "Phối cảnh Khu đô thị phức hợp Ga Thủ Thiêm bên sông Sài Gòn, nhìn từ trung tâm TP.HCM về phía Thủ Thiêm",
+          "width": 1500,
+          "height": 907,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land",
+          "@id": "https://ga-thu-thiem-dang-ky-era.vercel.app/#anh-hero"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-cum-thap-va-nha-ga-thu-thiem.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-cum-thap-va-nha-ga-thu-thiem.webp",
+          "caption": "Phối cảnh cụm tháp Khu đô thị phức hợp Ga Thủ Thiêm bên đường ray nhà ga, TP.HCM",
+          "name": "Phối cảnh cụm tháp Khu đô thị phức hợp Ga Thủ Thiêm bên đường ray nhà ga, TP.HCM",
+          "width": 1200,
+          "height": 670,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-toan-canh-tphcm-ven-song-sai-gon.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-toan-canh-tphcm-ven-song-sai-gon.webp",
+          "caption": "Toàn cảnh trung tâm TP.HCM ven sông Sài Gòn, nơi hình thành Trung tâm Tài chính Quốc tế Việt Nam",
+          "name": "Toàn cảnh trung tâm TP.HCM ven sông Sài Gòn, nơi hình thành Trung tâm Tài chính Quốc tế Việt Nam",
+          "width": 1600,
+          "height": 792,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-ban-do-tan-son-nhat-ifc-long-thanh.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-ban-do-tan-son-nhat-ifc-long-thanh.webp",
+          "caption": "Bản đồ hạ tầng TP.HCM: sân bay Tân Sơn Nhất, Trung tâm Tài chính Quốc tế, Ga Thủ Thiêm và sân bay Long Thành",
+          "name": "Bản đồ hạ tầng TP.HCM: sân bay Tân Sơn Nhất, Trung tâm Tài chính Quốc tế, Ga Thủ Thiêm và sân bay Long Thành",
+          "width": 1400,
+          "height": 788,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-trung-tam-tai-chinh-quoc-te-thu-thiem.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-trung-tam-tai-chinh-quoc-te-thu-thiem.webp",
+          "caption": "Vùng Trung tâm Tài chính Quốc tế Việt Nam tại Thủ Thiêm và vị trí Khu đô thị phức hợp Ga Thủ Thiêm",
+          "name": "Vùng Trung tâm Tài chính Quốc tế Việt Nam tại Thủ Thiêm và vị trí Khu đô thị phức hợp Ga Thủ Thiêm",
+          "width": 900,
+          "height": 1013,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-ban-do-vi-tri-6-diem-den.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-ban-do-vi-tri-6-diem-den.webp",
+          "caption": "Bản đồ vị trí Ga Thủ Thiêm – The Magnet of the City: 6 điểm đến trong 10–60 phút, từ Thủ Thiêm đến sân bay Long Thành",
+          "name": "Bản đồ vị trí Ga Thủ Thiêm – The Magnet of the City: 6 điểm đến trong 10–60 phút, từ Thủ Thiêm đến sân bay Long Thành",
+          "width": 1600,
+          "height": 900,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-so-do-metro-duong-sat-qua-ga-thu-thiem.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-so-do-metro-duong-sat-qua-ga-thu-thiem.webp",
+          "caption": "Sơ đồ tuyến Metro số 2, đường sắt Thủ Thiêm – Long Thành và đường sắt tốc độ cao Bắc – Nam qua ga Thủ Thiêm",
+          "name": "Sơ đồ tuyến Metro số 2, đường sắt Thủ Thiêm – Long Thành và đường sắt tốc độ cao Bắc – Nam qua ga Thủ Thiêm",
+          "width": 1600,
+          "height": 540,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-vai-tro-chien-luoc-trung-tam-kinh-doanh.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-vai-tro-chien-luoc-trung-tam-kinh-doanh.webp",
+          "caption": "Phối cảnh tháp văn phòng và mảng xanh – vai trò chiến lược của trung tâm kinh doanh Ga Thủ Thiêm",
+          "name": "Phối cảnh tháp văn phòng và mảng xanh – vai trò chiến lược của trung tâm kinh doanh Ga Thủ Thiêm",
+          "width": 560,
+          "height": 715,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-tam-diem-trai-nghiem-mua-sam.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-tam-diem-trai-nghiem-mua-sam.webp",
+          "caption": "Phối cảnh không gian mua sắm nhiều tầng – tâm điểm trải nghiệm tại Ga Thủ Thiêm",
+          "name": "Phối cảnh không gian mua sắm nhiều tầng – tâm điểm trải nghiệm tại Ga Thủ Thiêm",
+          "width": 560,
+          "height": 676,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-co-so-ha-tang-thuong-mai-dich-vu.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-co-so-ha-tang-thuong-mai-dich-vu.webp",
+          "caption": "Phối cảnh sảnh thương mại mái kính – cơ sở hạ tầng thương mại dịch vụ của Ga Thủ Thiêm",
+          "name": "Phối cảnh sảnh thương mại mái kính – cơ sở hạ tầng thương mại dịch vụ của Ga Thủ Thiêm",
+          "width": 560,
+          "height": 682,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-tod-5-trai-nghiem-diem-den.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-tod-5-trai-nghiem-diem-den.webp",
+          "caption": "TOD 5.0 – nhà ga thành điểm đến trải nghiệm, ý tưởng Ga Thủ Thiêm",
+          "name": "TOD 5.0 – nhà ga thành điểm đến trải nghiệm, ý tưởng Ga Thủ Thiêm",
+          "width": 360,
+          "height": 580,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-so-do-khong-gian-tod-5.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-so-do-khong-gian-tod-5.webp",
+          "caption": "Sơ đồ không gian TOD 5.0 Ga Thủ Thiêm: công viên trung tâm, rừng đô thị, thương mại trên mái, không gian ven sông",
+          "name": "Sơ đồ không gian TOD 5.0 Ga Thủ Thiêm: công viên trung tâm, rừng đô thị, thương mại trên mái, không gian ven sông",
+          "width": 1400,
+          "height": 755,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-diem-nhan-kien-truc-do-thi.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-diem-nhan-kien-truc-do-thi.webp",
+          "caption": "Phối cảnh cụm tháp – điểm nhấn kiến trúc của Khu đô thị phức hợp Ga Thủ Thiêm",
+          "name": "Phối cảnh cụm tháp – điểm nhấn kiến trúc của Khu đô thị phức hợp Ga Thủ Thiêm",
+          "width": 560,
+          "height": 333,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-phoi-canh-tong-the-tu-tren-cao.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-phoi-canh-tong-the-tu-tren-cao.webp",
+          "caption": "Phối cảnh tổng thể Khu đô thị phức hợp Ga Thủ Thiêm nhìn từ trên cao, cụm tháp bên đường ray và sông",
+          "name": "Phối cảnh tổng thể Khu đô thị phức hợp Ga Thủ Thiêm nhìn từ trên cao, cụm tháp bên đường ray và sông",
+          "width": 1493,
+          "height": 623,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-phoi-canh-ve-dem-khu-do-thi.webp",
+          "url": "https://ga-thu-thiem-dang-ky-era.vercel.app/assets/img/ga-thu-thiem-phoi-canh-ve-dem-khu-do-thi.webp",
+          "caption": "Phối cảnh ban đêm Khu đô thị phức hợp Ga Thủ Thiêm, ánh đèn từ cụm tháp chiếu lên bầu trời",
+          "name": "Phối cảnh ban đêm Khu đô thị phức hợp Ga Thủ Thiêm, ánh đèn từ cụm tháp chiếu lên bầu trời",
+          "width": 1600,
+          "height": 900,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Khu đô thị phức hợp Ga Thủ Thiêm, SonKim Land"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://ga-thu-thiem-dang-ky-era.vercel.app/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ERA Vietnam",
+          "item": "https://era.com.vn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Khu đô thị phức hợp Ga Thủ Thiêm",
+          "item": "https://ga-thu-thiem-dang-ky-era.vercel.app/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://ga-thu-thiem-dang-ky-era.vercel.app/#hoi-dap",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Khu đô thị phức hợp Ga Thủ Thiêm ở đâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dự án nằm tại khu vực nhà ga Thủ Thiêm theo quy hoạch, gần nút giao An Phú, TP. Hồ Chí Minh – nơi quy hoạch giao nhau của tuyến Metro số 2, đường sắt Thủ Thiêm – Long Thành và đường sắt tốc độ cao Bắc – Nam."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ai phát triển Khu đô thị phức hợp Ga Thủ Thiêm?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dự án do SonKim Land – nhà phát triển The Metropole Thủ Thiêm – phát triển; NIKKEN (Nhật Bản) tư vấn thiết kế quy hoạch và kiến trúc. ERA Vietnam là đại lý phân phối."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dự án đang ở giai đoạn nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Khu đô thị phức hợp Ga Thủ Thiêm đang ở giai đoạn ý tưởng phát triển. Quy mô, sản phẩm và thông tin dự án có thể điều chỉnh theo phê duyệt của cơ quan nhà nước có thẩm quyền và công bố chính thức của chủ đầu tư."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ga Thủ Thiêm có những tuyến đường sắt nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo quy hoạch, ga Thủ Thiêm là điểm giao của Metro số 2 (Bến Thành – Thủ Thiêm, khởi công 29/4/2026, mục tiêu hoàn thành năm 2030), đường sắt Thủ Thiêm – Sân bay Long Thành (mục tiêu hoàn thành năm 2030) và đường sắt tốc độ cao Bắc – Nam (mục tiêu hoàn thành cơ bản năm 2035)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Mô hình TOD 5.0 là gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "TOD là mô hình phát triển đô thị gắn với giao thông công cộng. Theo cách phân loại của chủ đầu tư, TOD 1.0 là nhà ga; 2.0 thêm kết nối công trình; 3.0 thêm thành phố; 4.0 thêm không gian xanh; 5.0 thêm trải nghiệm điểm đến – nhà ga và dự án trở thành một điểm đến."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Từ Ga Thủ Thiêm đến các khu vực trọng điểm mất bao lâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Thời gian tham khảo: khoảng 10 phút đến Khu đô thị mới Thủ Thiêm, 15 phút đến Trung tâm Tài chính Quốc tế Việt Nam tại TP.HCM, 20 phút đến Thảo Điền và Khu Công nghệ cao, 30 phút đến sân bay Tân Sơn Nhất, 60 phút đến sân bay quốc tế Long Thành."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dự án mang lại giá trị gì cho TP. Hồ Chí Minh?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cho thành phố: thêm điểm đến du lịch, thu hút vốn đầu tư nước ngoài, nguồn thu ngân sách dài hạn. Cho cộng đồng: di chuyển thuận tiện, tiếp cận dịch vụ thương mại và không gian công cộng, tạo việc làm. Cho diện mạo đô thị: công trình kiến trúc điểm nhấn, quy hoạch đồng bộ."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Làm sao nhận thông tin chính thức về dự án?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Quý khách đăng ký nhận thông tin với ERA Vietnam để được cập nhật tiến độ quy hoạch, hạ tầng và thông tin chính thức khi chủ đầu tư công bố."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!--/JSONLD-->
+</head>
+<body>
+
+<!-- hoạ tiết vạch tốc độ dùng lại nhiều khối (bìa tài liệu CĐT) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gv" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#7E9BE0" stop-opacity="0"/><stop offset=".55" stop-color="#7E9BE0"/><stop offset="1" stop-color="#CDBE91"/></linearGradient>
+    <symbol id="vach" viewBox="0 0 560 120"><g fill="url(#gv)"><rect x="40" y="6" width="520" height="3" rx="1.5"/><rect x="180" y="24" width="380" height="2" rx="1"/><rect x="0" y="40" width="560" height="4" rx="2"/><rect x="260" y="60" width="300" height="2" rx="1"/><rect x="120" y="76" width="440" height="3" rx="1.5"/><rect x="340" y="94" width="220" height="2" rx="1"/><rect x="220" y="110" width="340" height="2" rx="1" opacity=".6"/></g></symbol>
+  </defs>
+</svg>
+
+<!-- ======================= HEADER ======================= -->
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="#top" aria-label="Khu đô thị phức hợp Ga Thủ Thiêm – về đầu trang">
+      <svg viewBox="0 0 34 20" fill="none" stroke-linecap="round" aria-hidden="true"><path d="M2 3h30" stroke="#CDBE91" stroke-width="2.4"/><path d="M8 10h24" stroke="#7E9BE0" stroke-width="2.4"/><path d="M16 17h16" stroke="#7E9BE0" stroke-width="2.4" opacity=".6"/></svg>
+      <span><small>Khu đô thị phức hợp</small><b>Ga Thủ Thiêm</b></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Điều hướng trang">
+      <a href="#boi-canh">Bối cảnh</a>
+      <a href="#vi-tri">Vị trí</a>
+      <a href="#nha-ga">Nhà ga</a>
+      <a href="#tod">TOD 5.0</a>
+      <a class="opt" href="#gia-tri">Giá trị</a>
+      <a class="opt" href="#nha-phat-trien">Nhà phát triển</a>
+      <a href="#tu-van">Tư vấn</a>
+      <a class="opt" href="#hoi-dap">Hỏi đáp</a>
+      <a class="nav-tel" href="tel:0941125000">094.1125.000</a>
+      <a class="nav-cta" href="#dang-ky">Đăng ký</a>
+    </nav>
+    <button class="burger" id="burger" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ======================= 1 · HERO (sheet mục 1 — tiêu đề D3, ảnh E3 "phối cảnh tổng thể khu đô thị bên sông Sài Gòn (slide 7)")
+     Điện thoại: ảnh dọc cắt từ phối cảnh cụm tháp (trang 19 Training) — ảnh slide 7 ngang, cắt dọc chỉ còn sông. ======================= -->
+<section class="hero" aria-label="Giới thiệu Khu đô thị phức hợp Ga Thủ Thiêm">
+  <picture>
+    <source media="(max-width:760px)" srcset="assets/img/ga-thu-thiem-hero-mobile.webp" width="640" height="940">
+    <img src="assets/img/ga-thu-thiem-khu-do-thi-phuc-hop-ben-song-sai-gon.webp" width="1500" height="907" fetchpriority="high" decoding="async" alt="Phối cảnh Khu đô thị phức hợp Ga Thủ Thiêm bên sông Sài Gòn, nhìn từ trung tâm TP.HCM về phía Thủ Thiêm">
+  </picture>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="hero-vach" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="hero-in">
+    <div class="hero-top">
+      <p class="kick">Thủ Thiêm · TP. Hồ Chí Minh</p>
+      <h1><span class="k">Khu đô thị phức hợp</span><span class="a">Ga Thủ Thiêm</span><em>Tâm điểm kết nối mới của TP.HCM</em></h1>
+      <p class="hero-sub">Ý tưởng phát triển đô thị gắn với nhà ga Thủ Thiêm – nơi quy hoạch giao nhau của Metro số 2, đường sắt Thủ Thiêm – Long Thành và đường sắt tốc độ cao Bắc – Nam.</p>
+      <a class="nut hero-nut" href="#dang-ky">Đăng ký nhận thông tin sớm <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="hero-bot">
+      <ul class="hero-facts">
+        <li><b>03</b><span>Tuyến đường sắt quy hoạch</span></li>
+        <li><b>TOD<small>5.0</small></b><span>Mô hình định hướng</span></li>
+        <li><b>15<small>phút</small></b><span>Trung tâm Tài chính Quốc tế</span></li>
+        <li><b>60<small>phút</small></b><span>Sân bay Long Thành</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1b · GIỚI THIỆU (sheet mục 1 mô tả D4 — ảnh E4 "cụm tháp và nhà ga")
+     Ảnh đêm "slide 35" sheet ghi cho mục này -> dùng ở khối Đăng ký cuối (sheet E21 cũng là ảnh đêm), tránh lặp. ======================= -->
+<section class="sec bg-sang" id="gioi-thieu">
+  <svg class="vach tr" aria-hidden="true"><use href="#vach"/></svg>
+  <div class="wrap">
+    <div class="gt">
+      <figure class="rv" data-zoom="assets/img/ga-thu-thiem-cum-thap-va-nha-ga-thu-thiem.webp">
+        <img src="assets/img/ga-thu-thiem-cum-thap-va-nha-ga-thu-thiem.webp" srcset="assets/img/ga-thu-thiem-cum-thap-va-nha-ga-thu-thiem-800.webp 800w, assets/img/ga-thu-thiem-cum-thap-va-nha-ga-thu-thiem.webp 1200w" sizes="(max-width:900px) 100vw, 640px" width="1200" height="670" loading="lazy" decoding="async" alt="Phối cảnh cụm tháp Khu đô thị phức hợp Ga Thủ Thiêm bên đường ray nhà ga, TP.HCM">
+        <figcaption class="fcap">Phối cảnh cụm tháp và nhà ga · hình ảnh minh họa ý tưởng</figcaption>
+      </figure>
+      <div class="rv">
+        <p class="eb" aria-hidden="true"><i></i>Giới thiệu</p>
+        <h2>Giới thiệu <span class="nw">Khu đô thị phức hợp</span> Ga Thủ Thiêm</h2>
+        <div class="body" style="margin-top:22px">
+          <p>Khu đô thị phức hợp Ga Thủ Thiêm là ý tưởng phát triển đô thị gắn với nhà ga Thủ Thiêm – nơi quy hoạch giao nhau của tuyến Metro số 2, đường sắt Thủ Thiêm – Long Thành và đường sắt tốc độ cao Bắc – Nam.</p>
+          <p>Dự án định hướng theo mô hình TOD (phát triển đô thị gắn với giao thông công cộng), do SonKim Land phát triển, NIKKEN tư vấn quy hoạch và kiến trúc.</p>
+        </div>
+        <p class="chot"><span>Nhà ga</span><i>/</i><span>Thương mại</span><i>/</i><span>Điểm đến</span></p>
+        <a class="nut" href="#dang-ky">Đăng ký nhận thông tin sớm <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+    <table class="spec rv">
+      <caption>Thông tin tổng quan</caption>
+      <tbody>
+        <tr><th scope="row">Tên dự án</th><td><b>Khu đô thị phức hợp Ga Thủ Thiêm</b></td></tr>
+        <tr><th scope="row">Vị trí</th><td>Khu vực nhà ga Thủ Thiêm theo quy hoạch, gần nút giao An Phú, TP. Hồ Chí Minh</td></tr>
+        <tr><th scope="row">Nhà phát triển</th><td><b>SonKim Land</b><small>Nhà phát triển The Metropole Thủ Thiêm</small></td></tr>
+        <tr><th scope="row">Tư vấn quy hoạch &amp; kiến trúc</th><td>NIKKEN (Nhật Bản)</td></tr>
+        <tr><th scope="row">Mô hình</th><td>TOD 5.0 – phát triển đô thị gắn với giao thông công cộng, nhà ga trở thành điểm đến</td></tr>
+        <tr><th scope="row">Kết nối đường sắt</th><td>Metro số 2 · đường sắt Thủ Thiêm – Long Thành · đường sắt tốc độ cao Bắc – Nam<small>Theo quy hoạch</small></td></tr>
+        <tr><th scope="row">Giai đoạn</th><td>Ý tưởng phát triển<small>Quy mô, sản phẩm và thông tin có thể điều chỉnh theo phê duyệt của cơ quan nhà nước có thẩm quyền</small></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ======================= 2 · BỐI CẢNH (sheet mục 2 — D5/D6, ảnh E5 bản đồ Tân Sơn Nhất – IFC – Ga Thủ Thiêm – Long Thành, E6 toàn cảnh TP.HCM)
+     Đoạn chữ thêm chép từ Training trang 4–6, 8. ======================= -->
+<section class="sec" id="boi-canh">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>01</b><i></i>Bối cảnh</p>
+        <h2>TP.HCM bước vào giai đoạn phát triển mới</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Đâu sẽ là tâm điểm mới đủ sức dẫn dắt dòng chảy kinh tế – tài chính, con người và kết nối quốc tế? Khu đô thị phức hợp Ga Thủ Thiêm nằm trong tầm nhìn và giai đoạn phát triển mới của TP. Hồ Chí Minh.</p>
+      </div>
+    </div>
+    <figure class="bc-dai rv" data-zoom="assets/img/ga-thu-thiem-toan-canh-tphcm-ven-song-sai-gon.webp">
+      <img src="assets/img/ga-thu-thiem-toan-canh-tphcm-ven-song-sai-gon.webp" srcset="assets/img/ga-thu-thiem-toan-canh-tphcm-ven-song-sai-gon-800.webp 800w, assets/img/ga-thu-thiem-toan-canh-tphcm-ven-song-sai-gon.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="792" loading="lazy" decoding="async" alt="Toàn cảnh trung tâm TP.HCM ven sông Sài Gòn, nơi hình thành Trung tâm Tài chính Quốc tế Việt Nam">
+      <figcaption>Siêu đô thị quốc tế – trung tâm tài chính, công nghệ và đổi mới sáng tạo<small>Toàn cảnh TP.HCM ven sông Sài Gòn · hình ảnh minh họa</small></figcaption>
+    </figure>
+    <ul class="bc3 rv">
+      <li><div class="so">2030<small>tầm nhìn</small></div><p>TP.HCM hướng tới trở thành trung tâm tài chính, công nghệ và đổi mới sáng tạo của khu vực vào năm 2030.</p></li>
+      <li><div class="so">IFC<small>Thủ Thiêm</small></div><p>Trung tâm Tài chính Quốc tế Việt Nam tại TP.HCM đặt tại Thủ Thiêm, mở ra khả năng kết nối dòng vốn quốc tế.</p></li>
+      <li><div class="so">01<small>tâm điểm</small></div><p>Thành phố cần một điểm kết nối hạ tầng trung tâm, nơi điều phối dòng chảy thương mại, đầu tư và con người.</p></li>
+    </ul>
+    <div class="bc-map">
+      <figure class="rv" data-zoom="assets/img/ga-thu-thiem-ban-do-tan-son-nhat-ifc-long-thanh-lon.webp" data-alt="Bản đồ hạ tầng TP.HCM: sân bay Tân Sơn Nhất, Trung tâm Tài chính Quốc tế, Ga Thủ Thiêm và sân bay Long Thành">
+        <img src="assets/img/ga-thu-thiem-ban-do-tan-son-nhat-ifc-long-thanh.webp" srcset="assets/img/ga-thu-thiem-ban-do-tan-son-nhat-ifc-long-thanh-800.webp 800w, assets/img/ga-thu-thiem-ban-do-tan-son-nhat-ifc-long-thanh.webp 1400w" sizes="(max-width:860px) 100vw, 780px" width="1400" height="788" loading="lazy" decoding="async" alt="Bản đồ hạ tầng TP.HCM: sân bay Tân Sơn Nhất, Trung tâm Tài chính Quốc tế, Ga Thủ Thiêm và sân bay Long Thành">
+        <figcaption class="nhan">Tân Sơn Nhất – Trung tâm Tài chính – Ga Thủ Thiêm – Long Thành · bấm để phóng to</figcaption>
+      </figure>
+      <figure class="rv" data-zoom="assets/img/ga-thu-thiem-trung-tam-tai-chinh-quoc-te-thu-thiem.webp">
+        <img src="assets/img/ga-thu-thiem-trung-tam-tai-chinh-quoc-te-thu-thiem.webp" srcset="assets/img/ga-thu-thiem-trung-tam-tai-chinh-quoc-te-thu-thiem-800.webp 800w, assets/img/ga-thu-thiem-trung-tam-tai-chinh-quoc-te-thu-thiem.webp 900w" sizes="(max-width:860px) 100vw, 400px" width="900" height="1013" loading="lazy" decoding="async" alt="Vùng Trung tâm Tài chính Quốc tế Việt Nam tại Thủ Thiêm và vị trí Khu đô thị phức hợp Ga Thủ Thiêm">
+        <figcaption class="nhan">Vùng Trung tâm Tài chính Quốc tế tại Thủ Thiêm</figcaption>
+      </figure>
+    </div>
+    <p class="ket rv">TP.HCM cần một điểm kết nối trung tâm, một tâm điểm hạ tầng mang tính chiến lược – nơi tập hợp các giá trị kinh tế và điều phối dòng chảy thương mại.</p>
+  </div>
+</section>
+
+<!-- ======================= 3 · VỊ TRÍ VÀ KẾT NỐI (sheet mục 3 — D7/D8, ảnh E7 bản đồ "The Magnet of the City" 6 điểm đến = Training trang 10) ======================= -->
+<section class="sec bg-kem" id="vi-tri">
+  <svg class="vach bl nho" aria-hidden="true"><use href="#vach"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>02</b><i></i>Vị trí &amp; kết nối</p>
+        <h2>Vị trí – Khu vực nhà ga Thủ Thiêm, gần nút giao An Phú</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">"The Magnet of the City" – từ khu vực nhà ga, sáu điểm đến quan trọng của thành phố nằm trong bán kính 10 đến 60 phút di chuyển (thời gian tham khảo).</p>
+      </div>
+    </div>
+    <div class="vt">
+      <figure class="map-fig rv" data-zoom="assets/img/ga-thu-thiem-ban-do-vi-tri-6-diem-den-lon.webp" data-alt="Bản đồ vị trí Ga Thủ Thiêm – The Magnet of the City và thời gian đến 6 điểm">
+        <img src="assets/img/ga-thu-thiem-ban-do-vi-tri-6-diem-den.webp" srcset="assets/img/ga-thu-thiem-ban-do-vi-tri-6-diem-den-800.webp 800w, assets/img/ga-thu-thiem-ban-do-vi-tri-6-diem-den.webp 1600w" sizes="(max-width:900px) 100vw, 740px" width="1600" height="900" loading="lazy" decoding="async" alt="Bản đồ vị trí Ga Thủ Thiêm – The Magnet of the City: 6 điểm đến trong 10–60 phút, từ Thủ Thiêm đến sân bay Long Thành">
+        <figcaption class="fcap" style="padding:10px 14px">Bản đồ vị trí theo tài liệu chủ đầu tư · bấm để phóng to</figcaption>
+      </figure>
+      <ul class="phut rv" aria-label="Thời gian di chuyển tham khảo">
+        <li><b>10<small>′</small></b><span>Khu đô thị mới Thủ Thiêm</span><img src="assets/img/ga-thu-thiem-khu-do-thi-moi-thu-thiem.webp" width="395" height="236" loading="lazy" decoding="async" alt="Khu đô thị mới Thủ Thiêm nhìn từ sông Sài Gòn"></li>
+        <li><b>15<small>′</small></b><span>Trung tâm Tài chính Quốc tế Việt Nam tại TP.HCM</span><img src="assets/img/ga-thu-thiem-trung-tam-tai-chinh-quoc-te-tphcm.webp" width="395" height="236" loading="lazy" decoding="async" alt="Trung tâm TP.HCM bên sông Sài Gòn, nơi đặt Trung tâm Tài chính Quốc tế Việt Nam"></li>
+        <li><b>20<small>′</small></b><span>Thảo Điền</span><img src="assets/img/ga-thu-thiem-thao-dien.webp" width="400" height="225" loading="lazy" decoding="async" alt="Khu Thảo Điền ven sông Sài Gòn"></li>
+        <li><b>20<small>′</small></b><span>Khu Công nghệ cao</span><img src="assets/img/ga-thu-thiem-khu-cong-nghe-cao.webp" width="395" height="236" loading="lazy" decoding="async" alt="Khu Công nghệ cao TP.HCM nhìn từ trên cao"></li>
+        <li><b>30<small>′</small></b><span>Sân bay Tân Sơn Nhất</span><img src="assets/img/ga-thu-thiem-san-bay-tan-son-nhat.webp" width="362" height="236" loading="lazy" decoding="async" alt="Nhà ga sân bay Tân Sơn Nhất"></li>
+        <li><b>60<small>′</small></b><span>Sân bay quốc tế Long Thành</span><img src="assets/img/ga-thu-thiem-san-bay-quoc-te-long-thanh.webp" width="395" height="236" loading="lazy" decoding="async" alt="Phối cảnh sân bay quốc tế Long Thành"></li>
+      </ul>
+    </div>
+    <p class="chu-thich rv">Thời gian di chuyển tham khảo theo tài liệu chủ đầu tư, phụ thuộc phương tiện, tuyến đường và tiến độ các công trình hạ tầng.</p>
+  </div>
+</section>
+
+<!-- ======================= 4 · NHÀ GA & HẠ TẦNG ĐƯỜNG SẮT (sheet mục 4 — D9/D10, ảnh E9 sơ đồ tuyến "slide 11")
+     Training ghi ĐS Thủ Thiêm – Long Thành "dự kiến khởi công trước tháng 7/2026" — mốc đã qua, không có thông tin cập nhật -> theo sheet, chỉ ghi mục tiêu 2030. ======================= -->
+<section class="sec" id="nha-ga">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>03</b><i></i>Nhà ga &amp; hạ tầng</p>
+        <h2>Nhà ga Thủ Thiêm – Điểm giao các tuyến đường sắt trọng yếu <span class="dong2">(theo quy hoạch)</span></h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Ga Thủ Thiêm được quy hoạch trở thành "siêu nhà ga" – nơi hội tụ mạng lưới tuyến metro và đường sắt: kết nối Metro số 2 về Bến Thành, Tân Sơn Nhất; đường sắt về sân bay Long Thành.</p>
+      </div>
+    </div>
+    <figure class="ng-map rv" data-zoom="assets/img/ga-thu-thiem-so-do-metro-duong-sat-qua-ga-thu-thiem-lon.webp" data-alt="Sơ đồ tuyến Metro số 2, đường sắt Thủ Thiêm – Long Thành và đường sắt tốc độ cao Bắc – Nam qua ga Thủ Thiêm">
+      <img src="assets/img/ga-thu-thiem-so-do-metro-duong-sat-qua-ga-thu-thiem.webp" srcset="assets/img/ga-thu-thiem-so-do-metro-duong-sat-qua-ga-thu-thiem-800.webp 800w, assets/img/ga-thu-thiem-so-do-metro-duong-sat-qua-ga-thu-thiem.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="540" loading="lazy" decoding="async" alt="Sơ đồ tuyến Metro số 2, đường sắt Thủ Thiêm – Long Thành và đường sắt tốc độ cao Bắc – Nam qua ga Thủ Thiêm">
+      <figcaption class="fcap" style="padding:10px 14px">Sơ đồ tuyến qua ga Thủ Thiêm theo tài liệu chủ đầu tư · bấm để phóng to</figcaption>
+    </figure>
+    <div class="ng">
+      <ul class="tuyen rv">
+        <li><i class="c-m2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l-2-4M15 21l2-4"/><circle cx="9" cy="14" r=".6" fill="currentColor"/><circle cx="15" cy="14" r=".6" fill="currentColor"/></svg></i><div><b>Metro số 2 (Bến Thành – Thủ Thiêm)</b><span>Khởi công <em>29/4/2026</em>, mục tiêu hoàn thành toàn tuyến năm <em>2030</em>. Kết nối về Bến Thành, Tân Sơn Nhất.</span></div></li>
+        <li><i class="c-lt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></i><div><b>Đường sắt Thủ Thiêm – Sân bay Long Thành</b><span>Mục tiêu hoàn thành năm <em>2030</em>, đưa khu vực nhà ga kết nối trực tiếp với sân bay quốc tế Long Thành.</span></div></li>
+        <li><i class="c-bn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15c0-5 4-9 11-9h2c2 0 3 1.5 3 3.5V15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 12h16M7 21l2-4M17 21l-2-4"/></svg></i><div><b>Đường sắt tốc độ cao Bắc – Nam</b><span>Mục tiêu hoàn thành cơ bản năm <em>2035</em>.</span></div></li>
+      </ul>
+      <figure class="rv" data-zoom="assets/img/ga-thu-thiem-tau-metro-tren-cao-tphcm.webp">
+        <img src="assets/img/ga-thu-thiem-tau-metro-tren-cao-tphcm.webp" width="620" height="741" loading="lazy" decoding="async" alt="Tàu metro chạy trên cao giữa các tòa nhà TP.HCM">
+        <figcaption class="fcap">Metro trên cao tại TP.HCM · hình ảnh minh họa</figcaption>
+      </figure>
+    </div>
+    <p class="chu-thich rv">Mốc khởi công, hoàn thành theo tài liệu chủ đầu tư; tiến độ thực tế các tuyến căn cứ thông tin chính thức của cơ quan nhà nước.</p>
+  </div>
+</section>
+
+<!-- ======================= 5 · TRUNG TÂM KINH DOANH QUỐC TẾ (sheet mục 5 — D11/D12, "3 thẻ + hình phối cảnh sảnh thương mại" = Training trang 12–13) ======================= -->
+<section class="sec bg-sang" id="kinh-doanh">
+  <svg class="vach tr nho" aria-hidden="true"><use href="#vach"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>04</b><i></i>Trung tâm kinh doanh</p>
+        <h2>Định hướng trung tâm kinh doanh – thương mại mới của TP.HCM</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Dự án không chỉ là một khu phức hợp mà có tầm nhìn và triển vọng trở thành trung tâm kinh doanh – quốc tế mới của TP. Hồ Chí Minh.</p>
+      </div>
+    </div>
+    <div class="kd rv">
+      <figure data-zoom="assets/img/ga-thu-thiem-vai-tro-chien-luoc-trung-tam-kinh-doanh.webp">
+        <img src="assets/img/ga-thu-thiem-vai-tro-chien-luoc-trung-tam-kinh-doanh.webp" width="560" height="715" loading="lazy" decoding="async" alt="Phối cảnh tháp văn phòng và mảng xanh – vai trò chiến lược của trung tâm kinh doanh Ga Thủ Thiêm">
+        <figcaption><span class="so">01</span><b>Vai trò chiến lược</b><span>Điều phối dòng chảy hàng hóa, thương mại, kết nối chuỗi cung ứng phía Nam và liên vùng.</span></figcaption>
+      </figure>
+      <figure data-zoom="assets/img/ga-thu-thiem-tam-diem-trai-nghiem-mua-sam.webp">
+        <img src="assets/img/ga-thu-thiem-tam-diem-trai-nghiem-mua-sam.webp" width="560" height="676" loading="lazy" decoding="async" alt="Phối cảnh không gian mua sắm nhiều tầng – tâm điểm trải nghiệm tại Ga Thủ Thiêm">
+        <figcaption><span class="so">02</span><b>Điểm đến trải nghiệm</b><span>Di chuyển, mua sắm, giải trí tại một nơi – điểm đến sôi động của thành phố.</span></figcaption>
+      </figure>
+      <figure data-zoom="assets/img/ga-thu-thiem-co-so-ha-tang-thuong-mai-dich-vu.webp">
+        <img src="assets/img/ga-thu-thiem-co-so-ha-tang-thuong-mai-dich-vu.webp" width="560" height="682" loading="lazy" decoding="async" alt="Phối cảnh sảnh thương mại mái kính – cơ sở hạ tầng thương mại dịch vụ của Ga Thủ Thiêm">
+        <figcaption><span class="so">03</span><b>Hạ tầng thương mại dịch vụ</b><span>Định hướng quy tụ doanh nghiệp logistics, hãng hàng không, trung tâm hội nghị triển lãm, trung tâm thương mại, khách sạn.</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 6 · MÔ HÌNH TOD 5.0 (sheet mục 6 — D13/D14, ảnh E13 bảng TOD 1.0–5.0 = Training trang 15 dựng lại bằng HTML, E14 sơ đồ "slide 18")
+     Thêm: hình mẫu Changi (trang 17) + 4 đô thị phức hợp thế giới (trang 24 — tài liệu ghi Canary Wharf "New York, USA" -> sửa London). ======================= -->
+<section class="sec" id="tod">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>05</b><i></i>Mô hình TOD 5.0</p>
+        <h2>Mô hình TOD 5.0 – Nhà ga trở thành điểm đến</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">TOD (Transit-Oriented Development) là mô hình phát triển đô thị gắn với giao thông công cộng. Theo cách phân loại của chủ đầu tư, mỗi cấp độ thêm một lớp giá trị – đến TOD 5.0, dự án và nhà ga trở thành một điểm đến với yếu tố trải nghiệm.</p>
+      </div>
+    </div>
+    <ol class="tod rv" aria-label="Năm cấp độ TOD theo phân loại của chủ đầu tư">
+      <li><div class="t"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l-2-4M15 21l2-4"/></svg>TOD 1.0</b><ul><li class="moi">Nhà ga</li></ul></div>
+        <figure><img src="assets/img/ga-thu-thiem-tod-1-nha-ga.webp" width="360" height="580" loading="lazy" decoding="async" alt="TOD 1.0 – nhà ga metro, ví dụ TP.HCM và Jakarta"><figcaption>TP.HCM &amp; Jakarta</figcaption></figure></li>
+      <li><div class="t"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l-2-4M15 21l2-4"/></svg>TOD 2.0</b><ul><li>Nhà ga</li><li class="moi">Kết nối công trình</li></ul></div>
+        <figure><img src="assets/img/ga-thu-thiem-tod-2-ket-noi-cong-trinh.webp" width="360" height="581" loading="lazy" decoding="async" alt="TOD 2.0 – nhà ga kết nối công trình, ví dụ Bangkok"><figcaption>Bangkok</figcaption></figure></li>
+      <li><div class="t"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l-2-4M15 21l2-4"/></svg>TOD 3.0</b><ul><li>Nhà ga</li><li>Kết nối công trình</li><li class="moi">Thành phố</li></ul></div>
+        <figure><img src="assets/img/ga-thu-thiem-tod-3-thanh-pho.webp" width="360" height="580" loading="lazy" decoding="async" alt="TOD 3.0 – nhà ga gắn với thành phố, ví dụ Hồng Kông"><figcaption>Hồng Kông</figcaption></figure></li>
+      <li><div class="t"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l-2-4M15 21l2-4"/></svg>TOD 4.0</b><ul><li>Nhà ga</li><li>Kết nối công trình</li><li>Thành phố</li><li class="moi">Không gian xanh</li></ul></div>
+        <figure><img src="assets/img/ga-thu-thiem-tod-4-khong-gian-xanh.webp" width="360" height="567" loading="lazy" decoding="async" alt="TOD 4.0 – thêm không gian xanh, ví dụ Tokyo"><figcaption>Tokyo</figcaption></figure></li>
+      <li class="dinh"><div class="t"><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l-2-4M15 21l2-4"/></svg>TOD 5.0</b><ul><li>Nhà ga</li><li>Kết nối công trình</li><li>Thành phố</li><li>Không gian xanh</li><li class="moi">Trải nghiệm điểm đến</li></ul></div>
+        <figure><img src="assets/img/ga-thu-thiem-tod-5-trai-nghiem-diem-den.webp" width="360" height="580" loading="lazy" decoding="async" alt="TOD 5.0 – nhà ga thành điểm đến trải nghiệm, ý tưởng Ga Thủ Thiêm"><figcaption>Ga Thủ Thiêm</figcaption></figure></li>
+    </ol>
+    <div class="tod-y">
+      <figure class="rv" data-zoom="assets/img/ga-thu-thiem-so-do-khong-gian-tod-5.webp">
+        <img src="assets/img/ga-thu-thiem-so-do-khong-gian-tod-5.webp" srcset="assets/img/ga-thu-thiem-so-do-khong-gian-tod-5-800.webp 800w, assets/img/ga-thu-thiem-so-do-khong-gian-tod-5.webp 1400w" sizes="(max-width:900px) 100vw, 700px" width="1400" height="755" loading="lazy" decoding="async" alt="Sơ đồ không gian TOD 5.0 Ga Thủ Thiêm: công viên trung tâm, rừng đô thị, thương mại trên mái, không gian ven sông">
+        <figcaption class="fcap" style="padding:10px 14px">Sơ đồ không gian TOD 5.0 theo ý tưởng · bấm để phóng to</figcaption>
+      </figure>
+      <div class="rv">
+        <h3>Không gian trải nghiệm theo ý tưởng</h3>
+        <p class="fact">Mô hình đô thị TOD 5.0 giúp TP. Hồ Chí Minh rút ngắn hành trình phát triển, hướng tới một hệ sinh thái đô thị tích hợp theo các chuẩn mực tiên tiến của thế giới.</p>
+        <ul class="kg">
+          <li>Công viên trung tâm</li><li>Rừng đô thị</li><li>Thương mại trên mái</li><li>Atrium trên đỉnh tháp trung tâm</li><li>Quảng trường ven sông</li><li>Đại lộ ven sông</li><li>Triển lãm nghệ thuật</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tod-anh rv">
+      <figure data-zoom="assets/img/ga-thu-thiem-quang-truong-thuong-mai-xanh.webp"><img src="assets/img/ga-thu-thiem-quang-truong-thuong-mai-xanh.webp" width="520" height="366" loading="lazy" decoding="async" alt="Phối cảnh quảng trường thương mại nhiều tầng phủ cây xanh"><figcaption>Thương mại &amp; mảng xanh</figcaption></figure>
+      <figure data-zoom="assets/img/ga-thu-thiem-rung-do-thi.webp"><img src="assets/img/ga-thu-thiem-rung-do-thi.webp" width="400" height="533" loading="lazy" decoding="async" alt="Lối đi giữa rừng đô thị"><figcaption>Rừng đô thị</figcaption></figure>
+      <figure data-zoom="assets/img/ga-thu-thiem-khong-gian-trien-lam-nghe-thuat.webp"><img src="assets/img/ga-thu-thiem-khong-gian-trien-lam-nghe-thuat.webp" width="400" height="511" loading="lazy" decoding="async" alt="Không gian triển lãm nghệ thuật"><figcaption>Triển lãm nghệ thuật</figcaption></figure>
+      <figure data-zoom="assets/img/ga-thu-thiem-hinh-mau-tod-san-bay-changi.webp"><img src="assets/img/ga-thu-thiem-hinh-mau-tod-san-bay-changi.webp" width="640" height="428" loading="lazy" decoding="async" alt="Thác nước trong nhà tại sân bay Changi, Singapore – hình mẫu tổ hợp hạ tầng trải nghiệm"><figcaption>Hình mẫu: sân bay Changi</figcaption></figure>
+    </div>
+    <div class="tg">
+      <div class="tg-head rv">
+        <h3>Đô thị phức hợp nổi tiếng trên thế giới</h3>
+        <p>Các dự án biểu tượng trên thế giới lấy hạ tầng và giao thông làm cốt lõi, tích hợp đa chức năng và vận hành như một "điểm đến" dẫn dắt phát triển đô thị. Sân bay Changi (Singapore) là một tổ hợp hạ tầng với tư duy kiểu mẫu.</p>
+      </div>
+      <ul class="rv">
+        <li><img src="assets/img/ga-thu-thiem-hudson-yards-new-york.webp" width="360" height="435" loading="lazy" decoding="async" alt="Hudson Yards, New York – đô thị phức hợp gắn hạ tầng giao thông"><span>Hudson Yards<small>New York, Mỹ</small></span></li>
+        <li><img src="assets/img/ga-thu-thiem-one-bangkok.webp" width="360" height="435" loading="lazy" decoding="async" alt="One Bangkok, Thái Lan – đô thị phức hợp gắn hạ tầng giao thông"><span>One Bangkok<small>Bangkok, Thái Lan</small></span></li>
+        <li><img src="assets/img/ga-thu-thiem-azabudai-hills-tokyo.webp" width="360" height="435" loading="lazy" decoding="async" alt="Azabudai Hills, Tokyo – đô thị phức hợp gắn hạ tầng giao thông"><span>Azabudai Hills<small>Tokyo, Nhật Bản</small></span></li>
+        <li><img src="assets/img/ga-thu-thiem-canary-wharf-london.webp" width="360" height="435" loading="lazy" decoding="async" alt="Canary Wharf, London – đô thị phức hợp gắn hạ tầng giao thông"><span>Canary Wharf<small>London, Anh</small></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 7 · GIÁ TRỊ CHO THÀNH PHỐ & CỘNG ĐỒNG (sheet mục 7 — D15/D16, "3 cột icon + hình phối cảnh cụm tháp" = Training trang 20–22, 25) ======================= -->
+<section class="sec bg-kem" id="gia-tri">
+  <svg class="vach tr" aria-hidden="true"><use href="#vach"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>06</b><i></i>Giá trị</p>
+        <h2>Giá trị dự án mang lại</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Khu đô thị phức hợp Ga Thủ Thiêm được kỳ vọng trở thành một điểm đến quan trọng, đóng vai trò như một động lực phát triển kinh tế – xã hội của TP. Hồ Chí Minh.</p>
+      </div>
+    </div>
+    <ul class="gtri rv">
+      <li>
+        <figure><img src="assets/img/ga-thu-thiem-thu-hut-von-dau-tu.webp" width="560" height="315" loading="lazy" decoding="async" alt="Cuộc họp của doanh nghiệp bên cửa kính tòa văn phòng – thu hút dòng vốn đầu tư"></figure>
+        <div class="nd"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V8l5-3v16M10 21V3l9 4v14M13 9h3M13 13h3M13 17h3M7 11h1M7 15h1"/></svg></span>
+          <h3>Cho thành phố</h3>
+          <ul><li>Thêm điểm đến du lịch</li><li>Thu hút vốn đầu tư nước ngoài</li><li>Nguồn thu ngân sách dài hạn</li></ul></div>
+      </li>
+      <li>
+        <figure><img src="assets/img/ga-thu-thiem-khong-gian-cong-cong-cho-cong-dong.webp" width="560" height="315" loading="lazy" decoding="async" alt="Lối đi bộ cong giữa vườn cây – không gian công cộng cho cộng đồng"></figure>
+        <div class="nd"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14.5 14.4c.8-.3 1.6-.4 2.5-.4 2.8 0 5 2.2 5 5"/></svg></span>
+          <h3>Cho cộng đồng</h3>
+          <ul><li>Di chuyển thuận tiện, tối ưu thời gian</li><li>Tiếp cận dịch vụ thương mại và không gian công cộng</li><li>Tạo việc làm, trong đó có việc làm chất lượng cao</li></ul></div>
+      </li>
+      <li>
+        <figure><img src="assets/img/ga-thu-thiem-diem-nhan-kien-truc-do-thi.webp" width="560" height="333" loading="lazy" decoding="async" alt="Phối cảnh cụm tháp – điểm nhấn kiến trúc của Khu đô thị phức hợp Ga Thủ Thiêm"></figure>
+        <div class="nd"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 8 7v14h8V7z"/><path d="M4 21V12l4-2M20 21V11l-4-3M2 21h20M11 10h2M11 14h2"/></svg></span>
+          <h3>Cho diện mạo đô thị</h3>
+          <ul><li>Công trình kiến trúc điểm nhấn</li><li>Quy hoạch và thiết kế đồng bộ, hiện đại</li></ul></div>
+      </li>
+    </ul>
+    <figure class="dai rv" data-zoom="assets/img/ga-thu-thiem-phoi-canh-tong-the-tu-tren-cao.webp">
+      <img src="assets/img/ga-thu-thiem-phoi-canh-tong-the-tu-tren-cao.webp" srcset="assets/img/ga-thu-thiem-phoi-canh-tong-the-tu-tren-cao-800.webp 800w, assets/img/ga-thu-thiem-phoi-canh-tong-the-tu-tren-cao.webp 1493w" sizes="(max-width:1240px) 100vw, 1200px" width="1493" height="623" loading="lazy" decoding="async" alt="Phối cảnh tổng thể Khu đô thị phức hợp Ga Thủ Thiêm nhìn từ trên cao, cụm tháp bên đường ray và sông">
+      <figcaption>Từ tầm nhìn đến hiện thực<small>Phối cảnh tổng thể theo ý tưởng · hình ảnh minh họa</small></figcaption>
+    </figure>
+    <p class="ket rv">Một biểu tượng mới, một tâm điểm mới, một niềm tự hào mới của người dân TP. Hồ Chí Minh và Việt Nam.</p>
+  </div>
+</section>
+
+<!-- ======================= 8 · NHÀ PHÁT TRIỂN (sheet mục 8 — D17/D18, logo SonKim Land + hình = Training trang 26) ======================= -->
+<section class="sec" id="nha-phat-trien">
+  <div class="wrap">
+    <div class="nptr">
+      <figure class="rv" data-zoom="assets/img/ga-thu-thiem-thu-thiem-nhin-tu-cau.webp">
+        <img src="assets/img/ga-thu-thiem-thu-thiem-nhin-tu-cau.webp" width="560" height="725" loading="lazy" decoding="async" alt="Thủ Thiêm nhìn từ trên cầu qua sông Sài Gòn, hình ảnh trong tài liệu dự án của SonKim Land">
+      </figure>
+      <div class="rv">
+        <p class="eb" aria-hidden="true"><b>07</b><i></i>Nhà phát triển</p>
+        <h2>SonKim Land – Nhà phát triển <span class="nw">The Metropole</span> Thủ Thiêm</h2>
+        <p class="fact" style="margin-top:20px">SonKim Land là nhà phát triển dự án The Metropole Thủ Thiêm – và là đơn vị phát triển ý tưởng Khu đô thị phức hợp Ga Thủ Thiêm theo mô hình TOD.</p>
+        <div class="the">
+          <img src="assets/img/sonkim-land-logo.webp" width="420" height="270" loading="lazy" decoding="async" alt="Logo SonKim Land">
+          <div><b>Nhà phát triển dự án</b><p>Khu đô thị phức hợp Ga Thủ Thiêm · tư vấn thiết kế quy hoạch và kiến trúc: NIKKEN (Nhật Bản).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 9 · ĐƠN VỊ TƯ VẤN (sheet mục 9 — D19/D20, "logo 8 đơn vị + công trình tiêu biểu (tab theo đơn vị)" = Training trang 27–35)
+     Sheet: chỉ NIKKEN có vai trò rõ; 7 đơn vị còn lại "CHỜ CĐT xác nhận vai trò" -> ghi "giới thiệu cùng", không gán vai trò. ======================= -->
+<section class="sec toi" id="tu-van">
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>08</b><i></i>Đơn vị tư vấn</p>
+        <h2>Đội ngũ tư vấn quốc tế</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Những bộ óc sáng tạo và đội ngũ chuyên gia hàng đầu thế giới được giới thiệu trong tài liệu dự án – chọn từng đơn vị để xem công trình tiêu biểu.</p>
+      </div>
+    </div>
+    <div class="tv-tabs rv" role="tablist" aria-label="Đơn vị tư vấn">
+      <button type="button" role="tab" id="t-nikken" aria-controls="p-nikken" aria-selected="true">NIKKEN</button>
+      <button type="button" role="tab" id="t-arup" aria-controls="p-arup" aria-selected="false">Arup</button>
+      <button type="button" role="tab" id="t-nk" aria-controls="p-nk" aria-selected="false">Nippon Koei</button>
+      <button type="button" role="tab" id="t-som" aria-controls="p-som" aria-selected="false">SOM</button>
+      <button type="button" role="tab" id="t-pcp" aria-controls="p-pcp" aria-selected="false">Pelli Clarke &amp; Partners</button>
+      <button type="button" role="tab" id="t-kpf" aria-controls="p-kpf" aria-selected="false">KPF</button>
+      <button type="button" role="tab" id="t-bos" aria-controls="p-bos" aria-selected="false">Büro Ole Scheeren</button>
+      <button type="button" role="tab" id="t-hw" aria-controls="p-hw" aria-selected="false">Heatherwick Studio</button>
+    </div>
+    <div class="tv rv" role="tabpanel" id="p-nikken" aria-labelledby="t-nikken">
+      <div><div class="logo-tv"><img src="assets/img/nikken-logo.webp" class="det" width="420" height="67" loading="lazy" decoding="async" alt="Logo NIKKEN"></div>
+        <span class="vai">Tư vấn thiết kế quy hoạch và kiến trúc</span>
+        <p>NIKKEN (Nhật Bản) là đơn vị tư vấn thiết kế quy hoạch và kiến trúc cho ý tưởng Khu đô thị phức hợp Ga Thủ Thiêm.</p></div>
+      <ul class="ct mot"><li data-zoom="assets/img/ga-thu-thiem-phoi-canh-tong-the-tu-tren-cao.webp"><img src="assets/img/ga-thu-thiem-phoi-canh-tong-the-tu-tren-cao-800.webp" width="800" height="334" loading="lazy" decoding="async" alt="Phối cảnh tổng thể ý tưởng quy hoạch Khu đô thị phức hợp Ga Thủ Thiêm"><span>Ý tưởng quy hoạch Khu đô thị phức hợp Ga Thủ Thiêm</span></li></ul>
+    </div>
+    <div class="tv" role="tabpanel" id="p-arup" aria-labelledby="t-arup" hidden>
+      <div><div class="logo-tv"><img src="assets/img/arup-logo.webp" width="420" height="125" loading="lazy" decoding="async" alt="Logo Arup"></div>
+        <span class="vai">Công trình biểu tượng</span>
+        <p>Arup – đơn vị gắn với Nhà hát Opera Sydney, sân vận động Tổ Chim (Bắc Kinh), Marina Bay Sands.</p></div>
+      <ul class="ct">
+        <li data-zoom="assets/img/arup-sydney-opera-house.webp"><img src="assets/img/arup-sydney-opera-house.webp" width="560" height="493" loading="lazy" decoding="async" alt="Nhà hát Opera Sydney, Úc – công trình tiêu biểu của Arup"><span>Sydney Opera House · Úc</span></li>
+        <li data-zoom="assets/img/arup-san-van-dong-to-chim-bac-kinh.webp"><img src="assets/img/arup-san-van-dong-to-chim-bac-kinh.webp" width="560" height="495" loading="lazy" decoding="async" alt="Sân vận động quốc gia Bắc Kinh (Tổ Chim), Trung Quốc – công trình tiêu biểu của Arup"><span>Sân vận động Tổ Chim · Bắc Kinh</span></li>
+        <li data-zoom="assets/img/arup-marina-bay-sands-singapore.webp"><img src="assets/img/arup-marina-bay-sands-singapore.webp" width="560" height="493" loading="lazy" decoding="async" alt="Marina Bay Sands, Singapore – công trình tiêu biểu của Arup"><span>Marina Bay Sands · Singapore</span></li>
+      </ul>
+    </div>
+    <div class="tv" role="tabpanel" id="p-nk" aria-labelledby="t-nk" hidden>
+      <div><div class="logo-tv"><img src="assets/img/nippon-koei-logo.webp" width="420" height="90" loading="lazy" decoding="async" alt="Logo Nippon Koei"></div>
+        <span class="vai">Hạ tầng quốc gia và đô thị</span>
+        <p>Nippon Koei – đơn vị gắn với các dự án hạ tầng đô thị như Jakarta MRT, Delhi Metro.</p></div>
+      <ul class="ct hai">
+        <li data-zoom="assets/img/nippon-koei-jakarta-mrt.webp"><img src="assets/img/nippon-koei-jakarta-mrt.webp" width="560" height="335" loading="lazy" decoding="async" alt="Tuyến Jakarta MRT, Indonesia – công trình tiêu biểu của Nippon Koei"><span>Jakarta MRT · Indonesia</span></li>
+        <li data-zoom="assets/img/nippon-koei-delhi-metro.webp"><img src="assets/img/nippon-koei-delhi-metro.webp" width="560" height="320" loading="lazy" decoding="async" alt="Delhi Metro, Ấn Độ – công trình tiêu biểu của Nippon Koei"><span>Delhi Metro · Ấn Độ</span></li>
+      </ul>
+    </div>
+    <div class="tv" role="tabpanel" id="p-som" aria-labelledby="t-som" hidden>
+      <div><div class="logo-tv"><img src="assets/img/som-logo.webp" width="420" height="146" loading="lazy" decoding="async" alt="Logo SOM"></div>
+        <span class="vai">Công trình biểu tượng</span>
+        <p>SOM – đơn vị gắn với Burj Khalifa, One World Trade Center, One Bangkok.</p></div>
+      <ul class="ct">
+        <li data-zoom="assets/img/som-burj-khalifa-dubai.webp"><img src="assets/img/som-burj-khalifa-dubai.webp" width="560" height="493" loading="lazy" decoding="async" alt="Burj Khalifa, Dubai – công trình tiêu biểu của SOM"><span>Burj Khalifa · Dubai</span></li>
+        <li data-zoom="assets/img/som-one-world-trade-center.webp"><img src="assets/img/som-one-world-trade-center.webp" width="560" height="495" loading="lazy" decoding="async" alt="One World Trade Center, New York – công trình tiêu biểu của SOM"><span>One World Trade Center · New York</span></li>
+        <li data-zoom="assets/img/som-one-bangkok-thap.webp"><img src="assets/img/som-one-bangkok-thap.webp" width="560" height="493" loading="lazy" decoding="async" alt="One Bangkok, Thái Lan – công trình tiêu biểu của SOM"><span>One Bangkok · Thái Lan</span></li>
+      </ul>
+    </div>
+    <div class="tv" role="tabpanel" id="p-pcp" aria-labelledby="t-pcp" hidden>
+      <div><div class="logo-tv"><img src="assets/img/pelli-clarke-logo.webp" class="det" width="420" height="33" loading="lazy" decoding="async" alt="Logo Pelli Clarke & Partners"></div>
+        <span class="vai">Công trình biểu tượng</span>
+        <p>Pelli Clarke &amp; Partners – đơn vị gắn với tháp đôi Petronas, IFC Hồng Kông, One Canada Square.</p></div>
+      <ul class="ct">
+        <li data-zoom="assets/img/pelli-clarke-petronas-towers.webp"><img src="assets/img/pelli-clarke-petronas-towers.webp" width="560" height="493" loading="lazy" decoding="async" alt="Tháp đôi Petronas, Kuala Lumpur – công trình tiêu biểu của Pelli Clarke & Partners"><span>Petronas Towers · Kuala Lumpur</span></li>
+        <li data-zoom="assets/img/pelli-clarke-ifc-hong-kong.webp"><img src="assets/img/pelli-clarke-ifc-hong-kong.webp" width="560" height="495" loading="lazy" decoding="async" alt="International Finance Centre (IFC), Hồng Kông – công trình tiêu biểu của Pelli Clarke & Partners"><span>IFC · Hồng Kông</span></li>
+        <li data-zoom="assets/img/pelli-clarke-one-canada-square-london.webp"><img src="assets/img/pelli-clarke-one-canada-square-london.webp" width="560" height="493" loading="lazy" decoding="async" alt="One Canada Square, London – công trình tiêu biểu của Pelli Clarke & Partners"><span>One Canada Square · London</span></li>
+      </ul>
+    </div>
+    <div class="tv" role="tabpanel" id="p-kpf" aria-labelledby="t-kpf" hidden>
+      <div><div class="logo-tv"><img src="assets/img/kpf-logo.webp" width="420" height="155" loading="lazy" decoding="async" alt="Logo KPF"></div>
+        <span class="vai">Công trình biểu tượng</span>
+        <p>KPF – đơn vị gắn với Hudson Yards, International Commerce Centre, Shanghai World Financial Center.</p></div>
+      <ul class="ct">
+        <li data-zoom="assets/img/kpf-hudson-yards-kpf.webp"><img src="assets/img/kpf-hudson-yards-kpf.webp" width="560" height="493" loading="lazy" decoding="async" alt="Hudson Yards, New York – công trình tiêu biểu của KPF"><span>Hudson Yards · New York</span></li>
+        <li data-zoom="assets/img/kpf-international-commerce-centre.webp"><img src="assets/img/kpf-international-commerce-centre.webp" width="560" height="495" loading="lazy" decoding="async" alt="International Commerce Centre, Hồng Kông – công trình tiêu biểu của KPF"><span>International Commerce Centre · Hồng Kông</span></li>
+        <li data-zoom="assets/img/kpf-shanghai-world-financial-center.webp"><img src="assets/img/kpf-shanghai-world-financial-center.webp" width="560" height="493" loading="lazy" decoding="async" alt="Shanghai World Financial Center, Thượng Hải – công trình tiêu biểu của KPF"><span>Shanghai World Financial Center</span></li>
+      </ul>
+    </div>
+    <div class="tv" role="tabpanel" id="p-bos" aria-labelledby="t-bos" hidden>
+      <div><div class="logo-tv"><img src="assets/img/buro-ole-scheeren-logo.webp" class="det" width="420" height="38" loading="lazy" decoding="async" alt="Logo Büro Ole Scheeren"></div>
+        <span class="vai">Công trình biểu tượng</span>
+        <p>Büro Ole Scheeren – đơn vị gắn với trụ sở CCTV, The Interlace, MahaNakhon.</p></div>
+      <ul class="ct">
+        <li data-zoom="assets/img/buro-ole-scheeren-cctv-headquarters.webp"><img src="assets/img/buro-ole-scheeren-cctv-headquarters.webp" width="560" height="493" loading="lazy" decoding="async" alt="Trụ sở CCTV, Bắc Kinh – công trình tiêu biểu của Büro Ole Scheeren"><span>CCTV Headquarters · Bắc Kinh</span></li>
+        <li data-zoom="assets/img/buro-ole-scheeren-the-interlace-singapore.webp"><img src="assets/img/buro-ole-scheeren-the-interlace-singapore.webp" width="560" height="495" loading="lazy" decoding="async" alt="The Interlace, Singapore – công trình tiêu biểu của Büro Ole Scheeren"><span>The Interlace · Singapore</span></li>
+        <li data-zoom="assets/img/buro-ole-scheeren-mahanakhon-bangkok.webp"><img src="assets/img/buro-ole-scheeren-mahanakhon-bangkok.webp" width="560" height="493" loading="lazy" decoding="async" alt="MahaNakhon, Bangkok – công trình tiêu biểu của Büro Ole Scheeren"><span>MahaNakhon · Bangkok</span></li>
+      </ul>
+    </div>
+    <div class="tv" role="tabpanel" id="p-hw" aria-labelledby="t-hw" hidden>
+      <div><div class="logo-tv"><img src="assets/img/heatherwick-studio-logo.webp" class="det" width="420" height="37" loading="lazy" decoding="async" alt="Logo Heatherwick Studio"></div>
+        <span class="vai">Công trình biểu tượng</span>
+        <p>Heatherwick Studio – đơn vị gắn với Vessel, Azabudai Hills, Xi'an CCBD.</p></div>
+      <ul class="ct">
+        <li data-zoom="assets/img/heatherwick-studio-vessel-new-york.webp"><img src="assets/img/heatherwick-studio-vessel-new-york.webp" width="560" height="493" loading="lazy" decoding="async" alt="Vessel, New York – công trình tiêu biểu của Heatherwick Studio"><span>Vessel · New York</span></li>
+        <li data-zoom="assets/img/heatherwick-studio-azabudai-hills.webp"><img src="assets/img/heatherwick-studio-azabudai-hills.webp" width="560" height="495" loading="lazy" decoding="async" alt="Azabudai Hills, Tokyo – công trình tiêu biểu của Heatherwick Studio"><span>Azabudai Hills · Tokyo</span></li>
+        <li data-zoom="assets/img/heatherwick-studio-xian-ccbd.webp"><img src="assets/img/heatherwick-studio-xian-ccbd.webp" width="560" height="493" loading="lazy" decoding="async" alt="Xi'an CCBD, Tây An – công trình tiêu biểu của Heatherwick Studio"><span>Xi'an CCBD · Tây An</span></li>
+      </ul>
+    </div>
+    <p class="tv-note rv">NIKKEN là đơn vị tư vấn thiết kế quy hoạch và kiến trúc. Các đơn vị còn lại được giới thiệu cùng trong tài liệu dự án; vai trò cụ thể theo công bố chính thức của chủ đầu tư. Hình công trình tiêu biểu của từng đơn vị mang tính tham khảo.</p>
+  </div>
+</section>
+
+<!-- ======================= FAQ (khớp từng chữ với FAQPage JSON-LD — dong-bo-seo.py chép từ đây) ======================= -->
+<section class="sec bg-sang" id="hoi-dap">
+  <div class="wrap">
+    <div class="head mot rv">
+      <p class="eb" aria-hidden="true"><b>09</b><i></i>Hỏi đáp</p>
+      <h2>Những điều nên biết về <span class="nw">Ga Thủ Thiêm</span></h2>
+    </div>
+    <div class="faq rv">
+      <details open><summary>Khu đô thị phức hợp Ga Thủ Thiêm ở đâu?</summary><p>Dự án nằm tại khu vực nhà ga Thủ Thiêm theo quy hoạch, gần nút giao An Phú, TP. Hồ Chí Minh – nơi quy hoạch giao nhau của tuyến Metro số 2, đường sắt Thủ Thiêm – Long Thành và đường sắt tốc độ cao Bắc – Nam.</p></details>
+      <details><summary>Ai phát triển Khu đô thị phức hợp Ga Thủ Thiêm?</summary><p>Dự án do SonKim Land – nhà phát triển The Metropole Thủ Thiêm – phát triển; NIKKEN (Nhật Bản) tư vấn thiết kế quy hoạch và kiến trúc. ERA Vietnam là đại lý phân phối.</p></details>
+      <details><summary>Dự án đang ở giai đoạn nào?</summary><p>Khu đô thị phức hợp Ga Thủ Thiêm đang ở giai đoạn ý tưởng phát triển. Quy mô, sản phẩm và thông tin dự án có thể điều chỉnh theo phê duyệt của cơ quan nhà nước có thẩm quyền và công bố chính thức của chủ đầu tư.</p></details>
+      <details><summary>Ga Thủ Thiêm có những tuyến đường sắt nào?</summary><p>Theo quy hoạch, ga Thủ Thiêm là điểm giao của Metro số 2 (Bến Thành – Thủ Thiêm, khởi công 29/4/2026, mục tiêu hoàn thành năm 2030), đường sắt Thủ Thiêm – Sân bay Long Thành (mục tiêu hoàn thành năm 2030) và đường sắt tốc độ cao Bắc – Nam (mục tiêu hoàn thành cơ bản năm 2035).</p></details>
+      <details><summary>Mô hình TOD 5.0 là gì?</summary><p>TOD là mô hình phát triển đô thị gắn với giao thông công cộng. Theo cách phân loại của chủ đầu tư, TOD 1.0 là nhà ga; 2.0 thêm kết nối công trình; 3.0 thêm thành phố; 4.0 thêm không gian xanh; 5.0 thêm trải nghiệm điểm đến – nhà ga và dự án trở thành một điểm đến.</p></details>
+      <details><summary>Từ Ga Thủ Thiêm đến các khu vực trọng điểm mất bao lâu?</summary><p>Thời gian tham khảo: khoảng 10 phút đến Khu đô thị mới Thủ Thiêm, 15 phút đến Trung tâm Tài chính Quốc tế Việt Nam tại TP.HCM, 20 phút đến Thảo Điền và Khu Công nghệ cao, 30 phút đến sân bay Tân Sơn Nhất, 60 phút đến sân bay quốc tế Long Thành.</p></details>
+      <details><summary>Dự án mang lại giá trị gì cho TP. Hồ Chí Minh?</summary><p>Cho thành phố: thêm điểm đến du lịch, thu hút vốn đầu tư nước ngoài, nguồn thu ngân sách dài hạn. Cho cộng đồng: di chuyển thuận tiện, tiếp cận dịch vụ thương mại và không gian công cộng, tạo việc làm. Cho diện mạo đô thị: công trình kiến trúc điểm nhấn, quy hoạch đồng bộ.</p></details>
+      <details><summary>Làm sao nhận thông tin chính thức về dự án?</summary><p>Quý khách đăng ký nhận thông tin với ERA Vietnam để được cập nhật tiến độ quy hoạch, hạ tầng và thông tin chính thức khi chủ đầu tư công bố.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 11 · ĐĂNG KÝ NHẬN THÔNG TIN / FINAL CTA (sheet mục 11 — D21/D22, ảnh E21 "phối cảnh ban đêm khu đô thị" = Training trang 36)
+     BẢN CÓ FORM: Họ tên | SĐT | Nhu cầu quan tâm (sheet D22) -> LEAD_ENDPOINT. ======================= -->
+<section class="cta" id="dang-ky">
+  <img src="assets/img/ga-thu-thiem-phoi-canh-ve-dem-khu-do-thi.webp" srcset="assets/img/ga-thu-thiem-phoi-canh-ve-dem-khu-do-thi-800.webp 800w, assets/img/ga-thu-thiem-phoi-canh-ve-dem-khu-do-thi.webp 1600w" sizes="100vw" width="1600" height="900" loading="lazy" decoding="async" alt="Phối cảnh ban đêm Khu đô thị phức hợp Ga Thủ Thiêm, ánh đèn từ cụm tháp chiếu lên bầu trời">
+  <div class="cta-shade" aria-hidden="true"></div>
+  <div class="cta-in co-form">
+    <div class="cta-box rv">
+      <h2>Đăng ký nhận thông tin dự án Khu đô thị phức hợp <span class="nw">Ga Thủ Thiêm</span></h2>
+      <p class="lead">Nhận cập nhật về tiến độ quy hoạch, hạ tầng và thông tin chính thức từ ERA Vietnam khi dự án công bố.</p>
+      <ul>
+        <li>Tiến độ quy hoạch khu vực nhà ga Thủ Thiêm</li>
+        <li>Cập nhật hạ tầng Metro số 2 và các tuyến đường sắt</li>
+        <li>Thông tin chính thức khi chủ đầu tư công bố</li>
+      </ul>
+      <ul class="loai" aria-label="Nhu cầu quan tâm">
+        <li>Đầu tư</li><li>Văn phòng – thương mại</li><li>Thông tin chung</li>
+      </ul>
+      <p class="ket-cta">Chuyên viên ERA gọi lại cập nhật thông tin chính thức cho anh/chị ngay khi dự án công bố.</p>
+      <p class="luu-y">Thông tin, hình ảnh mang tính tham khảo; dự án đang ở giai đoạn ý tưởng, có thể điều chỉnh theo phê duyệt của cơ quan nhà nước có thẩm quyền.</p>
+    </div>
+    <div class="form-card rv">
+      <div class="t">Đăng ký nhận thông tin</div>
+      <div class="s">Cập nhật tiến độ quy hoạch, hạ tầng và thông tin chính thức khi dự án công bố · Bảo mật thông tin</div>
+      <form data-lead data-source="form-dang-ky-nhan-thong-tin" novalidate>
+        <input class="field" name="name" autocomplete="name" placeholder="Họ tên (*)" aria-label="Họ tên">
+        <input class="field" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Số điện thoại (*)" aria-label="Số điện thoại">
+        <select class="field" name="product" aria-label="Nhu cầu quan tâm">
+          <option value="">Nhu cầu quan tâm</option>
+          <option>Đầu tư</option>
+          <option>Văn phòng – thương mại</option>
+          <option>Thông tin chung</option>
+        </select>
+        <button class="nut" type="submit">ĐĂNG KÝ NHẬN THÔNG TIN</button>
+      </form>
+      <p class="hot">Hoặc gọi ngay <a href="tel:0941125000">094.1125.000</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= FOOTER (sheet mục 12 — D23/D24)
+     Sửa so với sheet: "Đại lý Phân phối Chính thức", "siêu phẩm", "sáng giá bậc nhất" -> ghi "đại lý phân phối", bỏ từ tuyệt đối (chưa thấy văn bản). ======================= -->
+<footer>
+  <div class="ft">
+    <img src="assets/img/era-vietnam-logo-trang.webp" class="era" width="196" height="240" loading="lazy" decoding="async" alt="Logo ERA Vietnam">
+    <div>
+      <div class="fb"><span>ERA VIETNAM</span><strong>Đại lý phân phối dự án <span class="nw">Ga Thủ Thiêm</span></strong></div>
+      <p>ERA Vietnam tự hào đồng hành cùng Khu đô thị phức hợp Ga Thủ Thiêm trong vai trò đại lý phân phối, mang đến cho Quý khách hàng thông tin sớm về một tâm điểm kết nối mới của TP. Hồ Chí Minh.</p>
+    </div>
+    <img src="assets/img/sonkim-land-logo.webp" class="lg" width="420" height="270" loading="lazy" decoding="async" alt="Logo SonKim Land">
+  </div>
+  <p class="ft-legal">Nhà phát triển: SonKim Land. Tư vấn thiết kế quy hoạch và kiến trúc: NIKKEN. Khu đô thị phức hợp Ga Thủ Thiêm, khu vực nhà ga Thủ Thiêm, TP. Hồ Chí Minh. Thông tin trong trang mang tính tham khảo, hình ảnh phối cảnh mang tính minh họa; dự án đang ở giai đoạn ý tưởng, có thể điều chỉnh theo phê duyệt của cơ quan nhà nước có thẩm quyền. Mọi thông tin chính thức căn cứ công bố của chủ đầu tư.</p>
+  <p class="ft-dc">ERA Vietnam · Số 22 - 24, Đường số 5, KĐT Sala, Phường An Khánh, TP. Hồ Chí Minh.</p>
+  <div class="links"><a href="tel:0941125000">Hotline: 094.1125.000</a><a href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo tư vấn</a></div>
+</footer>
+
+<!-- thanh liên hệ nhanh (điện thoại) -->
+<div class="bar" id="bar" aria-label="Liên hệ nhanh">
+  <a href="tel:0941125000">Gọi ngay</a>
+  <a href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo</a>
+  <a class="chinh" href="#dang-ky">Đăng ký</a>
+</div>
+
+<!-- phóng to ảnh -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn">
+  <p id="lb-cap"></p>
+  <button type="button" data-close aria-label="Đóng ảnh">✕</button>
+  <img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
+</div>
+
+<script src="assets/js/ga-thu-thiem.js?v=20261008-era" defer></script>
+</body>
+</html>
