@@ -72,6 +72,7 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/thank-you-gem-park": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-ga-thu-thiem": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-ga-thu-thiem": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/app-era": { header: false, footer: false, toTop: false, contentPadding: false },
 };
 
 function normalizePathname(pathname: string): string {
