@@ -43,7 +43,7 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/pk-park-village-du-an-waterpoint": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-palm-river": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-celesta-gold": { header: false, footer: false, toTop: false, contentPadding: false },
-  "/du-an-the-westique-residences": { header: false, footer: true, toTop: false },
+  "/du-an-the-westique-residences": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-westique": { header: false, footer: false, toTop: false },
   "/du-an-thanh-phu-centre-point": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-the-aspira": { header: false, footer: false, toTop: false, contentPadding: false },
@@ -64,6 +64,10 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/thank-you-nobu-da-nang": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-imperia-sensa-park": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-imperia-sensa-park": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-gladia-heights": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-gladia-heights": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-hoiana-residences": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-hoiana-residences": { header: false, footer: false, toTop: false, contentPadding: false },
 };
 
 function normalizePathname(pathname: string): string {
