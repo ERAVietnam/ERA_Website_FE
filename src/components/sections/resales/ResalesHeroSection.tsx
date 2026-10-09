@@ -11,9 +11,9 @@ import { Reveal } from "./Reveal";
 import { submitLeadBeacon } from "../landing/lib/submit-lead";
 
 const INFO = [
-  { value: "09:00", label: "Thứ 7 ngày 07/11/2026" },
+  { value: "09:00", label: "Thứ 7 ngày 24/10/2026" },
   { value: "300 chỗ giới hạn", label: "Văn phòng ERA Vietnam" },
-  { value: "02/11", label: "Hạn đăng ký" },
+  { value: "21/10", label: "Hạn đăng ký" },
 ];
 
 /* 3 phiên bản tiêu đề xoay vòng mỗi 5 giây:
