@@ -72,6 +72,12 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/thank-you-gem-park": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-ga-thu-thiem": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-ga-thu-thiem": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-m-landmark-residences": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-m-landmark-residences": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-trellia-vista": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-trellia-vista": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-hanoi-signature": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-hanoi-signature": { header: false, footer: false, toTop: false, contentPadding: false },
   "/app-era": { header: false, footer: false, toTop: false, contentPadding: false },
 };
 

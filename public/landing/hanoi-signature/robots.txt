@@ -1,0 +1,11 @@
+# BẢN CÓ FORM + BẢN XEM THỬ — chặn toàn bộ công cụ tìm kiếm.
+# Lý do: tên miền đang là tên tạm hanoi-signature-dang-ky-era.vercel.app (link duyệt cho MKT dự án).
+#
+# KHI CHẠY THẬT, đổi toàn bộ file này thành:
+#   User-agent: *
+#   Allow: /
+#   Sitemap: https://<ten-mien-that>/sitemap.xml
+# và sửa thẻ robots trong index.html thành "index, follow, max-image-preview:large".
+
+User-agent: *
+Disallow: /

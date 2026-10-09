@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Trellia Vista Mizuki Park – Căn hộ bên sông Nam Long | ERA</title>
+<meta name="description" content="Trellia Vista – tháp TC3 bên sông của Trellia Cove, Mizuki Park, Nam Sài Gòn. Căn hộ 2PN – 3PN 59 – 106 m², 17 căn mỗi tầng, cạnh công viên bờ sông 3.500 m².">
+<meta name="keywords" content="Trellia Vista, tháp TC3, Trellia Cove, Mizuki Park, căn hộ Mizuki Park, căn hộ Nam Long, căn hộ Nguyễn Văn Linh, căn hộ Nam Sài Gòn, căn hộ bên sông, căn hộ 2PN Mizuki, căn hộ 3PN Mizuki">
+<!-- ⚠️ BẢN XEM THỬ — đang chặn Google vì còn tên miền tạm. Landing cho SALE: không form, không hotline.
+     Có tên miền thật thì chạy: python _kiemtra/len-song.py https://<ten-mien> --mo-index -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A4B28">
+<meta name="author" content="ERA Vietnam">
+
+<!-- BẢN CÓ FORM — sinh tự động bởi _dungcu/tao-ban-co-form.py từ landing/ (bản không form). KHÔNG sửa tay file này.
+     ⚠️ TÊN MIỀN TẠM (vercel). len-song-co-form.py tự đổi mọi chỗ + sitemap + robots -->
+<link rel="canonical" href="https://trellia-vista-dang-ky-era.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="ERA Vietnam">
+<meta property="og:url" content="https://trellia-vista-dang-ky-era.vercel.app/">
+<meta property="og:title" content="Trellia Vista – Tầm nhìn rộng mở ra miền thiên nhiên">
+<meta property="og:description" content="Tòa tháp TC3 bên sông của phân khu Trellia Cove, khu đô thị Mizuki Park 26 ha – Nam Long, NNR, Hankyu Hanshin. Căn hộ 2PN – 3PN 59 – 106 m².">
+<meta property="og:image" content="https://trellia-vista-dang-ky-era.vercel.app/assets/img/og-trellia-vista-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Trellia Vista – tháp TC3 bên sông, phân khu Trellia Cove, Mizuki Park, Nam Sài Gòn">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:alt" content="Trellia Vista – tháp TC3 bên sông, phân khu Trellia Cove, Mizuki Park, Nam Sài Gòn">
+<meta name="twitter:title" content="Trellia Vista – Tầm nhìn rộng mở ra miền thiên nhiên">
+<meta name="twitter:description" content="Tháp TC3 bên sông của Trellia Cove, Mizuki Park 26 ha, Nam Sài Gòn: căn hộ 2PN – 3PN 59 – 106 m², cạnh công viên bờ sông 3.500 m².">
+<meta name="twitter:image" content="https://trellia-vista-dang-ky-era.vercel.app/assets/img/og-trellia-vista-1200x630.jpg">
+
+<!-- GEO: toạ độ GẦN ĐÚNG — khu đô thị Mizuki Park, phía nam trục Nguyễn Văn Linh, cạnh Rạch Bà Lào (bản đồ leaflet CĐT).
+     Leaflet không ghi địa chỉ hành chính -> chỉ ghi "Mizuki Park, Nguyễn Văn Linh, TP. Hồ Chí Minh" (sheet: "địa chỉ chính xác CHỜ CĐT") -->
+<meta name="geo.region" content="VN-SG">
+<meta name="geo.placename" content="Khu đô thị Mizuki Park, đường Nguyễn Văn Linh, TP. Hồ Chí Minh">
+<meta name="geo.position" content="10.7160;106.6610">
+<meta name="ICBM" content="10.7160, 106.6610">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A4B28'/%3E%3Cpath d='M12 24c7-5 13-5 20 0s13 5 20 0M12 34c7-5 13-5 20 0s13 5 20 0M12 44c7-5 13-5 20 0s13 5 20 0' fill='none' stroke='%23D9BF8C' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<!-- Font theo leaflet CĐT: Noto Serif Display (tên dự án in hoa giãn chữ) + Montserrat (tiêu đề in hoa đậm) + Be Vietnam Pro. Không preload font: hero là LCP -->
+<link rel="preload" as="image" href="assets/img/trellia-vista-hero-mobile.webp" media="(max-width:760px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/trellia-vista-thap-tc3-ben-song-hoang-hon-mizuki-park.webp" media="(min-width:761px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/fonts/fonts.css?v=ca3234bc">
+
+<style>
+/* Font dự phòng cùng số đo font thật — chữ không nhảy khi font tải xong */
+@font-face{font-family:'BVP Fallback';src:local('Arial');size-adjust:108.48%;ascent-override:92.18%;descent-override:24.43%;line-gap-override:0%}
+@font-face{font-family:'Mont Fallback';src:local('Arial');size-adjust:112%;ascent-override:85%;descent-override:22%;line-gap-override:0%}
+@font-face{font-family:'NSD Fallback';src:local('Georgia');size-adjust:96%;ascent-override:100%;descent-override:28%;line-gap-override:0%}
+/* Màu theo leaflet Trellia Vista (CĐT, đo trên ảnh trang 08/10/2026):
+   xanh rêu "NAM SÀI GÒN / Mizuki" #0A4B28 · vàng đồng chữ "Vị trí" #8C6939 · kem nền #FEF7DD · dải nâu #6C5335 → #917148.
+   Tên biến giữ như khung Gladia/Gem Park (--xanh, --vang, --kem, --dat…) để _dungcu/tao-ban-co-form.py dùng tiếp:
+   --xanh = xanh rêu, --vang = vàng sáng (trên nền tối), --dat = vàng đồng đậm (chữ nhỏ trên nền sáng). */
+:root{
+  --xanh:#0A4B28; --xanh-2:#13643A; --xanh-dam:#073A1F; --xanh-dem:#052B17; --xanh-text:#FFFFFF;
+  --vang:#D9BF8C; --vang-2:#B8955E; --vang-text:#7A5A2E; --dat:#7A5A2E; --dong:#8C6939; --nau:#6C5335; --nau-2:#917148;
+  --ink:#1D2A20; --text:#424C40; --muted:#5E6458;
+  --kem:#FBF5E6; --kem-2:#F5EEDB; --line:#E8E0CC; --line-2:#D8CCB0;
+  --hdr:70px; --r:6px;
+  --serif:'Noto Serif Display','NSD Fallback', Georgia, serif;
+  --display:'Montserrat','Mont Fallback', Arial, sans-serif;
+  --sans:'Be Vietnam Pro','BVP Fallback', system-ui, sans-serif;
+  /* "trắng có ánh sáng" như trời hoàng hôn trên leaflet: kem vàng góc trên, ánh đào nhạt, xanh lá rất nhạt góc dưới */
+  --nen-sang:radial-gradient(60% 70% at 8% 0%,rgba(254,240,200,.9) 0%,rgba(254,240,200,0) 70%),
+             radial-gradient(45% 55% at 92% 12%,rgba(250,214,182,.35) 0%,rgba(250,214,182,0) 70%),
+             radial-gradient(55% 60% at 100% 100%,rgba(10,75,40,.06) 0%,rgba(10,75,40,0) 70%);
+  /* dải nâu – đồng của leaflet, đa điểm để không thành mảng trơn */
+  /* đầu sáng nhất #86663F: chữ trắng vẫn ≥ 5:1 (detector 1.0.0, 08/10) */
+  --nen-dong:radial-gradient(70% 90% at 0% 0%,#4F3B27 0%,rgba(79,59,39,0) 70%),
+             radial-gradient(60% 80% at 100% 100%,#86663F 0%,rgba(134,102,63,0) 70%),
+             linear-gradient(120deg,#5E4730 0%,#6C5335 55%,#7A5E3A 100%);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + 8px)}
+html,body{overflow-x:hidden}
+/* overflow-x:hidden làm header sticky trôi mất khi cuộn -> trình duyệt có clip thì dùng clip */
+@supports (overflow:clip){ html,body{overflow-x:clip} }
+body{margin:0;font-family:var(--sans);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.7;font-variant-numeric:lining-nums;font-synthesis:none}
+img{max-width:100%;display:block}
+a{color:var(--xanh);text-decoration:none}
+a:hover{color:var(--xanh-2)}
+.wrap{max-width:1200px;margin:0 auto;position:relative}
+.sec{position:relative;padding:clamp(72px,8vw,124px) 22px;overflow:hidden}
+.bg-kem{background-color:var(--kem);background-image:var(--nen-sang)}
+/* đầu mục: số mục + tiêu đề bên trái, đoạn dẫn bên phải */
+.head{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(22px,4.4vw,80px);align-items:end;margin:0 0 clamp(40px,4.6vw,64px)}
+.head.mot{display:block;max-width:920px}
+.eb{display:flex;align-items:center;gap:14px;margin:0 0 18px;font-family:var(--display);font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--dat)}
+.eb b{font-family:var(--serif);font-size:24px;letter-spacing:0;font-weight:400;color:var(--dong)}
+.eb i{width:44px;height:1px;background:var(--vang-2)}
+/* tiêu đề 2 tầng như leaflet: dòng serif vàng đồng + dòng sans đậm in hoa xanh rêu ("Vị trí TÂM ĐIỂM / NAM SÀI GÒN") */
+h2{font-family:var(--display);color:var(--xanh);font-size:clamp(28px,3.4vw,46px);line-height:1.14;font-weight:700;margin:0;text-wrap:balance;text-transform:uppercase;letter-spacing:.01em}
+h2 .s{display:block;font-family:var(--serif);font-weight:400;color:var(--dong);font-size:.72em;letter-spacing:.06em;line-height:1.25;margin-bottom:.18em}
+h2 .dong2{display:block;font-family:var(--sans);font-weight:400;color:var(--text);font-size:clamp(17px,1.35vw,20px);line-height:1.55;margin-top:.9em;text-wrap:pretty;letter-spacing:0;text-transform:none}
+h3{margin:0;font-weight:600}
+.fact{margin:0;color:var(--text);font-size:17px;line-height:1.8;text-wrap:pretty}
+.body{color:var(--text);font-size:16px;line-height:1.8;text-wrap:pretty}
+.body p{margin:0 0 14px}
+.body p:last-child{margin-bottom:0}
+.note{font-size:14px;color:var(--muted);line-height:1.7}
+.nw{white-space:nowrap}
+.m2{font-size:.7em;vertical-align:.55em;line-height:0;margin-left:.04em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* hoạ tiết = các làn sóng trong logo Mizuki Park: to, nét mảnh, tràn mép — mỗi khối 1 vị trí, không lát đều */
+.hoa{position:absolute;pointer-events:none;width:clamp(280px,34vw,540px);height:auto;color:var(--vang-2);opacity:.32;fill:none;stroke:currentColor;stroke-width:1.1}
+.hoa path{vector-effect:non-scaling-stroke}
+.hoa.xanh{color:var(--xanh);opacity:.1}
+.hoa.tr{top:-40px;right:-150px}
+.hoa.bl{bottom:-50px;left:-170px}
+.hoa.br{bottom:-40px;right:-140px}
+.hoa.tl{top:-30px;left:-180px}
+.ket{position:relative;font-family:var(--serif);font-size:clamp(23px,2.4vw,31px);color:var(--xanh);font-weight:400;text-align:center;line-height:1.45;max-width:900px;margin:clamp(52px,5.4vw,84px) auto 0;padding-top:clamp(28px,3vw,40px);text-wrap:balance}
+.ket::before{content:"";position:absolute;top:0;left:50%;width:64px;height:2px;margin-left:-32px;background:linear-gradient(90deg,var(--vang-2),var(--xanh))}
+.fcap{margin:0;padding:10px 12px;font-size:13px;color:var(--muted);letter-spacing:.02em;line-height:1.5;background:#fff}
+.nut{display:inline-flex;align-items:center;gap:10px;margin-top:24px;background:var(--xanh);color:#fff;font-family:var(--display);font-weight:600;font-size:14.5px;letter-spacing:.04em;border-radius:999px;padding:14px 28px;min-height:48px}
+.nut:hover{background:var(--xanh-2);color:#fff}
+.nut svg{width:18px;height:18px}
+@media (max-width:900px){ .head{grid-template-columns:1fr;gap:18px;align-items:start} .eb{margin-bottom:14px} }
+@media (max-width:560px){ .ket{font-size:22px} }
+
+/* ---------- XEM THÊM: chữ vẫn nằm đủ trong HTML (SEO · GEO · AIO), JS chỉ thu gọn phần hiển thị ---------- */
+.gon.dong{max-height:var(--gon);overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 3em),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 3em),transparent)}
+.xem-them{display:inline-flex;align-items:center;gap:8px;margin:6px 0 0;padding:10px 0;min-height:44px;border:0;background:none;font-family:inherit;font-size:15px;font-weight:600;color:var(--xanh);cursor:pointer;text-decoration:underline;text-decoration-color:var(--vang-2);text-underline-offset:6px;text-decoration-thickness:1px}
+.xem-them:hover{color:var(--xanh-2)}
+.xem-them svg{width:16px;height:16px;flex:none;transition:transform .25s}
+.xem-them[aria-expanded="true"] svg{transform:rotate(180deg)}
+
+/* ---------- HEADER (nền trắng, chữ ký tên dự án) ---------- */
+.hdr{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1px solid var(--line);transform:translateY(0);transition:transform .28s ease,box-shadow .28s ease}
+.hdr.nav-hide{transform:translateY(-110%);box-shadow:none}
+.hdr-in{max-width:1240px;margin:0 auto;height:var(--hdr);padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;flex-direction:column;flex-shrink:0;line-height:1}
+.brand b{font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:.16em;color:var(--dong)}
+.brand span{font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.3em;color:var(--xanh);margin-top:5px}
+.nav{display:flex;align-items:center;gap:20px}
+.nav a{color:var(--ink);font-weight:600;font-size:14.5px;letter-spacing:.01em;white-space:nowrap}
+.nav a:hover,.nav a.on{color:var(--dat)}
+.burger{display:none;width:44px;height:44px;border:0;background:none;padding:10px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--xanh);margin:5px 0;border-radius:4px;transition:transform .25s,opacity .25s}
+@media (max-width:1180px){
+  :root{--hdr:62px}
+  .nav{display:none}
+  .burger{display:block}
+  .brand b{font-size:19px}
+  .hdr.open{z-index:400}
+  .hdr.open .nav{display:flex;position:fixed;top:var(--hdr);left:0;right:0;bottom:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;padding:12px 22px 30px;overflow:auto}
+  .hdr.open .nav a{display:block;padding:16px 4px;border-bottom:1px solid var(--line);font-size:17px}
+  .hdr.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hdr.open .burger span:nth-child(2){opacity:0}
+  .hdr.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+
+/* ---------- 1 · HERO (sáng như bìa leaflet: trời hoàng hôn kem, chữ vàng đồng + xanh rêu) ---------- */
+.hero{position:relative;height:clamp(600px,calc(100svh - var(--hdr)),940px);overflow:hidden;background:#F3E6C6}
+.hero picture,.hero picture img{position:absolute;inset:0;width:100%;height:100%}
+.hero picture img{object-fit:cover;object-position:50% 70%}
+/* trời phía trên là nền chữ; dưới là dòng sông -> lớp phủ xanh rêu đậm cho dải số liệu */
+.hero-scrim{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(to bottom,rgba(254,247,221,.82) 0%,rgba(254,247,221,.55) 24%,rgba(254,247,221,0) 46%),
+  linear-gradient(90deg,rgba(254,247,221,.5) 0%,rgba(254,247,221,0) 45%),
+  linear-gradient(to top,rgba(5,43,23,.82) 0%,rgba(5,43,23,.45) 18%,rgba(5,43,23,0) 34%)}
+.hero .hoa{top:-50px;right:-120px;width:clamp(320px,36vw,600px);opacity:.42}
+.hero-in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(34px,4.6vw,72px) 22px clamp(24px,3vw,44px)}
+.hero-top,.hero-bot{max-width:1200px;width:100%;margin:0 auto}
+.hero-top>*{max-width:640px}
+.hero .kick{display:flex;align-items:center;gap:14px;font-family:var(--display);font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--xanh);margin:0 0 22px}
+.hero .kick::after{content:"";width:56px;height:1px;background:var(--dong)}
+.hero h1{margin:0;line-height:1;font-weight:400}
+.hero h1 .k{display:block;font-family:var(--display);font-size:clamp(13px,1.1vw,15px);font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.1em;color:var(--dat)}
+.hero h1 .a{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(54px,7.4vw,112px);letter-spacing:.12em;line-height:1;text-transform:uppercase;
+  color:var(--dong);background:linear-gradient(100deg,#7A5A2E 0%,#A5844E 38%,#8C6939 62%,#6E5129 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero h1 em{display:block;font-family:var(--display);font-style:normal;font-weight:700;color:var(--xanh);font-size:clamp(20px,2.2vw,32px);line-height:1.25;margin-top:.75em;text-transform:uppercase;letter-spacing:.06em;text-wrap:balance}
+.hero h1 em small{display:block;font-family:var(--serif);font-weight:400;font-size:.72em;letter-spacing:.04em;text-transform:none;color:var(--dat);margin-top:.2em}
+.hero-sub{color:var(--ink);font-size:clamp(16px,1.2vw,18px);line-height:1.7;font-weight:400;margin:18px 0 0;max-width:520px}
+.hero-facts{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;border-top:1px solid rgba(217,191,140,.6);width:fit-content}
+.hero-facts li{display:flex;flex-direction:column;padding:16px 28px 0 0;margin-right:28px;color:#fff;border-right:1px solid rgba(217,191,140,.35)}
+.hero-facts li:last-child{border-right:0;margin-right:0;padding-right:0}
+.hero-facts b{font-family:var(--serif);font-size:clamp(30px,2.8vw,42px);font-weight:400;line-height:1.05;color:#fff}
+.hero-facts b small{font-size:18px;font-family:var(--sans);font-weight:400;margin-left:3px}
+.hero-facts span{font-size:13px;letter-spacing:.06em;margin-top:6px;font-weight:600;color:#F4E8CC}
+@media (max-width:760px){
+  .hero{height:clamp(620px,calc(100svh - var(--hdr)),860px)}
+  .hero-in{padding:28px 20px 22px}
+  .hero picture img{object-position:50% 50%}
+  .hero-scrim{background:
+    linear-gradient(to bottom,rgba(254,247,221,.9) 0%,rgba(254,247,221,.62) 30%,rgba(254,247,221,0) 50%),
+    linear-gradient(to top,rgba(5,43,23,.92) 0%,rgba(5,43,23,.5) 20%,rgba(5,43,23,0) 34%)}
+  .hero .kick{font-size:11.5px;letter-spacing:.14em;margin-bottom:14px}
+  .hero .kick::after{display:none}
+  .hero h1 .k{font-size:12px;letter-spacing:.14em}
+  .hero h1 .a{font-size:min(12vw,58px);letter-spacing:.08em}
+  .hero h1 em{font-size:19px}
+  .hero-sub{display:none}
+  .hero-facts{display:grid;grid-template-columns:repeat(2,auto);gap:4px 26px;justify-content:start;width:auto}
+  .hero-facts li{padding:10px 0 0;margin:0;border:0}
+  .hero-facts b{font-size:26px}
+  .hero-facts b small{font-size:13px}
+  .hero-facts span{font-size:12px;letter-spacing:.02em}
+  .hero .hoa{display:none}
+}
+@media (max-height:720px) and (min-width:761px){ .hero-sub{display:none} }
+/* máy tính: chia đôi như bìa leaflet — chữ trên nền trời kem bên trái, ảnh nửa phải mờ dần vào nền (tháp TC3 không bị chữ đè).
+   Nền kem lấy đúng màu trời ở mép ảnh (#F8EFDE). Lề trái căn theo khung 1200 px -> màn rộng chữ vẫn ở cột trái. */
+@media (min-width:761px){
+  .hero{background:linear-gradient(180deg,#FAF3E4 0%,#F8EFDE 45%,#F3E4C8 100%)}
+  .hero picture{left:auto;right:0;width:max(62%,calc(100% - (50% - 600px) - 470px))}
+  .hero picture img{object-position:40% 60%;-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.55) 12%,#000 26%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.55) 12%,#000 26%)}
+  .hero-scrim{background:linear-gradient(to top,rgba(243,228,200,.9) 0%,rgba(243,228,200,0) 22%)}
+  .hero-in{justify-content:center;gap:clamp(28px,4vw,60px)}
+  .hero-top>*{max-width:500px}
+  .hero-top>.kick{max-width:none}
+  .hero-facts li{padding:14px 20px 0 0;margin-right:20px}
+  .hero-facts b{font-size:clamp(28px,2.4vw,38px)}
+  .hero h1 .a{font-size:clamp(52px,5.6vw,96px);letter-spacing:.1em}
+  .hero-facts{border-top-color:rgba(140,105,57,.45)}
+  .hero-facts li{color:var(--ink);border-right-color:rgba(140,105,57,.3)}
+  .hero-facts b{color:var(--xanh)}
+  .hero-facts span{color:var(--dat)}
+  .hero .hoa{top:auto;bottom:-60px;left:-140px;right:auto;opacity:.5}
+}
+
+/* ---------- 1b · GIỚI THIỆU ---------- */
+.gt{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,72px);align-items:center}
+.gt figure{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:#fff}
+.gt figure img{width:100%;height:auto}
+.gt .chot{display:flex;flex-wrap:wrap;gap:6px 22px;margin:20px 0 0;padding:16px 0 0;border-top:1px solid var(--line);font-family:var(--serif);font-size:clamp(18px,1.6vw,22px);color:var(--dat);letter-spacing:.04em}
+@media (max-width:900px){ .gt{grid-template-columns:1fr} }
+
+/* ---------- 2 · 6 ĐẶC QUYỀN (thẻ nâu – đồng như trang 3 leaflet) ---------- */
+.dq{display:grid;grid-template-columns:.78fr 1.22fr;gap:clamp(16px,2vw,28px);align-items:stretch}
+.dq figure{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;position:relative;min-height:420px;background:#E9D9B5}
+.dq figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.dq figure figcaption{position:absolute;left:12px;bottom:12px;font-size:12.5px;font-weight:600;color:#fff;background:rgba(5,43,23,.78);border-radius:999px;padding:5px 12px}
+.dq ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;counter-reset:dq}
+.dq li{position:relative;border-radius:var(--r);padding:clamp(20px,2vw,28px) clamp(16px,1.6vw,22px);background:var(--nen-dong);color:#fff;display:flex;flex-direction:column;overflow:hidden}
+.dq li b{font-family:var(--serif);font-weight:300;font-size:clamp(44px,4.2vw,62px);line-height:1;color:#fff}
+.dq li small{display:block;font-family:var(--display);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#F4E8CC;margin-top:16px}
+.dq li strong{display:block;font-family:var(--display);font-weight:700;font-size:clamp(17px,1.5vw,20px);line-height:1.25;text-transform:uppercase;letter-spacing:.02em;color:#F6DFA6;margin-top:6px}
+.dq li span{display:block;font-size:14.5px;line-height:1.6;color:#fff;margin-top:10px}
+@media (max-width:1060px){ .dq{grid-template-columns:1fr} .dq figure{min-height:0;aspect-ratio:16/10} }
+@media (max-width:760px){ .dq ol{grid-template-columns:1fr 1fr} }
+@media (max-width:460px){ .dq ol{grid-template-columns:1fr} }
+
+/* ---------- 3 · TỔNG QUAN ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);margin:0 0 clamp(40px,4.6vw,64px)}
+.stats div{padding:clamp(24px,2.8vw,36px) 14px;text-align:center;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:0}
+.stats b{display:block;font-family:var(--serif);font-weight:300;color:var(--xanh);font-size:clamp(40px,4.4vw,64px);line-height:1}
+.stats b small{font-size:20px;font-family:var(--sans);font-weight:400;margin-left:3px;vertical-align:.55em}
+.stats span{display:block;font-size:14px;font-weight:600;color:var(--muted);margin-top:12px;line-height:1.45}
+@media (max-width:760px){ .stats{grid-template-columns:1fr 1fr} .stats div:nth-child(2){border-right:0} .stats div:nth-child(-n+2){border-bottom:1px solid var(--line)} }
+.ov{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(22px,3.4vw,56px);align-items:start}
+.ov-fig{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:var(--kem);position:sticky;top:calc(var(--hdr) + 18px)}
+.ov-fig img{width:100%;height:auto}
+table.spec{width:100%;border-collapse:collapse;font-size:15px;border-top:1px solid var(--line-2)}
+table.spec th{font-family:var(--display);color:var(--dat);font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-align:left;padding:17px 16px 16px 0;width:31%;vertical-align:top;border-bottom:1px solid var(--line)}
+table.spec td{color:var(--ink);padding:15px 0;line-height:1.55;border-bottom:1px solid var(--line)}
+table.spec td b.hl{color:var(--xanh);font-weight:600}
+table.spec td small{display:block;color:var(--muted);font-size:13px;margin-top:3px}
+table.spec td .cho{display:inline-block;font-size:12.5px;font-weight:600;color:var(--dat);background:var(--kem-2);border-radius:999px;padding:3px 12px;margin-top:6px}
+@media (max-width:900px){ .ov{grid-template-columns:1fr} .ov-fig{position:static} }
+
+/* ---------- 4 · VỊ TRÍ ---------- */
+.vt{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(18px,2.4vw,36px);align-items:start}
+.map-fig{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:#fff}
+.map-fig img{width:100%;height:auto}
+.phut{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.phut div{background:#fff;border-radius:var(--r);padding:clamp(16px,1.8vw,22px);box-shadow:0 12px 34px rgba(108,83,53,.09)}
+.phut b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(34px,3.2vw,46px);line-height:1;color:var(--xanh)}
+.phut b small{font-family:var(--display);font-size:13px;font-weight:600;color:var(--dat);margin-left:6px;letter-spacing:.06em;text-transform:uppercase}
+.phut ul{list-style:none;margin:12px 0 0;padding:0}
+.phut li{font-size:14.5px;color:var(--ink);line-height:1.45;padding:6px 0;border-top:1px solid var(--line)}
+@media (max-width:980px){ .vt{grid-template-columns:1fr} }
+@media (max-width:460px){ .phut{grid-template-columns:1fr} }
+
+/* ---------- 5 · MIZUKI PARK ---------- */
+.mz{display:grid;grid-template-columns:1fr .9fr;gap:clamp(22px,3.4vw,56px);align-items:start}
+.mz figure{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:#0F3A2A;position:sticky;top:calc(var(--hdr) + 18px)}
+.mz figure img{width:100%;height:auto}
+.mz-lon{display:flex;align-items:baseline;gap:20px 36px;flex-wrap:wrap;padding:0 0 20px;border-bottom:1px solid var(--line-2)}
+.mz-lon div b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(54px,5.4vw,80px);line-height:1;color:var(--xanh)}
+.mz-lon div b small{font-family:var(--sans);font-size:22px;font-weight:400;margin-left:4px}
+.mz-lon div span{display:block;font-family:var(--display);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--dat);margin-top:8px}
+.so15{list-style:none;margin:18px 0 0;padding:0;columns:2;column-gap:22px}
+.so15 li{display:flex;gap:12px;align-items:baseline;padding:6px 0;font-size:15px;color:var(--ink);line-height:1.45;break-inside:avoid}
+.so15 li b{flex:none;width:26px;height:26px;border-radius:50%;background:var(--xanh);color:#fff;font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.so15 li.cam b{background:#B45A22}
+@media (max-width:460px){ .so15{columns:1} }
+.dai6{display:grid;grid-template-columns:repeat(6,1fr);border-radius:var(--r);overflow:hidden;margin-top:clamp(36px,4vw,56px);background:var(--nen-dong)}
+.dai6 div{padding:clamp(20px,2.2vw,28px) 12px;text-align:center;color:#fff;border-right:1px solid rgba(255,255,255,.16)}
+.dai6 div:last-child{border-right:0}
+.dai6 b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.3vw,32px);line-height:1.1}
+.dai6 b small{font-size:.55em;margin-left:2px}
+.dai6 span{display:block;font-size:13px;line-height:1.4;margin-top:8px;color:#F4E8CC}
+@media (max-width:900px){ .dai6{grid-template-columns:repeat(3,1fr)} .dai6 div:nth-child(3){border-right:0} .dai6 div:nth-child(-n+3){border-bottom:1px solid rgba(255,255,255,.16)} }
+@media (max-width:460px){ .dai6{grid-template-columns:1fr 1fr} .dai6 div{border-right:1px solid rgba(255,255,255,.16) !important;border-bottom:1px solid rgba(255,255,255,.16)} .dai6 div:nth-child(even){border-right:0 !important} }
+@media (max-width:980px){ .mz{grid-template-columns:1fr} .mz figure{position:static} }
+.hh-nhan{display:flex;align-items:center;gap:10px;margin:clamp(44px,4.6vw,64px) 0 16px;font-family:var(--display);font-size:clamp(18px,1.8vw,24px);letter-spacing:.02em;font-weight:700;color:var(--xanh);text-transform:uppercase;line-height:1.3}
+.hh-nhan small{display:block;font-family:var(--serif);font-weight:400;font-size:.78em;color:var(--dong);text-transform:none;letter-spacing:.02em}
+.hh{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.hh figure{margin:0;border-radius:var(--r);overflow:hidden;background:var(--kem-2);cursor:zoom-in;position:relative;aspect-ratio:3/2}
+.hh figure img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.hh figure:hover img{transform:scale(1.04)}
+.hh figcaption{position:absolute;left:10px;bottom:10px;font-size:13px;font-weight:600;color:#fff;background:rgba(5,43,23,.92);border-radius:999px;padding:5px 12px;width:fit-content;max-width:calc(100% - 20px)}
+@media (max-width:760px){ .hh{grid-template-columns:1fr 1fr} }
+
+/* ---------- 6 · TIỆN ÍCH ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start;margin:0 0 20px}
+.tabs button{font:inherit;font-variant-numeric:lining-nums;font-family:var(--display);font-size:14.5px;font-weight:600;color:var(--xanh);background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:10px 22px;cursor:pointer;min-height:44px}
+.tabs button:hover{border-color:var(--xanh)}
+.tabs button[aria-selected="true"]{background:var(--xanh);border-color:var(--xanh);color:#fff}
+.ti{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(16px,2vw,28px);align-items:start}
+.ti[hidden]{display:none}
+.ti figure{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:#fff}
+.ti figure img{width:100%;height:auto}
+.pk{background:var(--kem);background-image:var(--nen-sang);border-radius:var(--r);padding:clamp(20px,2.2vw,28px)}
+.pk h3{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-family:var(--display);font-weight:700;font-size:19px;color:var(--xanh);line-height:1.3;padding-bottom:12px;border-bottom:1px solid var(--line-2);text-transform:uppercase;letter-spacing:.03em}
+.pk h3 small{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--dat);letter-spacing:.02em;white-space:nowrap;text-transform:none}
+.pk h4{margin:18px 0 0;font-family:var(--display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dat);font-weight:600}
+.tl{list-style:none;margin:10px 0 0;padding:0}
+.tl li{display:flex;gap:12px;align-items:baseline;padding:4px 0;font-size:15px;color:var(--ink);line-height:1.45;break-inside:avoid}
+.tl li b{flex:none;width:26px;height:26px;border-radius:50%;background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink);font-size:12px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+.tl li b.v{background:#F2B71C;box-shadow:none}
+.tl li b.l{background:#5DB54B;color:var(--ink);box-shadow:none}
+.tl li b.h{background:#F2B8CF;box-shadow:none}
+.tl li b.p{background:#1D2A20;color:#fff;box-shadow:none;font-size:11px}
+.tl li b.c{width:14px;height:14px;margin:0 6px;border-radius:50%;box-shadow:none}
+.tl.hai{columns:2;column-gap:18px}
+@media (max-width:900px){ .ti{grid-template-columns:1fr} }
+@media (max-width:420px){ .tl.hai{columns:1} }
+.acc{display:flex;gap:clamp(7px,.8vw,12px);height:clamp(340px,40vw,500px);margin-top:clamp(40px,4.4vw,64px)}
+.acc figure{position:relative;background:var(--xanh-dem);flex:.8 1 0;min-width:0;margin:0;overflow:hidden;border-radius:var(--r);cursor:pointer;transition:flex-grow .55s cubic-bezier(.4,0,.2,1)}
+.acc figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.acc figcaption{position:absolute;inset:auto 0 0 0;padding:clamp(14px,1.6vw,24px);color:#fff;background:linear-gradient(to top,rgba(5,43,23,.92) 0%,rgba(5,43,23,.45) 55%,rgba(5,43,23,0) 100%)}
+.acc .ten{display:block;font-family:var(--display);font-weight:700;font-size:clamp(15px,1.3vw,19px);line-height:1.3;text-transform:uppercase;letter-spacing:.04em}
+.acc .mo{display:block;font-size:14px;line-height:1.5;color:rgba(255,255,255,.94);margin-top:6px;max-height:0;opacity:0;overflow:hidden;transition:max-height .45s,opacity .35s}
+@media (min-width:761px){
+  .acc figure:not(.on) figcaption{inset:0;display:flex;align-items:flex-end;justify-content:center;padding:18px 0}
+  .acc figure:not(.on) .ten{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;font-size:15px}
+}
+.acc figure.on{flex-grow:3.4}
+.acc figure.on .mo{max-height:80px;opacity:1}
+.acc figure.on img{transform:scale(1.03)}
+@media (max-width:760px){
+  .acc{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:clamp(150px,36vw,210px);height:auto}
+  .acc figure:first-child{grid-column:span 2;grid-row:span 2}
+  .acc .mo{max-height:80px;opacity:1}
+  .acc figure:not(:first-child) .mo{display:none}
+  .acc figure:last-child:nth-child(even){grid-column:span 2}
+}
+.an3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:clamp(28px,3.2vw,44px)}
+.an3>div{border-radius:var(--r);padding:clamp(20px,2.2vw,26px);background:#fff;border:1px solid var(--line)}
+.an3 b{display:block;font-family:var(--display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--dat)}
+.an3 p{margin:8px 0 0;font-size:15px;color:var(--text);line-height:1.65}
+@media (max-width:860px){ .an3{grid-template-columns:1fr} }
+
+/* ---------- 7 · MẶT BẰNG TẦNG ---------- */
+.mbt{display:grid;grid-template-columns:1.5fr .5fr;gap:clamp(16px,2vw,28px);align-items:start}
+.mbt figure{margin:0;border-radius:var(--r);overflow:hidden;cursor:zoom-in;background:var(--kem)}
+.mbt figure img{width:100%;height:auto}
+.mb-box{background:#fff;border-radius:var(--r);padding:clamp(20px,2.2vw,28px);border:1px solid var(--line)}
+.mb-box .so17{font-family:var(--serif);font-weight:300;font-size:clamp(56px,5.2vw,78px);color:var(--xanh);line-height:1;margin:0}
+.mb-box .so17 small{display:block;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--muted);margin-top:8px;line-height:1.45}
+.ghi{list-style:none;margin:20px 0 0;padding:16px 0 0;border-top:1px solid var(--line);display:grid;gap:10px}
+.ghi li{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--ink)}
+.ghi em{font-style:normal;margin-left:auto;font-weight:600;font-size:18px;color:var(--xanh)}
+.mb-box .nho{font-size:13.5px;color:var(--muted);line-height:1.6;margin:16px 0 0}
+.nut-vien{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:11px 18px;border:1px solid var(--line-2);border-radius:999px;background:#fff;font:inherit;font-weight:600;font-size:14px;color:var(--xanh);cursor:zoom-in;min-height:44px}
+.nut-vien:hover{border-color:var(--xanh)}
+.nut-vien svg{width:16px;height:16px}
+@media (max-width:980px){ .mbt{grid-template-columns:1fr} }
+/* ô màu theo chú thích mặt bằng tháp TC3 của CĐT (đo trên leaflet trang 5) */
+.o{display:inline-block;width:26px;height:18px;border-radius:3px;flex:none;box-shadow:inset 0 0 0 1px rgba(29,42,32,.18);vertical-align:-3px}
+.o.a{background:#C0E1D8} .o.b1{background:#D7BAD8} .o.b2{background:#9FB5C3} .o.b3{background:#F8DAE6} .o.b5a{background:#7ED1F1}
+.o.c1{background:#B99573} .o.c2{background:#DFCDB5} .o.c3{background:#9DBB75} .o.c4{background:#FCC283}
+.bang-wrap{overflow-x:auto;margin-top:clamp(28px,3vw,40px);border-radius:var(--r);background:#fff;border:1px solid var(--line)}
+table.mau{width:100%;min-width:620px;border-collapse:collapse;font-size:15px}
+table.mau th{font-family:var(--display);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dat);font-weight:600;text-align:left;padding:14px 16px;border-bottom:1px solid var(--line-2);background:var(--kem)}
+table.mau td{padding:12px 16px;border-bottom:1px solid var(--line);color:var(--ink);line-height:1.45}
+table.mau tr:last-child td{border-bottom:0}
+table.mau td:first-child{font-weight:600;color:var(--xanh);white-space:nowrap}
+table.mau td.dt{font-weight:600;white-space:nowrap}
+table.mau tr.nhom td{background:var(--kem-2);font-family:var(--display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--dat);font-weight:700;padding:10px 16px}
+
+/* ---------- 8 · LAYOUT CĂN HỘ ---------- */
+.tabs.lo-t button{padding:10px 18px;min-width:56px}
+.lo{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(18px,2.6vw,40px);align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:clamp(16px,2.2vw,30px)}
+.lo[hidden]{display:none}
+.lo figure{margin:0;cursor:zoom-in;display:flex;justify-content:center;background:#fff}
+.lo figure img{width:auto;max-width:100%;max-height:520px;height:auto}
+.lo h3{font-family:var(--display);font-weight:700;font-size:clamp(24px,2.4vw,32px);color:var(--xanh);line-height:1.1;text-transform:uppercase;letter-spacing:.02em}
+.lo h3 small{display:block;font-family:var(--serif);font-weight:400;font-size:15px;letter-spacing:.03em;color:var(--dong);text-transform:none;margin-bottom:8px}
+.lo dl{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--line)}
+.lo dt{font-family:var(--display);font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.lo dd{margin:4px 0 0;font-size:18px;color:var(--xanh);line-height:1.25;font-weight:600}
+.lo p{margin:16px 0 0;font-size:15px;color:var(--text);line-height:1.65}
+@media (max-width:860px){ .lo{grid-template-columns:1fr} .lo figure img{max-height:420px} }
+.cu{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:6px 18px}
+.cu li{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink)}
+.cu li b{flex:none;width:24px;height:24px;border-radius:50%;background:var(--dong);color:#fff;font-size:11px;font-weight:600;display:inline-flex;align-items:center;justify-content:center}
+@media (max-width:900px){ .cu{grid-template-columns:repeat(2,1fr)} }
+.nt-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin:clamp(44px,4.6vw,68px) 0 16px}
+.nt-head h3{font-family:var(--display);font-weight:700;font-size:clamp(19px,2vw,26px);color:var(--xanh);line-height:1.2;text-transform:uppercase;letter-spacing:.03em}
+.nt-head p{margin:0;font-size:14px;color:var(--muted)}
+.nt{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.nt figure{margin:0;border-radius:var(--r);overflow:hidden;background:var(--kem-2);cursor:zoom-in;position:relative;aspect-ratio:3/2}
+.nt figure img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.nt figure:hover img{transform:scale(1.04)}
+.nt figcaption{position:absolute;left:10px;bottom:10px;font-size:13px;font-weight:600;color:#fff;background:rgba(5,43,23,.92);border-radius:999px;padding:5px 12px;width:fit-content;max-width:calc(100% - 20px)}
+@media (max-width:760px){ .nt{grid-template-columns:1fr 1fr} }
+
+/* ---------- 9 · CHÍNH SÁCH & PHÁP LÝ ---------- */
+.cs3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.cs3>div{position:relative;border-radius:var(--r);padding:clamp(22px,2.4vw,30px);background:#fff;border:1px solid var(--line);overflow:hidden}
+.cs3>div::after{content:"";position:absolute;left:clamp(22px,2.4vw,30px);top:0;width:44px;height:3px;border-radius:0 0 3px 3px;background:var(--vang-2)}
+.cs3 svg{width:30px;height:30px;color:var(--dong)}
+.cs3 b{display:block;font-family:var(--display);font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--xanh);margin-top:14px;line-height:1.3}
+.cs3 ul{list-style:none;margin:12px 0 0;padding:0}
+.cs3 li{font-size:15px;color:var(--text);line-height:1.55;padding:6px 0;border-top:1px solid var(--line)}
+.cs3 .cho{display:inline-block;margin-top:16px;font-size:12.5px;font-weight:600;color:var(--dat);background:var(--kem-2);border-radius:999px;padding:4px 12px}
+@media (max-width:860px){ .cs3{grid-template-columns:1fr} }
+
+/* ---------- 10 · CHỦ ĐẦU TƯ ---------- */
+.dt-top{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(22px,3.4vw,56px);align-items:center;margin-bottom:clamp(28px,3vw,40px)}
+.dt-top .lg-mz{width:min(340px,80%);height:auto}
+.dt3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.dt3>div{border-radius:var(--r);padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;background:#fff;border:1px solid var(--line)}
+.dt3 .lg{height:72px;display:flex;align-items:center;margin:0 0 16px}
+.dt3 .lg img{max-height:62px;width:auto}
+.dt3 .vai{font-family:var(--display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--dat)}
+.dt3 .ten-dv{font-family:var(--display);font-weight:700;font-size:clamp(17px,1.5vw,20px);color:var(--xanh);line-height:1.3;margin:8px 0 0;text-transform:uppercase;letter-spacing:.02em}
+.dt3 p{font-size:15px;color:var(--text);line-height:1.7;margin:10px 0 0}
+@media (max-width:900px){ .dt3,.dt-top{grid-template-columns:1fr} }
+.pk-mz{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
+.pk-mz li{padding:6px 14px;border:1px solid var(--line-2);border-radius:999px;font-size:14px;font-weight:600;color:var(--xanh);background:#fff}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:920px;margin:0;border-top:1px solid var(--line-2)}
+.faq details{border-bottom:1px solid var(--line-2)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 56px 22px 0;font-weight:600;color:var(--xanh);font-size:17px;position:relative;line-height:1.45}
+.faq summary:hover{color:var(--xanh-2)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::marker{content:""}
+.faq summary::before,.faq summary::after{content:"";position:absolute;right:8px;top:50%;width:16px;height:1.5px;background:var(--dong);transition:transform .25s}
+.faq summary::after{transform:rotate(90deg)}
+.faq details[open] summary::after{transform:rotate(0)}
+.faq details p{margin:0;padding:0 56px 24px 0;color:var(--text);font-size:16px;line-height:1.8}
+
+/* ---------- 11 · ĐĂNG KÝ / CTA ---------- */
+.cta{position:relative;background:var(--xanh-dem);padding:clamp(72px,8vw,128px) 22px;overflow:hidden}
+.cta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 50%}
+.cta-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,43,23,.93) 0%,rgba(5,43,23,.8) 45%,rgba(5,43,23,.25) 100%)}
+.cta .hoa{color:var(--vang);opacity:.3}
+.cta-in{position:relative;max-width:1200px;margin:0 auto}
+.cta-box{max-width:640px}
+.cta h2{color:#fff}
+.cta h2 .s{color:var(--vang)}
+.cta .lead{color:#fff;font-size:clamp(17px,1.6vw,19px);line-height:1.65;margin:18px 0 0}
+.cta ul{list-style:none;padding:0;margin:clamp(20px,2.2vw,30px) 0 0}
+.cta ul li{color:#fff;font-size:clamp(15px,1.5vw,16.5px);line-height:1.6;padding:8px 0 8px 30px;position:relative}
+.cta ul li::before{content:"";position:absolute;left:2px;top:15px;width:14px;height:8px;border-left:1.5px solid var(--vang);border-bottom:1.5px solid var(--vang);transform:rotate(-45deg)}
+.cta .loai{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none}
+.cta .loai li{padding:6px 16px;border:1px solid rgba(217,191,140,.6);border-radius:999px;font-size:14px;font-weight:600}
+.cta .loai li::before{display:none}
+.cta .ket-cta{color:#fff;font-size:15px;margin:22px 0 0;padding-top:18px;border-top:1px solid rgba(217,191,140,.32)}
+
+/* ---------- FOOTER (dải nâu – đồng của leaflet) ---------- */
+footer{position:relative;background:var(--nen-dong);padding:clamp(48px,4.8vw,72px) 22px;color:#fff}
+.ft{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:clamp(22px,3vw,48px);align-items:center}
+.ft .era{width:98px;height:auto}
+.ft .lg{width:220px;height:auto}
+.ft .fb>span{display:block;font-family:var(--display);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:#F6DFA6;font-weight:600}
+.ft .fb strong{display:block;font-family:var(--serif);font-size:clamp(22px,2.2vw,30px);color:#fff;font-weight:400;margin-top:8px;line-height:1.3;letter-spacing:.03em}
+.ft p{font-size:15px;line-height:1.75;margin:12px 0 0;color:#fff;max-width:700px}
+.ft-legal{max-width:1200px;margin:30px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.2);font-size:13px;line-height:1.75;color:#fff}
+@media (max-width:860px){ .ft{grid-template-columns:auto 1fr} .ft .lg{grid-column:span 2} }
+@media (max-width:560px){ .ft{grid-template-columns:1fr} .ft .lg{grid-column:auto} }
+
+/* ---------- LIGHTBOX ---------- */
+.lb{position:fixed;inset:0;z-index:600;background:rgba(10,24,14,.95);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px;background:#fff}
+.lb button{position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.lb p{position:absolute;top:18px;left:18px;right:70px;margin:0;color:#E8E2D0;font-size:13px}
+
+/* reveal: chỉ bật khi JS chạy -> không JS vẫn thấy đủ nội dung */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .js .rv{opacity:1;transform:none;transition:none} .acc figure,.acc figure img,.nt figure img,.hh figure img,.xem-them svg{transition:none} }
+
+/* ---------- BẢN CÓ FORM: form, hotline, thanh liên hệ (sinh bởi _dungcu/tao-ban-co-form.py) ---------- */
+.nav .nav-tel{font-weight:700;color:var(--vang-text)}
+.nav .nav-cta{background:var(--vang);color:var(--xanh-dem);border-radius:999px;padding:10px 20px;font-weight:700}
+.nav .nav-cta:hover,.nav .nav-cta.on{background:var(--xanh);color:#fff}
+.brand{flex-shrink:0}
+@media (min-width:1181px) and (max-width:1580px){ .nav{gap:18px} .nav .opt{display:none} }
+@media (max-width:1180px){ .hdr.open .nav a.nav-cta{margin-top:18px;text-align:center;border-bottom:0;padding:15px} }
+.hero-nut{margin-top:22px;background:var(--vang);color:var(--xanh-dem)}
+.hero-nut:hover{background:#fff;color:var(--xanh)}
+.nut-loai-hang{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.nut-loai-hang .nut{margin-top:0}
+.cta-in.co-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:clamp(26px,3.4vw,56px);align-items:center}
+.form-card{background:#fff;border-radius:18px;padding:clamp(24px,2.8vw,36px);box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.form-card .t{font-family:var(--display);font-size:27px;font-weight:400;color:var(--xanh);line-height:1.3}
+.form-card .s{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.5}
+.form-card form{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.field{border:1.5px solid var(--line-2);border-radius:12px;padding:14px;font-size:16px;font-family:inherit;outline:none;min-width:0;width:100%;background:#fff;color:var(--ink)}
+.field:focus{border-color:var(--xanh-2)}
+select.field{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23246072' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 16px center;padding-right:40px}
+.form-card .nut{margin-top:4px;width:100%;justify-content:center;border:0;cursor:pointer;font-family:inherit;background:var(--xanh);color:#fff;padding:16px}
+.form-card .nut:hover{background:var(--dat);color:#fff}
+.form-card .nut:disabled{opacity:.7;cursor:default}
+.form-card .hot{margin:16px 0 0;text-align:center;font-size:14px;color:var(--muted)}
+.form-card .hot a{font-weight:700;color:var(--xanh);font-size:17px}
+.msg{border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.5}
+.msg.ok{background:var(--kem);color:var(--xanh)} .msg.err{background:var(--kem);color:var(--dat);border:1.5px solid var(--dat)}
+.ft-dc{max-width:1180px;margin:18px auto 0;text-align:center;font-size:14px;color:#fff}
+footer .links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:1180px;margin:22px auto 0}
+footer .links a{color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:10px 20px;font-size:14px;font-weight:700}
+footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:300;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;gap:10px;box-shadow:0 -6px 20px rgba(0,0,0,.12);transform:translateY(110%);transition:transform .3s}
+.bar.show{transform:none}
+.bar a{flex:1;display:flex;align-items:center;justify-content:center;white-space:nowrap;padding:12px 6px;border-radius:999px;font-weight:700;font-size:14px;border:1.5px solid var(--xanh);color:var(--xanh)}
+.bar a.chinh{background:var(--xanh);color:#fff;flex:1.4}
+@media (max-width:900px){ .cta-in.co-form{grid-template-columns:1fr} }
+@media (max-width:760px){ .bar{display:flex} footer{padding-bottom:110px} }
+@media (max-width:560px){ .nut-loai-hang .nut{flex:1 1 100%;justify-content:center} }
+@media (prefers-reduced-motion:reduce){ .bar{transition:none} }
+</style>
+<script>document.documentElement.className+=' js'</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://era.com.vn/#organization",
+      "name": "ERA Vietnam - Công ty Cổ phần Bất động sản ERA Việt Nam",
+      "url": "https://era.com.vn/",
+      "telephone": "+84941125000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Số 22 - 24, Đường số 5, KĐT Sala",
+        "addressLocality": "Phường An Khánh",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "areaServed": [
+        "TP. Hồ Chí Minh"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://trellia-vista-dang-ky-era.vercel.app/#website",
+      "url": "https://trellia-vista-dang-ky-era.vercel.app/",
+      "name": "Trellia Vista",
+      "inLanguage": "vi-VN",
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://trellia-vista-dang-ky-era.vercel.app/#webpage",
+      "url": "https://trellia-vista-dang-ky-era.vercel.app/",
+      "name": "Trellia Vista Mizuki Park – Căn hộ bên sông Nam Long | ERA",
+      "inLanguage": "vi-VN",
+      "isPartOf": {
+        "@id": "https://trellia-vista-dang-ky-era.vercel.app/#website"
+      },
+      "about": {
+        "@id": "https://trellia-vista-dang-ky-era.vercel.app/#du-an"
+      },
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://trellia-vista-dang-ky-era.vercel.app/#breadcrumb"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://trellia-vista-dang-ky-era.vercel.app/#anh-hero"
+      }
+    },
+    {
+      "@type": [
+        "Product",
+        "Residence"
+      ],
+      "@id": "https://trellia-vista-dang-ky-era.vercel.app/#du-an",
+      "name": "Trellia Vista",
+      "alternateName": [
+        "Tháp TC3 Trellia Cove",
+        "Trellia Vista Mizuki Park",
+        "Căn hộ Trellia Vista",
+        "Trellia Vista Nam Long"
+      ],
+      "description": "Trellia Vista (tháp TC3) là tòa căn hộ thuộc phân khu Trellia Cove, khu đô thị Mizuki Park 26 ha trên trục Nguyễn Văn Linh, Nam Sài Gòn, do Nam Long hợp tác cùng Nishi-Nippon Railroad (NNR) và Hankyu Hanshin Properties phát triển. Tòa tháp nằm bên sông, liền kề công viên bờ sông 3.500 m²; căn hộ tầng 2 – 20, 17 căn mỗi tầng, 9 mẫu căn 2 – 3 phòng ngủ từ 59,25 đến 105,93 m² (diện tích tim tường).",
+      "brand": {
+        "@type": "Brand",
+        "name": "Trellia Vista"
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "Nam Long cùng Nishi-Nippon Railroad (NNR) và Hankyu Hanshin Properties Corp."
+      },
+      "category": "Căn hộ",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Phân khu Trellia Cove, khu đô thị Mizuki Park, đường Nguyễn Văn Linh",
+        "addressLocality": "Nam Sài Gòn",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 10.716,
+        "longitude": 106.661
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Phân khu",
+          "value": "Trellia Cove – compound 8.408 m², 3 tháp; Trellia Vista là tháp TC3"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Khu đô thị",
+          "value": "Mizuki Park 26 ha, hơn 4.000 gia đình đang sinh sống"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Tầng căn hộ",
+          "value": "Tầng 2 – 20, 17 căn mỗi tầng"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Loại căn",
+          "value": "2PN 59,25 – 81,52 m² (mẫu A, B1, B2, B3, B5a); 3PN 97,41 – 105,93 m² (mẫu C1, C2, C3, C4), diện tích tim tường"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Thiết kế",
+          "value": "Cao độ tầng 3,3 m, kính full-height 2,4 m"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Tiện ích",
+          "value": "Công viên bờ sông 3.500 m², hồ bơi, BBQ, chỗ tập golf, sân đa năng, gym & yoga, phòng chơi trẻ em, không gian làm việc chung"
+        }
+      ],
+      "image": [
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-thap-tc3-ben-song-hoang-hon-mizuki-park.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-thap-tc3-ben-song-hoang-hon-mizuki-park.webp",
+          "caption": "Phối cảnh Trellia Vista – tháp TC3 bên sông lúc hoàng hôn, phân khu Trellia Cove, khu đô thị Mizuki Park, Nam Sài Gòn",
+          "name": "Phối cảnh Trellia Vista – tháp TC3 bên sông lúc hoàng hôn, phân khu Trellia Cove, khu đô thị Mizuki Park, Nam Sài Gòn",
+          "width": 1400,
+          "height": 1070,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long",
+          "@id": "https://trellia-vista-dang-ky-era.vercel.app/#anh-hero"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-ban-cong-view-song-hoang-hon.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-ban-cong-view-song-hoang-hon.webp",
+          "caption": "Ban công các căn hộ Trellia Vista nhìn ra dòng sông và mảng xanh Nam Sài Gòn lúc hoàng hôn",
+          "name": "Ban công các căn hộ Trellia Vista nhìn ra dòng sông và mảng xanh Nam Sài Gòn lúc hoàng hôn",
+          "width": 1000,
+          "height": 854,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-toa-thap-ben-song-duy-nhat-mizuki-park.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-toa-thap-ben-song-duy-nhat-mizuki-park.webp",
+          "caption": "Trellia Vista – tòa tháp bên sông duy nhất tại Mizuki Park, bóng tháp in trên mặt nước lúc hoàng hôn",
+          "name": "Trellia Vista – tòa tháp bên sông duy nhất tại Mizuki Park, bóng tháp in trên mặt nước lúc hoàng hôn",
+          "width": 760,
+          "height": 848,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-phan-khu-trellia-cove-3-thap-ven-song.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-phan-khu-trellia-cove-3-thap-ven-song.webp",
+          "caption": "Phân khu Trellia Cove: 3 tháp căn hộ, tháp TC3 Trellia Vista sát sông, dãy nhà phố ven kênh trong Mizuki Park",
+          "name": "Phân khu Trellia Cove: 3 tháp căn hộ, tháp TC3 Trellia Vista sát sông, dãy nhà phố ven kênh trong Mizuki Park",
+          "width": 1000,
+          "height": 597,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-ban-do-vi-tri-nguyen-van-linh-nam-sai-gon.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-ban-do-vi-tri-nguyen-van-linh-nam-sai-gon.webp",
+          "caption": "Bản đồ vị trí Trellia Cove – Mizuki Park trên trục Nguyễn Văn Linh, gần Phú Mỹ Hưng, Nam Sài Gòn",
+          "name": "Bản đồ vị trí Trellia Cove – Mizuki Park trên trục Nguyễn Văn Linh, gần Phú Mỹ Hưng, Nam Sài Gòn",
+          "width": 1333,
+          "height": 1092,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-mat-bang-tong-the-26-ha.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-mat-bang-tong-the-26-ha.webp",
+          "caption": "Mặt bằng tổng thể khu đô thị Mizuki Park 26 ha đánh số 15 hạng mục, phân khu Trellia Cove ở góc ven sông",
+          "name": "Mặt bằng tổng thể khu đô thị Mizuki Park 26 ha đánh số 15 hạng mục, phân khu Trellia Cove ở góc ven sông",
+          "width": 1100,
+          "height": 1494,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-1.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-1.webp",
+          "caption": "Công viên và các tòa căn hộ hiện hữu trong khu đô thị Mizuki Park",
+          "name": "Công viên và các tòa căn hộ hiện hữu trong khu đô thị Mizuki Park",
+          "width": 560,
+          "height": 373,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-2.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-2.webp",
+          "caption": "Lối dạo ven kênh và cổng gỗ kiểu Nhật trong Mizuki Park",
+          "name": "Lối dạo ven kênh và cổng gỗ kiểu Nhật trong Mizuki Park",
+          "width": 560,
+          "height": 373,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-3.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-3.webp",
+          "caption": "Quảng trường ven kênh Mizuki Park về đêm, cư dân dự sự kiện ngoài trời",
+          "name": "Quảng trường ven kênh Mizuki Park về đêm, cư dân dự sự kiện ngoài trời",
+          "width": 560,
+          "height": 420,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-4.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-4.webp",
+          "caption": "Cư dân chạy bộ trên đường nội khu Mizuki Park",
+          "name": "Cư dân chạy bộ trên đường nội khu Mizuki Park",
+          "width": 560,
+          "height": 374,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-5.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-5.webp",
+          "caption": "Gia đình đạp xe trên lối dạo ven hồ trong Mizuki Park",
+          "name": "Gia đình đạp xe trên lối dạo ven hồ trong Mizuki Park",
+          "width": 560,
+          "height": 301,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-6.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/mizuki-park-hien-huu-6.webp",
+          "caption": "Người cao tuổi nghỉ chân bên hồ giữa mảng xanh Mizuki Park",
+          "name": "Người cao tuổi nghỉ chân bên hồ giữa mảng xanh Mizuki Park",
+          "width": 560,
+          "height": 301,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-cove-mat-bang-tien-ich-noi-khu.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-cove-mat-bang-tien-ich-noi-khu.webp",
+          "caption": "Mặt bằng tiện ích nội khu Trellia Cove đánh số: hồ bơi, sân chơi trẻ em, BBQ, chỗ tập golf, sân đa năng, đường dạo ven sông",
+          "name": "Mặt bằng tiện ích nội khu Trellia Cove đánh số: hồ bơi, sân chơi trẻ em, BBQ, chỗ tập golf, sân đa năng, đường dạo ven sông",
+          "width": 1334,
+          "height": 976,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-cove-ho-boi-noi-khu.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-cove-ho-boi-noi-khu.webp",
+          "caption": "Hồ bơi nội khu Trellia Cove dưới chân tháp căn hộ, hàng cọ hai bên",
+          "name": "Hồ bơi nội khu Trellia Cove dưới chân tháp căn hộ, hàng cọ hai bên",
+          "width": 800,
+          "height": 1130,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-cove-cong-vien-bo-song-3500-m2.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-cove-cong-vien-bo-song-3500-m2.webp",
+          "caption": "Công viên bờ sông 3.500 m² cạnh Trellia Vista: đường dạo, sân bóng rổ, chỗ tập golf",
+          "name": "Công viên bờ sông 3.500 m² cạnh Trellia Vista: đường dạo, sân bóng rổ, chỗ tập golf",
+          "width": 1000,
+          "height": 563,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-cove-cong-chinh-ve-dem.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-cove-cong-chinh-ve-dem.webp",
+          "caption": "Cổng chính Trellia Cove và các tháp căn hộ lên đèn về đêm",
+          "name": "Cổng chính Trellia Cove và các tháp căn hộ lên đèn về đêm",
+          "width": 1000,
+          "height": 616,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-cove-compound-nhin-tu-tren-cao.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-cove-compound-nhin-tu-tren-cao.webp",
+          "caption": "Compound Trellia Cove nhìn từ trên cao: tháp căn hộ, hồ bơi, dãy nhà phố giữa kênh và sông",
+          "name": "Compound Trellia Cove nhìn từ trên cao: tháp căn hộ, hồ bơi, dãy nhà phố giữa kênh và sông",
+          "width": 1000,
+          "height": 563,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-mat-bang-thap-tc3-tang-2-20.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-mat-bang-thap-tc3-tang-2-20.webp",
+          "caption": "Mặt bằng tháp TC3 Trellia Vista tầng 2 – 20: 17 căn mỗi tầng, tô màu theo 9 mẫu căn A, B1, B2, B3, B5a, C1, C2, C3, C4",
+          "name": "Mặt bằng tháp TC3 Trellia Vista tầng 2 – 20: 17 căn mỗi tầng, tô màu theo 9 mẫu căn A, B1, B2, B3, B5a, C1, C2, C3, C4",
+          "width": 1400,
+          "height": 995,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-a.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-a.webp",
+          "caption": "Layout căn hộ mẫu A Trellia Vista, 2 phòng ngủ, 1 WC, diện tích tim tường 59,25 m²",
+          "name": "Layout căn hộ mẫu A Trellia Vista, 2 phòng ngủ, 1 WC, diện tích tim tường 59,25 m²",
+          "width": 450,
+          "height": 433,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-b1.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-b1.webp",
+          "caption": "Layout căn hộ mẫu B1 Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 81,52 m²",
+          "name": "Layout căn hộ mẫu B1 Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 81,52 m²",
+          "width": 591,
+          "height": 433,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-b2.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-b2.webp",
+          "caption": "Layout căn hộ mẫu B2 Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 77,15 m²",
+          "name": "Layout căn hộ mẫu B2 Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 77,15 m²",
+          "width": 459,
+          "height": 550,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-b3.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-b3.webp",
+          "caption": "Layout căn hộ mẫu B3 Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 79,37 m²",
+          "name": "Layout căn hộ mẫu B3 Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 79,37 m²",
+          "width": 450,
+          "height": 533,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-b5a.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-b5a.webp",
+          "caption": "Layout căn hộ mẫu B5a Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 76,09 m²",
+          "name": "Layout căn hộ mẫu B5a Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 76,09 m²",
+          "width": 459,
+          "height": 558,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-c1.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-c1.webp",
+          "caption": "Layout căn hộ mẫu C1 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 105,93 m²",
+          "name": "Layout căn hộ mẫu C1 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 105,93 m²",
+          "width": 742,
+          "height": 433,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-c2.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-c2.webp",
+          "caption": "Layout căn hộ mẫu C2 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 97,41 m²",
+          "name": "Layout căn hộ mẫu C2 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 97,41 m²",
+          "width": 541,
+          "height": 558,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-c3.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-c3.webp",
+          "caption": "Layout căn hộ mẫu C3 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 100,38 m²",
+          "name": "Layout căn hộ mẫu C3 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 100,38 m²",
+          "width": 567,
+          "height": 567,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-c4.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-layout-can-ho-mau-c4.webp",
+          "caption": "Layout căn hộ mẫu C4 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 99,38 m²",
+          "name": "Layout căn hộ mẫu C4 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 99,38 m²",
+          "width": 575,
+          "height": 574,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-1.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-1.webp",
+          "caption": "Phối cảnh nội thất tham khảo phòng khách căn hộ mẫu A Trellia Cove",
+          "name": "Phối cảnh nội thất tham khảo phòng khách căn hộ mẫu A Trellia Cove",
+          "width": 560,
+          "height": 386,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-2.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-2.webp",
+          "caption": "Phối cảnh nội thất tham khảo bếp và bàn ăn căn hộ mẫu A",
+          "name": "Phối cảnh nội thất tham khảo bếp và bàn ăn căn hộ mẫu A",
+          "width": 560,
+          "height": 373,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-3.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-3.webp",
+          "caption": "Phối cảnh nội thất tham khảo phòng ngủ có tủ quần áo, căn hộ mẫu A",
+          "name": "Phối cảnh nội thất tham khảo phòng ngủ có tủ quần áo, căn hộ mẫu A",
+          "width": 560,
+          "height": 372,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-4.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-4.webp",
+          "caption": "Phối cảnh nội thất tham khảo phòng ngủ trẻ em căn hộ mẫu A",
+          "name": "Phối cảnh nội thất tham khảo phòng ngủ trẻ em căn hộ mẫu A",
+          "width": 560,
+          "height": 374,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-5.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-5.webp",
+          "caption": "Phối cảnh nội thất tham khảo phòng khách liền bếp ăn căn hộ mẫu B5a",
+          "name": "Phối cảnh nội thất tham khảo phòng khách liền bếp ăn căn hộ mẫu B5a",
+          "width": 560,
+          "height": 372,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-6.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-noi-that-tham-khao-6.webp",
+          "caption": "Phối cảnh nội thất tham khảo phòng ngủ căn hộ mẫu B5a",
+          "name": "Phối cảnh nội thất tham khảo phòng ngủ căn hộ mẫu B5a",
+          "width": 560,
+          "height": 373,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-song-hoang-hon-trellia-cove.webp",
+          "url": "https://trellia-vista-dang-ky-era.vercel.app/assets/img/trellia-vista-song-hoang-hon-trellia-cove.webp",
+          "caption": "Dòng sông lúc hoàng hôn trước phân khu Trellia Cove, tháp Trellia Vista sát mặt nước",
+          "name": "Dòng sông lúc hoàng hôn trước phân khu Trellia Cove, tháp Trellia Vista sát mặt nước",
+          "width": 1400,
+          "height": 899,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu dự án Trellia Vista, Nam Long"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://trellia-vista-dang-ky-era.vercel.app/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ERA Vietnam",
+          "item": "https://era.com.vn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Căn hộ Mizuki Park",
+          "item": "https://trellia-vista-dang-ky-era.vercel.app/#mizuki-park"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Trellia Vista",
+          "item": "https://trellia-vista-dang-ky-era.vercel.app/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://trellia-vista-dang-ky-era.vercel.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Trellia Vista ở đâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Trellia Vista (tháp TC3) thuộc phân khu Trellia Cove trong khu đô thị Mizuki Park 26 ha, trên trục Nguyễn Văn Linh, Nam Sài Gòn, gần Phú Mỹ Hưng. Tòa tháp nằm bên sông, trực diện Rạch Bà Lào và liền kề công viên bờ sông 3.500 m²."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ai phát triển dự án Trellia Vista?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mizuki Park và Trellia Vista được phát triển bởi Nam Long cùng 2 đối tác Nhật Bản là Nishi-Nippon Railroad (NNR) và Hankyu Hanshin Properties Corp. ERA Vietnam là đại lý phân phối."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Trellia Vista có những loại căn hộ nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tháp TC3 có căn hộ từ tầng 2 đến tầng 20, mỗi tầng 17 căn thuộc 9 mẫu: căn 2 phòng ngủ mẫu A 59,25 m², B5a 76,09 m², B2 77,15 m², B3 79,37 m², B1 81,52 m² và căn 3 phòng ngủ mẫu C2 97,41 m², C4 99,38 m², C3 100,38 m², C1 105,93 m² (diện tích tim tường)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Trellia Vista khác các tòa tháp khác ở Mizuki Park như thế nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo chủ đầu tư, đây là tòa tháp duy nhất của Mizuki Park liền kề mặt nước tự nhiên, thuộc compound cuối cùng Trellia Cove. Thiết kế nâng cấp với cao độ tầng 3,3 m và kính full-height 2,4 m để đón ánh sáng, cảnh quan vào căn hộ."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Tiện ích nội khu Trellia Cove gồm những gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Compound có khu hồ bơi, sân chơi trẻ em, yoga và gym ngoài trời, BBQ, chỗ tập golf, sân đa năng, khu picnic gia đình, sân thể dục dưỡng sinh, công viên cây xanh, chòi nghỉ và đường dạo bộ ven kênh, ven sông. Khối đế tòa tháp có sảnh chính, sảnh chờ, phòng gym và yoga, phòng chơi trẻ em, phòng đa năng, không gian làm việc chung, phòng tiệc; cổng đi bộ có kiểm soát ra vào."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Khu đô thị Mizuki Park hiện có những gì?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mizuki Park rộng 26 ha với hơn 4.000 gia đình đang sinh sống, khoảng 17.000 m² kênh đào, 103.000 m² mảng xanh, 40.000 m² đất giáo dục, 7.500 m² đất y tế, 15.000 m² thương mại dịch vụ; có công viên thiền, đầm thủy sinh, đảo Nhật, quảng trường sự kiện, công viên ven sông và trường tiểu học Nguyễn Bỉnh Khiêm."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Giá bán và phương thức thanh toán Trellia Vista thế nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Bảng giá, phương thức thanh toán và giải pháp tài chính của Trellia Vista được áp dụng theo chính sách chính thức do chủ đầu tư công bố. Quý khách đăng ký để chuyên viên ERA Vietnam gửi thông tin ngay khi có bảng giá."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Pháp lý và thời điểm bàn giao Trellia Vista?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hồ sơ pháp lý, tiến độ thi công và thời điểm bàn giao căn cứ theo công bố chính thức của chủ đầu tư; thông tin chính xác được thể hiện trên hợp đồng mua bán."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- hoạ tiết: các làn sóng trong logo Mizuki Park (logo leaflet CĐT tr.7), vẽ 1 lần, các khối dùng lại bằng <use> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="song" viewBox="0 0 300 200"><path d="M0 30 C40 12 80 12 120 28 S200 46 240 30 S290 14 300 18"/><path d="M0 58 C40 40 80 40 120 56 S200 74 240 58 S290 42 300 46"/><path d="M0 86 C40 68 80 68 120 84 S200 102 240 86 S290 70 300 74"/><path d="M0 114 C40 96 80 96 120 112 S200 130 240 114 S290 98 300 102"/><path d="M0 142 C40 124 80 124 120 140 S200 158 240 142 S290 126 300 130"/><path d="M0 170 C40 152 80 152 120 168 S200 186 240 170 S290 154 300 158"/></symbol>
+</svg>
+
+<!-- ======================= HEADER ======================= -->
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="#top" aria-label="Trellia Vista – về đầu trang"><b>TRELLIA VISTA</b><span>MIZUKI PARK</span></a>
+    <nav class="nav" id="nav" aria-label="Điều hướng trang">
+      <a class="opt" href="#dac-quyen">Đặc quyền</a>
+      <a href="#tong-quan">Tổng quan</a>
+      <a href="#vi-tri">Vị trí</a>
+      <a class="opt" href="#mizuki-park">Mizuki Park</a>
+      <a href="#tien-ich">Tiện ích</a>
+      <a href="#mat-bang">Mặt bằng</a>
+      <a href="#can-ho">Căn hộ</a>
+      <a class="opt" href="#chinh-sach">Chính sách</a>
+      <a class="opt" href="#chu-dau-tu">Chủ đầu tư</a>
+      <a class="opt" href="#hoi-dap">Hỏi đáp</a>
+      <a class="nav-tel" href="tel:0941125000">094.1125.000</a>
+      <a class="nav-cta" href="#dang-ky">Đăng ký</a>
+    </nav>
+    <button class="burger" id="burger" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ======================= 1 · HERO (sheet mục 1 — "TRELLIA VISTA / Tầm nhìn rộng mở ra miền thiên nhiên")
+     Ảnh: phối cảnh CĐT toàn cảnh Trellia Cove ven sông lúc hoàng hôn (leaflet Trellia Cove cao tầng, 5550 px) — tháp sát sông = TC3. ======================= -->
+<section class="hero" aria-label="Giới thiệu Trellia Vista">
+  <picture>
+    <source media="(max-width:760px)" srcset="assets/img/trellia-vista-hero-mobile.webp" width="640" height="1064">
+    <img src="assets/img/trellia-vista-thap-tc3-ben-song-hoang-hon-mizuki-park.webp" width="1280" height="978" fetchpriority="high" decoding="async" alt="Phối cảnh Trellia Vista – tháp TC3 bên sông lúc hoàng hôn, phân khu Trellia Cove, khu đô thị Mizuki Park, Nam Sài Gòn">
+  </picture>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <svg class="hoa" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="hero-in">
+    <div class="hero-top">
+      <p class="kick"><span>Mizuki Park · Nguyễn Văn&nbsp;Linh · Nam&nbsp;Sài&nbsp;Gòn</span></p>
+      <h1><span class="k">Tháp TC3 · Phân khu Trellia Cove</span><span class="a">Trellia Vista</span><em>Tầm nhìn rộng mở<small>ra miền thiên nhiên</small></em></h1>
+      <p class="hero-sub">Tòa căn hộ bên sông của khu đô thị Mizuki Park 26 ha, do Nam Long cùng hai đối tác Nhật Bản phát triển.</p>
+      <a class="nut hero-nut" href="#dang-ky">Đăng ký nhận mặt bằng &amp; chính sách <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="hero-bot">
+      <ul class="hero-facts">
+        <li><b>26<small>ha</small></b><span>Khu đô thị Mizuki Park</span></li>
+        <li><b>3.500<small>m²</small></b><span>Công viên bờ sông</span></li>
+        <li><b>17</b><span>Căn mỗi tầng</span></li>
+        <li><b>59–106<small>m²</small></b><span>Căn 2PN – 3PN</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1b · GIỚI THIỆU (sheet mục 1 mô tả D4 — ảnh E4 "view sông từ ban công căn hộ": bìa leaflet Vista, bỏ phần chữ) ======================= -->
+<section class="sec" id="gioi-thieu">
+  <svg class="hoa tr" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="wrap">
+    <div class="gt">
+      <figure class="rv" data-zoom="assets/img/trellia-vista-ban-cong-view-song-hoang-hon.webp">
+        <img src="assets/img/trellia-vista-ban-cong-view-song-hoang-hon.webp" srcset="assets/img/trellia-vista-ban-cong-view-song-hoang-hon-800.webp 800w, assets/img/trellia-vista-ban-cong-view-song-hoang-hon.webp 1000w" sizes="(max-width:900px) 100vw, 620px" width="1000" height="854" loading="lazy" decoding="async" alt="Ban công các căn hộ Trellia Vista nhìn ra dòng sông và mảng xanh Nam Sài Gòn lúc hoàng hôn">
+        <figcaption class="fcap">Tầm nhìn từ tòa tháp TC3 ra dòng sông · hình ảnh minh họa</figcaption>
+      </figure>
+      <div class="rv">
+        <p class="eb" aria-hidden="true"><i></i>Giới thiệu</p>
+        <h2><span class="s">Tòa tháp bên sông</span><span class="nw">Trellia Vista</span></h2>
+        <div class="body" data-gon="7" style="margin-top:22px">
+          <p>Trellia Vista (tháp TC3) là tòa căn hộ thuộc phân khu Trellia Cove, khu đô thị Mizuki Park 26 ha trên trục Nguyễn Văn Linh, Nam Sài Gòn. Dự án do Nam Long hợp tác cùng 2 đối tác Nhật Bản Nishi-Nippon Railroad (NNR) và Hankyu Hanshin Properties phát triển.</p>
+          <p>Tòa tháp nằm bên sông, liền kề công viên bờ sông 3.500 m², căn hộ 2–3 phòng ngủ từ 59 đến 106 m².</p>
+          <p>Theo chủ đầu tư, Trellia Vista là tòa tháp duy nhất của Mizuki Park liền kề mặt nước tự nhiên, trực diện Rạch Bà Lào. Từ khung cửa căn hộ, mặt nước, bầu trời và mảng xanh thay đổi theo từng thời điểm trong ngày — buổi sáng mặt nước phản chiếu trời trong, buổi chiều nắng in lên ô kính, khi đêm xuống ánh đèn soi bóng xuống dòng kênh.</p>
+          <p>Trellia Cove là phân khu compound cuối cùng của Mizuki Park, kiến trúc lấy cảm hứng từ cây tre, khối nhà ôm theo dòng nước — một không gian riêng tư nhưng vẫn nối trọn vẹn với nhịp sống của khu đô thị đã có hơn 4.000 gia đình sinh sống.</p>
+        </div>
+        <p class="chot"><span>Bên sông</span><span>·</span><span>Trong compound</span><span>·</span><span>Giữa đô thị hiện hữu</span></p>
+        <a class="nut" href="#dang-ky">Đăng ký nhận mặt bằng &amp; chính sách <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2 · 6 ĐẶC QUYỀN (sheet mục 2 — "6 thẻ đặc quyền theo trang 3 leaflet")
+     Tiêu đề thẻ chép leaflet tr.3; câu mô tả bổ sung từ tài liệu USP CĐT (trần 3,3 m, kính 2,4 m, Rạch Bà Lào).
+     Đặc quyền 06 KHÔNG ghi giá: sheet mục 9 "giá bán CHỜ CĐT" (tài liệu USP có giá dự kiến — chờ MKT xác nhận). ======================= -->
+<section class="sec bg-kem" id="dac-quyen">
+  <svg class="hoa bl" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>01</b><i></i>Đặc quyền</p>
+        <h2><span class="s">6 đặc quyền</span>Trellia Vista</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Tòa tháp tiêu điểm bên sông của Mizuki Park: vị trí hữu hạn, thiết kế nâng cấp và một đô thị đã thành hình xung quanh.</p>
+      </div>
+    </div>
+    <div class="dq">
+      <figure class="rv" data-zoom="assets/img/trellia-vista-toa-thap-ben-song-duy-nhat-mizuki-park.webp">
+        <img src="assets/img/trellia-vista-toa-thap-ben-song-duy-nhat-mizuki-park.webp" width="760" height="848" loading="lazy" decoding="async" alt="Trellia Vista – tòa tháp bên sông duy nhất tại Mizuki Park, bóng tháp in trên mặt nước lúc hoàng hôn">
+        <figcaption>Tháp TC3 bên mặt nước · hình ảnh minh họa</figcaption>
+      </figure>
+      <ol class="rv">
+        <li><b>01</b><small>Tòa tháp tiêu điểm</small><strong>Bên sông tự nhiên duy nhất</strong><span>Tại Mizuki Park, liền kề mặt nước tự nhiên, trực diện Rạch Bà Lào.</span></li>
+        <li><b>02</b><small>Vị trí</small><strong>Compound cuối cùng</strong><span>Kết nối thuận tiện tiện ích nội khu và khu vực lân cận, vẫn giữ trọn khoảng sống riêng.</span></li>
+        <li><b>03</b><small>Hệ sinh thái</small><strong>Vi khí hậu xanh</strong><span>Liền kề công viên bờ sông 3.500 m², vài bước chân đa trải nghiệm.</span></li>
+        <li><b>04</b><small>Thiết kế</small><strong>Nâng cấp</strong><span>Mở thiên nhiên vào không gian sống: cao độ tầng 3,3 m, kính full-height 2,4 m.</span></li>
+        <li><b>05</b><small>Giá trị sống</small><strong>Được bảo chứng</strong><span>Bởi Mizuki Park đã hiện hữu, hơn 4.000 gia đình đang sinh sống.</span></li>
+        <li><b>06</b><small>Đặc quyền</small><strong>Sở hữu Trellia Vista</strong><span>Với giải pháp tài chính linh hoạt — chi tiết theo chính sách chính thức của chủ đầu tư.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 3 · TỔNG QUAN (sheet mục 3 — "làm bảng tổng quan")
+     Sheet: "Tổng số căn, địa chỉ chính xác, pháp lý, tiến độ, bàn giao CHỜ CĐT" -> giữ dòng "chờ chủ đầu tư công bố", không tự điền.
+     8.408 m² compound: leaflet Trellia Cove cao tầng tr.2 · 3,3 m / 2,4 m: tài liệu USP Trellia Vista của CĐT. ======================= -->
+<section class="sec" id="tong-quan">
+  <svg class="hoa xanh tr" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>02</b><i></i>Tổng quan</p>
+        <h2><span class="s">Tổng quan</span><span class="nw">Trellia Vista</span></h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Tháp TC3 của phân khu Trellia Cove — compound 3 tháp ở góc ven sông của khu đô thị Mizuki Park.</p>
+      </div>
+    </div>
+    <div class="stats rv">
+      <div><b>26<small>ha</small></b><span>Khu đô thị Mizuki Park</span></div>
+      <div><b>8.408<small>m²</small></b><span>Compound Trellia Cove</span></div>
+      <div><b>17</b><span>Căn mỗi tầng · tầng 2 – 20</span></div>
+      <div><b>9</b><span>Mẫu căn 2PN – 3PN</span></div>
+    </div>
+    <div class="ov">
+      <figure class="ov-fig rv" data-zoom="assets/img/trellia-vista-phan-khu-trellia-cove-3-thap-ven-song.webp">
+        <img src="assets/img/trellia-vista-phan-khu-trellia-cove-3-thap-ven-song.webp" srcset="assets/img/trellia-vista-phan-khu-trellia-cove-3-thap-ven-song-800.webp 800w, assets/img/trellia-vista-phan-khu-trellia-cove-3-thap-ven-song.webp 1000w" sizes="(max-width:900px) 100vw, 540px" width="1000" height="597" loading="lazy" decoding="async" alt="Phân khu Trellia Cove: 3 tháp căn hộ, tháp TC3 Trellia Vista sát sông, dãy nhà phố ven kênh trong Mizuki Park">
+        <figcaption class="fcap">Phân khu Trellia Cove ven sông, tháp TC3 ở phía mặt nước · hình ảnh minh họa</figcaption>
+      </figure>
+      <table class="spec rv">
+        <caption class="sr">Thông tin tổng quan Trellia Vista</caption>
+        <tbody>
+          <tr><th scope="row">Tên dự án</th><td><b class="hl">Trellia Vista – tháp TC3</b><small>Phân khu Trellia Cove</small></td></tr>
+          <tr><th scope="row">Khu đô thị</th><td>Mizuki Park (26 ha)<small>Trục Nguyễn Văn Linh, Nam Sài Gòn, gần Phú Mỹ Hưng</small></td></tr>
+          <tr><th scope="row">Phát triển bởi</th><td><b class="hl">Nam Long – Nishi-Nippon Railroad (NNR) – Hankyu Hanshin Properties</b></td></tr>
+          <tr><th scope="row">Phân khu</th><td>Trellia Cove – compound 8.408 m²<small>Liền kề công viên bờ sông 3.500 m²</small></td></tr>
+          <tr><th scope="row">Tầng căn hộ</th><td>Tầng 2 – 20, 17 căn/tầng</td></tr>
+          <tr><th scope="row">Loại căn</th><td>2PN (59 – 82 m²), 3PN (97 – 106 m²)<small>Diện tích tim tường · mỗi tầng 13 căn 2PN và 4 căn 3PN</small></td></tr>
+          <tr><th scope="row">Thiết kế</th><td>Cao độ tầng 3,3 m · kính full-height 2,4 m<small>Mỗi căn có logia và khu giặt phơi riêng</small></td></tr>
+          <tr><th scope="row">Tổng số căn · pháp lý · tiến độ · bàn giao</th><td>Theo công bố chính thức của chủ đầu tư<br><span class="cho">Đang chờ chủ đầu tư công bố</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 4 · VỊ TRÍ VÀ KẾT NỐI (sheet mục 4 — D9/D10) · bản đồ: leaflet Vista tr.2 (CĐT) ======================= -->
+<section class="sec bg-kem" id="vi-tri">
+  <svg class="hoa br" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>03</b><i></i>Vị trí</p>
+        <h2><span class="s">Vị trí tâm điểm</span>Nam Sài Gòn</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Trong khu đô thị Mizuki Park, trên trục Nguyễn Văn Linh, gần Phú Mỹ Hưng — trường học, siêu thị, bệnh viện quốc tế đều trong bán kính 20 phút.</p>
+      </div>
+    </div>
+    <div class="vt">
+      <figure class="map-fig rv" data-zoom="assets/img/trellia-vista-ban-do-vi-tri-nguyen-van-linh-nam-sai-gon.webp">
+        <img src="assets/img/trellia-vista-ban-do-vi-tri-nguyen-van-linh-nam-sai-gon.webp" srcset="assets/img/trellia-vista-ban-do-vi-tri-nguyen-van-linh-nam-sai-gon-800.webp 800w, assets/img/trellia-vista-ban-do-vi-tri-nguyen-van-linh-nam-sai-gon.webp 1333w" sizes="(max-width:980px) 100vw, 650px" width="1333" height="1092" loading="lazy" decoding="async" alt="Bản đồ vị trí Trellia Cove – Mizuki Park trên trục Nguyễn Văn Linh, gần Phú Mỹ Hưng, Nam Sài Gòn">
+        <figcaption class="fcap">Bản đồ vị trí của chủ đầu tư · bấm để phóng to</figcaption>
+      </figure>
+      <div class="phut rv" aria-label="Thời gian di chuyển tham khảo">
+        <div><b>1–5<small>phút</small></b><ul><li>Trường tiểu học Nguyễn Bỉnh Khiêm</li><li>Siêu thị King Food</li><li>Phòng khám FDCare</li></ul></div>
+        <div><b>5–10<small>phút</small></b><ul><li>Trường tiểu học Bình Hưng</li><li>Tuệ Đức – Pathway School</li><li>THCS Nguyễn Thái Bình</li></ul></div>
+        <div><b>10–15<small>phút</small></b><ul><li>ĐH RMIT, ĐH Tôn Đức Thắng</li><li>V-Star School, Trường Quốc tế Anh Việt (BVIS)</li><li>TTTM Parc Mall</li><li>BV Quốc tế NSG (CIH), BV Chánh Hưng</li></ul></div>
+        <div><b>15–20<small>phút</small></b><ul><li>SC VivoCity, Crescent Mall</li><li>BV FV, BV Phương Nam</li><li>SSIS, Đinh Thiện Lý CS1 &amp; CS2</li><li>Công viên Hồ Bán Nguyệt</li></ul></div>
+      </div>
+    </div>
+    <p class="note rv" style="margin-top:14px">Thời gian di chuyển tham khảo theo tài liệu chủ đầu tư, tùy phương tiện và thời điểm.</p>
+  </div>
+</section>
+
+<!-- ======================= 5 · KHU ĐÔ THỊ MIZUKI PARK (sheet mục 5 — D11/D12) · mặt bằng 1–15 + 6 con số + ảnh cư dân: leaflet Vista tr.4 / leaflet Trellia online ======================= -->
+<section class="sec" id="mizuki-park">
+  <svg class="hoa xanh tl" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>04</b><i></i>Mizuki Park</p>
+        <h2><span class="s">Khu đô thị đã hiện hữu</span>Mizuki Park</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Khu đô thị người Nhật chọn đầu tư: 26 ha quy hoạch quanh kênh đào và mảng xanh, hơn 4.000 gia đình đã chọn làm tổ ấm.</p>
+      </div>
+    </div>
+    <div class="mz">
+      <div class="rv">
+        <div class="mz-lon">
+          <div><b>26<small>ha</small></b><span>Quy hoạch chuẩn mực</span></div>
+          <div><b>4.000+</b><span>Gia đình đang sinh sống</span></div>
+        </div>
+        <ol class="so15" aria-label="15 hạng mục trên mặt bằng Mizuki Park">
+          <li><b>1</b>Biểu tượng dự án</li><li><b>2</b>Công viên thiền</li><li><b>3</b>Đầm thủy sinh</li><li><b>4</b>Đảo Nhật</li>
+          <li><b>5</b>Kênh đào</li><li><b>6</b>Quảng trường sự kiện</li><li><b>7</b>Công viên ven sông</li><li><b>8</b>Quảng trường bến thuyền</li>
+          <li class="cam"><b>9</b>Khu hành chính</li><li class="cam"><b>10</b>Khu vực phát triển y tế</li><li class="cam"><b>11</b>Khu vực phát triển giáo dục</li>
+          <li class="cam"><b>12</b>Trường tiểu học Nguyễn Bỉnh Khiêm</li><li class="cam"><b>13</b>Trường trung học cơ sở</li><li class="cam"><b>14</b>Khu cao tầng đa chức năng</li><li class="cam"><b>15</b>Khu thương mại dịch vụ</li>
+        </ol>
+      </div>
+      <figure class="rv" data-zoom="assets/img/mizuki-park-mat-bang-tong-the-26-ha.webp">
+        <img src="assets/img/mizuki-park-mat-bang-tong-the-26-ha.webp" srcset="assets/img/mizuki-park-mat-bang-tong-the-26-ha-800.webp 800w, assets/img/mizuki-park-mat-bang-tong-the-26-ha.webp 1100w" sizes="(max-width:980px) 100vw, 540px" width="1100" height="1494" loading="lazy" decoding="async" alt="Mặt bằng tổng thể khu đô thị Mizuki Park 26 ha đánh số 15 hạng mục, phân khu Trellia Cove ở góc ven sông">
+      </figure>
+    </div>
+    <div class="dai6 rv" aria-label="Quy hoạch Mizuki Park">
+      <div><b>~17.000<small>m²</small></b><span>Kênh đào</span></div>
+      <div><b>~103.000<small>m²</small></b><span>Mảng xanh</span></div>
+      <div><b>~40.000<small>m²</small></b><span>Đất giáo dục</span></div>
+      <div><b>~7.500<small>m²</small></b><span>Đất y tế</span></div>
+      <div><b>~15.000<small>m²</small></b><span>Thương mại dịch vụ</span></div>
+      <div><b>~5.000<small>m²</small></b><span>Công trình hành chính – văn hóa</span></div>
+    </div>
+    <h3 class="hh-nhan rv"><span>Đô thị tích hợp đã hiện hữu<small>Hơn 4.000 gia đình chọn làm tổ ấm</small></span></h3>
+    <div class="hh rv">
+      <figure data-zoom="assets/img/mizuki-park-hien-huu-1.webp"><img src="assets/img/mizuki-park-hien-huu-1.webp" width="560" height="373" loading="lazy" decoding="async" alt="Công viên và các tòa căn hộ hiện hữu trong khu đô thị Mizuki Park"><figcaption>Công viên nội khu</figcaption></figure>
+      <figure data-zoom="assets/img/mizuki-park-hien-huu-5.webp"><img src="assets/img/mizuki-park-hien-huu-5.webp" width="560" height="301" loading="lazy" decoding="async" alt="Gia đình đạp xe trên lối dạo ven hồ trong Mizuki Park"><figcaption>Đạp xe ven hồ</figcaption></figure>
+      <figure data-zoom="assets/img/mizuki-park-hien-huu-2.webp"><img src="assets/img/mizuki-park-hien-huu-2.webp" width="560" height="373" loading="lazy" decoding="async" alt="Lối dạo ven kênh và cổng gỗ kiểu Nhật trong Mizuki Park"><figcaption>Lối dạo ven kênh</figcaption></figure>
+      <figure data-zoom="assets/img/mizuki-park-hien-huu-3.webp"><img src="assets/img/mizuki-park-hien-huu-3.webp" width="560" height="420" loading="lazy" decoding="async" alt="Quảng trường ven kênh Mizuki Park về đêm, cư dân dự sự kiện ngoài trời"><figcaption>Sự kiện cộng đồng</figcaption></figure>
+      <figure data-zoom="assets/img/mizuki-park-hien-huu-4.webp"><img src="assets/img/mizuki-park-hien-huu-4.webp" width="560" height="374" loading="lazy" decoding="async" alt="Cư dân chạy bộ trên đường nội khu Mizuki Park"><figcaption>Chạy bộ nội khu</figcaption></figure>
+      <figure data-zoom="assets/img/mizuki-park-hien-huu-6.webp"><img src="assets/img/mizuki-park-hien-huu-6.webp" width="560" height="301" loading="lazy" decoding="async" alt="Người cao tuổi nghỉ chân bên hồ giữa mảng xanh Mizuki Park"><figcaption>Mảng xanh bên hồ</figcaption></figure>
+    </div>
+    <p class="note rv" style="margin-top:12px">Hình ảnh khu đô thị Mizuki Park trong tài liệu của chủ đầu tư.</p>
+  </div>
+</section>
+
+<!-- ======================= 6 · TIỆN ÍCH NỘI KHU TRELLIA COVE (sheet mục 6 — 2 tab Compound | Khối đế)
+     Danh sách + số chép đúng chú thích mặt bằng tiện ích leaflet Vista tr.2 (vòng trắng 1–12 compound, vòng hồng 1–3 sân vườn khối đế,
+     vòng vàng 1–6 + xanh 7–9 trong khối đế). Ảnh phối cảnh: leaflet Trellia Cove cao tầng (CĐT). ======================= -->
+<section class="sec bg-kem" id="tien-ich">
+  <svg class="hoa tr" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>05</b><i></i>Tiện ích</p>
+        <h2><span class="s">Tiện ích nội khu</span>Trellia Cove</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Hai lớp tiện ích riêng cho cư dân compound: ngoài trời giữa kênh và sông, trong khối đế tòa tháp — có cổng đi bộ kiểm soát ra vào.</p>
+      </div>
+    </div>
+    <div class="tabs rv" role="tablist" aria-label="Nhóm tiện ích">
+      <button type="button" role="tab" id="t-cp" aria-controls="p-cp" aria-selected="true">Tiện ích compound</button>
+      <button type="button" role="tab" id="t-kd" aria-controls="p-kd" aria-selected="false">Tiện ích khối đế</button>
+    </div>
+    <div class="ti rv" role="tabpanel" id="p-cp" aria-labelledby="t-cp">
+      <figure data-zoom="assets/img/trellia-cove-mat-bang-tien-ich-noi-khu.webp">
+        <img src="assets/img/trellia-cove-mat-bang-tien-ich-noi-khu.webp" srcset="assets/img/trellia-cove-mat-bang-tien-ich-noi-khu-800.webp 800w, assets/img/trellia-cove-mat-bang-tien-ich-noi-khu.webp 1334w" sizes="(max-width:900px) 100vw, 720px" width="1334" height="976" loading="lazy" decoding="async" alt="Mặt bằng tiện ích nội khu Trellia Cove đánh số: hồ bơi, sân chơi trẻ em, BBQ, chỗ tập golf, sân đa năng, đường dạo ven sông">
+      </figure>
+      <div class="pk">
+        <h3>Compound <small>12 hạng mục ngoài trời</small></h3>
+        <ul class="tl hai">
+          <li><b>1</b>Sân chơi trẻ em</li><li><b>2</b>Yoga ngoài trời</li><li><b>3</b>Gym ngoài trời</li><li><b>4</b>Khu hồ bơi</li>
+          <li><b>5</b>BBQ ngoài trời</li><li><b>6</b>Chỗ tập Golf</li><li><b>7</b>Sân đa năng</li><li><b>8</b>Khu picnic gia đình</li>
+          <li><b>9</b>Sân thể dục dưỡng sinh</li><li><b>10</b>Công viên cây xanh</li><li><b>11</b>Cảnh quan nhận diện</li><li><b>12</b>Chòi nghỉ</li>
+        </ul>
+        <h4>Ven kênh · ven sông</h4>
+        <ul class="tl"><li><b class="c" style="background:var(--xanh)"></b>Đường dạo bộ ven kênh và ven sông</li><li><b class="c" style="background:var(--xanh)"></b>Liền kề công viên bờ sông 3.500 m²</li></ul>
+        <h4>Bãi xe</h4>
+        <ul class="tl"><li><b class="p">P1</b>Bãi xe khách nội khu</li><li><b class="p">P2</b>Bãi xe cư dân khu cao tầng</li><li><b class="p">P3</b>Bãi xe khách khu shophouse</li></ul>
+      </div>
+    </div>
+    <div class="ti" role="tabpanel" id="p-kd" aria-labelledby="t-kd" hidden>
+      <figure data-zoom="assets/img/trellia-cove-mat-bang-tien-ich-noi-khu.webp">
+        <img src="assets/img/trellia-cove-mat-bang-tien-ich-noi-khu.webp" srcset="assets/img/trellia-cove-mat-bang-tien-ich-noi-khu-800.webp 800w, assets/img/trellia-cove-mat-bang-tien-ich-noi-khu.webp 1334w" sizes="(max-width:900px) 100vw, 720px" width="1334" height="976" loading="lazy" decoding="async" alt="Mặt bằng tiện ích nội khu Trellia Cove đánh số: hồ bơi, sân chơi trẻ em, BBQ, chỗ tập golf, sân đa năng, đường dạo ven sông">
+      </figure>
+      <div class="pk">
+        <h3>Khối đế <small>trong tòa tháp</small></h3>
+        <ul class="tl hai">
+          <li><b class="v">1</b>Sảnh chính</li><li><b class="v">2</b>Sảnh chờ</li><li><b class="v">3</b>Phòng Gym &amp; Yoga</li><li><b class="v">4</b>Phòng chơi trẻ em</li>
+          <li><b class="v">5</b>Phòng đa năng (Game / Họp)</li><li><b class="v">6</b>Không gian làm việc chung</li>
+          <li><b class="l">7</b>Khu tập đa năng</li><li><b class="l">8</b>Phòng tiệc</li><li><b class="l">9</b>Phòng thay đồ / vệ sinh</li>
+        </ul>
+        <h4>Sân vườn khối đế</h4>
+        <ul class="tl"><li><b class="h">1</b>Sân chơi trẻ em</li><li><b class="h">2</b>Yoga sân vườn</li><li><b class="h">3</b>Gym sân vườn</li></ul>
+        <h4>An ninh · lối vào</h4>
+        <ul class="tl"><li><b class="c" style="background:#E2231A"></b>Cổng chính</li><li><b class="c" style="background:#2BB5E8"></b>Cổng phụ</li><li><b class="c" style="background:#F2B71C"></b>Cổng đi bộ (Access Control)</li><li><b class="c" style="background:#1E9AD6"></b>Lối lên xuống bãi xe máy, hầm ô tô</li></ul>
+      </div>
+    </div>
+    <div class="acc rv" id="acc" aria-label="Phối cảnh tiện ích Trellia Cove">
+      <figure class="on" data-zoom="assets/img/trellia-cove-ho-boi-noi-khu.webp"><img src="assets/img/trellia-cove-ho-boi-noi-khu.webp" width="800" height="1130" loading="lazy" decoding="async" alt="Hồ bơi nội khu Trellia Cove dưới chân tháp căn hộ, hàng cọ hai bên"><figcaption><span class="ten">Khu hồ bơi</span><span class="mo">Hồ bơi dưới chân tháp, hàng cọ và sân vườn khối đế bao quanh.</span></figcaption></figure>
+      <figure data-zoom="assets/img/trellia-cove-cong-vien-bo-song-3500-m2.webp"><img src="assets/img/trellia-cove-cong-vien-bo-song-3500-m2.webp" width="1000" height="563" loading="lazy" decoding="async" alt="Công viên bờ sông 3.500 m² cạnh Trellia Vista: đường dạo, sân bóng rổ, chỗ tập golf"><figcaption><span class="ten">Công viên bờ sông</span><span class="mo">3.500 m² ven sông: đường dạo, sân đa năng, chỗ tập golf.</span></figcaption></figure>
+      <figure data-zoom="assets/img/trellia-cove-compound-nhin-tu-tren-cao.webp"><img src="assets/img/trellia-cove-compound-nhin-tu-tren-cao.webp" width="1000" height="563" loading="lazy" decoding="async" alt="Compound Trellia Cove nhìn từ trên cao: tháp căn hộ, hồ bơi, dãy nhà phố giữa kênh và sông"><figcaption><span class="ten">Compound giữa 2 mặt nước</span><span class="mo">Ba tháp căn hộ và dãy nhà phố nằm giữa kênh đào và dòng sông.</span></figcaption></figure>
+      <figure data-zoom="assets/img/trellia-cove-cong-chinh-ve-dem.webp"><img src="assets/img/trellia-cove-cong-chinh-ve-dem.webp" width="1000" height="616" loading="lazy" decoding="async" alt="Cổng chính Trellia Cove và các tháp căn hộ lên đèn về đêm"><figcaption><span class="ten">Cổng Trellia Cove</span><span class="mo">Cổng chính có kiểm soát ra vào, bãi xe cư dân riêng.</span></figcaption></figure>
+    </div>
+    <p class="note rv" style="margin-top:12px">Phối cảnh tiện ích Trellia Cove · hình ảnh minh họa.</p>
+  </div>
+</section>
+
+<!-- ======================= 7 · MẶT BẰNG THÁP TC3 (sheet mục 7 — D15/D16) · bản vẽ leaflet Vista tr.5
+     Đếm theo mã căn trên bản vẽ: 01–18 bỏ số 13 = 17 căn · 2PN = A×3 + B1 + B2×7 + B3 + B5a = 13 · 3PN = C1 + C2 + C3 + C4 = 4. ======================= -->
+<section class="sec" id="mat-bang">
+  <svg class="hoa xanh br" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>06</b><i></i>Mặt bằng</p>
+        <h2><span class="s">Mặt bằng tháp TC3</span>Tầng 2 – 20</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">17 căn mỗi tầng, tô màu theo 9 mẫu căn. Dãy căn 06 – 14 nằm về phía mặt sông và công viên bờ sông.</p>
+      </div>
+    </div>
+    <div class="mbt">
+      <figure class="rv" data-zoom="assets/img/trellia-vista-mat-bang-thap-tc3-lon.webp">
+        <img src="assets/img/trellia-vista-mat-bang-thap-tc3-tang-2-20.webp" srcset="assets/img/trellia-vista-mat-bang-thap-tc3-tang-2-20-800.webp 800w, assets/img/trellia-vista-mat-bang-thap-tc3-tang-2-20.webp 1400w" sizes="(max-width:980px) 100vw, 860px" width="1400" height="995" loading="lazy" decoding="async" alt="Mặt bằng tháp TC3 Trellia Vista tầng 2 – 20: 17 căn mỗi tầng, tô màu theo 9 mẫu căn A, B1, B2, B3, B5a, C1, C2, C3, C4">
+      </figure>
+      <div class="mb-box rv">
+        <p class="so17">17<small>căn mỗi tầng · tầng 2 – 20 · mã căn TC3.XXX.01 – 18 (XXX là số tầng, không có số 13)</small></p>
+        <ul class="ghi" aria-label="Loại căn mỗi tầng">
+          <li><span class="o b2"></span>2 phòng ngủ<em>13</em></li>
+          <li><span class="o c1"></span>3 phòng ngủ<em>4</em></li>
+        </ul>
+        <p class="nho">Diện tích trên mặt bằng là diện tích tim tường. Số căn mỗi loại đếm theo mã căn trên bản vẽ của chủ đầu tư.</p>
+        <button class="nut-vien" type="button" data-zoom="assets/img/trellia-vista-mat-bang-thap-tc3-lon.webp" data-alt="Mặt bằng tháp TC3 tầng 2 – 20 (bản lớn) kèm mã căn và diện tích tim tường">Xem bản lớn <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5M11 8v6M8 11h6"/></svg></button>
+      </div>
+    </div>
+    <div class="bang-wrap rv">
+      <table class="mau">
+        <caption class="sr">Mẫu căn hộ tháp TC3 Trellia Vista tầng 2 – 20</caption>
+        <thead><tr><th scope="col">Mẫu căn</th><th scope="col">Loại</th><th scope="col">Diện tích tim tường</th><th scope="col">Vị trí căn trên tầng</th><th scope="col">Số căn/tầng</th></tr></thead>
+        <tbody>
+          <tr class="nhom"><td colspan="5">Căn 2 phòng ngủ · 13 căn/tầng</td></tr>
+          <tr><td><span class="o a"></span> Mẫu A</td><td>2PN · 1WC</td><td class="dt">59,25 m<span class="m2">²</span></td><td>16, 17, 18</td><td>3</td></tr>
+          <tr><td><span class="o b5a"></span> Mẫu B5a</td><td>2PN · 2WC</td><td class="dt">76,09 m<span class="m2">²</span></td><td>15</td><td>1</td></tr>
+          <tr><td><span class="o b2"></span> Mẫu B2</td><td>2PN · 2WC</td><td class="dt">77,15 m<span class="m2">²</span></td><td>02, 03, 04, 09, 10, 11, 12</td><td>7</td></tr>
+          <tr><td><span class="o b3"></span> Mẫu B3</td><td>2PN · 2WC</td><td class="dt">79,37 m<span class="m2">²</span></td><td>01</td><td>1</td></tr>
+          <tr><td><span class="o b1"></span> Mẫu B1</td><td>2PN · 2WC</td><td class="dt">81,52 m<span class="m2">²</span></td><td>07</td><td>1</td></tr>
+          <tr class="nhom"><td colspan="5">Căn 3 phòng ngủ · 4 căn/tầng</td></tr>
+          <tr><td><span class="o c2"></span> Mẫu C2</td><td>3PN · 2WC</td><td class="dt">97,41 m<span class="m2">²</span></td><td>05</td><td>1</td></tr>
+          <tr><td><span class="o c4"></span> Mẫu C4</td><td>3PN · 2WC</td><td class="dt">99,38 m<span class="m2">²</span></td><td>08</td><td>1</td></tr>
+          <tr><td><span class="o c3"></span> Mẫu C3</td><td>3PN · 2WC</td><td class="dt">100,38 m<span class="m2">²</span></td><td>14</td><td>1</td></tr>
+          <tr><td><span class="o c1"></span> Mẫu C1</td><td>3PN · 2WC</td><td class="dt">105,93 m<span class="m2">²</span></td><td>06</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note rv" style="margin-top:12px">Diện tích tim tường theo leaflet chủ đầu tư; số phòng ngủ, vệ sinh đếm trên bản vẽ mẫu căn. Thông tin chính xác thể hiện trên hợp đồng mua bán.</p>
+  </div>
+</section>
+
+<!-- ======================= 8 · LAYOUT CĂN HỘ (sheet mục 8 — tab A | B1 | B2 | B3 | B5a | C1 | C2 | C3 | C4)
+     Bản vẽ cắt từ leaflet Vista tr.6 (có số chú thích 01–10). Kích thước khung (mm) đọc trên bản vẽ.
+     Nội thất: "thiết kế nội thất tham khảo" mẫu A, B5a — leaflet Trellia Cove cao tầng tr.17–23. ======================= -->
+<section class="sec bg-kem" id="can-ho">
+  <svg class="hoa bl" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>07</b><i></i>Căn hộ</p>
+        <h2><span class="s">Layout căn hộ</span>9 mẫu căn Trellia Vista</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Căn 2PN 77,15 m² (mẫu B2) chiếm 7/17 căn mỗi tầng; căn góc 3PN lớn nhất 105,93 m² (mẫu C1). Mỗi mẫu đều có logia và khu giặt phơi.</p>
+      </div>
+    </div>
+    <div class="tabs lo-t rv" role="tablist" aria-label="Mẫu căn hộ">
+      <button type="button" role="tab" id="t-a" aria-controls="p-a" aria-selected="true">A</button>
+      <button type="button" role="tab" id="t-b1" aria-controls="p-b1" aria-selected="false">B1</button>
+      <button type="button" role="tab" id="t-b2" aria-controls="p-b2" aria-selected="false">B2</button>
+      <button type="button" role="tab" id="t-b3" aria-controls="p-b3" aria-selected="false">B3</button>
+      <button type="button" role="tab" id="t-b5a" aria-controls="p-b5a" aria-selected="false">B5a</button>
+      <button type="button" role="tab" id="t-c1" aria-controls="p-c1" aria-selected="false">C1</button>
+      <button type="button" role="tab" id="t-c2" aria-controls="p-c2" aria-selected="false">C2</button>
+      <button type="button" role="tab" id="t-c3" aria-controls="p-c3" aria-selected="false">C3</button>
+      <button type="button" role="tab" id="t-c4" aria-controls="p-c4" aria-selected="false">C4</button>
+    </div>
+    <div class="lo rv" role="tabpanel" id="p-a" aria-labelledby="t-a">
+      <figure data-zoom="assets/img/trellia-vista-layout-can-ho-mau-a.webp"><img src="assets/img/trellia-vista-layout-can-ho-mau-a.webp" width="450" height="433" loading="lazy" decoding="async" alt="Layout căn hộ mẫu A Trellia Vista, 2 phòng ngủ, 1 WC, diện tích tim tường 59,25 m²"></figure>
+      <div><h3><small>Căn hộ 2 phòng ngủ · 1 WC</small>Mẫu A</h3>
+        <dl><div><dt>Tim tường</dt><dd>59,25 m<span class="m2">²</span></dd></div><div><dt>Vị trí</dt><dd>16, 17, 18</dd></div><div><dt>Khung bản vẽ</dt><dd>7,95 × 7,7 m</dd></div><div><dt>Số căn/tầng</dt><dd>3</dd></div></dl>
+        <p>Căn nhỏ gọn nhất tháp: 2 phòng ngủ, 1 vệ sinh chung, logia mở ra phòng khách.</p></div>
+    </div>
+    <div class="lo" role="tabpanel" id="p-b1" aria-labelledby="t-b1" hidden>
+      <figure data-zoom="assets/img/trellia-vista-layout-can-ho-mau-b1.webp"><img src="assets/img/trellia-vista-layout-can-ho-mau-b1.webp" width="591" height="433" loading="lazy" decoding="async" alt="Layout căn hộ mẫu B1 Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 81,52 m²"></figure>
+      <div><h3><small>Căn hộ 2 phòng ngủ · 2 WC</small>Mẫu B1</h3>
+        <dl><div><dt>Tim tường</dt><dd>81,52 m<span class="m2">²</span></dd></div><div><dt>Vị trí</dt><dd>07</dd></div><div><dt>Khung bản vẽ</dt><dd>10,9 × 7,7 m</dd></div><div><dt>Số căn/tầng</dt><dd>1</dd></div></dl>
+        <p>Căn 2PN rộng nhất tháp, mặt tiền dài 10,9 m, phòng khách liền bếp ăn và logia.</p></div>
+    </div>
+    <div class="lo" role="tabpanel" id="p-b2" aria-labelledby="t-b2" hidden>
+      <figure data-zoom="assets/img/trellia-vista-layout-can-ho-mau-b2.webp"><img src="assets/img/trellia-vista-layout-can-ho-mau-b2.webp" width="459" height="550" loading="lazy" decoding="async" alt="Layout căn hộ mẫu B2 Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 77,15 m²"></figure>
+      <div><h3><small>Căn hộ 2 phòng ngủ · 2 WC</small>Mẫu B2</h3>
+        <dl><div><dt>Tim tường</dt><dd>77,15 m<span class="m2">²</span></dd></div><div><dt>Vị trí</dt><dd>02, 03, 04, 09, 10, 11, 12</dd></div><div><dt>Khung bản vẽ</dt><dd>7,95 × 10,1 m</dd></div><div><dt>Số căn/tầng</dt><dd>7</dd></div></dl>
+        <p>Mẫu căn phổ biến nhất tháp — 7/17 căn mỗi tầng: phòng ngủ master có vệ sinh riêng, khu giặt phơi tách biệt.</p></div>
+    </div>
+    <div class="lo" role="tabpanel" id="p-b3" aria-labelledby="t-b3" hidden>
+      <figure data-zoom="assets/img/trellia-vista-layout-can-ho-mau-b3.webp"><img src="assets/img/trellia-vista-layout-can-ho-mau-b3.webp" width="450" height="533" loading="lazy" decoding="async" alt="Layout căn hộ mẫu B3 Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 79,37 m²"></figure>
+      <div><h3><small>Căn hộ 2 phòng ngủ · 2 WC</small>Mẫu B3</h3>
+        <dl><div><dt>Tim tường</dt><dd>79,37 m<span class="m2">²</span></dd></div><div><dt>Vị trí</dt><dd>01</dd></div><div><dt>Khung bản vẽ</dt><dd>8,08 × 10,1 m</dd></div><div><dt>Số căn/tầng</dt><dd>1</dd></div></dl>
+        <p>Căn số 01, 2 phòng ngủ và 2 vệ sinh, logia liền phòng khách.</p></div>
+    </div>
+    <div class="lo" role="tabpanel" id="p-b5a" aria-labelledby="t-b5a" hidden>
+      <figure data-zoom="assets/img/trellia-vista-layout-can-ho-mau-b5a.webp"><img src="assets/img/trellia-vista-layout-can-ho-mau-b5a.webp" width="459" height="558" loading="lazy" decoding="async" alt="Layout căn hộ mẫu B5a Trellia Vista, 2 phòng ngủ, 2 WC, diện tích tim tường 76,09 m²"></figure>
+      <div><h3><small>Căn hộ 2 phòng ngủ · 2 WC</small>Mẫu B5a</h3>
+        <dl><div><dt>Tim tường</dt><dd>76,09 m<span class="m2">²</span></dd></div><div><dt>Vị trí</dt><dd>15</dd></div><div><dt>Khung bản vẽ</dt><dd>7,7 × 10,18 m</dd></div><div><dt>Số căn/tầng</dt><dd>1</dd></div></dl>
+        <p>Căn số 15: 2 phòng ngủ xếp liền nhau, bếp ăn mở về phòng khách và logia.</p></div>
+    </div>
+    <div class="lo" role="tabpanel" id="p-c1" aria-labelledby="t-c1" hidden>
+      <figure data-zoom="assets/img/trellia-vista-layout-can-ho-mau-c1.webp"><img src="assets/img/trellia-vista-layout-can-ho-mau-c1.webp" width="742" height="433" loading="lazy" decoding="async" alt="Layout căn hộ mẫu C1 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 105,93 m²"></figure>
+      <div><h3><small>Căn hộ 3 phòng ngủ · 2 WC</small>Mẫu C1</h3>
+        <dl><div><dt>Tim tường</dt><dd>105,93 m<span class="m2">²</span></dd></div><div><dt>Vị trí</dt><dd>06</dd></div><div><dt>Khung bản vẽ</dt><dd>14,13 × 7,7 m</dd></div><div><dt>Số căn/tầng</dt><dd>1</dd></div></dl>
+        <p>Căn góc lớn nhất tháp, mặt tiền 14,13 m với 2 logia ở hai đầu căn.</p></div>
+    </div>
+    <div class="lo" role="tabpanel" id="p-c2" aria-labelledby="t-c2" hidden>
+      <figure data-zoom="assets/img/trellia-vista-layout-can-ho-mau-c2.webp"><img src="assets/img/trellia-vista-layout-can-ho-mau-c2.webp" width="541" height="558" loading="lazy" decoding="async" alt="Layout căn hộ mẫu C2 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 97,41 m²"></figure>
+      <div><h3><small>Căn hộ 3 phòng ngủ · 2 WC</small>Mẫu C2</h3>
+        <dl><div><dt>Tim tường</dt><dd>97,41 m<span class="m2">²</span></dd></div><div><dt>Vị trí</dt><dd>05</dd></div><div><dt>Khung bản vẽ</dt><dd>9,9 × 10,1 m</dd></div><div><dt>Số căn/tầng</dt><dd>1</dd></div></dl>
+        <p>Căn góc 3 phòng ngủ có 2 logia, bàn ăn tròn đặt giữa không gian sinh hoạt chung.</p></div>
+    </div>
+    <div class="lo" role="tabpanel" id="p-c3" aria-labelledby="t-c3" hidden>
+      <figure data-zoom="assets/img/trellia-vista-layout-can-ho-mau-c3.webp"><img src="assets/img/trellia-vista-layout-can-ho-mau-c3.webp" width="567" height="567" loading="lazy" decoding="async" alt="Layout căn hộ mẫu C3 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 100,38 m²"></figure>
+      <div><h3><small>Căn hộ 3 phòng ngủ · 2 WC</small>Mẫu C3</h3>
+        <dl><div><dt>Tim tường</dt><dd>100,38 m<span class="m2">²</span></dd></div><div><dt>Vị trí</dt><dd>14</dd></div><div><dt>Khung bản vẽ</dt><dd>10,2 × 10,1 m</dd></div><div><dt>Số căn/tầng</dt><dd>1</dd></div></dl>
+        <p>Căn số 14, logia dài chạy suốt mặt phòng khách và phòng ngủ.</p></div>
+    </div>
+    <div class="lo" role="tabpanel" id="p-c4" aria-labelledby="t-c4" hidden>
+      <figure data-zoom="assets/img/trellia-vista-layout-can-ho-mau-c4.webp"><img src="assets/img/trellia-vista-layout-can-ho-mau-c4.webp" width="575" height="574" loading="lazy" decoding="async" alt="Layout căn hộ mẫu C4 Trellia Vista, 3 phòng ngủ, 2 WC, diện tích tim tường 99,38 m²"></figure>
+      <div><h3><small>Căn hộ 3 phòng ngủ · 2 WC</small>Mẫu C4</h3>
+        <dl><div><dt>Tim tường</dt><dd>99,38 m<span class="m2">²</span></dd></div><div><dt>Vị trí</dt><dd>08</dd></div><div><dt>Khung bản vẽ</dt><dd>10,1 × 10,1 m</dd></div><div><dt>Số căn/tầng</dt><dd>1</dd></div></dl>
+        <p>Căn 3 phòng ngủ vuông vức 10,1 × 10,1 m, logia rộng phía phòng khách.</p></div>
+    </div>
+    <ul class="cu rv" aria-label="Chú thích phòng trên bản vẽ">
+      <li><b>01</b>Cửa vào</li><li><b>02</b>Phòng bếp + ăn</li><li><b>03</b>Phòng khách</li><li><b>04</b>Logia</li><li><b>05</b>Phòng ngủ Master</li>
+      <li><b>06</b>Phòng ngủ 1</li><li><b>07</b>Phòng ngủ 2</li><li><b>08</b>Vệ sinh Master</li><li><b>09</b>Vệ sinh chung</li><li><b>10</b>Giặt phơi</li>
+    </ul>
+    <button class="nut-vien rv" type="button" data-zoom="assets/img/trellia-vista-layout-9-mau-can-ho.webp" data-alt="Layout 9 mẫu căn hộ Trellia Vista kèm chú thích phòng">Xem cả 9 mẫu căn <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5M11 8v6M8 11h6"/></svg></button>
+    <div class="nut-loai-hang rv">
+      <a class="nut nut-loai" href="#dang-ky" data-loai="2PN">Nhận chính sách căn 2PN <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="nut nut-loai" href="#dang-ky" data-loai="3PN">Nhận chính sách căn 3PN <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <p class="note rv" style="margin-top:14px">Diện tích tim tường theo leaflet chủ đầu tư, có thể điều chỉnh theo hợp đồng mua bán.</p>
+
+    <div class="nt-head rv">
+      <h3>Thiết kế nội thất tham khảo</h3>
+      <p>Mẫu A và mẫu B5a · hình ảnh minh họa, không thuộc danh mục bàn giao</p>
+    </div>
+    <div class="nt rv">
+      <figure data-zoom="assets/img/trellia-vista-noi-that-tham-khao-1.webp"><img src="assets/img/trellia-vista-noi-that-tham-khao-1.webp" width="560" height="386" loading="lazy" decoding="async" alt="Phối cảnh nội thất tham khảo phòng khách căn hộ mẫu A Trellia Cove"><figcaption>Phòng khách · mẫu A</figcaption></figure>
+      <figure data-zoom="assets/img/trellia-vista-noi-that-tham-khao-2.webp"><img src="assets/img/trellia-vista-noi-that-tham-khao-2.webp" width="560" height="373" loading="lazy" decoding="async" alt="Phối cảnh nội thất tham khảo bếp và bàn ăn căn hộ mẫu A"><figcaption>Bếp và bàn ăn · mẫu A</figcaption></figure>
+      <figure data-zoom="assets/img/trellia-vista-noi-that-tham-khao-3.webp"><img src="assets/img/trellia-vista-noi-that-tham-khao-3.webp" width="560" height="372" loading="lazy" decoding="async" alt="Phối cảnh nội thất tham khảo phòng ngủ có tủ quần áo, căn hộ mẫu A"><figcaption>Phòng ngủ · mẫu A</figcaption></figure>
+      <figure data-zoom="assets/img/trellia-vista-noi-that-tham-khao-4.webp"><img src="assets/img/trellia-vista-noi-that-tham-khao-4.webp" width="560" height="374" loading="lazy" decoding="async" alt="Phối cảnh nội thất tham khảo phòng ngủ trẻ em căn hộ mẫu A"><figcaption>Phòng trẻ em · mẫu A</figcaption></figure>
+      <figure data-zoom="assets/img/trellia-vista-noi-that-tham-khao-5.webp"><img src="assets/img/trellia-vista-noi-that-tham-khao-5.webp" width="560" height="372" loading="lazy" decoding="async" alt="Phối cảnh nội thất tham khảo phòng khách liền bếp ăn căn hộ mẫu B5a"><figcaption>Phòng khách · mẫu B5a</figcaption></figure>
+      <figure data-zoom="assets/img/trellia-vista-noi-that-tham-khao-6.webp"><img src="assets/img/trellia-vista-noi-that-tham-khao-6.webp" width="560" height="373" loading="lazy" decoding="async" alt="Phối cảnh nội thất tham khảo phòng ngủ căn hộ mẫu B5a"><figcaption>Phòng ngủ · mẫu B5a</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 9 · CHÍNH SÁCH BÁN HÀNG + PHÁP LÝ (sheet mục 9 — toàn bộ "CHỜ CĐT")
+     Không tự điền giá / thanh toán / pháp lý / bàn giao. Có văn bản CĐT thì thay 3 thẻ dưới bằng nội dung thật. ======================= -->
+<section class="sec" id="chinh-sach">
+  <svg class="hoa tr" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div class="head-l rv">
+        <p class="eb" aria-hidden="true"><b>08</b><i></i>Chính sách</p>
+        <h2><span class="s">Chính sách bán hàng</span>&amp; pháp lý</h2>
+      </div>
+      <div class="head-r rv">
+        <p class="fact">Bảng giá, phương thức thanh toán và hồ sơ pháp lý Trellia Vista được cập nhật theo công bố chính thức của chủ đầu tư. Đăng ký để nhận sớm khi có thông tin.</p>
+      </div>
+    </div>
+    <div class="cs3 rv">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg>
+        <b>Giá bán &amp; thanh toán</b><ul><li>Bảng giá theo từng căn</li><li>Phương thức, tiến độ thanh toán</li><li>Giải pháp tài chính linh hoạt (đặc quyền 06)</li></ul><span class="cho">Chờ chủ đầu tư công bố</span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>
+        <b>Pháp lý &amp; sở hữu</b><ul><li>Hồ sơ pháp lý dự án</li><li>Hình thức sở hữu</li></ul><span class="cho">Chờ chủ đầu tư công bố</span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/></svg>
+        <b>Tiến độ &amp; bàn giao</b><ul><li>Tiến độ thi công</li><li>Thời điểm bàn giao</li><li>Tiêu chuẩn bàn giao</li></ul><span class="cho">Chờ chủ đầu tư công bố</span></div>
+    </div>
+    <a class="nut rv" href="#dang-ky">Đăng ký nhận chính sách sớm <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</section>
+
+<!-- ======================= 10 · CHỦ ĐẦU TƯ (sheet mục 10 — logo Nam Long, NNR, Hankyu Hanshin + Mizuki Park, Trellia Cove)
+     Logo tách nền từ leaflet Vista tr.7. Phân khu Mizuki Park: nhãn trên mặt bằng leaflet tr.4. ======================= -->
+<section class="sec bg-kem" id="chu-dau-tu">
+  <svg class="hoa xanh bl" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="wrap">
+    <div class="head mot rv">
+      <p class="eb" aria-hidden="true"><b>09</b><i></i>Chủ đầu tư</p>
+      <h2><span class="s">Dự án được phát triển bởi</span>Nam Long – NNR – Hankyu Hanshin Properties</h2>
+    </div>
+    <div class="dt-top rv">
+      <img class="lg-mz" src="assets/img/mizuki-park-logo.webp" width="400" height="105" loading="lazy" decoding="async" alt="Logo khu đô thị Mizuki Park">
+      <div>
+        <p class="fact">Mizuki Park được phát triển bởi Nam Long cùng 2 đối tác Nhật Bản: Nishi-Nippon Railroad (NNR) và Hankyu Hanshin Properties Corp. Trellia Vista là dự án thành phần của Mizuki Park, thuộc phân khu Trellia Cove.</p>
+        <ul class="pk-mz" aria-label="Các phân khu trên mặt bằng Mizuki Park"><li>EHomeS</li><li>Valora Island</li><li>Valora Mizuki</li><li>The Mizuki</li><li>Trellia Cove</li></ul>
+      </div>
+    </div>
+    <div class="dt3 rv">
+      <div><span class="lg"><img src="assets/img/nam-long-logo.webp" width="205" height="121" loading="lazy" decoding="async" alt="Logo Nam Long"></span><span class="vai">Nhà phát triển Việt Nam</span><p class="ten-dv">Nam Long</p><p>Nhà phát triển khu đô thị Mizuki Park trên trục Nguyễn Văn Linh, Nam Sài Gòn.</p></div>
+      <div><span class="lg"><img src="assets/img/mizuki-park-doi-tac-nnr-logo.webp" width="131" height="107" loading="lazy" decoding="async" alt="Logo Nishi-Nippon Railroad (NNR)"></span><span class="vai">Đối tác Nhật Bản</span><p class="ten-dv">Nishi-Nippon Railroad (NNR)</p><p>Tập đoàn đường sắt và bất động sản Nhật Bản, đối tác phát triển Mizuki Park cùng Nam Long.</p></div>
+      <div><span class="lg"><img src="assets/img/mizuki-park-doi-tac-hankyu-hanshin-logo.webp" width="204" height="111" loading="lazy" decoding="async" alt="Logo Hankyu Hanshin Properties Corp."></span><span class="vai">Đối tác Nhật Bản</span><p class="ten-dv">Hankyu Hanshin Properties</p><p>Công ty bất động sản Nhật Bản, đối tác phát triển Mizuki Park cùng Nam Long.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ (khớp từng chữ với FAQPage JSON-LD — dong-bo-seo.py chép từ đây). Nguồn: sheet + leaflet CĐT. ======================= -->
+<section class="sec" id="hoi-dap">
+  <div class="wrap">
+    <div class="head mot rv">
+      <p class="eb" aria-hidden="true"><b>10</b><i></i>Hỏi đáp</p>
+      <h2><span class="s">Những điều nên biết về</span><span class="nw">Trellia Vista</span></h2>
+    </div>
+    <div class="faq rv">
+      <details open><summary>Trellia Vista ở đâu?</summary><p>Trellia Vista (tháp TC3) thuộc phân khu Trellia Cove trong khu đô thị Mizuki Park 26 ha, trên trục Nguyễn Văn Linh, Nam Sài Gòn, gần Phú Mỹ Hưng. Tòa tháp nằm bên sông, trực diện Rạch Bà Lào và liền kề công viên bờ sông 3.500 m².</p></details>
+      <details><summary>Ai phát triển dự án Trellia Vista?</summary><p>Mizuki Park và Trellia Vista được phát triển bởi Nam Long cùng 2 đối tác Nhật Bản là Nishi-Nippon Railroad (NNR) và Hankyu Hanshin Properties Corp. ERA Vietnam là đại lý phân phối.</p></details>
+      <details><summary>Trellia Vista có những loại căn hộ nào?</summary><p>Tháp TC3 có căn hộ từ tầng 2 đến tầng 20, mỗi tầng 17 căn thuộc 9 mẫu: căn 2 phòng ngủ mẫu A 59,25 m², B5a 76,09 m², B2 77,15 m², B3 79,37 m², B1 81,52 m² và căn 3 phòng ngủ mẫu C2 97,41 m², C4 99,38 m², C3 100,38 m², C1 105,93 m² (diện tích tim tường).</p></details>
+      <details><summary>Trellia Vista khác các tòa tháp khác ở Mizuki Park như thế nào?</summary><p>Theo chủ đầu tư, đây là tòa tháp duy nhất của Mizuki Park liền kề mặt nước tự nhiên, thuộc compound cuối cùng Trellia Cove. Thiết kế nâng cấp với cao độ tầng 3,3 m và kính full-height 2,4 m để đón ánh sáng, cảnh quan vào căn hộ.</p></details>
+      <details><summary>Tiện ích nội khu Trellia Cove gồm những gì?</summary><p>Compound có khu hồ bơi, sân chơi trẻ em, yoga và gym ngoài trời, BBQ, chỗ tập golf, sân đa năng, khu picnic gia đình, sân thể dục dưỡng sinh, công viên cây xanh, chòi nghỉ và đường dạo bộ ven kênh, ven sông. Khối đế tòa tháp có sảnh chính, sảnh chờ, phòng gym và yoga, phòng chơi trẻ em, phòng đa năng, không gian làm việc chung, phòng tiệc; cổng đi bộ có kiểm soát ra vào.</p></details>
+      <details><summary>Khu đô thị Mizuki Park hiện có những gì?</summary><p>Mizuki Park rộng 26 ha với hơn 4.000 gia đình đang sinh sống, khoảng 17.000 m² kênh đào, 103.000 m² mảng xanh, 40.000 m² đất giáo dục, 7.500 m² đất y tế, 15.000 m² thương mại dịch vụ; có công viên thiền, đầm thủy sinh, đảo Nhật, quảng trường sự kiện, công viên ven sông và trường tiểu học Nguyễn Bỉnh Khiêm.</p></details>
+      <details><summary>Giá bán và phương thức thanh toán Trellia Vista thế nào?</summary><p>Bảng giá, phương thức thanh toán và giải pháp tài chính của Trellia Vista được áp dụng theo chính sách chính thức do chủ đầu tư công bố. Quý khách đăng ký để chuyên viên ERA Vietnam gửi thông tin ngay khi có bảng giá.</p></details>
+      <details><summary>Pháp lý và thời điểm bàn giao Trellia Vista?</summary><p>Hồ sơ pháp lý, tiến độ thi công và thời điểm bàn giao căn cứ theo công bố chính thức của chủ đầu tư; thông tin chính xác được thể hiện trên hợp đồng mua bán.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 11 · ĐĂNG KÝ / FINAL CTA (sheet mục 11 — "ĐĂNG KÝ NHẬN MẶT BẰNG & CHÍNH SÁCH TRELLIA VISTA")
+     BẢN CÓ FORM: Họ tên | SĐT | Loại căn quan tâm 2PN/3PN (sheet mục 11) -> LEAD_ENDPOINT. ======================= -->
+<section class="cta" id="dang-ky">
+  <img src="assets/img/trellia-vista-song-hoang-hon-trellia-cove.webp" srcset="assets/img/trellia-vista-song-hoang-hon-trellia-cove-800.webp 800w, assets/img/trellia-vista-song-hoang-hon-trellia-cove.webp 1400w" sizes="100vw" width="1400" height="899" loading="lazy" decoding="async" alt="Dòng sông lúc hoàng hôn trước phân khu Trellia Cove, tháp Trellia Vista sát mặt nước">
+  <div class="cta-shade" aria-hidden="true"></div>
+  <svg class="hoa br" viewBox="0 0 300 200" aria-hidden="true"><use href="#song"/></svg>
+  <div class="cta-in co-form">
+    <div class="cta-box rv">
+      <h2><span class="s">Đăng ký nhận</span>Mặt bằng &amp; chính sách <span class="nw">Trellia Vista</span></h2>
+      <p class="lead">Nhận mặt bằng căn, bảng giá và tư vấn chọn căn view sông từ ERA Vietnam.</p>
+      <ul>
+        <li>Mặt bằng tháp TC3 và layout 9 mẫu căn</li>
+        <li>Bảng giá, chính sách khi chủ đầu tư công bố</li>
+        <li>Tư vấn chọn căn view sông, công viên bờ sông</li>
+      </ul>
+      <ul class="loai" aria-label="Loại căn quan tâm">
+        <li>2PN</li><li>3PN</li>
+      </ul>
+      <p class="ket-cta">Chuyên viên ERA gọi lại gửi mặt bằng tháp TC3, chính sách và tư vấn chọn căn view sông cho anh/chị.</p>
+    </div>
+    <div class="form-card rv">
+      <div class="t">Đăng ký nhận thông tin</div>
+      <div class="s">Mặt bằng căn, chính sách khi chủ đầu tư công bố, tư vấn chọn căn view sông · Bảo mật thông tin</div>
+      <form data-lead data-source="form-dang-ky-nhan-thong-tin" novalidate>
+        <input class="field" name="name" autocomplete="name" placeholder="Họ tên (*)" aria-label="Họ tên">
+        <input class="field" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Số điện thoại (*)" aria-label="Số điện thoại">
+        <select class="field" name="product" aria-label="Loại căn quan tâm">
+          <option value="">Loại căn quan tâm</option>
+          <option>2PN</option>
+          <option>3PN</option>
+        </select>
+        <button class="nut" type="submit">ĐĂNG KÝ NHẬN THÔNG TIN</button>
+      </form>
+      <p class="hot">Hoặc gọi ngay <a href="tel:0941125000">094.1125.000</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= FOOTER (sheet mục 12)
+     Sửa so với sheet: "Đại lý Phân phối Chính thức", "siêu phẩm", "sáng giá bậc nhất" -> "đại lý phân phối", bỏ từ tuyệt đối (chưa thấy văn bản). ======================= -->
+<footer>
+  <div class="ft">
+    <img src="assets/img/trellia-vista-era-vietnam-logo-trang.webp" class="era" width="196" height="240" loading="lazy" decoding="async" alt="Logo ERA Vietnam">
+    <div>
+      <div class="fb"><span>ERA VIETNAM</span><strong>Đại lý phân phối phân khu Trellia Vista – dự án Mizuki Park</strong></div>
+      <p>ERA Vietnam tự hào đồng hành cùng phân khu Trellia Vista – dự án Mizuki Park trong vai trò đại lý phân phối, mang đến cho Quý khách hàng một lựa chọn an cư và đầu tư tại Nam Sài Gòn.</p>
+    </div>
+    <img src="assets/img/mizuki-park-logo-trang.webp" class="lg" width="400" height="105" loading="lazy" decoding="async" alt="Logo Mizuki Park ở chân trang">
+  </div>
+  <p class="ft-legal">Dự án được phát triển bởi Nam Long cùng Nishi-Nippon Railroad (NNR) và Hankyu Hanshin Properties Corp. Trellia Vista (tháp TC3) thuộc phân khu Trellia Cove, khu đô thị Mizuki Park, Nam Sài Gòn. Thông tin, hình ảnh mang tính tham khảo, hình ảnh phối cảnh mang tính chất minh họa; diện tích trên mặt bằng là diện tích tim tường. Thông tin chính xác theo hợp đồng mua bán.</p>
+  <p class="ft-dc">ERA Vietnam · Số 22 - 24, Đường số 5, KĐT Sala, Phường An Khánh, TP. Hồ Chí Minh.</p>
+  <div class="links"><a href="tel:0941125000">Hotline: 094.1125.000</a><a href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo tư vấn</a></div>
+</footer>
+
+<!-- thanh liên hệ nhanh (điện thoại) -->
+<div class="bar" id="bar" aria-label="Liên hệ nhanh">
+  <a href="tel:0941125000">Gọi ngay</a>
+  <a href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo</a>
+  <a class="chinh" href="#dang-ky">Đăng ký</a>
+</div>
+
+<!-- phóng to ảnh -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn">
+  <p id="lb-cap"></p>
+  <button type="button" data-close aria-label="Đóng ảnh">✕</button>
+  <img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
+</div>
+
+<script src="assets/js/trellia-vista.js?v=20261009-era" defer></script>
+</body>
+</html>
