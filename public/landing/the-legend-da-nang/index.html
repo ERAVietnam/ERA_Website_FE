@@ -62,7 +62,7 @@
   --ink:#152238; --text:#3B4252; --muted:#5A5F6B;
   --kem:#F6F3EF; --kem-2:#E9E3DE; --line:#E7E1DB; --line-2:#D4CBC2;
   --hdr:70px; --r:6px;
-  --display:'TH NewYork','NY Fallback', Georgia, serif; --sans:'Public Sans','PS Fallback', system-ui, sans-serif; --ky:'TH Modernline', 'TH NewYork', cursive;
+  --display:'TH NewYork','NY Fallback', Georgia, serif; --title:'EB Garamond','NY Fallback', Georgia, serif; --sans:'Public Sans','PS Fallback', system-ui, sans-serif; --ky:'TH Modernline', 'TH NewYork', cursive;
   --kim:linear-gradient(120deg,#F3D3A6 0%,#EEC08A 38%,#B8835A 78%,#936447 100%);
 }
 *{box-sizing:border-box}
@@ -87,7 +87,7 @@ a:hover{color:var(--xanh-dam)}
 .ky{display:block;font-family:var(--ky);font-weight:400;font-size:clamp(40px,4.4vw,64px);line-height:1.15;color:var(--vang-text);margin:0 0 .3em;letter-spacing:0}
 /* tiêu đề có dòng chữ ký phía dưới: dấu "–" chỉ cho máy đọc (SEO), ẩn khi hiển thị */
 .h2-ky .ky-l{display:block;font-family:var(--ky);font-size:1.75em;line-height:1.15;color:var(--vang-text);margin:.12em 0 0 .4em;padding-bottom:.25em}
-h2{font-family:var(--display);color:var(--xanh);font-size:clamp(32px,3.8vw,52px);line-height:1.14;font-weight:400;margin:0;text-wrap:balance}
+h2{font-family:var(--title);color:var(--xanh);font-size:clamp(30px,3.5vw,48px);line-height:1.12;font-weight:500;margin:0;text-wrap:balance;text-transform:uppercase;letter-spacing:.06em}
 h2 .dong2{display:block;font-family:var(--sans);font-weight:400;color:var(--text);font-size:clamp(17px,1.35vw,20px);line-height:1.55;margin-top:.9em;text-wrap:pretty}
 h3{margin:0;font-weight:400}
 .fact{margin:0;color:var(--text);font-size:17px;line-height:1.8;text-wrap:pretty}
@@ -159,10 +159,10 @@ h3{margin:0;font-weight:400}
 .hero-bot{margin-top:clamp(28px,4vw,56px)}
 .hero .kick{display:flex;align-items:center;gap:14px;font-size:13px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--vang);margin:0 0 20px}
 .hero .kick::after{content:"";width:56px;height:1px;background:rgba(238,192,138,.7)}
-.hero h1{font-family:var(--display);font-weight:400;color:#fff;margin:0;line-height:1}
+.hero h1{font-family:var(--title);font-weight:500;color:#fff;margin:0;line-height:1}
 .hero h1 .k{display:block;font-family:var(--sans);font-size:clamp(13px,1.15vw,16px);font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1em;color:#fff}
-.hero h1 .a{display:block;font-size:clamp(54px,7.4vw,112px);letter-spacing:-.005em;line-height:.95}
-.hero h1 em{display:block;font-family:var(--display);font-style:normal;font-weight:400;color:var(--vang);font-size:clamp(23px,2.4vw,34px);line-height:1.3;margin-top:.6em;text-wrap:balance}
+.hero h1 .a{display:block;font-family:var(--title);font-size:clamp(44px,4.4vw,74px);font-weight:500;letter-spacing:.12em;line-height:1;text-transform:uppercase}
+.hero h1 em{display:block;font-family:var(--title);font-style:normal;font-weight:400;color:var(--vang);font-size:clamp(24px,2.5vw,36px);line-height:1.25;margin-top:.9em;text-transform:uppercase;letter-spacing:.08em;text-wrap:balance}
 .hero-sub{color:#fff;font-size:clamp(16px,1.2vw,18px);line-height:1.7;font-weight:400;margin:18px 0 0}
 .hero-facts{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;border-top:1px solid rgba(238,192,138,.45);width:fit-content}
 .hero-facts li{display:flex;flex-direction:column;padding:16px 28px 0 0;margin-right:28px;color:#fff;border-right:1px solid rgba(238,192,138,.28)}

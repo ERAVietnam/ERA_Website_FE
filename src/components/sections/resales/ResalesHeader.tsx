@@ -40,7 +40,7 @@ export function ResalesHeader() {
             alt="ERA Vietnam"
             width={134}
             height={38}
-            className="h-9 w-auto shrink-0"
+            className="h-12 w-auto shrink-0"
             priority
           />
           <Image
@@ -48,7 +48,7 @@ export function ResalesHeader() {
             alt="ERA Resales Expert"
             width={344}
             height={59}
-            className="h-6 w-auto sm:h-8"
+            className="h-4 w-auto sm:h-7"
             priority
           />
         </div>
