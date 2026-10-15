@@ -237,7 +237,7 @@ Gray 500:    #6b7280              → colors.gray[500]
 | `/duan-canho-forest-onsen` | `app/(landing)/duan-canho-forest-onsen/page.tsx` | `ForestOnsenLanding` |
 | `/phan-khu-rung-phuong-duan-eco-retreat` | `app/(landing)/phan-khu-rung-phuong-duan-eco-retreat/page.tsx` | `EcoRetreatLanding` |
 | `/pk-nagomi-du-an-waterpoint` | `app/(landing)/pk-nagomi-du-an-waterpoint/page.tsx` | `RiveraNagomiLanding` |
-| `/tuyen-dung-thu-cap` | `app/tuyen-dung-thu-cap/page.tsx` | `ResalesPage` |
+| `/thu-cap-era` | `app/thu-cap-era/page.tsx` | `ResalesPage` |
 | `/du-an-nam-mekong-grand-plaza` | `app/(landing)/du-an-nam-mekong-grand-plaza/page.tsx` | `NamMekongLanding` |
 | `/thank-you-nam-mekong` | `app/(landing)/thank-you-nam-mekong/page.tsx` | `ThankYouNamMekongPage` |
 | `/pk-park-village-du-an-waterpoint` | `app/(landing)/pk-park-village-du-an-waterpoint/page.tsx` | `ParkVillageLanding` |

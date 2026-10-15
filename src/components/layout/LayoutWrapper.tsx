@@ -38,6 +38,7 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/du-an-waterpoint": { header: false, footer: true, toTop: false },
   "/pk-nagomi-du-an-waterpoint": { header: false, footer: false, toTop: false, contentPadding: false },
   "/tuyen-dung-thu-cap": { header: false },
+  "/thu-cap-era": { header: false },
   "/du-an-nam-mekong-grand-plaza": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-nam-mekong": { header: false, footer: false, toTop: false },
   "/pk-park-village-du-an-waterpoint": { header: false, footer: false, toTop: false, contentPadding: false },
