@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 /**
- * Endpoint nhận lead RIÊNG của trang /tuyen-dung-thu-cap/ (sheet tuyển dụng thứ cấp).
+ * Endpoint nhận lead RIÊNG của trang /co-hoi-nghe-nghiep/ (sheet tuyển dụng thứ cấp).
  * Tách biến môi trường riêng LEAD_SCRIPT_URL_THU_CAP để trỏ tới Apps Script
  * đã bind với spreadsheet tuyển dụng thứ cấp — không dùng chung với các landing.
  */

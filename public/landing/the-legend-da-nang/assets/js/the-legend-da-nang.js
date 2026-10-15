@@ -11,6 +11,11 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
+  // Đưa section Tổng quan lên trước Giá trị nổi bật, giữ nguyên class nền của từng section.
+  var tongQuan = document.getElementById('tong-quan');
+  var giaTri = document.getElementById('gia-tri');
+  if (tongQuan && giaTri && tongQuan.parentNode === giaTri.parentNode) giaTri.parentNode.insertBefore(tongQuan, giaTri);
+
   /* ---------- menu mobile ---------- */
   var hdr = $('#hdr'), burger = $('#burger');
   function dongMenu() {
