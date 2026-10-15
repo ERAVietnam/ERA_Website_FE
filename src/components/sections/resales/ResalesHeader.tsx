@@ -6,7 +6,7 @@ import { Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { colors } from "@/lib/theme";
 
-/* Header riêng của trang /tuyen-dung-thu-cap (thay header chính của site — đã ẩn qua LayoutWrapper).
+/* Header riêng của trang /co-hoi-nghe-nghiep (thay header chính của site — đã ẩn qua LayoutWrapper).
    Nền trắng, logo ERA + logo Resales Expert + hotline; sticky — cuộn xuống ẩn, cuộn lên hiện. */
 export function ResalesHeader() {
   const [hideBar, setHideBar] = useState(false);

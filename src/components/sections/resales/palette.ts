@@ -1,7 +1,7 @@
 import { withOpacity } from "@/lib/theme";
 
 /* ============================================
-   Bảng màu RIÊNG của trang /tuyen-dung-thu-cap
+   Bảng màu RIÊNG của trang /co-hoi-nghe-nghiep
    (theo yêu cầu design — chỉ áp dụng trong folder resales,
    không ảnh hưởng các trang khác của site)
    ============================================ */
