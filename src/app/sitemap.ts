@@ -30,7 +30,7 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/gia-nhap/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/academy/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/tuyen-dung/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-  { url: `${baseUrl}/tuyen-dung-thu-cap/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+  { url: `${baseUrl}/thu-cap-era/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
   { url: `${baseUrl}/du-an-waterpoint/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/pk-nagomi-du-an-waterpoint/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/pk-the-aqua-du-an-waterpoint/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
