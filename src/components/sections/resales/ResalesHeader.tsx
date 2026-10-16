@@ -53,13 +53,13 @@ export function ResalesHeader() {
           />
         </div>
         <a
-          href="tel:0909163139"
-          aria-label="Hotline: 090 9163139"
+          href="tel:0707288658"
+          aria-label="Hotline: 0707288658"
           className="flex shrink-0 items-center justify-center rounded-full px-3 py-2.5 text-sm font-bold text-white transition-all hover:shadow-lg sm:px-5"
           style={{ backgroundColor: colors.primary.DEFAULT }}
         >
           <Phone size={18} strokeWidth={2.2} className="sm:hidden" />
-          <span className="hidden whitespace-nowrap sm:inline">Hotline: 090 9163139</span>
+          <span className="hidden whitespace-nowrap sm:inline">Hotline: 0707 288 658</span>
         </a>
       </Container>
     </header>
