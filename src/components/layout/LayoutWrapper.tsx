@@ -77,6 +77,8 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/thank-you-norton-park": { header: false, footer: false, toTop: false, contentPadding: false },
   "/pk-soho-du-an-the-global-city": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-soho": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-grand-marina-saigon": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-grand-marina-saigon": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-ga-thu-thiem": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-ga-thu-thiem": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-m-landmark-residences": { header: false, footer: false, toTop: false, contentPadding: false },
