@@ -9,6 +9,7 @@ import { SelectField } from "@/components/ui/admin/SelectField";
 import { X, Loader2, Eye, CheckCircle, History } from "lucide-react";
 import { ApplyJobPreviewDialog } from "./ApplyJobPreviewDialog";
 import { createJobSchema } from "@/schemas/recruitment.schema";
+import { VIETNAM_PROVINCES } from "@/lib/projects";
 
 const RichEditor = dynamic(
   () => import("@/components/shared/RichEditor"),
@@ -22,14 +23,6 @@ const RichEditor = dynamic(
     ),
   }
 );
-
-const locations = [
-  { value: "", label: "Chọn địa điểm" },
-  { value: "TP. HCM", label: "TP. Hồ Chí Minh" },
-  { value: "Hà Nội", label: "Hà Nội" },
-  { value: "Đà Nẵng", label: "Đà Nẵng" },
-  { value: "Nha Trang", label: "Nha Trang" },
-];
 
 const types = [
   { value: "", label: "Chọn loại hình" },
@@ -314,7 +307,7 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
                   onChange={(value) => update("location", value)}
                   placeholder="Chọn địa điểm"
                   error={!!fieldErrors.location}
-                  options={locations.slice(1)}
+                  options={VIETNAM_PROVINCES.map((province) => ({ value: province, label: province }))}
                 />
                 {fieldErrors.location && <p className="mt-1 text-xs text-red-500">{fieldErrors.location}</p>}
               </div>

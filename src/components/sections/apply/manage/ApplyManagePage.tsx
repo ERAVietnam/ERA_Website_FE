@@ -17,6 +17,7 @@ import { usePopupNotification } from "@/hooks/usePopupNotification";
 import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
 import { useDebouncedSearch } from "@/hooks/useDebouncedSearch";
 import { useAdminList } from "@/hooks/useAdminList";
+import { VIETNAM_PROVINCES } from "@/lib/projects";
 import type { JobPosting, CreateJobInput, UpdateJobInput, JobStatus, JobPostingLog, JobFilters } from "@/types/api";
 
 function isDeadlineInPast(deadline?: string | null): boolean {
@@ -88,10 +89,7 @@ const DEFAULT_LIMIT = 10;
 
 const locationOptions = [
   { value: "", label: "Tất cả địa điểm" },
-  { value: "TP. HCM", label: "TP. Hồ Chí Minh" },
-  { value: "Hà Nội", label: "Hà Nội" },
-  { value: "Đà Nẵng", label: "Đà Nẵng" },
-  { value: "Nha Trang", label: "Nha Trang" },
+  ...VIETNAM_PROVINCES.map((province) => ({ value: province, label: province })),
 ];
 
 const statusOptions = [
