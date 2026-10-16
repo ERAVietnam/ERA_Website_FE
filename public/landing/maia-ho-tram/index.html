@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Maia Resort Ho Tram – Căn hộ, villa mặt tiền biển Hồ Tràm</title>
+<meta name="description" content="Maia Resort Ho Tram – căn hộ Happy Tower và 36 villa mặt tiền biển Hồ Tràm trong tổ hợp The Grand Ho Tram, bàn giao nội thất, vận hành bởi Fusion.">
+<meta name="keywords" content="Maia Resort Ho Tram, Maia Hồ Tràm, Happy Tower Hồ Tràm, căn hộ biển Hồ Tràm, villa Hồ Tràm, The Grand Ho Tram, Fusion Hồ Tràm, condotel Hồ Tràm">
+<!-- ⚠️ BẢN XEM THỬ — đang chặn Google vì còn tên miền tạm. Landing cho SALE: không form, không hotline.
+     Có tên miền thật thì chạy: python _kiemtra/len-song.py https://<ten-mien> --mo-index -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#083A44">
+<meta name="author" content="ERA Vietnam">
+
+<!-- BẢN CÓ FORM — sinh tự động bởi _dungcu/tao-ban-co-form.py từ landing/ (bản không form). KHÔNG sửa tay file này.
+     ⚠️ TÊN MIỀN TẠM (vercel). len-song-co-form.py tự đổi mọi chỗ + sitemap + robots -->
+<link rel="canonical" href="https://era.com.vn/du-an-maia-ho-tram/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="ERA Vietnam">
+<meta property="og:url" content="https://era.com.vn/du-an-maia-ho-tram/">
+<meta property="og:title" content="Maia Resort Ho Tram – Căn hộ &amp; villa mặt tiền biển Hồ Tràm">
+<meta property="og:description" content="Happy Tower 610 căn hộ Studio – 2PN và 36 villa giữa rừng Phước Bửu và biển Hồ Tràm, trong tổ hợp The Grand Ho Tram. Vận hành bởi Fusion Hotel Group.">
+<meta property="og:image" content="https://era.com.vn/du-an-maia-ho-tram/assets/img/og-maia-ho-tram-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Maia Resort Ho Tram – căn hộ và biệt thự mặt tiền biển Hồ Tràm, vận hành bởi Fusion">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:alt" content="Maia Resort Ho Tram – căn hộ và biệt thự mặt tiền biển Hồ Tràm, vận hành bởi Fusion">
+<meta name="twitter:title" content="Maia Resort Ho Tram – Căn hộ &amp; villa mặt tiền biển Hồ Tràm">
+<meta name="twitter:description" content="Happy Tower 610 căn hộ Studio – 2PN và 36 villa giữa rừng Phước Bửu và biển Hồ Tràm, trong tổ hợp The Grand Ho Tram. Vận hành bởi Fusion Hotel Group.">
+<meta name="twitter:image" content="https://era.com.vn/du-an-maia-ho-tram/assets/img/og-maia-ho-tram-1200x630.jpg">
+
+<!-- GEO: toạ độ GẦN ĐÚNG — dải biển Hồ Tràm, khu The Grand Ho Tram (tài liệu CĐT không ghi toạ độ). Bà Rịa – Vũng Tàu cũ nay thuộc TP.HCM = VN-SG. -->
+<meta name="geo.region" content="VN-SG">
+<meta name="geo.placename" content="Xã Hồ Tràm, TP. Hồ Chí Minh">
+<meta name="geo.position" content="10.4880;107.4230">
+<meta name="ICBM" content="10.4880, 107.4230">
+
+<link rel="icon" href="assets/img/maia-ho-tram-bieu-tuong.svg" type="image/svg+xml">
+<!-- Font: Noto Serif Display (tiêu đề) + Be Vietnam Pro (chữ thường), tự host. Không preload font: hero là LCP -->
+<link rel="preload" as="image" href="assets/img/maia-ho-tram-hero-mobile.webp" media="(max-width:960px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/maia-ho-tram-phim-song-bien-800.webp" media="(max-width:960px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/maia-ho-tram-phim-song-bien.webp" media="(min-width:961px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/maia-ho-tram-hai-thap-can-ho-mat-tien-bien-ho-tram-1440.webp" media="(min-width:961px)" fetchpriority="high">
+<link rel="stylesheet" href="assets/fonts/fonts.css?v=2ce07eda">
+
+<style>
+/* Font dự phòng cùng số đo font thật — chữ không nhảy khi font tải xong */
+@font-face{font-family:'Serif Fallback';src:local('Georgia');size-adjust:104%;ascent-override:92%;descent-override:26%;line-gap-override:0%}
+@font-face{font-family:'Sans Fallback';src:local('Arial');size-adjust:107%;ascent-override:92%;descent-override:24%;line-gap-override:0%}
+/* Màu đo leaflet + brochure CĐT (PyMuPDF): xanh ngọc logo #0F918C · xanh biển đậm #1A7085 / #00547F · cyan #14B3CF ·
+   vàng ô-liu chữ "Rừng Vàng Biển Bạc" #A8A836 · be cát nền trang.
+   Tên biến giữ như khung Salacia / Newtown (--xanh, --vang, --dat…) để _dungcu/tao-ban-co-form.py dùng tiếp:
+   --xanh = xanh biển đậm cho chữ/nút (chữ trắng 7,9:1) · --vang = vàng cát sáng (chữ trên nền biển đêm 8,8:1) · --dat = ô-liu đậm (chữ nhỏ trên nền sáng 5,7:1).
+   Nền khối: trắng / trắng ngọc + gradient đa điểm — mảng tối chỉ ở hero, đăng ký, chân trang. */
+:root{
+  --xanh:#0E5A66; --xanh-2:#137080; --xanh-dam:#0B4651; --xanh-dem:#083A44; --bien:#14B3CF; --ngoc:#0F918C;
+  --vang:#E6DB9A; --vang-2:#A8A836; --dat:#6A6A1C; --dong:#A8A836;
+  --ink:#0B3B44; --text:#3A4A4D; --muted:#55666A;
+  --nga:#F1F6F5; --nga-2:#E2EDEC; --line:#DCE6E4; --line-2:#C3D3D0;
+  --hdr:76px;
+  --serif:'Noto Serif Display','Serif Fallback', Georgia, serif;
+  --sans:'Be Vietnam Pro','Sans Fallback', system-ui, sans-serif;
+  --nen-sang:radial-gradient(60% 70% at 4% 0%,rgba(20,179,207,.10) 0%,rgba(20,179,207,0) 70%),
+             radial-gradient(45% 55% at 96% 8%,rgba(255,255,255,.95) 0%,rgba(255,255,255,0) 70%),
+             radial-gradient(55% 60% at 100% 100%,rgba(168,168,54,.09) 0%,rgba(168,168,54,0) 70%);
+  --nen-trang:radial-gradient(50% 60% at 100% 0%,rgba(15,145,140,.05) 0%,rgba(15,145,140,0) 70%),
+              radial-gradient(45% 55% at 0% 100%,rgba(168,168,54,.07) 0%,rgba(168,168,54,0) 70%);
+  /* biển đêm đa điểm: xanh ngọc phía trên, ô-liu ánh vàng một góc */
+  --nen-xanh:radial-gradient(60% 70% at 100% 0%,rgba(20,179,207,.22) 0%,rgba(20,179,207,0) 70%),
+             radial-gradient(50% 60% at 0% 100%,rgba(168,168,54,.16) 0%,rgba(168,168,54,0) 70%),
+             linear-gradient(140deg,#062F38 0%,#083A44 55%,#0B4D59 100%);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hdr) + 8px)}
+html,body{overflow-x:hidden}
+@supports (overflow:clip){ html,body{overflow-x:clip} }
+body{margin:0;font-family:var(--sans);color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;line-height:1.7;font-variant-numeric:lining-nums;font-synthesis:none}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--xanh);text-decoration:none}
+a:hover{color:var(--dat)}
+.wrap{max-width:1200px;margin:0 auto;position:relative}
+.sec{position:relative;padding:clamp(76px,8.4vw,132px) 22px;overflow:hidden;background-image:var(--nen-trang)}
+.bg-nga{background-color:var(--nga);background-image:var(--nen-sang)}
+.head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(22px,4.4vw,80px);align-items:end;margin:0 0 clamp(40px,4.6vw,64px)}
+.head.mot{display:block;max-width:920px}
+.eb{display:flex;align-items:center;gap:14px;margin:0 0 18px;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--dat)}
+.eb b{font-family:var(--serif);font-size:26px;letter-spacing:0;font-weight:400;color:var(--xanh)}
+.eb i{width:44px;height:1px;background:var(--vang-2)}
+h2{font-family:var(--serif);color:var(--xanh-dam);font-size:clamp(30px,3.2vw,44px);line-height:1.2;font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
+h2 .s{display:block;font-family:var(--sans);font-weight:600;color:var(--dat);font-size:clamp(12.5px,1.1vw,14px);letter-spacing:.16em;text-transform:uppercase;line-height:1.4;margin-bottom:.9em}
+h3{margin:0;font-weight:600}
+.fact{margin:0;color:var(--text);font-size:17px;line-height:1.8;text-wrap:pretty}
+.body{color:var(--text);font-size:16px;line-height:1.8;text-wrap:pretty}
+.body p{margin:0 0 14px}
+.body p:last-child{margin-bottom:0}
+.nw{white-space:nowrap}
+/* hoạ tiết = bông hoa 12 cánh của logo MAIA (nét vector bìa brochure): to/nhỏ, tràn mép, rất mờ — mỗi khối 1 vị trí */
+.hoa{position:absolute;pointer-events:none;width:clamp(200px,22vw,360px);height:auto;color:var(--ngoc);opacity:.07}
+.hoa.tr{top:-90px;right:-110px}
+.hoa.bl{bottom:-110px;left:-120px}
+.hoa.br{bottom:-100px;right:-90px}
+.hoa.tl{top:-80px;left:-130px}
+/* khung ảnh bo cong một góc như sóng vỗ (nhịp cánh hoa logo) */
+.song{overflow:hidden;border-radius:0 160px 0 0;background:var(--nga-2)}
+.song img{width:100%;height:100%;object-fit:cover}
+.nut{display:inline-flex;align-items:center;gap:10px;margin-top:24px;background:var(--xanh);color:#fff;font-weight:600;font-size:15px;letter-spacing:.02em;border-radius:999px;padding:14px 28px;min-height:48px;border:1px solid var(--xanh)}
+.nut:hover{background:var(--xanh-2);color:#fff}
+.nut svg{width:18px;height:18px}
+.minh-hoa{display:block;font-size:12.5px;letter-spacing:.01em;color:var(--muted);margin-top:12px}
+@media (max-width:900px){ .head{grid-template-columns:1fr;gap:18px;align-items:start} .eb{margin-bottom:14px} }
+
+/* ---------- XEM THÊM: chữ vẫn nằm đủ trong HTML (SEO · GEO · AIO), JS chỉ thu gọn phần hiển thị ---------- */
+.gon.dong{max-height:var(--gon);overflow:hidden;-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 3em),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 3em),transparent)}
+.xem-them{display:inline-flex;align-items:center;gap:8px;margin:6px 0 0;padding:10px 0;min-height:44px;border:0;background:none;font-family:inherit;font-size:15px;font-weight:600;color:var(--xanh);cursor:pointer;text-decoration:underline;text-decoration-color:var(--vang-2);text-underline-offset:6px;text-decoration-thickness:1px}
+.xem-them:hover{color:var(--dat)}
+.xem-them svg{width:16px;height:16px;flex:none;transition:transform .25s}
+.xem-them[aria-expanded="true"] svg{transform:rotate(180deg)}
+
+/* ---------- HEADER ---------- */
+.hdr{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line)}
+.hdr-in{max-width:1240px;margin:0 auto;height:var(--hdr);padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0;color:var(--xanh)}
+.brand svg{height:46px;width:auto;color:var(--ngoc);transition:height .3s}
+.brand b{display:flex;flex-direction:column;font-family:var(--serif);font-weight:400;font-size:24px;letter-spacing:.24em;line-height:1;color:var(--xanh)}
+.brand b small{font-family:var(--sans);font-size:11.5px;letter-spacing:.2em;font-weight:600;margin-top:6px;color:var(--dat)}
+.hdr.nho .brand svg{height:40px}
+.nav{display:flex;align-items:center;gap:24px}
+.nav a{color:var(--xanh-dam);font-weight:500;font-size:14.5px;letter-spacing:.02em;white-space:nowrap}
+.nav a:hover,.nav a.on{color:var(--dat)}
+.nav a.on{box-shadow:inset 0 -2px 0 var(--dong)}
+.burger{display:none;width:44px;height:44px;border:0;background:none;padding:10px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--xanh-dam);margin:5px 0;border-radius:4px;transition:transform .25s,opacity .25s}
+@media (max-width:1180px){
+  :root{--hdr:64px}
+  .nav{display:none}
+  .burger{display:block}
+  .brand svg,.hdr.nho .brand svg{height:38px}
+  .brand b{font-size:20px}
+  .hdr.open{z-index:400}
+  .hdr.open .nav{display:flex;position:fixed;top:var(--hdr);left:0;right:0;bottom:0;flex-direction:column;align-items:stretch;gap:0;background:#fff;padding:12px 22px 30px;overflow:auto}
+  .hdr.open .nav a{display:block;padding:16px 4px;border-bottom:1px solid var(--line);font-size:17px;box-shadow:none}
+  .hdr.open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hdr.open .burger span:nth-child(2){opacity:0}
+  .hdr.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+
+/* ---------- 1 · HERO — HIỆU ỨNG H3 "vòng hoa MAIA mở ảnh" (mẫu projects/template/hieu-ung/01-vet-loang-mo-anh: vết loang nở ra
+   phủ kín màn khi ghim — hình mở = bông hoa logo MAIA (mặt nạ SVG), màn đầu chưa lăn không có ảnh; ghim bằng position:sticky như Salacia, không GSAP).
+   Màn đầu: chữ bên trái, 2 tòa tháp bên biển trong vòng tròn bên phải — ảnh LCP + chữ hiện ngay, không cần JS.
+   Máy tính (≥ 961 px, không bật "giảm chuyển động"): JS gắn .ghim → khối đứng yên trong --ghim px lăn chuột, vòng tròn nở
+   phủ kín màn (clip-path: circle — chạy cả Safari), ảnh lùi từ 1,4 về 1 và trôi về giữa, chữ trượt trái mờ dần, chú thích hiện ở đáy.
+   --q = 0 → 1 do JS ghi. ---------- */
+.hero{--q:0;--ghim:130vh;--hoa:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjYxMS45NSA4MS43MyAxMzguNjMgMTM5LjE0Ij48ZyBmaWxsPSJibGFjayI+PHBhdGggZD0iTTcwNS43IDk3LjYzQzcwNS4xNCAxMDIuNjcgNzAwLjYgMTA2LjMgNjk1LjU3IDEwNS43M0M2OTMuOTEgMTA1LjU1IDY5Mi40MSAxMDQuOTUgNjkxLjE2IDEwNC4wMkM2OTAuOTEgMTAzLjggNjkwLjY0IDEwMy41OSA2OTAuMzggMTAzLjM4QzY5MC4zNiAxMDMuMzYgNjkwLjMzIDEwMy4zNCA2OTAuMyAxMDMuMzNDNjg4LjEgMTAxLjY1IDY4NS40NSAxMDAuNTQgNjgyLjUgMTAwLjIxQzY3NS4yIDk5LjQgNjY4LjUzIDEwMy42OSA2NjYuMDIgMTEwLjIzQzY2Ni4wMiAxMTAuMjQgNjY2LjAxIDExMC4yNiA2NjYgMTEwLjI4QzY2NS42IDExMS4xNCA2NjQuNjggMTExLjcgNjYzLjY5IDExMS41OUM2NjIuNiAxMTEuNDcgNjYxLjc3IDExMC41OCA2NjEuNjcgMTA5LjUzQzY2MS42NyAxMDkuNTMgNjYxLjY2IDEwOS41MiA2NjEuNjcgMTA5LjVDNjYxLjY2IDEwOS4zNiA2NjEuNjcgMTA5LjIyIDY2MS42NyAxMDkuMDdMNjYxLjY4IDEwOS4wMUM2NjEuNzEgMTA4LjUxIDY2MS43NSAxMDggNjYxLjggMTA3LjQ5QzY2My4zNiA5My40IDY3Ni4wOCA4My4yMyA2OTAuMTcgODQuOEM2OTQuMTQgODUuMjMgNjk3Ljc5IDg2LjU2IDcwMC45NiA4OC41NUM3MDAuOTkgODguNTYgNzAxLjAzIDg4LjU5IDcwMS4wNSA4OC42QzcwMS41NCA4OC45MSA3MDIuMDEgODkuMjMgNzAyLjQ2IDg5LjU3QzcwMi40OCA4OS41OCA3MDIuNSA4OS41OSA3MDIuNTIgODkuNjFDNzA0Ljc2IDkxLjUyIDcwNi4wNCA5NC40OCA3MDUuNyA5Ny42MyIvPjxwYXRoIGQ9Ik02NDguODMgOTUuNjZDNjUzLjU1IDk3LjQ4IDY1NS45IDEwMi44IDY1NC4wNyAxMDcuNTJDNjUzLjQ3IDEwOS4wOCA2NTIuNDkgMTEwLjM3IDY1MS4yOCAxMTEuMzVDNjUxLjAxIDExMS41MyA2NTAuNzMgMTExLjczIDY1MC40NyAxMTEuOTNDNjUwLjQ1IDExMS45NSA2NTAuNDEgMTExLjk3IDY1MC40IDExMS45OUM2NDguMjIgMTEzLjY4IDY0Ni40NiAxMTUuOTcgNjQ1LjM5IDExOC43NEM2NDIuNzMgMTI1LjU5IDY0NS4xNyAxMzMuMTQgNjUwLjg2IDEzNy4yNEM2NTAuODcgMTM3LjI0IDY1MC44OCAxMzcuMjYgNjUwLjkgMTM3LjI3QzY1MS42MyAxMzcuODggNjUxLjkzIDEzOC45IDY1MS41NyAxMzkuODRDNjUxLjE3IDE0MC44NiA2NTAuMSAxNDEuNDMgNjQ5LjA2IDE0MS4yNkM2NDkuMDYgMTQxLjI2IDY0OS4wNCAxNDEuMjcgNjQ5LjA0IDE0MS4yNUM2NDguOTEgMTQxLjIzIDY0OC43NyAxNDEuMTggNjQ4LjYyIDE0MS4xNEw2NDguNTYgMTQxLjExQzY0OC4wOSAxNDAuOTcgNjQ3LjYgMTQwLjggNjQ3LjE0IDE0MC42MUM2MzMuOTEgMTM1LjQ5IDYyNy4zMyAxMjAuNjEgNjMyLjQ1IDEwNy4zOEM2MzMuODkgMTAzLjY2IDYzNi4xIDEwMC40NiA2MzguODMgOTcuOTFDNjM4Ljg1IDk3Ljg4IDYzOC44OSA5Ny44NiA2MzguOTEgOTcuODNDNjM5LjMzIDk3LjQzIDYzOS43NiA5Ny4wNyA2NDAuMiA5Ni43MkM2NDAuMjIgOTYuNyA2NDAuMjMgOTYuNjggNjQwLjI3IDk2LjY3QzY0Mi42OCA5NC45OSA2NDUuODcgOTQuNTEgNjQ4LjgzIDk1LjY2Ii8+PHBhdGggZD0iTTczOS43NiAxMjcuNTNDNzM3LjE2IDEzMS44OCA3MzEuNTMgMTMzLjMgNzI3LjE4IDEzMC43QzcyNS43NCAxMjkuODUgNzI0LjY0IDEyOC42NyA3MjMuODggMTI3LjMxQzcyMy43NSAxMjcuMDEgNzIzLjU5IDEyNi43IDcyMy40NCAxMjYuNDFDNzIzLjQyIDEyNi4zOCA3MjMuNDEgMTI2LjM1IDcyMy40IDEyNi4zM0M3MjIuMDkgMTIzLjg5IDcyMC4xNCAxMjEuNzggNzE3LjU5IDEyMC4yNkM3MTEuMjggMTE2LjQ4IDcwMy40MiAxMTcuNjIgNjk4LjQzIDEyMi41NEM2OTguNDIgMTIyLjU0IDY5OC40MSAxMjIuNTUgNjk4LjQgMTIyLjU3QzY5Ny42NyAxMjMuMTggNjk2LjYxIDEyMy4zMSA2OTUuNzQgMTIyLjhDNjk0LjgxIDEyMi4yMyA2OTQuNDIgMTIxLjA5IDY5NC43NyAxMjAuMDlDNjk0Ljc3IDEyMC4wOSA2OTQuNzYgMTIwLjA3IDY5NC43OCAxMjAuMDdDNjk0LjgzIDExOS45MyA2OTQuOSAxMTkuOCA2OTQuOTYgMTE5LjY3TDY5NC45OSAxMTkuNjFDNjk1LjIyIDExOS4xNyA2OTUuNDcgMTE4LjczIDY5NS43MyAxMTguMjlDNzAzIDEwNi4xMSA3MTguNzggMTAyLjE0IDczMC45NiAxMDkuNDFDNzM0LjM5IDExMS40NiA3MzcuMTYgMTE0LjE4IDczOS4yMiAxMTcuM0M3MzkuMjQgMTE3LjMzIDczOS4yNiAxMTcuMzYgNzM5LjI4IDExNy4zOUM3MzkuNiAxMTcuODcgNzM5Ljg5IDExOC4zNiA3NDAuMTYgMTE4Ljg1Qzc0MC4xNyAxMTguODYgNzQwLjE5IDExOC44OSA3NDAuMiAxMTguOTJDNzQxLjQ1IDEyMS41OSA3NDEuMzkgMTI0LjggNzM5Ljc2IDEyNy41MyIvPjxwYXRoIGQ9Ik02ODUuODQgMTEyLjgxQzY4OC45NiAxMTYuOCA2ODguMjYgMTIyLjU3IDY4NC4yNyAxMjUuNjlDNjgyLjk2IDEyNi43MiA2ODEuNDYgMTI3LjMzIDY3OS45MiAxMjcuNTVDNjc5LjU5IDEyNy41NiA2NzkuMjQgMTI3LjYgNjc4LjkxIDEyNy42M0M2NzguODkgMTI3LjY0IDY3OC44NSAxMjcuNjQgNjc4LjgzIDEyNy42NUM2NzYuMDggMTI3Ljk4IDY3My40MSAxMjkuMDUgNjcxLjA3IDEzMC44OEM2NjUuMjggMTM1LjQxIDY2My41MiAxNDMuMTQgNjY2LjMgMTQ5LjU4QzY2Ni4zIDE0OS41OCA2NjYuMyAxNDkuNiA2NjYuMzIgMTQ5LjYxQzY2Ni42NCAxNTAuNTIgNjY2LjM3IDE1MS41NSA2NjUuNTggMTUyLjE3QzY2NC43MiAxNTIuODUgNjYzLjUxIDE1Mi43OSA2NjIuNyAxNTIuMTFDNjYyLjcgMTUyLjExIDY2Mi42OCAxNTIuMTEgNjYyLjY4IDE1Mi4wOUM2NjIuNTggMTUxLjk5IDY2Mi40OCAxNTEuODkgNjYyLjM4IDE1MS43OEw2NjIuMzQgMTUxLjczQzY2Mi4wMSAxNTEuMzYgNjYxLjY4IDE1MC45NyA2NjEuMzcgMTUwLjU3QzY1Mi42MyAxMzkuNCA2NTQuNTkgMTIzLjI0IDY2NS43NyAxMTQuNDlDNjY4LjkxIDExMi4wNCA2NzIuNDUgMTEwLjQyIDY3Ni4xIDEwOS42M0M2NzYuMTQgMTA5LjYyIDY3Ni4xNyAxMDkuNjEgNjc2LjIxIDEwOS42MUM2NzYuNzcgMTA5LjQ4IDY3Ny4zMyAxMDkuMzkgNjc3Ljg4IDEwOS4zMUM2NzcuOTEgMTA5LjMgNjc3LjkzIDEwOS4zIDY3Ny45NyAxMDkuM0M2ODAuOSAxMDkuMSA2ODMuODkgMTEwLjMyIDY4NS44NCAxMTIuODEiLz48cGF0aCBkPSJNNzE5Ljc5IDE1Ni4yM0M3MTUuOCAxNTkuMzYgNzEwLjA0IDE1OC42NSA3MDYuOTEgMTU0LjY3QzcwNS44OSAxNTMuMzUgNzA1LjI4IDE1MS44NSA3MDUuMDYgMTUwLjMyQzcwNS4wNCAxNDkuOTggNzA1LjAxIDE0OS42NCA3MDQuOTcgMTQ5LjNDNzA0Ljk3IDE0OS4yOSA3MDQuOTcgMTQ5LjI0IDcwNC45NiAxNDkuMjJDNzA0LjYxIDE0Ni40OCA3MDMuNTUgMTQzLjggNzAxLjcyIDE0MS40NkM2OTcuMiAxMzUuNjcgNjg5LjQ3IDEzMy45MSA2ODMuMDMgMTM2LjdDNjgzLjAzIDEzNi43IDY4My4wMSAxMzYuNyA2ODIuOTkgMTM2LjcxQzY4Mi4wOSAxMzcuMDMgNjgxLjA1IDEzNi43NyA2ODAuNDMgMTM1Ljk4QzY3OS43NiAxMzUuMTEgNjc5LjgyIDEzMy45IDY4MC40OSAxMzMuMDlDNjgwLjQ5IDEzMy4wOSA2ODAuNSAxMzMuMDcgNjgwLjUyIDEzMy4wOEM2ODAuNiAxMzIuOTcgNjgwLjcyIDEzMi44OCA2ODAuODMgMTMyLjc4TDY4MC44OCAxMzIuNzNDNjgxLjI1IDEzMi40IDY4MS42NCAxMzIuMDggNjgyLjA0IDEzMS43N0M2OTMuMjEgMTIzLjAzIDcwOS4zNiAxMjQuOTkgNzE4LjEgMTM2LjE2QzcyMC41NyAxMzkuMyA3MjIuMTggMTQyLjg1IDcyMi45NyAxNDYuNDlDNzIyLjk4IDE0Ni41MyA3MjIuOTkgMTQ2LjU3IDcyMyAxNDYuNkM3MjMuMTIgMTQ3LjE2IDcyMy4yMiAxNDcuNzIgNzIzLjI5IDE0OC4yOEM3MjMuMyAxNDguMyA3MjMuMyAxNDguMzMgNzIzLjMgMTQ4LjM2QzcyMy41MSAxNTEuMjkgNzIyLjI5IDE1NC4yOCA3MTkuNzkgMTU2LjIzIi8+PHBhdGggZD0iTTYyNC40NSAxMzAuMjZDNjI5LjUyIDEzMC4yNCA2MzMuNjQgMTM0LjMzIDYzMy42NiAxMzkuNEM2MzMuNjYgMTQxLjA3IDYzMy4yMiAxNDIuNjIgNjMyLjQ2IDE0My45N0M2MzIuMjcgMTQ0LjI0IDYzMi4wOCAxNDQuNTQgNjMxLjkxIDE0NC44MkM2MzEuOSAxNDQuODQgNjMxLjg3IDE0NC44OCA2MzEuODYgMTQ0LjlDNjMwLjQ1IDE0Ny4yOCA2MjkuNjUgMTUwLjA0IDYyOS42NiAxNTMuMDFDNjI5LjY4IDE2MC4zNiA2MzQuNyAxNjYuNDkgNjQxLjQ5IDE2OC4yNEM2NDEuNSAxNjguMjQgNjQxLjUxIDE2OC4yNiA2NDEuNTMgMTY4LjI2QzY0Mi40NCAxNjguNTUgNjQzLjA5IDE2OS40IDY0My4xIDE3MC40QzY0My4xIDE3MS40OSA2NDIuMzIgMTcyLjQyIDY0MS4yOCAxNzIuNjRDNjQxLjI4IDE3Mi42NCA2NDEuMjcgMTcyLjY2IDY0MS4yNiAxNzIuNjRDNjQxLjEyIDE3Mi42NyA2NDAuOTcgMTcyLjY3IDY0MC44MyAxNzIuNjlMNjQwLjc2IDE3Mi42OUM2NDAuMjcgMTcyLjczIDYzOS43NiAxNzIuNzQgNjM5LjI1IDE3Mi43NEM2MjUuMDcgMTcyLjc5IDYxMy41MiAxNjEuMzMgNjEzLjQ3IDE0Ny4xNEM2MTMuNDUgMTQzLjE1IDYxNC4zNSAxMzkuMzYgNjE1Ljk3IDEzNS45OUM2MTUuOTcgMTM1Ljk2IDYxNS45OSAxMzUuOTMgNjE2LjAxIDEzNS45QzYxNi4yNiAxMzUuMzggNjE2LjUyIDEzNC44OCA2MTYuOCAxMzQuMzlDNjE2LjgyIDEzNC4zNyA2MTYuODMgMTM0LjM1IDYxNi44NSAxMzQuMzNDNjE4LjQ4IDEzMS44OCA2MjEuMjggMTMwLjI3IDYyNC40NSAxMzAuMjYiLz48cGF0aCBkPSJNNzMzLjI4IDE3OS40N0M3MjguMjggMTc4LjY3IDcyNC44NiAxNzMuOTcgNzI1LjY2IDE2OC45N0M3MjUuOTMgMTY3LjMyIDcyNi42MSAxNjUuODUgNzI3LjU5IDE2NC42NUM3MjcuODIgMTY0LjQxIDcyOC4wNCAxNjQuMTUgNzI4LjI3IDE2My45QzcyOC4yOCAxNjMuODggNzI4LjMxIDE2My44NSA3MjguMzMgMTYzLjgzQzczMC4xIDE2MS43MSA3MzEuMzQgMTU5LjExIDczMS44MSAxNTYuMTdDNzMyLjk3IDE0OC45MiA3MjkgMTQyLjA1IDcyMi41OSAxMzkuMjNDNzIyLjU3IDEzOS4yMyA3MjIuNTcgMTM5LjIyIDcyMi41NCAxMzkuMjJDNzIxLjcgMTM4Ljc4IDcyMS4xOCAxMzcuODQgNzIxLjM0IDEzNi44NUM3MjEuNTIgMTM1Ljc2IDcyMi40NCAxMzQuOTcgNzIzLjUgMTM0LjkyQzcyMy41IDEzNC45MiA3MjMuNTIgMTM0LjkyIDcyMy41MyAxMzQuOTJDNzIzLjY2IDEzNC45MiA3MjMuOCAxMzQuOTQgNzIzLjk2IDEzNC45NUw3MjQuMDIgMTM0Ljk2QzcyNC41MiAxMzUuMDEgNzI1LjAyIDEzNS4wOCA3MjUuNTIgMTM1LjE2QzczOS41MyAxMzcuMzkgNzQ5LjA4IDE1MC41NyA3NDYuODQgMTY0LjU4Qzc0Ni4yMSAxNjguNTIgNzQ0LjcyIDE3Mi4xMSA3NDIuNTggMTc1LjE3Qzc0Mi41NyAxNzUuMjEgNzQyLjUzIDE3NS4yMyA3NDIuNTIgMTc1LjI3Qzc0Mi4xOSAxNzUuNzQgNzQxLjg0IDE3Ni4xOCA3NDEuNDkgMTc2LjYyQzc0MS40NyAxNzYuNjQgNzQxLjQ2IDE3Ni42NiA3NDEuNDMgMTc2LjY4QzczOS40MiAxNzguODMgNzM2LjQxIDE3OS45NyA3MzMuMjggMTc5LjQ3Ii8+PHBhdGggZD0iTTY0Mi40MiAxNDYuNzdDNjQ2LjQxIDE0My42NCA2NTIuMTcgMTQ0LjM1IDY1NS4yOSAxNDguMzRDNjU2LjMzIDE0OS42NSA2NTYuOTQgMTUxLjE1IDY1Ny4xNSAxNTIuNjhDNjU3LjE3IDE1My4wMiA2NTcuMjEgMTUzLjM2IDY1Ny4yNCAxNTMuNjlDNjU3LjI0IDE1My43MiA2NTcuMjQgMTUzLjc2IDY1Ny4yNSAxNTMuNzhDNjU3LjU5IDE1Ni41MyA2NTguNjYgMTU5LjIgNjYwLjQ4IDE2MS41NEM2NjUuMDIgMTY3LjMyIDY3Mi43NSAxNjkuMDkgNjc5LjE4IDE2Ni4zQzY3OS4xOSAxNjYuMyA2NzkuMjEgMTY2LjMgNjc5LjIyIDE2Ni4yOUM2ODAuMTIgMTY1Ljk3IDY4MS4xNiAxNjYuMjMgNjgxLjc4IDE2Ny4wM0M2ODIuNDUgMTY3Ljg5IDY4Mi40IDE2OS4xIDY4MS43MiAxNjkuOTFDNjgxLjcyIDE2OS45MSA2ODEuNzIgMTY5LjkyIDY4MS43IDE2OS45MkM2ODEuNiAxNzAuMDMgNjgxLjQ5IDE3MC4xMiA2ODEuMzkgMTcwLjIzTDY4MS4zNCAxNzAuMjdDNjgwLjk3IDE3MC42IDY4MC41NyAxNzAuOTIgNjgwLjE3IDE3MS4yM0M2NjkgMTc5Ljk4IDY1Mi44NCAxNzguMDEgNjQ0LjEgMTY2Ljg0QzY0MS42NCAxNjMuNyA2NDAuMDMgMTYwLjE2IDYzOS4yMyAxNTYuNTFDNjM5LjIyIDE1Ni40NyA2MzkuMjIgMTU2LjQzIDYzOS4yMSAxNTYuNEM2MzkuMDkgMTU1Ljg0IDYzOC45OSAxNTUuMjggNjM4LjkxIDE1NC43MkM2MzguOTEgMTU0LjcgNjM4LjkxIDE1NC42NyA2MzguOTEgMTU0LjY0QzYzOC43MSAxNTEuNzEgNjM5LjkyIDE0OC43MiA2NDIuNDIgMTQ2Ljc3Ii8+PHBhdGggZD0iTTY3Ni40NyAxODkuNjFDNjczLjI0IDE4NS40OSA2NzMuODIgMTc5LjY0IDY3Ny43NyAxNzYuNTRDNjc5LjA3IDE3NS41MyA2ODAuNTcgMTc0LjkzIDY4Mi4xIDE3NC43NEM2ODIuNDQgMTc0Ljc0IDY4Mi43OCAxNzQuNzEgNjgzLjEyIDE3NC42OEM2ODMuMTUgMTc0LjY3IDY4My4xOCAxNzQuNjcgNjgzLjIxIDE3NC42N0M2ODUuOTcgMTc0LjM4IDY4OC42NCAxNzMuMzYgNjkwLjk1IDE3MS41NUM2OTYuNjcgMTY3LjA3IDY5OC4yOSAxNTkuMjMgNjk1LjM0IDE1Mi42MkM2OTUuMzQgMTUyLjYxIDY5NS4zNCAxNTIuNiA2OTUuMzIgMTUyLjU4QzY5NC45OCAxNTEuNjYgNjk1LjIyIDE1MC42MSA2OTYuMDEgMTQ5Ljk5QzY5Ni44NiAxNDkuMzMgNjk4LjA5IDE0OS40MSA2OTguOTEgMTUwLjEyQzY5OC45MSAxNTAuMTIgNjk4LjkzIDE1MC4xMiA2OTguOTMgMTUwLjE0QzY5OS4wMyAxNTAuMjQgNjk5LjE0IDE1MC4zNSA2OTkuMjQgMTUwLjQ3TDY5OS4yOCAxNTAuNTJDNjk5LjYyIDE1MC45IDY5OS45NiAxNTEuMzEgNzAwLjI4IDE1MS43M0M3MDkuMzMgMTYzLjI5IDcwNy43MSAxNzkuNjggNjk2LjY1IDE4OC4zNEM2OTMuNTMgMTkwLjc4IDY5MC4wMSAxOTIuMzQgNjg2LjM1IDE5My4wN0M2ODYuMzIgMTkzLjA4IDY4Ni4yOCAxOTMuMDggNjg2LjI0IDE5My4xQzY4NS42OCAxOTMuMjEgNjg1LjEyIDE5My4yOSA2ODQuNTcgMTkzLjM2QzY4NC41MyAxOTMuMzYgNjg0LjUxIDE5My4zNiA2ODQuNDggMTkzLjM2QzY4MS41MyAxOTMuNTEgNjc4LjQ5IDE5Mi4yIDY3Ni40NyAxODkuNjEiLz48cGF0aCBkPSJNNzA5LjQxIDIwOC44N0M3MDQuNzQgMjA2Ljg5IDcwMi41NyAyMDEuNDkgNzA0LjU2IDE5Ni44NEM3MDUuMjIgMTk1LjMgNzA2LjIyIDE5NC4wNCA3MDcuNDcgMTkzLjExQzcwNy43NSAxOTIuOTMgNzA4LjAzIDE5Mi43MyA3MDguMzEgMTkyLjU1QzcwOC4zMyAxOTIuNTMgNzA4LjM2IDE5Mi41MSA3MDguMzkgMTkyLjQ5QzcxMC42MSAxOTAuODcgNzEyLjQ1IDE4OC42NCA3MTMuNjEgMTg1LjkyQzcxNi40OSAxNzkuMTYgNzE0LjMgMTcxLjUzIDcwOC43NiAxNjcuMjRDNzA4Ljc1IDE2Ny4yNCA3MDguNzQgMTY3LjIyIDcwOC43MiAxNjcuMjJDNzA4LjAxIDE2Ni41OCA3MDcuNzQgMTY1LjU1IDcwOC4xNCAxNjQuNjJDNzA4LjU3IDE2My42MSA3MDkuNjUgMTYzLjA3IDcxMC42OSAxNjMuMjlDNzEwLjY5IDE2My4yOSA3MTAuNzEgMTYzLjI4IDcxMC43MSAxNjMuMjlDNzEwLjg0IDE2My4zMyA3MTAuOTggMTYzLjM3IDcxMS4xMiAxNjMuNDJMNzExLjE4IDE2My40NUM3MTEuNjYgMTYzLjYxIDcxMi4xMiAxNjMuOCA3MTIuNTkgMTYzLjk5QzcyNS42NSAxNjkuNTUgNzMxLjcyIDE4NC42NSA3MjYuMTYgMTk3LjdDNzI0LjYgMjAxLjM3IDcyMi4yOCAyMDQuNDkgNzE5LjQ3IDIwNi45NUM3MTkuNDUgMjA2Ljk4IDcxOS40MSAyMDYuOTkgNzE5LjM5IDIwNy4wM0M3MTguOTYgMjA3LjQxIDcxOC41MSAyMDcuNzYgNzE4LjA3IDIwOC4wOUM3MTguMDQgMjA4LjExIDcxOC4wMyAyMDguMTIgNzE3Ljk5IDIwOC4xNEM3MTUuNTMgMjA5LjczIDcxMi4zMiAyMTAuMTEgNzA5LjQxIDIwOC44NyIvPjxwYXRoIGQ9Ik02MjQuOTcgMTgzLjY3QzYyNi43MiAxNzguOTEgNjMxLjk4IDE3Ni40NyA2MzYuNzQgMTc4LjIyQzYzOC4zMSAxNzguOCA2MzkuNjIgMTc5Ljc0IDY0MC42MSAxODAuOTVDNjQwLjggMTgxLjIyIDY0MS4wMSAxODEuNDggNjQxLjIyIDE4MS43NkM2NDEuMjMgMTgxLjc3IDY0MS4yNiAxODEuOCA2NDEuMjggMTgxLjgyQzY0My4wMSAxODMuOTggNjQ1LjMyIDE4NS42OSA2NDguMSAxODYuNzJDNjU1IDE4OS4yNSA2NjIuNTEgMTg2LjY4IDY2Ni41MSAxODAuOTNDNjY2LjUxIDE4MC45MiA2NjYuNTMgMTgwLjkxIDY2Ni41MyAxODAuODlDNjY3LjE0IDE4MC4xNSA2NjguMTUgMTc5LjgzIDY2OS4wOSAxODAuMTdDNjcwLjEyIDE4MC41NSA2NzAuNzIgMTgxLjYxIDY3MC41NiAxODIuNjZDNjcwLjU2IDE4Mi42NiA2NzAuNTcgMTgyLjY3IDY3MC41NSAxODIuNjhDNjcwLjUzIDE4Mi44MiA2NzAuNDkgMTgyLjk2IDY3MC40NSAxODMuMUw2NzAuNDIgMTgzLjE2QzY3MC4yOCAxODMuNjQgNjcwLjEyIDE4NC4xMiA2NjkuOTUgMTg0LjZDNjY1LjA1IDE5Ny45MSA2NTAuMjggMjA0Ljc0IDYzNi45NyAxOTkuODVDNjMzLjIyIDE5OC40NyA2MjkuOTggMTk2LjMgNjI3LjM5IDE5My42MkM2MjcuMzYgMTkzLjYgNjI3LjM0IDE5My41NyA2MjcuMzEgMTkzLjU1QzYyNi45MSAxOTMuMTMgNjI2LjUzIDE5Mi43MSA2MjYuMTggMTkyLjI4QzYyNi4xNiAxOTIuMjYgNjI2LjE1IDE5Mi4yNCA2MjYuMTMgMTkyLjIxQzYyNC40MSAxODkuODIgNjIzLjg4IDE4Ni42NCA2MjQuOTcgMTgzLjY3Ii8+PHBhdGggZD0iTTY2MC4xNyAyMDguOUM2NTkuOTUgMjAzLjg0IDY2My44NyAxOTkuNTUgNjY4LjkzIDE5OS4zM0M2NzAuNiAxOTkuMjYgNjcyLjE3IDE5OS42MyA2NzMuNTUgMjAwLjM1QzY3My44MyAyMDAuNTMgNjc0LjEzIDIwMC43IDY3NC40MiAyMDAuODZDNjc0LjQ1IDIwMC44OCA2NzQuNDggMjAwLjkgNjc0LjUgMjAwLjkxQzY3Ni45MyAyMDIuMjMgNjc5LjcyIDIwMi45MiA2ODIuNjkgMjAyLjc5QzY5MC4wMyAyMDIuNDcgNjk1Ljk3IDE5Ny4yMSA2OTcuNDUgMTkwLjM2QzY5Ny40NSAxOTAuMzUgNjk3LjQ2IDE5MC4zMyA2OTcuNDUgMTkwLjMxQzY5Ny43MiAxODkuMzkgNjk4LjUzIDE4OC43IDY5OS41NCAxODguNjZDNzAwLjYzIDE4OC42MSA3MDEuNTkgMTg5LjM2IDcwMS44NSAxOTAuMzlDNzAxLjg1IDE5MC4zOSA3MDEuODYgMTkwLjQgNzAxLjg1IDE5MC40MUM3MDEuODggMTkwLjU1IDcwMS45IDE5MC42OSA3MDEuOTEgMTkwLjg0TDcwMS45MiAxOTAuOTFDNzAxLjk3IDE5MS40IDcwMi4wMSAxOTEuOTEgNzAyLjAzIDE5Mi40MkM3MDIuNjUgMjA2LjU5IDY5MS42NSAyMTguNTggNjc3LjQ3IDIxOS4yQzY3My40OCAyMTkuMzcgNjY5LjY3IDIxOC42MiA2NjYuMjQgMjE3LjE1QzY2Ni4yMSAyMTcuMTQgNjY2LjE3IDIxNy4xMSA2NjYuMTQgMjE3LjExQzY2NS42IDIxNi44OCA2NjUuMSAyMTYuNjMgNjY0LjYgMjE2LjM3QzY2NC41OCAyMTYuMzYgNjY0LjU1IDIxNi4zNSA2NjQuNTMgMjE2LjMzQzY2Mi4wMyAyMTQuNzkgNjYwLjMgMjEyLjA2IDY2MC4xNyAyMDguOSIvPjwvZz48L3N2Zz4=');position:relative;background-color:var(--xanh-dem);background-image:var(--nen-xanh)}
+.hero-san{position:relative;height:max(calc(100svh - var(--hdr)),640px);overflow:hidden}
+.hero.ghim{height:calc(max(calc(100svh - var(--hdr)),640px) + var(--ghim));--a:clamp(0,calc(var(--q) / .3),1);--b:clamp(0,calc((var(--q) - .3) / .7),1)}
+.hero.ghim .hero-san{position:sticky;top:var(--hdr)}
+.hero .hoa{color:var(--vang);opacity:.06;top:auto;bottom:-140px;left:-160px;width:clamp(300px,30vw,480px)}
+/* Phim nền CĐT phủ cả hero, lớp phủ xanh đêm đậm bên trái cho chữ trắng (cảnh cát biển rất sáng) */
+.hero-phim{position:absolute;inset:0;z-index:0;overflow:hidden;background:#062F38}
+.hero-phim img,.hero-phim video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(calc(1 + var(--q) * .08))}
+.hero-phim video{opacity:0;transition:opacity .9s ease}
+.hero-phim.chay video{opacity:1}
+.hero-phim::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,47,56,.7) 0%,rgba(6,47,56,.4) 40%,rgba(6,47,56,0) 72%),linear-gradient(0deg,rgba(6,47,56,.4) 0%,rgba(6,47,56,0) 38%)}.hero-dt{--rong:min(calc(100vw - 44px),1320px);--le:calc((100vw - var(--rong)) / 2);
+  --cx:calc(var(--le) + var(--rong) * .735);--r0:min(calc(var(--rong) * .245),calc(50% - 34px),300px)}
+.hero-khung{display:block;position:absolute;inset:0;z-index:1;overflow:hidden;background:#0B4D59;
+  --X:calc(var(--cx) + (50vw - var(--cx)) * var(--b,0));--S:calc(var(--r0) * var(--k,2.3) * var(--a,1) * (1 + var(--b,0) * 1.6));--R:calc(var(--S) * .25 + var(--b,0) * var(--b,0) * 95vmax);
+  -webkit-mask:var(--hoa) no-repeat,radial-gradient(circle at var(--X) 50%,#000 var(--R),transparent calc(var(--R) + var(--a,1) * 1px));
+  -webkit-mask-size:var(--S) var(--S),100% 100%;-webkit-mask-position:calc(var(--X) - var(--S) / 2) center,0 0;
+  mask:var(--hoa) no-repeat,radial-gradient(circle at var(--X) 50%,#000 var(--R),transparent calc(var(--R) + var(--a,1) * 1px));
+  mask-size:var(--S) var(--S),100% 100%;mask-position:calc(var(--X) - var(--S) / 2) center,0 0}
+.hero-khung img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;
+  /* --lech: 2 tòa tháp nằm ở ~76% bề ngang ảnh → dời ảnh sang trái để tháp vào giữa vòng tròn lúc đầu */
+  transform:translateX(calc((var(--cx) - 50vw - var(--lech,32vw)) * (1 - var(--b,0)))) scale(calc(var(--s0,1.4) - var(--b,0) * (var(--s0,1.4) - 1)))}
+@media (min-width:1700px){ .hero-dt{--s0:.8;--lech:20vw} }
+@media (max-width:1300px){ .hero-dt{--k:2.15} }
+.hero-vien{position:absolute;z-index:0;pointer-events:none;top:50%;left:var(--cx);width:calc(var(--r0) * var(--k,2.3) * 1.5);aspect-ratio:1;
+  translate:-50% -50%;opacity:clamp(0,calc(1 - var(--q) * 4),1)}
+.hero-vien svg{display:block;width:100%;height:100%;color:var(--vang);opacity:.13;animation:hoa-xoay 70s linear infinite}
+@keyframes hoa-xoay{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){ .hero-vien svg{animation:none} }
+.hero-phu{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:calc(var(--q) * 1.4 - .4);background:linear-gradient(0deg,rgba(6,47,56,.82) 0%,rgba(6,47,56,0) 42%)}
+.hero-cap{position:absolute;z-index:3;left:var(--le);bottom:clamp(26px,4vh,48px);margin:0;max-width:680px;color:#fff;opacity:clamp(0,calc(var(--q) * 4 - 3),1);transform:translateY(calc(18px * (1 - var(--q))))}
+.hero-cap b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.4vw,36px);line-height:1.2}
+.hero-cap span{display:block;font-size:14px;letter-spacing:.03em;color:#fff;margin-top:10px}
+.hero-chu{position:absolute;z-index:3;top:0;bottom:0;left:var(--le);width:calc(var(--rong) * .46);display:flex;flex-direction:column;justify-content:center;
+  opacity:clamp(0,calc(1 - var(--q) * 2.2),1);transform:translateX(calc(-60px * var(--q)))}
+.hero .kick{display:flex;align-items:center;gap:14px;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--vang);margin:0 0 22px}
+.hero .kick::after{content:"";width:56px;height:1px;background:var(--vang-2)}
+.hero h1{margin:0;line-height:1;font-weight:400;color:#fff}
+.hero h1 .a{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(52px,5.6vw,92px);line-height:1;text-transform:uppercase;letter-spacing:.16em}
+.hero h1 .a small{display:block;font-family:var(--sans);font-size:clamp(14px,1.3vw,19px);font-weight:500;letter-spacing:.42em;margin-top:.6em;color:#fff}
+.hero h1 .by{display:block;font-family:var(--sans);font-weight:500;font-size:clamp(12.5px,1.05vw,15px);letter-spacing:.16em;text-transform:uppercase;color:var(--vang);margin-top:1.4em}
+.hero h1 em{display:block;font-family:var(--serif);font-style:normal;font-weight:400;color:#fff;font-size:clamp(21px,1.9vw,28px);line-height:1.4;margin-top:.8em;text-wrap:balance}
+.hero .gioi-thieu{margin:16px 0 0;color:#fff;font-size:16px;line-height:1.75;max-width:560px}
+.hero-chu>.nut{align-self:flex-start}
+.hero-facts{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:0;border-top:1px solid rgba(230,219,154,.5)}
+.hero-facts li{display:flex;flex-direction:column;padding:16px 22px 0 0;margin-right:22px;border-right:1px solid rgba(230,219,154,.25);color:#fff}
+.hero-facts li:last-child{border-right:0;margin-right:0;padding-right:0}
+.hero-facts b{font-family:var(--serif);font-size:clamp(25px,2.2vw,34px);font-weight:400;line-height:1.1;color:#fff}
+.hero-facts b small{font-size:14px;font-family:var(--sans);font-weight:500;margin-left:4px}
+.hero-facts span{font-size:12.5px;letter-spacing:.04em;margin-top:8px;font-weight:500;color:var(--vang)}
+.hero-goi-y{position:absolute;z-index:3;right:var(--le);bottom:22px;display:flex;align-items:center;gap:10px;color:#fff;font-size:12px;letter-spacing:.2em;text-transform:uppercase;opacity:0}
+.hero.ghim .hero-goi-y{opacity:clamp(0,calc(1 - var(--q) * 6),1)}
+.hero-goi-y i{width:1px;height:34px;background:linear-gradient(var(--vang),transparent)}
+@media (max-height:780px) and (min-width:961px){ .hero .gioi-thieu{display:none} }
+@media (max-width:1240px) and (min-width:961px){ .hero-facts{grid-template-columns:repeat(2,auto)} .hero-facts li:nth-child(2){border-right:0} .hero-facts li:nth-child(3),.hero-facts li:nth-child(4){padding-top:12px} }
+/* máy tính bảng + điện thoại: không ghim; ảnh trong vòng tròn ở trên, chữ ở dưới */
+@media (max-width:960px){
+  .hero-san{height:auto;overflow:visible;padding:34px 0 44px}
+  .hero-khung{position:relative;inset:auto;width:min(calc(100vw - 40px),min(66svh,560px));aspect-ratio:1;margin:0 auto;background:none;
+    -webkit-mask:var(--hoa) center/100% 100% no-repeat,radial-gradient(circle at 50% 50%,#000 36%,transparent calc(36% + 1px));
+    mask:var(--hoa) center/100% 100% no-repeat,radial-gradient(circle at 50% 50%,#000 36%,transparent calc(36% + 1px))}
+  .hero-khung img{transform:none;object-position:50% 50%}
+  .hero-vien,.hero-phu,.hero-cap,.hero-goi-y{display:none}
+  .hero-phim::after{background:linear-gradient(180deg,rgba(6,47,56,0) 0%,rgba(6,47,56,.15) 30%,rgba(6,47,56,.6) 50%,rgba(6,47,56,.75) 100%)}  .hero-chu{position:relative;left:auto;width:auto;opacity:1;transform:none;padding:40px 22px 0;max-width:720px;margin:0 auto}
+  .hero h1 .a{font-size:min(14vw,70px)}
+  .hero h1 .a small{font-size:min(4vw,18px);letter-spacing:.32em}
+  .hero h1 em{font-size:20px}
+  .hero-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-facts li{margin:0;padding:14px 14px 12px 0;border-right:0;border-bottom:1px solid rgba(230,219,154,.22)}
+  .hero-facts li:nth-child(even){padding-left:16px;border-left:1px solid rgba(230,219,154,.22)}
+}
+@media (max-width:560px){
+  .hero .kick{font-size:12px;letter-spacing:.12em;margin-bottom:14px}
+  .hero .kick::after{display:none}
+  .hero h1 .by{font-size:11.5px;letter-spacing:.12em;line-height:1.6}
+  .hero .gioi-thieu{font-size:15.5px}
+  .hero-facts b{font-size:24px}
+  .hero-facts span{font-size:12px}
+}
+
+/* ---------- 2 · TỔNG QUAN ---------- */
+.tq{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,5vw,90px);align-items:start}
+.bang{width:100%;margin:0;border-collapse:collapse;border-top:1px solid var(--line-2)}
+.bang caption{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.bang tr{border-bottom:1px solid var(--line)}
+.bang th{width:190px;padding:17px 18px 15px 0;text-align:left;vertical-align:top;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--dat)}
+.bang td{padding:14px 0;font-size:16.5px;color:var(--ink);line-height:1.6}
+.tq-anh{position:relative;margin:0}
+.tq-anh .song{aspect-ratio:4/5}
+.tq-anh .song img{object-position:60% 50%}
+.tq-anh figcaption{font-size:12.5px;color:var(--muted);margin-top:12px}
+.gia-tri{list-style:none;margin:clamp(48px,5vw,72px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line-2)}
+.gia-tri li{padding:22px 20px 8px 0;margin-right:20px;border-right:1px solid var(--line)}
+.gia-tri li:last-child{border-right:0;margin-right:0}
+.gia-tri b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(30px,3vw,42px);color:var(--xanh);line-height:1}
+.gia-tri b small{font-family:var(--sans);font-size:15px;font-weight:600;margin-left:4px;color:var(--dat)}
+.gia-tri h3{margin-top:14px;font-size:16px;line-height:1.45;color:var(--ink)}
+.gia-tri p{margin:8px 0 0;font-size:14.5px;line-height:1.6;color:var(--text)}
+.rung-bien{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4.4vw,72px);align-items:center;margin-top:clamp(56px,6vw,96px)}
+.rung-bien figure{margin:0}
+.rung-bien .song{aspect-ratio:3/2;border-radius:160px 0 0 0}
+.rung-bien figcaption{font-size:12.5px;color:var(--muted);margin-top:10px}
+.rung-bien h3{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,36px);color:var(--xanh);line-height:1.25}
+.rung-bien .body{margin-top:16px}
+@media (max-width:960px){ .tq,.rung-bien{grid-template-columns:1fr} .tq-anh{max-width:460px} .gia-tri{grid-template-columns:1fr 1fr} .gia-tri li{border-right:0;margin-right:0;border-bottom:1px solid var(--line);padding-bottom:18px} }
+@media (max-width:560px){ .bang th,.bang td{display:block;width:auto;padding:0} .bang th{padding-top:14px} .bang td{padding:4px 0 14px} .gia-tri{grid-template-columns:1fr} }
+
+/* ---------- 3 · VỊ TRÍ ---------- */
+.vt{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,4.4vw,72px);align-items:start}
+.ban-do{margin:0;cursor:zoom-in;border:1px solid var(--line);background:#EAF3F2}
+.ban-do figcaption{font-size:12.5px;color:var(--muted);padding:10px 12px;background:#fff;border-top:1px solid var(--line)}
+.ba-truc{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-2)}
+.ba-truc li{display:grid;grid-template-columns:52px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}
+.ba-truc svg{width:52px;height:52px;padding:12px;border-radius:50%;border:1px solid var(--vang-2);color:var(--xanh)}
+.ba-truc h3{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--xanh)}
+.ba-truc p{margin:6px 0 0;font-size:15px;line-height:1.65;color:var(--text)}
+.moc{list-style:none;margin:clamp(40px,4.4vw,60px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));position:relative}
+.moc::before{content:"";position:absolute;left:0;right:0;top:52px;border-top:1.5px dashed var(--vang-2)}
+.moc li{position:relative;padding:0 18px 0 0}
+.moc b{display:block;height:40px;font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.4vw,34px);color:var(--xanh);line-height:1.1;white-space:nowrap}
+.moc b small{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.06em;margin-left:6px;color:var(--dat)}
+.moc li::after{content:"";position:absolute;left:0;top:45px;width:14px;height:14px;border-radius:50%;background:var(--ngoc);box-shadow:0 0 0 5px var(--nga)}
+.moc span{display:block;margin-top:34px;font-size:15px;line-height:1.6;color:var(--text)}
+@media (max-width:960px){ .vt{grid-template-columns:1fr} }
+@media (max-width:760px){
+  .moc{grid-template-columns:1fr;padding-left:30px}
+  .moc::before{left:6px;right:auto;top:8px;bottom:8px;border-top:0;border-left:1.5px dashed var(--vang-2)}
+  .moc li{padding:0 0 22px}
+  .moc li::after{left:-30px;top:12px}
+  .moc b{height:auto;margin-bottom:6px}
+  .moc span{margin-top:0}
+}
+
+/* ---------- 4 · THE GRAND HO TRAM ---------- */
+.tg-anh{margin:0 0 clamp(36px,4vw,56px);cursor:zoom-in}
+.tg-anh .khung{overflow:hidden;border-radius:0 0 200px 0;background:var(--nga-2)}
+.tg-anh img{width:100%}
+.tg-anh figcaption{font-size:12.5px;color:var(--muted);margin-top:10px}
+.so-tg{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line-2)}
+.so-tg li{padding:20px 20px 18px 0;margin-right:20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.so-tg li:nth-child(3n){border-right:0;margin-right:0}
+.so-tg b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(28px,2.8vw,40px);color:var(--xanh);line-height:1.05}
+.so-tg b small{font-family:var(--sans);font-size:15px;font-weight:600;margin-left:4px;color:var(--dat)}
+.so-tg span{display:block;margin-top:8px;font-size:14.5px;line-height:1.5;color:var(--text)}
+.nhom-ti{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 32px;margin-top:clamp(36px,4vw,56px)}
+.nhom-ti h3{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dat);margin-bottom:10px}
+.nhom-ti ul{margin:0;padding:0;list-style:none;font-size:15px;line-height:1.5;color:var(--text)}
+.nhom-ti li{padding:5px 0 5px 18px;position:relative}
+.nhom-ti li::before{content:"";position:absolute;left:0;top:13px;width:7px;height:7px;border-radius:50%;border:1.5px solid var(--ngoc)}
+@media (max-width:860px){ .so-tg{grid-template-columns:1fr 1fr} .so-tg li:nth-child(3n){border-right:1px solid var(--line);margin-right:20px} .so-tg li:nth-child(2n){border-right:0;margin-right:0} .nhom-ti{grid-template-columns:1fr} }
+
+/* ---------- 5 · TIỆN ÍCH (tab theo tầng) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 clamp(26px,3vw,40px)}
+.tab{font-family:inherit;font-size:14.5px;font-weight:600;color:var(--xanh);background:#fff;border:1px solid var(--line-2);border-radius:999px;padding:11px 20px;min-height:44px;cursor:pointer}
+.tab:hover{border-color:var(--xanh)}
+.tab[aria-selected="true"]{background:var(--xanh);border-color:var(--xanh);color:#fff}
+.ti{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,4vw,64px);align-items:center}
+.ti[hidden]{display:none}
+.ti .anh{margin:0;overflow:hidden;cursor:zoom-in;border-radius:0 0 0 160px;background:var(--nga-2)}
+.ti .anh img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.ti h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.3vw,32px);color:var(--xanh);line-height:1.25}
+.ti p{margin:12px 0 0;font-size:16px;line-height:1.75;color:var(--text)}
+.ti ul{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:2px 22px}
+.ti ul li{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink)}
+.ti ul li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--ngoc)}
+.ti .minh-hoa{margin-top:10px}
+@media (max-width:960px){ .ti{grid-template-columns:1fr} }
+@media (max-width:560px){ .ti ul{grid-template-columns:1fr} .tab{font-size:13.5px;padding:10px 15px} }
+
+/* ---------- 6 · SẢN PHẨM — HIỆU ỨNG M5 "lưới thẻ trồi theo hàng + thẻ kẻ khung" (mẫu projects/template/hieu-ung/03-phong-xuyen-chu:
+   initRiseGrid + card-line, bản SOHO). 6 thẻ (4 loại căn hộ + 2 villa): JS gom thẻ cùng hàng, mỗi hàng trồi lên khi cuộn tới, trong hàng trái → phải.
+   Rê chuột: 4 nét ngắn ở góc kéo dài thành khung. Bấm thẻ = phóng to mặt bằng. Không ghim. ---------- */
+.nhom-sp{margin:0 0 14px;font-size:15px;letter-spacing:.01em;font-weight:600;color:var(--dat)}
+.luoi-sp{list-style:none;margin:0 0 clamp(34px,3.6vw,52px);padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.4vw,20px)}
+.luoi-sp.hai{grid-template-columns:repeat(2,minmax(0,1fr))}
+.the-sp{position:relative;display:flex;flex-direction:column;align-items:stretch;text-align:left;width:100%;height:100%;padding:12px 12px 18px;background:#fff;border:1px solid var(--line);border-radius:0;font-family:inherit;color:var(--ink);cursor:zoom-in}
+.js .the-sp[data-troi]{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1),background .25s}
+.js .the-sp[data-troi].in{opacity:1;transform:none}
+.the-sp .anh{aspect-ratio:4/3;overflow:hidden;background:#fff;display:block}
+.the-sp img{width:100%;height:100%;object-fit:contain}
+.luoi-sp.hai .the-sp .anh{aspect-ratio:16/10}
+.the-sp .ten{position:relative;display:block;margin-top:14px;padding:0 16px 12px}
+.the-sp strong{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(19px,1.6vw,23px);color:var(--xanh);letter-spacing:.02em;line-height:1.25}
+.the-sp .dt{display:block;margin-top:6px;font-size:14px;line-height:1.5;color:var(--text)}
+.the-sp .gia{display:block;margin-top:10px;font-family:var(--serif);font-size:clamp(20px,1.8vw,26px);color:var(--dat);line-height:1.2}
+.the-sp .gia small{display:block;font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:4px;letter-spacing:.01em}
+.net{position:absolute;background:var(--vang-2);transition:transform .4s ease}
+.net.tr{left:0;bottom:-.5rem;width:1px;height:calc(100% + .5rem);transform-origin:50% 100%;transform:scaleY(var(--ngan-d,.3))}
+.net.ph{right:0;bottom:-.5rem;width:1px;height:calc(100% + .5rem);transform-origin:50% 100%;transform:scaleY(var(--ngan-d,.3))}
+.net.dt{left:-.5rem;bottom:0;height:1px;width:calc(50% + .5rem);transform-origin:0 50%;transform:scaleX(var(--ngan-n,.2))}
+.net.dp{right:-.5rem;bottom:0;height:1px;width:calc(50% + .5rem);transform-origin:100% 50%;transform:scaleX(var(--ngan-n,.2))}
+@media (hover:hover) and (pointer:fine){ .the-sp:hover .net,.the-sp:focus-visible .net{transform:none} .the-sp:hover{background:var(--nga)} }
+.villa-dong{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:center;margin-bottom:clamp(30px,3.4vw,46px)}
+.villa-dong figure{margin:0}
+.villa-dong .song{aspect-ratio:5/4;border-radius:0 0 160px 0}
+.villa-dong figcaption{font-size:12.5px;color:var(--muted);margin-top:10px}
+.villa-dong h3{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,36px);color:var(--xanh);line-height:1.25}
+.villa-dong .body{margin-top:14px}
+.ghi-gia{margin:0;padding:18px 22px;background:var(--nga);border:1px solid var(--line-2);font-size:14.5px;line-height:1.7;color:var(--text)}
+@media (max-width:1000px){ .luoi-sp{grid-template-columns:1fr 1fr} }
+@media (max-width:860px){ .villa-dong{grid-template-columns:1fr} }
+@media (max-width:560px){ .luoi-sp{gap:10px} .luoi-sp.hai{grid-template-columns:1fr} .the-sp{padding:8px 8px 14px} .the-sp .ten{padding:0 12px 10px} .the-sp strong{font-size:17px} .the-sp .gia{font-size:18px} }
+@media (max-width:340px){ .luoi-sp{grid-template-columns:1fr} }
+
+/* ---------- 7 · VẬN HÀNH & CHO THUÊ ---------- */
+.vh{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(32px,5vw,90px);align-items:center}
+.vh figure{margin:0}
+.vh .song{aspect-ratio:16/11;border-radius:0 160px 0 0}
+.vh figcaption{font-size:12.5px;color:var(--muted);margin-top:10px}
+.so-vh{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line-2)}
+.so-vh li{padding:16px 14px 6px 0;margin-right:14px;border-right:1px solid var(--line)}
+.so-vh li:last-child{border-right:0;margin-right:0}
+.so-vh b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.4vw,34px);color:var(--xanh);line-height:1.05}
+.so-vh span{display:block;margin-top:6px;font-size:13.5px;line-height:1.45;color:var(--text)}
+.cho-thue{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,22px);margin-top:clamp(48px,5vw,80px);list-style:none;padding:0}
+.cho-thue li{padding:26px 24px 24px;background:#fff;border:1px solid var(--line-2);border-radius:0 0 60px 0}
+.cho-thue b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(40px,3.8vw,56px);line-height:1;color:var(--xanh)}
+.cho-thue b small{font-family:var(--sans);font-size:15px;font-weight:600;margin-left:4px;color:var(--dat)}
+.cho-thue h3{margin-top:12px;font-size:16px;color:var(--ink)}
+.cho-thue p{margin:8px 0 0;font-size:14.5px;line-height:1.65;color:var(--text)}
+.thanh-toan{margin-top:clamp(22px,2.4vw,32px);display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;padding:24px 28px;background:#fff;border:1px solid var(--line);border-radius:0 120px 120px 0}
+.thanh-toan svg{width:54px;height:54px;color:var(--dat)}
+.thanh-toan p{margin:0;font-size:15.5px;line-height:1.7;color:var(--text)}
+.thanh-toan b{color:var(--xanh)}
+@media (max-width:960px){ .vh{grid-template-columns:1fr} .vh figure{max-width:560px} .cho-thue{grid-template-columns:1fr} }
+@media (max-width:560px){ .so-vh{grid-template-columns:1fr 1fr} .so-vh li:nth-child(2){border-right:0;margin-right:0} .thanh-toan{grid-template-columns:1fr;padding:22px 40px 22px 22px} }
+
+/* ---------- 8 · CHỦ ĐẦU TƯ ---------- */
+.cdt{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:clamp(32px,5vw,90px);align-items:start}
+.cdt-logo{display:flex;flex-direction:column;gap:22px;background:#fff;border:1px solid var(--line);border-radius:0 160px 160px 0;padding:clamp(26px,3vw,40px) clamp(56px,6vw,90px) clamp(26px,3vw,40px) clamp(22px,2.6vw,34px)}
+.cdt-logo span{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:10px}
+.cdt-logo>div{width:100%}
+.cdt-logo img{width:100%;max-width:340px;height:auto}
+.cdt-logo .fu{width:130px}
+.vai{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-2)}
+.vai li{display:grid;grid-template-columns:170px 1fr;gap:18px;padding:18px 0;border-bottom:1px solid var(--line)}
+.vai h3{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--dat);padding-top:3px}
+.vai p{margin:0;font-size:15.5px;line-height:1.7;color:var(--text)}
+.vai p b{color:var(--xanh)}
+@media (max-width:960px){ .cdt{grid-template-columns:1fr} .cdt-logo{max-width:440px} }
+@media (max-width:560px){ .vai li{grid-template-columns:1fr;gap:6px} }
+
+/* ---------- 9 · HỎI ĐÁP ---------- */
+.faq{max-width:920px;margin:0;border-top:1px solid var(--line-2)}
+.faq details{border-bottom:1px solid var(--line-2)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 56px 22px 0;font-weight:600;color:var(--xanh-dam);font-size:18px;position:relative;line-height:1.5}
+.faq summary:hover{color:var(--dat)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::marker{content:""}
+.faq summary::before,.faq summary::after{content:"";position:absolute;right:8px;top:50%;width:16px;height:1.5px;background:var(--dat);transition:transform .25s}
+.faq summary::after{transform:rotate(90deg)}
+.faq details[open] summary::after{transform:rotate(0)}
+.faq details p{margin:0;padding:0 56px 24px 0;color:var(--text);font-size:16px;line-height:1.8}
+
+/* ---------- 10 · ĐĂNG KÝ ---------- */
+.cta{position:relative;background:var(--xanh-dem);padding:clamp(80px,8.6vw,136px) 22px;overflow:hidden}
+.cta>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.cta-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,47,56,.95) 0%,rgba(6,47,56,.86) 45%,rgba(6,47,56,.38) 100%)}
+.cta .hoa{color:var(--vang);opacity:.12}
+.cta-in{position:relative;max-width:1200px;margin:0 auto}
+.cta-box{max-width:660px}
+.cta h2{color:#fff}
+.cta h2 .s{color:var(--vang)}
+.cta .lead{color:#fff;font-size:clamp(17px,1.6vw,19px);line-height:1.65;margin:18px 0 0}
+.cta ul{list-style:none;padding:0;margin:clamp(20px,2.2vw,30px) 0 0}
+.cta ul li{color:#fff;font-size:clamp(15px,1.5vw,16.5px);line-height:1.6;padding:8px 0 8px 30px;position:relative}
+.cta ul li::before{content:"";position:absolute;left:2px;top:15px;width:14px;height:8px;border-left:1.5px solid var(--vang);border-bottom:1.5px solid var(--vang);transform:rotate(-45deg)}
+.cta .ket-cta{color:#fff;font-size:15px;margin:18px 0 0;padding-top:18px;border-top:1px solid rgba(230,219,154,.34)}
+
+/* ---------- FOOTER ---------- */
+footer{position:relative;background-color:var(--xanh-dem);background-image:var(--nen-xanh);padding:clamp(52px,5vw,76px) 22px;color:#fff;overflow:hidden}
+footer .hoa{color:var(--vang);opacity:.07;bottom:-110px;left:-130px}
+.ft{position:relative;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:clamp(22px,3vw,48px);align-items:center}
+.ft .era{width:98px;height:auto}
+.ft .lg{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.ft .lg img{width:96px;height:auto}
+.ft .lg span{font-size:12.5px;color:#fff;text-align:right;line-height:1.6}
+.ft .fb>span{display:block;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--vang);font-weight:600}
+.ft .fb strong{display:block;font-family:var(--serif);font-size:clamp(21px,2vw,28px);color:#fff;font-weight:400;margin-top:8px;line-height:1.3}
+.ft p{font-size:15px;line-height:1.75;margin:12px 0 0;color:#fff;max-width:700px}
+.ft-legal{position:relative;max-width:1200px;margin:30px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.22);font-size:13px;line-height:1.75;color:#fff}
+@media (max-width:860px){ .ft{grid-template-columns:auto 1fr} .ft .lg{grid-column:span 2;align-items:flex-start} .ft .lg span{text-align:left} }
+@media (max-width:560px){ .ft{grid-template-columns:1fr} .ft .lg{grid-column:auto} }
+
+/* ---------- LIGHTBOX ---------- */
+.lb{position:fixed;inset:0;z-index:600;background:rgba(4,22,27,.96);display:none;align-items:center;justify-content:center;padding:54px 12px 12px}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;background:#fff}
+.lb button{position:absolute;top:10px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:22px;cursor:pointer}
+.lb p{position:absolute;top:18px;left:18px;right:70px;margin:0;color:#fff;font-size:13px}
+
+/* reveal: chỉ bật khi JS chạy -> không JS vẫn thấy đủ nội dung */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto} .js .rv{opacity:1;transform:none;transition:none}
+  .xem-them svg,.net{transition:none}
+  .js .the-sp[data-troi]{opacity:1;transform:none;transition:none}
+}
+
+/* ---------- BẢN CÓ FORM: form, hotline, thanh liên hệ (sinh bởi _dungcu/tao-ban-co-form.py) ---------- */
+.nav .nav-tel{font-weight:700;color:var(--dat)}
+.nav .nav-cta{background:var(--xanh);color:#fff;border-radius:999px;padding:10px 20px;font-weight:700}
+.nav .nav-cta:hover,.nav .nav-cta.on{background:var(--xanh-2);color:#fff}
+.brand{flex-shrink:0}
+@media (min-width:1181px) and (max-width:1500px){ .nav{gap:18px} .nav .opt{display:none} }
+@media (max-width:1180px){ .hdr.open .nav a.nav-cta{margin-top:18px;text-align:center;border-bottom:0;padding:15px} }
+.hero-nut{margin-top:18px;background:var(--vang);color:var(--xanh-dem);border-color:var(--vang)}
+.hero-nut:hover{background:#fff;color:var(--xanh);border-color:#fff}
+.nut-loai-hang{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.nut-loai-hang .nut{margin-top:0}
+.cta-in.co-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:clamp(26px,3.4vw,56px);align-items:center}
+.form-card{background:#fff;border-radius:0;padding:clamp(24px,2.8vw,36px);box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.form-card .t{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--xanh);line-height:1.35;text-transform:uppercase}
+.form-card .s{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.5}
+.form-card form{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.field{border:1.5px solid var(--line-2);border-radius:4px;padding:14px;font-size:16px;font-family:inherit;outline:none;min-width:0;width:100%;background:#fff;color:var(--ink)}
+.field:focus{border-color:var(--xanh-2)}
+select.field{appearance:none;-webkit-appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%239A4A0C' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 16px center;padding-right:40px}
+.form-card .nut{margin-top:4px;width:100%;justify-content:center;border:0;cursor:pointer;font-family:inherit;background:var(--xanh);color:#fff;padding:16px}
+.form-card .nut:hover{background:var(--dat);color:#fff}
+.form-card .nut:disabled{opacity:.7;cursor:default}
+.form-card .hot{margin:16px 0 0;text-align:center;font-size:14px;color:var(--muted)}
+.form-card .hot a{font-weight:700;color:var(--xanh);font-size:17px}
+.msg{border-radius:4px;padding:12px 14px;font-size:14px;line-height:1.5}
+.msg.ok{background:var(--nga);color:var(--xanh)} .msg.err{background:var(--nga);color:var(--dat);border:1.5px solid var(--dat)}
+.ft-dc{max-width:1180px;margin:18px auto 0;text-align:center;font-size:14px;color:#fff}
+footer .links{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:1180px;margin:22px auto 0}
+footer .links a{color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:10px 20px;font-size:14px;font-weight:700}
+footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:300;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;gap:10px;box-shadow:0 -6px 20px rgba(0,0,0,.12);transform:translateY(110%);transition:transform .3s}
+.bar.show{transform:none}
+.bar a{flex:1;display:flex;align-items:center;justify-content:center;white-space:nowrap;padding:12px 6px;border-radius:999px;font-weight:700;font-size:14px;border:1.5px solid var(--xanh);color:var(--xanh)}
+.bar a.chinh{background:var(--xanh);color:#fff;flex:1.4}
+@media (max-width:900px){ .cta-in.co-form{grid-template-columns:1fr} }
+@media (max-width:760px){ .bar{display:flex} footer{padding-bottom:110px} }
+@media (max-width:560px){ .nut-loai-hang .nut{flex:1 1 100%;justify-content:center} .hero-nut{font-size:14px;padding:14px 20px;gap:8px} }
+@media (prefers-reduced-motion:reduce){ .bar{transition:none} }
+</style>
+<script>document.documentElement.className+=' js'</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "RealEstateAgent",
+      "@id": "https://era.com.vn/#organization",
+      "name": "ERA Vietnam - Công ty Cổ phần Bất động sản ERA Việt Nam",
+      "url": "https://era.com.vn/",
+      "telephone": "+84941125000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Số 22 - 24, Đường số 5, KĐT Sala",
+        "addressLocality": "Phường An Khánh",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "areaServed": [
+        "TP. Hồ Chí Minh",
+        "Đà Nẵng",
+        "Hà Nội"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://era.com.vn/du-an-maia-ho-tram/#website",
+      "url": "https://era.com.vn/du-an-maia-ho-tram/",
+      "name": "Maia Resort Ho Tram – Căn hộ và villa mặt tiền biển Hồ Tràm",
+      "inLanguage": "vi-VN",
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://era.com.vn/du-an-maia-ho-tram/#webpage",
+      "url": "https://era.com.vn/du-an-maia-ho-tram/",
+      "name": "Maia Resort Ho Tram – Căn hộ, villa mặt tiền biển Hồ Tràm",
+      "inLanguage": "vi-VN",
+      "isPartOf": {
+        "@id": "https://era.com.vn/du-an-maia-ho-tram/#website"
+      },
+      "about": {
+        "@id": "https://era.com.vn/du-an-maia-ho-tram/#du-an"
+      },
+      "publisher": {
+        "@id": "https://era.com.vn/#organization"
+      },
+      "breadcrumb": {
+        "@id": "https://era.com.vn/du-an-maia-ho-tram/#breadcrumb"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://era.com.vn/du-an-maia-ho-tram/#anh-hero"
+      }
+    },
+    {
+      "@type": [
+        "Product",
+        "Residence"
+      ],
+      "@id": "https://era.com.vn/du-an-maia-ho-tram/#du-an",
+      "name": "Maia Resort Ho Tram",
+      "alternateName": [
+        "Maia Hồ Tràm",
+        "Maia – a Fusion resort Ho Tram",
+        "Happy Tower Maia Resort Ho Tram"
+      ],
+      "description": "Maia Resort Ho Tram (a Fusion resort) là dự án căn hộ và villa nghỉ dưỡng mặt tiền biển Hồ Tràm, xã Hồ Tràm, TP.HCM (Bà Rịa – Vũng Tàu trước đây), thuộc tổ hợp The Grand Ho Tram. Quy mô 7 ha với 1.244 căn hộ (Peace Tower 634 căn, Happy Tower 610 căn) và 36 villa. Chủ đầu tư Lodgis (hệ sinh thái tài sản đầu tư của Warburg Pincus), nhà phát triển VinaLiving, quản lý vận hành Fusion Hotel Group. Happy Tower có căn hộ Studio 35 m², 1PN 49 m², 2PN 65 – 80 m², bàn giao nội thất đầy đủ, dự kiến bàn giao quý 4/2027.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Maia Resort Ho Tram"
+      },
+      "category": "Căn hộ nghỉ dưỡng, villa biển",
+      "numberOfAccommodationUnits": 1280,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Mặt tiền biển Hồ Tràm, tổ hợp The Grand Ho Tram",
+        "addressLocality": "Xã Hồ Tràm",
+        "addressRegion": "TP. Hồ Chí Minh",
+        "addressCountry": "VN"
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "VinaLiving",
+        "url": "https://www.vinaliving.com.vn/"
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Tổng diện tích đất",
+          "value": "7 ha"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Quy mô",
+          "value": "1.244 căn hộ (Peace Tower 634, Happy Tower 610) và 36 villa"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Chủ đầu tư",
+          "value": "Lodgis – hệ sinh thái tài sản đầu tư của Warburg Pincus"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Quản lý vận hành",
+          "value": "Fusion Hotel Group"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Loại căn Happy Tower",
+          "value": "Studio 35 m², 1PN 49 m², 2PN chuẩn 65 m², 2PN Luxury 80 m²"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Bàn giao dự kiến",
+          "value": "Quý 4/2027 (Happy Tower, villa)"
+        }
+      ],
+      "image": [
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-hai-thap-can-ho-mat-tien-bien-ho-tram.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-hai-thap-can-ho-mat-tien-bien-ho-tram.webp",
+          "caption": "Phối cảnh hai tòa tháp căn hộ Maia Resort Ho Tram mặt tiền biển Hồ Tràm, TP.HCM (ảnh minh họa)",
+          "name": "Phối cảnh hai tòa tháp căn hộ Maia Resort Ho Tram mặt tiền biển Hồ Tràm, TP.HCM (ảnh minh họa)",
+          "width": 1600,
+          "height": 1135,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram",
+          "@id": "https://era.com.vn/du-an-maia-ho-tram/#anh-hero"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-phoi-canh-tren-cao-thap-can-ho-va-villa.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-phoi-canh-tren-cao-thap-can-ho-va-villa.webp",
+          "caption": "Phối cảnh trên cao Maia Resort Ho Tram: tòa tháp căn hộ, cụm villa và bãi biển Hồ Tràm (ảnh minh họa)",
+          "name": "Phối cảnh trên cao Maia Resort Ho Tram: tòa tháp căn hộ, cụm villa và bãi biển Hồ Tràm (ảnh minh họa)",
+          "width": 1200,
+          "height": 1075,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-rung-nguyen-sinh-gap-bien-ho-tram.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-rung-nguyen-sinh-gap-bien-ho-tram.webp",
+          "caption": "Rừng nguyên sinh gặp biển Hồ Tràm nhìn từ trên cao",
+          "name": "Rừng nguyên sinh gặp biển Hồ Tràm nhìn từ trên cao",
+          "width": 1200,
+          "height": 799,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-ban-do-ket-noi-san-bay-long-thanh-cao-toc.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-ban-do-ket-noi-san-bay-long-thanh-cao-toc.webp",
+          "caption": "Bản đồ kết nối Maia Resort Ho Tram: sân bay Long Thành, cao tốc Biên Hòa – Vũng Tàu, cao tốc Long Thành – Hồ Tràm",
+          "name": "Bản đồ kết nối Maia Resort Ho Tram: sân bay Long Thành, cao tốc Biên Hòa – Vũng Tàu, cao tốc Long Thành – Hồ Tràm",
+          "width": 1400,
+          "height": 788,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-to-hop-the-grand-ho-tram-tren-cao.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-to-hop-the-grand-ho-tram-tren-cao.webp",
+          "caption": "Tổng thể tổ hợp The Grand Ho Tram nhìn từ trên cao, vị trí Happy Tower và cụm villa Maia ven biển (ảnh minh họa)",
+          "name": "Tổng thể tổ hợp The Grand Ho Tram nhìn từ trên cao, vị trí Happy Tower và cụm villa Maia ven biển (ảnh minh họa)",
+          "width": 1600,
+          "height": 1000,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-tien-ich-nha-hang-khoi-de.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-tien-ich-nha-hang-khoi-de.webp",
+          "caption": "Không gian nhà hàng nhìn ra biển – tiện ích khối đế Maia Resort Ho Tram (ảnh minh họa)",
+          "name": "Không gian nhà hàng nhìn ra biển – tiện ích khối đế Maia Resort Ho Tram (ảnh minh họa)",
+          "width": 1100,
+          "height": 827,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-tien-ich-sky-pool-tang-3.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-tien-ich-sky-pool-tang-3.webp",
+          "caption": "Hồ bơi vô cực – tiện ích Sky Pool tầng 3 Maia Resort Ho Tram (ảnh minh họa)",
+          "name": "Hồ bơi vô cực – tiện ích Sky Pool tầng 3 Maia Resort Ho Tram (ảnh minh họa)",
+          "width": 1100,
+          "height": 733,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-tien-ich-beach-club-noi-khu.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-tien-ich-beach-club-noi-khu.webp",
+          "caption": "Beach Club bên biển – tiện ích nội khu Maia Resort Ho Tram (ảnh minh họa)",
+          "name": "Beach Club bên biển – tiện ích nội khu Maia Resort Ho Tram (ảnh minh họa)",
+          "width": 1100,
+          "height": 731,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-layout-can-ho-studio-35m2.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-layout-can-ho-studio-35m2.webp",
+          "caption": "Mặt bằng căn hộ Studio 35 m² Happy Tower – Maia Resort Ho Tram",
+          "name": "Mặt bằng căn hộ Studio 35 m² Happy Tower – Maia Resort Ho Tram",
+          "width": 900,
+          "height": 493,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-layout-can-ho-1-phong-ngu-49m2.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-layout-can-ho-1-phong-ngu-49m2.webp",
+          "caption": "Mặt bằng căn hộ 1 phòng ngủ 49 m² Happy Tower – Maia Resort Ho Tram",
+          "name": "Mặt bằng căn hộ 1 phòng ngủ 49 m² Happy Tower – Maia Resort Ho Tram",
+          "width": 900,
+          "height": 673,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-layout-can-ho-2-phong-ngu-chuan-65m2.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-layout-can-ho-2-phong-ngu-chuan-65m2.webp",
+          "caption": "Mặt bằng căn hộ 2 phòng ngủ chuẩn 65 m² Happy Tower – Maia Resort Ho Tram",
+          "name": "Mặt bằng căn hộ 2 phòng ngủ chuẩn 65 m² Happy Tower – Maia Resort Ho Tram",
+          "width": 900,
+          "height": 1045,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-layout-can-ho-2-phong-ngu-luxury-80m2.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-layout-can-ho-2-phong-ngu-luxury-80m2.webp",
+          "caption": "Mặt bằng căn hộ 2 phòng ngủ Luxury 80 m² Happy Tower – Maia Resort Ho Tram",
+          "name": "Mặt bằng căn hộ 2 phòng ngủ Luxury 80 m² Happy Tower – Maia Resort Ho Tram",
+          "width": 900,
+          "height": 1251,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-mat-bang-villa-2-phong-ngu.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-mat-bang-villa-2-phong-ngu.webp",
+          "caption": "Mặt bằng tầng 1 villa 2 phòng ngủ Maia Resort Ho Tram, đất 240 – 256 m²",
+          "name": "Mặt bằng tầng 1 villa 2 phòng ngủ Maia Resort Ho Tram, đất 240 – 256 m²",
+          "width": 900,
+          "height": 826,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-mat-bang-villa-3-phong-ngu.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-mat-bang-villa-3-phong-ngu.webp",
+          "caption": "Mặt bằng tầng 1 villa 3 phòng ngủ Maia Resort Ho Tram, đất 368 – 405 m²",
+          "name": "Mặt bằng tầng 1 villa 3 phòng ngủ Maia Resort Ho Tram, đất 368 – 405 m²",
+          "width": 900,
+          "height": 783,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-villa-ho-boi-rieng-ven-bien.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-villa-ho-boi-rieng-ven-bien.webp",
+          "caption": "Phối cảnh villa có hồ bơi riêng giữa vườn nhiệt đới tại Maia Resort Ho Tram (ảnh minh họa)",
+          "name": "Phối cảnh villa có hồ bơi riêng giữa vườn nhiệt đới tại Maia Resort Ho Tram (ảnh minh họa)",
+          "width": 1200,
+          "height": 960,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-noi-that-can-ho-view-bien-truc-dien.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-noi-that-can-ho-view-bien-truc-dien.webp",
+          "caption": "Nội thất căn hộ Maia Resort Ho Tram bàn giao đầy đủ, cửa kính nhìn thẳng ra biển (ảnh minh họa)",
+          "name": "Nội thất căn hộ Maia Resort Ho Tram bàn giao đầy đủ, cửa kính nhìn thẳng ra biển (ảnh minh họa)",
+          "width": 1200,
+          "height": 750,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        },
+        {
+          "@type": "ImageObject",
+          "contentUrl": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-hai-thap-luc-hoang-hon-ben-bien.webp",
+          "url": "https://era.com.vn/du-an-maia-ho-tram/assets/img/maia-ho-tram-hai-thap-luc-hoang-hon-ben-bien.webp",
+          "caption": "Hai tòa tháp Maia Resort Ho Tram và cụm villa lúc hoàng hôn bên biển Hồ Tràm (ảnh minh họa)",
+          "name": "Hai tòa tháp Maia Resort Ho Tram và cụm villa lúc hoàng hôn bên biển Hồ Tràm (ảnh minh họa)",
+          "width": 1600,
+          "height": 1309,
+          "inLanguage": "vi-VN",
+          "creditText": "Tài liệu chủ đầu tư dự án Maia Resort Ho Tram"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://era.com.vn/du-an-maia-ho-tram/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "ERA Vietnam",
+          "item": "https://era.com.vn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Căn hộ biển Hồ Tràm",
+          "item": "https://era.com.vn/du-an-maia-ho-tram/#tong-quan"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Maia Resort Ho Tram",
+          "item": "https://era.com.vn/du-an-maia-ho-tram/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://era.com.vn/du-an-maia-ho-tram/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Maia Resort Ho Tram ở đâu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Maia Resort Ho Tram nằm ngay mặt tiền biển Hồ Tràm, xã Hồ Tràm, TP.HCM (tỉnh Bà Rịa – Vũng Tàu trước đây), trong tổ hợp The Grand Ho Tram, cạnh sân golf The Bluffs và rừng nguyên sinh Phước Bửu 11.000 ha. Từ trung tâm TP.HCM đi khoảng 90 phút, cách sân bay quốc tế Long Thành khoảng 41 km."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dự án có quy mô bao nhiêu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dự án rộng 7 ha, gồm 1.244 căn hộ trong 2 tòa tháp (Peace Tower 634 căn, Happy Tower 610 căn) và 36 villa. Happy Tower có tầng 1–2 khối đế, tầng 3 căn hộ hồ bơi, tầng 4–30 căn hộ điển hình và tầng 31 penthouse."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Happy Tower có những loại căn hộ nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo brochure chủ đầu tư có 4 loại: Studio 35 m², 1 phòng ngủ 49 m², 2 phòng ngủ chuẩn 65 m² và 2 phòng ngủ Luxury 80 m² (diện tích xây dựng – GFA). Căn hộ bàn giao nội thất đầy đủ và thiết bị vận hành chuẩn quốc tế, 100% căn hướng biển."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Giá căn hộ và villa Maia Resort Ho Tram bao nhiêu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo tài liệu chủ đầu tư (cập nhật 07/2026), giá tham khảo: Studio 2,4 – 2,7 tỷ, 1PN 3,3 – 3,7 tỷ, 2PN 65 m² 4,5 – 5,4 tỷ; villa 2PN 15 – 17 tỷ, villa 3PN 21 – 24 tỷ (villa chưa gồm nội thất và thiết bị vận hành). Giá chính thức theo từng đợt mở bán; liên hệ ERA Vietnam để nhận bảng giá và giỏ hàng."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Chương trình cho thuê hoạt động thế nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chủ sở hữu có thể ở như second-home hoặc tham gia chương trình cho thuê do Fusion Hotel Group quản lý: nhận 40% doanh thu cho thuê và có 40 điểm nghỉ dưỡng miễn phí mỗi năm. Phí quản lý hằng tháng từ 22.000 đ/m² (căn hộ Studio/1PN/2PN) đến 30.000 đ/m² diện tích đất (villa)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Khi nào bàn giao?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Theo brochure và leaflet Happy Tower, dự án khởi công dự kiến quý 4/2025, bàn giao dự kiến quý 4/2027; bộ sưu tập villa cũng dự kiến bàn giao quý 4/2027. Mốc chính thức theo hợp đồng mua bán."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Chủ đầu tư Maia Resort Ho Tram là ai?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chủ đầu tư là Lodgis, thuộc hệ sinh thái tài sản đầu tư của quỹ Warburg Pincus (Mỹ); nhà phát triển dự án là VinaLiving; đơn vị quản lý vận hành là Fusion Hotel Group. ERA Vietnam là đại lý phân phối dự án."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Pháp lý dự án thế nào?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Trang này chưa đăng thông tin pháp lý vì tài liệu hiện có chưa nêu. Khách hàng vui lòng tham khảo hợp đồng mua bán và hồ sơ chính thức do chủ đầu tư phát hành, hoặc liên hệ chuyên viên ERA Vietnam để được cung cấp."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- hoạ tiết: bông hoa 12 cánh của logo MAIA (nét vector bìa brochure Happy Tower, _dungcu/tach-logo.py) — vẽ 1 lần, các khối dùng lại bằng <use> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="hoa-maia" viewBox="611.95 81.73 138.63 139.14"><g fill="currentColor"><path d="M705.7 97.63C705.14 102.67 700.6 106.3 695.57 105.73C693.91 105.55 692.41 104.95 691.16 104.02C690.91 103.8 690.64 103.59 690.38 103.38C690.36 103.36 690.33 103.34 690.3 103.33C688.1 101.65 685.45 100.54 682.5 100.21C675.2 99.4 668.53 103.69 666.02 110.23C666.02 110.24 666.01 110.26 666 110.28C665.6 111.14 664.68 111.7 663.69 111.59C662.6 111.47 661.77 110.58 661.67 109.53C661.67 109.53 661.66 109.52 661.67 109.5C661.66 109.36 661.67 109.22 661.67 109.07L661.68 109.01C661.71 108.51 661.75 108 661.8 107.49C663.36 93.4 676.08 83.23 690.17 84.8C694.14 85.23 697.79 86.56 700.96 88.55C700.99 88.56 701.03 88.59 701.05 88.6C701.54 88.91 702.01 89.23 702.46 89.57C702.48 89.58 702.5 89.59 702.52 89.61C704.76 91.52 706.04 94.48 705.7 97.63"/><path d="M648.83 95.66C653.55 97.48 655.9 102.8 654.07 107.52C653.47 109.08 652.49 110.37 651.28 111.35C651.01 111.53 650.73 111.73 650.47 111.93C650.45 111.95 650.41 111.97 650.4 111.99C648.22 113.68 646.46 115.97 645.39 118.74C642.73 125.59 645.17 133.14 650.86 137.24C650.87 137.24 650.88 137.26 650.9 137.27C651.63 137.88 651.93 138.9 651.57 139.84C651.17 140.86 650.1 141.43 649.06 141.26C649.06 141.26 649.04 141.27 649.04 141.25C648.91 141.23 648.77 141.18 648.62 141.14L648.56 141.11C648.09 140.97 647.6 140.8 647.14 140.61C633.91 135.49 627.33 120.61 632.45 107.38C633.89 103.66 636.1 100.46 638.83 97.91C638.85 97.88 638.89 97.86 638.91 97.83C639.33 97.43 639.76 97.07 640.2 96.72C640.22 96.7 640.23 96.68 640.27 96.67C642.68 94.99 645.87 94.51 648.83 95.66"/><path d="M739.76 127.53C737.16 131.88 731.53 133.3 727.18 130.7C725.74 129.85 724.64 128.67 723.88 127.31C723.75 127.01 723.59 126.7 723.44 126.41C723.42 126.38 723.41 126.35 723.4 126.33C722.09 123.89 720.14 121.78 717.59 120.26C711.28 116.48 703.42 117.62 698.43 122.54C698.42 122.54 698.41 122.55 698.4 122.57C697.67 123.18 696.61 123.31 695.74 122.8C694.81 122.23 694.42 121.09 694.77 120.09C694.77 120.09 694.76 120.07 694.78 120.07C694.83 119.93 694.9 119.8 694.96 119.67L694.99 119.61C695.22 119.17 695.47 118.73 695.73 118.29C703 106.11 718.78 102.14 730.96 109.41C734.39 111.46 737.16 114.18 739.22 117.3C739.24 117.33 739.26 117.36 739.28 117.39C739.6 117.87 739.89 118.36 740.16 118.85C740.17 118.86 740.19 118.89 740.2 118.92C741.45 121.59 741.39 124.8 739.76 127.53"/><path d="M685.84 112.81C688.96 116.8 688.26 122.57 684.27 125.69C682.96 126.72 681.46 127.33 679.92 127.55C679.59 127.56 679.24 127.6 678.91 127.63C678.89 127.64 678.85 127.64 678.83 127.65C676.08 127.98 673.41 129.05 671.07 130.88C665.28 135.41 663.52 143.14 666.3 149.58C666.3 149.58 666.3 149.6 666.32 149.61C666.64 150.52 666.37 151.55 665.58 152.17C664.72 152.85 663.51 152.79 662.7 152.11C662.7 152.11 662.68 152.11 662.68 152.09C662.58 151.99 662.48 151.89 662.38 151.78L662.34 151.73C662.01 151.36 661.68 150.97 661.37 150.57C652.63 139.4 654.59 123.24 665.77 114.49C668.91 112.04 672.45 110.42 676.1 109.63C676.14 109.62 676.17 109.61 676.21 109.61C676.77 109.48 677.33 109.39 677.88 109.31C677.91 109.3 677.93 109.3 677.97 109.3C680.9 109.1 683.89 110.32 685.84 112.81"/><path d="M719.79 156.23C715.8 159.36 710.04 158.65 706.91 154.67C705.89 153.35 705.28 151.85 705.06 150.32C705.04 149.98 705.01 149.64 704.97 149.3C704.97 149.29 704.97 149.24 704.96 149.22C704.61 146.48 703.55 143.8 701.72 141.46C697.2 135.67 689.47 133.91 683.03 136.7C683.03 136.7 683.01 136.7 682.99 136.71C682.09 137.03 681.05 136.77 680.43 135.98C679.76 135.11 679.82 133.9 680.49 133.09C680.49 133.09 680.5 133.07 680.52 133.08C680.6 132.97 680.72 132.88 680.83 132.78L680.88 132.73C681.25 132.4 681.64 132.08 682.04 131.77C693.21 123.03 709.36 124.99 718.1 136.16C720.57 139.3 722.18 142.85 722.97 146.49C722.98 146.53 722.99 146.57 723 146.6C723.12 147.16 723.22 147.72 723.29 148.28C723.3 148.3 723.3 148.33 723.3 148.36C723.51 151.29 722.29 154.28 719.79 156.23"/><path d="M624.45 130.26C629.52 130.24 633.64 134.33 633.66 139.4C633.66 141.07 633.22 142.62 632.46 143.97C632.27 144.24 632.08 144.54 631.91 144.82C631.9 144.84 631.87 144.88 631.86 144.9C630.45 147.28 629.65 150.04 629.66 153.01C629.68 160.36 634.7 166.49 641.49 168.24C641.5 168.24 641.51 168.26 641.53 168.26C642.44 168.55 643.09 169.4 643.1 170.4C643.1 171.49 642.32 172.42 641.28 172.64C641.28 172.64 641.27 172.66 641.26 172.64C641.12 172.67 640.97 172.67 640.83 172.69L640.76 172.69C640.27 172.73 639.76 172.74 639.25 172.74C625.07 172.79 613.52 161.33 613.47 147.14C613.45 143.15 614.35 139.36 615.97 135.99C615.97 135.96 615.99 135.93 616.01 135.9C616.26 135.38 616.52 134.88 616.8 134.39C616.82 134.37 616.83 134.35 616.85 134.33C618.48 131.88 621.28 130.27 624.45 130.26"/><path d="M733.28 179.47C728.28 178.67 724.86 173.97 725.66 168.97C725.93 167.32 726.61 165.85 727.59 164.65C727.82 164.41 728.04 164.15 728.27 163.9C728.28 163.88 728.31 163.85 728.33 163.83C730.1 161.71 731.34 159.11 731.81 156.17C732.97 148.92 729 142.05 722.59 139.23C722.57 139.23 722.57 139.22 722.54 139.22C721.7 138.78 721.18 137.84 721.34 136.85C721.52 135.76 722.44 134.97 723.5 134.92C723.5 134.92 723.52 134.92 723.53 134.92C723.66 134.92 723.8 134.94 723.96 134.95L724.02 134.96C724.52 135.01 725.02 135.08 725.52 135.16C739.53 137.39 749.08 150.57 746.84 164.58C746.21 168.52 744.72 172.11 742.58 175.17C742.57 175.21 742.53 175.23 742.52 175.27C742.19 175.74 741.84 176.18 741.49 176.62C741.47 176.64 741.46 176.66 741.43 176.68C739.42 178.83 736.41 179.97 733.28 179.47"/><path d="M642.42 146.77C646.41 143.64 652.17 144.35 655.29 148.34C656.33 149.65 656.94 151.15 657.15 152.68C657.17 153.02 657.21 153.36 657.24 153.69C657.24 153.72 657.24 153.76 657.25 153.78C657.59 156.53 658.66 159.2 660.48 161.54C665.02 167.32 672.75 169.09 679.18 166.3C679.19 166.3 679.21 166.3 679.22 166.29C680.12 165.97 681.16 166.23 681.78 167.03C682.45 167.89 682.4 169.1 681.72 169.91C681.72 169.91 681.72 169.92 681.7 169.92C681.6 170.03 681.49 170.12 681.39 170.23L681.34 170.27C680.97 170.6 680.57 170.92 680.17 171.23C669 179.98 652.84 178.01 644.1 166.84C641.64 163.7 640.03 160.16 639.23 156.51C639.22 156.47 639.22 156.43 639.21 156.4C639.09 155.84 638.99 155.28 638.91 154.72C638.91 154.7 638.91 154.67 638.91 154.64C638.71 151.71 639.92 148.72 642.42 146.77"/><path d="M676.47 189.61C673.24 185.49 673.82 179.64 677.77 176.54C679.07 175.53 680.57 174.93 682.1 174.74C682.44 174.74 682.78 174.71 683.12 174.68C683.15 174.67 683.18 174.67 683.21 174.67C685.97 174.38 688.64 173.36 690.95 171.55C696.67 167.07 698.29 159.23 695.34 152.62C695.34 152.61 695.34 152.6 695.32 152.58C694.98 151.66 695.22 150.61 696.01 149.99C696.86 149.33 698.09 149.41 698.91 150.12C698.91 150.12 698.93 150.12 698.93 150.14C699.03 150.24 699.14 150.35 699.24 150.47L699.28 150.52C699.62 150.9 699.96 151.31 700.28 151.73C709.33 163.29 707.71 179.68 696.65 188.34C693.53 190.78 690.01 192.34 686.35 193.07C686.32 193.08 686.28 193.08 686.24 193.1C685.68 193.21 685.12 193.29 684.57 193.36C684.53 193.36 684.51 193.36 684.48 193.36C681.53 193.51 678.49 192.2 676.47 189.61"/><path d="M709.41 208.87C704.74 206.89 702.57 201.49 704.56 196.84C705.22 195.3 706.22 194.04 707.47 193.11C707.75 192.93 708.03 192.73 708.31 192.55C708.33 192.53 708.36 192.51 708.39 192.49C710.61 190.87 712.45 188.64 713.61 185.92C716.49 179.16 714.3 171.53 708.76 167.24C708.75 167.24 708.74 167.22 708.72 167.22C708.01 166.58 707.74 165.55 708.14 164.62C708.57 163.61 709.65 163.07 710.69 163.29C710.69 163.29 710.71 163.28 710.71 163.29C710.84 163.33 710.98 163.37 711.12 163.42L711.18 163.45C711.66 163.61 712.12 163.8 712.59 163.99C725.65 169.55 731.72 184.65 726.16 197.7C724.6 201.37 722.28 204.49 719.47 206.95C719.45 206.98 719.41 206.99 719.39 207.03C718.96 207.41 718.51 207.76 718.07 208.09C718.04 208.11 718.03 208.12 717.99 208.14C715.53 209.73 712.32 210.11 709.41 208.87"/><path d="M624.97 183.67C626.72 178.91 631.98 176.47 636.74 178.22C638.31 178.8 639.62 179.74 640.61 180.95C640.8 181.22 641.01 181.48 641.22 181.76C641.23 181.77 641.26 181.8 641.28 181.82C643.01 183.98 645.32 185.69 648.1 186.72C655 189.25 662.51 186.68 666.51 180.93C666.51 180.92 666.53 180.91 666.53 180.89C667.14 180.15 668.15 179.83 669.09 180.17C670.12 180.55 670.72 181.61 670.56 182.66C670.56 182.66 670.57 182.67 670.55 182.68C670.53 182.82 670.49 182.96 670.45 183.1L670.42 183.16C670.28 183.64 670.12 184.12 669.95 184.6C665.05 197.91 650.28 204.74 636.97 199.85C633.22 198.47 629.98 196.3 627.39 193.62C627.36 193.6 627.34 193.57 627.31 193.55C626.91 193.13 626.53 192.71 626.18 192.28C626.16 192.26 626.15 192.24 626.13 192.21C624.41 189.82 623.88 186.64 624.97 183.67"/><path d="M660.17 208.9C659.95 203.84 663.87 199.55 668.93 199.33C670.6 199.26 672.17 199.63 673.55 200.35C673.83 200.53 674.13 200.7 674.42 200.86C674.45 200.88 674.48 200.9 674.5 200.91C676.93 202.23 679.72 202.92 682.69 202.79C690.03 202.47 695.97 197.21 697.45 190.36C697.45 190.35 697.46 190.33 697.45 190.31C697.72 189.39 698.53 188.7 699.54 188.66C700.63 188.61 701.59 189.36 701.85 190.39C701.85 190.39 701.86 190.4 701.85 190.41C701.88 190.55 701.9 190.69 701.91 190.84L701.92 190.91C701.97 191.4 702.01 191.91 702.03 192.42C702.65 206.59 691.65 218.58 677.47 219.2C673.48 219.37 669.67 218.62 666.24 217.15C666.21 217.14 666.17 217.11 666.14 217.11C665.6 216.88 665.1 216.63 664.6 216.37C664.58 216.36 664.55 216.35 664.53 216.33C662.03 214.79 660.3 212.06 660.17 208.9"/></g></symbol>
+</svg>
+
+<!-- ======================= HEADER ======================= -->
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a class="brand" href="#top" aria-label="Maia Resort Ho Tram – về đầu trang"><svg viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg><b>MAIA<small>HO TRAM</small></b></a>
+    <nav class="nav" id="nav" aria-label="Điều hướng trang">
+      <a href="#tong-quan">Tổng quan</a>
+      <a href="#vi-tri">Vị trí</a>
+      <a class="opt" href="#the-grand">The Grand Ho Tram</a>
+      <a class="opt" href="#tien-ich">Tiện ích</a>
+      <a href="#san-pham">Sản phẩm</a>
+      <a href="#van-hanh">Cho thuê</a>
+      <a href="#chu-dau-tu">Chủ đầu tư</a>
+      <a class="opt" href="#hoi-dap">Hỏi đáp</a>
+      <a class="nav-tel" href="tel:0941125000">094.1125.000</a>
+      <a class="nav-cta" href="#dang-ky">Đăng ký</a>
+    </nav>
+    <button class="burger" id="burger" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ======================= 1 · HERO (leaflet Happy Tower tr.1 "Siêu phẩm căn hộ mặt tiền biển" — phối cảnh 2 tòa tháp, mini brochure tr.4)
+     Hiệu ứng H3: vòng tròn bông hoa MAIA nở ra mở ảnh khi lăn (máy tính). ======================= -->
+<section class="hero hero-dt" id="hero" aria-label="Giới thiệu Maia Resort Ho Tram">
+  <div class="hero-san">
+    <!-- Phim nền: mặt biển hoàng hôn 25 s (Anh Tony chọn 16/10 — phim nền web beachvillas.hoiana.com, CHƯA xin phép: thay trước khi giao IT), mờ vào/ra cho vòng lặp.
+         Ảnh khung đầu hiện ngay (không cần JS); JS gắn src phim sau khi trang tải xong — LCP không phải chờ phim. -->
+    <div class="hero-phim" aria-hidden="true">
+      <img src="assets/img/maia-ho-tram-phim-song-bien.webp" srcset="assets/img/maia-ho-tram-phim-song-bien-800.webp 800w, assets/img/maia-ho-tram-phim-song-bien.webp 1536w" sizes="100vw" width="1536" height="864" fetchpriority="high" alt="">
+      <video muted loop playsinline preload="none" data-phim-dt="assets/phim/maia-ho-tram-phim-song-bien-1280.mp4" data-phim-dd="assets/phim/maia-ho-tram-phim-song-bien-854.mp4"></video>
+    </div>
+    <svg class="hoa" viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg>
+    <picture class="hero-khung">
+      <source media="(max-width:960px)" srcset="assets/img/maia-ho-tram-hero-mobile.webp" width="760" height="775">
+      <img src="assets/img/maia-ho-tram-hai-thap-can-ho-mat-tien-bien-ho-tram.webp" srcset="assets/img/maia-ho-tram-hai-thap-can-ho-mat-tien-bien-ho-tram-800.webp 800w, assets/img/maia-ho-tram-hai-thap-can-ho-mat-tien-bien-ho-tram-1440.webp 1440w, assets/img/maia-ho-tram-hai-thap-can-ho-mat-tien-bien-ho-tram.webp 1600w" sizes="100vw" width="1600" height="1135" fetchpriority="high" decoding="async" alt="Phối cảnh hai tòa tháp căn hộ Maia Resort Ho Tram mặt tiền biển Hồ Tràm, TP.HCM (ảnh minh họa)">
+    </picture>
+    <div class="hero-vien" aria-hidden="true"><svg viewBox="0 0 138.63 139.14"><use href="#hoa-maia"/></svg></div>
+    <div class="hero-phu" aria-hidden="true"></div>
+    <div class="hero-chu">
+      <p class="kick"><span>Căn hộ &amp; villa mặt tiền biển</span></p>
+      <h1><span class="a">Maia<small>Resort Ho Tram</small></span><span class="by">Happy Tower · Hồ Tràm · TP.HCM</span><em>Viên kim cương giữa rừng vàng biển bạc</em></h1>
+      <p class="gioi-thieu">Maia Resort Ho Tram là dự án căn hộ và villa nghỉ dưỡng ngay mặt tiền biển Hồ Tràm, bao quanh bởi 11.000 ha rừng nguyên sinh Phước Bửu, thuộc tổ hợp The Grand Ho Tram, vận hành bởi Fusion Hotel Group.</p>
+        <a class="nut hero-nut" href="#dang-ky">Đăng ký nhận bảng giá Happy Tower <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <ul class="hero-facts">
+        <li><b>7<small>ha</small></b><span>Diện tích đất</span></li>
+        <li><b>610</b><span>Căn hộ Happy Tower</span></li>
+        <li><b>36</b><span>Villa giới hạn</span></li>
+        <li><b>Q4/2027</b><span>Bàn giao dự kiến</span></li>
+      </ul>
+    </div>
+    <p class="hero-cap" aria-hidden="true"><b>Hai tòa tháp bên biển Hồ Tràm</b><span>Phối cảnh Maia Resort Ho Tram · 100% căn hộ hướng biển</span></p>
+    <p class="hero-goi-y" aria-hidden="true">Cuộn để mở <i></i></p>
+  </div>
+</section>
+
+<!-- ======================= 2 · TỔNG QUAN (brochure Happy Tower tr.8, Peace Tower tr.3, leaflet 07/2026 tr.4) ======================= -->
+<section class="sec" id="tong-quan">
+  <svg class="hoa tr" viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg>
+  <div class="wrap">
+    <div class="tq">
+      <div>
+        <div class="head mot rv">
+          <p class="eb" aria-hidden="true"><b>01</b><i></i>Tổng quan</p>
+          <h2><span class="s">Thông tin dự án</span>Tổng quan dự án Maia Resort Ho Tram</h2>
+        </div>
+        <table class="bang rv">
+          <caption>Thông tin tổng quan dự án Maia Resort Ho Tram</caption>
+          <tbody>
+            <tr><th scope="row">Tên dự án</th><td>Maia Resort Ho Tram – a Fusion resort</td></tr>
+            <tr><th scope="row">Vị trí</th><td>Mặt tiền biển Hồ Tràm, xã Hồ Tràm, TP.HCM (Bà Rịa – Vũng Tàu trước đây), trong tổ hợp The Grand Ho Tram</td></tr>
+            <tr><th scope="row">Chủ đầu tư</th><td>Lodgis – thuộc hệ sinh thái tài sản đầu tư của Warburg Pincus</td></tr>
+            <tr><th scope="row">Nhà phát triển</th><td>VinaLiving</td></tr>
+            <tr><th scope="row">Quản lý vận hành</th><td>Fusion Hotel Group</td></tr>
+            <tr><th scope="row">Quy mô</th><td>7 ha · 1.244 căn hộ (Peace Tower 634 căn, Happy Tower 610 căn) · 36 villa</td></tr>
+            <tr><th scope="row">Happy Tower</th><td>Tầng 1–2 khối đế · tầng 3 căn hộ hồ bơi · tầng 4–30 căn hộ điển hình · tầng 31 penthouse</td></tr>
+            <tr><th scope="row">Tiến độ</th><td>Khởi công dự kiến quý 4/2025 · bàn giao dự kiến quý 4/2027 (Happy Tower, villa)</td></tr>
+            <tr><th scope="row">Hình thức</th><td>Ở như second-home hoặc tham gia chương trình cho thuê</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure class="tq-anh rv">
+        <div class="song"><img src="assets/img/maia-ho-tram-phoi-canh-tren-cao-thap-can-ho-va-villa.webp" srcset="assets/img/maia-ho-tram-phoi-canh-tren-cao-thap-can-ho-va-villa-800.webp 800w, assets/img/maia-ho-tram-phoi-canh-tren-cao-thap-can-ho-va-villa.webp 1200w" sizes="(max-width:960px) 92vw, 40vw" width="1200" height="1075" loading="lazy" decoding="async" alt="Phối cảnh trên cao Maia Resort Ho Tram: tòa tháp căn hộ, cụm villa và bãi biển Hồ Tràm (ảnh minh họa)"></div>
+        <figcaption>Phối cảnh tòa tháp, cụm villa và bãi biển (tài liệu chủ đầu tư)</figcaption>
+      </figure>
+    </div>
+    <ul class="gia-tri rv" aria-label="Điểm nổi bật Maia Resort Ho Tram">
+      <li><b>100<small>%</small></b><h3>Căn hộ view biển trực diện</h3><p>Mỗi căn mở tầm nhìn ra biển – lợi thế cho nghỉ dưỡng và khai thác cho thuê.</p></li>
+      <li><b>11.000<small>ha</small></b><h3>Rừng nguyên sinh Phước Bửu</h3><p>Lá phổi xanh bao quanh dự án, không khí trong lành quanh năm.</p></li>
+      <li><b>Top 10</b><h3>Bãi biển nguyên sơ đẹp nhất</h3><p>Biển Hồ Tràm theo bình chọn của CNNGo, được tài liệu chủ đầu tư dẫn lại.</p></li>
+      <li><b>Fusion</b><h3>Vận hành chuẩn nghỉ dưỡng</h3><p>Bàn giao nội thất đầy đủ, thiết bị vận hành theo tiêu chuẩn thương hiệu.</p></li>
+    </ul>
+    <div class="rung-bien">
+      <figure class="rv">
+        <div class="song"><img src="assets/img/maia-ho-tram-rung-nguyen-sinh-gap-bien-ho-tram.webp" srcset="assets/img/maia-ho-tram-rung-nguyen-sinh-gap-bien-ho-tram-800.webp 800w, assets/img/maia-ho-tram-rung-nguyen-sinh-gap-bien-ho-tram.webp 1200w" sizes="(max-width:960px) 92vw, 46vw" width="1200" height="799" loading="lazy" decoding="async" alt="Rừng nguyên sinh gặp biển Hồ Tràm nhìn từ trên cao"></div>
+        <figcaption>Rừng gặp biển Hồ Tràm (tài liệu chủ đầu tư)</figcaption>
+      </figure>
+      <div class="rv">
+        <h3>Sống an vui bên rừng, cạnh biển</h3>
+        <div class="body" data-gon="5">
+          <p>Tọa lạc ngay mặt tiền biển Hồ Tràm và được bao quanh bởi 11.000 ha rừng nguyên sinh Phước Bửu – theo tài liệu chủ đầu tư là một trong 65 hệ sinh thái rừng bền vững được bảo tồn trên thế giới – Maia Resort Ho Tram được kiến tạo cho nghỉ dưỡng trọn vẹn và tái tạo sức khỏe.</p>
+          <p>Không khí rừng giàu ion âm, nước biển nhiều khoáng chất vi lượng, nhịp sống chậm giữa gió biển và tán cây: một nơi để ngủ sâu hơn, thư giãn hơn sau những tuần làm việc ở thành phố.</p>
+          <p>Ý tưởng thiết kế lấy cảm hứng từ vẻ đẹp nguyên bản của rừng biển Việt Nam: không gian mở, đón trọn ánh sáng và gió biển, nội thất mang tinh thần “Ocean Vibes” – sắc xanh đại dương và chất liệu tự nhiên.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 3 · VỊ TRÍ & KẾT NỐI (brochure Happy Tower tr.7, bản đồ brochure Peace Tower tr.4, leaflet tr.3) ======================= -->
+<section class="sec bg-nga" id="vi-tri">
+  <svg class="hoa bl" viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg>
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <p class="eb" aria-hidden="true"><b>02</b><i></i>Vị trí &amp; kết nối</p>
+        <h2><span class="s">Gần mà vẫn riêng tư</span>Vị trí – Hồ Tràm, trên trục tăng trưởng du lịch phía Nam</h2>
+      </div>
+      <p class="fact">Cách trung tâm TP.HCM khoảng 90 phút di chuyển, Maia Resort Ho Tram vừa đủ gần để đi về cuối tuần, vừa đủ xa để giữ trọn thiên nhiên nguyên bản – nguồn khách ổn định quanh năm cho khai thác lưu trú.</p>
+    </div>
+    <div class="vt">
+      <figure class="ban-do rv" data-zoom="assets/img/maia-ho-tram-ban-do-ket-noi-san-bay-long-thanh-cao-toc.webp">
+        <img src="assets/img/maia-ho-tram-ban-do-ket-noi-san-bay-long-thanh-cao-toc.webp" srcset="assets/img/maia-ho-tram-ban-do-ket-noi-san-bay-long-thanh-cao-toc-800.webp 800w, assets/img/maia-ho-tram-ban-do-ket-noi-san-bay-long-thanh-cao-toc.webp 1400w" sizes="(max-width:960px) 94vw, 56vw" width="1400" height="788" loading="lazy" decoding="async" alt="Bản đồ kết nối Maia Resort Ho Tram: sân bay Long Thành, cao tốc Biên Hòa – Vũng Tàu, cao tốc Long Thành – Hồ Tràm">
+        <figcaption>Bản đồ kết nối vùng (tài liệu chủ đầu tư) — bấm để phóng to.</figcaption>
+      </figure>
+      <ul class="ba-truc rv" aria-label="Kết nối của Maia Resort Ho Tram">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+          <div><h3>Kết nối toàn cầu</h3><p>Khoảng 41 km tới sân bay quốc tế Long Thành, hưởng lợi trực tiếp từ cao tốc Long Thành – Hồ Tràm (theo tài liệu chủ đầu tư).</p></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21 9 3M20 21 15 3M12 6v2M12 11v2M12 16v2"/></svg>
+          <div><h3>Kết nối TP.HCM &amp; miền Nam</h3><p>Hệ thống cao tốc Biên Hòa – Vũng Tàu, đường ven biển nối với TP.HCM, các tỉnh Đồng bằng sông Cửu Long và Đông Nam Bộ.</p></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20c2 0 2-1.5 4-1.5S8 20 10 20s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M4 16l1-6h14l1 6M8 10V6h8v4M12 6V3"/></svg>
+          <div><h3>Cửa ngõ cảng biển</h3><p>Gần cụm cảng Cái Mép – Thị Vải, trên trục du lịch – hạ tầng trọng điểm phía Nam.</p></div>
+        </li>
+      </ul>
+    </div>
+    <ol class="moc rv" aria-label="Khoảng cách tham khảo">
+      <li><b>~90<small>phút</small></b><span>Tới trung tâm TP.HCM</span></li>
+      <li><b>41<small>km</small></b><span>Tới sân bay quốc tế Long Thành</span></li>
+      <li><b>0<small>m</small></b><span>Mặt tiền biển Hồ Tràm</span></li>
+      <li><b>11.000<small>ha</small></b><span>Rừng nguyên sinh Phước Bửu bao quanh</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ======================= 4 · THE GRAND HO TRAM (brochure Happy Tower tr.3, 19–25 · brochure Villa tr.18–21 · mini brochure tr.3) ======================= -->
+<section class="sec" id="the-grand">
+  <svg class="hoa tr" viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg>
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <p class="eb" aria-hidden="true"><b>03</b><i></i>The Grand Ho Tram</p>
+        <h2><span class="s">Tổ hợp nghỉ dưỡng tỷ đô</span>The Grand Ho Tram – tổ hợp vui chơi, giải trí, nghỉ dưỡng</h2>
+      </div>
+      <p class="fact">Maia Resort Ho Tram là dự án thành phần mới nhất của The Grand Ho Tram, thừa hưởng hệ tiện ích sẵn có của tổ hợp: sân golf, casino, chuỗi resort và khu vui chơi – giải trí.</p>
+    </div>
+    <figure class="tg-anh rv" data-zoom="assets/img/maia-ho-tram-to-hop-the-grand-ho-tram-tren-cao.webp">
+      <div class="khung"><img src="assets/img/maia-ho-tram-to-hop-the-grand-ho-tram-tren-cao.webp" srcset="assets/img/maia-ho-tram-to-hop-the-grand-ho-tram-tren-cao-800.webp 800w, assets/img/maia-ho-tram-to-hop-the-grand-ho-tram-tren-cao.webp 1600w" sizes="(max-width:1240px) 96vw, 1200px" width="1600" height="1000" loading="lazy" decoding="async" alt="Tổng thể tổ hợp The Grand Ho Tram nhìn từ trên cao, vị trí Happy Tower và cụm villa Maia ven biển (ảnh minh họa)"></div>
+      <figcaption>Tổng thể The Grand Ho Tram (tài liệu chủ đầu tư): Maia ở đầu dải biển, cạnh sân golf The Bluffs — bấm để phóng to.</figcaption>
+    </figure>
+    <ul class="so-tg rv" aria-label="Số liệu tổ hợp The Grand Ho Tram">
+      <li><b>164<small>ha</small></b><span>Tổng quy mô tổ hợp</span></li>
+      <li><b>4,2<small>tỷ USD</small></b><span>Tổng mức đầu tư</span></li>
+      <li><b>9.000+</b><span>Tổng quy mô phòng</span></li>
+      <li><b>86<small>ha</small></b><span>Sân golf The Bluffs</span></li>
+      <li><b>5.000<small>m²</small></b><span>Casino phong cách Las Vegas</span></li>
+      <li><b>240<small>ha</small></b><span>Sân bay chuyên dụng (theo tài liệu chủ đầu tư)</span></li>
+    </ul>
+    <div class="nhom-ti rv">
+      <div><h3>Vui chơi</h3><ul><li>Công viên nước 3 ha</li><li>Go-kart racing, leo núi</li><li>Tennis, pickleball</li><li>Kid club, thư viện, công viên giải trí</li><li>Golf simulator, indoor golf</li></ul></div>
+      <div><h3>Giải trí</h3><ul><li>Beach club</li><li>Game center, board game</li><li>Billiards, bowling</li><li>Karaoke, night club</li><li>Rạp chiếu phim</li></ul></div>
+      <div><h3>Nghỉ dưỡng &amp; sức khỏe</h3><ul><li>Spa center, sauna</li><li>Vườn thiền, trị liệu sức khỏe</li><li>Himalaya salt bath</li><li>Khoáng nóng onsen</li><li>Trung tâm ẩm thực</li></ul></div>
+    </div>
+    <p class="minh-hoa rv">Theo tài liệu chủ đầu tư, hệ tiện ích tổ hợp gồm hạng mục đã hình thành và hạng mục sắp triển khai.</p>
+  </div>
+</section>
+
+<!-- ======================= 5 · TIỆN ÍCH NỘI KHU (brochure Happy Tower tr.17–18 — tab theo tầng; mỗi tab 1 ảnh minh họa) ======================= -->
+<section class="sec bg-nga" id="tien-ich">
+  <svg class="hoa br" viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg>
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <p class="eb" aria-hidden="true"><b>04</b><i></i>Tiện ích nội khu</p>
+        <h2><span class="s">Chuẩn Fusion</span>Tiện ích nội khu Maia Resort Ho Tram</h2>
+      </div>
+      <p class="fact">Từ khối đế tới Sky Pool tầng 3 và Beach Club bên biển – tiện ích nội khu được chăm sóc và vận hành bởi Fusion.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Tiện ích theo khu">
+      <button class="tab" type="button" role="tab" id="t-de" aria-controls="p-de" aria-selected="true">Khối đế tầng 1–2</button>
+      <button class="tab" type="button" role="tab" id="t-t3" aria-controls="p-t3" aria-selected="false" tabindex="-1">Tầng 3</button>
+      <button class="tab" type="button" role="tab" id="t-nk" aria-controls="p-nk" aria-selected="false" tabindex="-1">Nội khu</button>
+    </div>
+    <div class="ti" role="tabpanel" id="p-de" aria-labelledby="t-de">
+      <figure class="anh" data-zoom="assets/img/maia-ho-tram-tien-ich-nha-hang-khoi-de.webp"><img src="assets/img/maia-ho-tram-tien-ich-nha-hang-khoi-de.webp" width="1100" height="827" loading="lazy" decoding="async" alt="Không gian nhà hàng nhìn ra biển – tiện ích khối đế Maia Resort Ho Tram (ảnh minh họa)"></figure>
+      <div>
+        <h3>Ẩm thực &amp; gia đình</h3>
+        <p>Khối đế tầng 1–2 dành cho ẩm thực và sinh hoạt chung của cư dân, du khách.</p>
+        <ul><li>Coffee lounge</li><li>Kid club</li><li>Nhà hàng food court</li><li>Nhà hàng seafood</li></ul>
+        <p class="minh-hoa">Ảnh minh họa phong cách tiện ích (tài liệu chủ đầu tư).</p>
+      </div>
+    </div>
+    <div class="ti" role="tabpanel" id="p-t3" aria-labelledby="t-t3" hidden>
+      <figure class="anh" data-zoom="assets/img/maia-ho-tram-tien-ich-sky-pool-tang-3.webp"><img src="assets/img/maia-ho-tram-tien-ich-sky-pool-tang-3.webp" width="1100" height="733" loading="lazy" decoding="async" alt="Hồ bơi vô cực – tiện ích Sky Pool tầng 3 Maia Resort Ho Tram (ảnh minh họa)"></figure>
+      <div>
+        <h3>Thể thao &amp; sức khỏe</h3>
+        <p>Tầng 3 – tầng căn hộ hồ bơi – có Sky Pool và trung tâm thể dục.</p>
+        <ul><li>Sky pool</li><li>Fitness center</li></ul>
+        <p class="minh-hoa">Ảnh minh họa phong cách tiện ích (tài liệu chủ đầu tư).</p>
+      </div>
+    </div>
+    <div class="ti" role="tabpanel" id="p-nk" aria-labelledby="t-nk" hidden>
+      <figure class="anh" data-zoom="assets/img/maia-ho-tram-tien-ich-beach-club-noi-khu.webp"><img src="assets/img/maia-ho-tram-tien-ich-beach-club-noi-khu.webp" width="1100" height="731" loading="lazy" decoding="async" alt="Beach Club bên biển – tiện ích nội khu Maia Resort Ho Tram (ảnh minh họa)"></figure>
+      <div>
+        <h3>Bên biển &amp; sự kiện</h3>
+        <p>Không gian ngoài trời nối thẳng ra bãi biển Hồ Tràm.</p>
+        <ul><li>Beach club</li><li>Pocket garden</li><li>Trung tâm sự kiện &amp; triển lãm</li><li>Trung tâm thể thao &amp; giải trí</li></ul>
+        <p class="minh-hoa">Ảnh minh họa phong cách tiện ích (tài liệu chủ đầu tư).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 6 · SẢN PHẨM (brochure Happy Tower tr.12–15, brochure Villa tr.7–14, mini brochure tr.7–9 + leaflet 07/2026 tr.6 cho giá)
+     Hiệu ứng M5: 6 thẻ trồi theo hàng + kẻ khung khi rê chuột; bấm thẻ phóng to mặt bằng. ======================= -->
+<section class="sec" id="san-pham">
+  <svg class="hoa tl" viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg>
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <p class="eb" aria-hidden="true"><b>05</b><i></i>Sản phẩm</p>
+        <h2><span class="s">Happy Tower &amp; villa</span>Căn hộ Studio – 2PN và villa hồ bơi riêng</h2>
+      </div>
+      <p class="fact">Căn hộ Happy Tower bàn giao nội thất đầy đủ và thiết bị vận hành chuẩn quốc tế; 36 villa giới hạn, xe hơi vào tận nhà. Bấm từng thẻ để xem mặt bằng.</p>
+    </div>
+    <p class="nhom-sp">Căn hộ Happy Tower · diện tích xây dựng (GFA)</p>
+    <ul class="luoi-sp" data-luoi aria-label="4 loại căn hộ Happy Tower">
+      <li><button class="the-sp" type="button" data-troi data-zoom="assets/img/maia-ho-tram-layout-can-ho-studio-35m2.webp" data-alt="Mặt bằng căn hộ Studio 35 m² Happy Tower – Maia Resort Ho Tram"><span class="anh"><img src="assets/img/maia-ho-tram-layout-can-ho-studio-35m2.webp" width="900" height="493" loading="lazy" decoding="async" alt="Mặt bằng căn hộ Studio 35 m² Happy Tower – Maia Resort Ho Tram"></span><span class="ten"><strong>Studio</strong><span class="dt">GFA 35 m²</span><span class="gia">2,4 – 2,7 tỷ<small>Giá tham khảo</small></span><i class="net tr"></i><i class="net ph"></i><i class="net dt"></i><i class="net dp"></i></span></button></li>
+      <li><button class="the-sp" type="button" data-troi data-zoom="assets/img/maia-ho-tram-layout-can-ho-1-phong-ngu-49m2.webp" data-alt="Mặt bằng căn hộ 1 phòng ngủ 49 m² Happy Tower – Maia Resort Ho Tram"><span class="anh"><img src="assets/img/maia-ho-tram-layout-can-ho-1-phong-ngu-49m2.webp" width="900" height="673" loading="lazy" decoding="async" alt="Mặt bằng căn hộ 1 phòng ngủ 49 m² Happy Tower – Maia Resort Ho Tram"></span><span class="ten"><strong>1 phòng ngủ</strong><span class="dt">GFA 49 m²</span><span class="gia">3,3 – 3,7 tỷ<small>Giá tham khảo</small></span><i class="net tr"></i><i class="net ph"></i><i class="net dt"></i><i class="net dp"></i></span></button></li>
+      <li><button class="the-sp" type="button" data-troi data-zoom="assets/img/maia-ho-tram-layout-can-ho-2-phong-ngu-chuan-65m2.webp" data-alt="Mặt bằng căn hộ 2 phòng ngủ chuẩn 65 m² Happy Tower – Maia Resort Ho Tram"><span class="anh"><img src="assets/img/maia-ho-tram-layout-can-ho-2-phong-ngu-chuan-65m2.webp" width="900" height="1045" loading="lazy" decoding="async" alt="Mặt bằng căn hộ 2 phòng ngủ chuẩn 65 m² Happy Tower – Maia Resort Ho Tram"></span><span class="ten"><strong>2 phòng ngủ chuẩn</strong><span class="dt">GFA 65 m²</span><span class="gia">4,5 – 5,4 tỷ<small>Giá tham khảo</small></span><i class="net tr"></i><i class="net ph"></i><i class="net dt"></i><i class="net dp"></i></span></button></li>
+      <li><button class="the-sp" type="button" data-troi data-zoom="assets/img/maia-ho-tram-layout-can-ho-2-phong-ngu-luxury-80m2.webp" data-alt="Mặt bằng căn hộ 2 phòng ngủ Luxury 80 m² Happy Tower – Maia Resort Ho Tram"><span class="anh"><img src="assets/img/maia-ho-tram-layout-can-ho-2-phong-ngu-luxury-80m2.webp" width="900" height="1251" loading="lazy" decoding="async" alt="Mặt bằng căn hộ 2 phòng ngủ Luxury 80 m² Happy Tower – Maia Resort Ho Tram"></span><span class="ten"><strong>2 phòng ngủ Luxury</strong><span class="dt">GFA 80 m²</span><span class="gia">Liên hệ<small>Tài liệu chưa có giá</small></span><i class="net tr"></i><i class="net ph"></i><i class="net dt"></i><i class="net dp"></i></span></button></li>
+    </ul>
+    <div class="villa-dong">
+      <figure class="rv">
+        <div class="song"><img src="assets/img/maia-ho-tram-villa-ho-boi-rieng-ven-bien.webp" srcset="assets/img/maia-ho-tram-villa-ho-boi-rieng-ven-bien-800.webp 800w, assets/img/maia-ho-tram-villa-ho-boi-rieng-ven-bien.webp 1200w" sizes="(max-width:860px) 92vw, 46vw" width="1200" height="960" loading="lazy" decoding="async" alt="Phối cảnh villa có hồ bơi riêng giữa vườn nhiệt đới tại Maia Resort Ho Tram (ảnh minh họa)"></div>
+        <figcaption>Phối cảnh villa (tài liệu chủ đầu tư)</figcaption>
+      </figure>
+      <div class="rv">
+        <h3>Seaforest Villa – bộ sưu tập 36 căn giới hạn</h3>
+        <div class="body">
+          <p>12 villa 2 phòng ngủ và 24 villa 3 phòng ngủ, mỗi căn là một ốc đảo riêng tư giữa vườn nhiệt đới, cách bãi biển Hồ Tràm vài bước chân. Villa 3 phòng ngủ có hồ bơi bao quanh nhà, mở tầm nhìn mặt nước từ phòng khách tới phòng ngủ.</p>
+          <p>Điểm cộng của bộ sưu tập: xe hơi vào tận nhà, nội thất bàn giao đầy đủ và thiết bị vận hành chuẩn Fusion Hotel Group.</p>
+        </div>
+      </div>
+    </div>
+    <p class="nhom-sp">Villa · diện tích đất / diện tích xây dựng</p>
+    <ul class="luoi-sp hai" data-luoi aria-label="2 loại villa">
+      <li><button class="the-sp" type="button" data-troi data-zoom="assets/img/maia-ho-tram-mat-bang-villa-2-phong-ngu.webp" data-alt="Mặt bằng tầng 1 villa 2 phòng ngủ Maia Resort Ho Tram, đất 240 – 256 m²"><span class="anh"><img src="assets/img/maia-ho-tram-mat-bang-villa-2-phong-ngu.webp" width="900" height="826" loading="lazy" decoding="async" alt="Mặt bằng tầng 1 villa 2 phòng ngủ Maia Resort Ho Tram, đất 240 – 256 m²"></span><span class="ten"><strong>Villa 2 phòng ngủ · 12 căn</strong><span class="dt">Đất 240 – 256 m² · xây dựng 156 m² (192 m² gồm công trình phụ trợ ngoài trời)</span><span class="gia">15 – 17 tỷ<small>Giá tham khảo, chưa gồm nội thất &amp; thiết bị vận hành</small></span><i class="net tr"></i><i class="net ph"></i><i class="net dt"></i><i class="net dp"></i></span></button></li>
+      <li><button class="the-sp" type="button" data-troi data-zoom="assets/img/maia-ho-tram-mat-bang-villa-3-phong-ngu.webp" data-alt="Mặt bằng tầng 1 villa 3 phòng ngủ Maia Resort Ho Tram, đất 368 – 405 m²"><span class="anh"><img src="assets/img/maia-ho-tram-mat-bang-villa-3-phong-ngu.webp" width="900" height="783" loading="lazy" decoding="async" alt="Mặt bằng tầng 1 villa 3 phòng ngủ Maia Resort Ho Tram, đất 368 – 405 m²"></span><span class="ten"><strong>Villa 3 phòng ngủ · 24 căn</strong><span class="dt">Đất 368 – 405 m² · xây dựng 238 m² (283 m² gồm công trình phụ trợ ngoài trời)</span><span class="gia">21 – 24 tỷ<small>Giá tham khảo, chưa gồm nội thất &amp; thiết bị vận hành</small></span><i class="net tr"></i><i class="net ph"></i><i class="net dt"></i><i class="net dp"></i></span></button></li>
+    </ul>
+    <p class="ghi-gia rv">Giá tham khảo theo mini brochure và leaflet chủ đầu tư (cập nhật 07/2026); giá căn hộ đã gồm nội thất bàn giao, giá villa chưa gồm nội thất và thiết bị vận hành. Giá, giỏ hàng và chính sách chính thức theo từng đợt mở bán của chủ đầu tư.</p>
+    <div class="nut-loai-hang"><a class="nut" href="#dang-ky">Nhận bảng giá &amp; giỏ hàng <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+  </div>
+</section>
+
+<!-- ======================= 7 · VẬN HÀNH & CHO THUÊ (brochure Happy Tower tr.10–11, 16, 26, 39 · brochure Villa tr.22, 24 · mini brochure tr.7, 12 · leaflet tr.5) ======================= -->
+<section class="sec bg-nga" id="van-hanh">
+  <svg class="hoa tr" viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg>
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <p class="eb" aria-hidden="true"><b>06</b><i></i>Vận hành &amp; cho thuê</p>
+        <h2><span class="s">Vận hành bởi Fusion</span>Chương trình cho thuê Maia Resort Ho Tram</h2>
+      </div>
+      <p class="fact">Chủ sở hữu có thể dùng căn hộ, villa như second-home hoặc tham gia chương trình cho thuê do Fusion Hotel Group quản lý.</p>
+    </div>
+    <div class="vh">
+      <figure class="rv">
+        <div class="song"><img src="assets/img/maia-ho-tram-noi-that-can-ho-view-bien-truc-dien.webp" srcset="assets/img/maia-ho-tram-noi-that-can-ho-view-bien-truc-dien-800.webp 800w, assets/img/maia-ho-tram-noi-that-can-ho-view-bien-truc-dien.webp 1200w" sizes="(max-width:960px) 92vw, 44vw" width="1200" height="750" loading="lazy" decoding="async" alt="Nội thất căn hộ Maia Resort Ho Tram bàn giao đầy đủ, cửa kính nhìn thẳng ra biển (ảnh minh họa)"></div>
+        <figcaption>Nội thất căn hộ cảm hứng “Ocean Vibes” (tài liệu chủ đầu tư)</figcaption>
+      </figure>
+      <div class="rv">
+        <div class="body" data-gon="5">
+          <p>Fusion Hotel Group là thương hiệu nghỉ dưỡng với tiêu chuẩn vận hành châu Âu và triết lý nghỉ dưỡng cân bằng – chăm sóc sức khỏe toàn diện. Tại Maia Resort Ho Tram, cư dân và du khách được phục vụ theo chuẩn Fusion, từ buồng phòng tới spa và ẩm thực.</p>
+          <p>Căn hộ được bàn giao nội thất đầy đủ và thiết bị vận hành chuẩn quốc tế: vật liệu chọn lọc, tông màu trung tính, bố trí tối ưu công năng cho cả kỳ nghỉ của gia đình lẫn khai thác cho thuê.</p>
+        </div>
+        <ul class="so-vh" aria-label="Fusion Hotel Group">
+          <li><b>17+</b><span>Năm kinh nghiệm</span></li>
+          <li><b>24</b><span>Khu nghỉ dưỡng &amp; khách sạn</span></li>
+          <li><b>4.000+</b><span>Phòng quản lý &amp; vận hành</span></li>
+          <li><b>12</b><span>Thủ phủ du lịch</span></li>
+        </ul>
+      </div>
+    </div>
+    <ul class="cho-thue rv" aria-label="Chương trình cho thuê">
+      <li><b>40<small>%</small></b><h3>Doanh thu cho thuê</h3><p>Chủ sở hữu tham gia chương trình nhận 40% doanh thu cho thuê.</p></li>
+      <li><b>40<small>điểm</small></b><h3>Điểm nghỉ dưỡng miễn phí mỗi năm</h3><p>Quy đổi đêm nghỉ theo loại căn và ngày lưu trú: 1 điểm Chủ nhật – thứ 5, 2 điểm thứ 6 – thứ 7, 3 điểm ngày lễ.</p></li>
+      <li><b>22.000<small>đ/m²</small></b><h3>Phí quản lý hằng tháng</h3><p>Căn hộ Studio/1PN/2PN 22.000 đ/m² · căn hộ có hồ bơi 26.000 đ/m² · penthouse 29.000 đ/m² · villa 30.000 đ/m² diện tích đất.</p></li>
+    </ul>
+    <div class="thanh-toan rv">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3M8 17h6"/></svg>
+      <p><b>Thanh toán giãn tiến độ:</b> theo tài liệu chủ đầu tư, khách thanh toán 50% để nhận nhà năm 2027, phần còn lại trả chậm không lãi suất tới năm 2029 (lịch thanh toán giãn 4 năm). Phương thức chi tiết theo chính sách bán hàng từng thời điểm.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 8 · CHỦ ĐẦU TƯ (leaflet Happy Tower tr.2 · mini brochure tr.11 · brochure Happy Tower tr.26–28) ======================= -->
+<section class="sec" id="chu-dau-tu">
+  <svg class="hoa bl" viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg>
+  <div class="wrap">
+    <div class="head mot rv">
+      <p class="eb" aria-hidden="true"><b>07</b><i></i>Chủ đầu tư</p>
+      <h2><span class="s">Lodgis · VinaLiving · Fusion</span>Đội ngũ phát triển và vận hành Maia Resort Ho Tram</h2>
+    </div>
+    <div class="cdt">
+      <div class="cdt-logo rv">
+        <div><span>Chủ đầu tư · nhà phát triển</span><img src="assets/img/maia-ho-tram-logo-warburg-pincus-lodgis-vinaliving.webp" width="900" height="174" loading="lazy" decoding="async" alt="Logo Warburg Pincus, Lodgis (chủ đầu tư) và VinaLiving (nhà phát triển) dự án Maia Resort Ho Tram"></div>
+        <div><span>Quản lý vận hành</span><img class="fu" src="assets/img/maia-ho-tram-logo-fusion-hotel-group.webp" width="360" height="184" loading="lazy" decoding="async" alt="Logo Fusion Hotel Group – đơn vị quản lý vận hành Maia Resort Ho Tram"></div>
+      </div>
+      <ul class="vai rv">
+        <li><h3>Chủ đầu tư</h3><p><b>Lodgis</b> – thuộc hệ sinh thái tài sản đầu tư của <b>Warburg Pincus</b>, quỹ đầu tư Mỹ với hơn 60 năm kinh nghiệm, hơn 130 tỷ USD đã đầu tư vào hơn 1.100 doanh nghiệp tại hơn 45 quốc gia (theo tài liệu chủ đầu tư). Danh mục của Lodgis tại châu Á có The Grand Ho Tram và các tài sản di sản.</p></li>
+        <li><h3>Nhà phát triển</h3><p><b>VinaLiving</b> – đơn vị phát triển dự án Maia Resort Ho Tram.</p></li>
+        <li><h3>Quản lý vận hành</h3><p><b>Fusion Hotel Group</b> – thương hiệu nghỉ dưỡng vận hành chuẩn châu Âu, bộ sưu tập khu nghỉ dưỡng tại Việt Nam và Thái Lan.</p></li>
+        <li><h3>Thiết kế</h3><p>Dewan Architects (theo website dự án maiaresorthotram.com).</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 9 · HỎI ĐÁP ======================= -->
+<section class="sec bg-nga" id="hoi-dap">
+  <svg class="hoa br" viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg>
+  <div class="wrap">
+    <div class="head mot rv">
+      <p class="eb" aria-hidden="true"><b>08</b><i></i>Hỏi đáp</p>
+      <h2><span class="s">Những điều nên biết về</span>Căn hộ và villa Maia Resort Ho Tram</h2>
+    </div>
+    <div class="faq rv">
+      <details><summary>Maia Resort Ho Tram ở đâu?</summary><p>Maia Resort Ho Tram nằm ngay mặt tiền biển Hồ Tràm, xã Hồ Tràm, TP.HCM (tỉnh Bà Rịa – Vũng Tàu trước đây), trong tổ hợp The Grand Ho Tram, cạnh sân golf The Bluffs và rừng nguyên sinh Phước Bửu 11.000 ha. Từ trung tâm TP.HCM đi khoảng 90 phút, cách sân bay quốc tế Long Thành khoảng 41 km.</p></details>
+      <details><summary>Dự án có quy mô bao nhiêu?</summary><p>Dự án rộng 7 ha, gồm 1.244 căn hộ trong 2 tòa tháp (Peace Tower 634 căn, Happy Tower 610 căn) và 36 villa. Happy Tower có tầng 1–2 khối đế, tầng 3 căn hộ hồ bơi, tầng 4–30 căn hộ điển hình và tầng 31 penthouse.</p></details>
+      <details><summary>Happy Tower có những loại căn hộ nào?</summary><p>Theo brochure chủ đầu tư có 4 loại: Studio 35 m², 1 phòng ngủ 49 m², 2 phòng ngủ chuẩn 65 m² và 2 phòng ngủ Luxury 80 m² (diện tích xây dựng – GFA). Căn hộ bàn giao nội thất đầy đủ và thiết bị vận hành chuẩn quốc tế, 100% căn hướng biển.</p></details>
+      <details><summary>Giá căn hộ và villa Maia Resort Ho Tram bao nhiêu?</summary><p>Theo tài liệu chủ đầu tư (cập nhật 07/2026), giá tham khảo: Studio 2,4 – 2,7 tỷ, 1PN 3,3 – 3,7 tỷ, 2PN 65 m² 4,5 – 5,4 tỷ; villa 2PN 15 – 17 tỷ, villa 3PN 21 – 24 tỷ (villa chưa gồm nội thất và thiết bị vận hành). Giá chính thức theo từng đợt mở bán; liên hệ ERA Vietnam để nhận bảng giá và giỏ hàng.</p></details>
+      <details><summary>Chương trình cho thuê hoạt động thế nào?</summary><p>Chủ sở hữu có thể ở như second-home hoặc tham gia chương trình cho thuê do Fusion Hotel Group quản lý: nhận 40% doanh thu cho thuê và có 40 điểm nghỉ dưỡng miễn phí mỗi năm. Phí quản lý hằng tháng từ 22.000 đ/m² (căn hộ Studio/1PN/2PN) đến 30.000 đ/m² diện tích đất (villa).</p></details>
+      <details><summary>Khi nào bàn giao?</summary><p>Theo brochure và leaflet Happy Tower, dự án khởi công dự kiến quý 4/2025, bàn giao dự kiến quý 4/2027; bộ sưu tập villa cũng dự kiến bàn giao quý 4/2027. Mốc chính thức theo hợp đồng mua bán.</p></details>
+      <details><summary>Chủ đầu tư Maia Resort Ho Tram là ai?</summary><p>Chủ đầu tư là Lodgis, thuộc hệ sinh thái tài sản đầu tư của quỹ Warburg Pincus (Mỹ); nhà phát triển dự án là VinaLiving; đơn vị quản lý vận hành là Fusion Hotel Group. ERA Vietnam là đại lý phân phối dự án.</p></details>
+      <details><summary>Pháp lý dự án thế nào?</summary><p>Trang này chưa đăng thông tin pháp lý vì tài liệu hiện có chưa nêu. Khách hàng vui lòng tham khảo hợp đồng mua bán và hồ sơ chính thức do chủ đầu tư phát hành, hoặc liên hệ chuyên viên ERA Vietnam để được cung cấp.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 10 · ĐĂNG KÝ
+     BẢN CÓ FORM: Họ tên | SĐT | Loại căn quan tâm -> LEAD_ENDPOINT. ======================= -->
+<section class="cta" id="dang-ky">
+  <img src="assets/img/maia-ho-tram-hai-thap-luc-hoang-hon-ben-bien.webp" srcset="assets/img/maia-ho-tram-hai-thap-luc-hoang-hon-ben-bien-800.webp 800w, assets/img/maia-ho-tram-hai-thap-luc-hoang-hon-ben-bien.webp 1600w" sizes="100vw" width="1600" height="1309" loading="lazy" decoding="async" alt="Hai tòa tháp Maia Resort Ho Tram và cụm villa lúc hoàng hôn bên biển Hồ Tràm (ảnh minh họa)">
+  <div class="cta-shade"></div>
+  <svg class="hoa br" viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg>
+  <div class="cta-in co-form">
+    <div class="cta-box rv">
+      <h2><span class="s">Đăng ký nhận thông tin</span>Bảng giá &amp; giỏ hàng Maia Resort Ho Tram</h2>
+      <p class="lead">Nhận mặt bằng căn hộ Happy Tower, bảng giá villa và tư vấn chọn căn view biển từ ERA Vietnam.</p>
+      <ul>
+        <li>Giỏ hàng Studio, 1PN, 2PN và villa 2PN – 3PN</li>
+        <li>Chương trình cho thuê cùng Fusion Hotel Group</li>
+        <li>Lịch thanh toán và chính sách đang áp dụng</li>
+      </ul>
+      <p class="ket-cta">Vui lòng điền thông tin vào biểu mẫu. Đội ngũ chuyên viên ERA Vietnam sẽ liên hệ hỗ trợ Quý khách trong thời gian sớm nhất.</p>
+    </div>
+    <div class="form-card rv">
+      <div class="t">Nhận bảng giá &amp; giỏ hàng</div>
+      <div class="s">Mặt bằng căn hộ Happy Tower, bảng giá villa và tư vấn chọn căn từ ERA Vietnam · Bảo mật thông tin</div>
+      <form data-lead data-source="form-dang-ky-bang-gia" novalidate>
+        <input class="field" name="name" autocomplete="name" placeholder="Họ tên (*)" aria-label="Họ tên">
+        <input class="field" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="Số điện thoại (*)" aria-label="Số điện thoại">
+        <select class="field" name="unit" aria-label="Loại căn quan tâm">
+          <option value="">Loại căn quan tâm</option>
+          <option>Studio</option>
+          <option>Căn hộ 1 phòng ngủ</option>
+          <option>Căn hộ 2 phòng ngủ</option>
+          <option>Villa 2 phòng ngủ</option>
+          <option>Villa 3 phòng ngủ</option>
+        </select>
+        <button class="nut" type="submit">Nhận thông tin</button>
+      </form>
+      <p class="hot">Hoặc gọi ngay <a href="tel:0941125000">094.1125.000</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <svg class="hoa" viewBox="0 0 138.63 139.14" aria-hidden="true"><use href="#hoa-maia"/></svg>
+  <div class="ft">
+    <img class="era" src="assets/img/maia-ho-tram-era-vietnam-logo-trang.webp" width="196" height="240" loading="lazy" decoding="async" alt="Logo ERA Vietnam">
+    <div class="fb">
+      <span>ERA Vietnam</span>
+      <strong>Đại lý phân phối dự án Maia Resort Ho Tram</strong>
+      <p>ERA Vietnam đồng hành cùng Maia Resort Ho Tram trong vai trò đại lý phân phối, mang đến cho Quý khách lựa chọn nghỉ dưỡng và đầu tư bên biển Hồ Tràm.</p>
+    </div>
+    <div class="lg"><img src="assets/img/maia-ho-tram-logo-trang.svg" width="96" height="139" loading="lazy" alt="Logo Maia Resort Ho Tram"><span>Lodgis · VinaLiving<br>Vận hành bởi Fusion Hotel Group</span></div>
+  </div>
+  <p class="ft-legal">Thông tin trên trang mang tính tham khảo, hình ảnh mang tính minh họa, tổng hợp từ tài liệu chủ đầu tư (brochure, leaflet cập nhật 07/2026) và có thể được điều chỉnh. Giá, chính sách, tiến độ và thông tin chính xác theo hợp đồng mua bán và tài liệu chính thức do chủ đầu tư phát hành.</p>
+  <p class="ft-dc">ERA Vietnam · Số 22 - 24, Đường số 5, KĐT Sala, Phường An Khánh, TP. Hồ Chí Minh.</p>
+  <div class="links"><a href="tel:0941125000">Hotline: 094.1125.000</a><a href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo tư vấn</a></div>
+</footer>
+
+<!-- thanh liên hệ nhanh (điện thoại) -->
+<div class="bar" id="bar" aria-label="Liên hệ nhanh">
+  <a href="tel:0941125000">Gọi ngay</a>
+  <a href="https://zalo.me/0941125000" target="_blank" rel="noopener">Zalo</a>
+  <a class="chinh" href="#dang-ky">Đăng ký</a>
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Xem ảnh phóng to"><p id="lb-cap"></p><button type="button" aria-label="Đóng">×</button><img id="lb-img" alt=""></div>
+
+<script src="assets/js/maia-ho-tram.js?v=d804d78d" defer></script>
+</body>
+</html>
