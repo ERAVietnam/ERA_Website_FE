@@ -54,6 +54,7 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/du-an-norton-park/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/pk-soho-du-an-the-global-city/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-grand-marina-saigon/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/du-an-the-berkley/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-ga-thu-thiem/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-m-landmark-residences/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-trellia-vista/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
