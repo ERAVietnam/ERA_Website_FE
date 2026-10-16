@@ -81,6 +81,8 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/thank-you-grand-marina-saigon": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-the-berkley": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-the-berkley": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-maia-ho-tram": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-maia-ho-tram": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-ga-thu-thiem": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-ga-thu-thiem": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-m-landmark-residences": { header: false, footer: false, toTop: false, contentPadding: false },
