@@ -9,28 +9,15 @@ import { ROUTES } from "@/lib/routes";
 import { recruitmentApi } from "@/api/domains/recruitment";
 import type { JobPosting } from "@/types/api";
 
-const tabs = [
-  { key: "all", label: "Tất cả", location: undefined },
-  { key: "hcm", label: "TP. HCM", location: "TP. HCM" },
-  { key: "hn", label: "Hà Nội", location: "Hà Nội" },
-  { key: "dn", label: "Đà Nẵng", location: "Đà Nẵng" },
-];
-
 const INITIAL_DISPLAY_COUNT = 4;
 
 export function ApplyRecruitmentSection() {
-  const [activeTab, setActiveTab] = useState("all");
   const [allJobs, setAllJobs] = useState<JobPosting[]>([]);
   const [loading, setLoading] = useState(true);
   // Keep the loading indicator active during the initial fetch; it is toggled
   // asynchronously inside the promise callbacks so it does not trigger a
   // synchronous setState in the effect body.
   const [showAll, setShowAll] = useState(false);
-
-  const activeLocation = useMemo(
-    () => tabs.find((t) => t.key === activeTab)?.location,
-    [activeTab]
-  );
 
   useEffect(() => {
     recruitmentApi
@@ -40,14 +27,7 @@ export function ApplyRecruitmentSection() {
       .finally(() => setLoading(false));
   }, []);
 
-  useEffect(() => {
-    queueMicrotask(() => setShowAll(false));
-  }, [activeTab]);
-
-  const filteredJobs = useMemo(() => {
-    if (!activeLocation) return allJobs;
-    return allJobs.filter((job) => job.location === activeLocation);
-  }, [allJobs, activeLocation]);
+  const filteredJobs = allJobs;
 
   const displayedJobs = useMemo(
     () => (showAll ? filteredJobs : filteredJobs.slice(0, INITIAL_DISPLAY_COUNT)),
@@ -61,7 +41,7 @@ export function ApplyRecruitmentSection() {
   return (
     <Section padding="md" bg="white">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+      <div className="flex flex-col gap-4 mb-8">
         <h2
           style={{
             color: colors.primary.DEFAULT,
@@ -73,25 +53,6 @@ export function ApplyRecruitmentSection() {
           VỊ TRÍ ĐANG TUYỂN DỤNG
         </h2>
 
-        {hasAnyJob && (
-          <div className="flex flex-wrap gap-2">
-            {tabs.map((tab) => {
-              const isActive = tab.key === activeTab;
-              return (
-                <Button
-                  key={tab.key}
-                  variant={isActive ? "primary" : "ghost"}
-                  size="sm"
-                  className="rounded-full"
-                  style={isActive ? undefined : { color: colors.primary.navy.DEFAULT }}
-                  onClick={() => setActiveTab(tab.key)}
-                >
-                  {tab.label}
-                </Button>
-              );
-            })}
-          </div>
-        )}
       </div>
 
       {/* Job List */}
@@ -101,10 +62,6 @@ export function ApplyRecruitmentSection() {
         ) : !hasAnyJob ? (
           <div className="text-center py-12 text-gray-400">
             Hiện không tuyển dụng nhân sự
-          </div>
-        ) : !hasFilteredJob ? (
-          <div className="text-center py-12 text-gray-400">
-            Hiện chưa có vị trí tuyển dụng nào ở {tabs.find((t) => t.key === activeTab)?.label}
           </div>
         ) : (
           displayedJobs.map((job) => (
