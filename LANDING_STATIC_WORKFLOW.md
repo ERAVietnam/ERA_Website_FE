@@ -124,6 +124,24 @@ Trong `src/components/layout/LayoutWrapper.tsx`, thêm route vào `specialLayout
 
 Landing static đã có header/footer riêng nên không được render thêm Header/Footer của website chính.
 
+## Quy tắc đặt tên URL landing
+
+- Landing của một dự án độc lập dùng dạng `/du-an-<slug>/`.
+  Ví dụ: `/du-an-vinhomes-green-paradise/`, `/du-an-the-win-city/`.
+- Landing của phân khu hoặc tòa thuộc một dự án dùng dạng `/pk-<slug>-du-an-<slug-du-an>/`.
+  Ví dụ: `/pk-nagomi-du-an-waterpoint/`, `/pk-park-village-du-an-waterpoint/`.
+- `<slug>` viết thường, không dấu, các từ cách nhau bằng dấu gạch ngang; giữ tên thương hiệu/dự án ngắn gọn và nhất quán.
+- Khi đổi URL phải đồng bộ cả thư mục route trong `src/app/(landing)/`, metadata canonical/OG, `public/landing/<slug>/index.html`, `llms.txt`, sitemap và `LayoutWrapper`.
+
+## Quy tắc mặc định cho mỗi landing dự án
+
+Mỗi khi tích hợp một landing dự án mới, luôn thực hiện đủ hai bản mà không cần nhắc lại:
+
+1. Bản có form trong project Next.js: kết nối `/api/submit-lead/`, cấu hình đúng tab Google Sheet, tạo route dự án và trang thank-you.
+2. Bản không form, không số điện thoại, không Zalo và không thông tin liên hệ tại `D:\ERA\landing\<slug>-static`. Bản này giữ nguyên nội dung, hình ảnh, thông tin dự án/chủ đầu tư/đại lý cần thiết; chỉ loại bỏ các thành phần thu lead và liên hệ.
+
+Khi tạo bản static, ưu tiên dùng thư mục `khong-form/web` nếu bộ giao có sẵn. Chỉ cập nhật các file text như `index.html`, `llms.txt`, `sitemap.xml`, `robots.txt`; không đọc/ghi lại thư mục `assets` bằng thao tác xử lý text để tránh làm hỏng ảnh, font và file nhị phân.
+
 ## 5. Tạo trang cảm ơn
 
 Tạo route:
