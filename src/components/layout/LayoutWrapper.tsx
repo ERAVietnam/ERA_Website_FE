@@ -75,6 +75,8 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/thank-you-masteri-cosmo-central": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-ban-dao-sola": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-sola": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-arcadia-at-lavila": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-arcadia": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-la-home": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-la-home": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-norton-park": { header: false, footer: false, toTop: false, contentPadding: false },
