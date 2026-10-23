@@ -217,6 +217,20 @@ export default function HonorsManagePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (viewMode !== "monthly" || !showMonthlyForm) return;
+
+    const search = monthlyForm.agentSearch.trim() || undefined;
+    const timer = window.setTimeout(() => {
+      agentsApi
+        .getAgents({ page: 1, limit: 100, search })
+        .then((agentData) => setAgents(agentData.items))
+        .catch((err) => handleApiError(err));
+    }, 300);
+
+    return () => window.clearTimeout(timer);
+  }, [handleApiError, monthlyForm.agentSearch, showMonthlyForm, viewMode]);
+
   const handleCategoryChange = (slug: string) => {
     const category =
       viewMode === "annual" && annualEditing
