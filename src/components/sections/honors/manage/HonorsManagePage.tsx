@@ -224,7 +224,13 @@ export default function HonorsManagePage() {
     const timer = window.setTimeout(() => {
       agentsApi
         .getAgents({ page: 1, limit: 100, search })
-        .then((agentData) => setAgents(agentData.items))
+        .then((agentData) => {
+          setAgents((currentAgents) => {
+            const agentMap = new Map(currentAgents.map((agent) => [agent.id, agent]));
+            agentData.items.forEach((agent) => agentMap.set(agent.id, agent));
+            return [...agentMap.values()];
+          });
+        })
         .catch((err) => handleApiError(err));
     }, 300);
 
