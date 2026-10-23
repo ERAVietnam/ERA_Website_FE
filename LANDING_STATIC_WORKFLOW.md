@@ -309,6 +309,24 @@ hdr.classList.remove('nav-hide');
 
 ## 10. Sitemap và kiểm tra
 
+### 10.1. Bảng kiểm URL ảnh share (Open Graph)
+
+Trước khi zip/upload landing, phải kiểm tra các thẻ `og:image` và `twitter:image`:
+
+- URL ảnh phải trả HTTP 200 và Content-Type là `image/*`.
+- Nếu ảnh được upload cùng landing, đường dẫn public chuẩn là `https://era.com.vn/landing/<slug>/assets/...`.
+- Không dùng nhầm URL dạng `https://era.com.vn/du-an-<slug>/assets/...` nếu URL đó không thực sự phát ảnh. Trang public có thể trả HTTP 200 nhưng file ảnh bên trong vẫn trả 404.
+- Khi landing được upload qua `eravnTrans` và URL có mã agent, không hard-code `og:image` theo một URL agent cụ thể. Backend phải rewrite `og:image` và `twitter:image` về `/<agent>/<project>/<phase>/<landing>/assets/...`, hoặc asset phải được publish ở URL global chắc chắn truy cập được.
+- Sau khi sửa URL ảnh, phải kiểm tra cả link landing đầy đủ và short-link `/s/...`, sau đó refresh cache share của Facebook/Zalo.
+
+Kiểm tra nhanh trước khi giao:
+
+```powershell
+$html = (Invoke-WebRequest $landingUrl -UseBasicParsing).Content
+$og = [regex]::Match($html, 'property=["'']og:image["''][^>]+content=["'']([^"'']+)').Groups[1].Value
+Invoke-WebRequest $og -Method Head -UseBasicParsing
+```
+
 Thêm URL landing vào `src/app/sitemap.ts`:
 
 ```ts
