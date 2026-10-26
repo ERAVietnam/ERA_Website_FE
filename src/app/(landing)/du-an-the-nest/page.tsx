@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/du-an-the-nest/",
     images: [{ url: "/landing/the-nest/assets/img/og-the-nest-1200x630.jpg", width: 1200, height: 630, alt: "The NEST Midori Park" }],
   },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 export default function TheNestPage() {

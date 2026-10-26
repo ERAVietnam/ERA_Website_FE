@@ -19,7 +19,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 export default function MasteriCosmoCentralPage() {

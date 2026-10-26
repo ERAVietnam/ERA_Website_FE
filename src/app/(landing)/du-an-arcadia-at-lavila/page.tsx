@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/du-an-arcadia-at-lavila/",
     images: [{ url: "/landing/arcadia/assets/img/og-arcadia-at-lavila-1200x630.jpg", width: 1200, height: 630, alt: "Arcadia at Lavila" }],
   },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 export default function ArcadiaPage() {
