@@ -363,3 +363,42 @@ Tất cả cần trả HTTP 200. Sau đó test thực tế trên trình duyệt:
 4. Điền form và submit.
 5. Kiểm tra trang thank-you.
 6. Kiểm tra tab Google Sheet đủ 18 cột và đúng `sheet`.
+ 
+## Pattern UI: danh sách dài bên phải, ảnh sticky bên trái
+
+Khi một section có danh sách tiện ích hoặc mốc thông tin dài làm phần ảnh bên trái bị trống, dùng pattern giống Palm River và Capital Square:
+
+- Bố cục desktop là grid 2 cột: ảnh/gallery bên trái, nội dung/list bên phải.
+- Cột ảnh dùng `position: sticky`, `top: calc(var(--hdr) + 18px)` và `align-self: start`.
+- Danh sách bên phải để chiều cao tự nhiên theo toàn bộ nội dung; không đặt `max-height`, `overflow-y: auto`, scrollbar hoặc bắt wheel bằng JavaScript.
+- Khi user cuộn xuống, ảnh giữ nguyên vị trí còn danh sách bên phải tiếp tục chạy; khi danh sách hết, toàn trang tiếp tục cuộn. Cuộn ngược lên hoạt động tương tự.
+- Nếu section cha đang dùng `overflow: hidden`, sticky có thể không hoạt động. Dùng `overflow: clip` cho section đó khi trình duyệt hỗ trợ.
+
+Mẫu CSS:
+
+```css
+@media (min-width: 901px) {
+  .list-sticky-layout {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: clamp(18px, 3vw, 48px);
+    align-items: start;
+  }
+
+  .list-sticky-layout .sticky-media {
+    position: sticky;
+    top: calc(var(--hdr) + 18px);
+    align-self: start;
+  }
+}
+
+@media (max-width: 900px) {
+  .list-sticky-layout { grid-template-columns: 1fr; }
+}
+
+@supports (overflow: clip) {
+  #section-id { overflow: clip; }
+}
+```
+
+Không biến danh sách thành một hộp cuộn riêng. Mục tiêu là dùng scroll tự nhiên của toàn trang, không xuất hiện thanh cuộn phụ và không gây lỗi cuộn trên mobile.

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/du-an-ban-dao-sola/",
     images: [{ url: "/landing/sola/assets/img/og-sola-the-global-city-1200x630.jpg", width: 1200, height: 630, alt: "Bán đảo SOLA – The Global City" }],
   },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 export default function SolaDangKyPage() {

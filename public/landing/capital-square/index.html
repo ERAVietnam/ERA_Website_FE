@@ -9,7 +9,7 @@
 <meta name="keywords" content="Capital Square, Capital Square Đà Nẵng, căn hộ Capital Square, căn hộ ven sông Hàn, căn hộ Trần Hưng Đạo Đà Nẵng, Capital Square An Hải, giỏ hàng Capital Square GĐ3, Queens Place, Hudson Place">
 <!-- ⚠️ BẢN XEM THỬ — đang chặn Google vì còn tên miền tạm. Landing cho SALE: không form, không hotline.
      Có tên miền thật thì chạy: python _kiemtra/len-song.py https://<ten-mien> --mo-index -->
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#12264A">
 <meta name="author" content="ERA Vietnam">
 
@@ -188,7 +188,7 @@ h3{margin:0;font-weight:700}
 @media (max-width:760px){ .stats{grid-template-columns:1fr 1fr} .stats div:nth-child(2n){border-right:0} .stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}
   .stats.ba{grid-template-columns:1fr} .stats.ba div{border-right:0;border-bottom:1px solid var(--line)} .stats.ba div:last-child{border-bottom:0} }
 .rong{margin:0 0 clamp(36px,4vw,56px);overflow:hidden;cursor:zoom-in;background:var(--nga);position:relative;border-radius:0 56px 0 56px}
-.rong img{width:100%;height:auto}
+.rong img,.rong video{display:block;width:100%;height:auto}
 .rong figcaption{position:absolute;left:16px;bottom:14px;font-size:12.5px;font-weight:600;color:#fff;background:rgba(11,24,52,.86);padding:5px 12px;border-radius:999px}
 .ov{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(22px,4vw,64px);align-items:start}
 .trich{margin:0 0 24px;padding:4px 0 4px 22px;border-left:2px solid var(--ngoc);font-size:clamp(18px,1.5vw,21px);line-height:1.6;color:var(--xanh-dam);font-weight:500}
@@ -247,7 +247,12 @@ table.spec td b{color:var(--xanh);font-weight:700}
 .dau li{position:relative;padding:11px 0 11px 26px;border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.6;color:var(--ink)}
 .dau li::before{content:"";position:absolute;left:3px;top:18px;width:10px;height:10px;background:var(--ngoc);border-radius:2px}
 .dau li b{color:var(--xanh-dam)}
+@media (min-width:901px){
+  .ti-scroll-cq{align-items:start}
+  .ti-scroll-cq .ti-anh{position:sticky;top:calc(var(--hdr) + 18px);align-self:start}
+}
 @media (max-width:900px){ .ti{grid-template-columns:1fr} }
+@supports (overflow:clip){ #tien-ich{overflow:clip} }
 
 /* ---------- 6 · CẢNH QUAN / CĂN HỘ: lưới ảnh ---------- */
 .cq{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(10px,1.2vw,16px);margin:0 0 clamp(36px,4vw,56px)}
@@ -287,6 +292,23 @@ table.td tfoot td{background:var(--nga);font-weight:700}
 .gh figure img{width:100%;height:auto}
 .gh .chua{margin:0;padding:22px;background:var(--nga);border-radius:0 28px 0 28px;font-size:15px;line-height:1.7;color:var(--text)}
 @media (max-width:900px){ .gh{grid-template-columns:minmax(0,1fr)} }
+.can-ho-bo-suu-tap{margin-top:clamp(54px,7vw,96px)}
+.can-ho-bo-suu-tap .sub-h{margin:0;color:var(--xanh-dam);font-size:clamp(25px,3vw,42px);line-height:1.12;font-weight:600}
+.can-ho-bo-suu-tap .sub-p{margin:12px 0 24px;color:var(--text);font-size:15px;line-height:1.7}
+.can-ho-mat-bang .tabs{margin-top:22px}
+.can-ho-mat-bang .can-ho-panel{background:#fff;border:1px solid var(--line);border-radius:0 40px 0 40px;padding:clamp(12px,2vw,24px);box-shadow:0 12px 34px rgba(18,38,74,.07)}
+.can-ho-mat-bang .can-ho-panel figure{margin:0;cursor:zoom-in;overflow:hidden;border:1px solid var(--line-2);border-radius:0 28px 0 28px;background:#fff}
+.can-ho-mat-bang .can-ho-panel img{display:block;width:100%;height:auto}
+.can-ho-mat-bang .can-ho-panel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,2vw,24px)}
+.can-ho-mat-bang .can-ho-panel-grid figure{border-radius:0 24px 0 24px}
+.can-ho-mat-bang .can-ho-panel figcaption{padding:14px 4px 2px;color:var(--xanh-dam);font-weight:700;letter-spacing:.01em}
+.can-ho-layout-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,26px)}
+.can-ho-layout-card{margin:0;background:#fff;border:1px solid var(--line);border-radius:0;overflow:hidden;cursor:zoom-in;box-shadow:0 12px 34px rgba(18,38,74,.07)}
+.can-ho-layout-card img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain;background:#fff;padding:clamp(4px,.6vw,8px)}
+.can-ho-layout-card figcaption{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:15px 18px 18px;border-top:1px solid var(--line-2);color:var(--xanh-dam)}
+.can-ho-layout-card figcaption strong{font-size:17px}
+.can-ho-layout-card figcaption span{font-size:13px;color:var(--dat);font-weight:700;text-align:right}
+@media (max-width:760px){.can-ho-layout-grid{grid-template-columns:1fr}.can-ho-layout-card img{padding:4px}.can-ho-layout-card figcaption{display:block}.can-ho-layout-card figcaption span{display:block;margin-top:5px;text-align:left}}
 .loai-tong{margin:0 0 clamp(30px,3.4vw,46px)}
 
 /* ---------- 8 · PHÁP LÝ · CHỦ ĐẦU TƯ ---------- */
@@ -666,7 +688,7 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
           "name": "Chủ đầu tư Capital Square là ai?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Bảng hàng giai đoạn 3 ghi chủ đầu tư là Công ty Cổ phần Mega Assets. ERA Vietnam là đại lý phân phối dự án Capital Square."
+            "text": "Bảng hàng giai đoạn 3 ghi chủ đầu tư là Công ty TNHH Mega Assets và Công ty TNHH BĐS SIH. ERA Vietnam là đại lý phân phối dự án Capital Square."
           }
         },
         {
@@ -674,7 +696,7 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
           "name": "Tiện ích nội khu Capital Square có gì?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Theo tài liệu chủ đầu tư, Capital Square có khối đế thương mại dịch vụ, phố mua sắm – ẩm thực, tuyến phố đi bộ, bar view sông, rooftop lounge, quảng trường với đài phun nước và cầu ánh sáng, cổng âm nhạc, sân khấu mini, vườn thư giãn, vườn yoga, bể bơi, khu vui chơi trẻ em và sân golf mini. Flyer giới thiệu hơn 88 tiện ích."
+            "text": "Theo tài liệu chủ đầu tư, Capital Square có khối đế thương mại dịch vụ, phố mua sắm – ẩm thực, tuyến phố đi bộ, bar view sông, rooftop lounge, quảng trường với đài phun nước và cầu ánh sáng, cổng âm nhạc, sân khấu mini, vườn thư giãn, vườn yoga, bể bơi, khu vui chơi trẻ em và sân golf mini. Flyer giới thiệu 43 tiện ích."
           }
         },
         {
@@ -708,7 +730,6 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
       <a class="opt" href="#vi-tri">Vị trí</a>
       <a href="#tien-ich">Tiện ích</a>
       <a href="#can-ho">Căn hộ</a>
-      <a href="#gio-hang">Giỏ hàng GĐ3</a>
       <a class="opt" href="#phap-ly">Pháp lý</a>
       <a class="opt" href="#hoi-dap">Hỏi đáp</a>
       <a class="nav-tel" href="tel:0941125000">094.1125.000</a>
@@ -723,8 +744,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
 <!-- ======================= 1 · HERO (brief mục 1 — phối cảnh đêm bìa salekit; số liệu salekit tr.10 + bảng hàng GĐ3) ======================= -->
 <section class="hero" aria-label="Giới thiệu Capital Square Đà Nẵng">
   <picture class="hero-anh">
-    <source media="(max-width:760px)" srcset="assets/img/capital-square-hero-mobile.webp" width="720" height="695">
-    <img src="assets/img/capital-square-can-ho-ven-song-han-da-nang-phoi-canh-dem.webp" width="1600" height="864" fetchpriority="high" decoding="async" alt="Phối cảnh Capital Square về đêm: 4 toà căn hộ 24–28 tầng bên bờ sông Hàn, phường An Hải, Đà Nẵng">
+    <source media="(max-width:760px)" srcset="assets/img/capital-square-cover.webp" width="5000" height="2813">
+    <img src="assets/img/capital-square-cover.webp" width="5000" height="2813" fetchpriority="high" decoding="async" alt="Phối cảnh Capital Square về đêm bên bờ sông Hàn, Đà Nẵng">
   </picture>
   <div class="hero-band">
     <svg class="hoa" viewBox="0 0 120 120" aria-hidden="true"><use href="#mach"/></svg>
@@ -733,12 +754,12 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         <p class="kick"><span>Căn hộ ven sông Hàn · Trung tâm Đà Nẵng</span></p>
         <h1><span class="a">Capital Square</span><span class="by">Trần Hưng Đạo · An Hải · Đà Nẵng</span><em>Mạch nối quá khứ – hiện tại – tương lai bên dòng sông Hàn</em></h1>
         <p class="gioi-thieu">Capital Square là tổ hợp căn hộ – thương mại – dịch vụ quy mô 6,14 ha bên bờ sông Hàn, trên các trục Trần Hưng Đạo – Ngô Quyền – Nguyễn Công Trứ, phường An Hải, TP. Đà Nẵng. Giỏ hàng giai đoạn 3 gồm các toà C1, C4, C6.</p>
-        <a class="nut hero-nut" href="#dang-ky">Nhận thông tin giỏ hàng GĐ3 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="nut hero-nut" href="#dang-ky">Nhận thông tin <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <ul class="hero-facts">
         <li><b>6,14<small>ha</small></b><span>Diện tích dự án</span></li>
         <li><b>24–28</b><span>Số tầng</span></li>
-        <li><b>53<small>căn</small></b><span>Giỏ hàng GĐ3 · C1 · C4 · C6</span></li>
+        <li><b>14<small>tòa tháp</small></b><span>Mật độ xây dựng: 49%</span></li>
         <li><b>Lâu dài</b><span>Hình thức sở hữu</span></li>
       </ul>
     </div>
@@ -760,11 +781,14 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
       <div><b>6,14<small>ha</small></b><span>Diện tích dự án</span></div>
       <div><b>24–28</b><span>Số tầng các toà</span></div>
       <div><b>4</b><span>Mặt tiền đường</span></div>
-      <div><b>88+</b><span>Tiện ích nội khu</span></div>
+      <div><b>43</b><span>Tiện ích nội khu</span></div>
     </div>
-    <figure class="rong rv" data-zoom="assets/img/capital-square-4-toa-queens-kings-broadway-hudson-place.webp">
-      <img src="assets/img/capital-square-4-toa-queens-kings-broadway-hudson-place.webp" srcset="assets/img/capital-square-4-toa-queens-kings-broadway-hudson-place-800.webp 800w, assets/img/capital-square-4-toa-queens-kings-broadway-hudson-place.webp 1058w" width="1058" height="954" loading="lazy" decoding="async" sizes="(max-width:1240px) 100vw, 1200px" alt="Phối cảnh 4 toà Capital Square nhìn từ sông Hàn: Queens Place, Kings Place, Broadway Place, Hudson Place">
-      <figcaption>Phối cảnh nhìn từ sông Hàn · minh họa</figcaption>
+    <figure class="rong rv">
+      <video controls playsinline preload="metadata" width="1920" height="1080" aria-label="Video cập nhật tiến độ Capital Square tháng 9 năm 2026">
+        <source src="assets/img/capital-square-tien-do-t9-2026.mp4" type="video/mp4">
+        Trình duyệt của bạn không hỗ trợ phát video.
+      </video>
+      <figcaption>Video cập nhật tiến độ tháng 9/2026</figcaption>
     </figure>
     <div class="ov">
       <div class="rv">
@@ -775,7 +799,7 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
           <p>Bên cạnh căn hộ, dự án có khối đế thương mại dịch vụ với phố mua sắm, ẩm thực, cảnh quan xanh, đường dạo bộ nội khu và các tiện ích cộng đồng.</p>
         </div>
         <ul class="toa" aria-label="Khối tháp trong phối cảnh">
-          <li>Queens Place</li><li>Kings Place</li><li>Broadway Place</li><li>Hudson Place</li>
+           <li>Queens Place</li><li>Kings Place</li><li>Broadway Place</li><li>Hudson Place</li><li>Times Place</li><li>Victory Place</li>
         </ul>
       </div>
       <table class="spec rv">
@@ -787,7 +811,6 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
           <tr><th scope="row">Số tầng</th><td>24–28 tầng</td></tr>
           <tr><th scope="row">Loại hình</th><td>Căn hộ 1PN, 2PN, 3PN, Dual key, Penthouse, Private Sky Garden Villas; khối đế thương mại dịch vụ</td></tr>
           <tr><th scope="row">Pháp lý</th><td><b>Sở hữu lâu dài</b></td></tr>
-          <tr><th scope="row">Giỏ hàng GĐ3</th><td>53 căn tại toà C1, C4, C6</td></tr>
         </tbody>
       </table>
     </div>
@@ -806,8 +829,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
       <p class="fact">Cầu sông Hàn là cây cầu quay đầu tiên của Việt Nam; dòng sông chứng kiến Đà Nẵng chuyển mình từ những phiên chợ ven bờ tới ánh đèn cao tầng hôm nay.</p>
     </div>
     <div class="vt">
-      <figure class="anh-bo rv" data-zoom="assets/img/capital-square-cau-song-han-bieu-tuong-da-nang.webp">
-        <img src="assets/img/capital-square-cau-song-han-bieu-tuong-da-nang.webp" srcset="assets/img/capital-square-cau-song-han-bieu-tuong-da-nang-800.webp 800w, assets/img/capital-square-cau-song-han-bieu-tuong-da-nang.webp 1000w" width="1000" height="761" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 640px" alt="Cầu sông Hàn – cây cầu quay đầu tiên của Việt Nam, nguồn cảm hứng thiết kế Capital Square (ảnh thực tế)">
+         <figure class="anh-bo rv" data-zoom="assets/img/capital-square-cau-song-han-moi.webp">
+           <img src="assets/img/capital-square-cau-song-han-moi.webp" width="1500" height="1000" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 640px" alt="Cầu sông Hàn – biểu tượng của Đà Nẵng">
       </figure>
       <div class="rv">
         <div class="body" data-gon="6">
@@ -839,8 +862,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
       <p class="fact">Capital Square nằm tại giao điểm các trục Trần Hưng Đạo, Nguyễn Công Trứ, Ngô Quyền, bờ đông sông Hàn, phường An Hải – nơi giao thoa giữa dòng chảy sông Hàn và nhịp sống đô thị Đà Nẵng.</p>
     </div>
     <div class="vt">
-      <figure class="map-fig rv" data-zoom="assets/img/capital-square-ban-do-vi-tri-tran-hung-dao-song-han.webp">
-        <img src="assets/img/capital-square-ban-do-vi-tri-tran-hung-dao-song-han.webp" srcset="assets/img/capital-square-ban-do-vi-tri-tran-hung-dao-song-han-800.webp 800w, assets/img/capital-square-ban-do-vi-tri-tran-hung-dao-song-han.webp 1500w" width="1500" height="987" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 660px" alt="Bản đồ vị trí Capital Square bên cầu sông Hàn, đường Trần Hưng Đạo, gần sân bay Đà Nẵng, biển Mỹ Khê, Ngũ Hành Sơn">
+         <figure class="map-fig rv" data-zoom="assets/img/capital-square-map-lien-ket-vung.webp">
+           <img src="assets/img/capital-square-map-lien-ket-vung.webp" width="8000" height="4500" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 660px" alt="Bản đồ liên kết vùng Capital Square Đà Nẵng">
       </figure>
       <ul class="moc rv" aria-label="Thời gian di chuyển tham khảo từ Capital Square">
         <li><b>0<small>PHÚT</small></b><span>Sông Hàn · Vincom Plaza Đà Nẵng</span></li>
@@ -898,20 +921,20 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
   </div>
 </section>
 
-<!-- ======================= 6 · TIỆN ÍCH (brief mục 6 — salekit tr.24–25, flyer tr.2 "88+ tiện ích") ======================= -->
+<!-- ======================= 6 · TIỆN ÍCH (brief mục 6 — salekit tr.24–25, flyer tr.2 "43 tiện ích") ======================= -->
 <section class="sec" id="tien-ich">
   <svg class="hoa vien tl" viewBox="0 0 120 120" aria-hidden="true"><use href="#mach"/></svg>
   <div class="wrap">
     <div class="head rv">
       <div>
         <p class="eb" aria-hidden="true"><b>05</b><i></i>Tiện ích</p>
-        <h2><span class="s">Từ mặt đất đến tầng không</span>88+ tiện ích nội khu Capital Square</h2>
+        <h2><span class="s">Từ mặt đất đến tầng không</span>43 tiện ích nội khu Capital Square</h2>
       </div>
-      <p class="fact">Tiện ích Capital Square trải từ khối đế thương mại dưới chân nhà tới bar view sông, rooftop lounge trên cao; flyer chủ đầu tư giới thiệu hơn 88 tiện ích.</p>
+      <p class="fact">Tiện ích Capital Square trải từ khối đế thương mại dưới chân nhà tới bar view sông, rooftop lounge trên cao; flyer chủ đầu tư giới thiệu 43 tiện ích.</p>
     </div>
-    <figure class="rong rv" data-zoom="assets/img/capital-square-canh-quan-noi-khu-san-vuon-tren-cao.webp">
-      <img src="assets/img/capital-square-canh-quan-noi-khu-san-vuon-tren-cao.webp" srcset="assets/img/capital-square-canh-quan-noi-khu-san-vuon-tren-cao-800.webp 800w, assets/img/capital-square-canh-quan-noi-khu-san-vuon-tren-cao.webp 1300w" width="1300" height="792" loading="lazy" decoding="async" sizes="(max-width:1240px) 100vw, 1200px" alt="Cảnh quan nội khu Capital Square nhìn từ trên cao: sân vườn, lều nghỉ, hàng cọ và lối dạo">
-      <figcaption>Cảnh quan nội khu · minh họa</figcaption>
+    <figure class="rong rv" data-zoom="assets/img/capital-square-tien-ich-top-down.webp">
+      <img src="assets/img/capital-square-tien-ich-top-down.webp" width="10625" height="4500" loading="lazy" decoding="async" sizes="(max-width:1240px) 100vw, 1200px" alt="Tổng mặt bằng tiện ích Capital Square nhìn từ trên cao">
+      <figcaption>Tổng mặt bằng tiện ích · minh họa</figcaption>
     </figure>
     <div class="tabs rv" role="tablist" aria-label="Nhóm tiện ích Capital Square">
       <button type="button" role="tab" id="tab-tm" aria-controls="p-tm" aria-selected="true">Thương mại &amp; ẩm thực</button>
@@ -928,27 +951,45 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         <h3><small>Ngay dưới chân nhà</small>Mua sắm, giải trí, ẩm thực</h3>
         <p>Chỉ vài bước chân, cư dân tới phố mua sắm, giải trí và ẩm thực ngay tại khối đế thương mại dịch vụ của dự án.</p>
         <ul class="dau">
-          <li>Khối đế thương mại dịch vụ</li>
-          <li>Phố mua sắm rực rỡ về đêm</li>
-          <li>Tuyến phố đi bộ nội khu</li>
-          <li>Bar view sông và rooftop lounge</li>
+           <li>Khu café ngoài trời</li>
+           <li>Khu BBQ ngoài trời</li>
+           <li>Café ngoài trời</li>
+           <li>Quầy bán hàng</li>
+           <li>Sales Gallery</li>
         </ul>
       </div>
     </div>
-    <div role="tabpanel" id="p-cq" aria-labelledby="tab-cq" class="ti" hidden>
+    <div role="tabpanel" id="p-cq" aria-labelledby="tab-cq" class="ti ti-scroll-cq" hidden>
       <div class="ti-anh">
         <figure data-zoom="assets/img/capital-square-cong-am-nhac.webp"><img src="assets/img/capital-square-cong-am-nhac.webp" width="900" height="546" loading="lazy" decoding="async" alt="Cổng âm nhạc dạng vòm ánh sáng trước toà tháp Capital Square về đêm"><figcaption>Cổng âm nhạc</figcaption></figure>
         <figure data-zoom="assets/img/capital-square-vuon-thu-gian.webp"><img src="assets/img/capital-square-vuon-thu-gian.webp" width="900" height="652" loading="lazy" decoding="async" alt="Vườn thư giãn Capital Square: lối dạo, ghế đá và cây xanh nhiều tầng"><figcaption>Vườn thư giãn</figcaption></figure>
         <figure data-zoom="assets/img/capital-square-san-khau-mini.webp"><img src="assets/img/capital-square-san-khau-mini.webp" width="900" height="519" loading="lazy" decoding="async" alt="Sân khấu mini với tiểu cảnh nhạc cụ tại Capital Square"><figcaption>Sân khấu mini</figcaption></figure>
       </div>
-      <div>
+      <div class="ti-scroll-list">
         <h3><small>Quảng trường nghệ thuật</small>Cảnh quan sống động</h3>
         <p>Cảnh quan được thiết kế như một quảng trường nghệ thuật với đài phun nước, cầu ánh sáng và các tiểu cảnh âm nhạc.</p>
-        <ul class="dau">
-          <li>Đài phun nước, cầu ánh sáng</li>
-          <li>Cổng âm nhạc</li>
-          <li>Sân khấu mini</li>
-          <li>Vườn thư giãn, đường dạo bộ nội khu</li>
+        <ul class="dau" tabindex="0" aria-label="Danh sách tiện ích cảnh quan và nghệ thuật">
+           <li>Quảng trường nghệ thuật</li>
+           <li>Vườn ánh sáng</li>
+           <li>Đài phun nước nghệ thuật</li>
+           <li>Sân khấu nghệ thuật ngoài trời</li>
+           <li>Cổng âm nhạc</li>
+           <li>Lối thông gió tầng hầm</li>
+           <li>Đồi chà là</li>
+           <li>Chòi nghỉ</li>
+           <li>Thác nước nghệ thuật</li>
+           <li>Chòi cảnh quan</li>
+           <li>Vườn thư giãn</li>
+           <li>Nhà thờ An Hải</li>
+           <li>Con đường ánh sáng</li>
+           <li>Đường dạo chân mây</li>
+           <li>Vườn dạo trên cao</li>
+           <li>Vườn hoa nghệ thuật</li>
+           <li>Chòi nghỉ cách điệu</li>
+           <li>Vườn hoa sắc màu</li>
+           <li>“Lightning Flow – Dòng chảy Phồn vinh”</li>
+           <li>Lối lên xuống tầng hầm</li>
+           <li>Tán cây nghệ thuật</li>
         </ul>
       </div>
     </div>
@@ -962,10 +1003,17 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         <h3><small>Vận động mỗi ngày</small>Thể thao và gia đình</h3>
         <p>Tiện ích vận động, thư giãn cho cả gia đình được bố trí trong nội khu, xen giữa các mảng xanh.</p>
         <ul class="dau">
-          <li>Bể bơi</li>
-          <li>Khu vui chơi trẻ em</li>
-          <li>Sân golf mini</li>
-          <li>Vườn yoga</li>
+           <li>Sân pickleball</li>
+           <li>Sân bóng rổ</li>
+           <li>Ghế nghỉ</li>
+           <li>Khu thể thao ngoài trời</li>
+           <li>Khu Outdoor Gym</li>
+           <li>Khu vui chơi trẻ em</li>
+           <li>Vườn thư giãn</li>
+           <li>Khu thể thao ngoài trời</li>
+           <li>Bể bơi người lớn</li>
+           <li>Bể bơi trẻ em</li>
+           <li>Sân golf mini</li>
         </ul>
       </div>
     </div>
@@ -973,7 +1021,7 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
   </div>
 </section>
 
-<!-- ======================= 7 · CĂN HỘ (brief mục 7 — salekit tr.10, 26–27) ======================= -->
+<!-- ======================= 6 · CĂN HỘ (brief mục 7 — salekit tr.10, 26–27) ======================= -->
 <section class="sec bg-nga" id="can-ho">
   <svg class="hoa bl" viewBox="0 0 120 120" aria-hidden="true"><use href="#q"/></svg>
   <div class="wrap">
@@ -1005,109 +1053,46 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ======================= 8 · GIỎ HÀNG GĐ3 (brief mục 8 — bảng hàng xlsx toà C1, C4, C6 GĐ3 14/09/2026; mặt bằng salekit tr.30–31)
-     KHÔNG đăng giá: bảng hàng có giá nhưng không kèm chính sách bán hàng chính thức. ======================= -->
-<section class="sec" id="gio-hang">
-  <svg class="hoa vien tr" viewBox="0 0 120 120" aria-hidden="true"><use href="#mach"/></svg>
-  <div class="wrap">
-    <div class="head rv">
-      <div>
-        <p class="eb" aria-hidden="true"><b>07</b><i></i>Giỏ hàng</p>
-        <h2><span class="s">Giai đoạn 3 · toà C1 · C4 · C6</span>53 căn hộ 2PN, 2PN+1, 3PN</h2>
+    <div class="can-ho-bo-suu-tap can-ho-mat-bang rv">
+      <h3 class="sub-h">Mặt bằng tầng điển hình</h3>
+      <p class="sub-p">Khám phá mặt bằng các tòa tháp Capital Square · bấm vào ảnh để phóng to</p>
+      <div class="tabs" role="tablist" aria-label="Chọn mặt bằng tầng điển hình">
+        <button type="button" role="tab" id="t-c4" aria-selected="true" aria-controls="p-c4">Tòa C4</button>
+        <button type="button" role="tab" id="t-c6" aria-selected="false" aria-controls="p-c6">Tòa C6</button>
+        <button type="button" role="tab" id="t-c7" aria-selected="false" aria-controls="p-c7">Tòa C7</button>
+        <button type="button" role="tab" id="t-s4" aria-selected="false" aria-controls="p-s4">Tòa S4</button>
+        <button type="button" role="tab" id="t-s3" aria-selected="false" aria-controls="p-s3">Tòa S3</button>
+        <button type="button" role="tab" id="t-c1" aria-selected="false" aria-controls="p-c1">Tòa C1</button>
       </div>
-      <p class="fact">Giỏ hàng giai đoạn 3 của Capital Square gồm 53 căn tại toà C1 (tầng 20–24), C4 (tầng 22–26) và C6 (tầng 23–26): 31 căn 2PN, 15 căn 2PN+1 và 7 căn 3PN.</p>
+      <div class="can-ho-panel" role="tabpanel" id="p-c4" aria-labelledby="t-c4"><figure data-zoom="assets/img/capital-square-mat-bang-c4.webp"><img src="assets/img/capital-square-mat-bang-c4.webp" loading="lazy" decoding="async" alt="Mặt bằng điển hình tòa C4 Capital Square"><figcaption>Mặt bằng điển hình tòa C4</figcaption></figure></div>
+      <div class="can-ho-panel" role="tabpanel" id="p-c6" aria-labelledby="t-c6" hidden><figure data-zoom="assets/img/capital-square-mat-bang-c6.webp"><img src="assets/img/capital-square-mat-bang-c6.webp" loading="lazy" decoding="async" alt="Mặt bằng điển hình tòa C6 Capital Square"><figcaption>Mặt bằng điển hình tòa C6</figcaption></figure></div>
+      <div class="can-ho-panel" role="tabpanel" id="p-c7" aria-labelledby="t-c7" hidden><figure data-zoom="assets/img/capital-square-mat-bang-c7.webp"><img src="assets/img/capital-square-mat-bang-c7.webp" loading="lazy" decoding="async" alt="Mặt bằng điển hình tòa C7 Capital Square"><figcaption>Mặt bằng điển hình tòa C7</figcaption></figure></div>
+      <div class="can-ho-panel" role="tabpanel" id="p-s4" aria-labelledby="t-s4" hidden><div class="can-ho-panel-grid"><figure data-zoom="assets/img/capital-square-mat-bang-s4-1.webp"><img src="assets/img/capital-square-mat-bang-s4-1.webp" loading="lazy" decoding="async" alt="Mặt bằng điển hình tòa S4 Capital Square - ảnh 1"><figcaption>Tòa S4 · mặt bằng 1</figcaption></figure><figure data-zoom="assets/img/capital-square-mat-bang-s4-2.webp"><img src="assets/img/capital-square-mat-bang-s4-2.webp" loading="lazy" decoding="async" alt="Mặt bằng điển hình tòa S4 Capital Square - ảnh 2"><figcaption>Tòa S4 · mặt bằng 2</figcaption></figure></div></div>
+      <div class="can-ho-panel" role="tabpanel" id="p-s3" aria-labelledby="t-s3" hidden><figure data-zoom="assets/img/capital-square-mat-bang-s3.webp"><img src="assets/img/capital-square-mat-bang-s3.webp" loading="lazy" decoding="async" alt="Mặt bằng điển hình tòa S3 Capital Square"><figcaption>Mặt bằng điển hình tòa S3</figcaption></figure></div>
+      <div class="can-ho-panel" role="tabpanel" id="p-c1" aria-labelledby="t-c1" hidden><div class="can-ho-panel-grid"><figure data-zoom="assets/img/capital-square-mat-bang-c1-1.webp"><img src="assets/img/capital-square-mat-bang-c1-1.webp" loading="lazy" decoding="async" alt="Mặt bằng điển hình tòa C1 Capital Square - ảnh 1"><figcaption>Tòa C1 · mặt bằng 1</figcaption></figure><figure data-zoom="assets/img/capital-square-mat-bang-c1-2.webp"><img src="assets/img/capital-square-mat-bang-c1-2.webp" loading="lazy" decoding="async" alt="Mặt bằng điển hình tòa C1 Capital Square - ảnh 2"><figcaption>Tòa C1 · mặt bằng 2</figcaption></figure></div></div>
     </div>
-    <table class="td loai-tong rv">
-      <caption class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Giỏ hàng giai đoạn 3 Capital Square theo loại căn</caption>
-      <thead><tr><th scope="col">Loại căn</th><th scope="col">Số căn</th><th scope="col">Diện tích thông thủy</th><th scope="col">Toà</th></tr></thead>
-      <tbody>
-        <tr><td data-nhan="Loại căn">Căn 2PN</td><td data-nhan="Số căn">31 căn</td><td data-nhan="Diện tích thông thủy" class="so">63,52–74,07 m²</td><td data-nhan="Toà">C1, C4, C6</td></tr>
-        <tr><td data-nhan="Loại căn">Căn 2PN+1</td><td data-nhan="Số căn">15 căn</td><td data-nhan="Diện tích thông thủy" class="so">77,69–78,45 m²</td><td data-nhan="Toà">C1, C4, C6</td></tr>
-        <tr><td data-nhan="Loại căn">Căn 3PN</td><td data-nhan="Số căn">7 căn</td><td data-nhan="Diện tích thông thủy" class="so">104,28–119,71 m²</td><td data-nhan="Toà">C1, C4, C6</td></tr>
-      </tbody>
-      <tfoot><tr><td data-nhan="Loại căn">Tổng</td><td data-nhan="Số căn">53 căn</td><td data-nhan="Diện tích thông thủy" class="so">63,52–119,71 m²</td><td data-nhan="Toà">C1, C4, C6</td></tr></tfoot>
-    </table>
-    <div class="tabs rv" role="tablist" aria-label="Chọn toà">
-      <button type="button" role="tab" id="tab-c1" aria-controls="p-c1" aria-selected="true">Toà C1</button>
-      <button type="button" role="tab" id="tab-c4" aria-controls="p-c4" aria-selected="false" tabindex="-1">Toà C4</button>
-      <button type="button" role="tab" id="tab-c6" aria-controls="p-c6" aria-selected="false" tabindex="-1">Toà C6</button>
-    </div>
-    <div role="tabpanel" id="p-c1" aria-labelledby="tab-c1" class="gh">
-      <div>
-        <h3><small>13 căn · tầng 20–24</small>Toà C1</h3>
-        <table class="td">
-          <caption class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Căn hộ toà C1 trong giỏ hàng giai đoạn 3</caption>
-          <thead><tr><th scope="col">Căn</th><th scope="col">Loại</th><th scope="col">Thông thủy</th><th scope="col">Tầng còn căn</th></tr></thead>
-          <tbody>
-          <tr><td data-nhan="Căn">C1-01</td><td data-nhan="Loại">2PN+1</td><td data-nhan="Thông thủy" class="so">78,45 m²</td><td data-nhan="Tầng còn căn">23</td></tr>
-          <tr><td data-nhan="Căn">C1-02</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">65,82 m²</td><td data-nhan="Tầng còn căn">24</td></tr>
-          <tr><td data-nhan="Căn">C1-03</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">65,82 m²</td><td data-nhan="Tầng còn căn">21, 22, 23, 24</td></tr>
-          <tr><td data-nhan="Căn">C1-05</td><td data-nhan="Loại">3PN</td><td data-nhan="Thông thủy" class="so">119,71 m²</td><td data-nhan="Tầng còn căn">20, 21, 23, 24</td></tr>
-          <tr><td data-nhan="Căn">C1-08</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">66,15 m²</td><td data-nhan="Tầng còn căn">23, 24</td></tr>
-          <tr><td data-nhan="Căn">C1-09</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">65,93 m²</td><td data-nhan="Tầng còn căn">24</td></tr>
-          </tbody>
-        </table>
+
+    <div class="can-ho-bo-suu-tap rv">
+      <h3 class="sub-h">Layout căn hộ</h3>
+      <p class="sub-p">Các dòng căn hộ từ 1 đến 3 phòng ngủ · diện tích tim tường theo tài liệu dự án</p>
+      <div class="can-ho-layout-grid">
+        <figure class="can-ho-layout-card" data-zoom="assets/img/capital-square-can-1pn.webp"><img src="assets/img/capital-square-can-1pn.webp" loading="lazy" decoding="async" alt="Layout căn hộ 1 phòng ngủ Capital Square"><figcaption><strong>Căn 1PN</strong><span>45,01–47,43 m²</span></figcaption></figure>
+        <figure class="can-ho-layout-card" data-zoom="assets/img/capital-square-can-2pn.webp"><img src="assets/img/capital-square-can-2pn.webp" loading="lazy" decoding="async" alt="Layout căn hộ 2 phòng ngủ Capital Square"><figcaption><strong>Căn 2PN</strong><span>63,52–74,07 m²</span></figcaption></figure>
+        <figure class="can-ho-layout-card" data-zoom="assets/img/capital-square-can-3pn.webp"><img src="assets/img/capital-square-can-3pn.webp" loading="lazy" decoding="async" alt="Layout căn hộ 3 phòng ngủ Capital Square"><figcaption><strong>Căn 3PN</strong><span>104,28–119,71 m²</span></figcaption></figure>
       </div>
-      <p class="chua">Salekit hiện có chưa kèm mặt bằng điển hình toà C1. Toà C1 trong giỏ hàng giai đoạn 3 có căn 2PN, 2PN+1 và 3PN (119,71 m² thông thủy – căn rộng nhất giỏ hàng); chuyên viên ERA gửi mặt bằng từng căn khi khách hàng quan tâm.</p>
-    </div>
-    <div role="tabpanel" id="p-c4" aria-labelledby="tab-c4" class="gh" hidden>
-      <div>
-        <h3><small>20 căn · tầng 22–26</small>Toà C4</h3>
-        <table class="td">
-          <caption class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Căn hộ toà C4 trong giỏ hàng giai đoạn 3</caption>
-          <thead><tr><th scope="col">Căn</th><th scope="col">Loại</th><th scope="col">Thông thủy</th><th scope="col">Tầng còn căn</th></tr></thead>
-          <tbody>
-          <tr><td data-nhan="Căn">C4-01</td><td data-nhan="Loại">2PN+1</td><td data-nhan="Thông thủy" class="so">77,69 m²</td><td data-nhan="Tầng còn căn">23, 24</td></tr>
-          <tr><td data-nhan="Căn">C4-03</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">64,87 m²</td><td data-nhan="Tầng còn căn">23, 24, 25</td></tr>
-          <tr><td data-nhan="Căn">C4-05</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">74,07 m²</td><td data-nhan="Tầng còn căn">23, 24, 26</td></tr>
-          <tr><td data-nhan="Căn">C4-06</td><td data-nhan="Loại">3PN</td><td data-nhan="Thông thủy" class="so">104,28 m²</td><td data-nhan="Tầng còn căn">23, 24</td></tr>
-          <tr><td data-nhan="Căn">C4-10</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">63,52 m²</td><td data-nhan="Tầng còn căn">23, 26</td></tr>
-          <tr><td data-nhan="Căn">C4-11</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">64,58 m²</td><td data-nhan="Tầng còn căn">23, 24, 26</td></tr>
-          <tr><td data-nhan="Căn">C4-12</td><td data-nhan="Loại">2PN+1</td><td data-nhan="Thông thủy" class="so">77,84 m²</td><td data-nhan="Tầng còn căn">22, 23, 24, 25, 26</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figure data-zoom="assets/img/capital-square-mat-bang-dien-hinh-toa-c4.webp"><img src="assets/img/capital-square-mat-bang-dien-hinh-toa-c4.webp" srcset="assets/img/capital-square-mat-bang-dien-hinh-toa-c4-800.webp 800w, assets/img/capital-square-mat-bang-dien-hinh-toa-c4.webp 1800w" width="1800" height="1405" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 640px" alt="Mặt bằng điển hình toà C4 Capital Square: tầng 5–10 và tầng 11–12, 14–27, căn 1PN, 2PN, 2PN+1, 3PN"></figure>
-    </div>
-    <div role="tabpanel" id="p-c6" aria-labelledby="tab-c6" class="gh" hidden>
-      <div>
-        <h3><small>20 căn · tầng 23–26</small>Toà C6</h3>
-        <table class="td">
-          <caption class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Căn hộ toà C6 trong giỏ hàng giai đoạn 3</caption>
-          <thead><tr><th scope="col">Căn</th><th scope="col">Loại</th><th scope="col">Thông thủy</th><th scope="col">Tầng còn căn</th></tr></thead>
-          <tbody>
-          <tr><td data-nhan="Căn">C6-01</td><td data-nhan="Loại">2PN+1</td><td data-nhan="Thông thủy" class="so">77,69 m²</td><td data-nhan="Tầng còn căn">24, 25, 26</td></tr>
-          <tr><td data-nhan="Căn">C6-02</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">64,76 m²</td><td data-nhan="Tầng còn căn">24, 26</td></tr>
-          <tr><td data-nhan="Căn">C6-03</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">64,87 m²</td><td data-nhan="Tầng còn căn">24, 25, 26</td></tr>
-          <tr><td data-nhan="Căn">C6-05</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">74,07 m²</td><td data-nhan="Tầng còn căn">24, 25, 26</td></tr>
-          <tr><td data-nhan="Căn">C6-06</td><td data-nhan="Loại">3PN</td><td data-nhan="Thông thủy" class="so">104,28 m²</td><td data-nhan="Tầng còn căn">26</td></tr>
-          <tr><td data-nhan="Căn">C6-10</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">63,52 m²</td><td data-nhan="Tầng còn căn">24, 26</td></tr>
-          <tr><td data-nhan="Căn">C6-11</td><td data-nhan="Loại">2PN</td><td data-nhan="Thông thủy" class="so">64,58 m²</td><td data-nhan="Tầng còn căn">25, 26</td></tr>
-          <tr><td data-nhan="Căn">C6-12</td><td data-nhan="Loại">2PN+1</td><td data-nhan="Thông thủy" class="so">77,84 m²</td><td data-nhan="Tầng còn căn">23, 24, 25, 26</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figure data-zoom="assets/img/capital-square-mat-bang-dien-hinh-toa-c6.webp"><img src="assets/img/capital-square-mat-bang-dien-hinh-toa-c6.webp" srcset="assets/img/capital-square-mat-bang-dien-hinh-toa-c6-800.webp 800w, assets/img/capital-square-mat-bang-dien-hinh-toa-c6.webp 1800w" width="1800" height="1388" loading="lazy" decoding="async" sizes="(max-width:900px) 100vw, 640px" alt="Mặt bằng điển hình toà C6 Capital Square: tầng 5–10 và tầng 11–12, 14–27, căn 1PN, 2PN, 2PN+1, 3PN"></figure>
-    </div>
-    <p class="minh-hoa">Giỏ hàng theo bảng hàng giai đoạn 3 toà C1, C4, C6 (cập nhật 14/09/2026), có thể thay đổi theo thời điểm; mặt bằng điển hình C4, C6 theo salekit chủ đầu tư (tầng 5–10, tầng 11–12 và 14–27). Diện tích thông thủy đơn vị m². Thông tin chính thức căn cứ hợp đồng mua bán.</p>
-    <div class="nut-loai-hang rv">
-      <a class="nut nut-loai" href="#dang-ky" data-loai="Căn 2PN">Nhận thông tin căn 2PN <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="nut nut-loai" href="#dang-ky" data-loai="Căn 2PN+1">Nhận thông tin căn 2PN+1 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="nut nut-loai" href="#dang-ky" data-loai="Căn 3PN">Nhận thông tin căn 3PN <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
 </section>
 
-<!-- ======================= 9 · PHÁP LÝ · CHỦ ĐẦU TƯ (brief mục 9–10 — salekit tr.10, 28–29; bảng hàng GĐ3) ======================= -->
+
+<!-- ======================= 7 · PHÁP LÝ · CHỦ ĐẦU TƯ (brief mục 9–10 — salekit tr.10, 28–29) ======================= -->
 <section class="sec bg-nga" id="phap-ly">
   <svg class="hoa br" viewBox="0 0 120 120" aria-hidden="true"><use href="#q"/></svg>
   <div class="wrap">
     <div class="hai">
       <div class="rv">
-        <p class="eb" aria-hidden="true"><b>08</b><i></i>Pháp lý</p>
+        <p class="eb" aria-hidden="true"><b>07</b><i></i>Pháp lý</p>
         <h2><span class="s">Pháp lý vững chắc</span>Sở hữu lâu dài giữa trung tâm Đà Nẵng</h2>
         <div class="body" style="margin-top:20px" data-gon="6">
           <p>Theo salekit và flyer chủ đầu tư, căn hộ Capital Square có hình thức pháp lý sở hữu lâu dài ngay tại trung tâm thành phố – tài sản có thể để lại cho các thế hệ sau.</p>
@@ -1118,7 +1103,7 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         <div class="the-phap-ly">
           <b class="lon">Sở hữu lâu dài</b>
           <p>Số giấy phép, tiến độ xây dựng và thời điểm bàn giao chưa có trong tài liệu hiện có; chuyên viên ERA Vietnam cung cấp hồ sơ pháp lý dự án khi khách hàng có nhu cầu.</p>
-          <p><b>Chủ đầu tư:</b> Công ty Cổ phần Mega Assets (theo bảng hàng giai đoạn 3).</p>
+          <p><b>Chủ đầu tư:</b> Công ty TNHH Mega Assets &amp; Công ty TNHH BĐS SIH (theo bảng hàng giai đoạn 3).</p>
         </div>
         <p class="mien-tru">"Thông số bản vẽ là tương đối, thông số chính thức căn hộ được quy định tại văn bản ký kết của Chủ đầu tư và Khách hàng. Mọi thông tin trong tài liệu này chỉ mang tính chất định hướng tại thời điểm phát hành và có thể được điều chỉnh mà không cần báo trước." – Salekit chủ đầu tư</p>
       </div>
@@ -1130,7 +1115,7 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
 <section class="sec" id="hoi-dap">
   <div class="wrap">
     <div class="head mot rv">
-      <p class="eb" aria-hidden="true"><b>09</b><i></i>Hỏi đáp</p>
+      <p class="eb" aria-hidden="true"><b>08</b><i></i>Hỏi đáp</p>
       <h2><span class="s">Những điều nên biết về</span>Căn hộ Capital Square Đà Nẵng</h2>
     </div>
     <div class="faq rv">
@@ -1139,14 +1124,14 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
       <details><summary>Capital Square có những loại căn hộ nào?</summary><p>Theo salekit và flyer, Capital Square có căn hộ 1PN, 2PN, 3PN, Dual key, Penthouse, Private Sky Garden Villas và khối đế thương mại dịch vụ.</p></details>
       <details><summary>Giỏ hàng giai đoạn 3 của Capital Square gồm những căn nào?</summary><p>Theo bảng hàng giai đoạn 3 (tháng 9/2026), giỏ hàng gồm 53 căn: toà C1 có 13 căn tầng 20–24, toà C4 có 20 căn tầng 22–26, toà C6 có 20 căn tầng 23–26. Trong đó 31 căn 2PN diện tích thông thủy 63,52–74,07 m², 15 căn 2PN+1 từ 77,69–78,45 m² và 7 căn 3PN từ 104,28–119,71 m².</p></details>
       <details><summary>Pháp lý căn hộ Capital Square thế nào?</summary><p>Salekit và flyer chủ đầu tư ghi hình thức pháp lý sở hữu lâu dài. Số giấy phép, tiến độ xây dựng và thời điểm bàn giao chưa có trong tài liệu hiện có; thông số chính thức của căn hộ được quy định tại văn bản ký kết giữa chủ đầu tư và khách hàng.</p></details>
-      <details><summary>Chủ đầu tư Capital Square là ai?</summary><p>Bảng hàng giai đoạn 3 ghi chủ đầu tư là Công ty Cổ phần Mega Assets. ERA Vietnam là đại lý phân phối dự án Capital Square.</p></details>
-      <details><summary>Tiện ích nội khu Capital Square có gì?</summary><p>Theo tài liệu chủ đầu tư, Capital Square có khối đế thương mại dịch vụ, phố mua sắm – ẩm thực, tuyến phố đi bộ, bar view sông, rooftop lounge, quảng trường với đài phun nước và cầu ánh sáng, cổng âm nhạc, sân khấu mini, vườn thư giãn, vườn yoga, bể bơi, khu vui chơi trẻ em và sân golf mini. Flyer giới thiệu hơn 88 tiện ích.</p></details>
+      <details><summary>Chủ đầu tư Capital Square là ai?</summary><p>Bảng hàng giai đoạn 3 ghi chủ đầu tư là Công ty TNHH Mega Assets và Công ty TNHH BĐS SIH. ERA Vietnam là đại lý phân phối dự án Capital Square.</p></details>
+      <details><summary>Tiện ích nội khu Capital Square có gì?</summary><p>Theo tài liệu chủ đầu tư, Capital Square có khối đế thương mại dịch vụ, phố mua sắm – ẩm thực, tuyến phố đi bộ, bar view sông, rooftop lounge, quảng trường với đài phun nước và cầu ánh sáng, cổng âm nhạc, sân khấu mini, vườn thư giãn, vườn yoga, bể bơi, khu vui chơi trẻ em và sân golf mini. Flyer giới thiệu 43 tiện ích.</p></details>
       <details><summary>Capital Square đã có bảng giá và chính sách bán hàng chưa?</summary><p>Trang này chưa đăng giá và chính sách bán hàng vì chưa có chính sách chính thức đi kèm bảng hàng. Giá bán của từng căn, phương thức thanh toán và ưu đãi do chủ đầu tư công bố theo từng đợt; liên hệ chuyên viên ERA Vietnam để nhận thông tin mới nhất.</p></details>
     </div>
   </div>
 </section>
 
-<!-- ======================= 10 · ĐĂNG KÝ / FINAL CTA (brief mục 11 — ảnh Đà Nẵng về đêm, flyer tr.1)
+<!-- ======================= 9 · ĐĂNG KÝ / FINAL CTA (brief mục 11 — ảnh Đà Nẵng về đêm, flyer tr.1)
      BẢN CÓ FORM: Họ tên | SĐT | Loại căn quan tâm -> LEAD_ENDPOINT. ======================= -->
 <section class="cta" id="dang-ky">
   <img src="assets/img/capital-square-da-nang-ve-dem-song-han-tu-tren-cao.webp" srcset="assets/img/capital-square-da-nang-ve-dem-song-han-tu-tren-cao-800.webp 800w, assets/img/capital-square-da-nang-ve-dem-song-han-tu-tren-cao.webp 1600w" width="1600" height="680" loading="lazy" decoding="async" sizes="100vw" alt="Trung tâm Đà Nẵng về đêm nhìn từ trên cao, dòng sông Hàn và các cây cầu (ảnh thực tế)">
