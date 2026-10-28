@@ -76,6 +76,7 @@ export function ApplyManageList({
   const canDelete = hasPermission("recruitment.jobs.all.delete");
   const canPublish = hasPermission("recruitment.jobs.all.publish");
   const showActionsColumn = canView || canUpdate || canDelete || canPublish;
+  const canOpenForm = canUpdate;
 
   return (
     <div className="space-y-5">
@@ -176,7 +177,8 @@ export function ApplyManageList({
                   return (
                     <tr
                       key={job.id ?? i}
-                      className="hover:bg-gray-100 transition-colors"
+                      className={`hover:bg-gray-100 transition-colors ${canOpenForm ? "cursor-pointer" : ""}`}
+                      onClick={() => canOpenForm && onEdit(job)}
                     >
                       <td className="px-5 py-4 text-gray-500 font-medium">
                         {(meta.page - 1) * meta.limit + i + 1}
@@ -203,7 +205,7 @@ export function ApplyManageList({
                       </td>
                       {showActionsColumn && (
                         <td className="px-5 py-4">
-                          <div className="flex items-center justify-end gap-1">
+                          <div className="flex items-center justify-end gap-1" onClick={(event) => event.stopPropagation()}>
                             {canPublish && onStatusChange && (
                               <>
                                 {job.status === "draft" && (
@@ -326,7 +328,11 @@ export function ApplyManageList({
           {jobs.map((job) => {
             const status = recruitmentStatusConfig[job.status];
             return (
-              <div key={job.id} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+              <div
+                key={job.id}
+                className={`rounded-xl border border-gray-200 bg-white p-4 shadow-sm ${canOpenForm ? "cursor-pointer" : ""}`}
+                onClick={() => canOpenForm && onEdit(job)}
+              >
                 <div className="mb-3 flex items-start justify-between gap-3">
                   <h3 className="line-clamp-2 font-semibold text-gray-900">{job.title}</h3>
                   <span
@@ -344,7 +350,7 @@ export function ApplyManageList({
                 </div>
 
                 {showActionsColumn && (
-                  <div className="mt-3 flex flex-wrap items-center gap-1 border-t border-gray-100 pt-2">
+                  <div className="mt-3 flex flex-wrap items-center gap-1 border-t border-gray-100 pt-2" onClick={(event) => event.stopPropagation()}>
                     {canPublish && onStatusChange && (
                       <>
                         {job.status === "draft" && (
