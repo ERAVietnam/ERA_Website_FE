@@ -341,7 +341,7 @@ function JobApplyForm({
     setErrors({});
     setIsSubmitting(true);
     try {
-      const uploaded = await mediaApi.uploadFile(cvFile!, "recruitment");
+      const uploaded = await mediaApi.uploadRecruitmentCv(cvFile!);
 
       await recruitmentApi.submitApplication({
         jobPostingId: targetJobPostingId!,
