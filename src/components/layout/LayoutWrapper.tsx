@@ -69,6 +69,8 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/thank-you-gladia-heights": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-gladia-by-the-water": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-gladia-by-the-water": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-elyse-island": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-elyse-island": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-hoiana-residences": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-hoiana-residences": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-gem-park": { header: false, footer: false, toTop: false, contentPadding: false },
