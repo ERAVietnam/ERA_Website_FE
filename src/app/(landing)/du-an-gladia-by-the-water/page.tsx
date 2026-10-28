@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "GLADIA BY THE WATER | Biet thu ven song Binh Trung | ERA",
-  description: "Khu biet thu ven song 11,8 ha, 226 san pham va 5 cong vien chu de. Dang ky nhan bang gia va mat bang tu ERA Vietnam.",
+  title: "GLADIA BY THE WATER | Biệt thự ven sông Bình Trưng | ERA",
+  description: "Khu biệt thự ven sông 11,8 ha, 226 sản phẩm và 5 công viên chủ đề. Đăng ký nhận bảng giá và mặt bằng ERA Vietnam.",
   alternates: { canonical: "https://era.com.vn/du-an-gladia-by-the-water/" },
   openGraph: {
-    title: "GLADIA BY THE WATER | Biet thu ven song Binh Trung",
-    description: "Khu biet thu ven song do Keppel va Khang Dien hop tac phat trien.",
+    title: "GLADIA BY THE WATER | Biệt thự ven sông Bình Trưng",
+    description: "Khu biệt thự ven sông do Keppel và Khang Điền hợp tác phát triển",
     type: "website",
     url: "https://era.com.vn/du-an-gladia-by-the-water/",
     images: [{
