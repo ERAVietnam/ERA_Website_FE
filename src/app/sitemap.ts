@@ -38,6 +38,7 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/du-an-skysolis/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-green-skyline/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-gladia-heights/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/du-an-gladia-by-the-water/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-diamond-sky/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-the-legend-da-nang/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-nobu-da-nang/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
