@@ -71,6 +71,7 @@ export function ApplicationsManageList({
   const canUpdate = hasPermission("recruitment.applications.all.update");
   const canDelete = hasPermission("recruitment.applications.all.delete");
   const showActionsColumn = canView || canUpdate || canDelete;
+  const canOpenForm = canView || canUpdate;
 
   const jobOptions = jobs.map((job) => ({ value: job.id, label: job.title }));
   const statusOptions = STATUS_OPTIONS.map((s) => ({ value: s.value, label: s.label }));
@@ -151,7 +152,11 @@ export function ApplicationsManageList({
             {items.map((item, index) => {
               const statusColor = STATUS_COLORS[item.status];
               return (
-                  <tr key={item.id} className="hover:bg-gray-50/40 transition-colors">
+                  <tr
+                    key={item.id}
+                    className={`hover:bg-gray-50/40 transition-colors ${canOpenForm ? "cursor-pointer" : ""}`}
+                    onClick={() => canOpenForm && onEdit(item)}
+                  >
                     <td className="px-5 py-4 text-gray-500 font-medium">{(meta.page - 1) * meta.limit + index + 1}</td>
                     <td className="px-5 py-4 font-semibold text-gray-900">{item.fullName}</td>
                     <td className="px-5 py-4 text-gray-600 whitespace-nowrap">{item.phone}</td>
@@ -169,12 +174,13 @@ export function ApplicationsManageList({
                     <td className="px-5 py-4 text-gray-600 whitespace-nowrap">{formatDateTime(item.appliedAt)}</td>
                     <td className="px-5 py-4">
                       {item.cvMedia ? (
-                        <a
+                          <a
                           href={item.cvMedia.url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700"
                           title={item.cvMedia.filename}
+                            onClick={(event) => event.stopPropagation()}
                         >
                           <FileText size={14} />
                           <span className="truncate max-w-[120px]">{item.cvMedia.filename}</span>
@@ -185,7 +191,7 @@ export function ApplicationsManageList({
                     </td>
                     {showActionsColumn && (
                       <td className="px-5 py-4">
-                        <div className="flex items-center justify-end gap-1">
+                        <div className="flex items-center justify-end gap-1" onClick={(event) => event.stopPropagation()}>
                           {(canView || canUpdate) && (
                             <Button
                               variant="ghost"
@@ -252,7 +258,11 @@ export function ApplicationsManageList({
           {items.map((item) => {
             const statusColor = STATUS_COLORS[item.status];
             return (
-              <div key={item.id} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+              <div
+                key={item.id}
+                className={`rounded-xl border border-gray-200 bg-white p-4 shadow-sm ${canOpenForm ? "cursor-pointer" : ""}`}
+                onClick={() => canOpenForm && onEdit(item)}
+              >
                 <div className="mb-3 flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h3 className="line-clamp-2 font-semibold text-gray-900">{item.fullName}</h3>
@@ -280,6 +290,7 @@ export function ApplicationsManageList({
                         rel="noopener noreferrer"
                         className="inline-flex max-w-full items-center gap-1.5 align-middle text-sm font-medium text-blue-600 hover:text-blue-700"
                         title={item.cvMedia.filename}
+                        onClick={(event) => event.stopPropagation()}
                       >
                         <FileText size={14} className="flex-shrink-0" />
                         <span className="truncate">{item.cvMedia.filename}</span>
@@ -291,7 +302,7 @@ export function ApplicationsManageList({
                 </div>
 
                 {showActionsColumn && (
-                  <div className="mt-3 flex flex-wrap items-center gap-1 border-t border-gray-100 pt-2">
+                  <div className="mt-3 flex flex-wrap items-center gap-1 border-t border-gray-100 pt-2" onClick={(event) => event.stopPropagation()}>
                     {(canView || canUpdate) && (
                       <Button
                         variant="ghost"
