@@ -45,6 +45,17 @@ export const mediaApi = {
       .then((res) => res.data);
   },
 
+  uploadRecruitmentCv: (file: File) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return apiClient
+      .post<UploadMediaResponse>(ENDPOINTS.MEDIA.PUBLIC_RECRUITMENT_CV, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then((res) => res.data);
+  },
+
   deleteMedia: (id: string) =>
     apiClient.delete<void>(ENDPOINTS.MEDIA.DELETE(id)).then((res) => res.data),
 

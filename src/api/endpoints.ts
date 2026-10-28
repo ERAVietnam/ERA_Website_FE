@@ -21,6 +21,7 @@ export const ENDPOINTS = {
   },
   MEDIA: {
     UPLOAD: '/media/upload',
+    PUBLIC_RECRUITMENT_CV: '/media/public-recruitment-cv',
     DELETE: (id: string) => `/media/${id}`,
     LIST: '/media',
   },
