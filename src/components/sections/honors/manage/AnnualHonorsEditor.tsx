@@ -18,6 +18,9 @@ interface AnnualHonorsEditorProps {
   onAddAgent: (agentId: string) => void;
   onRemoveAgent: (agentId: string) => void;
   onMoveAgent: (agentId: string, direction: -1 | 1) => void;
+  isSystemDivision?: boolean;
+  divisionNames?: Record<string, string>;
+  onDivisionNameChange?: (agentId: string, value: string) => void;
 }
 
 export function AnnualHonorsEditor({
@@ -34,6 +37,9 @@ export function AnnualHonorsEditor({
   onAddAgent,
   onRemoveAgent,
   onMoveAgent,
+  isSystemDivision = false,
+  divisionNames = {},
+  onDivisionNameChange,
 }: AnnualHonorsEditorProps) {
   return (
     <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
@@ -129,7 +135,18 @@ export function AnnualHonorsEditor({
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold text-gray-500 shadow-sm">
                   {index + 1}
                 </span>
-                <AgentInline agent={agent} />
+                <div className="min-w-0 flex-1">
+                  <AgentInline agent={agent} />
+                  {isSystemDivision && (
+                    <input
+                      value={divisionNames[agent.id] ?? ""}
+                      onChange={(event) => onDivisionNameChange?.(agent.id, event.target.value)}
+                      placeholder="Tên division"
+                      disabled={!canUpdate}
+                      className="mt-1 w-full rounded border border-gray-200 bg-white px-2 py-1 text-xs text-gray-700 outline-none focus:border-gray-400 disabled:bg-gray-100"
+                    />
+                  )}
+                </div>
               </div>
 
               <div className="flex shrink-0 items-center gap-1">

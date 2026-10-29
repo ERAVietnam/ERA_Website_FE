@@ -60,6 +60,7 @@ export default function HonorsManagePage() {
   const [selectedSlug, setSelectedSlug] = useState("");
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [agentSearch, setAgentSearch] = useState("");
+  const [divisionNames, setDivisionNames] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [annualEditing, setAnnualEditing] = useState<AnnualHonorList | null>(null);
   const [showAnnualForm, setShowAnnualForm] = useState(false);
@@ -237,6 +238,27 @@ export default function HonorsManagePage() {
     return () => window.clearTimeout(timer);
   }, [handleApiError, monthlyForm.agentSearch, showMonthlyForm, viewMode]);
 
+  useEffect(() => {
+    if (viewMode !== "system") return;
+
+    const search = agentSearch.trim() || undefined;
+    const timer = window.setTimeout(() => {
+      agentsApi
+        .getAgents({ page: 1, limit: 100, search })
+        .then((agentData) => {
+          setAgents((currentAgents) => {
+            const map = new Map(currentAgents.map((agent) => [agent.id, agent]));
+            agentData.items.forEach((agent) => map.set(agent.id, agent));
+            systemCategory?.agents.forEach((agent) => map.set(agent.id, agent));
+            return [...map.values()];
+          });
+        })
+        .catch((err) => handleApiError(err));
+    }, 300);
+
+    return () => window.clearTimeout(timer);
+  }, [agentSearch, handleApiError, systemCategory, viewMode]);
+
   const handleCategoryChange = (slug: string) => {
     const category =
       viewMode === "annual" && annualEditing
@@ -273,6 +295,11 @@ export default function HonorsManagePage() {
       setViewMode("system");
       setSelectedSlug(SYSTEM_DIVISION_SLUG);
       setSelectedIds(systemCategory?.agents.map((agent) => agent.id) ?? []);
+      setDivisionNames(
+        Object.fromEntries(
+          (systemCategory?.agents ?? []).map((agent) => [agent.id, agent.divisionName ?? ""]),
+        ),
+      );
       return;
     }
 
@@ -343,6 +370,7 @@ export default function HonorsManagePage() {
         const updated = await honorsApi.updateCategoryAgents(
           selectedSlug,
           selectedIds,
+          viewMode === "system" ? divisionNames : undefined,
         );
         setCategories((prev) =>
           prev.map((category) =>
@@ -350,6 +378,13 @@ export default function HonorsManagePage() {
           ),
         );
         setSelectedIds(updated.agents.map((agent) => agent.id));
+        if (viewMode === "system") {
+          setDivisionNames(
+            Object.fromEntries(
+              updated.agents.map((agent) => [agent.id, agent.divisionName ?? ""]),
+            ),
+          );
+        }
       }
       showSuccess("Cập nhật danh sách thành công!");
     } catch (err) {
@@ -1215,6 +1250,11 @@ export default function HonorsManagePage() {
             onAddAgent={addAgent}
             onRemoveAgent={removeAgent}
             onMoveAgent={moveAgent}
+              isSystemDivision
+              divisionNames={divisionNames}
+              onDivisionNameChange={(agentId, value) =>
+                setDivisionNames((prev) => ({ ...prev, [agentId]: value }))
+              }
           />
         )}
       </div>
