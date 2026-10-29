@@ -8,19 +8,6 @@ import { honorsApi } from "@/api/domains/honors";
 import type { HonorAgent } from "@/types/api";
 
 const DIVISIONS_SLUG = "he-thong-divisions-tai-era-vietnam";
-const DIVISION_TEAM_NAMES = [
-  "Elite Group",
-  "Galaxy Group",
-  "Legend Group",
-  "Universe Group",
-  "Ability Division",
-  "AEM Division",
-  "Happy Plus Division",
-  "Heli Division",
-  "Mercury Division",
-  "SUN Division",
-  "Tara Division",
-];
 
 export default function AboutERAVNDivisionsSection() {
   const [divisions, setDivisions] = useState<HonorAgent[]>([]);
@@ -52,9 +39,7 @@ export default function AboutERAVNDivisionsSection() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 mt-12">
-          {divisions.map((person, index) => {
-            const teamName = DIVISION_TEAM_NAMES[index] ?? "";
-
+          {divisions.map((person) => {
             return (
             <div key={person.id} className="text-center group cursor-pointer">
               <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden border-4 border-white shadow-md transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl group-hover:border-gray-100">
@@ -71,9 +56,9 @@ export default function AboutERAVNDivisionsSection() {
               <h4 className="mt-3 font-semibold text-base transition-colors duration-200 group-hover:text-red-700" style={{ color: colors.primary.DEFAULT }}>
                 {person.name}
               </h4>
-              {teamName && (
+              {person.divisionName && (
                 <p className="text-sm font-semibold transition-colors duration-200" style={{ color: colors.primary.navy.DEFAULT }}>
-                  {teamName}
+                  {person.divisionName}
                 </p>
               )}
             </div>

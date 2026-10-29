@@ -12,8 +12,15 @@ export const honorsApi = {
   getCategory: (slug: string) =>
     apiClient.get<HonorCategory>(ENDPOINTS.HONORS.CATEGORY(slug)).then((res) => res.data),
 
-  updateCategoryAgents: (slug: string, agentIds: string[]) =>
+  updateCategoryAgents: (
+    slug: string,
+    agentIds: string[],
+    divisionNames?: Record<string, string>,
+  ) =>
     apiClient
-      .patch<HonorCategory>(ENDPOINTS.HONORS.CATEGORY_AGENTS(slug), { agentIds })
+      .patch<HonorCategory>(ENDPOINTS.HONORS.CATEGORY_AGENTS(slug), {
+        agentIds,
+        ...(divisionNames ? { divisionNames } : {}),
+      })
       .then((res) => res.data),
 };

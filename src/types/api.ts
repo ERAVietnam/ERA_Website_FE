@@ -413,6 +413,7 @@ export type UpdateAcademyCourseTagInput = Partial<CreateAcademyCourseTagInput>;
 
 export interface HonorAgent extends Agent {
   position: number;
+  divisionName?: string | null;
 }
 
 export interface HonorCategory {
