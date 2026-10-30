@@ -2,7 +2,7 @@
 
 > LA Home là khu đô thị sinh thái quy mô 100 ha tại xã Lương Hòa, Bến Lức (trước 1/7/2025 thuộc tỉnh Long An, nay thuộc tỉnh Tây Ninh) – cửa ngõ Tây Nam TP.HCM, trên trục đường Lương Hòa – Bình Chánh và ĐT830. Chủ đầu tư Công ty Cổ phần Prodezi Long An, đơn vị phát triển Hướng Việt (HVH), tổng thầu Coteccons. Gồm 6 phân khu nhà phố liên kế, biệt thự ven kênh, nhà phố và biệt thự thương mại, đan xen 7 con kênh tự nhiên và công viên trung tâm 2,2 ha. Trang do ERA Vietnam (đại lý phân phối chính thức) biên soạn từ brochure và website chính thức của chủ đầu tư.
 
-Trang chính: https://lahome-dang-ky-era.vercel.app/
+Trang chính: https://era.com.vn/du-an-la-home/
 
 ## Thông tin chính
 - Tên: LA Home – Khu đô thị sinh thái

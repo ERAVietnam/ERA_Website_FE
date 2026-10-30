@@ -2,7 +2,7 @@
 
 > The NEST là dự án căn hộ trong khu đô thị MIDORI PARK, Lô H5 & H7, phường Bình Dương, TP. Hồ Chí Minh, do Becamex Tokyu (liên doanh Becamex IDC × Tập đoàn Tokyu, Nhật Bản) phát triển. Trang do ERA Vietnam (đại lý phân phối) biên soạn từ brochure The NEST của chủ đầu tư (24 trang) và trang chính thức midoripark-thenest.com.
 
-Trang chính: https://the-nest-dang-ky-era.vercel.app/
+Trang chính: https://era.com.vn/du-an-the-nest/
 
 ## Thông tin chính
 - Tên: MIDORI PARK The NEST – thông điệp "Seeds of Happiness – Gieo mầm hạnh phúc"

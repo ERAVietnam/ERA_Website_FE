@@ -2,7 +2,7 @@
 
 > Gem Park là khu căn hộ 4 tòa tháp Diamond A, Diamond B, Sapphire, Ruby do N.H.O (Công ty Cổ phần Tổ chức Nhà Quốc gia) phát triển tại Khu đô thị mới 2A, phường Hồng Bàng, TP. Hải Phòng (trước đây phường Sở Dầu, quận Hồng Bàng), kiến trúc tân cổ điển với phố Hàn Hi Avenue trong nội khu. Chủ đầu tư: Công ty Cổ phần Đầu tư Pacific. Trang do ERA Vietnam (đại lý phân phối) biên soạn từ tài liệu chủ đầu tư (leaflet, tài liệu hỏi đáp 78 câu, bản vẽ mặt bằng).
 
-Trang chính: https://gem-park-dang-ky-era.vercel.app/
+Trang chính: https://era.com.vn/du-an-gem-park/
 
 ## Thông tin chính
 - Vị trí: Khu đô thị mới 2A, phường Hồng Bàng, TP. Hải Phòng; giữa sông Rế và sông Cấm, cạnh Mega Market Hồng Bàng, gần trục Hồng Bàng

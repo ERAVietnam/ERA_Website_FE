@@ -2,7 +2,7 @@
 
 > Arcadia at Lavila là phân khu căn hộ cao tầng đầu tiên của khu đô thị Lavila 60 ha trên trục Nguyễn Hữu Thọ, xã Nhà Bè, TP.HCM, do liên doanh Groupe PierreVal (Pháp) và Kiến Á Group phát triển. Trang do ERA Vietnam (đại lý phân phối chính thức) biên soạn từ leaflet, brand guideline và web chính thức của chủ đầu tư (arcadia.com.vn).
 
-Trang chính: https://arcadia-dang-ky-era.vercel.app/
+Trang chính: https://era.com.vn/du-an-arcadia-at-lavila/
 
 ## Thông tin chính
 - Tên dự án: Arcadia at Lavila – "The First Residential With A True French Touch"

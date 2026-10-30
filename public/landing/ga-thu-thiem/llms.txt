@@ -2,7 +2,7 @@
 
 > Khu đô thị phức hợp Ga Thủ Thiêm là ý tưởng phát triển đô thị gắn với nhà ga Thủ Thiêm, gần nút giao An Phú, TP. Hồ Chí Minh – nơi quy hoạch giao nhau của tuyến Metro số 2, đường sắt Thủ Thiêm – Long Thành và đường sắt tốc độ cao Bắc – Nam. Dự án định hướng mô hình TOD 5.0, do SonKim Land (nhà phát triển The Metropole Thủ Thiêm) phát triển, NIKKEN (Nhật Bản) tư vấn thiết kế quy hoạch và kiến trúc. Dự án đang ở giai đoạn ý tưởng. Trang do ERA Vietnam (đại lý phân phối) biên soạn từ tài liệu chủ đầu tư.
 
-Trang chính: https://ga-thu-thiem-dang-ky-era.vercel.app/
+Trang chính: https://era.com.vn/du-an-ga-thu-thiem/
 
 ## Thông tin chính
 - Vị trí: khu vực nhà ga Thủ Thiêm theo quy hoạch, gần nút giao An Phú, TP. Hồ Chí Minh

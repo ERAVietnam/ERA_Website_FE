@@ -2,7 +2,7 @@
 
 > The Gió Riverside (Khu dân cư Ngãi Thắng) là dự án căn hộ kết hợp thương mại – dịch vụ của Tập đoàn An Gia, quy mô khoảng 3,1 ha với 4 mặt tiền đường tại Quốc lộ 1A – Xa lộ Hà Nội, phường Đông Hòa, TP.HCM (trước đây phường Bình Thắng, TP. Dĩ An, Bình Dương). Trang do ERA Vietnam (đại lý phân phối chính thức) biên soạn từ brief dự án, brochure, leaflet và phim của chủ đầu tư.
 
-Trang chính: https://the-gio-riverside-era.vercel.app/
+Trang chính: https://era.com.vn/du-an-the-gio-riverside-static/
 
 ## Thông tin chính
 - Tên thương mại: The Gió Riverside · tên pháp lý: Khu dân cư Ngãi Thắng
