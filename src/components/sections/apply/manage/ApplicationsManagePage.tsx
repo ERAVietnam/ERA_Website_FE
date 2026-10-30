@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { Section } from "@/components/ui/Section";
 import { ApplicationsManageList } from "./ApplicationsManageList";
 import { ApplicationsManageForm } from "./ApplicationsManageForm";
@@ -28,6 +28,7 @@ export default function ApplicationsManagePage() {
   const [statusFilter, setStatusFilter] = useState("");
   const [editing, setEditing] = useState<JobApplication | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const openedFromUrlRef = useRef<string | null>(null);
   const { popup, showSuccess, showError, closePopup } = usePopupNotification();
   const { showNetworkError, handleApiError } = useApiErrorHandler(showError);
   const {
@@ -88,6 +89,28 @@ export default function ApplicationsManagePage() {
       });
     });
   }, [statusFilter, setFilters]);
+
+  useEffect(() => {
+    const applicationId = new URLSearchParams(window.location.search).get("id");
+    if (!applicationId || loading || openedFromUrlRef.current === applicationId) return;
+
+    const openApplication = (application: JobApplication) => {
+      openedFromUrlRef.current = applicationId;
+      setEditing(application);
+      setShowForm(true);
+    };
+
+    const listedApplication = items.find((item) => item.id === applicationId);
+    if (listedApplication) {
+      openApplication(listedApplication);
+      return;
+    }
+
+    recruitmentApi
+      .getApplicationById(applicationId)
+      .then(openApplication)
+      .catch((err: unknown) => handleApiError(err));
+  }, [items, loading, handleApiError]);
 
   const handleEdit = (item: JobApplication) => {
     setEditing(item);
