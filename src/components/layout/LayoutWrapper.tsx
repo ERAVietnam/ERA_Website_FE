@@ -248,14 +248,17 @@ export function LayoutWrapper({
 
   useEffect(() => {
     const favicon = landingFaviconByRoute[normalized] ?? landingThankYouFaviconByRoute[normalized] ?? "/favicon.ico";
-    let link = document.head.querySelector<HTMLLinkElement>('link[data-era-favicon="true"]');
+    let link = document.head.querySelector<HTMLLinkElement>('link[rel="icon"]');
     if (!link) {
       link = document.createElement("link");
       link.rel = "icon";
-      link.dataset.eraFavicon = "true";
       document.head.appendChild(link);
     }
+    link.dataset.eraFavicon = "true";
     link.href = favicon;
+    document.head.querySelectorAll<HTMLLinkElement>('link[rel="icon"]').forEach((candidate) => {
+      if (candidate !== link) candidate.remove();
+    });
   }, [normalized]);
 
   const isAdmin = isAdminPath(pathname);

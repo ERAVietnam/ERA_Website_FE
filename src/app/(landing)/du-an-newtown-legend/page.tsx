@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/landing/newtown-legend/assets/img/newtown-legend-official-favicon.png",
+  },
   title: "Newtown Legend Đà Nẵng – Biệt thự sân golf đường Trường Sa | ERA",
   description:
     "Newtown Legend – A Golf Villas Park: biệt thự và nhà liền kề sở hữu lâu dài bên sân golf Legend Danang, đường Trường Sa, Ngũ Hành Sơn, Đà Nẵng.",
