@@ -127,6 +127,20 @@
       if (!mo && el.getBoundingClientRect().top < 0) el.scrollIntoView({ block: 'start' });
     });
   });
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest ? e.target.closest('[data-gallery] .gallery-tile') : null;
+    if (!el) return;
+    var i = $('img', el);
+    if (i) moLb(i.currentSrc || i.src, '', el);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var el = e.target.closest ? e.target.closest('[data-gallery] .gallery-tile') : null;
+    if (!el) return;
+    e.preventDefault();
+    var i = $('img', el);
+    if (i) moLb(i.currentSrc || i.src, '', el);
+  });
 
   /* ---------- hiện dần khi cuộn tới ---------- */
   var rv = $$('.rv');
@@ -261,7 +275,53 @@ document.querySelectorAll('[data-tung-tu]').forEach(el => nhin.observe(el));
 
 })();
 
-document.querySelectorAll('[data-gallery]').forEach(function(g){var fs=Array.from(g.querySelectorAll('.gallery-item')),i=0;function show(n){i=(n+fs.length)%fs.length;fs.forEach(function(f,k){f.hidden=k!==i});g.querySelector('output').textContent=String(i+1).padStart(2,'0')+' / '+fs.length}g.querySelector('[data-next]').addEventListener('click',function(){show(i+1)});g.querySelector('[data-prev]').addEventListener('click',function(){show(i-1)})});
+document.querySelectorAll('[data-gallery]').forEach(function(g){
+  var originals=Array.from(g.querySelectorAll(':scope > .gallery-item'));
+  var extra=document.createElement('figure');
+  extra.className='gallery-item gallery-extra';
+  extra.innerHTML='<img src="assets/img/gladia-by-the-water-gallery-new-13.webp" width="800" height="533" alt="" loading="lazy" decoding="async">';
+  originals.push(extra);
+  var groups=[[0,1,2,3,10],[4,5,7,12,11],[6],[8],[9]], slides=[], collageCount=0;
+  groups.forEach(function(group,slideIndex){
+    var slide=document.createElement('div');
+    var isSingle=group.length===1;
+    if(!isSingle)collageCount++;
+    slide.className='gallery-item gallery-slide gallery-slide-'+(slideIndex+1)+(isSingle?' gallery-single gallery-ratio-'+(group[0]+1):' gallery-collage gallery-collage-'+collageCount);
+    group.forEach(function(index){
+      var tile=originals[index];
+      if(!tile)return;
+      tile.hidden=false;
+      tile.className='gallery-tile'+(tile===extra?' gallery-extra':'');
+      tile.setAttribute('tabindex','0');
+      tile.setAttribute('role','button');
+      var caption=tile.querySelector('figcaption');
+      if(caption)caption.remove();
+      slide.appendChild(tile);
+    });
+    g.appendChild(slide);
+    slides.push(slide);
+  });
+  var style=document.createElement('style');
+  style.textContent=''
+    +'.gallery-slide{display:grid;grid-template-columns:1fr;grid-template-rows:1fr;aspect-ratio:7/4;overflow:hidden;margin:0}'
+    +'.gallery-collage{grid-template-columns:repeat(2,minmax(0,1fr)) 1.5fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:4px}'
+    +'.gallery-collage-2{grid-template-columns:repeat(2,minmax(0,1fr)) 1.634fr}'
+    +'.gallery-collage .gallery-tile:nth-child(1){grid-column:1;grid-row:1}.gallery-collage .gallery-tile:nth-child(2){grid-column:2;grid-row:1}.gallery-collage .gallery-tile:nth-child(3){grid-column:1;grid-row:2}.gallery-collage .gallery-tile:nth-child(4){grid-column:2;grid-row:2}.gallery-collage .gallery-tile:last-child{grid-column:3;grid-row:1/span 2}'
+    +'.gallery-collage-2{grid-template-columns:1.634fr repeat(2,minmax(0,1fr))}.gallery-collage-2 .gallery-tile:nth-child(1){grid-column:2;grid-row:1}.gallery-collage-2 .gallery-tile:nth-child(2){grid-column:3;grid-row:1}.gallery-collage-2 .gallery-tile:nth-child(3){grid-column:2;grid-row:2}.gallery-collage-2 .gallery-tile:nth-child(4){grid-column:3;grid-row:2}.gallery-collage-2 .gallery-tile:last-child{grid-column:1;grid-row:1/span 2}'
+    +'.gallery-single .gallery-tile img{object-fit:cover}.gallery-ratio-7 img{object-position:center bottom}.gallery-ratio-9 img{object-position:center center}.gallery-ratio-10 img{object-position:center top}'
+    +'.gallery-slide[hidden]{display:none}'
+    +'.gallery-tile{display:flex;min-width:0;min-height:0;align-items:center;justify-content:center;overflow:hidden;margin:0;background:transparent}'
+    +'.gallery-tile{cursor:zoom-in}.gallery-tile img{display:block;width:100%;height:100%;aspect-ratio:auto;object-fit:contain;background:transparent;transition:transform .35s ease}.gallery-tile:hover img,.gallery-tile:focus-visible img{transform:scale(1.04)}'
+    +'.gallery-collage .gallery-tile img{object-fit:cover;object-position:center}'
+    +'.gallery-collage .gallery-extra img{object-position:left center}'
+    +'@media(max-width:760px){.gallery-controls output{min-width:58px}}';
+  document.head.appendChild(style);
+  var fs=slides,i=0;
+  function show(n){i=(n+fs.length)%fs.length;fs.forEach(function(f,k){f.hidden=k!==i});g.querySelector('output').textContent=String(i+1).padStart(2,'0')+' / '+fs.length}
+  g.querySelector('[data-next]').addEventListener('click',function(){show(i+1)});
+  g.querySelector('[data-prev]').addEventListener('click',function(){show(i-1)});
+  show(0);
+});
 document.querySelectorAll('[role="tablist"]').forEach(function(l){var ts=Array.from(l.querySelectorAll('[role="tab"]'));l.addEventListener('keydown',function(e){var i=ts.indexOf(document.activeElement);if(i<0)return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();var t=ts[(i+(e.key==='ArrowRight'?1:-1)+ts.length)%ts.length];t.focus();t.click()}})});
 document.querySelectorAll('.faq details').forEach(function(d){d.addEventListener('toggle',function(){if(d.open)document.querySelectorAll('.faq details').forEach(function(x){if(x!==d)x.open=false})})});
 
