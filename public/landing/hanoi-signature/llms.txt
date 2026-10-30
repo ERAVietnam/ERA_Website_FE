@@ -2,7 +2,7 @@
 
 > Hanoi Signature by Swiss-Belhotel là tòa căn hộ hạng sang 32 tầng nổi, 4 tầng hầm tại số 6 Nguyễn Văn Huyên, phường Nghĩa Đô, Hà Nội, liền kề Bảo tàng Dân tộc học Việt Nam, hồ Nghĩa Tân và công viên Nghĩa Đô, nhìn ra Hồ Tây. Tòa nhà gồm 242 căn hộ 2 – 3 phòng ngủ và penthouse, do Tân Hoàng Minh phát triển, Swiss-Belhotel International tư vấn quản lý vận hành; đã nghiệm thu đưa vào sử dụng từ tháng 6/2025. Trang do ERA Vietnam (đại lý phân phối) biên soạn từ tài liệu chủ đầu tư (tài liệu đào tạo đại lý, cẩm nang kinh doanh, web hanoisignature.vn).
 
-Trang chính: https://hanoi-signature-dang-ky-era.vercel.app/
+Trang chính: https://era.com.vn/du-an-hanoi-signature/
 
 ## Thông tin chính
 - Tên: Hanoi Signature by Swiss-Belhotel

@@ -1,6 +1,6 @@
 # GLADIA BY THE WATER
 > Trang thông tin dự án do ERA Vietnam giới thiệu. Bản xem thử chưa lập chỉ mục.
-- Trang: https://gladia-by-the-water-dang-ky-era.vercel.app/
+- Trang: https://era.com.vn/du-an-gladia-by-the-water/
 - Vị trí: Đường Võ Chí Công, phường Bình Trưng, TP. Hồ Chí Minh.
 - Hợp tác phát triển: Keppel và Khang Điền.
 - Quy mô: 11,8 ha; khu thấp tầng gồm 3 phân khu, 226 sản phẩm.

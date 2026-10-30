@@ -9,20 +9,20 @@
 <meta name="keywords" content="Masteri Cosmo Central, căn hộ Masteri Cosmo Central, Masteri The Global City, Phân khu Nexus, Masterise Homes, căn hộ Bình Trưng, căn hộ Đỗ Xuân Hợp, The Global City, Masteri Collection">
 <!-- ⚠️ BẢN XEM THỬ — đang chặn Google vì còn tên miền tạm. Landing cho SALE: không form, không hotline.
      Có tên miền thật thì chạy: python _kiemtra/len-song.py https://<ten-mien> --mo-index -->
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1F4B92">
 <meta name="author" content="ERA Vietnam">
 
 <!-- BẢN CÓ FORM — sinh tự động bởi _dungcu/tao-ban-co-form.py từ landing/ (bản không form). KHÔNG sửa tay file này.
      ⚠️ TÊN MIỀN TẠM (vercel). len-song-co-form.py tự đổi mọi chỗ + sitemap + robots -->
-<link rel="canonical" href="https://masteri-cosmo-central-dang-ky-era.vercel.app/">
+<link rel="canonical" href="https://era.com.vn/du-an-masteri-cosmo-central/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="vi_VN">
 <meta property="og:site_name" content="ERA Vietnam">
-<meta property="og:url" content="https://masteri-cosmo-central-dang-ky-era.vercel.app/">
+<meta property="og:url" content="https://era.com.vn/du-an-masteri-cosmo-central/">
 <meta property="og:title" content="Masteri Cosmo Central – Căn hộ trái tim The Global City, TP.HCM">
 <meta property="og:description" content="Nơi nhịp đập đô thị cộng hưởng đa phương: 6 tòa tháp Masteri Collection tại lõi The Global City, 1 phút đi bộ tới kênh đào nhạc nước, 5 phút tới TTTM 123.000 m².">
-<meta property="og:image" content="https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/og-masteri-cosmo-central-1200x630.jpg">
+<meta property="og:image" content="https://era.com.vn/landing/masteri-cosmo-central/assets/img/og-masteri-cosmo-central-1200x630.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -31,7 +31,7 @@
 <meta name="twitter:image:alt" content="Masteri Cosmo Central – căn hộ tại trung tâm The Global City, TP.HCM">
 <meta name="twitter:title" content="Masteri Cosmo Central – Căn hộ trái tim The Global City, TP.HCM">
 <meta name="twitter:description" content="Nơi nhịp đập đô thị cộng hưởng đa phương: 6 tòa tháp Masteri Collection tại lõi The Global City, 1 phút đi bộ tới kênh đào nhạc nước, 5 phút tới TTTM 123.000 m².">
-<meta name="twitter:image" content="https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/og-masteri-cosmo-central-1200x630.jpg">
+<meta name="twitter:image" content="https://era.com.vn/landing/masteri-cosmo-central/assets/img/og-masteri-cosmo-central-1200x630.jpg">
 
 <!-- GEO: toạ độ GẦN ĐÚNG = khu The Global City, đường Đỗ Xuân Hợp, phường Bình Trưng (tài liệu CĐT chỉ ghi địa chỉ, chưa có toạ độ dự án).
      JSON-LD không ghi toạ độ để không khẳng định sai vị trí. -->
@@ -40,9 +40,9 @@
 <meta name="geo.position" content="10.7880;106.7725">
 <meta name="ICBM" content="10.7880, 106.7725">
 
-<link rel="icon" href="assets/img/masteri-cosmo-central-official-favicon.png" type="image/png">
+<link rel="icon" type="image/png" href="assets/img/masteri-cosmo-central-official-favicon.png">
 <!-- Font: Josefin Sans (tiêu đề, thay LC-Masteri Light của brochure CĐT) + Be Vietnam Pro (chữ thường), tự host. Không preload font: hero là LCP -->
-<link rel="preload" as="image" href="assets/img/masteri-cosmo-central-the-global-city-binh-trung.webp" imagesrcset="assets/img/masteri-cosmo-central-the-global-city-binh-trung-1080.webp 1080w, assets/img/masteri-cosmo-central-the-global-city-binh-trung-1440.webp 1440w, assets/img/masteri-cosmo-central-the-global-city-binh-trung.webp 1920w" imagesizes="(max-width:760px) 1080px, 100vw" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao.webp" imagesrcset="assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao-1080.webp 1080w, assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao-1440.webp 1440w, assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao.webp 1920w" imagesizes="(max-width:760px) 1080px, 100vw" fetchpriority="high">
 <link rel="stylesheet" href="assets/fonts/fonts.css?v=81978693">
 
 <style>
@@ -142,19 +142,17 @@ h3{margin:0;font-weight:600}
   .hdr.open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 }
 
-/* ---------- 1 · HERO — HIỆU ỨNG H1 "CHỮ KẸP SAU TÒA NHÀ" (mẫu projects/template/hieu-ung/04-mo-man-chieu-sau, học từ 11tanjung;
-   mã chạy thật ở The Win City, Setia Edenia, Arcadia). 2 lớp ảnh cùng 1 khung: nền (phối cảnh CĐT 3 tháp lúc chạng vạng, đã xoá logo in sẵn)
-   · tháp đã xoá trời (_dungcu/tach-troi-hero.py). Chữ COSMO CENTRAL nằm GIỮA 2 lớp, tâm chữ ngay trên mái (mái đo trên mặt nạ: tháp giữa
-   24–27 %, tháp phải 30 % chiều cao khung; tháp trái 14 % đứng ngoài chữ) → mái tháp giữa che nửa dưới chữ, mái tháp phải chạm chân chữ.
-   Khung giữ đúng tỉ lệ ảnh (2500:1322) và phủ kín màn như object-fit:cover, neo 34 % chiều cao. Lăn: chữ thu 0,9 và trượt lên, khung ảnh trôi
-   chậm xuống (biến --p do JS ghi). Không ghim, không màn tải. Không JS / "giảm chuyển động": đứng yên, chữ + ảnh hiện ngay (LCP = ảnh nền). ---------- */
+/* ---------- 1 · HERO — H1 chữ kẹp sau tòa nhà.
+   Phối cảnh hoàng hôn nhân viên cung cấp; hai lớp dùng cùng ảnh để khớp tuyệt đối.
+   Lớp trước cắt theo đường mái ảnh mới và dùng lại ảnh nền đã tải.
+   Khung đúng tỷ lệ WebP 1920:1010; giảm chuyển động giữ trạng thái tĩnh. ---------- */
 .hero{position:relative;background:var(--xanh-dem);background-image:var(--nen-toi);color:#fff;--p:0}
 .hero-san{position:relative;height:max(calc(100svh - var(--hdr)),640px);overflow:hidden}
 .hero-hinh{position:absolute;inset:0;overflow:hidden;container-type:size;background:#B4B3CC}
-.hero-khung{position:absolute;left:50%;top:34%;width:max(100cqw,189.1cqh);aspect-ratio:2500/1322;container-type:inline-size;
+.hero-khung{position:absolute;left:50%;top:34%;width:max(100cqw,190.1cqh);aspect-ratio:1920/1010;container-type:inline-size;
   transform:translate(-50%,-34%) translateY(calc(var(--p) * 9%));transition:transform .6s cubic-bezier(.22,1,.36,1)}
 .hero-khung img{position:absolute;inset:0;width:100%;height:100%}
-.hero-khung .truoc{z-index:3;pointer-events:none}
+.hero-khung .truoc{z-index:3;pointer-events:none;clip-path:polygon(0.000% 55.133%,36.950% 55.133%,36.950% 40.970%,38.400% 40.779%,38.550% 41.350%,40.000% 41.255%,40.000% 42.776%,42.500% 42.776%,42.500% 35.456%,43.950% 35.171%,44.050% 35.646%,47.150% 36.122%,47.500% 35.551%,48.300% 35.837%,48.400% 36.502%,50.900% 36.787%,51.000% 36.217%,52.000% 36.027%,52.150% 36.122%,59.050% 36.977%,59.150% 45.627%,60.300% 45.627%,60.300% 32.985%,61.050% 32.795%,61.050% 25.856%,62.450% 25.665%,62.450% 23.289%,63.100% 23.194%,63.100% 20.817%,65.050% 20.532%,65.500% 23.194%,65.600% 24.430%,65.800% 24.430%,65.800% 23.764%,66.100% 23.764%,66.100% 21.768%,66.900% 21.578%,66.900% 20.532%,69.250% 20.152%,69.350% 25.856%,69.600% 26.331%,69.600% 33.080%,72.850% 32.319%,72.900% 33.080%,77.200% 33.080%,77.300% 32.414%,78.700% 32.605%,78.700% 33.555%,80.400% 33.840%,80.400% 35.646%,81.700% 35.932%,81.850% 55.133%,100.000% 55.133%,100.000% 100.000%,0.000% 100.000%)}
 /* lớp tháp nạp SAU khi trang tải xong (không tranh băng thông với ảnh LCP); tới lúc đó tên lớn ẩn để không đè lên tháp.
    Không JS: không có lớp tháp, tên lớn hiện thẳng trên ảnh. */
 .hero-khung .truoc:not(.da-nap){visibility:hidden}
@@ -190,7 +188,7 @@ h3{margin:0;font-weight:600}
 @media (max-width:760px){
   .hero-san{height:auto}
   .hero-hinh{position:relative;inset:auto;height:min(60svh,520px);min-height:420px}
-  .hero-khung{top:44%;transform:translate(-50%,-44%) translateY(calc(var(--p) * 9%))}
+  .hero-khung{left:35%;top:44%;transform:translate(-50%,-44%) translateY(calc(var(--p) * 9%))}
   .ten-lon{top:25.6%;font-size:3.5cqw;letter-spacing:.06em;text-indent:.06em}
   .hero-toi{height:26%;background:linear-gradient(to bottom,rgba(14,37,71,0) 0%,rgba(14,37,71,.95) 100%)}
   .hero-chu{position:relative;display:block;padding:4px 22px 40px}
@@ -325,7 +323,7 @@ h3{margin:0;font-weight:600}
 .ch-luoi span strong{font-weight:600;color:var(--ink)}
 .mb-tabs{margin-bottom:16px}
 .mb-hinh{margin:0;background:#fff;border:1px solid var(--line);cursor:zoom-in}
-.mb-hinh img{width:100%}
+.mb-hinh img{width:100%;aspect-ratio:auto;object-fit:contain}
 .mb-hinh figcaption{font-size:13px;color:var(--muted);padding:10px 12px;border-top:1px solid var(--line)}
 .ghi{margin:14px 0 0;font-size:13.5px;line-height:1.65;color:var(--muted)}
 .nt{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(10px,1.4vw,18px);margin:clamp(36px,4vw,56px) 0 0}
@@ -519,8 +517,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
     },
     {
       "@type": "WebSite",
-      "@id": "https://masteri-cosmo-central-dang-ky-era.vercel.app/#website",
-      "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/",
+      "@id": "https://era.com.vn/#website",
+      "url": "https://era.com.vn/du-an-masteri-cosmo-central/",
       "name": "Masteri Cosmo Central – Căn hộ trái tim The Global City, TP.HCM",
       "inLanguage": "vi-VN",
       "publisher": {
@@ -529,24 +527,24 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
     },
     {
       "@type": "WebPage",
-      "@id": "https://masteri-cosmo-central-dang-ky-era.vercel.app/#webpage",
-      "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/",
+      "@id": "https://era.com.vn/#webpage",
+      "url": "https://era.com.vn/du-an-masteri-cosmo-central/",
       "name": "Masteri Cosmo Central – Căn hộ trái tim The Global City, TP.HCM",
       "inLanguage": "vi-VN",
       "isPartOf": {
-        "@id": "https://masteri-cosmo-central-dang-ky-era.vercel.app/#website"
+        "@id": "https://era.com.vn/#website"
       },
       "about": {
-        "@id": "https://masteri-cosmo-central-dang-ky-era.vercel.app/#du-an"
+        "@id": "https://era.com.vn/#du-an"
       },
       "publisher": {
         "@id": "https://era.com.vn/#organization"
       },
       "breadcrumb": {
-        "@id": "https://masteri-cosmo-central-dang-ky-era.vercel.app/#breadcrumb"
+        "@id": "https://era.com.vn/#breadcrumb"
       },
       "primaryImageOfPage": {
-        "@id": "https://masteri-cosmo-central-dang-ky-era.vercel.app/#anh-hero"
+        "@id": "https://era.com.vn/#anh-hero"
       }
     },
     {
@@ -554,7 +552,7 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         "Product",
         "Residence"
       ],
-      "@id": "https://masteri-cosmo-central-dang-ky-era.vercel.app/#du-an",
+      "@id": "https://era.com.vn/#du-an",
       "name": "Masteri Cosmo Central",
       "alternateName": [
         "Căn hộ Masteri Cosmo Central",
@@ -581,20 +579,20 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
       "image": [
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-the-global-city-binh-trung.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-the-global-city-binh-trung.webp",
-          "caption": "Phối cảnh Masteri Cosmo Central lúc chạng vạng: 3 tòa tháp và khối đế thương mại giữa The Global City, Bình Trưng, TP.HCM",
-          "name": "Phối cảnh Masteri Cosmo Central lúc chạng vạng: 3 tòa tháp và khối đế thương mại giữa The Global City, Bình Trưng, TP.HCM",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao.webp",
+          "caption": "Phối cảnh Masteri Cosmo Central bên kênh đào nhạc nước lúc hoàng hôn tại The Global City",
+          "name": "Phối cảnh Masteri Cosmo Central bên kênh đào nhạc nước lúc hoàng hôn tại The Global City",
           "width": 1920,
-          "height": 1015,
+          "height": 1010,
           "inLanguage": "vi-VN",
           "creditText": "Tài liệu chủ đầu tư dự án Masteri Cosmo Central",
-          "@id": "https://masteri-cosmo-central-dang-ky-era.vercel.app/#anh-hero"
+          "@id": "https://era.com.vn/#anh-hero"
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-ba-toa-thap-ben-ho-nhac-nuoc.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-ba-toa-thap-ben-ho-nhac-nuoc.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-ba-toa-thap-ben-ho-nhac-nuoc.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-ba-toa-thap-ben-ho-nhac-nuoc.webp",
           "caption": "Ba tòa tháp Masteri Cosmo Central bên hồ nhạc nước trong khu đô thị The Global City (ảnh minh họa)",
           "name": "Ba tòa tháp Masteri Cosmo Central bên hồ nhạc nước trong khu đô thị The Global City (ảnh minh họa)",
           "width": 1200,
@@ -604,8 +602,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-phan-khu-nexus-ct3.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-phan-khu-nexus-ct3.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-phan-khu-nexus-ct3.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-phan-khu-nexus-ct3.webp",
           "caption": "Ba tòa tháp phân khu Nexus (CT3) của Masteri Cosmo Central bên kênh đào nhạc nước (ảnh minh họa)",
           "name": "Ba tòa tháp phân khu Nexus (CT3) của Masteri Cosmo Central bên kênh đào nhạc nước (ảnh minh họa)",
           "width": 1200,
@@ -615,8 +613,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-ban-do-vi-tri-binh-trung-thu-thiem.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-ban-do-vi-tri-binh-trung-thu-thiem.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-ban-do-vi-tri-binh-trung-thu-thiem.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-ban-do-vi-tri-binh-trung-thu-thiem.webp",
           "caption": "Bản đồ vị trí Masteri Cosmo Central tại The Global City, Bình Trưng, kết nối Thảo Điền, Thủ Thiêm, trung tâm và 2 sân bay",
           "name": "Bản đồ vị trí Masteri Cosmo Central tại The Global City, Bình Trưng, kết nối Thảo Điền, Thủ Thiêm, trung tâm và 2 sân bay",
           "width": 1400,
@@ -626,8 +624,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-kien-truc-terra-tropical-ban-cong-kinh.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-kien-truc-terra-tropical-ban-cong-kinh.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-kien-truc-terra-tropical-ban-cong-kinh.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-kien-truc-terra-tropical-ban-cong-kinh.webp",
           "caption": "Mặt đứng Masteri Cosmo Central theo ngôn ngữ Terra Tropical: khối xếp lớp, ban công rộng, kính toàn cảnh (ảnh minh họa)",
           "name": "Mặt đứng Masteri Cosmo Central theo ngôn ngữ Terra Tropical: khối xếp lớp, ban công rộng, kính toàn cảnh (ảnh minh họa)",
           "width": 1400,
@@ -637,8 +635,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-sanh-cu-dan-tran-cao.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-sanh-cu-dan-tran-cao.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-sanh-cu-dan-tran-cao.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-sanh-cu-dan-tran-cao.webp",
           "caption": "Sảnh cư dân trần cao với vách kính và sofa chờ tại Masteri Cosmo Central (ảnh minh họa)",
           "name": "Sảnh cư dân trần cao với vách kính và sofa chờ tại Masteri Cosmo Central (ảnh minh họa)",
           "width": 1000,
@@ -648,8 +646,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-mat-bang-tien-ich-noi-khu.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-mat-bang-tien-ich-noi-khu.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-mat-bang-tien-ich-noi-khu.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-mat-bang-tien-ich-noi-khu.webp",
           "caption": "Mặt bằng tiện ích Masteri Cosmo Central: tòa A, B1, B2, hồ bơi, đường chạy bộ, kênh đào nhạc nước, đánh số 01–29",
           "name": "Mặt bằng tiện ích Masteri Cosmo Central: tòa A, B1, B2, hồ bơi, đường chạy bộ, kênh đào nhạc nước, đánh số 01–29",
           "width": 1600,
@@ -659,8 +657,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-ho-boi-vo-cuc-giua-vuon-xanh.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-ho-boi-vo-cuc-giua-vuon-xanh.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-ho-boi-vo-cuc-giua-vuon-xanh.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-ho-boi-vo-cuc-giua-vuon-xanh.webp",
           "caption": "Hồ bơi vô cực giữa vườn cây nhiệt đới tại Masteri Cosmo Central (ảnh minh họa)",
           "name": "Hồ bơi vô cực giữa vườn cây nhiệt đới tại Masteri Cosmo Central (ảnh minh họa)",
           "width": 1200,
@@ -670,8 +668,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-ho-boi-gia-dinh-va-vuon-tren-cao.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-ho-boi-gia-dinh-va-vuon-tren-cao.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-ho-boi-gia-dinh-va-vuon-tren-cao.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-ho-boi-gia-dinh-va-vuon-tren-cao.webp",
           "caption": "Hồ bơi gia đình và vườn cây trên khối đế Masteri Cosmo Central (ảnh minh họa)",
           "name": "Hồ bơi gia đình và vườn cây trên khối đế Masteri Cosmo Central (ảnh minh họa)",
           "width": 1200,
@@ -681,8 +679,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-khoi-de-thuong-mai-sanh-don.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-khoi-de-thuong-mai-sanh-don.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-khoi-de-thuong-mai-sanh-don.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-khoi-de-thuong-mai-sanh-don.webp",
           "caption": "Khối đế thương mại và sảnh đón dưới chân tòa tháp Masteri Cosmo Central (ảnh minh họa)",
           "name": "Khối đế thương mại và sảnh đón dưới chân tòa tháp Masteri Cosmo Central (ảnh minh họa)",
           "width": 1200,
@@ -692,8 +690,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-phong-gym-view-xanh.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-phong-gym-view-xanh.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-phong-gym-view-xanh.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-phong-gym-view-xanh.webp",
           "caption": "Phòng gym có vách kính nhìn ra mảng xanh tại Masteri Cosmo Central (ảnh minh họa)",
           "name": "Phòng gym có vách kính nhìn ra mảng xanh tại Masteri Cosmo Central (ảnh minh họa)",
           "width": 1200,
@@ -703,8 +701,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-mat-bang-tang-toa-b1-tang-5-17.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-mat-bang-tang-toa-b1-tang-5-17.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-mat-bang-tang-toa-b1-tang-5-17.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-mat-bang-tang-toa-b1-tang-5-17.webp",
           "caption": "Mặt bằng tầng tòa B1 Masteri Cosmo Central tầng 5–17: căn 1PN đến 4PN kèm diện tích tim tường, thông thủy",
           "name": "Mặt bằng tầng tòa B1 Masteri Cosmo Central tầng 5–17: căn 1PN đến 4PN kèm diện tích tim tường, thông thủy",
           "width": 1400,
@@ -714,8 +712,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-mat-bang-tang-toa-b2-tang-12b-17.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-mat-bang-tang-toa-b2-tang-12b-17.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-mat-bang-tang-toa-b2-tang-12b-17.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-mat-bang-tang-toa-b2-tang-12b-17.webp",
           "caption": "Mặt bằng tầng tòa B2 Masteri Cosmo Central tầng 12B–17: căn 1PN đến 3PN kèm diện tích tim tường, thông thủy",
           "name": "Mặt bằng tầng tòa B2 Masteri Cosmo Central tầng 12B–17: căn 1PN đến 3PN kèm diện tích tim tường, thông thủy",
           "width": 1400,
@@ -725,8 +723,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-phong-khach-bep-mo-kinh-tran.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-phong-khach-bep-mo-kinh-tran.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-phong-khach-bep-mo-kinh-tran.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-phong-khach-bep-mo-kinh-tran.webp",
           "caption": "Phòng khách liền bếp mở với cửa kính lớn trong căn hộ Masteri Cosmo Central (ảnh minh họa)",
           "name": "Phòng khách liền bếp mở với cửa kính lớn trong căn hộ Masteri Cosmo Central (ảnh minh họa)",
           "width": 1000,
@@ -736,8 +734,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-phong-ngu-view-thanh-pho.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-phong-ngu-view-thanh-pho.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-phong-ngu-view-thanh-pho.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-phong-ngu-view-thanh-pho.webp",
           "caption": "Phòng ngủ có cửa kính toàn cảnh nhìn ra thành phố trong căn hộ Masteri Cosmo Central (ảnh minh họa)",
           "name": "Phòng ngủ có cửa kính toàn cảnh nhìn ra thành phố trong căn hộ Masteri Cosmo Central (ảnh minh họa)",
           "width": 1000,
@@ -747,8 +745,8 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
         },
         {
           "@type": "ImageObject",
-          "contentUrl": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-khu-do-thi-the-global-city-tu-tren-cao.webp",
-          "url": "https://masteri-cosmo-central-dang-ky-era.vercel.app/assets/img/masteri-cosmo-central-khu-do-thi-the-global-city-tu-tren-cao.webp",
+          "contentUrl": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-khu-do-thi-the-global-city-tu-tren-cao.webp",
+          "url": "https://era.com.vn/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-khu-do-thi-the-global-city-tu-tren-cao.webp",
           "caption": "The Global City nhìn từ trên cao, Masteri Cosmo Central ở trung tâm bên kênh đào và các phân khu nhà phố (ảnh minh họa)",
           "name": "The Global City nhìn từ trên cao, Masteri Cosmo Central ở trung tâm bên kênh đào và các phân khu nhà phố (ảnh minh họa)",
           "width": 1400,
@@ -760,7 +758,7 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://masteri-cosmo-central-dang-ky-era.vercel.app/#breadcrumb",
+      "@id": "https://era.com.vn/#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -772,19 +770,19 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
           "@type": "ListItem",
           "position": 2,
           "name": "Căn hộ TP. Hồ Chí Minh",
-          "item": "https://masteri-cosmo-central-dang-ky-era.vercel.app/#tong-quan"
+          "item": "https://era.com.vn/#tong-quan"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Masteri Cosmo Central",
-          "item": "https://masteri-cosmo-central-dang-ky-era.vercel.app/"
+          "item": "https://era.com.vn/du-an-masteri-cosmo-central/"
         }
       ]
     },
     {
       "@type": "FAQPage",
-      "@id": "https://masteri-cosmo-central-dang-ky-era.vercel.app/#hoi-dap",
+      "@id": "https://era.com.vn/#hoi-dap",
       "mainEntity": [
         {
           "@type": "Question",
@@ -890,9 +888,9 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
   <div class="hero-san">
     <div class="hero-hinh">
     <div class="hero-khung">
-      <img class="nen" src="assets/img/masteri-cosmo-central-the-global-city-binh-trung.webp" srcset="assets/img/masteri-cosmo-central-the-global-city-binh-trung-1080.webp 1080w, assets/img/masteri-cosmo-central-the-global-city-binh-trung-1440.webp 1440w, assets/img/masteri-cosmo-central-the-global-city-binh-trung.webp 1920w" sizes="(max-width:760px) 1080px, 100vw" width="1920" height="1015" fetchpriority="high" decoding="async" alt="Phối cảnh Masteri Cosmo Central lúc chạng vạng: 3 tòa tháp và khối đế thương mại giữa The Global City, Bình Trưng, TP.HCM">
+      <img class="nen" src="assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao.webp" srcset="assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao-1080.webp 1080w, assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao-1440.webp 1440w, assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao.webp 1920w" sizes="(max-width:760px) 1080px, 100vw" width="1920" height="1010" fetchpriority="high" decoding="async" alt="Phối cảnh Masteri Cosmo Central bên kênh đào nhạc nước lúc hoàng hôn tại The Global City">
       <p class="ten-lon" aria-hidden="true">Cosmo Central</p>
-      <img class="truoc" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" loading="lazy" data-src="assets/img/masteri-cosmo-central-hero-lop-thap-da-xoa-troi.webp" data-srcset="assets/img/masteri-cosmo-central-hero-lop-thap-da-xoa-troi-1080.webp 1080w, assets/img/masteri-cosmo-central-hero-lop-thap-da-xoa-troi-1440.webp 1440w, assets/img/masteri-cosmo-central-hero-lop-thap-da-xoa-troi.webp 1920w" sizes="(max-width:760px) 1080px, 100vw" width="1920" height="1015" fetchpriority="low" decoding="async" alt="" aria-hidden="true">
+      <img class="truoc" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" loading="lazy" data-src="assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao.webp" data-srcset="assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao-1080.webp 1080w, assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao-1440.webp 1440w, assets/img/masteri-cosmo-central-hero-hoang-hon-kenh-dao.webp 1920w" sizes="(max-width:760px) 1080px, 100vw" width="1920" height="1010" fetchpriority="low" decoding="async" alt="" aria-hidden="true">
     </div>
     <div class="hero-toi" aria-hidden="true"></div>
     <p class="hero-cap">Phối cảnh minh họa · tài liệu chủ đầu tư</p>
@@ -1005,7 +1003,6 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
           <text class="ten" x="1040" y="470" text-anchor="middle" style="--i:6">Sân bay<tspan class="nho" x="1040" dy="25">Long Thành</tspan></text>
           <g class="tam"><circle class="ngoai" cx="580" cy="330" r="44"/><circle class="trong" cx="580" cy="330" r="30"/><text x="580" y="335">MCC</text></g>
         </svg>
-        <figcaption>Sơ đồ minh họa, không theo tỉ lệ — thời gian di chuyển tham khảo theo tài liệu chủ đầu tư.</figcaption>
       </figure>
       <div class="rv">
         <ul class="moc">
@@ -1021,7 +1018,6 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
     </div>
     <figure class="ban-do rv" data-zoom="assets/img/masteri-cosmo-central-ban-do-vi-tri-binh-trung-thu-thiem-lon.webp" data-alt="Bản đồ vị trí Masteri Cosmo Central (Mini Brochure chủ đầu tư)">
       <img src="assets/img/masteri-cosmo-central-ban-do-vi-tri-binh-trung-thu-thiem.webp" srcset="assets/img/masteri-cosmo-central-ban-do-vi-tri-binh-trung-thu-thiem-800.webp 800w, assets/img/masteri-cosmo-central-ban-do-vi-tri-binh-trung-thu-thiem.webp 1400w" sizes="(max-width:1240px) 100vw, 1200px" width="1400" height="659" loading="lazy" decoding="async" alt="Bản đồ vị trí Masteri Cosmo Central tại The Global City, Bình Trưng, kết nối Thảo Điền, Thủ Thiêm, trung tâm và 2 sân bay">
-      <figcaption>Bản đồ “Giao điểm kết nối” (Mini Brochure chủ đầu tư) — bấm để phóng to.</figcaption>
     </figure>
   </div>
 </section>
@@ -1067,7 +1063,6 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
     </div>
     <figure class="mbt rv" data-zoom="assets/img/masteri-cosmo-central-mat-bang-tien-ich-noi-khu-lon.webp" data-alt="Mặt bằng tiện ích Masteri Cosmo Central đánh số 01–29 (Mini Brochure chủ đầu tư)">
       <img src="assets/img/masteri-cosmo-central-mat-bang-tien-ich-noi-khu.webp" srcset="assets/img/masteri-cosmo-central-mat-bang-tien-ich-noi-khu-800.webp 800w, assets/img/masteri-cosmo-central-mat-bang-tien-ich-noi-khu.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="805" loading="lazy" decoding="async" alt="Mặt bằng tiện ích Masteri Cosmo Central: tòa A, B1, B2, hồ bơi, đường chạy bộ, kênh đào nhạc nước, đánh số 01–29">
-      <figcaption>Mặt bằng tiện ích tòa A, B1, B2 – số 01–29 khớp danh mục bên dưới (Mini Brochure chủ đầu tư) — bấm để phóng to.</figcaption>
     </figure>
     <div class="ti-ds">
       <div class="rv">
@@ -1129,15 +1124,149 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
       <li><b>4PN</b><span><strong>119 – 181</strong> m²</span></li>
     </ul>
     <div class="rv">
-      <div class="tabs mb-tabs" role="tablist" aria-label="Mặt bằng tầng điển hình">
-        <button class="tab" role="tab" id="t-b1" aria-selected="true" aria-controls="p-b1" type="button">Tòa B1 · tầng 5–17</button>
-        <button class="tab" role="tab" id="t-b2" aria-selected="false" aria-controls="p-b2" tabindex="-1" type="button">Tòa B2 · tầng 12B–17</button>
+      <div class="tabs mb-tabs" role="tablist" aria-label="Mặt bằng CT4 và CT3 theo tòa">
+        <button class="tab" role="tab" id="t-ct4-a" aria-selected="true" aria-controls="p-ct4-a" type="button">CT4 · Tòa A</button>
+        <button class="tab" role="tab" id="t-ct4-b1" aria-selected="false" aria-controls="p-ct4-b1" tabindex="-1" type="button">CT4 · Tòa B1</button>
+        <button class="tab" role="tab" id="t-ct4-b2" aria-selected="false" aria-controls="p-ct4-b2" tabindex="-1" type="button">CT4 · Tòa B2</button>
+        <button class="tab" role="tab" id="t-ct3-a" aria-selected="false" aria-controls="p-ct3-a" tabindex="-1" type="button">CT3 · Tòa A</button>
+        <button class="tab" role="tab" id="t-ct3-b1" aria-selected="false" aria-controls="p-ct3-b1" tabindex="-1" type="button">CT3 · Tòa B1</button>
+        <button class="tab" role="tab" id="t-ct3-b2" aria-selected="false" aria-controls="p-ct3-b2" tabindex="-1" type="button">CT3 · Tòa B2</button>
       </div>
-      <div class="tg" role="tabpanel" id="p-b1" aria-labelledby="t-b1">
-        <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-mat-bang-tang-toa-b1-tang-5-17-lon.webp" data-alt="Tổng mặt bằng tầng tòa B1 tầng 5–17 (Mini Brochure chủ đầu tư)"><img src="assets/img/masteri-cosmo-central-mat-bang-tang-toa-b1-tang-5-17.webp" srcset="assets/img/masteri-cosmo-central-mat-bang-tang-toa-b1-tang-5-17-800.webp 800w, assets/img/masteri-cosmo-central-mat-bang-tang-toa-b1-tang-5-17.webp 1400w" sizes="(max-width:1240px) 100vw, 1200px" width="1400" height="931" loading="lazy" decoding="async" alt="Mặt bằng tầng tòa B1 Masteri Cosmo Central tầng 5–17: căn 1PN đến 4PN kèm diện tích tim tường, thông thủy"><figcaption>Tòa B1, tầng 5–17: 19 căn/tầng, ghi diện tích tim tường (GSA) và thông thủy (NSA) — bấm để phóng to.</figcaption></figure>
+      <div class="tg" role="tabpanel" id="p-ct4-a" aria-labelledby="t-ct4-a">
+        <div class="tabs mb-tabs" role="tablist" aria-label="Nhóm tầng tòa A CT4">
+          <button class="tab" role="tab" id="t-ct4-a-4-3a" aria-selected="true" aria-controls="p-ct4-a-4-3a" type="button">Tầng 4 (3A)</button>
+          <button class="tab" role="tab" id="t-ct4-a-5-17" aria-selected="false" aria-controls="p-ct4-a-5-17" tabindex="-1" type="button">Tầng 5–17</button>
+          <button class="tab" role="tab" id="t-ct4-a-18" aria-selected="false" aria-controls="p-ct4-a-18" tabindex="-1" type="button">Tầng 18</button>
+          <button class="tab" role="tab" id="t-ct4-a-19" aria-selected="false" aria-controls="p-ct4-a-19" tabindex="-1" type="button">Tầng 19</button>
+          <button class="tab" role="tab" id="t-ct4-a-20-27" aria-selected="false" aria-controls="p-ct4-a-20-27" tabindex="-1" type="button">Tầng 20–27</button>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-a-4-3a" aria-labelledby="t-ct4-a-4-3a">
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-a-tang-4-3a.webp" data-alt="Mặt bằng tầng 4 (3A) tòa A CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-a-tang-4-3a.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-a-tang-4-3a-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-a-tang-4-3a.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 4 (3A) tòa A CT4 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-a-5-17" aria-labelledby="t-ct4-a-5-17" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-a-tang-5-17.webp" data-alt="Mặt bằng tầng 5–17 tòa A CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-a-tang-5-17.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-a-tang-5-17-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-a-tang-5-17.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 5–17 tòa A CT4 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-a-18" aria-labelledby="t-ct4-a-18" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-a-tang-18.webp" data-alt="Mặt bằng tầng 18 tòa A CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-a-tang-18.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-a-tang-18-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-a-tang-18.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 18 tòa A CT4 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-a-19" aria-labelledby="t-ct4-a-19" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-a-tang-19.webp" data-alt="Mặt bằng tầng 19 tòa A CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-a-tang-19.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-a-tang-19-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-a-tang-19.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 19 tòa A CT4 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-a-20-27" aria-labelledby="t-ct4-a-20-27" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-a-tang-20-27.webp" data-alt="Mặt bằng tầng 20–27 tòa A CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-a-tang-20-27.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-a-tang-20-27-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-a-tang-20-27.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 20–27 tòa A CT4 Masteri Cosmo Central"></figure>
+        </div>
       </div>
-      <div class="tg" role="tabpanel" id="p-b2" aria-labelledby="t-b2" hidden>
-        <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-mat-bang-tang-toa-b2-tang-12b-17-lon.webp" data-alt="Tổng mặt bằng tầng tòa B2 tầng 12B–17 (Mini Brochure chủ đầu tư)"><img src="assets/img/masteri-cosmo-central-mat-bang-tang-toa-b2-tang-12b-17.webp" srcset="assets/img/masteri-cosmo-central-mat-bang-tang-toa-b2-tang-12b-17-800.webp 800w, assets/img/masteri-cosmo-central-mat-bang-tang-toa-b2-tang-12b-17.webp 1400w" sizes="(max-width:1240px) 100vw, 1200px" width="1400" height="931" loading="lazy" decoding="async" alt="Mặt bằng tầng tòa B2 Masteri Cosmo Central tầng 12B–17: căn 1PN đến 3PN kèm diện tích tim tường, thông thủy"><figcaption>Tòa B2, tầng 12B–17: 12 căn/tầng — bấm để phóng to.</figcaption></figure>
+      <div class="tg" role="tabpanel" id="p-ct4-b1" aria-labelledby="t-ct4-b1" hidden>
+        <div class="tabs mb-tabs" role="tablist" aria-label="Nhóm tầng tòa B1 CT4">
+          <button class="tab" role="tab" id="t-ct4-b1-4-3a" aria-selected="true" aria-controls="p-ct4-b1-4-3a" type="button">Tầng 4 (3A)</button>
+          <button class="tab" role="tab" id="t-ct4-b1-5-17" aria-selected="false" aria-controls="p-ct4-b1-5-17" tabindex="-1" type="button">Tầng 5–17</button>
+          <button class="tab" role="tab" id="t-ct4-b1-18" aria-selected="false" aria-controls="p-ct4-b1-18" tabindex="-1" type="button">Tầng 18</button>
+          <button class="tab" role="tab" id="t-ct4-b1-19" aria-selected="false" aria-controls="p-ct4-b1-19" tabindex="-1" type="button">Tầng 19</button>
+          <button class="tab" role="tab" id="t-ct4-b1-20-23" aria-selected="false" aria-controls="p-ct4-b1-20-23" tabindex="-1" type="button">Tầng 20–23</button>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-b1-4-3a" aria-labelledby="t-ct4-b1-4-3a">
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-4-3a.webp" data-alt="Mặt bằng tầng 4 (3A) tòa B1 CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-4-3a.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-4-3a-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-b1-tang-4-3a.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 4 (3A) tòa B1 CT4 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-b1-5-17" aria-labelledby="t-ct4-b1-5-17" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-5-17.webp" data-alt="Mặt bằng tầng 5–17 tòa B1 CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-5-17.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-5-17-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-b1-tang-5-17.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 5–17 tòa B1 CT4 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-b1-18" aria-labelledby="t-ct4-b1-18" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-18.webp" data-alt="Mặt bằng tầng 18 tòa B1 CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-18.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-18-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-b1-tang-18.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 18 tòa B1 CT4 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-b1-19" aria-labelledby="t-ct4-b1-19" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-19.webp" data-alt="Mặt bằng tầng 19 tòa B1 CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-19.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-19-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-b1-tang-19.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 19 tòa B1 CT4 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-b1-20-23" aria-labelledby="t-ct4-b1-20-23" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-20-23.webp" data-alt="Mặt bằng tầng 20–23 tòa B1 CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-20-23.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-b1-tang-20-23-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-b1-tang-20-23.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 20–23 tòa B1 CT4 Masteri Cosmo Central"></figure>
+        </div>
+      </div>
+      <div class="tg" role="tabpanel" id="p-ct4-b2" aria-labelledby="t-ct4-b2" hidden>
+        <div class="tabs mb-tabs" role="tablist" aria-label="Nhóm tầng tòa B2 CT4">
+          <button class="tab" role="tab" id="t-ct4-b2-4-3a" aria-selected="true" aria-controls="p-ct4-b2-4-3a" type="button">Tầng 4 (3A)</button>
+          <button class="tab" role="tab" id="t-ct4-b2-5-12" aria-selected="false" aria-controls="p-ct4-b2-5-12" tabindex="-1" type="button">Tầng 5–12</button>
+          <button class="tab" role="tab" id="t-ct4-b2-13-12a" aria-selected="false" aria-controls="p-ct4-b2-13-12a" tabindex="-1" type="button">Tầng 13 (12A)</button>
+          <button class="tab" role="tab" id="t-ct4-b2-14-12b-17" aria-selected="false" aria-controls="p-ct4-b2-14-12b-17" tabindex="-1" type="button">Tầng 14 (12B)–17</button>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-b2-4-3a" aria-labelledby="t-ct4-b2-4-3a">
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-4-3a.webp" data-alt="Mặt bằng tầng 4 (3A) tòa B2 CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-4-3a.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-4-3a-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-b2-tang-4-3a.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 4 (3A) tòa B2 CT4 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-b2-5-12" aria-labelledby="t-ct4-b2-5-12" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-5-12.webp" data-alt="Mặt bằng tầng 5–12 tòa B2 CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-5-12.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-5-12-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-b2-tang-5-12.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 5–12 tòa B2 CT4 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-b2-13-12a" aria-labelledby="t-ct4-b2-13-12a" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-13-12a.webp" data-alt="Mặt bằng tầng 13 (12A) tòa B2 CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-13-12a.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-13-12a-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-b2-tang-13-12a.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 13 (12A) tòa B2 CT4 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct4-b2-14-12b-17" aria-labelledby="t-ct4-b2-14-12b-17" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-14-12b-17.webp" data-alt="Mặt bằng tầng 14 (12B)–17 tòa B2 CT4 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-14-12b-17.webp" srcset="assets/img/masteri-cosmo-central-ct4-toa-b2-tang-14-12b-17-800.webp 800w, assets/img/masteri-cosmo-central-ct4-toa-b2-tang-14-12b-17.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 14 (12B)–17 tòa B2 CT4 Masteri Cosmo Central"></figure>
+        </div>
+      </div>
+      <div class="tg" role="tabpanel" id="p-ct3-a" aria-labelledby="t-ct3-a" hidden>
+        <div class="tabs mb-tabs" role="tablist" aria-label="Nhóm tầng tòa A CT3">
+          <button class="tab" role="tab" id="t-ct3-a-4-3a" aria-selected="true" aria-controls="p-ct3-a-4-3a" type="button">Tầng 4 (3A)</button>
+          <button class="tab" role="tab" id="t-ct3-a-5-17" aria-selected="false" aria-controls="p-ct3-a-5-17" tabindex="-1" type="button">Tầng 5–17</button>
+          <button class="tab" role="tab" id="t-ct3-a-18" aria-selected="false" aria-controls="p-ct3-a-18" tabindex="-1" type="button">Tầng 18</button>
+          <button class="tab" role="tab" id="t-ct3-a-19" aria-selected="false" aria-controls="p-ct3-a-19" tabindex="-1" type="button">Tầng 19</button>
+          <button class="tab" role="tab" id="t-ct3-a-20-27" aria-selected="false" aria-controls="p-ct3-a-20-27" tabindex="-1" type="button">Tầng 20–27</button>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-a-4-3a" aria-labelledby="t-ct3-a-4-3a">
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-a-tang-4-3a-lon.webp" data-alt="Mặt bằng tầng 4 (3A) tòa A CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-a-tang-4-3a.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-a-tang-4-3a-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-a-tang-4-3a.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 4 (3A) tòa A CT3 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-a-5-17" aria-labelledby="t-ct3-a-5-17" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-a-tang-5-17-lon.webp" data-alt="Mặt bằng tầng 5–17 tòa A CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-a-tang-5-17.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-a-tang-5-17-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-a-tang-5-17.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 5–17 tòa A CT3 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-a-18" aria-labelledby="t-ct3-a-18" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-a-tang-18-lon.webp" data-alt="Mặt bằng tầng 18 tòa A CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-a-tang-18.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-a-tang-18-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-a-tang-18.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 18 tòa A CT3 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-a-19" aria-labelledby="t-ct3-a-19" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-a-tang-19-lon.webp" data-alt="Mặt bằng tầng 19 tòa A CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-a-tang-19.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-a-tang-19-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-a-tang-19.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 19 tòa A CT3 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-a-20-27" aria-labelledby="t-ct3-a-20-27" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-a-tang-20-27-lon.webp" data-alt="Mặt bằng tầng 20–27 tòa A CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-a-tang-20-27.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-a-tang-20-27-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-a-tang-20-27.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 20–27 tòa A CT3 Masteri Cosmo Central"></figure>
+        </div>
+      </div>
+      <div class="tg" role="tabpanel" id="p-ct3-b1" aria-labelledby="t-ct3-b1" hidden>
+        <div class="tabs mb-tabs" role="tablist" aria-label="Nhóm tầng tòa B1 CT3">
+          <button class="tab" role="tab" id="t-ct3-b1-4-3a" aria-selected="true" aria-controls="p-ct3-b1-4-3a" type="button">Tầng 4 (3A)</button>
+          <button class="tab" role="tab" id="t-ct3-b1-5-17" aria-selected="false" aria-controls="p-ct3-b1-5-17" tabindex="-1" type="button">Tầng 5–17</button>
+          <button class="tab" role="tab" id="t-ct3-b1-18" aria-selected="false" aria-controls="p-ct3-b1-18" tabindex="-1" type="button">Tầng 18</button>
+          <button class="tab" role="tab" id="t-ct3-b1-19" aria-selected="false" aria-controls="p-ct3-b1-19" tabindex="-1" type="button">Tầng 19</button>
+          <button class="tab" role="tab" id="t-ct3-b1-20-23" aria-selected="false" aria-controls="p-ct3-b1-20-23" tabindex="-1" type="button">Tầng 20–23</button>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-b1-4-3a" aria-labelledby="t-ct3-b1-4-3a">
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-4-3a-lon.webp" data-alt="Mặt bằng tầng 4 (3A) tòa B1 CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-4-3a.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-4-3a-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-b1-tang-4-3a.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 4 (3A) tòa B1 CT3 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-b1-5-17" aria-labelledby="t-ct3-b1-5-17" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-5-17-lon.webp" data-alt="Mặt bằng tầng 5–17 tòa B1 CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-5-17.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-5-17-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-b1-tang-5-17.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 5–17 tòa B1 CT3 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-b1-18" aria-labelledby="t-ct3-b1-18" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-18-lon.webp" data-alt="Mặt bằng tầng 18 tòa B1 CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-18.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-18-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-b1-tang-18.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 18 tòa B1 CT3 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-b1-19" aria-labelledby="t-ct3-b1-19" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-19-lon.webp" data-alt="Mặt bằng tầng 19 tòa B1 CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-19.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-19-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-b1-tang-19.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 19 tòa B1 CT3 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-b1-20-23" aria-labelledby="t-ct3-b1-20-23" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-20-23-lon.webp" data-alt="Mặt bằng tầng 20–23 tòa B1 CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-20-23.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-b1-tang-20-23-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-b1-tang-20-23.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 20–23 tòa B1 CT3 Masteri Cosmo Central"></figure>
+        </div>
+      </div>
+      <div class="tg" role="tabpanel" id="p-ct3-b2" aria-labelledby="t-ct3-b2" hidden>
+        <div class="tabs mb-tabs" role="tablist" aria-label="Nhóm tầng tòa B2 CT3">
+          <button class="tab" role="tab" id="t-ct3-b2-4-3a" aria-selected="true" aria-controls="p-ct3-b2-4-3a" type="button">Tầng 4 (3A)</button>
+          <button class="tab" role="tab" id="t-ct3-b2-5-12" aria-selected="false" aria-controls="p-ct3-b2-5-12" tabindex="-1" type="button">Tầng 5–12</button>
+          <button class="tab" role="tab" id="t-ct3-b2-13-12a" aria-selected="false" aria-controls="p-ct3-b2-13-12a" tabindex="-1" type="button">Tầng 13 (12A)</button>
+          <button class="tab" role="tab" id="t-ct3-b2-14-12b-17" aria-selected="false" aria-controls="p-ct3-b2-14-12b-17" tabindex="-1" type="button">Tầng 14 (12B)–17</button>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-b2-4-3a" aria-labelledby="t-ct3-b2-4-3a">
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-4-3a-lon.webp" data-alt="Mặt bằng tầng 4 (3A) tòa B2 CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-4-3a.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-4-3a-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-b2-tang-4-3a.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 4 (3A) tòa B2 CT3 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-b2-5-12" aria-labelledby="t-ct3-b2-5-12" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-5-12-lon.webp" data-alt="Mặt bằng tầng 5–12 tòa B2 CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-5-12.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-5-12-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-b2-tang-5-12.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 5–12 tòa B2 CT3 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-b2-13-12a" aria-labelledby="t-ct3-b2-13-12a" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-13-12a-lon.webp" data-alt="Mặt bằng tầng 13 (12A) tòa B2 CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-13-12a.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-13-12a-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-b2-tang-13-12a.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 13 (12A) tòa B2 CT3 Masteri Cosmo Central"></figure>
+        </div>
+        <div class="tg" role="tabpanel" id="p-ct3-b2-14-12b-17" aria-labelledby="t-ct3-b2-14-12b-17" hidden>
+          <figure class="mb-hinh" data-zoom="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-14-12b-17-lon.webp" data-alt="Mặt bằng tầng 14 (12B)–17 tòa B2 CT3 Masteri Cosmo Central"><img src="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-14-12b-17.webp" srcset="assets/img/masteri-cosmo-central-ct3-toa-b2-tang-14-12b-17-800.webp 800w, assets/img/masteri-cosmo-central-ct3-toa-b2-tang-14-12b-17.webp 1600w" sizes="(max-width:1240px) 100vw, 1200px" width="1600" height="1132" loading="lazy" decoding="async" alt="Mặt bằng tầng 14 (12B)–17 tòa B2 CT3 Masteri Cosmo Central"></figure>
+        </div>
       </div>
       <p class="ghi">Diện tích tim tường (GSA) tổng hợp từ mặt bằng tầng tòa A, B1, B2 (CT4) và tòa A, B1, B2 phân khu Nexus (CT3) của chủ đầu tư; Penthouse, Duplex, Penthouse Duplex ở các tầng cao — diện tích từng căn theo bảng hàng. Diện tích sử dụng căn hộ sau cùng do đơn vị đo đạc xác minh; thông tin chính thức căn cứ trên hợp đồng mua bán.</p>
     <div class="nut-loai-hang"><a class="nut" href="#dang-ky">Nhận mặt bằng &amp; phiếu tính giá <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
@@ -1201,12 +1330,11 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
       <p class="fact">Được kiến tạo bởi Masterise Homes và thiết kế bởi Foster + Partners, The Global City được quy hoạch bài bản theo mô hình sống – làm việc – giải trí với hệ thống tiện ích đồng bộ; từ tâm điểm giao lộ, một không gian sống đa sắc như lăng kính mở ra.</p>
     </div>
     <figure class="tgc-lon rv" data-zoom="assets/img/masteri-cosmo-central-khu-do-thi-the-global-city-tu-tren-cao.webp"><img src="assets/img/masteri-cosmo-central-khu-do-thi-the-global-city-tu-tren-cao.webp" srcset="assets/img/masteri-cosmo-central-khu-do-thi-the-global-city-tu-tren-cao-800.webp 800w, assets/img/masteri-cosmo-central-khu-do-thi-the-global-city-tu-tren-cao.webp 1400w" sizes="(max-width:1240px) 100vw, 1200px" width="1400" height="638" loading="lazy" decoding="async" alt="The Global City nhìn từ trên cao, Masteri Cosmo Central ở trung tâm bên kênh đào và các phân khu nhà phố (ảnh minh họa)">
-      <figcaption>The Global City nhìn từ trên cao (phối cảnh minh họa, tài liệu chủ đầu tư).</figcaption>
     </figure>
     <ul class="tru rv" aria-label="Số liệu khu đô thị The Global City">
       <li><span class="so">117,4<small>ha</small></span><h3>Quy mô khu đô thị</h3><p>Khu đô thị phức hợp chuẩn quốc tế tại trung tâm TP.HCM, đường Đỗ Xuân Hợp.</p></li>
       <li><span class="so">2<small>km+</small></span><h3>Kênh đào nhạc nước</h3><p>Kênh đào nhạc nước lớn nhất Đông Nam Á, dài hơn 2 km.</p></li>
-      <li><span class="so">06</span><h3>Trường quốc tế</h3><p>6 trường học tiêu chuẩn quốc tế và 1 bệnh viện tiêu chuẩn quốc tế.</p></li>
+      <li><span class="so">06</span><h3>Trường quốc tế</h3><p>6 trường học tiêu chuẩn quốc tế.</p></li>
       <li><span class="so">450.000<small>m²</small></span><h3>Cây xanh &amp; mặt nước</h3><p>Cảnh quan bởi WATG – trải nghiệm “đối thoại với thiên nhiên”.</p></li>
     </ul>
     <div class="cdt">
@@ -1328,6 +1456,6 @@ footer .links a:hover{background:rgba(255,255,255,.1);color:#fff}
   <img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
 </div>
 
-<script src="assets/js/masteri-cosmo-central.js?v=0a16d27f" defer></script>
+<script src="assets/js/masteri-cosmo-central.js?v=9cfcfc61" defer></script>
 </body>
 </html>

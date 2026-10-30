@@ -2,7 +2,7 @@
 
 > The Legend Đà Nẵng (The Legend Danang) là dự án hai tòa tháp tại A20 Võ Văn Kiệt, phường An Hải, TP. Đà Nẵng, ngay chân cầu Rồng, bên bờ Đông sông Hàn: tháp căn hộ 29 tầng nổi, 3 tầng hầm và tháp khách sạn 5 sao do Hyde Hotels (hệ sinh thái Accor) vận hành. Chủ đầu tư Công ty TNHH Vipico, ROX Signature (ROX Group) tư vấn và phát triển. Trang do ERA Vietnam (đại lý phân phối) biên soạn từ tài liệu chủ đầu tư.
 
-Trang chính: https://the-legend-da-nang-dang-ky-era.vercel.app/
+Trang chính: https://era.com.vn/du-an-the-legend-da-nang/
 
 ## Thông tin chính
 - Vị trí: A20 Võ Văn Kiệt, phường An Hải, TP. Đà Nẵng (góc Võ Văn Kiệt – Quốc lộ 14B, chân cầu Rồng)
