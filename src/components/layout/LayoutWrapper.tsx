@@ -248,17 +248,18 @@ export function LayoutWrapper({
 
   useEffect(() => {
     const favicon = landingFaviconByRoute[normalized] ?? landingThankYouFaviconByRoute[normalized] ?? "/favicon.ico";
-    let link = document.head.querySelector<HTMLLinkElement>('link[rel="icon"]');
+    // Only manage the favicon link created by this component. Next.js owns
+    // other <link rel="icon"> nodes in <head>; removing them manually can
+    // leave React with stale DOM references and cause removeChild errors
+    // during client-side navigation.
+    let link = document.head.querySelector<HTMLLinkElement>('link[data-era-favicon="true"]');
     if (!link) {
       link = document.createElement("link");
       link.rel = "icon";
+      link.dataset.eraFavicon = "true";
       document.head.appendChild(link);
     }
-    link.dataset.eraFavicon = "true";
     link.href = favicon;
-    document.head.querySelectorAll<HTMLLinkElement>('link[rel="icon"]').forEach((candidate) => {
-      if (candidate !== link) candidate.remove();
-    });
   }, [normalized]);
 
   const isAdmin = isAdminPath(pathname);
