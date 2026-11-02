@@ -1,13 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
-import { Pencil, Trash2, Plus } from "lucide-react";
+import { KeyRound, Pencil, Trash2, Plus } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { usePermissionWarning } from "@/hooks/usePermissionWarning";
 import { PopupNotification } from "@/components/ui/PopupNotification";
-import { formatDate } from "@/lib/date";
 import { AdminListHeader } from "@/components/ui/admin/AdminListHeader";
 import { AdminLoading } from "@/components/ui/admin/AdminLoading";
 import { AdminTable } from "@/components/ui/admin/AdminTable";
@@ -15,6 +13,7 @@ import { AdminEmptyState } from "@/components/ui/admin/AdminEmptyState";
 import { SearchInput } from "@/components/ui/admin/SearchInput";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import type { ManagementAccount, PaginationMeta } from "@/types/api";
+import { ApiKeyManageDialog } from "./ApiKeyManageDialog";
 
 interface Props {
   items: ManagementAccount[];
@@ -50,6 +49,9 @@ export function AccountManageList({
   const canUpdate = hasPermission("auth.accounts.all.update");
   const canDelete = hasPermission("auth.accounts.all.delete");
   const canManageAccounts = canUpdate || canDelete;
+  const canManageApiKeys = hasPermission("system.super_admin");
+  const showActions = canManageAccounts || canManageApiKeys;
+  const [apiKeyAccount, setApiKeyAccount] = useState<ManagementAccount | null>(null);
 
   const toggleExpand = (id: string) => {
     setExpandedIds((prev) => {
@@ -126,7 +128,7 @@ export function AccountManageList({
                   <th className="text-left font-semibold text-gray-600 px-5 py-3.5">
                     Quyền
                   </th>
-                  {canManageAccounts && (
+                  {showActions && (
                     <th className="text-right font-semibold text-gray-600 px-5 py-3.5 w-36">
                       Thao tác
                     </th>
@@ -198,9 +200,21 @@ export function AccountManageList({
                           )}
                         </div>
                       </td>
-                      {canManageAccounts && (
+                      {showActions && (
                         <td className="px-5 py-4">
                           <div className="flex items-center justify-end gap-2">
+                            {canManageApiKeys && (
+                              <Button
+                                variant="ghost"
+                                isIconOnly
+                                size="md"
+                                onClick={() => setApiKeyAccount(item)}
+                                title="Quản lý API key"
+                                className="hover:!bg-blue-50"
+                              >
+                                <KeyRound size={15} className="text-blue-600" />
+                              </Button>
+                            )}
                             {canUpdate && (
                               <Button
                                 variant="ghost"
@@ -245,7 +259,7 @@ export function AccountManageList({
                 })}
                 {items.length === 0 && (
                   <tr>
-                    <td colSpan={canManageAccounts ? 5 : 4}>
+                    <td colSpan={showActions ? 5 : 4}>
                       <AdminEmptyState message="Chưa có tài khoản nào. Hãy bấm &quot;Tạo tài khoản&quot; để thêm." />
                     </td>
                   </tr>
@@ -322,8 +336,20 @@ export function AccountManageList({
                   </div>
                 </div>
 
-                {canManageAccounts && (
+                {showActions && (
                   <div className="mt-3 flex items-center justify-end gap-1 border-t border-gray-100 pt-2">
+                    {canManageApiKeys && (
+                      <Button
+                        variant="ghost"
+                        isIconOnly
+                        size="md"
+                        onClick={() => setApiKeyAccount(item)}
+                        title="Quản lý API key"
+                        className="hover:!bg-blue-50"
+                      >
+                        <KeyRound size={15} className="text-blue-600" />
+                      </Button>
+                    )}
                     {canUpdate && (
                       <Button
                         variant="ghost"
@@ -376,6 +402,12 @@ export function AccountManageList({
           autoClose={false}
         />
       )}
+
+      <ApiKeyManageDialog
+        account={apiKeyAccount}
+        isOpen={!!apiKeyAccount}
+        onClose={() => setApiKeyAccount(null)}
+      />
     </div>
   );
 }

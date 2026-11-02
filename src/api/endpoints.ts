@@ -36,6 +36,12 @@ export const ENDPOINTS = {
     PROJECT_REVIEWERS: '/accounts/project-reviewers',
     ASSIGN_PERMISSIONS: (id: string) => `/accounts/${id}/permissions`,
   },
+  API_KEYS: {
+    LIST: '/api-keys',
+    CREATE: '/api-keys',
+    ROTATE: (id: string) => `/api-keys/${id}/rotate`,
+    REVOKE: (id: string) => `/api-keys/${id}/revoke`,
+  },
   RECRUITMENT: {
     LIST: '/recruitment/jobs',
     PUBLISHED: '/recruitment/jobs/published',

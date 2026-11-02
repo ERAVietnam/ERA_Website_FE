@@ -225,6 +225,36 @@ export interface AccountFilters {
   limit?: number;
 }
 
+export interface ApiKey {
+  id: string;
+  name: string;
+  keyPrefix: string;
+  accountId: string;
+  ownerName?: string | null;
+  ownerEmail?: string | null;
+  scopes: string[];
+  isActive: boolean;
+  expiresAt?: string | null;
+  lastUsedAt?: string | null;
+  revokedAt?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  account?: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
+
+export interface CreateApiKeyInput {
+  name: string;
+  accountId: string;
+  ownerName?: string;
+  ownerEmail?: string;
+  scopes: string[];
+  expiresAt?: string;
+}
+
 export interface Agent {
   id: string;
   name: string;
