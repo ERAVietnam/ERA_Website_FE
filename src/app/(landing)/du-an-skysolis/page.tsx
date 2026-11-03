@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/jsonLd";
 
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/du-an-skysolis/",
     images: [
       {
-        url: "/landing/skysolis-static/assets/img/og-skysolis-1200x630.jpg",
+        url: "/landing/skysolis/assets/img/og-skysolis-1200x630.jpg",
         width: 1200,
         height: 630,
         alt: "Phối cảnh SkySOLIS: tháp căn hộ 40 tầng bên Đại lộ Bình Dương (Quốc lộ 13) và tuyến metro trên cao",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "SkySOLIS – Căn hộ đầu tiên của SkyWorld tại Việt Nam, Lái Thiêu",
     description:
       "3 tháp 40 tầng · 1.101 sản phẩm · QLASSIC · ưu đãi đến 10%. Mặt tiền Đại lộ Bình Dương, cách trạm metro ~100 m.",
-    images: ["/landing/skysolis-static/assets/img/og-skysolis-1200x630.jpg"],
+    images: ["/landing/skysolis/assets/img/og-skysolis-1200x630.jpg"],
   },
   robots: {
     index: true,
@@ -58,9 +58,10 @@ export default function SkysolisPage() {
       <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
       <iframe
         title="SkySOLIS – Căn hộ Healthy Home tại Lái Thiêu"
-        src="/landing/skysolis-static/index.html"
+        src="/landing/skysolis/index.html"
         style={{ display: "block", width: "100%", minHeight: "100vh", border: 0 }}
       />
     </>
   );
 }
+

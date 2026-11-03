@@ -12,6 +12,12 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/pk-soho-du-an-the-global-city/",
     images: [{ url: "/landing/soho/assets/img/og-soho-the-global-city-thuc-te-1200x630.jpg", width: 1200, height: 630, alt: "SOHO at The Global City" }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "SOHO at The Global City – Phố thương mại quốc tế",
+    description: "Không gian LIVE – WORK – PLAY tại The Global City với các mẫu nhà phố SOHO đa dạng.",
+    images: ["/landing/soho/assets/img/og-soho-the-global-city-thuc-te-1200x630.jpg"],
+  },
   robots: { index: true, follow: true },
 };
 

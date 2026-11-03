@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Celesta Gold Nhà Bè – Căn hộ chuẩn xanh Singapore | ERA Vietnam",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/du-an-celesta-gold/",
     images: [
       {
-        url: "/landing/celesta-gold-static/assets/img/og-celesta-gold-1200x630.jpg",
+        url: "/landing/celesta-gold/assets/img/og-celesta-gold-1200x630.jpg",
         width: 1200,
         height: 630,
         alt: "Celesta Gold – 2 tháp căn hộ 25 tầng của liên danh Keppel – Phú Long – Nomura trên đại lộ Nguyễn Hữu Thọ, Nhà Bè",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: "Celesta Gold – Chuẩn sống xanh Singapore trên trục Nguyễn Hữu Thọ",
     description:
       "2 tháp 25 tầng, 420 căn hộ, 9 căn/sàn trên đại lộ Nguyễn Hữu Thọ, xã Nhà Bè, TP.HCM.",
-    images: ["/landing/celesta-gold-static/assets/img/og-celesta-gold-1200x630.jpg"],
+    images: ["/landing/celesta-gold/assets/img/og-celesta-gold-1200x630.jpg"],
   },
   robots: {
     index: true,
@@ -49,10 +49,11 @@ export default function CelestaGoldPage() {
     <main className="min-h-screen w-full bg-white">
       <iframe
         title="Celesta Gold Nhà Bè"
-        src="/landing/celesta-gold-static/index.html"
+        src="/landing/celesta-gold/index.html"
         className="block min-h-screen w-full border-0"
         style={{ height: "100vh" }}
       />
     </main>
   );
 }
+
