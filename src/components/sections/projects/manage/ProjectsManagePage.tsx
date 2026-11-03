@@ -13,6 +13,7 @@ import { NetworkErrorPopup } from "@/components/ui/NetworkErrorPopup";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { ReviewerNotifySelect } from "@/components/ui/admin/ReviewerNotifySelect";
 import { projectsApi } from "@/api/domains/projects";
+import { mediaApi } from "@/api/domains/media";
 import { accountsApi } from "@/api/domains/accounts";
 import { usePopupNotification } from "@/hooks/usePopupNotification";
 import { useApiErrorHandler } from "@/hooks/useApiErrorHandler";
@@ -129,6 +130,7 @@ export function ProjectsManagePage() {
 
   const handleSave = async (data: ProjectFormData) => {
     setSaving(true);
+    const uploadedMediaIds = data.uploadedMediaIds ?? [];
     try {
       const payload = {
         name: data.name,
@@ -167,6 +169,7 @@ export function ProjectsManagePage() {
       setEditing(apiProjectToFormData(saved));
       fetchProjects();
     } catch (err) {
+      await Promise.allSettled(uploadedMediaIds.map((id) => mediaApi.deleteMedia(id)));
       handleApiError(err);
     } finally {
       setSaving(false);

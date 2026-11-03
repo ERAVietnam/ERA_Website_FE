@@ -251,7 +251,7 @@ export interface CreateApiKeyInput {
   accountId: string;
   ownerName?: string;
   ownerEmail?: string;
-  scopes: string[];
+  scopes?: string[];
   expiresAt?: string;
 }
 

@@ -80,6 +80,7 @@ const actionLabels: Record<string, string> = {
   toggle: "Ẩn/hiện",
   publish: "Duyệt",
   assign: "Gán quyền",
+  system: "Hệ thống",
 };
 
 const EXCLUDED_ACTIONS = new Set(["close", "unpublish"]);
@@ -116,7 +117,20 @@ function formatScope(scope: string): string {
     era: "ERA News",
     press: "Thông cáo báo chí",
   };
-  return map[scope] || scope;
+  return map[scope] || (scope === "system" ? "Publisher hệ thống" : scope);
+}
+
+function permissionDisplayLabel(permission: Permission): string {
+  if (
+    permission.code === "news.articles.system" ||
+    permission.code === "projects.system" ||
+    permission.code === "authors.system"
+  ) {
+    return "Hệ Thống";
+  }
+  return permission.scope === "all"
+    ? actionLabels[permission.action] || permission.action
+    : `${formatScope(permission.scope)} - ${actionLabels[permission.action] || permission.action}`;
 }
 
 const NEWS_ARTICLE_SCOPE_ORDER = ["all", "market", "project", "era", "press"];
@@ -134,6 +148,10 @@ function getNewsArticleSections(perms: Permission[]): { scope: string; label: st
   for (const p of perms) {
     if (!byScope[p.scope]) byScope[p.scope] = [];
     byScope[p.scope].push(p);
+  }
+  if (byScope.system) {
+    byScope.all = [...(byScope.all || []), ...byScope.system];
+    delete byScope.system;
   }
   return NEWS_ARTICLE_SCOPE_ORDER
     .filter((scope) => byScope[scope]?.length)
@@ -654,10 +672,7 @@ export function AccountManageForm({ initialData, onSave, onCancel }: Props) {
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                                   {sectionPerms.map((p) => {
-                                    const label =
-                                      p.scope === "all"
-                                        ? `${actionLabels[p.action] || p.action}`
-                                        : `${formatScope(p.scope)} - ${actionLabels[p.action] || p.action}`;
+                                    const label = permissionDisplayLabel(p);
                                     const allPermForThisAction = sectionPerms.find(
                                       (x) => x.scope === "all" && x.action === p.action,
                                     );

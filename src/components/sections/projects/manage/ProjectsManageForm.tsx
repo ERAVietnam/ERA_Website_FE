@@ -6,6 +6,7 @@ import { colors } from "@/lib/theme";
 import { Button } from "@/components/ui/Button";
 import { ChevronDown, X, Loader2, Eye, History } from "lucide-react";
 import { projectsApi } from "@/api/domains/projects";
+import { mediaApi } from "@/api/domains/media";
 import { accountsApi } from "@/api/domains/accounts";
 import { extractApiError } from "@/lib/api-errors";
 import { compressAndUploadImage } from "@/lib/uploadImage";
@@ -82,6 +83,7 @@ export interface ProjectFormData {
   tags: string[];
   location: string;
   imageMediaId?: string | null;
+  uploadedMediaIds?: string[];
   imageMedia?: Media | null;
   investor: string;
   ownership: string;
@@ -406,6 +408,7 @@ export function ProjectsManageForm({
     setPendingAction(null);
 
     let imageMediaId: string | null | undefined = form.imageMediaId;
+    const uploadedMediaIds: string[] = [];
 
     if (imageFile) {
       setIsUploadingImage(true);
@@ -415,6 +418,7 @@ export function ProjectsManageForm({
           maxWidthOrHeight: 1920,
         });
         imageMediaId = upload.id;
+        uploadedMediaIds.push(upload.id);
       } finally {
         setIsUploadingImage(false);
       }
@@ -424,8 +428,12 @@ export function ProjectsManageForm({
 
     setIsProcessingContent(true);
     try {
-      const processedContent = await processContentImages(form.content, "projects", "project-content-img");
-      onSave({ ...form, location: fullLocation, imageMediaId, content: processedContent });
+      const processedContent = await processContentImages(form.content, "projects", "project-content-img", uploadedMediaIds);
+      onSave({ ...form, location: fullLocation, imageMediaId, content: processedContent, uploadedMediaIds });
+    } catch (error) {
+      await Promise.allSettled(uploadedMediaIds.map((id) => mediaApi.deleteMedia(id)));
+      handleApiError(error);
+      return;
     } finally {
       setIsProcessingContent(false);
     }
