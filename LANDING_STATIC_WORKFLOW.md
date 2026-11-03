@@ -57,6 +57,14 @@ Không đổi các đường dẫn tương đối trong `index.html`. Khi mở t
 
 thì `assets/img/...` sẽ tự trỏ đúng vào thư mục landing tương ứng.
 
+### Lưu ý bắt buộc về encoding và font
+
+- Các file text của landing (`index.html`, `fonts.css`, `llms.txt`, `robots.txt`, `sitemap.xml`) phải được giữ ở **UTF-8**.
+- Khi sửa bằng PowerShell, phải đọc và ghi rõ encoding UTF-8; không dùng thao tác đọc mặc định rồi ghi lại, vì có thể làm tiếng Việt thành dạng `PhÃ²...` và khiến trang hiển thị sai.
+- Không xử lý ảnh, font `.woff2`, SVG hoặc các file nhị phân như text. Chỉ copy nguyên file hoặc dùng công cụ thao tác nhị phân.
+- Sau khi thay HTML/CSS/font, phải đổi giá trị `?v=` ở đường dẫn `fonts.css`, JavaScript và/hoặc file font để tránh trình duyệt giữ cache cũ.
+- Kiểm tra thực tế bằng trình duyệt: tiếng Việt phải hiển thị đúng, trong DevTools không có lỗi tải `fonts.css` hoặc `.woff2`.
+
 ## 3. Tạo route Next bọc landing bằng iframe
 
 Tạo file:
