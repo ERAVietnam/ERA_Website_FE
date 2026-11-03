@@ -827,6 +827,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
     setIsLoading(true);
 
+    const uploadedMediaIds: string[] = [];
     try {
       let featuredImageMediaId: string | undefined | null;
       let pdfMediaId: string | undefined | null;
@@ -837,6 +838,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
           maxWidthOrHeight: 1920,
         });
         featuredImageMediaId = upload.id;
+        uploadedMediaIds.push(upload.id);
       } else if (!imagePreview && initialData?.featuredImageMediaId) {
         featuredImageMediaId = null;
       } else if (initialData?.featuredImageMediaId) {
@@ -847,6 +849,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         if (pdfFile) {
           const upload = await mediaApi.uploadFile(pdfFile, "news");
           pdfMediaId = upload.id;
+          uploadedMediaIds.push(upload.id);
         } else if (!pdfPreviewUrl && initialData?.pdfMediaId) {
           pdfMediaId = null;
         } else if (initialData?.pdfMediaId) {
@@ -856,7 +859,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
         pdfMediaId = null;
       }
 
-      const processedContent = await processContentImages(form.content, "news");
+      const processedContent = await processContentImages(form.content, "news", "content-img", uploadedMediaIds);
 
       const payload = {
         title: form.title,
@@ -900,6 +903,7 @@ export function NewsManageForm({ initialData, readOnly = false, onSave, onCancel
 
       onSave(saved);
     } catch (err) {
+      await Promise.allSettled(uploadedMediaIds.map((id) => mediaApi.deleteMedia(id)));
       const apiErr = err as {
         data?: { field?: string; existingFeatured?: { id: string; title: string } };
       };

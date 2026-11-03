@@ -28,7 +28,8 @@ type UploadFolder = "news" | "magazine" | "recruitment" | "projects" | "agents" 
 export async function processContentImages(
   content: string,
   folder: UploadFolder,
-  filePrefix = "content-img"
+  filePrefix = "content-img",
+  uploadedMediaIds?: string[],
 ): Promise<string> {
   const parser = new DOMParser();
   const doc = parser.parseFromString(content, "text/html");
@@ -36,8 +37,7 @@ export async function processContentImages(
 
   if (images.length === 0) return content;
 
-  await Promise.all(
-    images.map(async (img, i) => {
+  for (const [i, img] of images.entries()) {
       const base64 = img.getAttribute("src")!;
       const file = base64ToFile(base64, `${filePrefix}-${Date.now()}-${i}`);
 
@@ -56,9 +56,9 @@ export async function processContentImages(
         : file;
 
       const upload = await mediaApi.uploadImage(compressedFile, folder);
+      uploadedMediaIds?.push(upload.id);
       img.setAttribute("src", upload.url);
-    })
-  );
+  }
 
   return doc.body.innerHTML;
 }

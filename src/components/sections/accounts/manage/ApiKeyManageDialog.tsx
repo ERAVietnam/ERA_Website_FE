@@ -15,13 +15,6 @@ interface Props {
   onClose: () => void;
 }
 
-const scopeLabels: Record<string, string> = {
-  "news.articles.all.create": "Tin tức - tạo",
-  "news.articles.all.update": "Tin tức - sửa/gửi duyệt",
-  "projects.all.create": "Dự án - tạo",
-  "projects.all.update": "Dự án - sửa/gửi duyệt",
-};
-
 function formatDate(value?: string | null) {
   if (!value) return "—";
   return new Intl.DateTimeFormat("vi-VN", { dateStyle: "medium" }).format(new Date(value));
@@ -32,7 +25,6 @@ export function ApiKeyManageDialog({ account, isOpen, onClose }: Props) {
   const [executionAccounts, setExecutionAccounts] = useState<ManagementAccount[]>([]);
   const [executionAccountId, setExecutionAccountId] = useState("");
   const [name, setName] = useState("");
-  const [selectedScopes, setSelectedScopes] = useState<string[]>([]);
   const [secret, setSecret] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -42,11 +34,6 @@ export function ApiKeyManageDialog({ account, isOpen, onClose }: Props) {
   const executionAccount = useMemo(
     () => executionAccounts.find((item) => item.id === executionAccountId) ?? null,
     [executionAccounts, executionAccountId],
-  );
-
-  const availableScopes = useMemo(
-    () => Object.keys(scopeLabels).filter((scope) => executionAccount?.permissions.some((permission) => permission.code === scope)),
-    [executionAccount],
   );
 
   const loadKeys = async () => {
@@ -70,7 +57,6 @@ export function ApiKeyManageDialog({ account, isOpen, onClose }: Props) {
     setName(`${account.name} - AI Publisher`);
     setExecutionAccounts([]);
     setExecutionAccountId("");
-    setSelectedScopes([]);
     setSecret(null);
     setCopied(false);
     void (async () => {
@@ -88,11 +74,6 @@ export function ApiKeyManageDialog({ account, isOpen, onClose }: Props) {
 
         setExecutionAccounts(activeAccounts);
         setExecutionAccountId(defaultExecutionAccount?.id ?? "");
-        setSelectedScopes(
-          Object.keys(scopeLabels).filter((scope) =>
-            defaultExecutionAccount?.permissions.some((permission) => permission.code === scope),
-          ),
-        );
         setKeys(allKeys.filter((key) => key.ownerEmail === account.email));
       } catch (err) {
         setError(extractApiError(err).message);
@@ -102,14 +83,8 @@ export function ApiKeyManageDialog({ account, isOpen, onClose }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, account?.id]);
 
-  const toggleScope = (scope: string) => {
-    setSelectedScopes((current) =>
-      current.includes(scope) ? current.filter((item) => item !== scope) : [...current, scope],
-    );
-  };
-
   const handleCreate = async () => {
-    if (!account || !executionAccount || !name.trim() || selectedScopes.length === 0) {
+    if (!account || !executionAccount || !name.trim()) {
       setError("Vui lòng nhập tên key và chọn ít nhất một quyền.");
       return;
     }
@@ -121,7 +96,6 @@ export function ApiKeyManageDialog({ account, isOpen, onClose }: Props) {
         accountId: executionAccount.id,
         ownerName: account.name,
         ownerEmail: account.email,
-        scopes: selectedScopes,
       });
       setSecret(created.apiKey);
       await loadKeys();
@@ -170,12 +144,6 @@ export function ApiKeyManageDialog({ account, isOpen, onClose }: Props) {
 
   const handleExecutionAccountChange = (accountId: string) => {
     setExecutionAccountId(accountId);
-    const nextAccount = executionAccounts.find((item) => item.id === accountId);
-    setSelectedScopes(
-      Object.keys(scopeLabels).filter((scope) =>
-        nextAccount?.permissions.some((permission) => permission.code === scope),
-      ),
-    );
   };
 
   return (
@@ -232,18 +200,9 @@ export function ApiKeyManageDialog({ account, isOpen, onClose }: Props) {
               className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-gray-400"
             />
             <div>
-              <p className="mb-2 text-sm font-medium text-gray-700">Phạm vi quyền của key</p>
-              <div className="grid gap-2 sm:grid-cols-2">
-                {availableScopes.map((scope) => (
-                  <label key={scope} className="flex items-center gap-2 rounded-lg bg-gray-50 px-3 py-2 text-sm text-gray-700">
-                    <input type="checkbox" checked={selectedScopes.includes(scope)} onChange={() => toggleScope(scope)} />
-                    {scopeLabels[scope]}
-                  </label>
-                ))}
-              </div>
-              {availableScopes.length === 0 && <p className="text-sm text-red-600">Account này chưa có quyền tạo/sửa tin tức hoặc dự án.</p>}
+              <p className="rounded-lg bg-blue-50 px-3 py-2 text-xs text-blue-800">Key sẽ sử dụng toàn bộ quyền của tài khoản thực thi.</p>
             </div>
-            <Button type="button" size="sm" className="gap-2" onClick={handleCreate} disabled={saving || availableScopes.length === 0}>
+            <Button type="button" size="sm" className="gap-2" onClick={handleCreate} disabled={saving || !executionAccount}>
               {saving ? <Loader2 size={15} className="animate-spin" /> : <KeyRound size={15} />}
               Tạo API key
             </Button>
@@ -265,7 +224,7 @@ export function ApiKeyManageDialog({ account, isOpen, onClose }: Props) {
                       <p className="font-medium text-gray-900">{key.name}</p>
                       <p className="mt-1 font-mono text-xs text-gray-500">{key.keyPrefix}_••••••••</p>
                       <div className="mt-2 flex flex-wrap gap-1.5">
-                        {key.scopes.map((scope) => <span key={scope} className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600">{scopeLabels[scope] || scope}</span>)}
+                        <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600">Theo quyền tài khoản thực thi</span>
                       </div>
                       <p className="mt-2 text-xs text-gray-500">Tạo ngày {formatDate(key.createdAt)} · Dùng lần cuối {formatDate(key.lastUsedAt)}</p>
                     </div>
