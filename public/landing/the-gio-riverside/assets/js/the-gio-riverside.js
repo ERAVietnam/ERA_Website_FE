@@ -7,7 +7,7 @@
   /* BẢN CÓ FORM — sinh bởi _dungcu/tao-ban-co-form.py. KHÔNG sửa tay.
      🔴 LEAD_ENDPOINT: địa chỉ nhận lead, vd Google Apps Script .../exec.
      Để trống = form báo khách "bản xem thử, gọi hotline", KHÔNG nuốt lead im lặng. */
-  var LEAD_ENDPOINT = '/api/submit-lead';
+  var LEAD_ENDPOINT = '';
   /* Bản có form sinh bằng _dungcu/tao-ban-co-form.py — sửa ở file này rồi chạy lại script. */
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -245,69 +245,57 @@
     if (s.indexOf('84') === 0 && s.length === 11) s = '0' + s.slice(2);
     return /^0[35789][0-9]{8}$/.test(s) ? s : null;
   }
-  function parentUrl() {
-    var url = document.referrer || '';
-    try { if (window.top && window.top.location) url = window.top.location.href; } catch (e) {}
-    return url || location.href;
-  }
   function layUTM() {
-    var href = parentUrl(), p;
-    try { p = new URL(href).searchParams; } catch (e) { p = new URLSearchParams(location.search); }
-    return {
-      utm_source: p.get('utm_source') || '',
-      utm_medium: p.get('utm_medium') || '',
-      utm_campaign: p.get('utm_campaign') || '',
-      utm_term: p.get('utm_term') || '',
-      utm_content: p.get('utm_content') || '',
-      adclid: p.get('adclid') || '',
-      adclida: p.get('adclida') || '',
-      mglnd: p.get('mgclid') || ''
-    };
+    var p = new URLSearchParams(location.search), o = {};
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid']
+      .forEach(function (k) { if (p.get(k)) o[k] = p.get(k); });
+    return o;
   }
   $$('form[data-lead]').forEach(function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var f = form.elements, nut = $('button[type=submit]', form);
       var ten = (f.name.value || '').trim(), sdt = chuanSDT(f.phone.value);
-      if (!ten) { bao(form, 'Vui lòng cho em xin họ tên ạ.', 'loi'); f.name.focus(); return; }
+      if (!ten) { bao(form, 'Anh/chị cho em xin họ tên với ạ.', 'loi'); f.name.focus(); return; }
       if (!sdt) { bao(form, 'Số điện thoại chưa đúng — cần 10 số, bắt đầu 03/05/07/08/09.', 'loi'); f.phone.focus(); return; }
 
-      var utm = layUTM();
       var du = {
-        formId: 'TGR_LEAD',
-        hoten: ten,
-        sdt: sdt,
-        sanpham: f.product ? f.product.value : '',
-        sheet: 'THE GI\u00d3 RIVERSIDE',
-        url: parentUrl(),
-        utm_source: utm.utm_source,
-        utm_medium: utm.utm_medium,
-        utm_campaign: utm.utm_campaign,
-        utm_term: utm.utm_term,
-        utm_content: utm.utm_content,
-        adclid: utm.adclid,
-        adclida: utm.adclida,
-        mglnd: utm.mglnd,
-        ip: '',
-        userAgent: navigator.userAgent
+        du_an: 'The Gió Riverside',
+        name: ten, phone: sdt,
+        product: f.product ? f.product.value : '',
+        unit: f.unit ? f.unit.value : '',
+        source: form.getAttribute('data-source') || 'khong-ro',
+        page: location.href.split('?')[0],
+        referrer: document.referrer || '(truc tiep)',
+        device: innerWidth <= 860 ? 'mobile' : 'desktop',
+        thoi_gian: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
       };
-      var body = JSON.stringify(du), sent = false;
-      if (navigator.sendBeacon) {
-        try { sent = navigator.sendBeacon(LEAD_ENDPOINT, new Blob([body], { type: 'application/json' })); } catch (x) {}
+      var utm = layUTM(); for (var k in utm) du[k] = utm[k];
+
+      if (!LEAD_ENDPOINT) {
+        console.warn('[LH] Chưa khai LEAD_ENDPOINT — lead KHÔNG được gửi:', du);
+        bao(form, 'Trang đang ở bản xem thử, chưa nối nơi nhận thông tin. Anh/chị gọi hotline 094.1125.000 giúp em ạ.', 'loi');
+        return;
       }
-      if (!sent) {
-        fetch(LEAD_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: body,
-          keepalive: true
-        }).catch(function (err) { console.error('[TGR] Gửi lead lỗi:', err); });
-      }
-      try { if (window.fbq) fbq('track', 'Lead'); } catch (x) {}
-      try { if (window.gtag) gtag('event', 'generate_lead', { source: du.formId }); } catch (x) {}
-      window.top.location.href = '/thank-you-the-gio-riverside/';
+      nut.disabled = true; nut.setAttribute('data-chu', nut.textContent); nut.textContent = 'Đang gửi...';
+      // text/plain để tránh preflight CORS (Google Apps Script không trả lời OPTIONS)
+      fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(du) })
+        .then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          bao(form, 'Đã nhận đăng ký của anh/chị. Chuyên viên ERA sẽ gọi lại gửi thông tin dự án trong ngày ạ.', 'ok');
+          nut.textContent = 'Đã gửi ✓';
+          try { if (window.fbq) fbq('track', 'Lead'); } catch (x) {}
+          try { if (window.gtag) gtag('event', 'generate_lead', { source: du.source }); } catch (x) {}
+          form.reset();
+        })
+        .catch(function (err) {
+          console.error('[LH] Gửi lead lỗi:', err);
+          nut.disabled = false; nut.textContent = nut.getAttribute('data-chu');
+          bao(form, 'Gửi chưa được. Anh/chị thử lại hoặc gọi hotline 094.1125.000 giúp em ạ.', 'loi');
+        });
     });
   });
+
   /* nút có data-loai -> ghi sẵn nhu cầu vào form (hiện chưa dùng) */
   var formDk = $('#dang-ky form');
   $$('[data-loai]').forEach(function (a) {

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Green Skyline Green Square – Căn hộ TBS Land đã cất nóc | ERA Vietnam",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/du-an-green-skyline/",
     images: [
       {
-        url: "/landing/green-skyline-static/assets/img/og-green-skyline-tbs-land-1200x630.jpg",
+        url: "/landing/green-skyline/assets/img/og-green-skyline-tbs-land-1200x630.jpg",
         width: 1200,
         height: 630,
         alt: "Phối cảnh Green Skyline: 4 tháp căn hộ TBS Land bên Quốc lộ 1K, trong khu đô thị Green Square 39 ha lúc bình minh",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: "Green Skyline – Căn hộ “may đo” từ những giá trị thật",
     description:
       "1.296 căn hộ · 4 tháp 28–40 tầng · đã cất nóc · Green Square 39 ha · vận hành Savills.",
-    images: ["/landing/green-skyline-static/assets/img/og-green-skyline-tbs-land-1200x630.jpg"],
+    images: ["/landing/green-skyline/assets/img/og-green-skyline-tbs-land-1200x630.jpg"],
   },
   robots: {
     index: true,
@@ -50,10 +50,11 @@ export default function GreenSkylinePage() {
     <main className="min-h-screen w-full bg-white">
       <iframe
         title="Green Skyline TBS Land"
-        src="/landing/green-skyline-static/index.html"
+        src="/landing/green-skyline/index.html"
         className="block min-h-screen w-full border-0"
         style={{ height: "100vh" }}
       />
     </main>
   );
 }
+

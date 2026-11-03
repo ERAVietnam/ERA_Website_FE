@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/jsonLd";
 
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     url: "https://era.com.vn/du-an-nam-mekong-grand-plaza/",
     images: [
       {
-        url: "/landing/nam-mekong-static/assets/img/nam-mekong-grand-plaza-hero-vong-xoay-wtc.webp",
+        url: "/landing/nam-mekong/assets/img/nam-mekong-grand-plaza-hero-vong-xoay-wtc.webp",
         width: 1600,
         height: 900,
         alt: "Phối cảnh Nam Mekong Grand Plaza: hai tháp 30 tầng bên vòng xoay WTC và nhà ga metro trung tâm",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "Nam Mekong Grand Plaza – Căn hộ TOD vòng xoay WTC Thành phố mới Bình Dương",
     description:
       "2 tháp 30 tầng · 1.622 căn hộ · 50+ tiện ích ngay vòng xoay WTC. Nhà mẫu đã sẵn sàng đón khách.",
-    images: ["/landing/nam-mekong-static/assets/img/nam-mekong-grand-plaza-hero-vong-xoay-wtc.webp"],
+    images: ["/landing/nam-mekong/assets/img/nam-mekong-grand-plaza-hero-vong-xoay-wtc.webp"],
   },
   robots: {
     index: true,
@@ -58,9 +58,10 @@ export default function NamMekongPage() {
       <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
       <iframe
         title="Nam Mekong Grand Plaza – Căn hộ TOD vòng xoay WTC"
-        src="/landing/nam-mekong-static/index.html"
+        src="/landing/nam-mekong/index.html"
         style={{ display: "block", width: "100%", minHeight: "100vh", border: 0 }}
       />
     </>
   );
 }
+

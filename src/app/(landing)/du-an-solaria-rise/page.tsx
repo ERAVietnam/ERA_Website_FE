@@ -20,6 +20,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "SOLARIA RISE | Căn hộ chuẩn resort giữa lòng Waterpoint",
+    description:
+      "Khám phá SOLARIA RISE tại Waterpoint: quy mô 3,1 ha, 698 sản phẩm, gần 30 tiện ích chuẩn resort.",
+    images: ["/landing/solaria-rise/assets/img/og-solaria-rise.jpg"],
+  },
   robots: { index: true, follow: true },
 };
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 
@@ -40,7 +40,7 @@ export default function ThankYouThanhPhuPage() {
     <main
       className="relative flex min-h-screen w-full items-center justify-center text-white"
       style={{
-        backgroundImage: "url('/landing/thanh-phu-static/assets/img/thanh-phu-centre-point-ho-trung-tam-ve-dem.webp')",
+        backgroundImage: "url('/landing/thanh-phu/assets/img/thanh-phu-centre-point-ho-trung-tam-ve-dem.webp')",
         backgroundSize: "cover",
         backgroundPosition: "50% 60%",
       }}
@@ -82,3 +82,4 @@ export default function ThankYouThanhPhuPage() {
     </main>
   );
 }
+

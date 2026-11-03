@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -24,9 +24,9 @@ const defaultLayout: Required<LayoutConfig> = {
 const landingFaviconByRoute: Record<string, string> = {
   "/du-an-arcadia-at-lavila": "/landing/arcadia/assets/img/arcadia-official-favicon.png",
   "/du-an-artisan-park": "/landing/artisan-park/assets/img/artisan-park-official-favicon.png",
-  "/pk-beachtro-tower-du-an-blanca-city": "/landing/beachtro-tower-static/assets/img/beachtro-tower-static-official-favicon.png",
+  "/pk-beachtro-tower-du-an-blanca-city": "/landing/beachtro-tower/assets/img/beachtro-tower-static-official-favicon.png",
   "/du-an-capital-square": "/landing/capital-square/assets/img/capital-square-official-favicon.png",
-  "/du-an-celesta-gold": "/landing/celesta-gold-static/assets/img/celesta-gold-static-official-favicon.png",
+  "/du-an-celesta-gold": "/landing/celesta-gold/assets/img/celesta-gold-static-official-favicon.png",
   "/du-an-diamond-sky": "/landing/diamond-sky/assets/img/diamond-sky-mark.svg",
   "/du-an-elyse-island": "/landing/elyse-island/assets/img/elyse-island-official-favicon.png",
   "/duan-canho-forest-onsen": "/landing/eco-retreat/assets/img/eco-retreat-official-favicon.png",
@@ -35,7 +35,7 @@ const landingFaviconByRoute: Record<string, string> = {
   "/du-an-gladia-by-the-water": "/landing/gladia-by-the-water/assets/img/gladia-by-the-water-official-favicon.jpg",
   "/du-an-gladia-heights": "/logo_short.svg",
   "/du-an-grand-marina-saigon": "/landing/grand-marina-saigon/assets/img/grand-marina-saigon-official-favicon.png",
-  "/du-an-green-skyline": "/landing/green-skyline-static/assets/img/green-skyline-mark.svg",
+  "/du-an-green-skyline": "/landing/green-skyline/assets/img/green-skyline-mark.svg",
   "/du-an-hanoi-signature": "/landing/hanoi-signature/assets/img/hanoi-signature-official-favicon.png",
   "/du-an-hoiana-residences": "/landing/hoiana-residences/assets/img/hoiana-residences-official-favicon.jpg",
   "/du-an-imperia-sensa-park": "/landing/imperia-sensa-park/assets/img/imperia-sensa-park-official-favicon.png",
@@ -43,28 +43,28 @@ const landingFaviconByRoute: Record<string, string> = {
   "/du-an-m-landmark-residences": "/landing/m-landmark-residences/assets/img/m-landmark-residences-official-favicon.png",
   "/du-an-maia-ho-tram": "/landing/maia-ho-tram/assets/img/maia-ho-tram-bieu-tuong.svg",
   "/du-an-masteri-cosmo-central": "/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-official-favicon.png",
-  "/du-an-nam-mekong-grand-plaza": "/landing/nam-mekong-static/assets/img/nam-mekong-static-official-favicon.png",
+  "/du-an-nam-mekong-grand-plaza": "/landing/nam-mekong/assets/img/nam-mekong-static-official-favicon.png",
   "/du-an-newtown-legend": "/landing/newtown-legend/assets/img/newtown-legend-official-favicon.png",
   "/du-an-nobu-da-nang": "/landing/nobu-da-nang/assets/img/nobu-da-nang-official-favicon.webp",
   "/du-an-norton-park": "/landing/norton-park/assets/img/norton-park-official-favicon.jpg",
-  "/du-an-palm-river": "/landing/palm-river-static/assets/img/palm-river-static-official-favicon.png",
-  "/pk-park-village-du-an-waterpoint": "/landing/park-village-static/assets/img/park-village-static-official-favicon.png",
+  "/du-an-palm-river": "/landing/palm-river/assets/img/palm-river-static-official-favicon.png",
+  "/pk-park-village-du-an-waterpoint": "/landing/park-village/assets/img/park-village-static-official-favicon.png",
   "/du-an-phu-gia-bao-loc": "/landing/phu-gia-bao-loc/assets/img/phu-gia-bao-loc-official-favicon.jpg",
-  "/pk-nagomi-du-an-waterpoint": "/landing/rivera-nagomi-static/assets/img/rivera-nagomi-static-official-favicon.png",
+  "/pk-nagomi-du-an-waterpoint": "/landing/rivera-nagomi/assets/img/rivera-nagomi-static-official-favicon.png",
   "/du-an-salacia-villas": "/landing/salacia-villas/assets/img/salacia-villas-official-favicon.jpg",
   "/du-an-setia-edenia": "/landing/setia-edenia/assets/img/setia-edenia-official-favicon.png",
-  "/du-an-skysolis": "/landing/skysolis-static/assets/img/skysolis-static-official-favicon.png",
+  "/du-an-skysolis": "/landing/skysolis/assets/img/skysolis-static-official-favicon.png",
   "/pk-soho-du-an-the-global-city": "/landing/soho/assets/img/masterise-homes-official-favicon.png",
   "/du-an-solaria-rise": "/landing/solaria-rise/assets/img/solaria-rise-bieu-tuong.webp",
   "/du-an-ban-dao-sola": "/landing/sola/assets/img/sola-official-favicon.png",
-  "/du-an-thanh-phu-centre-point": "/landing/thanh-phu-static/assets/img/thanh-phu-static-official-favicon.png",
-  "/pk-the-aqua-du-an-waterpoint": "/landing/the-aqua-static/assets/img/the-aqua-static-official-favicon.png",
-  "/du-an-the-aspira": "/landing/the-aspira-static/assets/img/the-aspira-static-official-favicon.png",
+  "/du-an-thanh-phu-centre-point": "/landing/thanh-phu/assets/img/thanh-phu-static-official-favicon.png",
+  "/pk-the-aqua-du-an-waterpoint": "/landing/the-aqua/assets/img/the-aqua-static-official-favicon.png",
+  "/du-an-the-aspira": "/landing/the-aspira/assets/img/the-aspira-static-official-favicon.png",
   "/du-an-the-berkley": "/landing/the-berkley/assets/img/the-berkley-official-favicon.png",
   "/du-an-the-legend-da-nang": "/landing/the-legend-da-nang/assets/img/the-legend-da-nang-official-favicon.png",
   "/du-an-the-nest": "/landing/the-nest/assets/img/the-nest-official-favicon.png",
   "/du-an-the-rivus": "/landing/soho/assets/img/masterise-homes-official-favicon.png",
-  "/du-an-the-westique-residences": "/landing/the-westique-static/assets/img/the-westique-static-official-favicon.png",
+  "/du-an-the-westique-residences": "/landing/the-westique/assets/img/the-westique-static-official-favicon.png",
   "/du-an-the-win-city": "/landing/the-win-city/assets/img/the-win-city-official-favicon.jpg",
   "/du-an-trellia-vista": "/landing/trellia-vista/assets/img/trellia-vista-official-favicon.png",
   "/du-an-vinhomes-green-paradise": "/landing/vinhomes-green-paradise/assets/img/vinhomes-green-paradise-official-favicon.png",
@@ -74,7 +74,7 @@ const landingFaviconByRoute: Record<string, string> = {
 const landingThankYouFaviconByRoute: Record<string, string> = {
   "/thank-you-arcadia": "/landing/arcadia/assets/img/arcadia-official-favicon.png",
   "/thank-you-artisan-park": "/landing/artisan-park/assets/img/artisan-park-official-favicon.png",
-  "/thank-you-beachtro-tower": "/landing/beachtro-tower-static/assets/img/beachtro-tower-static-official-favicon.png",
+  "/thank-you-beachtro-tower": "/landing/beachtro-tower/assets/img/beachtro-tower-static-official-favicon.png",
   "/thank-you-capital-square": "/landing/capital-square/assets/img/capital-square-official-favicon.png",
   "/thank-you-diamond-sky": "/landing/diamond-sky/assets/img/diamond-sky-mark.svg",
   "/thank-you-eco-retreat": "/landing/eco-retreat/assets/img/eco-retreat-official-favicon.png",
@@ -84,7 +84,7 @@ const landingThankYouFaviconByRoute: Record<string, string> = {
   "/thank-you-gladia-by-the-water": "/landing/gladia-by-the-water/assets/img/gladia-by-the-water-official-favicon.jpg",
   "/thank-you-gladia-heights": "/logo_short.svg",
   "/thank-you-grand-marina-saigon": "/landing/grand-marina-saigon/assets/img/grand-marina-saigon-official-favicon.png",
-  "/thank-you-green-skyline": "/landing/green-skyline-static/assets/img/green-skyline-mark.svg",
+  "/thank-you-green-skyline": "/landing/green-skyline/assets/img/green-skyline-mark.svg",
   "/thank-you-hanoi-signature": "/landing/hanoi-signature/assets/img/hanoi-signature-official-favicon.png",
   "/thank-you-hoiana-residences": "/landing/hoiana-residences/assets/img/hoiana-residences-official-favicon.jpg",
   "/thank-you-imperia-sensa-park": "/landing/imperia-sensa-park/assets/img/imperia-sensa-park-official-favicon.png",
@@ -92,16 +92,16 @@ const landingThankYouFaviconByRoute: Record<string, string> = {
   "/thank-you-m-landmark-residences": "/landing/m-landmark-residences/assets/img/m-landmark-residences-official-favicon.png",
   "/thank-you-maia-ho-tram": "/landing/maia-ho-tram/assets/img/maia-ho-tram-bieu-tuong.svg",
   "/thank-you-masteri-cosmo-central": "/landing/masteri-cosmo-central/assets/img/masteri-cosmo-central-official-favicon.png",
-  "/thank-you-nam-mekong": "/landing/nam-mekong-static/assets/img/nam-mekong-static-official-favicon.png",
+  "/thank-you-nam-mekong": "/landing/nam-mekong/assets/img/nam-mekong-static-official-favicon.png",
   "/thank-you-newtown-legend": "/landing/newtown-legend/assets/img/newtown-legend-official-favicon.png",
   "/thank-you-nobu-da-nang": "/landing/nobu-da-nang/assets/img/nobu-da-nang-official-favicon.webp",
   "/thank-you-norton-park": "/landing/norton-park/assets/img/norton-park-official-favicon.jpg",
-  "/thank-you-palm-river": "/landing/palm-river-static/assets/img/palm-river-static-official-favicon.png",
+  "/thank-you-palm-river": "/landing/palm-river/assets/img/palm-river-static-official-favicon.png",
   "/thank-you-salacia-villas": "/landing/salacia-villas/assets/img/salacia-villas-official-favicon.jpg",
   "/thank-you-setia-edenia": "/landing/setia-edenia/assets/img/setia-edenia-official-favicon.png",
   "/thank-you-sola": "/landing/sola/assets/img/sola-official-favicon.png",
-  "/thank-you-thanh-phu": "/landing/thanh-phu-static/assets/img/thanh-phu-static-official-favicon.png",
-  "/thank-you-the-aspira": "/landing/the-aspira-static/assets/img/the-aspira-static-official-favicon.png",
+  "/thank-you-thanh-phu": "/landing/thanh-phu/assets/img/thanh-phu-static-official-favicon.png",
+  "/thank-you-the-aspira": "/landing/the-aspira/assets/img/the-aspira-static-official-favicon.png",
   "/thank-you-the-berkley": "/landing/the-berkley/assets/img/the-berkley-official-favicon.png",
   "/thank-you-the-legend-da-nang": "/landing/the-legend-da-nang/assets/img/the-legend-da-nang-official-favicon.png",
   "/thank-you-the-nest": "/landing/the-nest/assets/img/the-nest-official-favicon.png",
@@ -111,7 +111,7 @@ const landingThankYouFaviconByRoute: Record<string, string> = {
   "/thank-you-vinhomes-green-paradise": "/landing/vinhomes-green-paradise/assets/img/vinhomes-green-paradise-official-favicon.png",
   "/thank-you-waterpoint": "/landing/waterpoint/waterpoint-favicon.png",
   "/thank-you-solaria-rise": "/landing/solaria-rise/assets/img/solaria-rise-bieu-tuong.webp",
-  "/thank-you-westique": "/landing/the-westique-static/assets/img/the-westique-static-official-favicon.png",
+  "/thank-you-westique": "/landing/the-westique/assets/img/the-westique-static-official-favicon.png",
 };
 
 /**
@@ -285,4 +285,5 @@ export function LayoutWrapper({
     </>
   );
 }
+
 

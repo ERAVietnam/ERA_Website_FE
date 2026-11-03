@@ -150,6 +150,15 @@ Mỗi khi tích hợp một landing dự án mới, luôn thực hiện đủ ha
 
 Khi tạo bản static, ưu tiên dùng thư mục `khong-form/web` nếu bộ giao có sẵn. Chỉ cập nhật các file text như `index.html`, `llms.txt`, `sitemap.xml`, `robots.txt`; không đọc/ghi lại thư mục `assets` bằng thao tác xử lý text để tránh làm hỏng ảnh, font và file nhị phân.
 
+### Quy tắc một thư mục landing trong FE
+
+Trong `public/landing`, mỗi dự án chỉ được có một thư mục runtime theo đúng `<slug>`. Không tạo thêm thư mục `<slug>-static` trong FE.
+
+- Landing có form dùng chính thư mục `<slug>` để chứa `index.html`, `assets`, JavaScript form và các tài nguyên liên quan. Route, trang cảm ơn, metadata, favicon và các đường dẫn iframe đều phải trỏ về thư mục này.
+- Khi hợp nhất một landing cũ có bản `<slug>` và `<slug>-static`, hãy copy phần cần thiết vào `<slug>`, kiểm tra đủ `index.html` và `assets`, cập nhật toàn bộ đường dẫn `/landing/...`, rồi mới xóa thư mục `<slug>-static`.
+- Bản ZIP không form dùng cho ứng dụng upload bên ngoài tại `D:\ERA\landing\<slug>-static` là kho riêng, không phải thư mục thứ hai trong FE và không cần tạo bản sao trong `public/landing`.
+- Không đổi tên route URL chỉ vì hợp nhất thư mục. Giữ nguyên logic form, submit lead, trang cảm ơn và metadata hiện có.
+
 ## 5. Tạo trang cảm ơn
 
 Tạo route:
