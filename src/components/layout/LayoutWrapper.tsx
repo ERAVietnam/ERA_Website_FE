@@ -55,6 +55,7 @@ const landingFaviconByRoute: Record<string, string> = {
   "/du-an-setia-edenia": "/landing/setia-edenia/assets/img/setia-edenia-official-favicon.png",
   "/du-an-skysolis": "/landing/skysolis-static/assets/img/skysolis-static-official-favicon.png",
   "/pk-soho-du-an-the-global-city": "/landing/soho/assets/img/masterise-homes-official-favicon.png",
+  "/du-an-solaria-rise": "/landing/solaria-rise/assets/img/solaria-rise-bieu-tuong.webp",
   "/du-an-ban-dao-sola": "/landing/sola/assets/img/sola-official-favicon.png",
   "/du-an-thanh-phu-centre-point": "/landing/thanh-phu-static/assets/img/thanh-phu-static-official-favicon.png",
   "/pk-the-aqua-du-an-waterpoint": "/landing/the-aqua-static/assets/img/the-aqua-static-official-favicon.png",
@@ -109,6 +110,7 @@ const landingThankYouFaviconByRoute: Record<string, string> = {
   "/thank-you-trellia-vista": "/landing/trellia-vista/assets/img/trellia-vista-official-favicon.png",
   "/thank-you-vinhomes-green-paradise": "/landing/vinhomes-green-paradise/assets/img/vinhomes-green-paradise-official-favicon.png",
   "/thank-you-waterpoint": "/landing/waterpoint/waterpoint-favicon.png",
+  "/thank-you-solaria-rise": "/landing/solaria-rise/assets/img/solaria-rise-bieu-tuong.webp",
   "/thank-you-westique": "/landing/the-westique-static/assets/img/the-westique-static-official-favicon.png",
 };
 
@@ -150,6 +152,8 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/pk-the-aqua-du-an-waterpoint": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-skysolis": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-green-skyline": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-solaria-rise": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-solaria-rise": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-green-skyline": { header: false, footer: false, toTop: false },
   "/du-an-diamond-sky": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-diamond-sky": { header: false, footer: false, toTop: false, contentPadding: false },
