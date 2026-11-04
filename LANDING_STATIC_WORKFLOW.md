@@ -158,6 +158,7 @@ Trong `public/landing`, mỗi dự án chỉ được có một thư mục runti
 - Khi hợp nhất một landing cũ có bản `<slug>` và `<slug>-static`, hãy copy phần cần thiết vào `<slug>`, kiểm tra đủ `index.html` và `assets`, cập nhật toàn bộ đường dẫn `/landing/...`, rồi mới xóa thư mục `<slug>-static`.
 - Bản ZIP không form dùng cho ứng dụng upload bên ngoài tại `D:\ERA\landing\<slug>-static` là kho riêng, không phải thư mục thứ hai trong FE và không cần tạo bản sao trong `public/landing`.
 - Không đổi tên route URL chỉ vì hợp nhất thư mục. Giữ nguyên logic form, submit lead, trang cảm ơn và metadata hiện có.
+- File `vercel.json` đi kèm bộ HTML từ phòng thiết kế chỉ phục vụ việc host preview trên Vercel trước khi bàn giao. Khi landing đã được tích hợp vào project FE (đã link Git/Vercel ở cấp project) hoặc đóng gói ZIP để upload sang app khác, phải xóa `vercel.json` khỏi thư mục landing; không cần mang theo file cấu hình preview này.
 
 ## 5. Tạo trang cảm ơn
 

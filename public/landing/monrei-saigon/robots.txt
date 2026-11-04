@@ -1,0 +1,5 @@
+# Bản xem thử: chặn công cụ tìm kiếm.
+# Landing được phục vụ bên trong ERA Website tại /du-an-monrei-saigon/
+User-agent: *
+Disallow: /
+Sitemap: https://era.com.vn/landing/monrei-saigon/sitemap.xml

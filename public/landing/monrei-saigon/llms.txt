@@ -1,0 +1,20 @@
+# Monrei Saigon
+
+> Landing giới thiệu dự án do ERA Vietnam thực hiện.
+
+- URL: https://era.com.vn/du-an-monrei-saigon/
+- Tên pháp lý theo tài liệu: Khu nhà ở phức hợp cao tầng Thuận An 1.
+- Vị trí: Nguyễn Thị Minh Khai, phường Thuận Giao, TP.HCM.
+- Đơn vị tham gia phát triển: Mitsubishi Corporation, Tokyu Land, Phát Đạt.
+- Tổng thầu: Coteccons.
+- Giai đoạn 1: khoảng 18.146,7 m²; mật độ xây dựng khoảng 37,5%.
+- 03 tháp Wellness Onsen, Detox M1, Detox M2; khoảng 36–39 tầng; khoảng 2.717 sản phẩm.
+- Studio/MIO khoảng 34–38 m²; 2PN 1WC/NIDO khoảng 51–55 m²; 2PN 2WC/AMO khoảng 64–66 m²; 3PN/RICO khoảng 88 m²; Garden House, Shophouse.
+- Định vị: Urban Hydrotherapy City; hệ tiện ích nước và wellness theo tài liệu giới thiệu.
+- Giá bán, hồ sơ pháp lý, chính sách thanh toán, lịch bàn giao: chưa có tài liệu chốt trong bộ đầu vào. Không suy luận hoặc cam kết.
+- Thời gian di chuyển chỉ mang tính tham khảo; hạ tầng, metro chưa hiện hữu: theo quy hoạch.
+- Mặt bằng tiện ích: tổng mặt bằng 24 hạng mục; tầng 1 (23 chú thích), tầng 2 (12), tầng 20 (21), tầng 30 và tầng mái (10). Bản vẽ tầng 1 và 2 thể hiện tháp Wellness Onsen.
+- Private Sky Terrace & BBQ chỉ dành cho cư dân tầng 30 theo tài liệu giới thiệu.
+- Nguồn: brief-landing-monrei.pdf trang 1; tư liệu CĐT; 260616_Monrei_Slide đào tạo Update.pdf (Drive 1yNIk5yuV3U79csyZKFIZVvxSBfZWWHOK), trang 35–83.
+- File giới thiệu mới chưa có mặt bằng tầng căn hộ điển hình hoặc layout riêng MIO/NIDO/AMO/RICO.
+- Mọi thông tin căn cứ công bố chính thức của chủ đầu tư và hợp đồng tại thời điểm giao dịch.
