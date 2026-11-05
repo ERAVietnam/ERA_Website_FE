@@ -3,16 +3,73 @@
 (function () {
   'use strict';
 
-  /* Landing cho SALE (Anh Tony dặn 01/10/2026): không form, không hotline, không popup. */
+  var LEAD_ENDPOINT = '/api/submit-lead/';
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  function chuanSoDiDong(value) {
+    var number = String(value || '').trim().replace(/[\s.()+-]/g, '');
+    if (number.indexOf('84') === 0 && number.length === 11) number = '0' + number.slice(2);
+    return /^0[35789][0-9]{8}$/.test(number) ? number : '';
+  }
+
+  /* Mỗi Agent dùng link ?sdt=<số di động>. Chỉ đổi các liên hệ đã có trong bản có form. */
+  var agentPhone = chuanSoDiDong(new URLSearchParams(location.search).get('sdt'));
+  if (agentPhone) {
+    var phoneLabel = agentPhone.slice(0, 4) + '.' + agentPhone.slice(4, 7) + '.' + agentPhone.slice(7);
+    $$('[data-agent-phone]').forEach(function (link) {
+      link.setAttribute('href', 'tel:' + agentPhone);
+      link.textContent = (link.getAttribute('data-agent-prefix') || '') + phoneLabel;
+      link.setAttribute('aria-label', 'Gọi chuyên viên tư vấn: ' + phoneLabel);
+    });
+    $$('[data-agent-zalo]').forEach(function (link) {
+      link.setAttribute('href', 'https://zalo.me/' + agentPhone);
+    });
+  }
+
+  function parentUrl() {
+    var url = document.referrer || '';
+    try { if (window.top && window.top.location) url = window.top.location.href; } catch (e) {}
+    return url || location.href;
+  }
+  function layUTM() {
+    var p = new URLSearchParams(location.search);
+    try { new URL(parentUrl()).searchParams.forEach(function (value, key) { if (!p.get(key)) p.set(key, value); }); } catch (e) {}
+    var o = {};
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'adclid', 'adclida', 'mgclid']
+      .forEach(function (key) { if (p.get(key)) o[key === 'mgclid' ? 'mglnd' : key] = p.get(key); });
+    return o;
+  }
+  $$('form[data-lead]').forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var fields = form.elements, button = $('button[type="submit"]', form);
+      var name = String(fields.name.value || '').trim().replace(/\s+/g, ' ');
+      var phone = chuanSoDiDong(fields.phone.value);
+      if (name.length < 2 || name.length > 100) { fields.name.focus(); return; }
+      if (!phone) { fields.phone.focus(); return; }
+      var payload = {
+        formId: 'CELESTA_GOLD_LEAD', hoten: name, sdt: phone, url: parentUrl(), ip: '',
+        userAgent: navigator.userAgent,
+        sanpham: (fields.product && fields.product.value ? fields.product.value + '-Celesta Gold' : 'Celesta Gold'),
+        email: fields.email ? String(fields.email.value || '').trim() : '',
+        message: fields.message ? String(fields.message.value || '').trim() : '',
+        sheet: 'CELESTA GOLD', timestamp: new Date().toISOString()
+      };
+      var utm = layUTM(); Object.keys(utm).forEach(function (key) { payload[key] = utm[key]; });
+      var body = JSON.stringify(payload), sent = false;
+      button.disabled = true;
+      try { sent = navigator.sendBeacon(LEAD_ENDPOINT, new Blob([body], { type: 'application/json' })); } catch (e) {}
+      if (!sent) fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function () {});
+      try { window.top.location.href = '/thank-you-celesta-gold/'; } catch (e) { location.href = '/thank-you-celesta-gold/'; }
+    });
+  });
 
   /* ---------- menu mobile ---------- */
   var hdr = $('#hdr'), burger = $('#burger');
   function dongMenu() {
     hdr.classList.remove('open');
-    hdr.classList.remove('nav-hide');
     burger.setAttribute('aria-expanded', 'false');
     document.documentElement.style.overflow = '';
   }
@@ -91,24 +148,6 @@
   var hen = false;
   addEventListener('scroll', function () { if (!hen) { hen = true; requestAnimationFrame(function () { hen = false; danhDauMenu(); }); } }, { passive: true });
   danhDauMenu();
-
-  /* Header ẩn khi cuộn xuống, hiện lại khi cuộn lên. */
-  var lastScrollY = scrollY;
-  var henHdr = false;
-  function capNhatHeader() {
-    henHdr = false;
-    var y = scrollY;
-    if (hdr.classList.contains('open')) {
-      hdr.classList.remove('nav-hide');
-    } else if (y <= 20 || y < lastScrollY - 4) {
-      hdr.classList.remove('nav-hide');
-    } else if (y > 80 && y > lastScrollY + 4) {
-      hdr.classList.add('nav-hide');
-    }
-    lastScrollY = y;
-  }
-  addEventListener('scroll', function () { if (!henHdr) { henHdr = true; requestAnimationFrame(capNhatHeader); } }, { passive: true });
-  capNhatHeader();
 
   /* ---------- hiện dần khi cuộn tới ---------- */
   var rv = $$('.rv');

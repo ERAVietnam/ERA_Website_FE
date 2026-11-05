@@ -7,7 +7,7 @@
   /* BẢN CÓ FORM — sinh bởi _dungcu/tao-ban-co-form.py. KHÔNG sửa tay.
      🔴 LEAD_ENDPOINT: địa chỉ nhận lead, vd Google Apps Script .../exec.
      Để trống = form báo khách "bản xem thử, gọi hotline", KHÔNG nuốt lead im lặng. */
-  var LEAD_ENDPOINT = '';
+  var LEAD_ENDPOINT = '/api/submit-lead/';
   /* Bản có form sinh bằng _dungcu/tao-ban-co-form.py — sửa ở file này rồi chạy lại script. */
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -247,8 +247,9 @@
   }
   function layUTM() {
     var p = new URLSearchParams(location.search), o = {};
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid']
-      .forEach(function (k) { if (p.get(k)) o[k] = p.get(k); });
+    try { new URL(window.top.location.href).searchParams.forEach(function (value, key) { if (!p.get(key)) p.set(key, value); }); } catch (e) {}
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'adclid', 'adclida', 'mgclid']
+      .forEach(function (k) { if (p.get(k)) o[k === 'mgclid' ? 'mglnd' : k] = p.get(k); });
     return o;
   }
   $$('form[data-lead]').forEach(function (form) {
@@ -260,26 +261,19 @@
       if (!sdt) { bao(form, 'Số điện thoại chưa đúng — cần 10 số, bắt đầu 03/05/07/08/09.', 'loi'); f.phone.focus(); return; }
 
       var du = {
-        du_an: 'The Gió Riverside',
-        name: ten, phone: sdt,
-        product: f.product ? f.product.value : '',
-        unit: f.unit ? f.unit.value : '',
+        formId: 'THE_GIO_RIVERSIDE_LEAD', hoten: ten, sdt: sdt,
+        url: (function () { try { return window.top.location.href; } catch (x) { return location.href; } })(),
+        ip: '', userAgent: navigator.userAgent,
+        sanpham: (f.product && f.product.value ? f.product.value + '-The Gió Riverside' : 'The Gió Riverside'),
+        email: '', message: '', sheet: 'THE GIÓ RIVERSIDE', timestamp: new Date().toISOString(),
         source: form.getAttribute('data-source') || 'khong-ro',
-        page: location.href.split('?')[0],
-        referrer: document.referrer || '(truc tiep)',
-        device: innerWidth <= 860 ? 'mobile' : 'desktop',
-        thoi_gian: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
+        unit: f.unit ? f.unit.value : '', referrer: document.referrer || '(truc tiep)',
+        device: innerWidth <= 860 ? 'mobile' : 'desktop'
       };
       var utm = layUTM(); for (var k in utm) du[k] = utm[k];
 
-      if (!LEAD_ENDPOINT) {
-        console.warn('[LH] Chưa khai LEAD_ENDPOINT — lead KHÔNG được gửi:', du);
-        bao(form, 'Trang đang ở bản xem thử, chưa nối nơi nhận thông tin. Anh/chị gọi hotline 094.1125.000 giúp em ạ.', 'loi');
-        return;
-      }
       nut.disabled = true; nut.setAttribute('data-chu', nut.textContent); nut.textContent = 'Đang gửi...';
-      // text/plain để tránh preflight CORS (Google Apps Script không trả lời OPTIONS)
-      fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(du) })
+      fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(du) })
         .then(function (r) {
           if (!r.ok) throw new Error('HTTP ' + r.status);
           bao(form, 'Đã nhận đăng ký của anh/chị. Chuyên viên ERA sẽ gọi lại gửi thông tin dự án trong ngày ạ.', 'ok');

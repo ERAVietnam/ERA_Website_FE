@@ -146,6 +146,7 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/pk-park-village-du-an-waterpoint": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-palm-river": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-celesta-gold": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-celesta-gold": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-the-westique-residences": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-westique": { header: false, footer: false, toTop: false },
   "/du-an-thanh-phu-centre-point": { header: false, footer: false, toTop: false, contentPadding: false },
