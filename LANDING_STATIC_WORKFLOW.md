@@ -420,3 +420,12 @@ Mẫu CSS:
 ```
 
 Không biến danh sách thành một hộp cuộn riêng. Mục tiêu là dùng scroll tự nhiên của toàn trang, không xuất hiện thanh cuộn phụ và không gây lỗi cuộn trên mobile.
+
+## Quy trình bắt buộc: luôn tạo cả hai bản
+
+Mỗi landing mới phải được tích hợp đồng thời ở hai nơi:
+
+1. **Bản có form trong project FE**: dùng bản `co-form`, đặt tại `ERA_Website_FE/public/landing/<slug>`, giữ route `/du-an-<slug>/`, nối `/api/submit-lead/`, trang thank-you, header và logic submit.
+2. **Bản không form bên ngoài**: dùng bản `khong-form`, đặt tại `D:\ERA\landing\<slug>-static` để đóng gói ZIP/upload sang app khác. Bản này không có form, hotline, Zalo, popup hay logic submit.
+
+Khi tạo bản không form, copy nguyên `index.html`, `assets`, `llms.txt`, `robots.txt`, `sitemap.xml`; không copy `vercel.json`. Phải thay metadata tên miền tạm bằng URL thật, kiểm tra `og:image`/`twitter:image` trả HTTP 200, và không tạo bản `<slug>-static` thứ hai trong FE.

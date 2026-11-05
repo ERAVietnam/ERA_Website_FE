@@ -1,0 +1,5 @@
+﻿User-agent: *
+Disallow: /
+
+Sitemap: https://era.com.vn/landing/celesta-gold/sitemap.xml
+
