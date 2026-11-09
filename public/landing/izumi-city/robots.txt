@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+Sitemap: https://era.com.vn/du-an-izumi-city/sitemap.xml

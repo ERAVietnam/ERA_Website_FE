@@ -130,6 +130,10 @@ const landingThankYouFaviconByRoute: Record<string, string> = {
  * "/some-page": { header: false },
  */
 const specialLayouts: Record<string, LayoutConfig> = {
+  "/du-an-the-marq": { header: false, footer: true, toTop: false, contentPadding: false },
+  "/thank-you-the-marq": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-izumi-city": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-izumi-city": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-the-gio-riverside": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-the-gio-riverside": { header: false, footer: false, toTop: false, contentPadding: false },
   "/duan-canho-forest-onsen": { header: false, footer: true, toTop: false },
