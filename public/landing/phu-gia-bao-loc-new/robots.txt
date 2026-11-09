@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+Sitemap: https://era.com.vn/landing/phu-gia-bao-loc-new/sitemap.xml
