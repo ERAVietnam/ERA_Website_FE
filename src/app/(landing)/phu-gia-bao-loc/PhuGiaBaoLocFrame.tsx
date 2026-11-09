@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const LANDING_SRC = "/landing/phu-gia-bao-loc-new/index.html?v=20261109-6";
+const LANDING_SRC = "/landing/phu-gia-bao-loc-new/index.html?v=20261109-7";
 
 export function PhuGiaBaoLocFrame() {
   const frameRef = useRef<HTMLIFrameElement>(null);
