@@ -148,10 +148,91 @@
     .btn:hover,.btn:focus-visible{background:linear-gradient(#B7A17F,#B7A17F) padding-box,linear-gradient(110deg,rgba(154,85,0,.2),#FFE479,#FFFAE2,#FFE485,#FFFCD7,#FFE97B) border-box}
     .btn:hover::after,.btn:focus-visible::after{opacity:1;background-position:0 center}
     .site-header{border-radius:0}
+    .mobile-menu-toggle{display:none}
+    @media(max-width:600px){
+      .hero{min-height:960px;padding:18px 0 22px;background-image:linear-gradient(90deg,rgba(30,13,5,.08),rgba(45,20,8,.06)),url('assets/img/group-130646-mobile.webp');background-position:center bottom;background-size:cover}
+      .hero-grid{display:flex;flex-direction:column;gap:0;align-items:stretch}
+      .hero-grid>div:first-child{display:contents}
+      .brand{order:1;font-size:40px;line-height:.9;letter-spacing:.035em;margin:0 auto 10px}
+      .brand-star{font-size:13px}
+      .district{order:2;font-size:15px;line-height:1;margin:6px 0 0}
+      .script{order:3;font-size:22px;line-height:.95;margin:6px 0 0;padding:8px 0 14px;white-space:nowrap;overflow:visible}
+      .script br{display:block;height:0;line-height:0;margin-top:-20px}
+      .script>br + .script-wasted,.script>br + .script-wasted + .script-sweets{transform:translateY(-45px)}
+      .script>span{padding:.16em .06em .24em;line-height:1.15;overflow:visible}
+      .script-sweets,.script-sweets.gold{font-size:2.25em;line-height:1.15}
+      .script-sweets.gold{font-size:2.4em}
+      .script-wasted{font-size:.82em;line-height:1.15}
+      .script>.script-wasted.gold{font-size:.95em}
+      .script>br + .script-wasted{font-size:.74em}
+      .hero-media{order:4;width:100%;padding:0 22px;margin:-16px 0 0}
+      .hero-video{height:auto;aspect-ratio:16/9;border-radius:14px;object-fit:cover}
+      .hero-copy{order:5;font-size:11px;line-height:1.25;max-width:300px;margin:8px auto 10px;padding:0 4px}
+      .hero-actions{order:6;width:100%;max-width:300px;gap:8px;padding:0;margin:0 auto}
+      .btn{padding:10px 8px;border-radius:12px;font-size:9px;line-height:1.2}
+      .btn::after{padding:10px 8px}
+
+      /* Section 2: text and image share the same left edge. */
+      .feature-row{gap:12px;align-items:start}
+      .feature-row .feature-media,.feature-row .feature-copy{width:90%;margin-left:auto;margin-right:auto}
+      .feature-copy{align-self:auto}
+
+      /* Section 3: equal columns and compact typography on small screens. */
+      .comparison .wrap{width:calc(100% - 20px)}
+      .comparison h2{font-size:20px;margin-bottom:18px}
+      .table{width:100%;overflow:hidden}
+      .table-head,.table-row{grid-template-columns:70px minmax(0,1fr) minmax(0,1fr)}
+      .table-head{font-size:13px}
+      .table-head div{padding:11px 6px}
+      .table-row>div{padding:13px 7px;min-height:80px}
+      .table-row .label{font-size:10px;line-height:1.2}
+      .table-row p{font-size:10px;line-height:1.35}
+
+      /* Section 4: apartment menu scrolls horizontally instead of overflowing. */
+      .unit .tabs{width:100%;max-width:100%;height:auto;min-height:0;margin-bottom:12px;justify-content:center;overflow:visible;flex-wrap:wrap;white-space:normal}
+      .unit .tabs span{flex:0 0 auto;white-space:nowrap;padding:4px 12px;font-size:13px;line-height:1.2}
+      .unit .tabs:after{display:none}
+      .unit .tabs span.active{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+      .unit-block:first-child .tabs span{flex-basis:25%;padding-left:4px;padding-right:4px;text-align:center}
+      .unit-visual .placeholder:last-child{min-height:0;height:auto;aspect-ratio:1108/575;background-size:100% auto}
+
+      /* Section 5: use the tall mobile background without stretching it. */
+      .optimize{min-height:calc(100vw * 1.91875 + 40px);background-image:linear-gradient(90deg,rgba(32,29,25,.38),rgba(32,29,25,.2)),url('assets/img/frame-phong.webp');background-position:center top;background-size:cover}
+
+      /* Scale all typography below the hero for the mobile reading width. */
+      section:not(.hero) .feature-copy h2{font-size:22px;line-height:1.2}
+      section:not(.hero) .feature-copy p{font-size:13px;line-height:1.5}
+      section:not(.hero) .unit-title{font-size:24px}
+      section:not(.hero) .unit-sub{font-size:16px;margin-bottom:16px}
+      section:not(.hero) .optimize h2{font-size:42px}
+      section:not(.hero) .optimize h3{font-size:18px}
+      section:not(.hero) .optimize li{font-size:13px}
+      section:not(.hero) .optimize li strong{font-size:14px}
+      section:not(.hero) .optimize li span{font-size:12px}
+      section:not(.hero) .form-preview h2{font-size:38px}
+      section:not(.hero) .form-preview .field label{font-size:12px}
+      section:not(.hero) .form-preview .option{font-size:12px}
+      section:not(.hero) .form-preview .form-submit{font-size:18px}
+      .site-header{height:64px;border-radius:0 0 18px 18px}
+      .header-inner{width:calc(100% - 28px);gap:0}
+      .header-brand{font-size:25px}
+      .mobile-menu-toggle{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid rgba(255,239,190,.55);border-radius:50%;background:rgba(50,27,13,.42);color:#fff7e6;cursor:pointer}
+      .mobile-menu-toggle span,.mobile-menu-toggle span:before,.mobile-menu-toggle span:after{display:block;width:17px;height:1px;background:currentColor;content:'';transition:transform .2s ease,opacity .2s ease}
+      .mobile-menu-toggle span:before{transform:translateY(-5px)}
+      .mobile-menu-toggle span:after{transform:translateY(4px)}
+      .site-header.menu-open .mobile-menu-toggle span{background:transparent}
+      .site-header.menu-open .mobile-menu-toggle span:before{transform:translateY(0) rotate(45deg)}
+      .site-header.menu-open .mobile-menu-toggle span:after{transform:translateY(-1px) rotate(-45deg)}
+      .site-header .nav{position:absolute;top:calc(100% + 8px);left:14px;right:14px;display:flex;flex-direction:column;align-items:stretch;gap:0;padding:8px;border:1px solid rgba(255,233,174,.25);border-radius:16px;background:rgba(35,19,9,.96);box-shadow:0 14px 30px rgba(20,8,2,.3);opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .2s ease,transform .2s ease,visibility .2s ease}
+      .site-header.menu-open .nav{opacity:1;visibility:visible;transform:translateY(0)}
+      .site-header .nav a{padding:12px 14px;font-size:11px;border-radius:10px}
+      .site-header .nav a:hover{background:rgba(255,233,174,.12)}
+      .site-header .nav .header-cta{text-align:center;margin-top:4px}
+    }
   </style>
 </head>
 <body>
-  <header class="site-header"><div class="wrap header-inner"><a class="header-brand" href="#top">THE MARQ</a><nav class="nav" aria-label="Điều hướng chính"><a href="#tong-quan">Tổng quan</a><a href="#so-sanh">Gia chủ &amp; đầu tư</a><a href="#can-ho">Giỏ hàng</a><a href="#toi-uu">Tối ưu hóa</a><a class="header-cta" href="#dang-ky">Đăng ký tư vấn</a></nav></div></header>
+  <header class="site-header"><div class="wrap header-inner"><a class="header-brand" href="#top">THE MARQ</a><button class="mobile-menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false"><span></span></button><nav class="nav" aria-label="Điều hướng chính"><a href="#tong-quan">Tổng quan</a><a href="#so-sanh">Gia chủ &amp; đầu tư</a><a href="#can-ho">Giỏ hàng</a><a href="#toi-uu">Tối ưu hóa</a><a class="header-cta" href="#dang-ky">Đăng ký tư vấn</a></nav></div></header>
   <main id="top">
     <section class="hero"><div class="wrap hero-grid"><div><div class="brand">THE<br>MAR<span class="brand-star brand-star-r">✦</span>Q<span class="brand-star brand-star-q">✦</span></div><div class="district">Quận 1</div><div class="script"><span class="script-sweets">Di Sản</span> <span class="script-wasted gold">TRUYỀN ĐỜI</span><br><span class="script-wasted">VỊ THẾ</span> <span class="script-sweets gold">Trường tồn</span></div><p class="hero-copy">Không gian sống hạng sang từ Hongkong Land tại lõi trung tâm quận 1</p><div class="hero-actions"><a class="btn" data-label="KHÁM PHÁ KHÔNG GIAN SỐNG THỰC TẾ" href="#tong-quan">KHÁM PHÁ KHÔNG GIAN SỐNG THỰC TẾ</a><a class="btn" data-label="BÁO CÁO HIỆU SUẤT ĐẦU TƯ MỚI NHẤT" href="#toi-uu">BÁO CÁO HIỆU SUẤT ĐẦU TƯ MỚI NHẤT</a></div></div><div class="hero-media"><div class="placeholder">Placeholder ảnh/video hero</div></div></div></section>
     <section id="tong-quan"><div class="wrap feature-grid"><div class="feature-row"><div class="feature-media placeholder">Placeholder bản đồ vị trí</div><div class="feature-copy"><h2>Tâm Điểm Của Tâm Điểm</h2><p>Dự án cao tầng biểu tượng hiếm hoi tại phường Đa Kao (Quận 1). Cách Nhà thờ Đức Bà chỉ 1,5km, bao quanh bởi các lãnh sự quán và tập văn phòng hạng sang.</p></div></div><div class="feature-row reverse"><div class="feature-media placeholder dark">Placeholder logo Hongkong Land</div><div class="feature-copy"><h2>Bảo Chứng Hongkong Land</h2><p>Di sản hơn 130 năm kiến tạo các công trình biểu tượng tại Châu Á. Chú trọng phong thủy thịnh vượng và chất lượng xây dựng trường tồn.</p></div></div><div class="feature-row"><div class="feature-media placeholder">Placeholder sảnh dự án</div><div class="feature-copy"><h2>An Tâm Tuyệt Đối</h2><p>Dự án hiện hữu, 100% đã có sổ hồng lâu dài. Trải nghiệm không gian thực tế trước khi ra quyết định.</p></div></div><div class="feature-row reverse"><div class="feature-media placeholder">Placeholder hầm xe / xe sang</div><div class="feature-copy"><h2>Đặc Quyền Đỗ Xe Định Danh</h2><p>Giải quyết triệt để bài toán khan hiếm chỗ đậu ô tô tại trung tâm Quận 1 – một tài sản gia tăng giá trị theo thời gian.</p></div></div></div></section>
@@ -166,6 +247,18 @@
       var hero = document.querySelector('.hero');
       if (!header || !hero) return;
       if (window.self !== window.top) { header.style.display = 'none'; return; }
+      var menuToggle = header.querySelector('.mobile-menu-toggle');
+      var nav = header.querySelector('.nav');
+      var closeMenu = function () {
+        header.classList.remove('menu-open');
+        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+      };
+      if (menuToggle) menuToggle.addEventListener('click', function () {
+        var open = !header.classList.contains('menu-open');
+        header.classList.toggle('menu-open', open);
+        menuToggle.setAttribute('aria-expanded', String(open));
+      });
+      if (nav) nav.querySelectorAll('a').forEach(function (link) { link.addEventListener('click', closeMenu); });
       if ('IntersectionObserver' in window) {
         new IntersectionObserver(function (entries) {
           header.classList.toggle('is-visible', !entries[0].isIntersecting);
@@ -223,7 +316,7 @@
         var overlay = hostDocument.createElement('div');
         overlay.className = 'layout-lightbox';
         overlay.innerHTML = '<img src="' + imageSource + '" alt="Layout ' + activeTab.textContent.trim() + '">';
-        overlay.style.cssText = 'position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;padding:32px;background:rgba(15,10,6,.88);cursor:zoom-out';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:32px;background:rgba(15,10,6,.88);cursor:zoom-out';
         overlay.querySelector('img').style.cssText = 'display:block;max-width:94vw;max-height:94vh;width:auto;height:auto;object-fit:contain;box-shadow:0 12px 50px rgba(0,0,0,.45)';
         var pageRoots = [document.documentElement, document.body];
         try { pageRoots.push(window.parent.document.documentElement, window.parent.document.body); } catch (error) {}
@@ -292,7 +385,7 @@
         var overlay = hostDocument.createElement('div');
         overlay.className = 'layout-lightbox';
         overlay.innerHTML = '<img src="' + source + '" alt="Layout ' + activeTab.textContent.trim() + '">';
-        overlay.style.cssText = 'position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;padding:32px;background:rgba(15,10,6,.88);cursor:zoom-out';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:32px;background:rgba(15,10,6,.88);cursor:zoom-out';
         overlay.querySelector('img').style.cssText = 'display:block;max-width:94vw;max-height:94vh;width:auto;height:auto;object-fit:contain;box-shadow:0 12px 50px rgba(0,0,0,.45)';
         var pageRoots = [document.documentElement, document.body];
         try { pageRoots.push(window.parent.document.documentElement, window.parent.document.body); } catch (error) {}
@@ -342,7 +435,7 @@
         var overlay = hostDocument.createElement('div');
         overlay.className = 'layout-lightbox';
         overlay.innerHTML = '<img src="' + source + '" alt="Layout ' + activeTab.textContent.trim() + '">';
-        overlay.style.cssText = 'position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;padding:32px;background:rgba(15,10,6,.88);cursor:zoom-out';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:32px;background:rgba(15,10,6,.88);cursor:zoom-out';
         overlay.querySelector('img').style.cssText = 'display:block;max-width:94vw;max-height:94vh;width:auto;height:auto;object-fit:contain;box-shadow:0 12px 50px rgba(0,0,0,.45)';
         var pageRoots = [document.documentElement, document.body];
         try { pageRoots.push(window.parent.document.documentElement, window.parent.document.body); } catch (error) {}
@@ -374,7 +467,7 @@
         var overlay = hostDocument.createElement('div');
         overlay.className = 'layout-lightbox';
         overlay.innerHTML = '<img src="' + source + '" alt="Layout ' + activeTab.textContent.trim() + '">';
-        overlay.style.cssText = 'position:fixed;inset:0;z-index:100000;display:grid;place-items:center;overflow:hidden;padding:32px;background:rgba(15,10,6,.88);cursor:zoom-out';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:32px;background:rgba(15,10,6,.88);cursor:zoom-out';
         overlay.querySelector('img').style.cssText = 'display:block;max-width:94vw;max-height:94vh;width:auto;height:auto;object-fit:contain;box-shadow:0 12px 50px rgba(0,0,0,.45)';
         var roots = [document.documentElement, document.body];
         try { roots.push(window.parent.document.documentElement, window.parent.document.body); } catch (error) {}
@@ -431,6 +524,8 @@
       var video = document.createElement('video');
       video.className = 'hero-video';
       video.autoplay = true;
+      video.muted = true;
+      video.defaultMuted = true;
       video.playsInline = true;
       video.preload = 'auto';
       video.setAttribute('aria-label', 'Video giới thiệu The Marq');
