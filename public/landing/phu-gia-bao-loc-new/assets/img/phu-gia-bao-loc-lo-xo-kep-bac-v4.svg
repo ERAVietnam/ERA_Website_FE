@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="18" viewBox="0 0 56 18">
+  <defs>
+    <linearGradient id="wire" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#727e8a"/><stop offset=".18" stop-color="#ffffff"/><stop offset=".35" stop-color="#c9d2dc"/><stop offset=".5" stop-color="#85929f"/><stop offset=".66" stop-color="#fbfdff"/><stop offset=".82" stop-color="#c2cbd5"/><stop offset="1" stop-color="#64717e"/></linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9e9b90"/><stop offset="1" stop-color="#fffdf5"/></linearGradient>
+    <filter id="shade" x="-25%" y="-60%" width="150%" height="240%"><feGaussianBlur stdDeviation=".65"/></filter>
+  </defs>
+  <path d="M48 7 C34 3 7 2 4 6 C1 10 28 13 48 11 M48 10 C33 6 7 5 4 9 C1 13 28 16 48 14" fill="none" stroke="#17212c" stroke-opacity=".2" stroke-width="2.5" transform="translate(.7 1.2)" filter="url(#shade)"/>
+  <rect x="45.5" y="3.8" width="8.2" height="10.4" rx=".7" fill="url(#rim)"/>
+  <rect x="46.4" y="4.5" width="5.8" height="8.6" rx=".4" fill="#252a29"/>
+  <path d="M48 5.8 C34 1.6 7 1.4 4 5.6 C1 9.5 28 12.2 48 9.5" fill="none" stroke="#6a7580" stroke-width="1.9" stroke-linecap="round"/>
+  <path d="M48 5.8 C34 1.6 7 1.4 4 5.6 C1 9.5 28 12.2 48 9.5" fill="none" stroke="url(#wire)" stroke-width="1.25" stroke-linecap="round"/>
+  <path d="M48 9 C33 4.8 7 4.6 4 8.8 C1 12.7 28 15.4 48 12.7" fill="none" stroke="#6a7580" stroke-width="1.9" stroke-linecap="round"/>
+  <path d="M48 9 C33 4.8 7 4.6 4 8.8 C1 12.7 28 15.4 48 12.7" fill="none" stroke="url(#wire)" stroke-width="1.25" stroke-linecap="round"/>
+  <path d="M8 4 C18 2.5 34 3.3 43 5 M8 7.2 C18 5.7 34 6.5 43 8.2" fill="none" stroke="#ffffff" stroke-opacity=".9" stroke-width=".5" stroke-linecap="round"/>
+</svg>

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description:
     "Phú Gia Bảo Lộc – khu biệt thự compound duy nhất tại trung tâm Bảo Lộc, quy mô 9,12 ha với 357 sản phẩm, mặt tiền Quốc lộ 20, sổ hồng từng nền. Nhận bảng giá & thông tin mặt bằng mới nhất.",
   alternates: {
-    canonical: "https://era.com.vn/du-an-phu-gia-bao-loc/",
+    canonical: "https://era.com.vn/phu-gia-bao-loc/",
   },
   keywords: [
     "Phú Gia Bảo Lộc",

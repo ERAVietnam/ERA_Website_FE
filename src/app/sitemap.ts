@@ -27,6 +27,7 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/duan-canho-forest-onsen/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/phan-khu-rung-phuong-duan-eco-retreat/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-phu-gia-bao-loc/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/phu-gia-bao-loc/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
   { url: `${baseUrl}/gia-nhap/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/academy/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/tuyen-dung/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
