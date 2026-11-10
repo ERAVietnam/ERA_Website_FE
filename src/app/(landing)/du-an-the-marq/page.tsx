@@ -27,5 +27,5 @@ export const metadata: Metadata = {
 
 export default function TheMarqPage() {
   const jsonLd = { "@context": "https://schema.org", "@type": "Residence", name: "The Marq Quận 1", description: "Không gian sống hạng sang từ Hongkong Land tại lõi trung tâm Quận 1.", url: "https://era.com.vn/du-an-the-marq/", image: "https://era.com.vn/landing/the-marq/assets/img/og-image.webp", address: { "@type": "PostalAddress", addressLocality: "Quận 1", addressRegion: "Thành phố Hồ Chí Minh", addressCountry: "VN" }, brand: { "@type": "Brand", name: "Hongkong Land" } };
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /><main className="w-full bg-white"><TheMarqHeader /><AutoHeightIframe observeContentSize frameId="the-marq-frame" title="The Marq Quận 1" src="/landing/the-marq/index.html?v=20261109-62" /></main></>;
+  return <><style>{`@media (max-width: 767px){body:has(main.the-marq-page) > footer{padding-top:24px}}`}</style><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /><main className="the-marq-page w-full bg-white"><TheMarqHeader /><AutoHeightIframe observeContentSize frameId="the-marq-frame" title="The Marq Quận 1" src="/landing/the-marq/index.html?v=20261110-1" /></main></>;
 }

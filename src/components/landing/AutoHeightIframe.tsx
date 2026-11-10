@@ -27,14 +27,23 @@ export default function AutoHeightIframe({ src, title, frameId, observeContentSi
     };
 
     let observer: ResizeObserver | undefined;
+    let mutationObserver: MutationObserver | undefined;
+    const refreshTimers: number[] = [];
     const observeFrameContent = () => {
       if (!observeContentSize || !frame.contentDocument || typeof ResizeObserver === "undefined") return;
       const document = frame.contentDocument;
       observer = new ResizeObserver(resize);
       observer.observe(document.documentElement);
       if (document.body) observer.observe(document.body);
+      if (typeof MutationObserver !== "undefined" && document.body) {
+        mutationObserver = new MutationObserver(resize);
+        mutationObserver.observe(document.body, { childList: true, subtree: true, attributes: true });
+      }
       window.requestAnimationFrame(resize);
       document.fonts?.ready.then(resize).catch(() => {});
+      [50, 150, 300, 600, 1000, 2000].forEach((delay) => {
+        refreshTimers.push(window.setTimeout(resize, delay));
+      });
     };
 
     frame.addEventListener("load", resize);
@@ -47,6 +56,8 @@ export default function AutoHeightIframe({ src, title, frameId, observeContentSi
       frame.removeEventListener("load", observeFrameContent);
       window.clearInterval(interval);
       observer?.disconnect();
+      mutationObserver?.disconnect();
+      refreshTimers.forEach((timer) => window.clearTimeout(timer));
     };
   }, [observeContentSize, src]);
 
