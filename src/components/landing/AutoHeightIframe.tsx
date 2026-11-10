@@ -7,9 +7,16 @@ type AutoHeightIframeProps = {
   title: string;
   frameId?: string;
   observeContentSize?: boolean;
+  contentBottomSelector?: string;
 };
 
-export default function AutoHeightIframe({ src, title, frameId, observeContentSize = false }: AutoHeightIframeProps) {
+export default function AutoHeightIframe({
+  src,
+  title,
+  frameId,
+  observeContentSize = false,
+  contentBottomSelector,
+}: AutoHeightIframeProps) {
   const frameRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
@@ -20,10 +27,15 @@ export default function AutoHeightIframe({ src, title, frameId, observeContentSi
       const document = frame.contentDocument;
       if (!document) return;
 
-      frame.style.height = `${Math.max(
+      const contentBottom = contentBottomSelector
+        ? document.querySelector<HTMLElement>(contentBottomSelector)?.getBoundingClientRect().bottom ?? 0
+        : 0;
+      const documentHeight = Math.max(
         document.documentElement.scrollHeight,
         document.body?.scrollHeight ?? 0,
-      )}px`;
+      );
+
+      frame.style.height = `${Math.ceil(contentBottom || documentHeight)}px`;
     };
 
     let observer: ResizeObserver | undefined;
@@ -68,7 +80,7 @@ export default function AutoHeightIframe({ src, title, frameId, observeContentSi
       if (settlingInterval !== undefined) window.clearInterval(settlingInterval);
       if (settlingStopTimer !== undefined) window.clearTimeout(settlingStopTimer);
     };
-  }, [observeContentSize, src]);
+  }, [contentBottomSelector, observeContentSize, src]);
 
   return (
     <iframe
