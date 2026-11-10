@@ -29,6 +29,8 @@ export default function AutoHeightIframe({ src, title, frameId, observeContentSi
     let observer: ResizeObserver | undefined;
     let mutationObserver: MutationObserver | undefined;
     const refreshTimers: number[] = [];
+    let settlingInterval: number | undefined;
+    let settlingStopTimer: number | undefined;
     const observeFrameContent = () => {
       if (!observeContentSize || !frame.contentDocument || typeof ResizeObserver === "undefined") return;
       const document = frame.contentDocument;
@@ -44,6 +46,11 @@ export default function AutoHeightIframe({ src, title, frameId, observeContentSi
       [50, 150, 300, 600, 1000, 2000].forEach((delay) => {
         refreshTimers.push(window.setTimeout(resize, delay));
       });
+      settlingInterval = window.setInterval(resize, 100);
+      settlingStopTimer = window.setTimeout(() => {
+        if (settlingInterval !== undefined) window.clearInterval(settlingInterval);
+        settlingInterval = undefined;
+      }, 5000);
     };
 
     frame.addEventListener("load", resize);
@@ -58,6 +65,8 @@ export default function AutoHeightIframe({ src, title, frameId, observeContentSi
       observer?.disconnect();
       mutationObserver?.disconnect();
       refreshTimers.forEach((timer) => window.clearTimeout(timer));
+      if (settlingInterval !== undefined) window.clearInterval(settlingInterval);
+      if (settlingStopTimer !== undefined) window.clearTimeout(settlingStopTimer);
     };
   }, [observeContentSize, src]);
 
