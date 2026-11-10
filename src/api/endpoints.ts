@@ -146,4 +146,10 @@ export const ENDPOINTS = {
   CONSULTATION: {
     SUBMIT: '/consultation',
   },
+  BRAND_HEALTH: {
+    LIST: '/brand-health',
+    DETAIL: (reportNo: string) => `/brand-health/bao-cao/${reportNo}`,
+    HTML: (reportNo: string) => `/brand-health/bao-cao/${reportNo}/html`,
+    PDF: (date: string) => `/brand-health/reports/${date}.pdf`,
+  },
 } as const;

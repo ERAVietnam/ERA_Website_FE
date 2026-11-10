@@ -253,6 +253,7 @@ const ADMIN_PATHS = [
   "/tuyen-dung/ung-vien",
   "/tai-khoan/quan-ly",
   "/ho-so-ca-nhan",
+  "/brand-health",
 ];
 
 function isAdminPath(pathname: string): boolean {

@@ -17,6 +17,7 @@ export default function robots(): MetadataRoute.Robots {
         "/tuyen-dung/ung-vien",
         "/tai-khoan/quan-ly",
         "/ho-so-ca-nhan",
+        "/brand-health",
       ],
     },
     sitemap: "https://era.com.vn/sitemap.xml",
