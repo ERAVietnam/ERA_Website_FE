@@ -122,6 +122,10 @@
     .optimize li span{font-size:14px}
     .hero{background-image:linear-gradient(90deg,rgba(30,13,5,.12),rgba(45,20,8,.08)),url('assets/img/group-130646.webp')}
     .hero-video{display:block;width:100%;height:360px;border-radius:14px;object-fit:cover;background:#111}
+    .hero-video-wrap{position:relative;width:100%;border-radius:14px;overflow:hidden;background:#111}
+    .hero-video-wrap .hero-video{height:360px}
+    .hero-sound-toggle{position:absolute;right:14px;bottom:14px;z-index:2;width:38px;height:38px;border:1px solid rgba(255,255,255,.6);border-radius:50%;background:rgba(30,13,5,.62);color:#fff;cursor:pointer;font-size:17px;line-height:1;backdrop-filter:blur(5px)}
+    .hero-sound-toggle:hover{background:rgba(30,13,5,.86)}
     .header-brand{font-family:'1FTV VIP Medino',Georgia,serif;font-size:34px;line-height:1;letter-spacing:.025em;background:linear-gradient(110deg,rgba(154,85,0,.2),#FFE479,#FFFAE2,#FFE485,#FFFCD7,#FFE97B);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:none}
     .header-brand small{display:none}
     .form-preview{min-height:0;padding:70px 0;color:#FAF8F5;background:linear-gradient(90deg,rgba(33,17,9,.18),rgba(33,17,9,.08)),url('assets/img/form-background.webp') center top/cover no-repeat;font-family:MontserratLocal,Montserrat,Arial,sans-serif}
@@ -150,12 +154,12 @@
     .site-header{border-radius:0}
     .mobile-menu-toggle{display:none}
     @media(max-width:600px){
-      .hero{min-height:960px;padding:18px 0 22px;background-image:linear-gradient(90deg,rgba(30,13,5,.08),rgba(45,20,8,.06)),url('assets/img/group-130646-mobile.webp');background-position:center bottom;background-size:cover}
+      .hero{min-height:980px;padding:18px 0 22px;background-image:linear-gradient(90deg,rgba(30,13,5,.08),rgba(45,20,8,.06)),url('assets/img/group-130646-mobile.webp');background-position:center bottom;background-size:cover}
       .hero-grid{display:flex;flex-direction:column;gap:0;align-items:stretch}
       .hero-grid>div:first-child{display:contents}
-      .brand{order:1;font-size:40px;line-height:.9;letter-spacing:.035em;margin:0 auto 10px}
+      .brand{order:1;font-size:40px;line-height:.9;letter-spacing:.035em;margin:0 auto 10px;padding-top:10px}
       .brand-star{font-size:13px}
-      .district{order:2;font-size:15px;line-height:1;margin:6px 0 0}
+      .district{order:2;font-size:15px;line-height:1;margin:6px 0 0;padding-top:5px}
       .script{order:3;font-size:22px;line-height:.95;margin:6px 0 0;padding:8px 0 14px;white-space:nowrap;overflow:visible}
       .script br{display:block;height:0;line-height:0;margin-top:-20px}
       .script>br + .script-wasted,.script>br + .script-wasted + .script-sweets{transform:translateY(-45px)}
@@ -166,7 +170,9 @@
       .script>.script-wasted.gold{font-size:.95em}
       .script>br + .script-wasted{font-size:.74em}
       .hero-media{order:4;width:100%;padding:0 22px;margin:-16px 0 0}
-      .hero-video{height:auto;aspect-ratio:16/9;border-radius:14px;object-fit:cover}
+      .hero-video-wrap{aspect-ratio:16/9}
+      .hero-video-wrap .hero-video{height:auto;aspect-ratio:16/9;border-radius:14px;object-fit:cover}
+      .hero-sound-toggle{right:10px;bottom:10px;width:34px;height:34px;font-size:15px}
       .hero-copy{order:5;font-size:11px;line-height:1.25;max-width:300px;margin:8px auto 10px;padding:0 4px}
       .hero-actions{order:6;width:100%;max-width:300px;gap:8px;padding:0;margin:0 auto}
       .btn{padding:10px 8px;border-radius:12px;font-size:9px;line-height:1.2}
@@ -197,7 +203,7 @@
       .unit-visual .placeholder:last-child{min-height:0;height:auto;aspect-ratio:1108/575;background-size:100% auto}
 
       /* Section 5: use the tall mobile background without stretching it. */
-      .optimize{min-height:calc(100vw * 1.91875 + 40px);background-image:linear-gradient(90deg,rgba(32,29,25,.38),rgba(32,29,25,.2)),url('assets/img/frame-phong.webp');background-position:center top;background-size:cover}
+      .optimize{min-height:calc(100vw * 1.91875 + 50px);padding-top:60px;background-image:linear-gradient(90deg,rgba(32,29,25,.38),rgba(32,29,25,.2)),url('assets/img/frame-phong.webp');background-position:center top;background-size:cover}
 
       /* Scale all typography below the hero for the mobile reading width. */
       section:not(.hero) .feature-copy h2{font-size:22px;line-height:1.2}
@@ -521,6 +527,8 @@
       var placeholder = document.querySelector('.hero-media .placeholder');
       var hero = document.querySelector('.hero');
       if (!placeholder || !hero) return;
+      var videoWrap = document.createElement('div');
+      videoWrap.className = 'hero-video-wrap';
       var video = document.createElement('video');
       video.className = 'hero-video';
       video.autoplay = true;
@@ -533,8 +541,41 @@
       source.src = 'assets/video/the-marq-hero.mp4';
       source.type = 'video/mp4';
       video.appendChild(source);
-      placeholder.replaceWith(video);
+      var soundToggle = document.createElement('button');
+      soundToggle.className = 'hero-sound-toggle';
+      soundToggle.type = 'button';
+      soundToggle.setAttribute('aria-label', 'Bật tiếng video');
+      soundToggle.textContent = '🔇';
+      videoWrap.appendChild(video);
+      videoWrap.appendChild(soundToggle);
+      placeholder.replaceWith(videoWrap);
+      var setSoundState = function (enabled) {
+        video.muted = !enabled;
+        video.defaultMuted = !enabled;
+        soundToggle.textContent = enabled ? '🔊' : '🔇';
+        soundToggle.setAttribute('aria-label', enabled ? 'Tắt tiếng video' : 'Bật tiếng video');
+      };
+      var enableSound = function () {
+        setSoundState(true);
+        video.controls = true;
+        var promise = video.play();
+        if (promise) promise.catch(function () { setSoundState(false); });
+      };
       var playVideo = function () { var promise = video.play(); if (promise) promise.catch(function () {}); };
+      soundToggle.addEventListener('click', function (event) {
+        event.stopPropagation();
+        if (video.muted) enableSound(); else setSoundState(false);
+      });
+      video.addEventListener('click', function () {
+        if (video.muted) enableSound();
+      });
+      videoWrap.addEventListener('mouseenter', function () { video.controls = true; });
+      videoWrap.addEventListener('mouseleave', function () { video.controls = false; });
+      videoWrap.addEventListener('touchstart', function () {
+        video.controls = true;
+        if (video.muted) enableSound();
+      }, { passive: true });
+      setSoundState(false);
       if ('IntersectionObserver' in window) {
         new IntersectionObserver(function (entries) {
           if (entries[0].isIntersecting) playVideo();

@@ -6,9 +6,10 @@ type AutoHeightIframeProps = {
   src: string;
   title: string;
   frameId?: string;
+  observeContentSize?: boolean;
 };
 
-export default function AutoHeightIframe({ src, title, frameId }: AutoHeightIframeProps) {
+export default function AutoHeightIframe({ src, title, frameId, observeContentSize = false }: AutoHeightIframeProps) {
   const frameRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
@@ -25,15 +26,29 @@ export default function AutoHeightIframe({ src, title, frameId }: AutoHeightIfra
       )}px`;
     };
 
+    let observer: ResizeObserver | undefined;
+    const observeFrameContent = () => {
+      if (!observeContentSize || !frame.contentDocument || typeof ResizeObserver === "undefined") return;
+      const document = frame.contentDocument;
+      observer = new ResizeObserver(resize);
+      observer.observe(document.documentElement);
+      if (document.body) observer.observe(document.body);
+      window.requestAnimationFrame(resize);
+      document.fonts?.ready.then(resize).catch(() => {});
+    };
+
     frame.addEventListener("load", resize);
-    const interval = window.setInterval(resize, 500);
+    frame.addEventListener("load", observeFrameContent);
+    const interval = window.setInterval(resize, observeContentSize ? 1000 : 500);
     resize();
 
     return () => {
       frame.removeEventListener("load", resize);
+      frame.removeEventListener("load", observeFrameContent);
       window.clearInterval(interval);
+      observer?.disconnect();
     };
-  }, [src]);
+  }, [observeContentSize, src]);
 
   return (
     <iframe
