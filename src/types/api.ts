@@ -191,6 +191,21 @@ export interface Permission {
   createdAt: string;
 }
 
+export interface BrandHealthReport {
+  id: string;
+  reportNo: string;
+  version: number;
+  type: string;
+  date: string;
+  generatedAt: string;
+  status?: string | null;
+  headline?: string | null;
+  mentionsNew: number;
+  alertsRed: number;
+  alertsYellow: number;
+  createdAt: string;
+}
+
 export interface Account {
   id: string;
   name: string;

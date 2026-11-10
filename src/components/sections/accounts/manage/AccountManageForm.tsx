@@ -54,6 +54,7 @@ function accountToFormState(account?: ManagementAccount): FormState {
 }
 
 const moduleLabels: Record<string, string> = {
+  "brand-health": "Brand Health",
   news: "Tin tức",
   auth: "Tài khoản",
   recruitment: "Tuyển dụng",
@@ -64,6 +65,7 @@ const moduleLabels: Record<string, string> = {
 };
 
 const resourceLabels: Record<string, string> = {
+  reports: "Báo cáo",
   categories: "Danh mục",
   articles: "Bài viết",
   accounts: "Tài khoản",
