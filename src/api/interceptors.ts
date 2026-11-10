@@ -18,12 +18,15 @@ function isAuthRecoveryEndpoint(url?: string) {
 export function setupInterceptors(instance: AxiosInstance) {
   instance.interceptors.response.use(
     (response: AxiosResponse<ApiResponse<unknown>>) => {
-      if (response.data && 'status' in response.data && !isSuccessStatus(response.data.status)) {
+      const payload = response.data;
+      const isObjectPayload = payload !== null && typeof payload === 'object';
+
+      if (isObjectPayload && 'status' in payload && !isSuccessStatus(String(payload.status))) {
         return Promise.reject(response.data);
       }
 
-      if (response.data && 'data' in response.data) {
-        return { ...response, data: response.data.data };
+      if (isObjectPayload && 'data' in payload) {
+        return { ...response, data: payload.data };
       }
       return response;
     },
