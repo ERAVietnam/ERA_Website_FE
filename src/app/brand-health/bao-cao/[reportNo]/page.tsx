@@ -3,13 +3,11 @@
 import { useEffect, useState } from "react";
 import { Download, FileBarChart, Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { useAuth } from "@/contexts/AuthContext";
 import { brandHealthApi } from "@/api/domains/brand-health";
 import { API_CONFIG } from "@/api/config";
 import type { BrandHealthReport } from "@/types/api";
 
 export default function BrandHealthReportPage() {
-  const { hasPermission } = useAuth();
   const router = useRouter();
   const params = useParams<{ reportNo: string }>();
   const reportNo = params.reportNo;
@@ -19,20 +17,19 @@ export default function BrandHealthReportPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!hasPermission("brand-health.view")) return;
     Promise.all([brandHealthApi.detail(reportNo), brandHealthApi.html(reportNo)])
       .then(([metadata, content]) => {
         setReport(metadata);
         const baseUrl = `${API_CONFIG.BASE_URL}/brand-health/bao-cao/${reportNo}/page/`;
-        setHtml(content.replace(/<head>/i, `<head><base href="${baseUrl}">`));
+        setHtml(content.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '').replace(/<head>/i, `<head><base href="${baseUrl}" target="_blank">`));
       })
       .catch(() => setError("Không thể tải báo cáo."))
       .finally(() => setLoading(false));
-  }, [hasPermission, reportNo]);
+  }, [reportNo]);
 
   const downloadPdf = async () => {
     if (!report) return;
-    const blob = await brandHealthApi.pdf(report.date.slice(0, 10));
+    const blob = await brandHealthApi.pdf(report.reportNo);
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
@@ -41,12 +38,8 @@ export default function BrandHealthReportPage() {
     URL.revokeObjectURL(url);
   };
 
-  if (!hasPermission("brand-health.view")) {
-    return <div className="p-6"><div className="rounded-xl border border-red-200 bg-red-50 p-6 text-red-700">Bạn không có quyền xem báo cáo.</div></div>;
-  }
-
   return <div className="min-h-screen bg-gray-50 p-4 md:p-8"><div className="mx-auto flex h-[calc(100vh-4rem)] max-w-7xl flex-col gap-4">
     <header className="flex flex-wrap items-center justify-between gap-3"><div><button className="text-sm text-blue-700 hover:underline" onClick={() => router.push("/brand-health")}>← Danh sách báo cáo</button><h1 className="mt-2 flex items-center gap-2 text-2xl font-bold text-gray-900"><FileBarChart size={26} /> Báo cáo #{reportNo}</h1></div>{report && <button className="inline-flex items-center gap-2 rounded-lg border bg-white px-3 py-2 text-sm hover:bg-gray-50" onClick={downloadPdf}><Download size={16} /> Tải PDF</button>}</header>
-    <div className="min-h-0 flex-1 overflow-hidden rounded-xl border bg-white shadow-sm">{loading ? <div className="flex h-full items-center justify-center"><Loader2 className="animate-spin text-gray-500" /></div> : error ? <div className="p-6 text-red-700">{error}</div> : <iframe title={`Báo cáo ${reportNo}`} srcDoc={html} sandbox="allow-same-origin" className="h-full w-full border-0" />}</div>
+    <div className="min-h-0 flex-1 overflow-hidden rounded-xl border bg-white shadow-sm">{loading ? <div className="flex h-full items-center justify-center"><Loader2 className="animate-spin text-gray-500" /></div> : error ? <div className="p-6 text-red-700">{error}</div> : <iframe title={`Báo cáo ${reportNo}`} srcDoc={html} sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox" className="h-full w-full border-0" />}</div>
   </div></div>;
 }

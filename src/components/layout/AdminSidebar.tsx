@@ -23,7 +23,6 @@ import {
   GraduationCap,
   ChevronsLeft,
   PanelLeft,
-  FileBarChart,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { hasAnyNewsArticleViewPermission } from "@/lib/permissions";
@@ -95,12 +94,6 @@ const menuItems: MenuItem[] = [
     label: "Tài khoản",
     icon: Users,
     visible: (hasPermission) => hasPermission("auth.accounts.all.view"),
-  },
-  {
-    href: "/brand-health",
-    label: "Xem báo cáo",
-    icon: FileBarChart,
-    visible: (hasPermission) => hasPermission("brand-health.view"),
   },
 ];
 
