@@ -9,6 +9,14 @@ export const revalidate = 3600;
 const baseUrl = "https://era.com.vn";
 const SITEMAP_LIMIT = 100;
 
+function getLastModified(...dates: Array<string | null | undefined>): Date | undefined {
+  const value = dates.find((date) => date?.trim());
+  if (!value) return undefined;
+
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? undefined : parsed;
+}
+
 const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
   { url: `${baseUrl}/lien-he/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
@@ -97,7 +105,7 @@ async function fetchAllProjectRoutes(): Promise<MetadataRoute.Sitemap> {
       routes.push(
         ...items.map((project: Project) => ({
           url: `${baseUrl}/du-an/${project.slug}/`,
-          lastModified: new Date(project.updatedAt),
+          lastModified: getLastModified(project.updatedAt),
           changeFrequency: "weekly" as const,
           priority: 0.7,
         })),
@@ -126,7 +134,7 @@ async function fetchAllArticleRoutes(): Promise<MetadataRoute.Sitemap> {
       routes.push(
         ...items.map((article: NewsArticle) => ({
           url: `${baseUrl}/tin-tuc/${article.slug}/`,
-          lastModified: new Date(article.updatedAt),
+          lastModified: getLastModified(article.updatedAt, article.publishedAt, article.createdAt),
           changeFrequency: "weekly" as const,
           priority: 0.7,
         })),
@@ -149,7 +157,7 @@ async function fetchAllAuthorRoutes(): Promise<MetadataRoute.Sitemap> {
       .filter((author) => author.isIndexed === true)
       .map((author) => ({
         url: `${baseUrl}/tac-gia/${author.slug}/`,
-        lastModified: new Date(author.updatedAt),
+        lastModified: getLastModified(author.updatedAt),
         changeFrequency: "weekly" as const,
         priority: 0.6,
       }));
