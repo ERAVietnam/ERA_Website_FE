@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { PhuGiaBaoLocLanding } from "@/components/sections/landing/phu-gia-bao-loc";
-import { breadcrumbJsonLd } from "@/lib/jsonLd";
+import { breadcrumbJsonLd, staticRealEstateListingJsonLd } from "@/lib/jsonLd";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -58,10 +58,20 @@ const breadcrumbItems = [
   { name: "Phú Gia Bảo Lộc", url: "https://era.com.vn/du-an-phu-gia-bao-loc/" },
 ];
 
+const listingJsonLd = staticRealEstateListingJsonLd({
+  name: "Phú Gia Bảo Lộc",
+  description: "Phú Gia Bảo Lộc – khu biệt thự compound tại trung tâm Bảo Lộc, quy mô 9,12 ha với 357 sản phẩm.",
+  url: "https://era.com.vn/phu-gia-bao-loc/",
+  image: "https://era.com.vn/landing/phu-gia-bao-loc/images/hero_bg.webp",
+  address: "Quốc lộ 20, Bảo Lộc, Việt Nam",
+  category: "Biệt thự compound",
+});
+
 export default function PhuGiaBaoLocPage() {
   return (
     <div className={montserrat.variable}>
       <JsonLd data={breadcrumbJsonLd(breadcrumbItems)} />
+      <JsonLd data={listingJsonLd} />
       <PhuGiaBaoLocLanding />
     </div>
   );
