@@ -67,6 +67,20 @@ thì `assets/img/...` sẽ tự trỏ đúng vào thư mục landing tương ứ
 
 ## 3. Tạo route Next bọc landing bằng iframe
 
+### Trạng thái kiểm thử bot: Capital Square
+
+Capital Square đang là landing thí điểm cho phương án thay iframe bằng rewrite trực tiếp.
+
+- Route thử nghiệm: `/du-an-capital-square/`.
+- `next.config.ts` rewrite route này tới `public/landing/capital-square/index.html` bằng `beforeFiles`.
+- URL người dùng không đổi; server trả trực tiếp toàn bộ HTML landing để bot đọc được nội dung ngay ở lần phản hồi đầu tiên.
+- `public/landing/capital-square/index.html` có `<base href="/landing/capital-square/">` để các đường dẫn tương đối `assets/...` tiếp tục tải đúng sau khi rewrite.
+- Đã kiểm thử local: HTML có H1, nội dung, JSON-LD, canonical, form, ảnh, CSS và JavaScript.
+- Đây mới là kiểm thử riêng cho Capital Square, chưa áp dụng cho các landing khác.
+- Chưa được xem là hoàn tất cho production cho tới khi deploy FE và kiểm tra lại HTML thô bằng `curl`/Google Search Console.
+
+Nếu kiểm thử Capital Square ổn định, mới đánh giá và nhân rộng cơ chế rewrite cho các landing iframe khác. Không tự động chuyển toàn bộ landing sang rewrite khi chưa kiểm tra form, tracking, asset, video và URL cảm ơn của từng landing.
+
 Tạo file:
 
 ```text
