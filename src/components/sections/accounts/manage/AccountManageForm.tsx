@@ -64,6 +64,7 @@ const moduleLabels: Record<string, string> = {
 };
 
 const resourceLabels: Record<string, string> = {
+  reports: "Báo cáo",
   categories: "Danh mục",
   articles: "Bài viết",
   accounts: "Tài khoản",

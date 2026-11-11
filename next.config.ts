@@ -32,6 +32,19 @@ const nextConfig: NextConfig = {
       { source: "/du-an-beachtro-tower/:path*", destination: "/pk-beachtro-tower-du-an-blanca-city/:path*", permanent: true },
     ];
   },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        // Serve the complete static landing document at the public project URL.
+        // This keeps the URL unchanged while allowing crawlers to receive the
+        // landing content in the first HTML response instead of only an iframe.
+        {
+          source: "/du-an-capital-square/",
+          destination: "/landing/capital-square/index.html",
+        },
+      ],
+    };
+  },
   async headers() {
     return [
       {
