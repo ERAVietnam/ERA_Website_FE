@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { PhuGiaBaoLocFrame } from "./PhuGiaBaoLocFrame";
+import { JsonLd } from "@/components/shared/JsonLd";
+import { staticRealEstateListingJsonLd } from "@/lib/jsonLd";
 
 export const metadata: Metadata = {
   title: "Phú Gia Bảo Lộc – Khu biệt thự compound mặt tiền QL20 | ERA",
@@ -29,9 +31,19 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+const listingJsonLd = staticRealEstateListingJsonLd({
+  name: "Phú Gia Bảo Lộc",
+  description: "Phú Gia Bảo Lộc – khu biệt thự compound mặt tiền Quốc lộ 20 tại trung tâm Bảo Lộc, Lâm Đồng.",
+  url: "https://era.com.vn/phu-gia-bao-loc/",
+  image: "https://era.com.vn/landing/phu-gia-bao-loc-new/assets/img/og-phu-gia-bao-loc-1200x630.jpg",
+  address: "Quốc lộ 20, Bảo Lộc, Việt Nam",
+  category: "Biệt thự compound",
+});
+
 export default function PhuGiaBaoLocNewPage() {
   return (
     <main className="min-h-screen bg-white">
+      <JsonLd data={listingJsonLd} />
       <PhuGiaBaoLocFrame />
     </main>
   );
