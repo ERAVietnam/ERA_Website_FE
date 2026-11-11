@@ -19,6 +19,9 @@ export default function robots(): MetadataRoute.Robots {
         "/ho-so-ca-nhan",
       ],
     },
-    sitemap: "https://era.com.vn/sitemap.xml",
+    sitemap: [
+      "https://era.com.vn/sitemap.xml",
+      "https://era.com.vn/news-sitemap.xml",
+    ],
   };
 }
