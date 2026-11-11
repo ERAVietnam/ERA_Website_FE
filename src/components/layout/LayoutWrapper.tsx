@@ -130,6 +130,7 @@ const landingThankYouFaviconByRoute: Record<string, string> = {
  * "/some-page": { header: false },
  */
 const specialLayouts: Record<string, LayoutConfig> = {
+  "/brand-health": { header: false, contentPadding: false },
   "/du-an-the-marq": { header: false, footer: true, toTop: false, contentPadding: false },
   "/thank-you-the-marq": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-izumi-city": { header: false, footer: false, toTop: false, contentPadding: false },
@@ -253,7 +254,6 @@ const ADMIN_PATHS = [
   "/tuyen-dung/ung-vien",
   "/tai-khoan/quan-ly",
   "/ho-so-ca-nhan",
-  "/brand-health",
 ];
 
 function isAdminPath(pathname: string): boolean {

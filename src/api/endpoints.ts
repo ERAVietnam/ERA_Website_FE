@@ -150,6 +150,6 @@ export const ENDPOINTS = {
     LIST: '/brand-health',
     DETAIL: (reportNo: string) => `/brand-health/bao-cao/${reportNo}`,
     HTML: (reportNo: string) => `/brand-health/bao-cao/${reportNo}/html`,
-    PDF: (date: string) => `/brand-health/reports/${date}.pdf`,
+    PDF: (reportNo: string) => `/brand-health/bao-cao/${encodeURIComponent(reportNo)}/pdf`,
   },
 } as const;
