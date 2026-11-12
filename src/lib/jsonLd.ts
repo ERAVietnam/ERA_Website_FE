@@ -85,25 +85,41 @@ export function faqPageJsonLd(items: FaqItem[]): Record<string, unknown> {
 export function staticRealEstateListingJsonLd(
   listing: StaticRealEstateListing,
 ): Record<string, unknown> {
+  const baseUrl = listing.url.replace(/\/$/, "");
+  const listingId = `${baseUrl}/#listing`;
+  const propertyId = `${baseUrl}/#property`;
+
   return {
     "@context": "https://schema.org",
-    "@type": "RealEstateListing",
-    name: listing.name,
-    description: listing.description,
-    url: listing.url,
-    image: [listing.image],
-    category: listing.category,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: listing.address,
-      addressCountry: "VN",
-    },
-    provider: {
-      "@type": "RealEstateAgent",
-      name: "ERA Vietnam",
-      url: BASE_URL,
-      ...(listing.telephone ? { telephone: listing.telephone } : {}),
-    },
+    "@graph": [
+      {
+        "@type": "RealEstateListing",
+        "@id": listingId,
+        name: listing.name,
+        description: listing.description,
+        url: listing.url,
+        image: [listing.image],
+        ...(listing.category ? { category: listing.category } : {}),
+        mainEntity: { "@id": propertyId },
+        provider: {
+          "@type": "RealEstateAgent",
+          name: "ERA Vietnam",
+          url: BASE_URL,
+          ...(listing.telephone ? { telephone: listing.telephone } : {}),
+        },
+      },
+      {
+        "@type": "Place",
+        "@id": propertyId,
+        name: listing.name,
+        url: listing.url,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: listing.address,
+          addressCountry: "VN",
+        },
+      },
+    ],
   };
 }
 
@@ -188,26 +204,42 @@ export function profilePageJsonLd(author: Author): Record<string, unknown> {
 
 export function realEstateListingJsonLd(project: Project): Record<string, unknown> {
   const imageUrl = project.imageMedia?.url;
+  const projectUrl = `${BASE_URL}/du-an/${project.slug}/`;
+  const baseUrl = projectUrl.replace(/\/$/, "");
+  const listingId = `${baseUrl}/#listing`;
+  const propertyId = `${baseUrl}/#property`;
 
   return {
     "@context": "https://schema.org",
-    "@type": "RealEstateListing",
-    name: project.name,
-    description: project.content
-      ? project.content.replace(/<[^>]+>/g, "").slice(0, 5000)
-      : undefined,
-    image: imageUrl ? [imageUrl] : undefined,
-    url: `${BASE_URL}/du-an/${project.slug}/`,
-    address: project.location
-      ? {
-          "@type": "PostalAddress",
-          addressLocality: project.location,
-          addressCountry: "VN",
-        }
-      : undefined,
-    datePosted: project.publishedAt
-      ? new Date(project.publishedAt).toISOString()
-      : undefined,
+    "@graph": [
+      {
+        "@type": "RealEstateListing",
+        "@id": listingId,
+        name: project.name,
+        description: project.content
+          ? project.content.replace(/<[^>]+>/g, "").slice(0, 5000)
+          : undefined,
+        image: imageUrl ? [imageUrl] : undefined,
+        url: projectUrl,
+        mainEntity: { "@id": propertyId },
+        datePosted: project.publishedAt
+          ? new Date(project.publishedAt).toISOString()
+          : undefined,
+      },
+      {
+        "@type": "Place",
+        "@id": propertyId,
+        name: project.name,
+        url: projectUrl,
+        address: project.location
+          ? {
+              "@type": "PostalAddress",
+              addressLocality: project.location,
+              addressCountry: "VN",
+            }
+          : undefined,
+      },
+    ],
   };
 }
 
