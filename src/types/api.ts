@@ -557,13 +557,21 @@ export interface AssignPermissionsInput {
 
 export type JobStatus = 'draft' | 'open' | 'closed';
 
+export type RequiredSkillCategory = 'Kiến thức ngành' | 'Kỹ năng mềm' | 'Yêu cầu khác';
+
+export interface RequiredSkillGroup {
+  category: RequiredSkillCategory;
+  icon: string;
+  tags: string[];
+}
+
 export interface JobPosting {
   id: string;
   authorId: string;
   title: string;
   slug: string;
   location: string;
-  type: string;
+  type: string | null;
   workMode?: string | null;
   experience?: string | null;
   salary?: string | null;
@@ -573,6 +581,7 @@ export interface JobPosting {
   status: JobStatus;
   description: string;
   requirements: string;
+  requiredSkills?: RequiredSkillGroup[] | null;
   benefits: string;
   publishedAt?: string | null;
   createdAt: string;
@@ -584,7 +593,7 @@ export interface CreateJobInput {
   title: string;
   slug: string;
   location: string;
-  type: string;
+  type?: string | null;
   workMode?: string;
   experience?: string;
   salary?: string;
@@ -593,6 +602,7 @@ export interface CreateJobInput {
   deadline?: string;
   description: string;
   requirements: string;
+  requiredSkills?: RequiredSkillGroup[] | null;
   benefits: string;
 }
 

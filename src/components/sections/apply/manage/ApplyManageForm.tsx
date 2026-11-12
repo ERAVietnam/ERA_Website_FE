@@ -10,6 +10,8 @@ import { X, Loader2, Eye, CheckCircle, History } from "lucide-react";
 import { ApplyJobPreviewDialog } from "./ApplyJobPreviewDialog";
 import { createJobSchema } from "@/schemas/recruitment.schema";
 import { VIETNAM_PROVINCES } from "@/lib/projects";
+import { RequiredSkillsEditor } from "./RequiredSkillsEditor";
+import type { RequiredSkillGroup } from "@/types/api";
 
 const RichEditor = dynamic(
   () => import("@/components/shared/RichEditor"),
@@ -53,6 +55,7 @@ export interface JobFormData {
   status: "draft" | "open" | "closed";
   description: string;
   requirements: string;
+  requiredSkills: RequiredSkillGroup[];
   benefits: string;
 }
 
@@ -99,6 +102,7 @@ function buildInitialForm(initialData?: JobFormData): JobFormData {
     status: initialData?.status ?? "draft",
     description: initialData?.description ?? "",
     requirements: initialData?.requirements ?? "",
+    requiredSkills: initialData?.requiredSkills ?? [],
     benefits: initialData?.benefits ?? "",
   };
 }
@@ -339,7 +343,7 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
               </div>
               <div id="field-type">
                 <label className={labelClass}>
-                  Loại hình <span style={{ color: colors.primary.DEFAULT }}>*</span>
+                  Loại hình
                 </label>
                 <SelectField
                   value={form.type}
@@ -412,6 +416,8 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
               {fieldErrors.requirements && <p className="mt-1 text-xs text-red-500">{fieldErrors.requirements}</p>}
             </div>
 
+            <RequiredSkillsEditor value={form.requiredSkills} onChange={(value) => update("requiredSkills", value)} />
+
             <div id="field-benefits">
               <label className={labelClass}>
                 Quyền lợi <span style={{ color: colors.primary.DEFAULT }}>*</span>
@@ -423,7 +429,7 @@ export function ApplyManageForm({ initialData, onSave, onCancel, onPublish, onVi
             </div>
 
             <div id="field-workingTime">
-              <label className={labelClass}>Thờі gian làm việc</label>
+              <label className={labelClass}>Địa điểm và thời gian</label>
               <div className="rounded-lg border border-gray-200 focus-within:border-gray-400 overflow-hidden transition-colors">
                 <RichEditor value={form.workingTime} onChange={(val) => update("workingTime", val)} disableImage disableFontColor />
               </div>

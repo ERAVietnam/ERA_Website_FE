@@ -18,8 +18,8 @@ export const createJobSchema = z.object({
     .max(100, "Địa điểm tối đa 100 ký tự"),
   type: z
     .string()
-    .min(1, "Loại hình không được để trống")
-    .max(50, "Loại hình tối đa 50 ký tự"),
+    .max(50, "Loại hình tối đa 50 ký tự")
+    .optional(),
   workMode: z
     .string()
     .max(50, "Hình thức tối đa 50 ký tự")
@@ -45,6 +45,11 @@ export const createJobSchema = z.object({
     }),
   description: z.string().min(1, "Mô tả công việc không được để trống"),
   requirements: z.string().min(1, "Yêu cầu ứng viên không được để trống"),
+  requiredSkills: z.array(z.object({
+    category: z.enum(["Kiến thức ngành", "Kỹ năng mềm", "Yêu cầu khác"]),
+    icon: z.string().min(1),
+    tags: z.array(z.string().min(1)).max(20),
+  })).max(3, "Chỉ được thêm tối đa 3 nhóm").optional(),
   benefits: z.string().min(1, "Quyền lợi không được để trống"),
 });
 

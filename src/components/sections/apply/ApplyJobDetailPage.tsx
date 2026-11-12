@@ -20,6 +20,9 @@ import {
   ArrowRight,
   Upload,
   Coins,
+  BookOpen,
+  Lightbulb,
+  Target,
 } from "lucide-react";
 import { SelectField } from "@/components/ui/admin/SelectField";
 import { recruitmentApi } from "@/api/domains/recruitment";
@@ -32,6 +35,8 @@ import type { JobFormData } from "./manage/ApplyManageForm";
 import type { JobPosting } from "@/types/api";
 
 type JobDetail = JobPosting | JobFormData | undefined;
+
+const requiredSkillIcons = { BookOpen, Users, Briefcase, Target, Lightbulb };
 
 function formatSalaryLabel(job?: JobDetail): string | null {
   const salary = job?.salary?.trim();
@@ -70,6 +75,7 @@ export function ApplyJobDetailPage({
   const hasRequirementsHtml = !!job?.requirements && job.requirements.trim().length > 0;
   const hasBenefitsHtml = !!job?.benefits && job.benefits.trim().length > 0;
   const hasWorkingTimeHtml = !!job?.workingTime && job.workingTime.trim().length > 0;
+  const requiredSkills = job?.requiredSkills ?? [];
 
   return (
     <main className="min-h-screen bg-white pt-16 md:pt-0">
@@ -154,7 +160,7 @@ export function ApplyJobDetailPage({
           <div className={`space-y-8 ${isPreview ? "lg:col-span-3" : "lg:col-span-2"}`}>
             {/* Mô tả */}
             {hasDescriptionHtml && (
-              <section>
+              <section className="border-b border-gray-200 pb-8 last:border-b-0">
                 <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Mô tả công việc</h2>
                 <RichTextContent
                   html={job!.description}
@@ -163,9 +169,33 @@ export function ApplyJobDetailPage({
               </section>
             )}
 
+            {requiredSkills.length > 0 && (
+              <section>
+                <h2 className="mb-4 text-xl font-bold" style={{ color: colors.primary.navy.DEFAULT }}>Kỹ năng cần thiết</h2>
+                <div className="space-y-4">
+                  {requiredSkills.map((group, index) => {
+                    const Icon = group.icon === "users" ? requiredSkillIcons.Users
+                      : group.icon === "briefcase" ? requiredSkillIcons.Briefcase
+                      : group.icon === "target" ? requiredSkillIcons.Target
+                      : group.icon === "lightbulb" ? requiredSkillIcons.Lightbulb
+                      : requiredSkillIcons.BookOpen;
+                    return (
+                      <div key={`${group.category}-${index}`} className="flex items-start gap-4 rounded-xl border border-gray-100 bg-white p-4">
+                        <div className="flex h-11 w-11 shrink-0 self-center items-center justify-center rounded-lg" style={{ backgroundColor: colors.secondary.DEFAULT, color: colors.neutral.white }}><Icon size={22} /></div>
+                        <div className="min-w-0">
+                          <h3 className="font-semibold" style={{ color: colors.secondary.DEFAULT }}>{group.category}</h3>
+                          {group.tags.length > 0 && <div className="mt-2 flex flex-wrap gap-2">{group.tags.map((tag, tagIndex) => <span key={`${tag}-${tagIndex}`} className="rounded-full px-3 py-1 text-sm text-white" style={{ backgroundColor: colors.secondary.DEFAULT }}>{tag}</span>)}</div>}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
             {/* Yêu cầu */}
             {hasRequirementsHtml && (
-              <section>
+              <section className="border-b border-gray-200 pb-8 last:border-b-0">
                 <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Yêu cầu công việc</h2>
                 <RichTextContent
                   html={job!.requirements}
@@ -176,7 +206,7 @@ export function ApplyJobDetailPage({
 
             {/* Phúc lợi */}
             {hasBenefitsHtml && (
-              <section className="pt-4">
+              <section className="border-b border-gray-200 pb-8 pt-4 last:border-b-0">
                 <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Đặc Quyền & Phúc Lợi</h2>
                 <div className="rounded-2xl p-5 space-y-4" style={{ backgroundColor: colors.secondary.DEFAULT }}>
                   <RichTextContent
@@ -187,10 +217,10 @@ export function ApplyJobDetailPage({
               </section>
             )}
 
-            {/* Thờі gian làm việc */}
+            {/* Địa điểm và thời gian */}
             {hasWorkingTimeHtml && (
-              <section>
-                <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Thờі gian làm việc</h2>
+              <section className="border-b border-gray-200 pb-8 last:border-b-0">
+                <h2 className="text-xl font-bold mb-4" style={{ color: colors.primary.navy.DEFAULT }}>Địa điểm và thời gian</h2>
                 <RichTextContent
                   html={job!.workingTime ?? ""}
                   className="ck-content richtext-content text-gray-600"

@@ -1,6 +1,6 @@
 # Quy trình tích hợp landing static vào ERA Website
 
-Tài liệu này ghi lại pattern đang dùng cho các landing như Green Skyline, Diamond Sky và The Legend Đà Nẵng.
+Tài liệu này ghi lại quy trình tích hợp landing dự án vào ERA Website và đóng gói bản không form để upload sang ứng dụng bên ngoài.
 
 ## 1. Xác định bộ giao diện bàn giao
 
@@ -65,21 +65,53 @@ thì `assets/img/...` sẽ tự trỏ đúng vào thư mục landing tương ứ
 - Sau khi thay HTML/CSS/font, phải đổi giá trị `?v=` ở đường dẫn `fonts.css`, JavaScript và/hoặc file font để tránh trình duyệt giữ cache cũ.
 - Kiểm tra thực tế bằng trình duyệt: tiếng Việt phải hiển thị đúng, trong DevTools không có lỗi tải `fonts.css` hoặc `.woff2`.
 
-## 3. Tạo route Next bọc landing bằng iframe
+## 3. Chọn cách tích hợp landing vào FE: rewrite hoặc iframe
 
-### Trạng thái kiểm thử bot: Capital Square
+Hiện có hai cách tích hợp:
 
-Capital Square đang là landing thí điểm cho phương án thay iframe bằng rewrite trực tiếp.
+### 3.1. Rewrite trực tiếp — cách ưu tiên cho landing static mới
 
-- Route thử nghiệm: `/du-an-capital-square/`.
+Rewrite trong `next.config.ts` trỏ URL public của dự án tới file HTML trong `public/landing`:
+
+```ts
+{
+  source: "/du-an-the-legend-da-nang/",
+  destination: "/landing/the-legend-da-nang/index.html",
+},
+{
+  source: "/du-an-the-legend-da-nang/assets/:path*",
+  destination: "/landing/the-legend-da-nang/assets/:path*",
+},
+```
+
+Khi dùng rewrite:
+
+- URL người dùng vẫn giữ nguyên.
+- Server trả trực tiếp HTML landing trong response đầu tiên, thuận lợi hơn cho bot và công cụ đọc nội dung.
+- `index.html` phải tự có title, description, canonical, Open Graph, Twitter Card và structured data cần thiết; không nên chỉ dựa vào `metadata` trong `page.tsx` vì rewrite `beforeFiles` có thể trả file HTML trước khi route React được render.
+- Nếu HTML dùng đường dẫn tương đối như `assets/img/...`, phải giữ nguyên cấu trúc thư mục hoặc thêm `<base href="/landing/<slug>/">`.
+- Phải có rewrite riêng cho `assets/:path*` nếu URL public cần tải asset qua route dự án.
+- Phải kiểm tra form, tracking, video, JavaScript, ảnh và trang thank-you sau khi rewrite.
+
+Rewrite là cách mặc định nên dùng cho landing HTML static mới nếu không có xung đột với logic của landing.
+
+### 3.2. Iframe — chỉ dùng cho landing cũ hoặc landing cần cô lập
+
+Iframe giúp cô lập CSS/JS của landing với React app:
+
+### Trạng thái rewrite trong project
+
+Capital Square là landing đầu tiên được dùng để kiểm thử phương án rewrite trực tiếp. Sau đó cơ chế này đã được áp dụng cho thêm nhiều landing khác.
+
+- Route mẫu: `/du-an-capital-square/`.
 - `next.config.ts` rewrite route này tới `public/landing/capital-square/index.html` bằng `beforeFiles`.
 - URL người dùng không đổi; server trả trực tiếp toàn bộ HTML landing để bot đọc được nội dung ngay ở lần phản hồi đầu tiên.
 - `public/landing/capital-square/index.html` có `<base href="/landing/capital-square/">` để các đường dẫn tương đối `assets/...` tiếp tục tải đúng sau khi rewrite.
 - Đã kiểm thử local: HTML có H1, nội dung, JSON-LD, canonical, form, ảnh, CSS và JavaScript.
-- Đây mới là kiểm thử riêng cho Capital Square, chưa áp dụng cho các landing khác.
-- Chưa được xem là hoàn tất cho production cho tới khi deploy FE và kiểm tra lại HTML thô bằng `curl`/Google Search Console.
+- Với landing khác, phải kiểm tra lại từng route vì mỗi landing có thể có form, video, tracking, asset và trang cảm ơn khác nhau.
+- Sau khi deploy FE, phải kiểm tra lại HTML thô bằng trình duyệt hoặc `Invoke-WebRequest`, không chỉ kiểm tra giao diện hiển thị.
 
-Nếu kiểm thử Capital Square ổn định, mới đánh giá và nhân rộng cơ chế rewrite cho các landing iframe khác. Không tự động chuyển toàn bộ landing sang rewrite khi chưa kiểm tra form, tracking, asset, video và URL cảm ơn của từng landing.
+Không tự động chuyển landing cũ từ iframe sang rewrite nếu chưa kiểm tra form, tracking, asset, video và URL cảm ơn của landing đó.
 
 Tạo file:
 
@@ -129,7 +161,7 @@ export default function LandingPage() {
 }
 ```
 
-Iframe giúp giữ nguyên CSS/JS/layout của bản bàn giao, tránh xung đột với component React chung của website.
+Iframe giúp giữ nguyên CSS/JS/layout của bản bàn giao, tránh xung đột với component React chung của website. Tuy nhiên nội dung HTML nằm trong iframe không phải là nội dung trực tiếp của trang cha; vì vậy nếu ưu tiên SEO/bot, nên đánh giá rewrite trực tiếp trước.
 
 ## 4. Tắt layout chung của website
 
@@ -157,10 +189,12 @@ Landing static đã có header/footer riêng nên không được render thêm H
 
 ## Quy tắc mặc định cho mỗi landing dự án
 
-Mỗi khi tích hợp một landing dự án mới, luôn thực hiện đủ hai bản mà không cần nhắc lại:
+Mặc định khi tích hợp một landing dự án mới, thực hiện đủ hai bản mà không cần nhắc lại:
 
 1. Bản có form trong project Next.js: kết nối `/api/submit-lead/`, cấu hình đúng tab Google Sheet, tạo route dự án và trang thank-you.
 2. Bản không form, không số điện thoại, không Zalo và không thông tin liên hệ tại `D:\ERA\landing\<slug>-static`. Bản này giữ nguyên nội dung, hình ảnh, thông tin dự án/chủ đầu tư/đại lý cần thiết; chỉ loại bỏ các thành phần thu lead và liên hệ.
+
+Nếu người phụ trách yêu cầu rõ là chỉ làm bản có form, chỉ triển khai bản trong FE và không tự tạo bản ZIP không form. Ví dụ: landing Phú Gia Bảo Lộc bản mới chỉ có form; landing cũ vẫn được giữ nguyên theo yêu cầu.
 
 Khi tạo bản static, ưu tiên dùng thư mục `khong-form/web` nếu bộ giao có sẵn. Chỉ cập nhật các file text như `index.html`, `llms.txt`, `sitemap.xml`, `robots.txt`; không đọc/ghi lại thư mục `assets` bằng thao tác xử lý text để tránh làm hỏng ảnh, font và file nhị phân.
 
@@ -168,11 +202,18 @@ Khi tạo bản static, ưu tiên dùng thư mục `khong-form/web` nếu bộ g
 
 Trong `public/landing`, mỗi dự án chỉ được có một thư mục runtime theo đúng `<slug>`. Không tạo thêm thư mục `<slug>-static` trong FE.
 
-- Landing có form dùng chính thư mục `<slug>` để chứa `index.html`, `assets`, JavaScript form và các tài nguyên liên quan. Route, trang cảm ơn, metadata, favicon và các đường dẫn iframe đều phải trỏ về thư mục này.
+- Landing có form dùng chính thư mục `<slug>` để chứa `index.html`, `assets`, JavaScript form và các tài nguyên liên quan. Route, trang cảm ơn, metadata, favicon và các đường dẫn rewrite/iframe đều phải trỏ về thư mục này.
 - Khi hợp nhất một landing cũ có bản `<slug>` và `<slug>-static`, hãy copy phần cần thiết vào `<slug>`, kiểm tra đủ `index.html` và `assets`, cập nhật toàn bộ đường dẫn `/landing/...`, rồi mới xóa thư mục `<slug>-static`.
 - Bản ZIP không form dùng cho ứng dụng upload bên ngoài tại `D:\ERA\landing\<slug>-static` là kho riêng, không phải thư mục thứ hai trong FE và không cần tạo bản sao trong `public/landing`.
 - Không đổi tên route URL chỉ vì hợp nhất thư mục. Giữ nguyên logic form, submit lead, trang cảm ơn và metadata hiện có.
 - File `vercel.json` đi kèm bộ HTML từ phòng thiết kế chỉ phục vụ việc host preview trên Vercel trước khi bàn giao. Khi landing đã được tích hợp vào project FE (đã link Git/Vercel ở cấp project) hoặc đóng gói ZIP để upload sang app khác, phải xóa `vercel.json` khỏi thư mục landing; không cần mang theo file cấu hình preview này.
+
+### Ngoại lệ về cấu trúc bàn giao
+
+- Không tạo thêm thư mục `public/landing/<slug>-static` trong FE.
+- Bản ZIP bên ngoài phải là một landing độc lập, không phụ thuộc vào React app, API nội bộ hoặc đường dẫn `/landing/...` của FE.
+- Khi đóng gói ZIP, `index.html` phải nằm ở thư mục gốc của ZIP; các đường dẫn `assets/...` phải tồn tại tương ứng trong ZIP.
+- Không đổi tên hoặc di chuyển từng file asset riêng lẻ nếu HTML/JS/CSS vẫn đang tham chiếu đường dẫn cũ.
 
 ## 5. Tạo trang cảm ơn
 
@@ -339,9 +380,34 @@ Khi đóng/mở menu mobile cũng phải xóa `nav-hide` để menu không bị 
 hdr.classList.remove('nav-hide');
 ```
 
-## 10. Sitemap và kiểm tra
+## 10. Video và asset dung lượng lớn
 
-### 10.1. Bảng kiểm URL ảnh share (Open Graph)
+- Video phải được copy nguyên file vào `assets/video/` hoặc thư mục tương ứng mà HTML đang tham chiếu.
+- Ưu tiên dùng đường dẫn tương đối, ví dụ `assets/video/hero.mp4`; không hard-code đường dẫn local như `D:\Download\...`.
+- Khi zip, phải giữ nguyên cả tên file, chữ hoa/chữ thường và cấu trúc thư mục. Không chỉ copy `index.html` mà bỏ thư mục `assets/video`.
+- Sau khi upload ZIP lên ứng dụng bên ngoài, mở DevTools và kiểm tra request video phải trả HTTP 200, không phải 404.
+- Nếu video quá nặng, nén bằng H.264/AAC nhưng vẫn phải kiểm tra lại độ phân giải, âm thanh, autoplay và thời gian tải. Không tự động thay video bằng link trang khác nếu yêu cầu là video phải phát trực tiếp trong landing.
+- Trước khi bàn giao, kiểm tra trên cả desktop và mobile: video hero, play/pause, âm thanh, controls, fullscreen và hành vi khi cuộn ra khỏi hero nếu landing có logic này.
+
+## 11. SEO, metadata và structured data
+
+Mỗi landing phải kiểm tra đầy đủ các phần sau:
+
+- `<title>` đúng tên dự án.
+- `<meta name="description">` mô tả đúng landing.
+- `canonical` trỏ đúng URL public cuối cùng, có hoặc không có dấu `/` nhất quán.
+- `og:title`, `og:description`, `og:url`, `og:image`.
+- `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`.
+- Ảnh `og:image` và `twitter:image` trả HTTP 200 với Content-Type là `image/*`.
+- Có `robots` cho phép index nếu landing được phép xuất hiện trên Google.
+- Có JSON-LD phù hợp. Landing dự án nên có `RealEstateListing`; nếu có thông tin cư trú/dự án cụ thể có thể kết hợp thêm `Residence` hoặc schema phù hợp khác.
+- Không điền thông tin không chắc chắn vào JSON-LD, đặc biệt là địa chỉ, giá, diện tích, số phòng, ngày mở bán và thông tin chủ đầu tư.
+
+Nếu landing dùng rewrite trực tiếp, các thẻ SEO và JSON-LD quan trọng phải nằm trong `index.html`, vì file HTML có thể được trả trực tiếp thay cho `page.tsx`.
+
+## 12. Sitemap và kiểm tra
+
+### 12.1. Bảng kiểm URL ảnh share (Open Graph)
 
 Trước khi zip/upload landing, phải kiểm tra các thẻ `og:image` và `twitter:image`:
 
@@ -359,12 +425,13 @@ $og = [regex]::Match($html, 'property=["'']og:image["''][^>]+content=["'']([^"''
 Invoke-WebRequest $og -Method Head -UseBasicParsing
 ```
 
-Thêm URL landing vào `src/app/sitemap.ts`:
+Thêm URL landing vào `src/app/sitemap.ts` nếu landing chưa có trong danh sách static:
 
 ```ts
 {
   url: `${baseUrl}/du-an-the-legend-da-nang/`,
-  lastModified: new Date(),
+  // Dùng ngày cập nhật thực tế nếu có; không dùng new Date() cho mọi request.
+  lastModified: new Date("2026-10-07T00:00:00.000Z"),
   changeFrequency: "weekly",
   priority: 0.8,
 },
@@ -377,6 +444,17 @@ node --check public/landing/<slug>/assets/js/<landing>.js
 npx.cmd tsc --noEmit --pretty false
 npx.cmd eslint src/app/(landing)/<route>/page.tsx src/components/layout/LayoutWrapper.tsx src/app/sitemap.ts
 ```
+
+Nếu landing có rewrite trực tiếp, kiểm tra thêm:
+
+```powershell
+$response = Invoke-WebRequest $landingUrl -UseBasicParsing
+$response.StatusCode
+$response.Headers['Content-Type']
+$response.Content | Select-String '<h1|canonical|og:image|application/ld\+json'
+```
+
+Phải xác nhận HTML trả về là nội dung landing thật, không chỉ là một trang React chứa iframe.
 
 Khi dev server đang chạy, kiểm tra tối thiểu:
 
@@ -395,6 +473,8 @@ Tất cả cần trả HTTP 200. Sau đó test thực tế trên trình duyệt:
 4. Điền form và submit.
 5. Kiểm tra trang thank-you.
 6. Kiểm tra tab Google Sheet đủ 18 cột và đúng `sheet`.
+7. Kiểm tra video, ảnh và font không trả 404.
+8. Nếu dùng rewrite, kiểm tra HTML response đầu tiên có nội dung, metadata và JSON-LD.
  
 ## Pattern UI: danh sách dài bên phải, ảnh sticky bên trái
 
