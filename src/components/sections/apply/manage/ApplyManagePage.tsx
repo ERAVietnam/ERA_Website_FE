@@ -35,7 +35,7 @@ function jobPostingToForm(job: JobPosting): JobFormData {
     slug: job.slug,
     title: job.title,
     location: job.location,
-    type: job.type,
+    type: job.type ?? "",
     workMode: job.workMode ?? "",
     experience: job.experience ?? "",
     salary: job.salary ?? "",
@@ -45,6 +45,7 @@ function jobPostingToForm(job: JobPosting): JobFormData {
     status: job.status,
     description: job.description,
     requirements: job.requirements,
+    requiredSkills: job.requiredSkills ?? [],
     benefits: job.benefits,
   };
 }
@@ -54,7 +55,7 @@ function formToCreateInput(form: JobFormData): CreateJobInput {
     title: form.title,
     slug: form.slug,
     location: form.location,
-    type: form.type,
+    type: form.type || undefined,
     workMode: form.workMode || undefined,
     experience: form.experience || undefined,
     salary: form.salary || undefined,
@@ -63,6 +64,7 @@ function formToCreateInput(form: JobFormData): CreateJobInput {
     deadline: form.deadline || undefined,
     description: form.description,
     requirements: form.requirements,
+    requiredSkills: form.requiredSkills,
     benefits: form.benefits,
   };
 }
@@ -72,7 +74,7 @@ function formToUpdateInput(form: JobFormData): UpdateJobInput {
     title: form.title,
     slug: form.slug,
     location: form.location,
-    type: form.type,
+    type: form.type || null,
     workMode: form.workMode || undefined,
     experience: form.experience || undefined,
     salary: form.salary || undefined,
@@ -81,6 +83,7 @@ function formToUpdateInput(form: JobFormData): UpdateJobInput {
     deadline: form.deadline || undefined,
     description: form.description,
     requirements: form.requirements,
+    requiredSkills: form.requiredSkills,
     benefits: form.benefits,
   };
 }

@@ -243,7 +243,9 @@ export function realEstateListingJsonLd(project: Project): Record<string, unknow
   };
 }
 
-function parseEmploymentType(type: string): string {
+function parseEmploymentType(type?: string | null): string | undefined {
+  if (!type?.trim()) return undefined;
+
   const normalized = type.toLowerCase();
   if (normalized.includes("full-time") || normalized.includes("fulltime") || normalized === "full time") {
     return "FULL_TIME";
