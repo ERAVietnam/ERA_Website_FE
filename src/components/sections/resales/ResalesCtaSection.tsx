@@ -65,7 +65,7 @@ export function ResalesCtaSection() {
   };
 
   return (
-    <section className="relative overflow-hidden" style={{ backgroundColor: rc.navy }}>
+    <section id="resales-join-cta" className="relative overflow-hidden" style={{ backgroundColor: rc.navy }}>
       {/* Background ảnh full section (navy giữ lại làm màu nền phía dưới ảnh) */}
       <div className="absolute inset-0 z-0">
         <Image

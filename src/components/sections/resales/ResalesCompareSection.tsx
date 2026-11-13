@@ -64,7 +64,7 @@ const tdStyle: React.CSSProperties = {
 /* Section: bảng so sánh làm một mình vs làm cùng ERA */
 export function ResalesCompareSection() {
   return (
-    <Section bg="white" padding="none" className="py-10 md:py-14">
+    <Section id="resales-compare" bg="white" padding="none" className="py-10 md:py-14">
       <Reveal>
       <div className="text-xs font-extrabold tracking-[0.16em]" style={{ color: colors.primary.DEFAULT }}>
         ĐÂY CÓ PHẢI MONG MUỐN CỦA BẠN?
