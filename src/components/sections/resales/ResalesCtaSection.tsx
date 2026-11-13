@@ -143,7 +143,7 @@ export function ResalesCtaSection() {
                 HIỆN ANH/CHỊ ĐANG
               </label>
               <div className="grid grid-cols-2 gap-2.5">
-                {["Môi giới tự do", "Môi giới ở công ty khác"].map((v) => (
+                {["Môi giới tự do", "Môi giới ở công ty khác", "Muốn tìm hiểu về ngành BĐS"].map((v) => (
                   <label
                     key={v}
                     style={{
