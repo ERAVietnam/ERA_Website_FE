@@ -231,6 +231,14 @@ const nextConfig: NextConfig = {
           destination: "/landing/newtown-legend/assets/:path*",
         },
         {
+          source: "/du-an-newtown-diamond/",
+          destination: "/landing/newtown-diamond/index.html",
+        },
+        {
+          source: "/du-an-newtown-diamond/assets/:path*",
+          destination: "/landing/newtown-diamond/assets/:path*",
+        },
+        {
           source: "/du-an-nobu-da-nang/",
           destination: "/landing/nobu-da-nang/index.html",
         },

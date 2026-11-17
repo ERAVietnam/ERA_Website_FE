@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://era.com.vn/du-an-newtown-diamond/sitemap.xml
