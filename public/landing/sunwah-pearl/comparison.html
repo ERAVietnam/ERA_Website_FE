@@ -56,19 +56,18 @@
     .comparison-note { display: block; font-size: 1.2cqw; line-height: 1.4; }
     .comparison-growth td:last-child .comparison-note, .comparison-capital td:last-child .comparison-note { max-width: 75%; margin: 0 auto; }
     .comparison-note-regular { font-weight: 400; }
-    .comparison-mobile-hint { display: none; }
     @media (max-width: 640px) {
-      .comparison-inner { width: 90%; padding: 44px 0 48px; }
+      .comparison-inner { width: 94%; padding: 44px 0 48px; }
       .comparison-heading { margin-bottom: 26px; font-size: clamp(14px, 3.9vw, 24px); }
       .comparison-script { font-size: 6.5vw; }
-      .comparison-table-wrap { overflow-x: auto; border-radius: 12px; }
-      .comparison-table { min-width: 720px; font-size: 13px; }
-      .comparison-table thead { height: 64px; }
-      .comparison-table thead th, .comparison-table tbody th, .comparison-table td { padding: 16px 12px; }
+      .comparison-table-wrap { border-radius: 12px; }
+      .comparison-table { font-size: clamp(10px, 2.7vw, 14px); line-height: 1.5; overflow-wrap: anywhere; }
+      .comparison-table thead { height: auto; }
+      .comparison-table thead th, .comparison-table tbody th, .comparison-table td { padding: 16px 6px; }
       .comparison-table tbody tr { height: auto; }
-      .comparison-value { font-size: 14px; }
-      .comparison-note { font-size: 11px; }
-      .comparison-mobile-hint { display: block; margin: 10px 0 0; font: 400 11px/1.5 "Fz Poppins", sans-serif; }
+      .comparison-value { font-size: clamp(11px, 2.9vw, 15px); }
+      .comparison-note { font-size: clamp(10px, 2.6vw, 13px); }
+      .comparison-growth td:last-child .comparison-note, .comparison-capital td:last-child .comparison-note { max-width: none; }
     }
   </style>
 </head>
@@ -78,7 +77,7 @@
       <div class="comparison-layout">
         <div class="comparison-inner">
           <h2 class="comparison-heading" id="comparison-heading"><span class="comparison-heading-first"><span class="comparison-script">So sánh</span><span>HIỆU QUẢ ĐẦU TƯ</span></span><span class="comparison-heading-second">SUNWAH PEARL - KÊNH KHÁC</span></h2>
-          <div class="comparison-table-wrap" role="region" aria-label="Bảng so sánh hiệu quả đầu tư, cuộn ngang để xem đầy đủ" tabindex="0">
+          <div class="comparison-table-wrap" role="region" aria-label="Bảng so sánh hiệu quả đầu tư">
             <table class="comparison-table" aria-labelledby="comparison-heading">
               <colgroup><col><col><col></colgroup>
               <thead>
@@ -108,7 +107,6 @@
               </tbody>
             </table>
           </div>
-          <p class="comparison-mobile-hint">Vuốt ngang để xem đầy đủ bảng so sánh.</p>
         </div>
       </div>
     </section>
