@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sunwah Pearl – Đăng ký tư vấn</title>
+  <style>
+    @font-face { font-family: "Fz Poppins"; src: url("assets/fonts/fz-poppins-regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Fz Poppins"; src: url("assets/fonts/fz-poppins-bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #f8f3e4; }
+    .registration { position: relative; isolation: isolate; overflow: hidden; color: #500347; background: #f8f3e4; font-family: "Fz Poppins", sans-serif; font-synthesis: none; }
+    .registration::before { content: ""; position: absolute; z-index: -1; inset: auto 0 0; height: 64%; background: linear-gradient(#f8f3e4 0%, rgba(248,243,228,.65) 30%, rgba(248,243,228,.12) 100%), url("assets/sunwah-pearl-registration.webp") center bottom / cover no-repeat; }
+    .registration-layout { max-width: 1120px; margin: 0 auto; container-type: inline-size; }
+    .registration-inner { width: 64%; margin: 0 auto; padding: 6cqw 0 5cqw; }
+    .registration-heading { margin: 0 0 2.8cqw; text-align: center; font-size: 6.6cqw; font-weight: 700; line-height: 1.2; }
+    .registration-fields { display: grid; gap: 2.4cqw; }
+    .registration-field { display: grid; gap: .3cqw; font-size: 1.65cqw; font-weight: 700; line-height: 1.3; }
+    .registration-input { width: 100%; min-width: 0; min-height: 5.1cqw; padding: 1.5cqw 2.2cqw; border: 0; border-radius: 3px; background: #fff; color: #333; box-shadow: 0 3px 3px rgba(0,0,0,.25); font: 400 1.5cqw/1.4 "Fz Poppins", sans-serif; }
+    .registration-input::placeholder { color: #444; opacity: 1; }
+    fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+    legend { padding: 0; font-size: 1.65cqw; font-weight: 700; line-height: 1.3; }
+    .registration-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2cqw; }
+    .registration-options-bedrooms { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4cqw; }
+    .registration-option { display: flex; align-items: center; gap: 1.2cqw; min-height: 5.1cqw; padding: 1.2cqw 1.7cqw; border-radius: 3px; color: #111; background: #fff; box-shadow: 0 3px 3px rgba(0,0,0,.22); font-size: 1.65cqw; line-height: 1.3; cursor: pointer; }
+    .registration-option input { flex: 0 0 auto; margin: 0; width: 1.6cqw; height: 1.6cqw; accent-color: #500347; }
+    .registration-button { width: 100%; min-height: 6.2cqw; margin-top: 4cqw; padding: 1cqw; border: 0; border-radius: 4px; color: #fff; background: linear-gradient(105deg, #e8ce85, #f0dfa9, #ead68e); box-shadow: 0 3px 3px rgba(0,0,0,.25); font: 700 3.5cqw/1.2 "Fz Poppins", sans-serif; }
+    input:focus-visible, button:focus-visible { outline: 3px solid #500347; outline-offset: 3px; }
+    @media (max-width: 640px) {
+      .registration-inner { width: 88%; padding: 52px 0 60px; }
+      .registration-heading { margin-bottom: 28px; font-size: 8vw; }
+      .registration-fields { gap: 22px; }
+      .registration-field { gap: 6px; font-size: 13px; }
+      .registration-input { min-height: 48px; padding: 14px; font-size: 14px; }
+      legend { margin-bottom: 6px; font-size: 13px; }
+      .registration-options, .registration-options-bedrooms { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+      .registration-option { min-height: 46px; gap: 12px; padding: 12px 14px; font-size: 14px; }
+      .registration-option input { width: 16px; height: 16px; }
+      .registration-button { min-height: 52px; margin-top: 32px; padding: 12px; font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="registration" aria-labelledby="registration-heading">
+      <div class="registration-layout">
+        <div class="registration-inner">
+          <h2 class="registration-heading" id="registration-heading">Đăng ký Tư Vấn</h2>
+          <form id="registration-form" action="/api/submit-lead/" method="post">
+            <div class="registration-fields" role="group" aria-label="Thông tin đăng ký tư vấn">
+              <label class="registration-field">HỌ VÀ TÊN*<input class="registration-input" name="name" autocomplete="name" required placeholder="Nguyễn Văn A"></label>
+              <label class="registration-field">SỐ ĐIỆN THOẠI (ZALO)*<input class="registration-input" type="tel" name="phone" autocomplete="tel" required placeholder="0912 345 678"></label>
+              <label class="registration-field">EMAIL<input class="registration-input" type="email" name="email" autocomplete="email" placeholder="Nguyenvana@gmail.com"></label>
+              <fieldset><legend>MỤC TIÊU CỦA QUÝ KHÁCH</legend><div class="registration-options"><label class="registration-option"><input type="radio" name="goal" value="living">Quan tâm căn hộ mua ở</label><label class="registration-option"><input type="radio" name="goal" value="investment">Quan tâm căn hộ mua đầu tư</label></div></fieldset>
+              <fieldset><legend>LOẠI HÌNH ANH CHỊ QUAN TÂM</legend><div class="registration-options registration-options-bedrooms"><label class="registration-option"><input type="checkbox" name="bedrooms" value="1">1 Phòng Ngủ</label><label class="registration-option"><input type="checkbox" name="bedrooms" value="2">2 Phòng Ngủ</label><label class="registration-option"><input type="checkbox" name="bedrooms" value="3">3 Phòng Ngủ</label></div></fieldset>
+            </div>
+            <button class="registration-button" type="submit">ĐĂNG KÝ TƯ VẤN</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      var form = document.getElementById('registration-form');
+      var submit = form.querySelector('button[type="submit"]');
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (submit.disabled) return;
+        var name = form.elements.namedItem('name').value.trim();
+        var phone = form.elements.namedItem('phone').value.trim();
+        var email = form.elements.namedItem('email').value.trim();
+        if (!name || !phone) { alert('Vui lòng nhập họ tên và số điện thoại.'); return; }
+        var objective = form.querySelector('input[name="goal"]:checked');
+        var propertyTypes = Array.from(form.querySelectorAll('input[name="bedrooms"]:checked')).map(function (input) {
+          return input.closest('label').textContent.trim();
+        });
+        var data = {
+          timestamp: new Date().toISOString(), hoten: name, sdt: phone, email: email,
+          message: objective ? objective.closest('label').textContent.trim() : '',
+          url: window.top.location.href.split('?')[0], ip: '', formId: 'SUNWAH_PEARL_LEAD',
+          userAgent: navigator.userAgent, sanpham: propertyTypes.join(', '), sheet: 'SUNWAH PEARL'
+        };
+        var body = JSON.stringify(data), sent = false;
+        submit.disabled = true;
+        try { sent = navigator.sendBeacon('/api/submit-lead/', new Blob([body], { type: 'application/json' })); } catch (error) {}
+        if (!sent) fetch('/api/submit-lead/', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function () {});
+        window.top.location.href = '/thank-you-sunwah-pearl/';
+      });
+    }());
+  </script>
+</body>
+</html>

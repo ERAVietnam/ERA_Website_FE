@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sunwah Pearl – Giải pháp tích sản tại vị trí trung tâm</title>
+  <style>
+    @font-face {
+      font-family: "Fz Poppins";
+      src: url("assets/fonts/fz-poppins-bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Fz Poppins";
+      src: url("assets/fonts/fz-poppins-bold-italic.woff2") format("woff2");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "NVN Motherland Signature";
+      src: url("assets/fonts/nvn-motherland-signature.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #52004c; }
+    .hero { position: relative; isolation: isolate; overflow: hidden; color: #fff; font-synthesis: none; }
+    .hero-layout { position: relative; max-width: 1440px; margin: 0 auto; container-type: inline-size; }
+    .hero-art { position: absolute; z-index: -1; inset: 0 0 auto; height: min(66.666667vw, 960px); }
+    .hero-art img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 54%, rgba(82,0,76,.25) 70%, #52004c 100%);
+    }
+    .hero-brand {
+      position: absolute;
+      top: 39.7cqw;
+      left: 0;
+      width: 54%;
+      margin: 0;
+      padding: 1.1cqw 0 1.4cqw 10%;
+      isolation: isolate;
+      color: #e9dda4;
+      font: 700 4.55cqw/1 Georgia, "Times New Roman", serif;
+      white-space: nowrap;
+    }
+    .hero-brand::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: -14px 0 0 calc((min(100vw, 1440px) - 100vw) / 2);
+      background:
+        radial-gradient(ellipse at 46% 50%, rgba(255,248,219,.72), rgba(255,231,173,.32) 20%, rgba(255,220,153,.08) 45%, transparent 72%) left 4px / 100% 20px no-repeat,
+        radial-gradient(ellipse at 46% 50%, rgba(255,224,157,.28), rgba(255,224,157,.12) 30%, transparent 72%) left -14px / 100% 56px no-repeat,
+        linear-gradient(90deg, rgba(104,0,88,.84), rgba(104,0,88,.57) 80%, transparent) left 14px / 100% calc(100% - 14px) no-repeat;
+    }
+    .hero-brand::after, .hero-title::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      height: 1.6cqw;
+      background: radial-gradient(ellipse, #fff8d5 0, rgba(247,224,146,.7) 15%, rgba(237,209,139,.18) 43%, transparent 72%);
+      filter: blur(2px);
+    }
+    .hero-brand::after { left: 25%; right: 5%; bottom: -.7cqw; }
+    .hero-content { padding: 49.5cqw 0 4.8cqw; }
+    .hero-title {
+      position: relative;
+      width: 92%;
+      margin: 0 auto;
+      color: #e9dda4;
+      text-align: center;
+      font: italic 700 6.5cqw/1.25 "Fz Poppins", sans-serif;
+    }
+    .hero-title-first { display: flex; justify-content: center; align-items: baseline; gap: 1.4cqw; }
+    .hero-script { font: 400 3.85cqw/.9 "NVN Motherland Signature", cursive; }
+    .hero-title-second { display: block; margin-top: .3cqw; white-space: nowrap; }
+    .hero-title::after {
+      left: 27%;
+      right: 27%;
+      bottom: -1.8cqw;
+    }
+    .hero-intro {
+      display: grid;
+      grid-template-columns: 1.02fr 1fr;
+      align-items: center;
+      gap: 2.3cqw;
+      width: 81.6%;
+      margin: 4.6cqw 10% 0 8.4%;
+    }
+    .hero-copy {
+      margin: 0;
+      font: 700 clamp(12px, 1.65cqw, 24px)/1.55 "Fz Poppins", sans-serif;
+      text-align: justify;
+    }
+    .hero-video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1.65;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #111;
+    }
+    .hero-video { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .hero-sound-toggle {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      z-index: 2;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255,255,255,.6);
+      border-radius: 50%;
+      background: rgba(30,13,5,.62);
+      color: #fff;
+      cursor: pointer;
+      font-size: 17px;
+      line-height: 1;
+      backdrop-filter: blur(5px);
+    }
+    .hero-sound-toggle:hover { background: rgba(30,13,5,.86); }
+    @media (max-width: 640px) {
+      .hero-content { padding-bottom: 28px; }
+      .hero-title { width: 96%; font-size: 6.8cqw; }
+      .hero-script { font-size: 4.8cqw; }
+      .hero-intro { grid-template-columns: 1fr; gap: 22px; width: 84%; margin: 30px auto 0; }
+      .hero-copy { font-size: 13px; line-height: 1.65; }
+      .hero-sound-toggle { left: 10px; top: 10px; width: 34px; height: 34px; font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-art" aria-hidden="true">
+        <img src="assets/sunwah-pearl-hero.webp" width="1440" height="960" alt="" fetchpriority="high">
+      </div>
+      <div class="hero-layout">
+        <p class="hero-brand">SUNWAH PEARL</p>
+        <div class="hero-content">
+          <h1 class="hero-title" id="hero-heading">
+            <span class="hero-title-first"><span class="hero-script">Giải Pháp</span> TÍCH SẢN</span>
+            <span class="hero-title-second">TẠI VỊ TRÍ TRUNG TÂM</span>
+          </h1>
+          <div class="hero-intro">
+            <p class="hero-copy">Kính gửi Quý Nhà đầu tư,<br>Trong bối cảnh nguồn cung BĐS ven sông trung tâm TP.HCM ngày càng khan hiếm, Sunwah Pearl tiếp tục khẳng định vị thế là tài sản bền vững nhờ tỷ lệ lấp đầy cao và thanh khoản tốt.</p>
+            <div class="hero-video-wrap">
+              <video class="hero-video" autoplay muted playsinline preload="auto" aria-label="Video giới thiệu Sunwah Pearl">
+                <source src="assets/video/sunwah-pearl-hero.mp4" type="video/mp4">
+              </video>
+              <button class="hero-sound-toggle" type="button" aria-label="Bật tiếng video">🔇</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      var hero = document.querySelector('.hero');
+      var videoWrap = document.querySelector('.hero-video-wrap');
+      var video = document.querySelector('.hero-video');
+      var soundToggle = document.querySelector('.hero-sound-toggle');
+      var setSoundState = function (enabled) {
+        video.muted = !enabled;
+        video.defaultMuted = !enabled;
+        soundToggle.textContent = enabled ? '🔊' : '🔇';
+        soundToggle.setAttribute('aria-label', enabled ? 'Tắt tiếng video' : 'Bật tiếng video');
+      };
+      var enableSound = function () {
+        setSoundState(true);
+        video.controls = true;
+        var promise = video.play();
+        if (promise) promise.catch(function () { setSoundState(false); });
+      };
+      var playVideo = function () { var promise = video.play(); if (promise) promise.catch(function () {}); };
+      soundToggle.addEventListener('click', function (event) {
+        event.stopPropagation();
+        if (video.muted) enableSound(); else setSoundState(false);
+      });
+      video.addEventListener('click', function () {
+        if (video.muted) enableSound();
+      });
+      videoWrap.addEventListener('mouseenter', function () { video.controls = true; });
+      videoWrap.addEventListener('mouseleave', function () { video.controls = false; });
+      videoWrap.addEventListener('touchstart', function (event) {
+        video.controls = true;
+        if (video.muted && !soundToggle.contains(event.target)) enableSound();
+      }, { passive: true });
+      setSoundState(false);
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) playVideo();
+          else video.pause();
+        }, { threshold: 0.15 }).observe(hero);
+      } else {
+        playVideo();
+      }
+      window.addEventListener('pointerdown', playVideo, { once: true, passive: true });
+      window.addEventListener('keydown', playVideo, { once: true, passive: true });
+    }());
+  </script>
+</body>
+</html>

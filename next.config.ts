@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/du-an-sunwah-pearl/",
+        destination: "/du-an-sunwah-pearl-dau-tu/",
+        permanent: true,
+      },
+      {
         source: "/tin-tuc/danh-muc/:categorySlug",
         destination: "/tin-tuc/:categorySlug",
         permanent: true,
