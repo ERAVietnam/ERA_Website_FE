@@ -51,15 +51,17 @@ function AcademyBanner({ priority = false }: { priority?: boolean }) {
         priority={priority}
       />
       <h1 className="relative z-10 w-full max-w-[480px] md:absolute md:left-[55.989583%] md:top-[28.333333%] md:w-[42.760417%] md:max-w-none">
-        <Image
-          src="/academy/hero-heading.webp"
-          alt="Hệ thống đào tạo nội bộ. Phát triển năng lực toàn diện. Học mọi lúc – Giỏi mọi nơi – Đột phá mọi rào cản."
-          width={821}
-          height={369}
-          className="block h-auto w-full"
-          sizes="(min-width: 768px) 43vw, (min-width: 512px) 480px, calc(100vw - 32px)"
-          priority={priority}
-        />
+        <picture>
+          <source media="(min-width: 768px)" srcSet="/academy/hero-heading-desktop.png" width={821} height={369} />
+          <Image
+            src="/academy/hero-heading.webp"
+            alt="Hệ thống đào tạo nội bộ. Phát triển năng lực toàn diện. Học mọi lúc – Giỏi mọi nơi – Đột phá mọi rào cản."
+            width={821}
+            height={369}
+            className="block h-auto w-full"
+            sizes="(min-width: 768px) 43vw, (min-width: 512px) 480px, calc(100vw - 32px)"
+          />
+        </picture>
       </h1>
     </div>
   );
