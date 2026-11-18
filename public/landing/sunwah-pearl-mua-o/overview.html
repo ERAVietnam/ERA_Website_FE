@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sunwah Pearl – Nâng tầm chất lượng cuộc sống</title>
+  <style>
+    @font-face { font-family: "Fz Poppins"; src: url("/landing/sunwah-pearl/assets/fonts/fz-poppins-regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+    @font-face { font-family: "Fz Poppins"; src: url("/landing/sunwah-pearl/assets/fonts/fz-poppins-bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+    @font-face { font-family: "Fz Poppins"; src: url("/landing/sunwah-pearl/assets/fonts/fz-poppins-bold-italic.woff2") format("woff2"); font-weight: 700; font-style: italic; font-display: swap; }
+    @font-face { font-family: "NVN Motherland Signature"; src: url("/landing/sunwah-pearl/assets/fonts/nvn-motherland-signature.woff2") format("woff2"); font-display: swap; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #fff; }
+    body { color: #500347; font-family: "Fz Poppins", sans-serif; font-synthesis: none; }
+    img { display: block; width: 100%; height: auto; }
+    h1, h2, h3, p { margin: 0; }
+    .frame { max-width: 1440px; margin: 0 auto; container-type: inline-size; }
+    .script { display: block; font: 400 6.6cqw/1.25 "NVN Motherland Signature", cursive; }
+    .hero { color: #e9dda4; background: #52004c; }
+    .hero-visual { position: relative; width: 100vw; margin-left: calc((100% - 100vw) / 2); container-type: inline-size; }
+    .hero-art { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+    .hero-brand { position: absolute; top: 36cqw; right: 0; width: 54%; margin: 0; padding: 1.1cqw 8% 1.4cqw 0; isolation: isolate; text-align: right; font: 700 4.55cqw/1 Georgia, "Times New Roman", serif; white-space: nowrap; }
+    .hero-brand::before { content: ""; position: absolute; z-index: -1; inset: -14px 0 0; background: radial-gradient(ellipse at 54% 50%, rgba(255,248,219,.72), rgba(255,231,173,.32) 20%, rgba(255,220,153,.08) 45%, transparent 72%) right 4px / 100% 20px no-repeat, radial-gradient(ellipse at 54% 50%, rgba(255,224,157,.28), rgba(255,224,157,.12) 30%, transparent 72%) right -14px / 100% 56px no-repeat, linear-gradient(270deg, rgba(104,0,88,.84), rgba(104,0,88,.57) 80%, transparent) right 14px / 100% calc(100% - 14px) no-repeat; }
+    .hero-brand::after { content: ""; position: absolute; pointer-events: none; left: 5%; right: 25%; bottom: -.7cqw; height: 1.6cqw; background: radial-gradient(ellipse, #fff8d5 0, rgba(247,224,146,.7) 15%, rgba(237,209,139,.18) 43%, transparent 72%); filter: blur(2px); }
+    .hero-heading { position: absolute; right: 7.5%; bottom: 7.5cqw; width: 60%; text-align: right; font-size: 3.2cqw; font-style: italic; line-height: 1.25; text-shadow: 0 2px 5px rgba(35,0,32,.28); }
+    .hero-heading::after { content: ""; position: absolute; pointer-events: none; left: 24%; right: 0; bottom: -1.8cqw; height: 1.6cqw; background: radial-gradient(ellipse, #fff8d5 0, rgba(247,224,146,.7) 15%, rgba(237,209,139,.18) 43%, transparent 72%); filter: blur(2px); }
+    .hero-heading .script { font-size: 4.6cqw; margin-bottom: 2.4cqw; }
+    .hero-intro { display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: 3.4cqw; width: 79%; margin: -2.6cqw auto 0; padding-bottom: 7cqw; position: relative; }
+    .hero-copy { color: #fff; font-size: 1.7cqw; line-height: 1.5; font-weight: 700; }
+    .hero-video { display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; background: #280427; object-fit: cover; }
+    .benefits { padding: 4cqw 0 5cqw; }
+    .benefits-heading { text-align: center; font-size: 4.4cqw; font-weight: 700; font-style: italic; line-height: 1.35; }
+    .benefits-heading .script { line-height: 1.3; margin-bottom: 1.7cqw; }
+    .benefits-last { display: flex; align-items: baseline; justify-content: center; gap: 2cqw; }
+    .benefits-last .script { display: inline; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.7cqw; width: 79.5%; margin: 3cqw auto 0; }
+    .benefit img { aspect-ratio: 360 / 365; object-fit: cover; object-position: top; mask-image: linear-gradient(#000 66%, transparent); }
+    .benefit-copy { position: relative; margin-top: -1cqw; font-size: 1.65cqw; font-weight: 700; font-style: italic; line-height: 1.55; }
+    .benefit h3 { font-size: 3.4cqw; line-height: 1.3; }
+    .benefit:last-child h3 { font-size: 2.5cqw; }
+    .amenities { background: linear-gradient(#52004c 0%, #52004c 40%, #fff 88%); }
+    .amenities-art { width: 100vw; margin-left: calc((100% - 100vw) / 2); }
+    .amenities-heading { position: relative; z-index: 1; margin: -5cqw 0 3.5cqw; text-align: center; color: #e9dda4; font-size: 5cqw; font-weight: 700; font-style: italic; line-height: 1.25; }
+    .amenities-heading .script { font-size: 7cqw; }
+    .amenities-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4cqw 1.8cqw; width: 68%; margin: 0 auto; }
+    .amenity { text-align: center; color: #f0e3ac; }
+    .amenity img { border-radius: 16px 16px 0 0; }
+    .amenity h3 { position: relative; margin: -4.2cqw auto 0; font-size: 2.5cqw; line-height: 1.15; }
+    .amenity p { margin-top: 1.6cqw; font-size: 1.45cqw; line-height: 2; }
+    .ownership { padding-top: 7cqw; text-align: center; }
+    .ownership-heading { font-size: 3.1cqw; font-style: italic; line-height: 1.4; }
+    .ownership-heading .script { margin-bottom: 4cqw; font-size: 8cqw; }
+    .ownership-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5cqw; width: 82%; margin: 5cqw auto 0; }
+    .ownership-options h3 { padding: 1.8cqw 1cqw; border: 2px solid #c183b8; border-radius: 999px; background: #ffffffc7; font-size: 2.5cqw; line-height: 1.3; }
+    .ownership-options p { margin-top: 1.5cqw; font-size: 1.45cqw; line-height: 2; }
+    .entrance { width: 100vw; margin-top: -1cqw; margin-left: calc((100% - 100vw) / 2); }
+    @media (max-width: 640px) {
+      .hero-brand { width: 60%; padding-right: 5%; font-size: 5cqw; }
+      .hero-heading { right: 5%; bottom: 6cqw; width: 76%; font-size: 3.8cqw; }
+      .hero-heading .script { font-size: 5.5cqw; }
+      .hero-intro { grid-template-columns: minmax(0, 1fr); width: 86%; margin-top: 0; gap: 24px; padding-bottom: 40px; }
+      .hero-video { grid-row: 1; aspect-ratio: 16 / 9; }
+      .hero-copy { font-size: 14px; line-height: 1.6; }
+      .benefits { padding: 32px 0 40px; }
+      .benefits-heading { padding: 0 5%; font-size: 5cqw; white-space: nowrap; }
+      .benefits-heading .script { font-size: 9cqw; margin-bottom: 12px; }
+      .benefits-caption { display: block; white-space: nowrap; font-size: 4.8cqw; letter-spacing: -.015em; }
+      .benefits-last { margin-top: 16px; }
+      .benefits-last .script { display: inline; margin-bottom: 0; font-size: 8cqw; }
+      .benefits-grid { grid-template-columns: minmax(0, 1fr); width: 84%; max-width: 420px; gap: 32px; margin-top: 28px; }
+      .benefit-copy { margin-top: -24px; font-size: 14px; line-height: 1.5; overflow-wrap: break-word; }
+      .benefit h3 { font-size: 26px; }
+      .benefit:last-child h3 { font-size: 20px; }
+      .amenities { background: #52004c; }
+      .amenities-heading { margin-bottom: 24px; font-size: 6cqw; }
+      .amenities-heading .script { font-size: 9cqw; }
+      .amenities-grid { grid-template-columns: minmax(0, 1fr); width: 84%; max-width: 420px; gap: 32px; }
+      .amenity img { border-radius: 10px 10px 0 0; }
+      .amenity h3 { margin-top: -24px; font-size: 20px; line-height: 1.25; }
+      .amenity p { margin-top: 12px; font-size: 13px; line-height: 1.7; }
+      .amenity p br { display: none; }
+      .ownership { padding-top: 44px; background: linear-gradient(#52004c, #fff 44px); }
+      .ownership-heading { width: 92%; margin: 0 auto; font-size: 3.6cqw; }
+      .ownership-heading .script { font-size: 10cqw; margin-bottom: 24px; }
+      .ownership-options { width: 90%; gap: 10px; margin: 28px auto 0; }
+      .ownership-options h3 { padding: 12px 6px; font-size: 2.6cqw; }
+      .ownership-options p { margin-top: 12px; font-size: 11px; line-height: 1.7; }
+      .ownership-options p br { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="overview">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="frame">
+        <div class="hero-visual">
+          <img class="hero-art" src="assets/hero.webp" width="1440" height="960" alt="Gia đình tận hưởng hoàng hôn bên sông Sài Gòn từ ban công căn hộ Sunwah Pearl" fetchpriority="high">
+          <p class="hero-brand">SUNWAH PEARL</p>
+          <h1 class="hero-heading" id="hero-heading"><span class="script">Nâng tầm chất lượng</span>CHO CUỘC SỐNG CỦA BẠN</h1>
+        </div>
+        <div class="hero-intro">
+          <p class="hero-copy">Một ngôi nhà hoàn hảo không chỉ được đo bằng diện tích m², mà còn được tính bằng số giờ thong thả Anh/Chị dành cho bản thân và gia đình mỗi tuần.<br>Sunwah Pearl - không gian sống lý tưởng, nơi kết nối trọn vẹn giữa nhịp sống trung tâm hiện đại và sự riêng tư yên bình bên dòng sông Sài Gòn.</p>
+          <video class="hero-video" controls playsinline preload="none" poster="/landing/sunwah-pearl/assets/sunwah-pearl-consultation.webp" aria-label="Video giới thiệu Sunwah Pearl"><source src="/landing/sunwah-pearl/assets/video/sunwah-pearl-hero.mp4" type="video/mp4"></video>
+        </div>
+      </div>
+    </section>
+    <section aria-labelledby="benefits-heading">
+      <div class="frame benefits">
+        <h2 class="benefits-heading" id="benefits-heading"><span class="script">Gần hơn</span><span class="benefits-caption">CHO CUỘC SỐNG CỦA BẠN</span><span class="benefits-last"><span class="script">Tối ưu</span><span class="benefits-caption">10–12 GIỜ MỖI TUẦN</span></span></h2>
+        <div class="benefits-grid">
+          <article class="benefit"><img src="assets/school.webp" width="360" height="421" alt="Trường quốc tế Wellspring gần Sunwah Pearl" loading="lazy"><div class="benefit-copy"><h3>5 PHÚT</h3><p>ĐẾN TRƯỜNG QUỐC TẾ<br>WELLSPRING, VINSCHOOL</p></div></article>
+          <article class="benefit"><img src="assets/connection.webp" width="360" height="421" alt="Kết nối trung tâm Quận 1 và Thủ Thiêm qua sông Sài Gòn" loading="lazy"><div class="benefit-copy"><h3>5 PHÚT</h3><p>KẾT NỐI TRUNG TÂM<br>QUẬN 1 &amp; THỦ THIÊM</p></div></article>
+          <article class="benefit"><img src="assets/family-time.webp" width="360" height="421" alt="Toàn cảnh trung tâm thành phố bên sông lúc hoàng hôn" loading="lazy"><div class="benefit-copy"><h3>TIẾT KIỆM THỜI GIAN</h3><p>GIẢM 10 GIỜ KẸT XE MỖI TUẦN,<br>DÀNH TRỌN THỜI GIAN CHO<br>GIA ĐÌNH.</p></div></article>
+        </div>
+      </div>
+    </section>
+    <section class="amenities" aria-labelledby="amenities-heading">
+      <div class="frame">
+        <img class="amenities-art" src="assets/towers.webp" width="1434" height="1197" alt="Ba tòa tháp Sunwah Pearl giữa khuôn viên cây xanh" loading="lazy">
+        <h2 class="amenities-heading" id="amenities-heading"><span class="script">Hệ tiện ích chuẩn</span>“RESORT 5 SAO”</h2>
+        <div class="amenities-grid">
+          <article class="amenity"><img src="assets/pool.webp" alt="Hồ bơi tràn bờ tại Sunwah Pearl" loading="lazy"><h3>HỒ BƠI TRÀN<br>BỜ HƯỚNG SÔNG</h3><p>ĐIỂM THƯ GIÃN LÝ TƯỞNG MỖI<br> BUỔI CHIỀU CÙNG CON TRẺ.</p></article>
+          <article class="amenity"><img src="assets/park.webp" alt="Hồ bơi và không gian cây xanh nội khu" loading="lazy"><h3>CÔNG VIÊN VEN SÔNG<br>&amp; MẢNG XANH</h3><p>MÔI TRƯỜNG XANH, TÁCH BIỆT<br> KHỎI BỤI ĐÔ THỊ.</p></article>
+          <article class="amenity"><img src="assets/security.webp" alt="Lối vào khu căn hộ Sunwah Pearl" loading="lazy"><h3>AN NINH ĐA LỚP &amp;<br>QUẢN LÝ QUỐC TẾ</h3><p>BẢO VỆ SỰ RIÊNG TƯ TỐI ĐA<br> CHO GIA ĐÌNH ANH/CHỊ.</p></article>
+          <article class="amenity"><img src="assets/playroom.webp" alt="Khu vui chơi trong nhà dành cho trẻ em" loading="lazy"><h3>PHÒNG GYM, SPA,<br>KHU VUI CHƠI TRẺ EM</h3><p>ĐẦY ĐỦ TIỆN ÍCH ĐÁP ỨNG MỌI THÀNH VIÊN<br> TRONG GIA ĐÌNH CHỈ VÀI BƯỚC CHÂN.</p></article>
+        </div>
+        <div class="ownership" aria-labelledby="ownership-heading">
+          <h2 class="ownership-heading" id="ownership-heading"><span class="script">Từ trải nghiệm</span>THUÊ – ĐÃ QUEN ĐẾN QUYỀN SỞ HỮU LÂU DÀI</h2>
+          <div class="ownership-options">
+            <article><h3>NẾU TIẾP TỤC THUÊ 3 NĂM</h3><p>CHI PHÍ THUÊ BIẾN MẤT 100%, CHỊU RỦI RO<br> TĂNG GIÁ THUÊ HOẶC ĐỔI CHỦ.</p></article>
+            <article><h3>NẾU CHUYỂN SỞ HỮU</h3><p>CHÍNH SÁCH THANH TOÁN GIÃN 5 NĂM, VÀO TIỀN 30%<br> NHẬN NHÀ ĐƯỢC CHỦ ĐẦU TƯ HỖ TRỢ TRỰC TIẾP</p></article>
+          </div>
+          <img class="entrance" src="assets/entrance.webp" alt="Cổng vào khu căn hộ Sunwah Pearl" loading="lazy">
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

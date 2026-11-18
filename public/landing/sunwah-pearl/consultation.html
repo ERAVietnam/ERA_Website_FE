@@ -63,13 +63,24 @@
           <h2 class="consultation-heading" id="consultation-heading"><span class="consultation-script">Tư vấn quản lý</span><span class="consultation-heading-line">TÀI SẢN BẤT ĐỘNG SẢN</span><span class="consultation-heading-line">CÙNG ERA REAL ESTATE</span></h2>
           <p class="consultation-copy">ERA giúp Quý nhà đầu tư tính toán bài toán tài chính chi tiết,<br> kiểm tra pháp lý và chọn lọc sản phẩm có thanh khoản tốt nhất.</p>
           <div class="consultation-actions">
-            <a class="consultation-action" href="/du-an-sunwah-pearl-dau-tu/#dang-ky-tu-van" target="_parent"><span>TẢI BÁO CÁO PHÂN TÍCH<br>DÒNG TIỀN &amp; GIÁ THUÊ</span></a>
-            <a class="consultation-action" href="/du-an-sunwah-pearl-dau-tu/#dang-ky-tu-van" target="_parent"><span>NHẬN GIỎ HÀNG CĂN HỘ<br>GIÁ TỐT THÁNG NÀY</span></a>
-            <a class="consultation-action" href="/du-an-sunwah-pearl-dau-tu/#dang-ky-tu-van" target="_parent"><span>ĐẶT LỊCH TƯ VẤN ĐẦU TƯ<br>1:1 VỚI CHUYÊN GIA ERA</span></a>
+            <a class="consultation-action" href="/du-an-sunwah-pearl-dau-tu/" target="_parent"><span>TẢI BÁO CÁO PHÂN TÍCH<br>DÒNG TIỀN &amp; GIÁ THUÊ</span></a>
+            <a class="consultation-action" href="/du-an-sunwah-pearl-dau-tu/" target="_parent"><span>NHẬN GIỎ HÀNG CĂN HỘ<br>GIÁ TỐT THÁNG NÀY</span></a>
+            <a class="consultation-action" href="/du-an-sunwah-pearl-dau-tu/" target="_parent"><span>ĐẶT LỊCH TƯ VẤN ĐẦU TƯ<br>1:1 VỚI CHUYÊN GIA ERA</span></a>
           </div>
         </div>
       </div>
     </section>
   </main>
+  <script>
+    document.querySelectorAll('.consultation-action').forEach(function (link) {
+      link.addEventListener('click', function (event) {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        var target = window.parent.document.getElementById('dang-ky-tu-van');
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      });
+    });
+  </script>
 </body>
 </html>

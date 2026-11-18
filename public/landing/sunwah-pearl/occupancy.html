@@ -49,12 +49,17 @@
     .occupancy-line { display: block; white-space: nowrap; }
     .occupancy-stat { font-size: 1.55em; line-height: 1.1; font-weight: 400; }
     @media (max-width: 640px) {
-      .occupancy-art { width: 100%; height: auto; mask-image: linear-gradient(180deg, #000, transparent); }
-      .occupancy-layout { min-height: 390px; padding: 180px 7% 28px; aspect-ratio: auto; }
-      .occupancy-copy { position: static; width: 100%; }
-      .occupancy-title { margin-bottom: 8px; font-size: 8vw; }
-      .occupancy-script { font-size: 9vw; }
-      .occupancy-text { font-size: clamp(11px, 3.3vw, 18px); }
+      html, body { background: #f5efde; }
+      .occupancy-art { width: 100%; height: 100vw; object-fit: cover; object-position: center top; mask-image: linear-gradient(180deg, rgba(0,0,0,.85), rgba(0,0,0,.65) 45%, transparent 100%); }
+      .occupancy-layout { min-height: 170vw; padding: 88vw 3.6% 11vw; aspect-ratio: auto; }
+      .occupancy-copy { position: static; width: 100%; text-align: center; }
+      .occupancy-title { width: 78%; margin: 0 auto 7vw; font-size: 12vw; }
+      .occupancy-script { padding-left: 0; text-align: left; font-size: 14vw; line-height: .9; }
+      .occupancy-label { padding-right: 0; }
+      .occupancy-text { width: max-content; max-width: 100%; margin: 0 auto; text-align: left; font-size: 4.6vw; line-height: 1.55; }
+      .occupancy-line { white-space: normal; }
+      .occupancy-line + .occupancy-line { margin-top: 6vw; }
+      .occupancy-stat { font-size: 2.2em; }
     }
   </style>
 </head>
