@@ -77,6 +77,7 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/du-an-monrei-saigon/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-newtown-legend/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-newtown-diamond/`, lastModified: new Date("2026-11-17T00:00:00.000Z"), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/du-an-sunwah-pearl-dau-tu/`, lastModified: new Date("2026-11-17T00:00:00.000Z"), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-setia-edenia/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-the-win-city/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-vinhomes-green-paradise/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },

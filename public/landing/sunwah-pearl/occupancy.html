@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sunwah Pearl – Tỷ lệ lấp đầy</title>
+  <style>
+    @font-face {
+      font-family: "NVN Motherland Signature";
+      src: url("assets/fonts/nvn-motherland-signature.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Fz Poppins";
+      src: url("assets/fonts/fz-poppins-bold-italic.woff2") format("woff2");
+      font-weight: 700;
+      font-style: italic;
+      font-display: swap;
+    }
+    /* Poppins Regular Việt hóa: https://fontzin.com/poppins-viet-hoa – SIL OFL 1.1. */
+    @font-face {
+      font-family: "Fz Poppins";
+      src: url("assets/fonts/fz-poppins-regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #f5f0df; }
+    .occupancy { position: relative; isolation: isolate; overflow: hidden; color: #500649; font-synthesis: none; }
+    .occupancy-art {
+      position: absolute;
+      z-index: -2;
+      top: 0;
+      left: 0;
+      width: auto;
+      height: 100%;
+      max-width: none;
+      mask-image: linear-gradient(90deg, #000 15%, rgba(0,0,0,.92) 35%, rgba(0,0,0,.35) 75%, transparent);
+    }
+    .occupancy-layout { position: relative; max-width: 1440px; margin: 0 auto; aspect-ratio: 1032 / 568; container-type: inline-size; }
+    .occupancy-copy { position: absolute; right: 10%; bottom: 5.5%; width: 60%; text-align: right; }
+    .occupancy-title { margin: 0 0 -.3cqw; font: italic 700 6.5cqw/1.05 "Fz Poppins", sans-serif; }
+    .occupancy-script { display: block; padding-left: 45.5%; text-align: left; font: 400 4.25cqw/.95 "NVN Motherland Signature", cursive; }
+    .occupancy-label { display: block; padding-right: 1.7cqw; }
+    .occupancy-text { margin: 0; font: 400 2.9cqw/1.25 "Fz Poppins", sans-serif; }
+    .occupancy-line { display: block; white-space: nowrap; }
+    .occupancy-stat { font-size: 1.55em; line-height: 1.1; font-weight: 400; }
+    @media (max-width: 640px) {
+      .occupancy-art { width: 100%; height: auto; mask-image: linear-gradient(180deg, #000, transparent); }
+      .occupancy-layout { min-height: 390px; padding: 180px 7% 28px; aspect-ratio: auto; }
+      .occupancy-copy { position: static; width: 100%; }
+      .occupancy-title { margin-bottom: 8px; font-size: 8vw; }
+      .occupancy-script { font-size: 9vw; }
+      .occupancy-text { font-size: clamp(11px, 3.3vw, 18px); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="occupancy" aria-labelledby="occupancy-heading">
+      <img class="occupancy-art" src="assets/sunwah-pearl-occupancy.webp" width="1085" height="785" alt="" loading="lazy">
+      <div class="occupancy-layout">
+        <div class="occupancy-copy">
+          <h2 class="occupancy-title" id="occupancy-heading"><span class="occupancy-script">Tỷ lệ</span><span class="occupancy-label">LẤP ĐẦY</span></h2>
+          <p class="occupancy-text">
+            <span class="occupancy-line">Duy trì ở mức cực kỳ ổn định &gt; <strong class="occupancy-stat">90%</strong></span>
+            <span class="occupancy-line">là tệp chuyên gia nước ngoài (Expat)</span>
+            <span class="occupancy-line">thuê dài hạn</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -217,6 +217,8 @@ const specialLayouts: Record<string, LayoutConfig> = {
   "/thank-you-newtown-legend": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-newtown-diamond": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-newtown-diamond": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/du-an-sunwah-pearl-dau-tu": { header: false, footer: false, toTop: false, contentPadding: false },
+  "/thank-you-sunwah-pearl": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-setia-edenia": { header: false, footer: false, toTop: false, contentPadding: false },
   "/thank-you-setia-edenia": { header: false, footer: false, toTop: false, contentPadding: false },
   "/du-an-the-win-city": { header: false, footer: false, toTop: false, contentPadding: false },
@@ -307,5 +309,4 @@ export function LayoutWrapper({
     </>
   );
 }
-
 
