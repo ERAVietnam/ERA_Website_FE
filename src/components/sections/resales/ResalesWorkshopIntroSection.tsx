@@ -79,7 +79,7 @@ export function ResalesWorkshopIntroSection() {
               </div>
 
               <p className="mt-7 max-w-xl translate-y-[10px] text-sm italic leading-relaxed text-white/85 md:text-base">
-                Khi môi giới tự do không còn là giải pháp an toàn trước làn sóng chuẩn hóa pháp lý, đừng để rơi hạn hẹp và sự đơn độc cán bước bạn. Khai thác trọn vẹn đòn bẩy từ mạng lưới, nguồn hàng sơ cấp – thứ cấp dồi dào và hệ thống minh bạch tại ERA Vietnam.
+                Khi môi giới tự do không còn là giải pháp an toàn trước làn sóng chuẩn hóa pháp lý, đừng để rổ hàng hạn hẹp và sự đơn độc cản bước bạn. Khai thác trọn vẹn đòn bẩy từ mạng lưới 2.700+ Agent, nguồn hàng sơ cấp – thứ cấp dồi dào và hệ thống lớn, minh bạch tại ERA Vietnam.
               </p>
 
               <div ref={statsRef} className="mt-auto grid max-w-xl grid-cols-3 gap-2.5 pt-8 md:gap-3">

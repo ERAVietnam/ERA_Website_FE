@@ -6,11 +6,11 @@ import { Section } from "@/components/ui/Section";
 import { colors } from "@/lib/theme";
 
 const slides = [
-  { id: 1, image: "/academy/ERA Academy-Banner Website.png", alt: "ERA Academy banner 1" },
-  { id: 2, image: "/academy/ERA Academy-Banner Website.png", alt: "ERA Academy banner 2" },
-  { id: 3, image: "/academy/ERA Academy-Banner Website.png", alt: "ERA Academy banner 3" },
-  { id: 4, image: "/academy/ERA Academy-Banner Website.png", alt: "ERA Academy banner 4" },
-  { id: 5, image: "/academy/ERA Academy-Banner Website.png", alt: "ERA Academy banner 5" },
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+  { id: 5 },
 ];
 
 const stats = [
@@ -19,6 +19,51 @@ const stats = [
   { value: "90+", label: "HỌC VIÊN HÀI LÒNG\nVỚI CHƯƠNG TRÌNH" },
   { value: "3x", label: "TĂNG TRƯỞNG\nTRUNG BÌNH\nSAU ĐÀO TẠO" },
 ];
+
+function AcademyBanner({ priority = false }: { priority?: boolean }) {
+  return (
+    // Desktop coordinates follow the original 1920 × 600 canvas; mobile uses normal flow.
+    <div className="relative isolate grid grid-cols-[min(100%,480px)] justify-center justify-items-center gap-6 bg-[#17115b] px-4 pb-20 pt-20 md:aspect-[16/5] md:block md:p-0">
+      <Image
+        src="/academy/hero-background.webp"
+        alt=""
+        fill
+        className="-z-10 object-cover"
+        sizes="100vw"
+        priority={priority}
+      />
+      <Image
+        src="/academy/hero-people.webp"
+        alt="Đội ngũ ERA ứng dụng công nghệ và kiến thức trong đào tạo bất động sản"
+        width={858}
+        height={600}
+        className="block h-auto w-full max-w-[480px] md:absolute md:left-[22.864583%] md:top-0 md:w-[44.6875%] md:max-w-none"
+        sizes="(min-width: 768px) 45vw, (min-width: 512px) 480px, calc(100vw - 32px)"
+        priority={priority}
+      />
+      <Image
+        src="/academy/hero-logo.png"
+        alt="ERA Academy"
+        width={701}
+        height={208}
+        className="relative z-10 -mt-20 h-auto w-[76%] max-w-[320px] justify-self-start md:absolute md:left-[0.729167%] md:top-[55.333333%] md:mt-0 md:w-[36.510417%] md:max-w-none md:justify-self-auto"
+        sizes="(min-width: 768px) 37vw, 76vw"
+        priority={priority}
+      />
+      <h1 className="relative z-10 w-full max-w-[480px] md:absolute md:left-[55.989583%] md:top-[28.333333%] md:w-[42.760417%] md:max-w-none">
+        <Image
+          src="/academy/hero-heading.webp"
+          alt="Hệ thống đào tạo nội bộ. Phát triển năng lực toàn diện. Học mọi lúc – Giỏi mọi nơi – Đột phá mọi rào cản."
+          width={821}
+          height={369}
+          className="block h-auto w-full"
+          sizes="(min-width: 768px) 43vw, (min-width: 512px) 480px, calc(100vw - 32px)"
+          priority={priority}
+        />
+      </h1>
+    </div>
+  );
+}
 
 export function AcademyHeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -56,7 +101,7 @@ export function AcademyHeroSection() {
     const diff = clientX - startX;
     translateXRef.current = diff;
     if (sliderRef.current) {
-      sliderRef.current.style.transform = `translateX(calc(-${currentSlide * 100}vw + ${diff}px))`;
+      sliderRef.current.style.transform = `translateX(calc(-${currentSlide * 100}% + ${diff}px))`;
     }
   };
 
@@ -70,7 +115,7 @@ export function AcademyHeroSection() {
       nextSlide();
     } else if (sliderRef.current) {
       sliderRef.current.classList.add("transition-transform");
-      sliderRef.current.style.transform = `translateX(calc(-${currentSlide * 100}vw))`;
+      sliderRef.current.style.transform = `translateX(-${currentSlide * 100}%)`;
     }
 
     translateXRef.current = 0;
@@ -79,20 +124,13 @@ export function AcademyHeroSection() {
 
   return (
     <>
-      <Section padding="none" bg="white" noContainer>
-        <section className="relative h-[52vh] overflow-hidden bg-[#071331] md:hidden">
-          <Image
-            src={slides[0].image}
-            alt={slides[0].alt}
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority
-          />
+      <Section id="academy-hero" padding="none" bg="white" noContainer>
+        <section className="relative bg-[#071331] md:hidden">
+          <AcademyBanner priority />
         </section>
 
         <section
-          className="relative hidden h-[70vh] cursor-grab overflow-hidden bg-[#071331] active:cursor-grabbing md:block"
+          className="relative hidden aspect-[16/5] cursor-grab overflow-hidden bg-[#071331] active:cursor-grabbing md:block"
           onTouchStart={(e) => handleStart(e.touches[0].clientX)}
           onTouchMove={(e) => handleMove(e.touches[0].clientX)}
           onTouchEnd={handleEnd}
@@ -108,29 +146,21 @@ export function AcademyHeroSection() {
         >
           <div
             ref={sliderRef}
-            className="absolute inset-y-0 left-0 flex h-full transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(calc(-${currentSlide * 100}vw))` }}
+            className="absolute inset-0 flex h-full transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
           >
             {slides.map((slide, index) => (
               <div
                 key={slide.id}
-                className="relative h-full flex-shrink-0 overflow-hidden"
-                style={{ width: "100vw" }}
+                className="relative h-full w-full flex-shrink-0"
+                aria-hidden={index !== currentSlide}
               >
-                <Image
-                  src={slide.image}
-                  alt={slide.alt}
-                  fill
-                  className="object-cover"
-                  sizes="100vw"
-                  priority={index === 0}
-                  loading={index === 0 ? "eager" : "lazy"}
-                />
+                <AcademyBanner priority={index === 0} />
               </div>
             ))}
           </div>
 
-          <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-3">
+          <div className="absolute bottom-[5.333333%] left-1/2 z-20 flex -translate-x-1/2 gap-3">
             {slides.map((_, index) => (
               <button
                 key={index}
