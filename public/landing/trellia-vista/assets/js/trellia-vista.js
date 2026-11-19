@@ -6,7 +6,7 @@
   /* BẢN CÓ FORM — sinh bởi _dungcu/tao-ban-co-form.py. KHÔNG sửa tay.
      🔴 LEAD_ENDPOINT: địa chỉ nhận lead, vd Google Apps Script .../exec.
      Để trống = form báo khách "bản xem thử, gọi hotline", KHÔNG nuốt lead im lặng. */
-  var LEAD_ENDPOINT = '/api/submit-lead/';
+  var LEAD_ENDPOINT = '/api/submit-lead';
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -195,8 +195,8 @@
         userAgent: navigator.userAgent || '',
         sanpham: (f.product ? f.product.value : '') || 'Trellia Vista',
         email: '',
-        message: '',
-        sheet: 'TRELLIA',
+        message: 'Trellia Vista',
+        sheet: 'MIZUKI PARK',
         source: form.getAttribute('data-source') || 'form-dang-ky-nhan-thong-tin'
       };
       var utm = layUTM(); for (var k in utm) du[k] = utm[k];
