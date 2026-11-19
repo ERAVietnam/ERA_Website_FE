@@ -3,17 +3,6 @@
 (function () {
   'use strict';
 
-  function baoChieuCaoChoTrangCha() {
-    if (window.parent === window) return;
-    var body = document.body, html = document.documentElement;
-    var height = Math.max(body.scrollHeight, body.offsetHeight, html.scrollHeight, html.offsetHeight);
-    window.parent.postMessage({ type: 'era-landing-height', height: height }, window.location.origin);
-  }
-
-  window.addEventListener('load', baoChieuCaoChoTrangCha);
-  window.addEventListener('resize', baoChieuCaoChoTrangCha);
-  if (window.ResizeObserver) new ResizeObserver(baoChieuCaoChoTrangCha).observe(document.documentElement);
-
   /* BẢN CÓ FORM — sinh bởi _dungcu/tao-ban-co-form.py. KHÔNG sửa tay.
      🔴 LEAD_ENDPOINT: địa chỉ nhận lead, vd Google Apps Script .../exec.
      Để trống = form báo khách "bản xem thử, gọi hotline", KHÔNG nuốt lead im lặng. */
@@ -35,7 +24,7 @@
     burger.setAttribute('aria-expanded', String(mo));
     document.documentElement.style.overflow = mo ? 'hidden' : '';
   });
-  $$('#nav a').forEach(function (a) { a.addEventListener('click', dongMenu); });
+  $$('#nav a, .hdr-actions .hdr-price').forEach(function (a) { a.addEventListener('click', dongMenu); });
 
   /* mục menu đang xem */
   var navLinks = $$('#nav a[href^="#"]');
@@ -267,7 +256,7 @@
     function createPlayer(item) {
       if (!item.button || item.player || !window.YT || !window.YT.Player) return;
       // API sẽ gọi playVideo sau onReady, không phát sớm khi người xem đã lướt qua.
-      item.frame.setAttribute('src', item.src.replace('autoplay=1', 'autoplay=0'));
+      if (item.frame.id !== 'clip-tong-quan') item.frame.setAttribute('src', item.src.replace('autoplay=1', 'autoplay=0'));
       item.player = new window.YT.Player(item.frame, { events: {
         onReady: function (event) {
           item.player = event.target;
@@ -498,9 +487,6 @@
       .forEach(function (k) { if (p.get(k)) o[k] = p.get(k); });
     return o;
   }
-  function parentUrl() {
-    try { return window.top.location.href.split('?')[0]; } catch (e) { return location.href.split('?')[0]; }
-  }
   $$('form[data-lead]').forEach(function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -509,21 +495,17 @@
       if (!ten) { bao(form, 'Anh/chị cho em xin họ tên với ạ.', 'loi'); f.name.focus(); return; }
       if (!sdt) { bao(form, 'Số điện thoại chưa đúng — cần 10 số, bắt đầu 03/05/07/08/09.', 'loi'); f.phone.focus(); return; }
 
-      var product = f.product ? f.product.value : '';
-      var utm = layUTM();
       var du = {
-        formId: form.getAttribute('data-source') || 'PGBL_NEW_LEAD',
-        hoten: ten, sdt: sdt, email: '', message: '',
-        url: parentUrl(), ip: '', userAgent: navigator.userAgent,
-        sanpham: product ? product + ' - Phú Gia Bảo Lộc' : 'Phú Gia Bảo Lộc',
-        sheet: 'PHÚ GIA BẢO LỘC', timestamp: new Date().toISOString(),
-        source: form.getAttribute('data-source') || 'form-dang-ky-tham-quan',
-        referrer: document.referrer || '(trực tiếp)',
-        device: innerWidth <= 860 ? 'mobile' : 'desktop'
+        du_an: 'Khu biệt thự Phú Gia Bảo Lộc',
+        name: ten, phone: sdt,
+        product: f.product ? f.product.value : '',
+        source: form.getAttribute('data-source') || 'khong-ro',
+        page: location.href.split('?')[0],
+        referrer: document.referrer || '(truc tiep)',
+        device: innerWidth <= 860 ? 'mobile' : 'desktop',
+        thoi_gian: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
       };
-      for (var k in utm) du[k] = utm[k];
-      if (du.gclid) du.mglnd = du.gclid;
-      if (du.fbclid) du.adclida = du.fbclid;
+      var utm = layUTM(); for (var k in utm) du[k] = utm[k];
 
       if (!LEAD_ENDPOINT) {
         console.warn('[PGBL] Chưa khai LEAD_ENDPOINT — lead KHÔNG được gửi:', du);
@@ -531,12 +513,15 @@
         return;
       }
       nut.disabled = true; nut.setAttribute('data-chu', nut.textContent); nut.textContent = 'ĐANG GỬI...';
-      fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(du), keepalive: true })
+      // text/plain để tránh preflight CORS (Google Apps Script không trả lời OPTIONS)
+      fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(du) })
         .then(function (r) {
           if (!r.ok) throw new Error('HTTP ' + r.status);
+          bao(form, 'Đã nhận đăng ký của anh/chị. Chuyên viên ERA sẽ gọi lại xác nhận lịch tham quan trong ngày ạ.', 'ok');
+          nut.textContent = 'ĐÃ GỬI ✓';
           try { if (window.fbq) fbq('track', 'Lead'); } catch (x) {}
           try { if (window.gtag) gtag('event', 'generate_lead', { source: du.source }); } catch (x) {}
-          window.top.location.href = '/thank-you-phu-gia-bao-loc/';
+          form.reset();
         })
         .catch(function (err) {
           console.error('[PGBL] Gửi lead lỗi:', err);
