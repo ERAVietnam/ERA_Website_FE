@@ -89,6 +89,7 @@ const staticRoutes: MetadataRoute.Sitemap = [
   { url: `${baseUrl}/du-an-ga-thu-thiem/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-m-landmark-residences/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-trellia-vista/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+  { url: `${baseUrl}/du-an-trellia-cove/`, lastModified: new Date("2026-11-19T00:00:00.000Z"), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/du-an-hanoi-signature/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/pk-beachtro-tower-du-an-blanca-city/`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
   { url: `${baseUrl}/chinh-sach-bao-mat/`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },

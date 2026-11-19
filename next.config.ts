@@ -388,6 +388,14 @@ const nextConfig: NextConfig = {
           destination: "/landing/trellia-vista/assets/:path*",
         },
         {
+          source: "/du-an-trellia-cove/",
+          destination: "/landing/trellia-cove/index.html",
+        },
+        {
+          source: "/du-an-trellia-cove/assets/:path*",
+          destination: "/landing/trellia-cove/assets/:path*",
+        },
+        {
           source: "/du-an-vinhomes-green-paradise/",
           destination: "/landing/vinhomes-green-paradise/index.html",
         },
