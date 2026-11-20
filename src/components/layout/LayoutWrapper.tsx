@@ -265,6 +265,7 @@ const ADMIN_PATHS = [
   "/tuyen-dung/quan-ly",
   "/tuyen-dung/ung-vien",
   "/tai-khoan/quan-ly",
+  "/mkt-page/quan-ly",
   "/ho-so-ca-nhan",
 ];
 

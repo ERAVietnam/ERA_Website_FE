@@ -206,6 +206,20 @@ export interface BrandHealthReport {
   createdAt: string;
 }
 
+export interface MktPage {
+  id: string;
+  slug: string;
+  title: string;
+  description?: string | null;
+  indexable: boolean;
+  ogImagePath?: string | null;
+  tagManagerId?: string | null;
+  metaPixelId?: string | null;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface Account {
   id: string;
   name: string;

@@ -90,6 +90,11 @@ export const ENDPOINTS = {
     UPDATE: (id: string) => `/landings/${id}`,
     DELETE: (id: string) => `/landings/${id}`,
   },
+  MKT_PAGES: {
+    LIST: '/mkt-pages',
+    CREATE: '/mkt-pages',
+    DELETE: (slug: string) => `/mkt-pages/${encodeURIComponent(slug)}`,
+  },
   AGENTS: {
     LIST: '/agents',
     DETAIL: (id: string) => `/agents/${id}`,
