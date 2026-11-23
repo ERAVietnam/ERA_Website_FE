@@ -41,7 +41,7 @@
       mask-image: linear-gradient(90deg, #000 15%, rgba(0,0,0,.92) 35%, rgba(0,0,0,.35) 75%, transparent);
     }
     .occupancy-layout { position: relative; max-width: 1440px; margin: 0 auto; aspect-ratio: 1032 / 568; container-type: inline-size; }
-    .occupancy-copy { position: absolute; right: 10%; bottom: 5.5%; width: 60%; text-align: right; }
+    .occupancy-copy { position: absolute; right: 6%; bottom: 5.5%; width: 60%; text-align: right; }
     .occupancy-title { margin: 0 0 -.3cqw; font: italic 700 6.5cqw/1.05 "Fz Poppins", sans-serif; }
     .occupancy-script { display: block; padding-left: 45.5%; text-align: left; font: 400 4.25cqw/.95 "NVN Motherland Signature", cursive; }
     .occupancy-label { display: block; padding-right: 1.7cqw; }
@@ -79,5 +79,33 @@
       </div>
     </section>
   </main>
+  <script>
+    (function () {
+      var layout = document.querySelector('.occupancy-layout');
+      var copy = document.querySelector('.occupancy-copy');
+      var offsetY = 0;
+      function centerCopy() {
+        if (window.matchMedia('(max-width: 640px)').matches) {
+          offsetY = 0;
+          copy.style.removeProperty('transform');
+          return;
+        }
+        var bounds = Array.from(copy.querySelectorAll('.occupancy-script, .occupancy-label, .occupancy-line'), function (element) {
+          var range = document.createRange();
+          range.selectNodeContents(element);
+          return range.getBoundingClientRect();
+        });
+        var top = Math.min.apply(null, bounds.map(function (rect) { return rect.top; }));
+        var bottom = Math.max.apply(null, bounds.map(function (rect) { return rect.bottom; }));
+        var region = layout.getBoundingClientRect();
+        offsetY += region.top + region.height / 2 - (top + bottom) / 2;
+        copy.style.transform = 'translateY(' + offsetY + 'px)';
+      }
+      var observer = new ResizeObserver(centerCopy);
+      observer.observe(layout);
+      observer.observe(copy);
+      document.fonts.ready.then(centerCopy);
+    }());
+  </script>
 </body>
 </html>

@@ -9,7 +9,7 @@ const ROWS: { tinhHuong: string; motMinh: string; cungEra: string }[] = [
   {
     tinhHuong: "Có khách nhưng thiếu hàng",
     motMinh: "Đi hỏi hàng từng nhóm Zalo, chờ phản hồi, dễ mất khách",
-    cungEra: "Rỗ hàng lớn, đa dạng, tra cứu nhanh trên nền tảng số của ERA",
+    cungEra: "Rổ hàng lớn, đa dạng, tra cứu nhanh trên nền tảng số của ERA",
   },
   {
     tinhHuong: "Dự án quen đã bão hoà",
@@ -34,7 +34,7 @@ const ROWS: { tinhHuong: string; motMinh: string; cungEra: string }[] = [
   {
     tinhHuong: "Nâng cấp kỹ năng, bắt kịp xu hướng thị trường trong nghề",
     motMinh: "Tự xem video, tự mày mò, dễ nản",
-    cungEra: "Lớp chuyên sâu hằng tuần, E-Learning, kỹ thuật sale từ môi giới quốc tế",
+    cungEra: "Lớp chuyên sâu hằng tuần, Học viện online ERA ACADEMY, kỹ thuật sale từ môi giới quốc tế",
   },
 ];
 

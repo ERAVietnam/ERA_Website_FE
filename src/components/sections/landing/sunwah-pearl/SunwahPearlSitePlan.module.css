@@ -1,0 +1,99 @@
+.plan {
+  position: relative;
+  container-type: inline-size;
+}
+
+.overview {
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
+}
+
+.overview > img,
+.plan > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overview:focus-visible {
+  outline: 4px solid #500347;
+  outline-offset: -4px;
+}
+
+.zoom {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f4f3f0e6;
+  color: #500347;
+}
+
+.region {
+  position: absolute;
+  pointer-events: none;
+}
+
+.hotspot,
+.outline {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hotspot {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.outline {
+  opacity: 0;
+  filter: drop-shadow(0 0 1px white);
+}
+
+.region[data-active="true"] .hotspot {
+  background: #50054726;
+}
+
+.region[data-active="true"] .outline {
+  opacity: 1;
+}
+
+.label {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  width: clamp(128px, 10.72cqw, 170px);
+  aspect-ratio: 154 / 68;
+  background: url("/landing/sunwah-pearl/assets/sunwah-pearl-label-frame.webp") center / contain no-repeat;
+  color: #500347;
+  font-size: clamp(11px, 1.1cqw, 16px);
+  line-height: 1;
+}
+
+button.label {
+  cursor: zoom-in;
+}
+
+.label[role="status"] {
+  pointer-events: none;
+}
+
+.label strong {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.label:focus-visible {
+  outline: 2px solid #500347;
+  outline-offset: -6px;
+}

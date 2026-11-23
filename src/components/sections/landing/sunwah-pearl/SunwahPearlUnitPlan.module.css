@@ -1,0 +1,60 @@
+.plan {
+  position: relative;
+  /* Labels scale with the same panel on the page and in the zoomable lightbox. */
+  container-type: inline-size;
+}
+
+.overview {
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
+}
+
+.plan > img,
+.overview > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overview:focus-visible {
+  outline: 4px solid #500347;
+  outline-offset: -4px;
+}
+
+.regions {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hotspot {
+  fill: transparent;
+  pointer-events: auto;
+  cursor: pointer;
+  outline: none;
+}
+
+.hotspot:focus-visible {
+  fill: #5005471a;
+}
+
+.outline {
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  z-index: 1;
+  transform: translate(-50%, -100%);
+  width: clamp(160px, 12.22cqw, 210px);
+  pointer-events: none;
+}
+
+.label img {
+  display: block;
+  width: 100%;
+  height: auto;
+}

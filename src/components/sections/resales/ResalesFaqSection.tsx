@@ -14,11 +14,11 @@ const FAQS = [
   },
   {
     q: "“Nghe nói ERA chỉ mạnh sơ cấp?”",
-    a: "Với thế mạnh sơ cấp, ERA Vietnam có thể tận dụng giúp anh/chị phát triển thứ cấp nhờ rổ hàng lớn và mạng lưới kết nối agent 2.700+.",
+    a: "Với thế mạnh sơ cấp, ERA Vietnam có thể tận dụng giúp anh/chị phát triển thứ cấp nhờ rổ hàng lớn và mạng lưới kết nối 2.700+ agents.",
   },
   {
     q: "“Tham gia có mất phí gì không?”",
-    a: "Không. Workshop miễn phí, gia nhập cộng tác viên cũng không mất phí.",
+    a: "Không mất phí",
   },
   {
     q: "“Chứng chỉ hành nghề thì sao?”",
@@ -26,11 +26,11 @@ const FAQS = [
   },
   {
     q: "“Chưa có kinh nghiệm có đi được không?”",
-    a: "Được, ERA Vietnam có lộ trình đào tạo cho người mới bắt đầu và người có kinh nghiệm.",
+    a: "Được, ERA Vietnam có lộ trình đào tạo cho người mới bắt đầu và nâng cao cho người đã có kinh nghiệm",
   },
   {
     q: "“Hoa hồng chia thế nào?”",
-    a: "Cơ chế hoa hồng của ERA rõ ràng và được giới thiệu chi tiết tại workshop.",
+    a: "Cơ chế hoa hồng minh bạch và phí môi giới thuộc top cao nhất thị trường",
   },
 ];
 

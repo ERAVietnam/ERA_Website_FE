@@ -6,7 +6,7 @@ export function ResalesInterludeSection() {
   const benefits = [
     ["/resale/myera-benefit-cost.png", "Chi phí 0đ – Kết nối 2700+ Agent"],
     ["/resale/myera-benefit-stock.png", "Quản lý rổ hàng tại ERA Vietnam"],
-    ["/resale/myera-benefit-reward.png", "+2 điểm MyERA Rewards khi xác thực"],
+    ["/resale/myera-benefit-reward.png", "+2 điểm myERA Rewards khi xác thực"],
   ] as const;
 
   return (
