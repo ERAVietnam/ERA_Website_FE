@@ -17,6 +17,10 @@
     .frame { max-width: 1440px; margin: 0 auto; container-type: inline-size; }
     .script { display: block; font: 400 6.6cqw/1.25 "NVN Motherland Signature", cursive; }
     .hero { color: #e9dda4; background: #52004c; }
+    .hero > .frame { position: relative; }
+    .hero-logos { position: absolute; z-index: 1; top: 2.5cqw; right: 6%; display: flex; align-items: center; gap: 2cqw; }
+    .hero-logos img { display: block; width: auto; height: clamp(22.5px, 5.85cqw, 84.6px); object-fit: contain; }
+    .hero-logos img:last-child { transform: scale(.85); }
     .hero-visual { position: relative; width: 100vw; margin-left: calc((100% - 100vw) / 2); container-type: inline-size; }
     .hero-art { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
     .hero-brand { position: absolute; top: 36cqw; right: 0; width: 54%; margin: 0; padding: 1.1cqw 8% 1.4cqw 0; isolation: isolate; text-align: right; font: 700 4.55cqw/1 Georgia, "Times New Roman", serif; white-space: nowrap; }
@@ -98,6 +102,10 @@
           <p class="hero-brand">SUNWAH PEARL</p>
           <h1 class="hero-heading" id="hero-heading"><span class="script">Nâng tầm chất lượng</span>CHO CUỘC SỐNG CỦA BẠN</h1>
         </div>
+        <div class="hero-logos" aria-label="Sunwah Pearl và ERA Real Estate">
+          <img src="/landing/sunwah-pearl/assets/sunwah-pearl-logo.webp" width="454" height="240" alt="Sunwah Pearl">
+          <img src="/landing/sunwah-pearl/assets/era-logo.webp" width="196" height="240" alt="ERA Real Estate">
+        </div>
         <div class="hero-intro">
           <p class="hero-copy">Một ngôi nhà hoàn hảo không chỉ được đo bằng diện tích m², mà còn được tính bằng số giờ thong thả Anh/Chị dành cho bản thân và gia đình mỗi tuần.<br>Sunwah Pearl - không gian sống lý tưởng, nơi kết nối trọn vẹn giữa nhịp sống trung tâm hiện đại và sự riêng tư yên bình bên dòng sông Sài Gòn.</p>
           <video class="hero-video" controls playsinline preload="none" poster="/landing/sunwah-pearl/assets/sunwah-pearl-consultation.webp" aria-label="Video giới thiệu Sunwah Pearl"><source src="/landing/sunwah-pearl/assets/video/sunwah-pearl-hero.mp4" type="video/mp4"></video>
@@ -128,7 +136,7 @@
           <h2 class="ownership-heading" id="ownership-heading"><span class="script">Từ trải nghiệm</span>THUÊ – ĐÃ QUEN ĐẾN QUYỀN SỞ HỮU LÂU DÀI</h2>
           <div class="ownership-options">
             <article><h3>NẾU TIẾP TỤC THUÊ 3 NĂM</h3><p>CHI PHÍ THUÊ BIẾN MẤT 100%, CHỊU RỦI RO<br> TĂNG GIÁ THUÊ HOẶC ĐỔI CHỦ.</p></article>
-            <article><h3>NẾU CHUYỂN SỞ HỮU</h3><p>CHÍNH SÁCH THANH TOÁN GIÃN 5 NĂM, VÀO TIỀN 30%<br> NHẬN NHÀ ĐƯỢC CHỦ ĐẦU TƯ HỖ TRỢ TRỰC TIẾP</p></article>
+            <article><h3>NẾU SỞ HỮU</h3><p>CHÍNH SÁCH THANH TOÁN GIÃN 5 NĂM, VÀO TIỀN 30%<br> NHẬN NHÀ ĐƯỢC CHỦ ĐẦU TƯ HỖ TRỢ TRỰC TIẾP</p></article>
           </div>
           <img class="entrance" src="assets/entrance.webp" alt="Cổng vào khu căn hộ Sunwah Pearl" loading="lazy">
         </div>

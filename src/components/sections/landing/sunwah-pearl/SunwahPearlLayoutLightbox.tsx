@@ -8,7 +8,8 @@ export default function SunwahPearlLayoutLightbox({
   index,
   slides,
   close,
-}: Pick<LightboxExternalProps, "index" | "slides" | "close">) {
+  render,
+}: Pick<LightboxExternalProps, "index" | "slides" | "close" | "render">) {
   return (
     <Lightbox
       open
@@ -20,8 +21,8 @@ export default function SunwahPearlLayoutLightbox({
       controller={{ closeOnBackdropClick: true }}
       carousel={{ finite: true }}
       labels={{ Close: "Đóng", Next: "Ảnh tiếp", Previous: "Ảnh trước", "Zoom in": "Phóng to", "Zoom out": "Thu nhỏ" }}
-      render={{ buttonClose: () => (
-        <IconButton label="Close" icon={CloseIcon} onClick={close} onTouchEnd={(event) => {
+      render={{ ...render, buttonClose: () => (
+        <IconButton key="close" label="Close" icon={CloseIcon} onClick={close} onTouchEnd={(event) => {
           event.preventDefault();
           close?.();
         }} />

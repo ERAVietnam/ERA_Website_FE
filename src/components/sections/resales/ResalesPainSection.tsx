@@ -9,7 +9,7 @@ import { ShoppingBag, LockKeyhole, Link, UserMinus } from "lucide-react";
 const PAINS = [
   {
     icon: ShoppingBag,
-    title: "Rỗ hàng đơn lẻ",
+    title: "Rổ hàng đơn lẻ",
     desc: "Chỉ bán được 1-2 dự án. Dự án bão hoà lại phải tự đi tìm đường mới.",
     bg: colors.tertiary.orange.DEFAULT,
   },

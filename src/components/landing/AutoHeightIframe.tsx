@@ -27,25 +27,49 @@ export default function AutoHeightIframe({
       const document = frame.contentDocument;
       if (!document) return;
 
-      const contentBottom = contentBottomSelector
-        ? document.querySelector<HTMLElement>(contentBottomSelector)?.getBoundingClientRect().bottom ?? 0
+      const content = contentBottomSelector
+        ? document.querySelector<HTMLElement>(contentBottomSelector)
+        : null;
+      const bounds = content?.getBoundingClientRect();
+      // A focused field or an earlier resize can scroll the iframe viewport.
+      // Include overflowing children, such as a lazy image with negative margins.
+      const contentBottom = content && bounds
+        ? Math.max(bounds.bottom, bounds.top + content.scrollHeight) + (frame.contentWindow?.scrollY ?? 0)
         : 0;
       const documentHeight = Math.max(
         document.documentElement.scrollHeight,
         document.body?.scrollHeight ?? 0,
       );
 
-      frame.style.height = `${Math.ceil(contentBottom || documentHeight)}px`;
+      const height = `${Math.ceil(contentBottom || documentHeight)}px`;
+      if (frame.style.height !== height) frame.style.height = height;
     };
 
     let observer: ResizeObserver | undefined;
     let mutationObserver: MutationObserver | undefined;
+    let removeContentListeners: (() => void) | undefined;
     const refreshTimers: number[] = [];
     let settlingInterval: number | undefined;
     let settlingStopTimer: number | undefined;
+    const stopObserving = () => {
+      observer?.disconnect();
+      mutationObserver?.disconnect();
+      removeContentListeners?.();
+      refreshTimers.splice(0).forEach((timer) => window.clearTimeout(timer));
+      if (settlingInterval !== undefined) window.clearInterval(settlingInterval);
+      if (settlingStopTimer !== undefined) window.clearTimeout(settlingStopTimer);
+    };
     const observeFrameContent = () => {
+      stopObserving();
       if (!observeContentSize || !frame.contentDocument || typeof ResizeObserver === "undefined") return;
       const document = frame.contentDocument;
+      const contentWindow = frame.contentWindow;
+      document.addEventListener("load", resize, true);
+      contentWindow?.addEventListener("resize", resize);
+      removeContentListeners = () => {
+        document.removeEventListener("load", resize, true);
+        contentWindow?.removeEventListener("resize", resize);
+      };
       observer = new ResizeObserver(resize);
       observer.observe(document.documentElement);
       if (document.body) observer.observe(document.body);
@@ -69,16 +93,13 @@ export default function AutoHeightIframe({
     frame.addEventListener("load", observeFrameContent);
     const interval = window.setInterval(resize, observeContentSize ? 1000 : 500);
     resize();
+    if (frame.contentDocument?.readyState === "complete") observeFrameContent();
 
     return () => {
       frame.removeEventListener("load", resize);
       frame.removeEventListener("load", observeFrameContent);
       window.clearInterval(interval);
-      observer?.disconnect();
-      mutationObserver?.disconnect();
-      refreshTimers.forEach((timer) => window.clearTimeout(timer));
-      if (settlingInterval !== undefined) window.clearInterval(settlingInterval);
-      if (settlingStopTimer !== undefined) window.clearTimeout(settlingStopTimer);
+      stopObserving();
     };
   }, [contentBottomSelector, observeContentSize, src]);
 
@@ -89,6 +110,7 @@ export default function AutoHeightIframe({
       title={title}
       src={src}
       className="block w-full border-0"
+      scrolling="no"
       style={{ height: "100vh" }}
     />
   );
