@@ -3,7 +3,7 @@
 (function () {
   'use strict';
 
-  /* Landing cho SALE (Anh Tony dặn 01/10/2026): không form, không hotline, không popup. */
+  var LEAD_ENDPOINT = '/api/submit-lead/';
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -22,6 +22,15 @@
     document.documentElement.style.overflow = mo ? 'hidden' : '';
   });
   $$('#nav a').forEach(function (a) { a.addEventListener('click', dongMenu); });
+  var registerLink = $('#nav a[href="#dang-ky"]');
+  if (registerLink) {
+    registerLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      var target = $('#dang-ky');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      dongMenu();
+    });
+  }
 
   /* ---------- header: an khi cuon xuong, hien khi cuon len ---------- */
   var lastScroll = window.scrollY || 0;
@@ -120,5 +129,59 @@
     rv.forEach(function (el) { io.observe(el); });
   } else {
     rv.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* ---------- form CTA ---------- */
+  var form = $('#skysolis-lead-form');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = (form.elements.name.value || '').trim();
+      var phone = (form.elements.phone.value || '').replace(/[^0-9+]/g, '').trim();
+      var request = (form.elements.request.value || '').trim();
+      var button = $('button[type="submit"]', form);
+      var oldMessage = $('.form-msg', form);
+      if (oldMessage) oldMessage.remove();
+      if (!name || !phone || !request) {
+        var missing = document.createElement('p');
+        missing.className = 'form-msg err';
+        missing.textContent = 'Vui lòng điền đầy đủ thông tin.';
+        form.appendChild(missing);
+        return;
+      }
+      button.disabled = true;
+      var data = {
+        formId: 'SKYSOLIS_LEAD',
+        hoten: name,
+        sdt: phone,
+        email: '',
+        message: request,
+        sanpham: 'SkySOLIS',
+        sheet: 'SKYSOLIS',
+        url: (window.top && window.top.location ? window.top.location.href : location.href),
+        userAgent: navigator.userAgent,
+        timestamp: new Date().toISOString()
+      };
+      var body = JSON.stringify(data);
+      var sent = false;
+      if (navigator.sendBeacon) {
+        try { sent = navigator.sendBeacon(LEAD_ENDPOINT, new Blob([body], { type: 'application/json' })); } catch (err) {}
+      }
+      var done = function (ok) {
+        button.disabled = false;
+        var message = document.createElement('p');
+        message.className = 'form-msg ' + (ok ? 'ok' : 'err');
+        message.textContent = ok ? 'Cảm ơn anh/chị. ERA Vietnam sẽ liên hệ sớm nhất.' : 'Gửi thông tin chưa thành công. Vui lòng thử lại.';
+        form.appendChild(message);
+        if (ok) form.reset();
+      };
+      if (sent) {
+        done(true);
+      } else {
+        fetch(LEAD_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true })
+          .then(function (response) { done(response.ok); })
+          .catch(function () { done(false); });
+      }
+    });
   }
 })();

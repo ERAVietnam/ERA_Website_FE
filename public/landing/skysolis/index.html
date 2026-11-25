@@ -96,6 +96,8 @@ h3{margin:0}
 .nav{display:flex;align-items:center;gap:20px}
 .nav a{color:var(--ink);font-weight:500;font-size:15px;white-space:nowrap}
 .nav a:hover,.nav a.on{color:var(--cam)}
+.nav a.nav-register{background:var(--cam);color:#fff;border-radius:999px;padding:9px 17px;font-weight:700}
+.nav a.nav-register:hover,.nav a.nav-register.on{background:var(--cam-dam);color:#fff}
 .burger{display:none;width:44px;height:44px;border:0;background:none;padding:10px;cursor:pointer}
 .burger span{display:block;height:2px;background:var(--cam);margin:5px 0;border-radius:4px;transition:transform .25s,opacity .25s}
 @media (max-width:1140px){ .nav a.opt{display:none} }
@@ -358,6 +360,19 @@ table.spec td small{display:block;color:var(--muted);font-size:13px;margin-top:2
 .cta ul li{color:#fff;font-size:clamp(15px,1.5vw,16.5px);line-height:1.6;padding:6px 0 6px 28px;position:relative}
 .cta ul li::before{content:"";position:absolute;left:2px;top:13px;width:14px;height:8px;border-left:2px solid var(--vang);border-bottom:2px solid var(--vang);transform:rotate(-45deg)}
 .cta .nha-mau{color:var(--dem-text);font-size:14px;margin:18px 0 0}
+.cta-in.co-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:clamp(28px,4vw,64px);align-items:center}
+.sky-form{background:rgba(255,255,255,.97);border:1px solid rgba(246,201,166,.55);border-radius:var(--r);padding:clamp(22px,3vw,34px);box-shadow:0 18px 50px rgba(12,10,42,.28)}
+.sky-form h3{margin:0;color:var(--dem);font-family:var(--display);font-size:clamp(24px,2.6vw,32px);line-height:1.2;font-weight:700}
+.sky-form p{margin:8px 0 0;color:var(--muted);font-size:14px;line-height:1.55}
+.sky-form form{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.sky-form .field{width:100%;min-width:0;border:1px solid var(--line-2);border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:15px;padding:13px 14px;outline:none}
+.sky-form .field:focus{border-color:var(--cam);box-shadow:0 0 0 3px rgba(169,68,28,.12)}
+.sky-form .submit{border:0;border-radius:10px;background:var(--cam);color:#fff;cursor:pointer;font:700 15px var(--sans);padding:14px 18px;transition:background .2s,transform .2s}
+.sky-form .submit:hover{background:var(--cam-dam);transform:translateY(-1px)}
+.sky-form .submit:disabled{opacity:.65;cursor:default;transform:none}
+.sky-form .form-msg{margin:0;padding:10px 12px;border-radius:8px;font-size:13px;line-height:1.45}
+.sky-form .form-msg.ok{background:#eef8f0;color:#24613b}
+.sky-form .form-msg.err{background:#fff0ed;color:#9b2917}
 
 /* ---------- FOOTER (sheet: ERA Vietnam – đại lý phân phối chính thức) ---------- */
 footer{background:#14123A;padding:clamp(44px,4.4vw,64px) 22px;color:#C9C8E2}
@@ -367,6 +382,7 @@ footer{background:#14123A;padding:clamp(44px,4.4vw,64px) 22px;color:#C9C8E2}
 .ft .fb strong{display:block;font-family:var(--display);font-size:clamp(24px,2.6vw,32px);letter-spacing:.02em;color:#fff;font-weight:600;margin-top:6px}
 .ft p{font-size:15px;line-height:1.75;margin:12px 0 0;color:#D3D2EA;max-width:780px}
 .ft-legal{max-width:1180px;margin:28px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);font-size:13px;line-height:1.75;color:#B9B8D6}
+@media (max-width:900px){ .cta-in.co-form{grid-template-columns:1fr} }
 @media (max-width:640px){ .ft{grid-template-columns:1fr} }
 
 /* ---------- LIGHTBOX ---------- */
@@ -760,6 +776,7 @@ footer{background:#14123A;padding:clamp(44px,4.4vw,64px) 22px;color:#C9C8E2}
       <a href="#can-ho">Căn hộ</a>
       <a href="#chinh-sach">Chính sách</a>
       <a class="opt" href="#chu-dau-tu">SkyWorld</a>
+      <a class="nav-register" href="#dang-ky">Đăng Ký</a>
     </nav>
     <button class="burger" id="burger" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
   </div>
@@ -1324,11 +1341,11 @@ footer{background:#14123A;padding:clamp(44px,4.4vw,64px) 22px;color:#C9C8E2}
 </section>
 
 <!-- ======================= 11 · FINAL CTA (sheet D24–D25) =======================
-     Landing cho SALE: bỏ form (sheet có form 3 trường) — khách hẹn qua chuyên viên ERA đã gửi trang. Ảnh: toàn cảnh về đêm brochure tr.4. -->
+     Form 3 trường: họ tên, số điện thoại, nhu cầu nhận tài liệu/tham quan. Ảnh: toàn cảnh về đêm brochure tr.4. -->
 <section class="cta" id="dang-ky">
   <img src="assets/img/skysolis-toan-canh-lai-thieu-ve-dem.webp" srcset="assets/img/skysolis-toan-canh-lai-thieu-ve-dem-800.webp 800w, assets/img/skysolis-toan-canh-lai-thieu-ve-dem.webp 1600w" sizes="100vw" width="1600" height="839" loading="lazy" decoding="async" alt="" aria-hidden="true">
   <div class="cta-shade" aria-hidden="true"></div>
-  <div class="cta-in">
+  <div class="cta-in co-form">
     <div class="cta-box rv">
       <h2>Tài chính thảnh thơi – An tâm sống một đời đáng giá</h2>
       <p class="serif-lead">Nhận trọn bộ hồ sơ dự án: pháp lý, chính sách ưu đãi, brochure – kèm tư vấn 1:1 từ chuyên viên ERA Vietnam.</p>
@@ -1339,6 +1356,20 @@ footer{background:#14123A;padding:clamp(44px,4.4vw,64px) 22px;color:#C9C8E2}
         <li>Hẹn lịch tham quan nhà mẫu cùng chuyên viên ERA đã gửi bạn trang này</li>
       </ul>
       <p class="nha-mau">Văn phòng kinh doanh &amp; nhà mẫu SkySOLIS: 179 Lý Chính Thắng, phường Xuân Hòa, TP.HCM</p>
+    </div>
+    <div class="sky-form rv">
+      <h3>Đăng Ký</h3>
+      <p>Để lại thông tin, ERA Vietnam sẽ gửi tài liệu và hỗ trợ anh/chị nhanh chóng.</p>
+      <form id="skysolis-lead-form" novalidate>
+        <input class="field" type="text" name="name" placeholder="Họ và tên *" autocomplete="name" required>
+        <input class="field" type="tel" name="phone" placeholder="Số điện thoại *" autocomplete="tel" required>
+        <select class="field" name="request" required>
+          <option value="">Anh/chị quan tâm *</option>
+          <option value="Tham quan">Tham quan</option>
+          <option value="Nhận tài liệu">Nhận tài liệu</option>
+        </select>
+        <button class="submit" type="submit">Đăng Ký</button>
+      </form>
     </div>
   </div>
 </section>
