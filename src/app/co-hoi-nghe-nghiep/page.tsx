@@ -3,8 +3,8 @@ import { JsonLd } from "@/components/shared/JsonLd";
 import { ResalesPage } from "@/components/sections/resales";
 
 const pageUrl = "https://era.com.vn/co-hoi-nghe-nghiep/";
-const pageTitle = "Workshop Bản Đồ Sự Nghiệp Môi Giới | Tuyển dụng thứ cấp ERA Vietnam";
-const pageDescription = "Tham dự workshop miễn phí của ERA Vietnam dành cho môi giới bất động sản thứ cấp: cập nhật quy định, định hướng nghề nghiệp và cơ hội gia nhập đội ngũ môi giới thứ cấp.";
+const pageTitle = "Cơ hội nghề nghiệp tại ERA Vietnam | Gia nhập đội ngũ môi giới bất động sản";
+const pageDescription = "Gia nhập ERA Vietnam để khai thác mạng lưới 2.700+ Agent, nguồn hàng sơ cấp – thứ cấp dồi dào và hệ thống lớn, minh bạch cho môi giới bất động sản.";
 
 export const metadata: Metadata = {
   title: pageTitle,
